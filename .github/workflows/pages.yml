@@ -1,0 +1,77 @@
+name: Build and deploy Revo UI
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: revo-ui-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out gallery
+        uses: actions/checkout@v5
+        with:
+          path: gallery
+          persist-credentials: false
+      - name: Read pinned library source
+        id: library
+        working-directory: gallery
+        run: |
+          node --input-type=module -e "import fs from 'node:fs'; const source = JSON.parse(fs.readFileSync('library-source.json')); fs.appendFileSync(process.env.GITHUB_OUTPUT, 'ref=' + source.ref + '\n');"
+      - name: Check out library source (read-only)
+        uses: actions/checkout@v5
+        with:
+          repository: revolist/revogrid-pro
+          ref: ${{ steps.library.outputs.ref }}
+          ssh-key: ${{ secrets.REVO_UI_LIBRARY_READ_KEY }}
+          persist-credentials: false
+          path: library
+          sparse-checkout: |
+            packages/ui
+            packages/dates
+            packages/chart-utils
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.25.0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24.15.0
+          package-manager-cache: false
+      - name: Prepare isolated build workspace
+        run: node gallery/scripts/prepare-pages.mjs library site
+      - name: Install locked dependencies
+        working-directory: site
+        run: pnpm install --frozen-lockfile
+      - name: Typecheck gallery
+        working-directory: site
+        run: pnpm --filter @revolist/ui-gallery lint
+      - name: Build Pages site
+        working-directory: site
+        run: pnpm --filter @revolist/ui-gallery build --base /revo-ui/
+      - name: Upload static site only
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site/apps/revo-ui/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

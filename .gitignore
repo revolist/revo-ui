@@ -6,3 +6,5 @@ playwright-report/
 *_feature.md
 design-qa.md
 .DS_Store
+.pages-workspace/
+site/
