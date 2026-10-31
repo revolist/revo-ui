@@ -56,7 +56,7 @@ jobs:
         run: pnpm --filter @revolist/ui-gallery lint
       - name: Build Pages site
         working-directory: site
-        run: pnpm --filter @revolist/ui-gallery build --base /revo-ui/
+        run: pnpm --filter @revolist/ui-gallery build --base /
       - name: Upload static site only
         uses: actions/upload-pages-artifact@v4
         with:
