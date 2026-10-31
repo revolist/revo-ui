@@ -191,6 +191,7 @@ export function AiChatExample() {
                     'Only Europe',
                     'Summarize visible orders',
                     'Sort by amount',
+                    'Exclude cancelled orders',
                   ]}
                   onSelect={submit}
                   disabled={busy}
