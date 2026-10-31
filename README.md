@@ -20,7 +20,7 @@ Compose data-rich workspaces with shared controls, pickers, charts, timelines, d
 - [Theming, sizing, and motion](#theming-sizing-and-motion)
 - [Accessibility and localization](#accessibility-and-localization)
 - [RevoGrid products](#revogrid-products)
-- [Development and licensing](#development-and-licensing)
+- [Licensing](#licensing)
 
 ## Getting started
 
@@ -380,8 +380,6 @@ Motion follows the system's reduced-motion preference. `data-rv-ui-motion="off"`
 | Scheduler | [Resource scheduling](https://rv-grid.com/jsscheduler/) | [Pro documentation](https://pro.rv-grid.com/) |
 | Kanban | [Kanban boards](https://rv-grid.com/kanban/) | [Pro documentation](https://pro.rv-grid.com/) |
 
-## Development and licensing
+## Licensing
 
-This repository contains the Revo UI gallery and documentation. The library implementation remains in the RevoGrid Pro workspace's `packages/ui`; the gallery is consumed there as `apps/revo-ui`. See [gallery development, builds and deployment](docs/gallery-development.md).
-
-The existing component license and distribution terms still apply. A public gallery and examples do not change library licensing or guarantee public registry access.
+Revo UI is [MIT licensed](LICENSE). Anyone can use, modify, and distribute it, including in commercial projects.

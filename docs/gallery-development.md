@@ -38,7 +38,7 @@ The workflow uses `REVO_UI_LIBRARY_READ_KEY`, a read-only deploy key for the pri
 
 The demos Docker image no longer builds or serves Revo UI.
 
-Component licensing remains governed by the library's existing license. Gallery source availability does not change component licensing.
+Revo UI is MIT licensed and may be used in commercial projects. See [LICENSE](../LICENSE).
 
 The custom domain requires a DNS CNAME record: `ui.rv-grid.com` → `revolist.github.io`. Use DNS-only mode until GitHub validates DNS and provisions HTTPS.
 
