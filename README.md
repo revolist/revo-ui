@@ -6,6 +6,8 @@ Compose data-rich workspaces with shared controls, pickers, charts, timelines, d
 
 [Live components](https://ui.rv-grid.com/#buttons) · [Interactive overview](https://ui.rv-grid.com/) · [Framework guides](https://ui.rv-grid.com/?page=frameworks) · [RevoGrid](https://rv-grid.com/) · [Pro documentation](https://pro.rv-grid.com/)
 
+[![Revo UI components for financial dashboards and project management](docs/assets/components-preview.jpg)](https://ui.rv-grid.com/)
+
 ## Contents
 
 - [Getting started](#getting-started)
