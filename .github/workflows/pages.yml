@@ -54,9 +54,14 @@ jobs:
       - name: Typecheck gallery
         working-directory: site
         run: pnpm --filter @revolist/ui-gallery lint
+      - name: Install browser for static rendering
+        working-directory: site
+        run: pnpm --filter @revolist/ui-gallery exec playwright install --with-deps chromium
       - name: Build Pages site
         working-directory: site
         run: pnpm --filter @revolist/ui-gallery build --base /
+      - name: Verify static SEO output
+        run: node gallery/scripts/seo.test.mjs site/apps/revo-ui/dist
       - name: Upload static site only
         uses: actions/upload-pages-artifact@v4
         with:

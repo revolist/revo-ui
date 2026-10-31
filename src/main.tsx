@@ -810,4 +810,7 @@ function App() {
     </CatalogShell>
   );
 }
-render(<App />, document.getElementById('app')!);
+const appRoot = document.getElementById('app')!;
+// The production homepage is pre-rendered; replace it before attaching live controls.
+appRoot.replaceChildren();
+render(<App />, appRoot);

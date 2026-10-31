@@ -41,3 +41,7 @@ The demos Docker image no longer builds or serves Revo UI.
 Component licensing remains governed by the library's existing license. Gallery source availability does not change component licensing.
 
 The custom domain requires a DNS CNAME record: `ui.rv-grid.com` → `revolist.github.io`. Use DNS-only mode until GitHub validates DNS and provisions HTTPS.
+
+## SEO and static rendering
+
+The production build pre-renders the overview into HTML, then attaches interactive controls on load. It emits the RevoGrid favicon, touch icon, PNG social preview, robots.txt and a sitemap for the canonical homepage. Component examples retain hash navigation; those fragments are not submitted as separate indexable pages. `node scripts/seo.test.mjs dist` verifies the generated output. The build requires Chromium (`pnpm exec playwright install chromium` locally); the Pages workflow installs it automatically.

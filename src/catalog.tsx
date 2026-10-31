@@ -291,7 +291,18 @@ export function CatalogShell({
   });
   const visible = families.filter((family) => inScope(family.title) && matches(family, query));
   useEffect(() => {
-    document.title = `${component?.title ?? (home ? 'Overview' : page === 'frameworks' ? 'Frameworks' : page === 'colors' ? 'Colors' : (families.find((family) => sectionId(family.title) === active)?.title ?? 'Components'))} · Revo UI`;
+    const title = home ? 'Revo UI — Components for Finance, Reporting & Project Management' : `${component?.title ?? (page === 'frameworks' ? 'Framework integration guides' : page === 'colors' ? 'Design system colors' : 'UI components')} · Revo UI`;
+    document.title = title;
+    const description = home ? 'Build financial dashboards, reporting apps, and project workspaces with Revo UI. Explore UI components for React, Vue, Angular, Svelte, Preact, and TypeScript.' : component?.description ?? 'Explore Revo UI component examples and framework integration guides for data-rich applications.';
+    document.querySelector('meta[name="description"]')?.setAttribute('content', description);
+    document.querySelector('meta[property="og:title"]')?.setAttribute('content', title);
+    document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
+    document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', title);
+    document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', description);
+    let canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    if (!canonical) { canonical = document.createElement('link'); canonical.rel = 'canonical'; document.head.append(canonical); }
+    canonical.href = 'https://ui.rv-grid.com/';
+    document.querySelector('meta[name="robots"]')?.setAttribute('content', (home || knownRoute) ? 'index, follow, max-image-preview:large' : 'noindex, follow');
   }, [active, home, page, component?.title]);
   return (
     <div class="rv-ui catalog" data-theme={theme} dir={rtl ? 'rtl' : 'ltr'}>
@@ -341,6 +352,9 @@ export function CatalogShell({
             </a>
           </nav>
           <Toolbar label="Gallery settings">
+            <a class="rv-btn rv-btn-ghost rv-btn-icon catalog-github-link" href="https://github.com/revolist/revo-ui" target="_blank" rel="noopener noreferrer" aria-label="Revo UI on GitHub" title="Revo UI on GitHub">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .75a11.25 11.25 0 0 0-3.558 21.923c.563.104.769-.244.769-.543v-2.098c-3.13.68-3.79-1.33-3.79-1.33-.512-1.3-1.25-1.646-1.25-1.646-1.022-.699.078-.685.078-.685 1.13.08 1.725 1.16 1.725 1.16 1.005 1.722 2.636 1.224 3.279.936.102-.728.394-1.224.716-1.506-2.5-.284-5.128-1.25-5.128-5.562 0-1.23.44-2.233 1.16-3.021-.117-.285-.503-1.43.11-2.98 0 0 .946-.303 3.094 1.154A10.79 10.79 0 0 1 12 6.174c.956.005 1.919.129 2.818.378 2.147-1.457 3.09-1.154 3.09-1.154.616 1.55.23 2.695.113 2.98.722.788 1.158 1.791 1.158 3.021 0 4.324-2.633 5.275-5.14 5.554.404.35.764 1.04.764 2.097v3.08c0 .302.203.652.774.542A11.25 11.25 0 0 0 12 .75Z" /></svg>
+            </a>
             <Button
               className="rv-btn-icon"
               variant="ghost"
