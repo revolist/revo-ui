@@ -48,6 +48,8 @@ jobs:
           package-manager-cache: false
       - name: Prepare isolated build workspace
         run: node gallery/scripts/prepare-pages.mjs library site
+      - name: Verify component documentation references
+        run: node gallery/scripts/check-docs.mjs library
       - name: Install locked dependencies
         working-directory: site
         run: pnpm install --frozen-lockfile

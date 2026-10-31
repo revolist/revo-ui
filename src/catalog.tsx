@@ -556,8 +556,13 @@ export function CatalogShell({
           <footer class="catalog-footer">
             <span>Revo UI</span>
             <p>
-              A shared foundation for Grid Pro, Pivot, Charts, Gantt, Scheduler
-              and Kanban.
+              A shared foundation for <a href="https://rv-grid.com/">RevoGrid</a>,{' '}
+              <a href="https://pro.rv-grid.com/">Grid Pro</a>,{' '}
+              <a href="https://rv-grid.com/pivot/">Pivot</a>,{' '}
+              <a href="https://rv-grid.com/charts/">Charts</a>,{' '}
+              <a href="https://rv-grid.com/gantt/">Gantt</a>,{' '}
+              <a href="https://rv-grid.com/jsscheduler/">Scheduler</a> and{' '}
+              <a href="https://rv-grid.com/kanban/">Kanban</a>.
             </p>
             <a href={page !== 'components' ? './#buttons' : '#buttons'}>
               Explore components

@@ -2108,3 +2108,6 @@ body {
 
 .planning-member-option { display: inline-flex; align-items: center; gap: 8px; min-width: 0; }
 .planning-member-option > span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.catalog-footer p a { color: var(--rv-ui-text); text-decoration: underline; text-decoration-color: var(--rv-ui-border-strong); text-underline-offset: 3px; }
+.catalog-footer p a:hover { text-decoration-color: currentColor; }
