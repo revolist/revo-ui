@@ -1,3 +1,4 @@
+import { componentHref } from './routing';
 import { useRef, useState } from 'preact/hooks';
 import {
   Avatar,
@@ -97,7 +98,7 @@ export function WeeklyPlanning() {
     <article class="home-widget home-weekly-planner">
       <div class="widget-caption">
         <span>Weekly planning</span>
-        <a href="#component/weekly-time-grid">Time grid & controls</a>
+        <a href={componentHref('calendar-and-dates')}>Time grid & controls</a>
       </div>
       <div class="widget-between">
         <div>

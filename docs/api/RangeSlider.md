@@ -2,7 +2,7 @@
 
 Scalar and interval controls with labels, value badges, thumb values, ticks and units.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/#sliders) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/sliders/) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { RangeSlider } from '@revolist/ui/preact'`
 
@@ -10,7 +10,7 @@ React: `import { RangeSlider } from '@revolist/ui/react'`
 
 Vue: `import { RangeSlider } from '@revolist/ui/vue'`
 
-Angular/Svelte: pass `component="RangeSlider"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/?page=frameworks) for state, callbacks and slots.
+Angular/Svelte: pass `component="RangeSlider"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/frameworks/) for state, callbacks and slots.
 
 ## Props
 

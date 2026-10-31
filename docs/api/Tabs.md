@@ -2,7 +2,7 @@
 
 Switch content, group options and present plain, icon or descriptive selection rows.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/#tabs-and-lists) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/tabs-and-lists/) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { Tabs } from '@revolist/ui/preact'`
 
@@ -10,7 +10,7 @@ React: `import { Tabs } from '@revolist/ui/react'`
 
 Vue: `import { Tabs } from '@revolist/ui/vue'`
 
-Angular/Svelte: pass `component="Tabs"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/?page=frameworks) for state, callbacks and slots.
+Angular/Svelte: pass `component="Tabs"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/frameworks/) for state, callbacks and slots.
 
 ## Props
 

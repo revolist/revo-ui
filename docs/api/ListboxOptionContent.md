@@ -2,7 +2,7 @@
 
 Switch content, group options and present plain, icon or descriptive selection rows.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/#tabs-and-lists) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/tabs-and-lists/) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { ListboxOptionContent } from '@revolist/ui/preact'`
 
@@ -10,7 +10,7 @@ React: `import { ListboxOptionContent } from '@revolist/ui/react'`
 
 Vue: `import { ListboxOptionContent } from '@revolist/ui/vue'`
 
-Angular/Svelte: pass `component="ListboxOptionContent"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/?page=frameworks) for state, callbacks and slots.
+Angular/Svelte: pass `component="ListboxOptionContent"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/frameworks/) for state, callbacks and slots.
 
 ## Props
 

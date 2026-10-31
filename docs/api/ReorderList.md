@@ -2,7 +2,7 @@
 
 Compose field libraries, selected-field lists, ordering, summaries, actions and drop feedback from shared pieces.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/#field-configurators) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/field-configurators/) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { ReorderList } from '@revolist/ui/preact'`
 
@@ -10,7 +10,7 @@ React: `import { ReorderList } from '@revolist/ui/react'`
 
 Vue: `import { ReorderList } from '@revolist/ui/vue'`
 
-Angular/Svelte: pass `component="ReorderList"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/?page=frameworks) for state, callbacks and slots.
+Angular/Svelte: pass `component="ReorderList"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/frameworks/) for state, callbacks and slots.
 
 ## Props
 

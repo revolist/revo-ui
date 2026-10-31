@@ -2,7 +2,7 @@
 
 Command menus, nested commands, separators and grouped toolbar actions.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/#menus-and-toolbars) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/menus-and-toolbars/) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { ToolbarSeparator } from '@revolist/ui/preact'`
 
@@ -10,7 +10,7 @@ React: `import { ToolbarSeparator } from '@revolist/ui/react'`
 
 Vue: `import { ToolbarSeparator } from '@revolist/ui/vue'`
 
-Angular/Svelte: pass `component="ToolbarSeparator"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/?page=frameworks) for state, callbacks and slots.
+Angular/Svelte: pass `component="ToolbarSeparator"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/frameworks/) for state, callbacks and slots.
 
 ## Props
 

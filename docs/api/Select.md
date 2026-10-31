@@ -2,7 +2,7 @@
 
 JSX option descriptors for the shared dropdown.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/#selects-chips-and-resources) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/selects-chips-and-resources/) · [Component index](../../README.md#complete-component-reference)
 
 Direct Preact entry: `@revolist/ui/select`. For other framework adapters use `Dropdown`, `Combobox`, or `MultiSelect`.
 

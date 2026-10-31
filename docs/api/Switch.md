@@ -2,7 +2,7 @@
 
 Checkboxes, switches, radio groups, choice chips and option rows for independent or exclusive choices.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/#selection-controls) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/selection-controls/) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { Switch } from '@revolist/ui/preact'`
 
@@ -10,7 +10,7 @@ React: `import { Switch } from '@revolist/ui/react'`
 
 Vue: `import { Switch } from '@revolist/ui/vue'`
 
-Angular/Svelte: pass `component="Switch"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/?page=frameworks) for state, callbacks and slots.
+Angular/Svelte: pass `component="Switch"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/frameworks/) for state, callbacks and slots.
 
 ## Props
 

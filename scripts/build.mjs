@@ -1,8 +1,12 @@
 import { build, preview } from 'vite';
 import { chromium } from '@playwright/test';
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
+const pages = JSON.parse(await readFile(new URL('../src/pages.json', import.meta.url), 'utf8'));
+const slug = title => title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+const routes = ['', 'components/', ...pages.components.map(page => `components/${slug(page.title)}/`), 'colors/', 'frameworks/', ...pages.frameworks.map(name => `frameworks/${slug(name)}/`)];
+const origin = 'https://ui.rv-grid.com';
 const root = resolve(import.meta.dirname, '..');
 const baseFlag = process.argv.indexOf('--base');
 const base = baseFlag >= 0 ? process.argv[baseFlag + 1] : '/';
@@ -14,12 +18,17 @@ try {
   const page = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });
   const address = server.httpServer.address();
   const url = `http://127.0.0.1:${address.port}${base === './' ? '/' : base}`;
-  await page.goto(url, { waitUntil: 'networkidle' });
-  await page.locator('.home-hero h1').waitFor();
-  await page.evaluate(() => document.fonts.ready);
-  const html = await page.content();
-  if (!html.includes('Components for finance,') || !html.includes('rel="canonical"')) throw new Error('Homepage static rendering failed');
-  await writeFile(resolve(root, 'dist/index.html'), html);
+  for (const route of routes) {
+    await page.goto(`${url}${route}`, { waitUntil: 'networkidle' });
+    await page.locator('h1').first().waitFor();
+    await page.waitForFunction(expected => document.querySelector('link[rel="canonical"]')?.getAttribute('href') === expected, `${origin}${base === './' ? '/' : base}${route}`);
+    await page.evaluate(() => document.fonts.ready);
+    const html = await page.content();
+    const destination = resolve(root, 'dist', route);
+    await mkdir(destination, { recursive: true });
+    await writeFile(resolve(destination, 'index.html'), html);
+  }
+  await writeFile(resolve(root, 'dist/sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${routes.map(route => `  <url><loc>${origin}${base === './' ? '/' : base}${route}</loc></url>`).join('\n')}\n</urlset>\n`);
 
   // Code-native brand artwork: no remote fonts, images or network dependencies.
   const logo = await readFile(resolve(root, 'public/favicon.svg'));
@@ -32,7 +41,8 @@ try {
   await page.setContent(`<html><body style="margin:0;display:grid;place-items:center;width:180px;height:180px;background:white"><img src="${image}" width="128" height="128"/></body></html>`);
   await page.locator('img').evaluate(image => image.decode());
   await page.screenshot({ path: resolve(root, 'dist/apple-touch-icon.png') });
-  console.log('Pre-rendered homepage, social preview and touch icon.');
+  await import('./check-pages.mjs');
+  console.log(`Pre-rendered ${routes.length} pages, sitemap, social preview and touch icon.`);
 } finally {
   await browser?.close();
   await new Promise((done, reject) => server.httpServer.close(error => error ? reject(error) : done()));

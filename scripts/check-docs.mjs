@@ -14,9 +14,9 @@ for (const name of names) {
   assert.ok(existsSync(resolve(gallery, `docs/api/${name}.md`)), `Missing API page: ${name}`);
 }
 assert.match(readme, /@revolist\/ui\/select/);
-const catalog = readFileSync(resolve(gallery, 'src/catalog.tsx'), 'utf8');
-const families = new Set([...catalog.matchAll(/title: '([^']+)'/g)].map(match => match[1].toLowerCase().replace(/[^a-z0-9]+/g, '-')));
-for (const match of readme.matchAll(/https:\/\/ui\.rv-grid\.com\/#([a-z-]+)/g)) {
+const pages = JSON.parse(readFileSync(resolve(gallery, 'src/pages.json'), 'utf8'));
+const families = new Set(pages.components.map(page => page.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')));
+for (const match of readme.matchAll(/https:\/\/ui\.rv-grid\.com\/components\/([a-z-]+)\//g)) {
   assert.ok(families.has(match[1]), `Missing gallery family: ${match[1]}`);
 }
 assert.match(readme, /https:\/\/rv-grid\.com\//);

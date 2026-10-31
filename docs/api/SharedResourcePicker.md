@@ -2,7 +2,7 @@
 
 Single or multiple selections, searchable options, selected-value templates, avatars, resource lists and assignee fields.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/#selects-chips-and-resources) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/selects-chips-and-resources/) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { SharedResourcePicker } from '@revolist/ui/preact'`
 
@@ -10,7 +10,7 @@ React: `import { SharedResourcePicker } from '@revolist/ui/react'`
 
 Vue: `import { SharedResourcePicker } from '@revolist/ui/vue'`
 
-Angular/Svelte: pass `component="SharedResourcePicker"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/?page=frameworks) for state, callbacks and slots.
+Angular/Svelte: pass `component="SharedResourcePicker"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/frameworks/) for state, callbacks and slots.
 
 ## Props
 

@@ -2,7 +2,7 @@
 
 Typography choices, icon choices, inspector sections, preview comparisons and contextual filter badges.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/#formatting-controls) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/formatting-controls/) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { IconToggleButton } from '@revolist/ui/preact'`
 
@@ -10,7 +10,7 @@ React: `import { IconToggleButton } from '@revolist/ui/react'`
 
 Vue: `import { IconToggleButton } from '@revolist/ui/vue'`
 
-Angular/Svelte: pass `component="IconToggleButton"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/?page=frameworks) for state, callbacks and slots.
+Angular/Svelte: pass `component="IconToggleButton"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/frameworks/) for state, callbacks and slots.
 
 ## Props
 

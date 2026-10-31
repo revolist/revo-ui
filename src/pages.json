@@ -1,0 +1,138 @@
+{
+  "components": [
+    {
+      "title": "AI assistant",
+      "group": "Advanced",
+      "description": "Prompt inputs, suggestions, action status and result summaries.",
+      "keywords": "ai assistant chat messages reasoning tasks prompt input suggestions status tool result restore"
+    },
+    {
+      "title": "Activity messages",
+      "group": "Compositions",
+      "description": "Chat-style messages with an avatar, timestamp, content and actions.",
+      "keywords": "activity chat message audit feed history card user time"
+    },
+    {
+      "title": "Buttons",
+      "group": "Controls",
+      "description": "Actions, variants, icon buttons and grouped commands.",
+      "keywords": "button icon toggle group primary solid neutral add plus outline ghost danger delete disabled compact"
+    },
+    {
+      "title": "Selection controls",
+      "group": "Controls",
+      "description": "Independent checkboxes, switches and single-choice controls.",
+      "keywords": "checkbox switch radio choice chips option rows"
+    },
+    {
+      "title": "Tabs and lists",
+      "group": "Controls",
+      "description": "Switch linked content or choose items with plain, icon, description and grouped selection lists.",
+      "keywords": "segmented tabs listbox option navigation"
+    },
+    {
+      "title": "Inputs and forms",
+      "group": "Controls",
+      "description": "Text, messages, search, numbers and clear field presentation.",
+      "keywords": "text textarea message search number stepper counter field error validation readonly highlighted inline dimensions"
+    },
+    {
+      "title": "Selects, chips and resources",
+      "group": "Controls",
+      "description": "Find options, manage selections and choose people.",
+      "keywords": "combobox multiselect dropdown avatar picker tag"
+    },
+    {
+      "title": "Sliders",
+      "group": "Controls",
+      "description": "Adjust a value or define an interval.",
+      "keywords": "range scalar numeric timeline track move resize events"
+    },
+    {
+      "title": "Timeline track",
+      "group": "Controls",
+      "description": "Move and resize timeline events with per-event colors and weighted phases.",
+      "keywords": "timeline track event phase color move resize project"
+    },
+    {
+      "title": "PDF viewer",
+      "group": "Advanced",
+      "description": "Read, search, navigate, print and download PDF documents.",
+      "keywords": "pdf document viewer file upload zoom rotate search print download"
+    },
+    {
+      "title": "Calendar and dates",
+      "group": "Pickers",
+      "description": "Independent calendars, date inputs, ranges and time slots.",
+      "keywords": "date time datetime calendar picker availability weekly grid legend"
+    },
+    {
+      "title": "Color",
+      "group": "Pickers",
+      "description": "Choose a color from a picker or palette.",
+      "keywords": "palette picker swatches"
+    },
+    {
+      "title": "Field configurators",
+      "group": "Compositions",
+      "description": "Shared field layout and actions. Product field browsers keep their Pro tree.",
+      "keywords": "field library search group ordered reorder measures checkbox"
+    },
+    {
+      "title": "Formatting controls",
+      "group": "Compositions",
+      "description": "Typography, icon choices, inspector sections and before/after previews.",
+      "keywords": "format font size bold italic underline strike alignment inspector disclosure comparison preview"
+    },
+    {
+      "title": "Charts and range selection",
+      "group": "Compositions",
+      "description": "Standalone chart primitives and a composed range brush.",
+      "keywords": "distribution bar line area brush chart range"
+    },
+    {
+      "title": "Dialogs and floating surfaces",
+      "group": "Compositions",
+      "description": "Focused tasks, confirmations and contextual details.",
+      "keywords": "dialog confirmation popover tooltip overlay"
+    },
+    {
+      "title": "Menus and toolbars",
+      "group": "Compositions",
+      "description": "Commands with feedback scoped to their own example.",
+      "keywords": "menu submenu toolbar undo redo export history"
+    },
+    {
+      "title": "Status and feedback",
+      "group": "Compositions",
+      "description": "Badges, alerts, loading states and helpful empty content.",
+      "keywords": "badge alert spinner loading empty feedback"
+    },
+    {
+      "title": "Layout",
+      "group": "Compositions",
+      "description": "Panes and an interactive resize divider.",
+      "keywords": "split pane resize panel disclosure"
+    },
+    {
+      "title": "Pagination",
+      "group": "Compositions",
+      "description": "Numbered pages, selectors and compact navigation.",
+      "keywords": "page selector first last next previous"
+    },
+    {
+      "title": "Progress and rating",
+      "group": "Compositions",
+      "description": "Show completion or collect a rating.",
+      "keywords": "bar circular progress rating stars"
+    }
+  ],
+  "frameworks": [
+    "React",
+    "Vue",
+    "Angular",
+    "Svelte",
+    "Preact",
+    "Vanilla TypeScript"
+  ]
+}

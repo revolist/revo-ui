@@ -2,7 +2,7 @@
 
 Compact bar, line and area charts with values, labels, tooltips and a composed range brush.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/#charts-and-range-selection) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/charts-and-range-selection/) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { LineChart } from '@revolist/ui/preact'`
 
@@ -10,7 +10,7 @@ React: `import { LineChart } from '@revolist/ui/react'`
 
 Vue: `import { LineChart } from '@revolist/ui/vue'`
 
-Angular/Svelte: pass `component="LineChart"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/?page=frameworks) for state, callbacks and slots.
+Angular/Svelte: pass `component="LineChart"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/frameworks/) for state, callbacks and slots.
 
 ## Props
 

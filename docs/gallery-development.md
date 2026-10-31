@@ -44,4 +44,6 @@ The custom domain requires a DNS CNAME record: `ui.rv-grid.com` → `revolist.gi
 
 ## SEO and static rendering
 
-The production build pre-renders the overview into HTML, then attaches interactive controls on load. It emits the RevoGrid favicon, touch icon, PNG social preview, robots.txt and a sitemap for the canonical homepage. Component examples retain hash navigation; those fragments are not submitted as separate indexable pages. `node scripts/seo.test.mjs dist` verifies the generated output. The build requires Chromium (`pnpm exec playwright install chromium` locally); the Pages workflow installs it automatically.
+The production build pre-renders the overview, component directory, all component families, colors, and framework guides into separate HTML files. Routes such as `/components/buttons/` and `/frameworks/react/` work on direct visits to GitHub Pages. Each page has its own title, description, canonical URL, and social URL. Navigation and the generated `sitemap.xml` share `src/pages.json`; `robots.txt` references the sitemap. Existing hash and `?page=` links redirect in the browser to their canonical paths; hashes remain available for sections and individual examples.
+
+The build verifies every generated page with `scripts/check-pages.mjs` and emits the RevoGrid favicon, touch icon, and PNG social preview. `node scripts/seo.test.mjs dist` checks the homepage and shared SEO assets. The build requires Chromium (`pnpm exec playwright install chromium` locally); the Pages workflow installs it automatically.

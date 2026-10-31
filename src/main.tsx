@@ -1,3 +1,4 @@
+import { componentHref, pageKind, redirectLegacyRoute } from './routing';
 import { MemberDropdown } from './home-planning';
 import { FrameworksPage } from './frameworks';
 import { Select } from '@revolist/ui/select';
@@ -163,14 +164,14 @@ function App() {
   const [buttonAction, setButtonAction] = useState('No action yet');
   const [groupAction, setGroupAction] = useState('No action yet');
   const [addedCount, setAddedCount] = useState(0);
-  if (new URLSearchParams(location.search).get('page') === 'frameworks') {
+  if (pageKind() === 'frameworks') {
     return <CatalogShell page="frameworks" theme={theme} rtl={rtl} onThemeChange={setTheme} onRtlChange={setRtl}><FrameworksPage /></CatalogShell>;
   }
-  if (new URLSearchParams(location.search).get('page') === 'colors') {
+  if (pageKind() === 'colors') {
     return (
       <CatalogShell page="colors" theme={theme} rtl={rtl} onThemeChange={setTheme} onRtlChange={setRtl}>
         <section id="colors" class="catalog-section" aria-labelledby="colors-title">
-          <div class="catalog-section-heading"><div><h2 id="colors-title">Colors</h2><p>Semantic interface colors and usage across every product.</p></div></div>
+          <div class="catalog-section-heading"><div><h1 id="colors-title">Colors</h1><p>Semantic interface colors and usage across every product.</p></div></div>
           <ColorsExamples />
         </section>
       </CatalogShell>
@@ -233,7 +234,7 @@ function App() {
             <Button rounded variant="danger">Danger pill</Button>
             <Button rounded size="compact">Compact pill</Button>
             <Button rounded disabled>Disabled pill</Button>
-            <Button rounded href="#sliders">Browse sliders</Button>
+            <Button rounded href={componentHref('sliders')}>Browse sliders</Button>
           </div>
         </Example>
         <Example title="Busy buttons">
@@ -810,6 +811,7 @@ function App() {
     </CatalogShell>
   );
 }
+redirectLegacyRoute();
 const appRoot = document.getElementById('app')!;
 // The production homepage is pre-rendered; replace it before attaching live controls.
 appRoot.replaceChildren();

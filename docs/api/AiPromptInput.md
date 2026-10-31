@@ -2,7 +2,7 @@
 
 Presentation for messages, prompts, suggestions, reasoning, tasks, action state and result summaries. Applications provide the model and tools.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/#ai-assistant) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/ai-assistant/) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { AiPromptInput } from '@revolist/ui/preact'`
 
@@ -10,7 +10,7 @@ React: `import { AiPromptInput } from '@revolist/ui/react'`
 
 Vue: `import { AiPromptInput } from '@revolist/ui/vue'`
 
-Angular/Svelte: pass `component="AiPromptInput"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/?page=frameworks) for state, callbacks and slots.
+Angular/Svelte: pass `component="AiPromptInput"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/frameworks/) for state, callbacks and slots.
 
 ## Props
 

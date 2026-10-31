@@ -2,7 +2,7 @@
 
 Page selection and compact or numbered navigation.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/#pagination) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/pagination/) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { Pagination } from '@revolist/ui/preact'`
 
@@ -10,7 +10,7 @@ React: `import { Pagination } from '@revolist/ui/react'`
 
 Vue: `import { Pagination } from '@revolist/ui/vue'`
 
-Angular/Svelte: pass `component="Pagination"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/?page=frameworks) for state, callbacks and slots.
+Angular/Svelte: pass `component="Pagination"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/frameworks/) for state, callbacks and slots.
 
 ## Props
 

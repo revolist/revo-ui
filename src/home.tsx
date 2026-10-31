@@ -1,3 +1,4 @@
+import { componentHref, frameworkHref, siteHref } from './routing';
 import { FrameworkLogo, frameworkLogos } from './framework-logos';
 import { WeeklyPlanning } from './home-planning';
 import { SliderField } from '@revolist/ui/filter/filters/slider/single';
@@ -109,11 +110,11 @@ export function GalleryHome() {
             rounded
             variant="solid"
             className="home-primary"
-            href="#buttons"
+            href={componentHref('buttons')}
           >
             Explore components
           </Button>
-          <Button rounded className="home-secondary" href="?page=colors">
+          <Button rounded className="home-secondary" href={siteHref('colors/')}>
             Discover the palette
           </Button>
         </div>
@@ -134,7 +135,7 @@ export function GalleryHome() {
           <article class="home-widget finance-revenue">
             <div class="widget-caption">
               <span>Revenue overview</span>
-              <a href="#component/gradient-area">Area chart</a>
+              <a href={componentHref('charts-and-range-selection')}>Area chart</a>
             </div>
             <div class="widget-between">
               <div>
@@ -179,7 +180,7 @@ export function GalleryHome() {
           <article class="home-widget finance-spending">
             <div class="widget-caption">
               <span>Spending overview</span>
-              <a href="#component/bar-chart-with-labels">Bar chart</a>
+              <a href={componentHref('charts-and-range-selection')}>Bar chart</a>
             </div>
             <div class="widget-between">
               <div>
@@ -215,7 +216,7 @@ export function GalleryHome() {
           <article class="home-widget finance-savings">
             <div class="widget-caption">
               <span>Savings goal</span>
-              <a href="#component/slider-labels-and-value-callouts">
+              <a href={componentHref('sliders')}>
                 Slider & inputs
               </a>
             </div>
@@ -283,7 +284,7 @@ export function GalleryHome() {
           <article class="home-widget finance-recent">
             <div class="widget-caption">
               <span>Recent transactions</span>
-              <a href="#selects-chips-and-resources">Select & badges</a>
+              <a href={componentHref('selects-chips-and-resources')}>Select & badges</a>
             </div>
             <div class="widget-between">
               <h3>A little more clarity.</h3>
@@ -335,7 +336,7 @@ export function GalleryHome() {
           <span class="home-eyebrow">YOUR FRAMEWORK. ONE SHARED SYSTEM.</span>
           <h2 id="home-frameworks-title">Fits the stack you already use.</h2>
           <p>Build financial apps, reporting dashboards, and project workspaces with the same components across frameworks. Keep your application state and workflows in your stack.</p>
-          <Button rounded href="?page=frameworks">Explore framework guides →</Button>
+          <Button rounded href={siteHref('frameworks/')}>Explore framework guides →</Button>
         </div>
         <div class="home-framework-grid">
           {[
@@ -346,7 +347,7 @@ export function GalleryHome() {
             ['Preact', 'Direct components with Preact hooks.'],
             ['Vanilla TypeScript', 'Mount, update, and dispose in the DOM.'],
           ].map(([name, description]) => (
-            <a class="home-framework-card" href={`?page=frameworks#${name.toLowerCase().replaceAll(' ', '-')}`}>
+            <a class="home-framework-card" href={frameworkHref(name.toLowerCase().replaceAll(' ', '-'))}>
               <strong><span class="home-framework-name"><FrameworkLogo name={name} />{name}</span><span aria-hidden="true">↗</span></strong>
               <span>{description}</span>
             </a>
@@ -366,7 +367,7 @@ export function GalleryHome() {
             'Calendar and dates',
             'Dialogs and floating surfaces',
           ].map((title) => (
-            <Button rounded href={`#${sectionId(title)}`}>
+            <Button rounded href={componentHref(sectionId(title))}>
               {title}
             </Button>
           ))}

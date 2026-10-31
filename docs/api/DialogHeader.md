@@ -2,7 +2,7 @@
 
 Dialogs, confirmations, contextual surfaces and editable dialog sections with shared actions.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/#dialogs-and-floating-surfaces) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/dialogs-and-floating-surfaces/) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { DialogHeader } from '@revolist/ui/preact'`
 
@@ -10,7 +10,7 @@ React: `import { DialogHeader } from '@revolist/ui/react'`
 
 Vue: `import { DialogHeader } from '@revolist/ui/vue'`
 
-Angular/Svelte: pass `component="DialogHeader"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/?page=frameworks) for state, callbacks and slots.
+Angular/Svelte: pass `component="DialogHeader"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/frameworks/) for state, callbacks and slots.
 
 ## Props
 

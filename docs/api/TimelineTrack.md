@@ -2,7 +2,7 @@
 
 Controlled timeline events with move/resize interactions, event colors, weighted phases and tooltips.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/#timeline-track) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/timeline-track/) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { TimelineTrack } from '@revolist/ui/preact'`
 
@@ -10,7 +10,7 @@ React: `import { TimelineTrack } from '@revolist/ui/react'`
 
 Vue: `import { TimelineTrack } from '@revolist/ui/vue'`
 
-Angular/Svelte: pass `component="TimelineTrack"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/?page=frameworks) for state, callbacks and slots.
+Angular/Svelte: pass `component="TimelineTrack"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/frameworks/) for state, callbacks and slots.
 
 ## Props
 

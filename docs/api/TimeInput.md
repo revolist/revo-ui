@@ -2,7 +2,7 @@
 
 Text, search and numeric entry; field labels, validation, inline layouts and editor drafts.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/#inputs-and-forms) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/inputs-and-forms/) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { TimeInput } from '@revolist/ui/preact'`
 
@@ -10,7 +10,7 @@ React: `import { TimeInput } from '@revolist/ui/react'`
 
 Vue: `import { TimeInput } from '@revolist/ui/vue'`
 
-Angular/Svelte: pass `component="TimeInput"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/?page=frameworks) for state, callbacks and slots.
+Angular/Svelte: pass `component="TimeInput"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/frameworks/) for state, callbacks and slots.
 
 ## Props
 

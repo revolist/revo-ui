@@ -2,7 +2,7 @@
 
 Display local or remote PDFs with navigation, search, zoom, rotation, print/download actions and a composable toolbar.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/#pdf-viewer) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/pdf-viewer/) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { PdfViewerToolbar } from '@revolist/ui/preact'`
 
@@ -10,7 +10,7 @@ React: `import { PdfViewerToolbar } from '@revolist/ui/react'`
 
 Vue: `import { PdfViewerToolbar } from '@revolist/ui/vue'`
 
-Angular/Svelte: pass `component="PdfViewerToolbar"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/?page=frameworks) for state, callbacks and slots.
+Angular/Svelte: pass `component="PdfViewerToolbar"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/frameworks/) for state, callbacks and slots.
 
 ## Props
 

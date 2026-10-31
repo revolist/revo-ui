@@ -2,7 +2,7 @@
 
 Calendar views and date/time fields, ranges, duration drafts, weekly availability and descriptive legends.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/#calendar-and-dates) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/calendar-and-dates/) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { TemporalDraft } from '@revolist/ui/date-time'`
 
@@ -10,7 +10,7 @@ React: `import { TemporalDraft } from '@revolist/ui/react'`
 
 Vue: `import { TemporalDraft } from '@revolist/ui/vue'`
 
-Angular/Svelte: pass `component="TemporalDraft"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/?page=frameworks) for state, callbacks and slots.
+Angular/Svelte: pass `component="TemporalDraft"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/frameworks/) for state, callbacks and slots.
 
 ## Props
 

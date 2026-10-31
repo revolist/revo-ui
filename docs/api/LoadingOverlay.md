@@ -2,7 +2,7 @@
 
 Semantic badges, counters, alerts, progress indicators, loading surfaces, empty states and feedback panels.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/#status-and-feedback) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/status-and-feedback/) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { LoadingOverlay } from '@revolist/ui/preact'`
 
@@ -10,7 +10,7 @@ React: `import { LoadingOverlay } from '@revolist/ui/react'`
 
 Vue: `import { LoadingOverlay } from '@revolist/ui/vue'`
 
-Angular/Svelte: pass `component="LoadingOverlay"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/?page=frameworks) for state, callbacks and slots.
+Angular/Svelte: pass `component="LoadingOverlay"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/frameworks/) for state, callbacks and slots.
 
 ## Props
 

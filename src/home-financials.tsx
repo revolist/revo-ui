@@ -1,3 +1,4 @@
+import { componentHref } from './routing';
 import { h, type ComponentChildren } from 'preact';
 import { renderProgressLine } from '@revolist/ui/native';
 import { useMemo, useState } from 'preact/hooks';
@@ -52,7 +53,7 @@ export function FinancialWidgets({ preview }: { preview: ComponentChildren }) {
       <article class="home-widget finance-allocation">
         <div class="widget-caption">
           <span>Portfolio breakdown</span>
-          <a href="#charts-and-range-selection">Charts & data presentation</a>
+          <a href={componentHref('charts-and-range-selection')}>Charts & data presentation</a>
         </div>
         <div class="widget-between">
           <div>
@@ -109,7 +110,7 @@ export function FinancialWidgets({ preview }: { preview: ComponentChildren }) {
       <article class="home-widget finance-invoices finance-wide-widget">
         <div class="widget-caption">
           <span>Accounts receivable</span>
-          <a href="#selection-controls">Selection & actions</a>
+          <a href={componentHref('selection-controls')}>Selection & actions</a>
         </div>
         <div class="widget-between">
           <div>

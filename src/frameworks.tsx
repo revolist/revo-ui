@@ -1,3 +1,4 @@
+import { frameworkHref, currentRoute } from './routing';
 import { useEffect, useState } from 'preact/hooks';
 import { Highlight } from './example-source';
 
@@ -133,9 +134,9 @@ update();
 ];
 
 export function FrameworksPage() {
-  const [active, setActive] = useState(location.hash.slice(1));
+  const [active, setActive] = useState(currentRoute());
   useEffect(() => {
-    const update = () => setActive(location.hash.slice(1));
+    const update = () => setActive(currentRoute());
     window.addEventListener('hashchange', update);
     return () => window.removeEventListener('hashchange', update);
   }, []);
@@ -184,7 +185,7 @@ export function FrameworksPage() {
           <nav class="framework-jump-links" aria-label="Framework guides">
             {guides.map((guide) => (
               <a
-                href={`?page=frameworks#${guide.name.toLowerCase().replaceAll(' ', '-')}`}
+                href={frameworkHref(guide.name.toLowerCase().replaceAll(' ', '-'))}
               >
                 {guide.name}
               </a>

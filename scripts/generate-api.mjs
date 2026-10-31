@@ -36,11 +36,11 @@ for (const {name,node} of entries) {
   const allProperties = props ? checker.getPropertiesOfType(props) : [];
   const own = allProperties.filter(property => property.declarations?.some(declaration => /\/packages\/(?:ui|dates)\/src\//.test(declaration.getSourceFile().fileName)));
   const group = routes.get(name); if (!group) throw new Error(`Missing group: ${name}`);
-  let text = `# ${name}\n\n${group.description}\n\n[Live examples and formatted usage](https://ui.rv-grid.com/#${group.route}) · [Component index](../../README.md#complete-component-reference)\n\n`;
+  let text = `# ${name}\n\n${group.description}\n\n[Live examples and formatted usage](https://ui.rv-grid.com/components/${group.route}/) · [Component index](../../README.md#complete-component-reference)\n\n`;
   const directEntries = { NumberDraft: 'number-input', MaskedDraft: 'masked-input', DurationField: 'duration', DurationDraft: 'duration', HtmlEditor: 'rich-text', TemporalPicker: 'date-time', TemporalDraft: 'date-time', DateTimeField: 'date-time', AssigneePicker: 'assignee', AssigneeField: 'assignee', AssigneePickerLayout: 'assignee' };
   if (name !== 'Select') text += `Preact: \`import { ${name} } from '@revolist/ui/${directEntries[name] ?? 'preact'}'\`\n\n`;
   if (name === 'Select') text += 'Direct Preact entry: `@revolist/ui/select`. For other framework adapters use `Dropdown`, `Combobox`, or `MultiSelect`.\n\n';
-  else text += `React: \`import { ${name} } from '@revolist/ui/react'\`\n\nVue: \`import { ${name} } from '@revolist/ui/vue'\`\n\nAngular/Svelte: pass \`component="${name}"\` to the framework's \`UiComponent\` host. See the [framework guides](https://ui.rv-grid.com/?page=frameworks) for state, callbacks and slots.\n\n`;
+  else text += `React: \`import { ${name} } from '@revolist/ui/react'\`\n\nVue: \`import { ${name} } from '@revolist/ui/vue'\`\n\nAngular/Svelte: pass \`component="${name}"\` to the framework's \`UiComponent\` host. See the [framework guides](https://ui.rv-grid.com/frameworks/) for state, callbacks and slots.\n\n`;
   text += '## Props\n\nThe table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.\n\n| Prop | Type | Required | Description |\n| --- | --- | --- | --- |\n';
   for (const property of own) {
     const declaration = property.valueDeclaration ?? property.declarations[0];

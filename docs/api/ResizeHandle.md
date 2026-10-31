@@ -2,7 +2,7 @@
 
 Compose panes, split layouts, panels and disclosures with an interactive resize divider.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/#layout) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/layout/) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { ResizeHandle } from '@revolist/ui/preact'`
 
@@ -10,7 +10,7 @@ React: `import { ResizeHandle } from '@revolist/ui/react'`
 
 Vue: `import { ResizeHandle } from '@revolist/ui/vue'`
 
-Angular/Svelte: pass `component="ResizeHandle"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/?page=frameworks) for state, callbacks and slots.
+Angular/Svelte: pass `component="ResizeHandle"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/frameworks/) for state, callbacks and slots.
 
 ## Props
 

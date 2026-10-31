@@ -11,142 +11,9 @@ import {
 import { useContext, useEffect, useState } from 'preact/hooks';
 import { Button, SearchInput, Switch, Toolbar } from '@revolist/ui/preact';
 
-const families = [
-
-  {
-    title: 'AI assistant',
-    group: 'Advanced',
-    description:
-      'Prompt inputs, suggestions, action status and result summaries.',
-    keywords:
-      'ai assistant chat messages reasoning tasks prompt input suggestions status tool result restore',
-  },
-  {
-    title: 'Activity messages',
-    group: 'Compositions',
-    description:
-      'Chat-style messages with an avatar, timestamp, content and actions.',
-    keywords: 'activity chat message audit feed history card user time',
-  },
-  {
-    title: 'Buttons',
-    group: 'Controls',
-    description: 'Actions, variants, icon buttons and grouped commands.',
-    keywords:
-      'button icon toggle group primary solid neutral add plus outline ghost danger delete disabled compact',
-  },
-  {
-    title: 'Selection controls',
-    group: 'Controls',
-    description: 'Independent checkboxes, switches and single-choice controls.',
-    keywords: 'checkbox switch radio choice chips option rows',
-  },
-  {
-    title: 'Tabs and lists',
-    group: 'Controls',
-    description:
-      'Switch linked content or choose items with plain, icon, description and grouped selection lists.',
-    keywords: 'segmented tabs listbox option navigation',
-  },
-  {
-    title: 'Inputs and forms',
-    group: 'Controls',
-    description:
-      'Text, messages, search, numbers and clear field presentation.',
-    keywords:
-      'text textarea message search number stepper counter field error validation readonly highlighted inline dimensions',
-  },
-  {
-    title: 'Selects, chips and resources',
-    group: 'Controls',
-    description: 'Find options, manage selections and choose people.',
-    keywords: 'combobox multiselect dropdown avatar picker tag',
-  },
-  {
-    title: 'Sliders',
-    group: 'Controls',
-    description: 'Adjust a value or define an interval.',
-    keywords: 'range scalar numeric timeline track move resize events',
-  },
-  { title: 'Timeline track', group: 'Controls', description: 'Move and resize timeline events with per-event colors and weighted phases.', keywords: 'timeline track event phase color move resize project' },
-  {
-    title: 'PDF viewer',
-    group: 'Advanced',
-    description: 'Read, search, navigate, print and download PDF documents.',
-    keywords:
-      'pdf document viewer file upload zoom rotate search print download',
-  },
-  {
-    title: 'Calendar and dates',
-    group: 'Pickers',
-    description: 'Independent calendars, date inputs, ranges and time slots.',
-    keywords:
-      'date time datetime calendar picker availability weekly grid legend',
-  },
-  {
-    title: 'Color',
-    group: 'Pickers',
-    description: 'Choose a color from a picker or palette.',
-    keywords: 'palette picker swatches',
-  },
-  {
-    title: 'Field configurators',
-    group: 'Compositions',
-    description:
-      'Shared field layout and actions. Product field browsers keep their Pro tree.',
-    keywords: 'field library search group ordered reorder measures checkbox',
-  },
-  {
-    title: 'Formatting controls',
-    group: 'Compositions',
-    description:
-      'Typography, icon choices, inspector sections and before/after previews.',
-    keywords:
-      'format font size bold italic underline strike alignment inspector disclosure comparison preview',
-  },
-  {
-    title: 'Charts and range selection',
-    group: 'Compositions',
-    description: 'Standalone chart primitives and a composed range brush.',
-    keywords: 'distribution bar line area brush chart range',
-  },
-  {
-    title: 'Dialogs and floating surfaces',
-    group: 'Compositions',
-    description: 'Focused tasks, confirmations and contextual details.',
-    keywords: 'dialog confirmation popover tooltip overlay',
-  },
-  {
-    title: 'Menus and toolbars',
-    group: 'Compositions',
-    description: 'Commands with feedback scoped to their own example.',
-    keywords: 'menu submenu toolbar undo redo export history',
-  },
-  {
-    title: 'Status and feedback',
-    group: 'Compositions',
-    description: 'Badges, alerts, loading states and helpful empty content.',
-    keywords: 'badge alert spinner loading empty feedback',
-  },
-  {
-    title: 'Layout',
-    group: 'Compositions',
-    description: 'Panes and an interactive resize divider.',
-    keywords: 'split pane resize panel disclosure',
-  },
-  {
-    title: 'Pagination',
-    group: 'Compositions',
-    description: 'Numbered pages, selectors and compact navigation.',
-    keywords: 'page selector first last next previous',
-  },
-  {
-    title: 'Progress and rating',
-    group: 'Compositions',
-    description: 'Show completion or collect a rating.',
-    keywords: 'bar circular progress rating stars',
-  },
-];
+import pages from './pages.json';
+import { currentRoute, componentHref, frameworkHref, siteHref } from './routing';
+const families = pages.components;
 const groups = ['Controls', 'Pickers', 'Compositions', 'Advanced'];
 const Route = createContext('');
 export const sectionId = (title: string) =>
@@ -193,7 +60,7 @@ export function Section({
         </div>
         <a
           class="catalog-anchor"
-          href={`#${id}`}
+          href={componentHref(id)}
           aria-label={`Link to ${title}`}
         >
           ↗
@@ -226,7 +93,7 @@ export function Example({
       <div class="catalog-example-heading">
         <h3>
           <a
-            href={`${/^(colors|built-in-palettes)\.tsx$/.test(examples.find((item) => item.title === title)?.file ?? '') ? '?page=colors' : ''}#${sectionId(examples.find((item) => item.title === title)?.family ?? title)}`}
+            href={/^(colors|built-in-palettes)\.tsx$/.test(examples.find((item) => item.title === title)?.file ?? '') ? siteHref('colors/') : componentHref(sectionId(examples.find((item) => item.title === title)?.family ?? title))}
           >
             {title}
           </a>
@@ -256,10 +123,10 @@ export function CatalogShell({
   const [mobileOpen, setMobileOpen] = useState(false);
   const [motion, setMotion] = useState('system');
   const [query, setQuery] = useState('');
-  const [active, setActive] = useState(location.hash.slice(1));
+  const [active, setActive] = useState(currentRoute());
   useEffect(() => {
     const update = () => {
-      setActive(location.hash.slice(1));
+      setActive(currentRoute());
       setMobileOpen(false);
       if (location.hash === '#frameworks') requestAnimationFrame(() => document.getElementById('frameworks')?.scrollIntoView({ behavior: 'smooth' }));
       else window.scrollTo(0, 0);
@@ -268,7 +135,7 @@ export function CatalogShell({
     return () => window.removeEventListener('hashchange', update);
   }, []);
   const knownRoute =
-    page === 'frameworks' ||
+    (page === 'frameworks' && (!active || pages.frameworks.some(name => sectionId(name) === active))) ||
     !active ||
     active === 'components' ||
     families.some((family) => sectionId(family.title) === active) ||
@@ -291,9 +158,10 @@ export function CatalogShell({
   });
   const visible = families.filter((family) => inScope(family.title) && matches(family, query));
   useEffect(() => {
-    const title = home ? 'Revo UI — Components for Finance, Reporting & Project Management' : `${component?.title ?? (page === 'frameworks' ? 'Framework integration guides' : page === 'colors' ? 'Design system colors' : 'UI components')} · Revo UI`;
+    const title = home ? 'Revo UI — Components for Finance, Reporting & Project Management' : `${component?.title ?? (page === 'frameworks' ? (pages.frameworks.find(name => sectionId(name) === active) ? `${pages.frameworks.find(name => sectionId(name) === active)} integration` : 'Framework integration guides') : page === 'colors' ? 'Design system colors' : 'UI components')} · Revo UI`;
     document.title = title;
-    const description = home ? 'Build financial dashboards, reporting apps, and project workspaces with Revo UI. Explore UI components for React, Vue, Angular, Svelte, Preact, and TypeScript.' : component?.description ?? 'Explore Revo UI component examples and framework integration guides for data-rich applications.';
+    const frameworkName = page === 'frameworks' ? pages.frameworks.find(name => sectionId(name) === active) : undefined;
+    const description = frameworkName ? `Use Revo UI with ${frameworkName}: installation, component examples, state, callbacks, and styling for financial and reporting applications.` : home ? 'Build financial dashboards, reporting apps, and project workspaces with Revo UI. Explore UI components for React, Vue, Angular, Svelte, Preact, and TypeScript.' : component?.description ?? (page === 'colors' ? 'Explore Revo UI semantic colors, palettes, and theme tokens for consistent application interfaces.' : page === 'frameworks' ? 'Integrate Revo UI with React, Vue, Angular, Svelte, Preact, or vanilla TypeScript. Follow installation and usage guides for your stack.' : 'Browse Revo UI controls, pickers, layouts, and compositions with interactive variants and formatted usage examples.');
     document.querySelector('meta[name="description"]')?.setAttribute('content', description);
     document.querySelector('meta[property="og:title"]')?.setAttribute('content', title);
     document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
@@ -301,7 +169,8 @@ export function CatalogShell({
     document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', description);
     let canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
     if (!canonical) { canonical = document.createElement('link'); canonical.rel = 'canonical'; document.head.append(canonical); }
-    canonical.href = 'https://ui.rv-grid.com/';
+    canonical.href = `https://ui.rv-grid.com${location.pathname}`;
+    document.querySelector('meta[property="og:url"]')?.setAttribute('content', canonical.href);
     document.querySelector('meta[name="robots"]')?.setAttribute('content', (home || knownRoute) ? 'index, follow, max-image-preview:large' : 'noindex, follow');
   }, [active, home, page, component?.title]);
   return (
@@ -318,7 +187,7 @@ export function CatalogShell({
       </a>
       <header class="catalog-topbar">
         <div class="catalog-topbar-inner">
-          <a href="./" class="catalog-title">
+          <a href={siteHref()} class="catalog-title">
             <img
               class="catalog-logo"
               src={revogridLogo}
@@ -329,23 +198,23 @@ export function CatalogShell({
             Revo <span>UI</span>
           </a>
           <nav class="catalog-pages" aria-label="Library pages">
-            <a href="./" aria-current={home ? 'page' : undefined}>
+            <a href={siteHref()} aria-current={home ? 'page' : undefined}>
               Overview
             </a>
             <a
-              href={page !== 'components' ? './#buttons' : '#buttons'}
+              href={componentHref('buttons')}
               aria-current={!home && page === 'components' ? 'page' : undefined}
             >
               Components
             </a>
             <a
-              href="?page=colors"
+              href={siteHref('colors/')}
               aria-current={page === 'colors' ? 'page' : undefined}
             >
               Colors
             </a>
             <a
-              href="?page=frameworks"
+              href={siteHref('frameworks/')}
               aria-current={page === 'frameworks' ? 'page' : undefined}
             >
               Frameworks
@@ -443,7 +312,7 @@ export function CatalogShell({
               onInput={(event) => setQuery(event.currentTarget.value)}
             />
             <nav aria-label="Component sections">
-              <a class="catalog-overview-link" href="./">
+              <a class="catalog-overview-link" href={siteHref()}>
                 Overview
               </a>
               {groups.map((group) => {
@@ -457,7 +326,7 @@ export function CatalogShell({
                       {entries.map((family) => (
                         <a
                           key={family.title}
-                          href={`#${sectionId(family.title)}`}
+                          href={componentHref(sectionId(family.title))}
                           aria-current={
                             active === sectionId(family.title) ||
                             component?.title === family.title
@@ -492,23 +361,16 @@ export function CatalogShell({
               <div class="catalog-nav-group">
                 <p>Frameworks</p>
                 <a
-                  href="?page=frameworks"
+                  href={siteHref('frameworks/')}
                   aria-current={!active ? 'page' : undefined}
                 >
                   Getting started
                 </a>
-                {[
-                  'React',
-                  'Vue',
-                  'Angular',
-                  'Svelte',
-                  'Preact',
-                  'Vanilla TypeScript',
-                ].map((name) => {
+                {pages.frameworks.map((name) => {
                   const id = name.toLowerCase().replaceAll(' ', '-');
                   return (
                     <a
-                      href={`?page=frameworks#${id}`}
+                      href={frameworkHref(id)}
                       aria-current={active === id ? 'page' : undefined}
                     >
                       {name}
@@ -526,9 +388,10 @@ export function CatalogShell({
             <Route.Provider
               value={component ? sectionId(component.title) : active}
             >
+              {active === 'components' && <div class="component-intro"><h1>UI components</h1><p>Explore components for finance, reporting, and project management.</p></div>}
               {component && (
                 <div class="component-intro">
-                  <a href={page !== 'components' ? './#buttons' : '#buttons'}>
+                  <a href={componentHref('buttons')}>
                     Components
                   </a>
                   <span> / </span>
@@ -540,13 +403,17 @@ export function CatalogShell({
                   </p>
                 </div>
               )}
-              {knownRoute ? (
+              {active === 'components' ? (
+                <nav class="component-directory" aria-label="All components">
+                  {families.map(family => <a href={componentHref(sectionId(family.title))}><strong>{family.title}</strong><span>{family.description}</span></a>)}
+                </nav>
+              ) : knownRoute ? (
                 scopedChildren
               ) : (
                 <div class="component-intro">
                   <h1>Component not found</h1>
                   <p>Choose a component from the navigation.</p>
-                  <a href={page !== 'components' ? './#buttons' : '#buttons'}>
+                  <a href={componentHref('buttons')}>
                     Browse components
                   </a>
                 </div>
@@ -564,7 +431,7 @@ export function CatalogShell({
               <a href="https://rv-grid.com/jsscheduler/">Scheduler</a> and{' '}
               <a href="https://rv-grid.com/kanban/">Kanban</a>.
             </p>
-            <a href={page !== 'components' ? './#buttons' : '#buttons'}>
+            <a href={componentHref('buttons')}>
               Explore components
             </a>
           </footer>

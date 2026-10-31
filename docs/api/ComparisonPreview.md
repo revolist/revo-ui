@@ -2,7 +2,7 @@
 
 Typography choices, icon choices, inspector sections, preview comparisons and contextual filter badges.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/#formatting-controls) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/formatting-controls/) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { ComparisonPreview } from '@revolist/ui/preact'`
 
@@ -10,7 +10,7 @@ React: `import { ComparisonPreview } from '@revolist/ui/react'`
 
 Vue: `import { ComparisonPreview } from '@revolist/ui/vue'`
 
-Angular/Svelte: pass `component="ComparisonPreview"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/?page=frameworks) for state, callbacks and slots.
+Angular/Svelte: pass `component="ComparisonPreview"` to the framework's `UiComponent` host. See the [framework guides](https://ui.rv-grid.com/frameworks/) for state, callbacks and slots.
 
 ## Props
 
