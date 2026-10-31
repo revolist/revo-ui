@@ -1,0 +1,33 @@
+{
+  "name": "@revolist/ui-gallery",
+  "version": "3.0.14",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "tsc --noEmit",
+    "test:browser": "playwright test",
+    "test:pdf-viewer": "playwright test --config playwright.pdf.config.ts",
+    "test:visual-audit": "playwright test --config playwright.audit.config.ts",
+    "test:pdf-frameworks": "playwright test --config ../../tests/shared-ui/playwright.framework-adapters.config.ts pdf-frameworks.spec.ts"
+  },
+  "dependencies": {
+    "@revolist/dates": "workspace:*",
+    "@revolist/ui": "workspace:*",
+    "pdfjs-dist": "^6.4.299",
+    "preact": "^10.29.1"
+  },
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^7.3.1",
+    "@playwright/test": "^1.58.2",
+    "@preact/preset-vite": "^2.10.6",
+    "@types/node": "^22.10.2",
+    "axe-core": "^4.14.0",
+    "prettier": "3.8.3",
+    "sass-embedded": "^1.83.4",
+    "typescript": "~6.0.3",
+    "vite": "8.2.4"
+  }
+}

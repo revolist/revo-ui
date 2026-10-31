@@ -1,0 +1,8 @@
+node_modules/
+dist/
+test-results/
+playwright-report/
+.artifacts/
+*_feature.md
+design-qa.md
+.DS_Store
