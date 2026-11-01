@@ -9,6 +9,7 @@ import { SharedEditorExamples } from './shared-editors';
 import { ColorsExamples } from './colors';
 import { AiExamples } from './ai';
 import { AiChatExample } from './ai-chat';
+import { AiResultsExample } from './ai-results';
 import { ActivityMessage } from '@revolist/ui/activity-message';
 import { SelectionListExamples } from './selection-list';
 import { DialogCompositionExamples } from './dialog-composition';
@@ -807,7 +808,7 @@ function App() {
         </Example>
       </Section>
       <Section title="PDF viewer" columns={1}><PdfViewerExamples /></Section>
-      <Section title="AI assistant"><AiExamples /><AiChatExample /></Section>
+      <Section title="AI assistant"><AiExamples /><AiChatExample /><AiResultsExample /></Section>
     </CatalogShell>
   );
 }
