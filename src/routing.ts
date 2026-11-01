@@ -23,7 +23,8 @@ export function redirectLegacyRoute() {
     const query = new URLSearchParams(location.search);
     const hash = location.hash.slice(1);
     let target: string | undefined;
-    if (query.get('page') === 'colors') target = siteHref('colors/');
+    if ((pathParts()[0] === 'components' && pathParts()[1] === 'editors') || hash === 'editors') target = componentHref('html-editor');
+    else if (query.get('page') === 'colors') target = siteHref('colors/');
     else if (query.get('page') === 'frameworks') target = pages.frameworks.some(name => slug(name) === hash) ? frameworkHref(hash) : siteHref('frameworks/');
     else if (hash === 'components') target = siteHref('components/');
     else if (pages.components.some(page => slug(page.title) === hash)) target = componentHref(hash);
