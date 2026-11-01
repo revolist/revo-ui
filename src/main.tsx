@@ -6,6 +6,7 @@ import { TimePickerExamples } from './time-picker';
 import { PdfViewerExamples } from './pdf-viewer';
 import { DateTimeField } from '@revolist/ui/date-time';
 import { SharedEditorExamples } from './shared-editors';
+import { RichTextEditorExample } from './rich-text';
 import { ColorsExamples } from './colors';
 import { AiExamples } from './ai';
 import { AiChatExample } from './ai-chat';
@@ -807,6 +808,7 @@ function App() {
           />
         </Example>
       </Section>
+      <Section title="HTML Editor" columns={1}><RichTextEditorExample /></Section>
       <Section title="PDF viewer" columns={1}><PdfViewerExamples /></Section>
       <Section title="AI assistant"><AiExamples /><AiChatExample /><AiResultsExample /></Section>
     </CatalogShell>

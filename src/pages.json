@@ -1,6 +1,12 @@
 {
   "components": [
     {
+      "title": "HTML Editor",
+      "group": "Advanced",
+      "description": "Edit rich text visually or as HTML, with formatting commands and explicit save or cancel actions.",
+      "keywords": "editor html rich text wysiwyg source formatting bold italic headings lists links"
+    },
+    {
       "title": "AI assistant",
       "group": "Advanced",
       "description": "Prompt inputs, suggestions, action status and result summaries.",
