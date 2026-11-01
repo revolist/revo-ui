@@ -2,7 +2,7 @@ import { defineConfig } from '@playwright/test';
 export default defineConfig({
   testDir: '../../tests/shared-ui',
   // Cross-package fixtures have their own source server and explicit configuration.
-  testIgnore: ['product-feedback.spec.ts', 'framework-adapters.spec.ts', 'pdf-frameworks.spec.ts', 'pdf-viewer.spec.ts', 'gallery-capture.spec.ts'],
+  testIgnore: ['product-feedback.spec.ts', 'framework-adapters.spec.ts', 'pdf-frameworks.spec.ts', 'pdf-viewer.spec.ts', 'gallery-capture.spec.ts', 'tooltip.spec.ts', 'fields-styles.spec.ts'],
   outputDir: './test-results',
   fullyParallel: true,
   reporter: 'list',
