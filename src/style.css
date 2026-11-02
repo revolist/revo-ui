@@ -2291,3 +2291,13 @@ body {
   .catalog-topbar-inner > .gallery-settings { grid-column:2; grid-row:1; }
   .catalog-topbar-inner > .catalog-pages { grid-column:1/-1; grid-row:2; margin:0; justify-self:start; gap:22px; width:auto; }
 }
+@media(max-width:1200px) {
+  .gallery-settings-content { width:230px; padding:12px; }
+  .catalog-topbar .gallery-settings .rv-toolbar { display:grid; grid-template-columns:36px minmax(0,1fr); align-items:center; gap:10px 8px; }
+  .gallery-settings .rv-toolbar > .catalog-github-link { grid-column:1; }
+  .gallery-settings .rv-toolbar > .rv-btn-icon { justify-self:start; }
+  .catalog-topbar .gallery-settings .rv-toolbar > .rv-control { grid-column:1/-1; }
+}
+@media(max-width:1200px) {
+  .catalog-topbar .gallery-settings .rv-toolbar > .rv-switch { grid-column:1/-1; min-width:0; }
+}
