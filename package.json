@@ -8,6 +8,7 @@
     "build": "node scripts/build.mjs",
     "preview": "vite preview",
     "lint": "tsc --noEmit",
+    "test:api": "node --test scripts/component-api.test.mjs",
     "test:browser": "playwright test",
     "test:pdf-viewer": "playwright test --config playwright.pdf.config.ts",
     "test:visual-audit": "playwright test --config playwright.audit.config.ts",

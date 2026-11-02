@@ -1,4 +1,5 @@
 import { GalleryHome } from './home';
+import { ApiReference } from './component-api';
 import { ExampleCode, examples, slug } from './example-source';
 import revogridLogo from './assets/revogrid.svg';
 import {
@@ -72,6 +73,7 @@ export function Section({
       >
         {children}
       </div>
+      <ApiReference family={title} />
     </section>
   );
 }
@@ -196,6 +198,7 @@ export function CatalogShell({
               height={24}
             />
             Revo <span>UI</span>
+            <small class="catalog-version" aria-label="UI library version">v{__UI_VERSION__}</small>
           </a>
           <nav class="catalog-pages" aria-label="Library pages">
             <a href={siteHref()} aria-current={home ? 'page' : undefined}>
