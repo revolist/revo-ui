@@ -1,10 +1,11 @@
+import { apiRoutes } from './api-routes.mjs';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 
 const root = new URL('../', import.meta.url);
 const pages = JSON.parse(await readFile(new URL('src/pages.json', root), 'utf8'));
 const slug = title => title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-const paths = ['', 'components/', ...pages.components.map(page => `components/${slug(page.title)}/`), 'colors/', 'frameworks/', ...pages.frameworks.map(name => `frameworks/${slug(name)}/`)];
+const paths = [...apiRoutes, '', 'components/', ...pages.components.map(page => `components/${slug(page.title)}/`), 'colors/', 'frameworks/', ...pages.frameworks.map(name => `frameworks/${slug(name)}/`)];
 const sitemap = await readFile(new URL('dist/sitemap.xml', root), 'utf8');
 assert.equal([...sitemap.matchAll(/<loc>/g)].length, paths.length);
 const titles = new Set();

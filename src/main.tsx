@@ -1,3 +1,4 @@
+import { ApiPage } from './api-page';
 import { componentHref, pageKind, redirectLegacyRoute } from './routing';
 import { MemberDropdown } from './home-planning';
 import { FrameworksPage } from './frameworks';
@@ -166,6 +167,7 @@ function App() {
   const [buttonAction, setButtonAction] = useState('No action yet');
   const [groupAction, setGroupAction] = useState('No action yet');
   const [addedCount, setAddedCount] = useState(0);
+  if (pageKind() === 'api') return <CatalogShell page="api" theme={theme} rtl={rtl} onThemeChange={setTheme} onRtlChange={setRtl}><ApiPage /></CatalogShell>;
   if (pageKind() === 'frameworks') {
     return <CatalogShell page="frameworks" theme={theme} rtl={rtl} onThemeChange={setTheme} onRtlChange={setRtl}><FrameworksPage /></CatalogShell>;
   }
