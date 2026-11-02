@@ -69,8 +69,14 @@
     {
       "title": "Calendar and dates",
       "group": "Pickers",
-      "description": "Independent calendars, date inputs, ranges and time slots.",
-      "keywords": "date time datetime calendar picker availability weekly grid legend"
+      "description": "Independent calendars, date inputs, date ranges and time pickers.",
+      "keywords": "date time datetime calendar picker range duration legend"
+    },
+    {
+      "title": "Weekly time grid",
+      "group": "Compositions",
+      "description": "Paint weekly availability with working hours, weekends and keyboard navigation.",
+      "keywords": "time grid weekly availability schedule working hours weekend paint"
     },
     {
       "title": "Color",

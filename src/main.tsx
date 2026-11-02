@@ -594,6 +594,8 @@ function App() {
             picker={{ timeFormat: '24h', text: { chooseDate: 'Choose field date and time' } }} />
         </Example>
         <TimePickerExamples />
+      </Section>
+      <Section title="Weekly time grid">
         <TimeGridExample />
       </Section>
       <Section title="Color">
