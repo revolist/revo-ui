@@ -1,6 +1,9 @@
 import { GalleryHome } from './home';
 import { ApiReference } from './component-api';
 import { ExampleCode, examples, slug } from './example-source';
+import { SvgIcon } from '@revolist/ui/icons/icon';
+import codeIcon from '@fortawesome/fontawesome-free/svgs/solid/code.svg?raw';
+import arrowDownIcon from '@fortawesome/fontawesome-free/svgs/solid/arrow-down.svg?raw';
 import revogridLogo from './assets/revogrid.svg';
 import {
   createContext,
@@ -130,6 +133,7 @@ export function CatalogShell({
     const update = () => {
       setActive(currentRoute());
       setMobileOpen(false);
+      if (location.hash.endsWith('-api')) return;
       if (location.hash === '#frameworks') requestAnimationFrame(() => document.getElementById('frameworks')?.scrollIntoView({ behavior: 'smooth' }));
       else window.scrollTo(0, 0);
     };
@@ -404,6 +408,13 @@ export function CatalogShell({
                     Explore every variant and expand each example’s formatted
                     usage code.
                   </p>
+                  <div class="component-intro-actions">
+                    <Button href={`#${sectionId(component.title)}-api`} size="compact" className="component-api-link">
+                      <SvgIcon svg={codeIcon} size={14} />
+                      API reference
+                      <SvgIcon svg={arrowDownIcon} size={11} />
+                    </Button>
+                  </div>
                 </div>
               )}
               {/* Explicit section queries retain focused specimen links. */}

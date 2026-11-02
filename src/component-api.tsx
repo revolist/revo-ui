@@ -1,6 +1,8 @@
 import { h } from 'preact';
-import { useState } from 'preact/hooks';
-import { Button } from '@revolist/ui/preact';
+import { useEffect, useRef, useState } from 'preact/hooks';
+import { Button, Disclosure } from '@revolist/ui/preact';
+import { SvgIcon } from '@revolist/ui/icons/icon';
+import chevronRight from '@fortawesome/fontawesome-free/svgs/solid/chevron-right.svg?raw';
 
 type Member = {
   name: string;
@@ -18,7 +20,44 @@ export type ComponentApi = {
   methods: Member[];
 };
 
-function MemberTable({ title, members }: { title: string; members: Member[] }) {
+function Chevron() {
+  return <SvgIcon svg={chevronRight} className="component-api-chevron" />;
+}
+
+function TypeSignature({ value }: { value: string }) {
+  return (
+    <code class="component-api-type">
+      {value
+        .split(
+          /("[^"]*"|'[^']*'|\b(?:boolean|string|number|undefined|null|void)\b)/g,
+        )
+        .map((token, index) => (
+          <span
+            key={index}
+            class={
+              /^["']/.test(token)
+                ? 'component-api-literal'
+                : /^(boolean|string|number|undefined|null|void)$/.test(token)
+                  ? 'component-api-keyword'
+                  : undefined
+            }
+          >
+            {token}
+          </span>
+        ))}
+    </code>
+  );
+}
+
+function MemberTable({
+  title,
+  members,
+  methods = false,
+}: {
+  title: string;
+  members: Member[];
+  methods?: boolean;
+}) {
   return (
     <div
       class="component-api-table"
@@ -27,12 +66,16 @@ function MemberTable({ title, members }: { title: string; members: Member[] }) {
       aria-label={title}
     >
       <table>
-        <caption>{title}</caption>
+        <caption class="rv-visually-hidden">{title}</caption>
+        <colgroup>
+          <col class="component-api-name-column" />
+          <col class="component-api-type-column" />
+          <col />
+        </colgroup>
         <thead>
           <tr>
             <th scope="col">Name</th>
-            <th scope="col">Type / signature</th>
-            <th scope="col">Required</th>
+            <th scope="col">{methods ? 'Signature' : 'Type'}</th>
             <th scope="col">Description</th>
           </tr>
         </thead>
@@ -40,14 +83,28 @@ function MemberTable({ title, members }: { title: string; members: Member[] }) {
           {members.map((member) => (
             <tr key={member.name}>
               <th scope="row">
-                <code>{member.name}</code>
+                <code class="component-api-name">{member.name}</code>
+                {!methods && (
+                  <span
+                    class={`component-api-necessity${member.required ? ' is-required' : ''}`}
+                  >
+                    {member.required ? 'Required' : 'Optional'}
+                  </span>
+                )}
               </th>
               <td>
-                <code>{member.type}</code>
+                <TypeSignature value={member.type} />
               </td>
-              <td>{member.required ? 'Yes' : 'No'}</td>
-              <td>
-                {member.description}
+              <td class="component-api-description">
+                {member.description ||
+                  (!member.via && (
+                    <span
+                      class="component-api-unspecified"
+                      aria-label="No description"
+                    >
+                      —
+                    </span>
+                  ))}
                 {member.via && (
                   <p>
                     Available through <code>{member.via}</code>.
@@ -62,6 +119,15 @@ function MemberTable({ title, members }: { title: string; members: Member[] }) {
   );
 }
 
+function MemberHeading({ title, count }: { title: string; count: number }) {
+  return (
+    <h4 class="component-api-member-heading">
+      {title}
+      <span>{count}</span>
+    </h4>
+  );
+}
+
 function ComponentReference({ component }: { component: ComponentApi }) {
   const [open, setOpen] = useState(false);
   const [nativeOpen, setNativeOpen] = useState(false);
@@ -70,58 +136,70 @@ function ComponentReference({ component }: { component: ComponentApi }) {
   const inheritedProps = component.props.filter((member) => member.inherited);
   const inheritedEvents = component.events.filter((member) => member.inherited);
   return (
-    <details
-      class="component-api-component"
-      onToggle={(event) => setOpen(event.currentTarget.open)}
+    <Disclosure
+      className="component-api-component"
+      onToggle={(event) => {
+        setOpen(event.currentTarget.open);
+        if (!event.currentTarget.open) setNativeOpen(false);
+      }}
+      summary={
+        <>
+          <Chevron />
+          <code>{component.name}</code>
+          <span class="component-api-counts">
+            <span>{props.length} props</span>
+            <span>{events.length} callbacks</span>
+            <span>{component.methods.length} methods</span>
+          </span>
+        </>
+      }
     >
-      <summary>
-        <code>{component.name}</code>
-        <span>
-          {props.length} props · {events.length} callbacks ·{' '}
-          {component.methods.length} methods
-        </span>
-      </summary>
       {open && (
         <div class="component-api-content">
-          <h4>Props</h4>
+          <MemberHeading title="Props" count={props.length} />
           {props.length ? (
             <MemberTable title={`${component.name} props`} members={props} />
           ) : (
-            <p>No component-specific props.</p>
+            <p class="component-api-empty">No component-specific props.</p>
           )}
-          <h4>Events and callbacks</h4>
-          <p>
-            Pass callbacks as props. The signatures below describe the arguments
-            supplied by this component.
-          </p>
+          <MemberHeading title="Events and callbacks" count={events.length} />
           {events.length ? (
             <MemberTable
               title={`${component.name} events and callbacks`}
               members={events}
             />
           ) : (
-            <p>No component-specific events or callbacks.</p>
+            <p class="component-api-empty">
+              No component-specific events or callbacks.
+            </p>
           )}
-          <h4>Methods</h4>
+          <MemberHeading title="Methods" count={component.methods.length} />
           {component.methods.length ? (
             <MemberTable
               title={`${component.name} methods`}
               members={component.methods}
+              methods
             />
           ) : (
-            <p>
+            <p class="component-api-empty">
               No component-specific imperative methods. Use props and callbacks
               to control this component.
             </p>
           )}
           {!!(inheritedProps.length + inheritedEvents.length) && (
-            <details
+            <Disclosure
+              className="component-api-inherited"
               onToggle={(event) => setNativeOpen(event.currentTarget.open)}
+              summary={
+                <>
+                  <Chevron />
+                  <span>Inherited HTML props and events</span>
+                  <span class="component-api-inherited-count">
+                    {inheritedProps.length + inheritedEvents.length}
+                  </span>
+                </>
+              }
             >
-              <summary>
-                Inherited HTML props and events (
-                {inheritedProps.length + inheritedEvents.length})
-              </summary>
               {nativeOpen && !!inheritedProps.length && (
                 <MemberTable
                   title={`${component.name} inherited props`}
@@ -134,58 +212,84 @@ function ComponentReference({ component }: { component: ComponentApi }) {
                   members={inheritedEvents}
                 />
               )}
-            </details>
+            </Disclosure>
           )}
         </div>
       )}
-    </details>
+    </Disclosure>
   );
 }
 
 export function ApiReference({ family }: { family: string }) {
+  const section = useRef<HTMLElement>(null);
+  const id = `${family.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-api`;
   const [components, setComponents] = useState<ComponentApi[]>();
   const [error, setError] = useState(false);
-  const load = async () => {
+  const [attempt, setAttempt] = useState(0);
+  useEffect(() => {
+    let active = true;
+    setComponents(undefined);
     setError(false);
-    try {
-      const { default: api } = await import('virtual:component-api');
-      setComponents(
-        api.filter((component) => component.families.includes(family)),
-      );
-    } catch {
-      setError(true);
-    }
-  };
+    import('virtual:component-api')
+      .then(({ default: api }) => {
+        if (active)
+          setComponents(
+            api
+              .filter((component) => component.families.includes(family))
+              .sort((a, b) => a.name.localeCompare(b.name)),
+          );
+      })
+      .catch(() => {
+        if (active) setError(true);
+      });
+    return () => {
+      active = false;
+    };
+  }, [family, attempt]);
+  useEffect(() => {
+    if (!components || location.hash !== `#${id}`) return;
+    // Restore direct fragment navigation after the client has mounted the API data.
+    const frame = requestAnimationFrame(() => {
+      section.current?.scrollIntoView({ block: 'start' });
+      section.current?.focus({ preventScroll: true });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [components, id]);
   return (
-    <details
+    <section
       class="component-api"
-      onToggle={(event) => {
-        if (event.currentTarget.open && !components) void load();
-      }}
+      id={id}
+      ref={section}
+      tabIndex={-1}
+      aria-label={`${family} API reference`}
     >
-      <summary>
-        API reference <span>Props, events and methods</span>
-      </summary>
-      <div class="component-api-content">
-        <p>
-          Generated from Revo UI v{__UI_VERSION__} TypeScript contracts. Includes
-          inherited attributes and public controller methods exposed through
-          props or callbacks. Types use the Preact contract; see Frameworks for
-          adapter usage.
+      <header class="component-api-heading">
+        <div>
+          <h3>API reference</h3>
+          <p>Props, events and methods for every component.</p>
+        </div>
+        <span class="component-api-version">v{__UI_VERSION__}</span>
+      </header>
+      <p class="component-api-intro">
+        Based on the Preact TypeScript contracts. Includes inherited HTML
+        attributes and public controller methods.
+      </p>
+      {error ? (
+        <p role="alert">
+          Could not load the API reference.{' '}
+          <Button onClick={() => setAttempt((value) => value + 1)}>
+            Retry
+          </Button>
         </p>
-        {error ? (
-          <p role="alert">
-            Could not load the API reference.{' '}
-            <Button onClick={() => void load()}>Retry</Button>
-          </p>
-        ) : !components ? (
-          <p role="status">Loading API reference…</p>
-        ) : (
-          components.map((component) => (
+      ) : !components ? (
+        <p role="status">Loading API reference…</p>
+      ) : (
+        <div class="component-api-list">
+          {components.map((component) => (
             <ComponentReference key={component.name} component={component} />
-          ))
-        )}
-      </div>
-    </details>
+          ))}
+        </div>
+      )}
+    </section>
   );
 }
