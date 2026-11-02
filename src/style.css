@@ -1120,8 +1120,16 @@ body {
   gap: 8px;
 }
 .example-code-body {
+  position: relative;
   max-height: 94px;
   overflow: hidden;
+}
+.example-code:not(.is-expanded) .example-code-body::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--rv-ui-surface-sunken) 0%, var(--rv-ui-surface-sunken) 15%, transparent 100%);
+  pointer-events: none;
 }
 .example-code pre {
   margin: 0;
@@ -1144,8 +1152,10 @@ body {
 .example-code:not(.is-expanded) .example-code-toggle {
   margin-top: -48px;
   position: relative;
+  z-index: 1;
 }
 .example-code.is-expanded .example-code-body {
+  position: relative;
   max-height: 650px;
   overflow: auto;
 }
