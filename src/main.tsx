@@ -7,7 +7,7 @@ import { Select } from '@revolist/ui/select';
 import { TimePickerExamples } from './time-picker';
 import { PdfViewerExamples } from './pdf-viewer';
 import { DateTimeField } from '@revolist/ui/date-time';
-import { SharedEditorExamples } from './shared-editors';
+import { SharedEditorExamples, DurationEffortExample, RemoteLookupExample } from './shared-editors';
 import { RichTextEditorExample } from './rich-text';
 import { ColorsExamples } from './colors';
 import { AiExamples } from './ai';
@@ -594,6 +594,12 @@ function App() {
             picker={{ timeFormat: '24h', text: { chooseDate: 'Choose field date and time' } }} />
         </Example>
         <TimePickerExamples />
+      </Section>
+      <Section title="Duration and effort">
+        <DurationEffortExample />
+      </Section>
+      <Section title="Remote lookup field">
+        <RemoteLookupExample />
       </Section>
       <Section title="Weekly time grid">
         <TimeGridExample />

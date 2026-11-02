@@ -73,6 +73,18 @@
       "keywords": "date time datetime calendar picker range duration legend"
     },
     {
+      "title": "Duration and effort",
+      "group": "Controls",
+      "description": "Edit duration and effort with units, elapsed time and optional sliders.",
+      "keywords": "duration effort units elapsed day hour minute slider"
+    },
+    {
+      "title": "Remote lookup field",
+      "group": "Pickers",
+      "description": "Search remote records and apply linked-record selections.",
+      "keywords": "lookup remote search linked records async data source"
+    },
+    {
       "title": "Weekly time grid",
       "group": "Compositions",
       "description": "Paint weekly availability with working hours, weekends and keyboard navigation.",

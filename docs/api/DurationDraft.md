@@ -2,7 +2,7 @@
 
 Calendar views and date/time fields, ranges, duration drafts, weekly availability and descriptive legends.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/components/calendar-and-dates/) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/duration-and-effort/) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { DurationDraft } from '@revolist/ui/duration'`
 
