@@ -172,6 +172,12 @@ Semantic badges, counters, alerts, progress indicators, loading surfaces, empty 
 
 [Badge](api/Badge.md) ([examples](https://ui.rv-grid.com/components/status-and-feedback/)) | [CountBadge](api/CountBadge.md) ([examples](https://ui.rv-grid.com/components/status-and-feedback/)) | [Alert](api/Alert.md) ([examples](https://ui.rv-grid.com/components/status-and-feedback/)) | [Spinner](api/Spinner.md) ([examples](https://ui.rv-grid.com/components/status-and-feedback/)) | [LoadingOverlay](api/LoadingOverlay.md) ([examples](https://ui.rv-grid.com/components/status-and-feedback/)) | [EmptyState](api/EmptyState.md) ([examples](https://ui.rv-grid.com/components/status-and-feedback/)) | [StatusFeedbackPanel](api/StatusFeedbackPanel.md) ([examples](https://ui.rv-grid.com/components/status-and-feedback/)) | [StatusBadge](api/StatusBadge.md) ([examples](https://ui.rv-grid.com/components/status-and-feedback/))
 
+### Accordion
+
+Expandable sections with keyboard controls and persistent draft content.
+
+[CollapsibleSection](api/CollapsibleSection.md) ([examples](https://ui.rv-grid.com/components/accordion/))
+
 ### Layout
 
 Compose panes, split layouts, panels and disclosures with an interactive resize divider.

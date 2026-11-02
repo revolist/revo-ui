@@ -121,6 +121,12 @@
       "keywords": "badge alert spinner loading empty feedback"
     },
     {
+      "title": "Accordion",
+      "group": "Compositions",
+      "description": "Expandable sections with keyboard controls and persistent draft content.",
+      "keywords": "accordion collapsible section disclosure expand collapse configurator"
+    },
+    {
       "title": "Layout",
       "group": "Compositions",
       "description": "Panes and an interactive resize divider.",

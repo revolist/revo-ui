@@ -15,6 +15,7 @@
 ["Tooltip","tooltip","Contextual information shown on pointer hover or keyboard focus.","Tooltip ControlTooltip"],
 ["Menus and toolbars","menus-and-toolbars","Command menus, nested commands, separators and grouped toolbar actions.","Menu MenuItem MenuSeparator Submenu Toolbar IconToolbar ToolbarGroup ToolbarSeparator"],
 ["Status and feedback","status-and-feedback","Semantic badges, counters, alerts, progress indicators, loading surfaces, empty states and feedback panels.","Badge CountBadge Alert Spinner LoadingOverlay EmptyState StatusFeedbackPanel StatusBadge"],
+["Accordion","accordion","Expandable sections with keyboard controls and persistent draft content.","CollapsibleSection"],
 ["Layout","layout","Compose panes, split layouts, panels and disclosures with an interactive resize divider.","Panel Pane SplitLayout EditorPane EditorSplitLayout ResizeHandle Disclosure DisclosureSummary"],
 ["Pagination","pagination","Page selection and compact or numbered navigation.","Pagination"],
 ["Progress and rating","progress-and-rating","Linear/circular completion and star-based rating controls.","ProgressBar CircularProgress Rating RatingStar RatingChoice"],

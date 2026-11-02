@@ -2301,3 +2301,5 @@ body {
 @media(max-width:1200px) {
   .catalog-topbar .gallery-settings .rv-toolbar > .rv-switch { grid-column:1/-1; min-width:0; }
 }
+.catalog-topbar .gallery-settings { z-index:1; }
+.catalog-accordion { display:grid; gap:10px; width:100%; max-width:640px; }

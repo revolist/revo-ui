@@ -1,3 +1,4 @@
+import { CollapsibleSection } from '@revolist/ui/preact';
 import { ApiPage } from './api-page';
 import { componentHref, pageKind, redirectLegacyRoute } from './routing';
 import { MemberDropdown } from './home-planning';
@@ -678,6 +679,21 @@ function App() {
         >
           Apply the selected changes?
         </ConfirmDialog>
+      </Section>
+      <Section title="Accordion">
+        <Example title="Accordion sections" wide>
+          <div class="catalog-accordion">
+            <CollapsibleSection title="Project details" description="Each section expands independently." defaultOpen>
+              <TextInput aria-label="Accordion project name" placeholder="Project name" />
+            </CollapsibleSection>
+            <CollapsibleSection title="Display settings" description="Collapsed content keeps its draft values.">
+              <TextInput aria-label="Accordion display label" placeholder="Display label" />
+            </CollapsibleSection>
+            <CollapsibleSection title="How does this work?">
+              <p>Use Enter or Space to toggle a section. Multiple sections can stay open.</p>
+            </CollapsibleSection>
+          </div>
+        </Example>
       </Section>
       <Section title="Tooltip">
         <Example title="Tooltip">
