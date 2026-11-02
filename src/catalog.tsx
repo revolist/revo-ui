@@ -13,7 +13,7 @@ import {
   toChildArray,
   type ComponentChildren,
 } from 'preact';
-import { useContext, useEffect, useState } from 'preact/hooks';
+import { useContext, useEffect, useRef, useState } from 'preact/hooks';
 import { Button, SearchInput, Switch, Toolbar } from '@revolist/ui/preact';
 
 import pages from './pages.json';
@@ -128,6 +128,7 @@ export function CatalogShell({
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [motion, setMotion] = useState('system');
+  const content = useRef<HTMLDivElement>(null);
   const [query, setQuery] = useState('');
   const [active, setActive] = useState(currentRoute());
   useEffect(() => {
@@ -394,7 +395,7 @@ export function CatalogShell({
           {page === "api" ? children : home ? (
             <GalleryHome />
           ) : (
-            <div class={component ? "component-document-layout" : undefined}><div class="component-document-main"><Route.Provider
+            <div class={component ? "component-document-layout" : undefined}><div class="component-document-main" ref={content}><Route.Provider
               value={component ? sectionId(component.title) : active}
             >
               {active === 'components' && <div class="component-intro"><h1>UI components</h1><p>Explore components for finance, reporting, and project management.</p></div>}
@@ -435,7 +436,7 @@ export function CatalogShell({
                   </a>
                 </div>
               )}
-            </Route.Provider></div>{component && <ComponentContents family={component.title} />}</div>
+            </Route.Provider></div>{component && <ComponentContents family={component.title} content={content} />}</div>
           )}
           <footer class="catalog-footer">
             <span>Revo UI</span>

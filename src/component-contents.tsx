@@ -1,14 +1,29 @@
-import { h } from 'preact';
-import { examples, slug } from './example-source';
-import { PageContents } from './page-contents';
+import { h, type RefObject } from 'preact';
+import { useLayoutEffect, useState } from 'preact/hooks';
+import { slug } from './example-source';
+import { PageContents, type ContentsItem } from './page-contents';
 
-export function ComponentContents({ family }: { family: string }) {
-  const items = examples
-    .filter((example) => example.family === family)
-    .map((example) => ({
-      id: `example-${slug(example.title)}`,
-      title: example.title,
+export function ComponentContents({
+  family,
+  content,
+}: {
+  family: string;
+  content: RefObject<HTMLDivElement>;
+}) {
+  const [examples, setExamples] = useState<ContentsItem[]>([]);
+  useLayoutEffect(() => {
+    // The rendered page owns example order, including examples inside compositions.
+    const entries = Array.from(
+      content.current?.querySelectorAll<HTMLElement>('.catalog-example') ?? [],
+    ).map((element) => ({
+      id: element.id,
+      title: element.querySelector('h3')?.textContent?.trim() ?? '',
     }));
-  items.push({ id: `${slug(family)}-api`, title: 'API reference' });
+    setExamples(entries.filter((entry) => entry.id && entry.title));
+  }, [family, content]);
+  const items = [
+    ...examples,
+    { id: `${slug(family)}-api`, title: 'API reference' },
+  ];
   return <PageContents label="Component page contents" items={items} />;
 }
