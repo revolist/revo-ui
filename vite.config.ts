@@ -3,9 +3,21 @@ import { format } from 'prettier';
 import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 import preact from '@preact/preset-vite';
+import { componentApi, apiModule } from './scripts/component-api.mjs';
 export default defineConfig({
   root: resolve(import.meta.dirname),
   plugins: [
+    {
+      name: 'gallery-component-api',
+      resolveId(id) {
+        if (id === 'virtual:component-api') return '\0virtual:component-api';
+      },
+      load(id) {
+        if (id !== '\0virtual:component-api') return;
+        const library = resolve(import.meta.dirname, '../..');
+        return apiModule(componentApi(library, import.meta.dirname, file => this.addWatchFile(file)));
+      },
+    },
     {
       name: 'gallery-formatted-source',
       enforce: 'pre',

@@ -1,4 +1,5 @@
 import { GalleryHome } from './home';
+import { ApiReference } from './component-api';
 import { ExampleCode, examples, slug } from './example-source';
 import revogridLogo from './assets/revogrid.svg';
 import {
@@ -72,6 +73,7 @@ export function Section({
       >
         {children}
       </div>
+      <ApiReference family={title} />
     </section>
   );
 }
