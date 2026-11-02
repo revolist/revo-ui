@@ -74,8 +74,115 @@ test('documents controller signatures reachable from callbacks without private i
 test('compact lazy module preserves all API information', async () => {
   const module = apiModule(api);
   assert.ok(module.length < JSON.stringify(api).length / 2);
+  assert.doesNotMatch(
+    module,
+    /\/(?:Users|home|private\/tmp)\//,
+    'Published metadata must not contain local filesystem paths',
+  );
   const { default: restored } = await import(
     `data:text/javascript;base64,${Buffer.from(module).toString('base64')}`
   );
   assert.deepEqual(restored, api);
+});
+
+const walkTypes = (component, member) => {
+  const types = new Map(component.types.map((type) => [type.id, type]));
+  const found = new Map();
+  const visit = (value) => {
+    if (!value || typeof value !== 'object') return;
+    if (value.typeId && !found.has(value.typeId)) {
+      assert.ok(types.has(value.typeId), `Missing type ${value.typeId}`);
+      const type = types.get(value.typeId);
+      found.set(value.typeId, type);
+      visit(type);
+    }
+    for (const [key, child] of Object.entries(value))
+      if (key !== 'typeId') visit(child);
+  };
+  visit(member);
+  return [...found.values()];
+};
+
+test('every library-declared prop and callback has a source or editorial description', () => {
+  for (const component of api)
+    for (const member of [...component.props, ...component.events])
+      if (!member.inherited)
+        assert.ok(
+          member.description.trim(),
+          `${component.name}.${member.name}`,
+        );
+});
+
+test('resolves named unions and nested configuration fields across products', () => {
+  const pdf = component('PdfViewer');
+  const zoom = pdf.props.find((prop) => prop.name === 'initialZoom');
+  const zoomType = pdf.types.find((type) => type.id === zoom.typeId);
+  assert.match(zoomType.definition, /number/);
+  assert.match(zoomType.definition, /page-width/);
+  assert.match(zoom.description, /1 = 100%/);
+  const dropdown = component('Dropdown');
+  const config = dropdown.props.find((prop) => prop.name === 'config');
+  assert.ok(
+    walkTypes(dropdown, config).some((type) =>
+      type.properties.some((field) => field.name === 'multiSelect'),
+    ),
+  );
+  const typography = component('TypographyControls');
+  assert.ok(
+    walkTypes(
+      typography,
+      typography.props.find((prop) => prop.name === 'value'),
+    ).some((type) =>
+      type.properties.some((field) => field.name === 'fontFamily'),
+    ),
+  );
+  const icons = typography.props.find((prop) => prop.name === 'icons');
+  assert.ok(
+    walkTypes(typography, icons).some((type) =>
+      type.properties.some((field) => field.name === 'bold'),
+    ),
+  );
+  const result = component('AiResultView');
+  const variants = walkTypes(
+    result,
+    result.props.find((prop) => prop.name === 'result'),
+  );
+  assert.ok(variants.some((type) => type.name === 'AiTableResult'));
+  assert.ok(variants.some((type) => type.name === 'AiTextResult'));
+});
+
+test('resolves array items and callback arguments without exposing private controller state', () => {
+  const list = component('ReorderList');
+  assert.ok(
+    walkTypes(
+      list,
+      list.props.find((prop) => prop.name === 'items'),
+    ).some((type) => type.element?.type === 'T'),
+  );
+  const pdf = component('PdfViewer');
+  const ready = walkTypes(
+    pdf,
+    pdf.events.find((event) => event.name === 'onReady'),
+  );
+  assert.ok(
+    ready.some((type) =>
+      type.calls.some((call) =>
+        call.parameters.some((parameter) => parameter.name === 'controller'),
+      ),
+    ),
+  );
+  const controller = ready.find((type) => type.name === 'PdfViewerController');
+  assert.ok(controller.properties.some((prop) => prop.name === 'goToPage'));
+  assert.ok(
+    !controller.properties.some((prop) =>
+      ['state', 'initialize', 'report', 'update', 'worker'].includes(prop.name),
+    ),
+  );
+  for (const component of api)
+    for (const member of [
+      ...component.props,
+      ...component.events,
+      ...component.methods,
+    ])
+      walkTypes(component, member);
 });

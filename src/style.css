@@ -2207,3 +2207,19 @@ body {
 .component-api-link > .rv-svg-icon:last-child { margin-inline-start: 4px; color: var(--rv-ui-text-subtle); }
 .component-api[id] { scroll-margin-block-start: 16px; }
 .component-api[tabindex]:focus-visible { outline: 2px solid var(--rv-ui-accent); outline-offset: 8px; border-radius: 8px; }
+
+.component-api .component-api-type-disclosure > summary { padding: 0; gap: 8px; align-items: baseline; border-radius: 3px; }
+.component-api-type-disclosure > summary > .component-api-type { min-width: 0; font-size: 11px; font-weight: 400; text-decoration: underline dotted var(--rv-ui-border-strong); text-underline-offset: 4px; }
+.component-api-type-disclosure > summary > .component-api-chevron { flex: 0 0 9px; width: 9px; height: 9px; }
+.component-api-type-content { margin-block-start: 10px; padding: 12px; border: 1px solid var(--rv-ui-border); border-radius: 7px; background: var(--rv-ui-surface-sunken); min-width: 0; }
+.component-api-type-content h5 { margin: 12px 0 8px; color: var(--rv-ui-text); font: 600 11px/1.6 -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+.component-api-type-content h5:first-child { margin-block-start: 0; }
+.component-api-type-content p { margin: 6px 0; color: var(--rv-ui-text-muted); font-size: 11px; line-height: 1.7; }
+.component-api-type-fields { list-style: none; margin: 0; padding: 0; }
+.component-api-type-fields > li { padding-block: 10px; border-block-end: 1px solid var(--rv-ui-border); }
+.component-api-type-fields > li:last-child { border-block-end: 0; }
+.component-api-type-field-name { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px; margin-block-end: 4px; }
+.component-api-type-field-name > code { color: var(--rv-ui-text); font-size: 11px; overflow-wrap: anywhere; }
+.component-api-type-field-name > span { color: var(--rv-ui-text-subtle); font-size: 10px; }
+.component-api-type-variants { display: grid; gap: 8px; }
+.component-api-type-note { color: var(--rv-ui-text-subtle); }

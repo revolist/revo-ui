@@ -1,4 +1,6 @@
 import ts from 'typescript';
+import { createTypeGraph } from './api-types.mjs';
+import { supplementalDescription } from './api-descriptions.mjs';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
@@ -39,14 +41,27 @@ export function componentApi(library, gallery, watchSource = () => {}) {
     const node = property.valueDeclaration ?? property.declarations?.[0];
     return {
       name: property.name,
-      type: format(checker.getTypeOfSymbolAtLocation(property, node), node),
-      required: !(property.flags & ts.SymbolFlags.Optional),
-      description: ts.displayPartsToString(
-        property.getDocumentationComment(checker),
-      ),
+      type:
+        node?.type &&
+        libraryDeclaration(node) &&
+        format(checker.getTypeOfSymbolAtLocation(property, node), node).length >
+          300
+          ? node.type.getText().replace(/\s+/g, ' ')
+          : format(checker.getTypeOfSymbolAtLocation(property, node), node),
+      required:
+        !(property.flags & ts.SymbolFlags.Optional) &&
+        !(
+          node &&
+          ts.isParameter(node) &&
+          (node.questionToken || node.initializer || node.dotDotDotToken)
+        ),
+      description:
+        ts.displayPartsToString(property.getDocumentationComment(checker)) ||
+        supplementalDescription(property.name, node),
       inherited: !property.declarations?.some(libraryDeclaration),
     };
   };
+  const graph = createTypeGraph(checker, describe, libraryDeclaration);
   const source = program.getSourceFile(catalog);
   let initializer;
   for (const statement of source.statements)
@@ -89,7 +104,7 @@ export function componentApi(library, gallery, watchSource = () => {}) {
           ).values(),
         ]
       : [];
-    const members = properties.map(describe);
+    const members = properties.map(graph.member);
     const methods = new Map();
     // Controllers/handles are only documented when reachable through a public prop or callback.
     const visit = (type, via) => {
@@ -121,7 +136,11 @@ export function componentApi(library, gallery, watchSource = () => {}) {
           );
           if (!memberType.getCallSignatures().length) continue;
           const qualified = `${part.getSymbol().name}.${member.name}`;
-          methods.set(qualified, { ...describe(member), name: qualified, via });
+          methods.set(qualified, {
+            ...graph.member(member),
+            name: qualified,
+            via,
+          });
         }
       }
     };
@@ -153,6 +172,7 @@ export function componentApi(library, gallery, watchSource = () => {}) {
       props: members.filter((item) => !/^on[A-Z]/.test(item.name)),
       events: members.filter((item) => /^on[A-Z]/.test(item.name)),
       methods: [...methods.values()],
+      types: graph.collect([...members, ...methods.values()]),
     };
   });
 }
@@ -169,11 +189,15 @@ export function apiModule(api) {
     }
     return ids.get(key);
   };
+  const types = new Map(
+    api.flatMap((component) => component.types.map((type) => [type.id, type])),
+  );
   const components = api.map((component) => ({
     ...component,
+    types: component.types.map((type) => type.id),
     props: component.props.map(intern),
     events: component.events.map(intern),
     methods: component.methods.map(intern),
   }));
-  return `const members = ${JSON.stringify(members)}; export default ${JSON.stringify(components)}.map(component => ({...component, props: component.props.map(id => members[id]), events: component.events.map(id => members[id]), methods: component.methods.map(id => members[id])}));`;
+  return `const types = ${JSON.stringify(Object.fromEntries(types))}; const members = ${JSON.stringify(members)}; export default ${JSON.stringify(components)}.map(component => ({...component, types: component.types.map(id => types[id]), props: component.props.map(id => members[id]), events: component.events.map(id => members[id]), methods: component.methods.map(id => members[id])}));`;
 }
