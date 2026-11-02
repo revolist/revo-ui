@@ -104,7 +104,7 @@ Text, search and numeric entry; field labels, validation, inline layouts and edi
 
 Single or multiple selections, searchable options, selected-value templates, avatars, resource lists and assignee fields.
 
-[Dropdown](api/Dropdown.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/)) | [DropdownPopup](api/DropdownPopup.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/)) | [DropdownPopupContent](api/DropdownPopupContent.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/)) | [Combobox](api/Combobox.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/)) | [MultiSelect](api/MultiSelect.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/)) | [Chip](api/Chip.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/)) | [FilterChip](api/FilterChip.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/)) | [Avatar](api/Avatar.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/)) | [SharedResourcePicker](api/SharedResourcePicker.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/)) | [ResourcePickerAvatar](api/ResourcePickerAvatar.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/)) | [AssigneePicker](api/AssigneePicker.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/)) | [AssigneeField](api/AssigneeField.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/)) | [AssigneePickerLayout](api/AssigneePickerLayout.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/))
+[Dropdown](api/Dropdown.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/)) | [DropdownPopup](api/DropdownPopup.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/)) | [DropdownPopupContent](api/DropdownPopupContent.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/)) | [Combobox](api/Combobox.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/)) | [MultiSelect](api/MultiSelect.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/)) | [Chip](api/Chip.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/)) | [FilterChip](api/FilterChip.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/)) | [Avatar](api/Avatar.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/)) | [SharedResourcePicker](api/SharedResourcePicker.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/)) | [ResourcePickerAvatar](api/ResourcePickerAvatar.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/)) | [AssigneePicker](api/AssigneePicker.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/)) | [AssigneePickerLayout](api/AssigneePickerLayout.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/))
 
 ### Sliders
 
@@ -120,9 +120,39 @@ Controlled timeline events with move/resize interactions, event colors, weighted
 
 ### Calendar and dates
 
-Calendar views and date/time fields, ranges, duration drafts, weekly availability and descriptive legends.
+Calendar views and date/time fields, ranges.
 
-[Calendar](api/Calendar.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarHeader](api/CalendarHeader.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarWeekdays](api/CalendarWeekdays.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarDay](api/CalendarDay.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarMonthGrid](api/CalendarMonthGrid.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarYearGrid](api/CalendarYearGrid.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarPicker](api/CalendarPicker.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [DatePicker](api/DatePicker.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [DateRangePicker](api/DateRangePicker.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [DurationField](api/DurationField.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [DurationDraft](api/DurationDraft.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [TemporalPicker](api/TemporalPicker.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [TemporalDraft](api/TemporalDraft.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [DateTimeField](api/DateTimeField.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [TimeGrid](api/TimeGrid.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [Legend](api/Legend.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/))
+[Calendar](api/Calendar.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarHeader](api/CalendarHeader.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarWeekdays](api/CalendarWeekdays.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarDay](api/CalendarDay.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarMonthGrid](api/CalendarMonthGrid.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarYearGrid](api/CalendarYearGrid.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarPicker](api/CalendarPicker.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [DatePicker](api/DatePicker.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [DateRangePicker](api/DateRangePicker.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [TemporalPicker](api/TemporalPicker.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [TemporalDraft](api/TemporalDraft.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [DateTimeField](api/DateTimeField.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/))
+
+### Duration and effort
+
+Edit duration and effort with units, elapsed time and optional sliders.
+
+[DurationField](api/DurationField.md) ([examples](https://ui.rv-grid.com/components/duration-and-effort/)) | [DurationDraft](api/DurationDraft.md) ([examples](https://ui.rv-grid.com/components/duration-and-effort/))
+
+### Assignee field
+
+Assign people and edit their allocation units.
+
+[AssigneeField](api/AssigneeField.md) ([examples](https://ui.rv-grid.com/components/assignee-field/))
+
+### Remote lookup field
+
+Search remote records and apply linked-record selections.
+
+[LookupField](api/LookupField.md) ([examples](https://ui.rv-grid.com/components/remote-lookup-field/))
+
+### Legend
+
+Explain colors, states and marker styles with compact legend items.
+
+[Legend](api/Legend.md) ([examples](https://ui.rv-grid.com/components/legend/))
+
+### Weekly time grid
+
+Paint weekly availability with working hours, weekends and keyboard navigation.
+
+[TimeGrid](api/TimeGrid.md) ([examples](https://ui.rv-grid.com/components/weekly-time-grid/))
 
 ### Color
 
@@ -152,7 +182,13 @@ Compact bar, line and area charts with values, labels, tooltips and a composed r
 
 Dialogs, confirmations, contextual surfaces and editable dialog sections with shared actions.
 
-[Dialog](api/Dialog.md) ([examples](https://ui.rv-grid.com/components/dialogs-and-floating-surfaces/)) | [ConfirmDialog](api/ConfirmDialog.md) ([examples](https://ui.rv-grid.com/components/dialogs-and-floating-surfaces/)) | [Popover](api/Popover.md) ([examples](https://ui.rv-grid.com/components/dialogs-and-floating-surfaces/)) | [Tooltip](api/Tooltip.md) ([examples](https://ui.rv-grid.com/components/dialogs-and-floating-surfaces/)) | [ControlTooltip](api/ControlTooltip.md) ([examples](https://ui.rv-grid.com/components/dialogs-and-floating-surfaces/)) | [DialogHeader](api/DialogHeader.md) ([examples](https://ui.rv-grid.com/components/dialogs-and-floating-surfaces/)) | [DialogBody](api/DialogBody.md) ([examples](https://ui.rv-grid.com/components/dialogs-and-floating-surfaces/)) | [DialogFooter](api/DialogFooter.md) ([examples](https://ui.rv-grid.com/components/dialogs-and-floating-surfaces/)) | [DialogForm](api/DialogForm.md) ([examples](https://ui.rv-grid.com/components/dialogs-and-floating-surfaces/)) | [DialogCloseButton](api/DialogCloseButton.md) ([examples](https://ui.rv-grid.com/components/dialogs-and-floating-surfaces/)) | [DialogActionFooter](api/DialogActionFooter.md) ([examples](https://ui.rv-grid.com/components/dialogs-and-floating-surfaces/)) | [DialogActions](api/DialogActions.md) ([examples](https://ui.rv-grid.com/components/dialogs-and-floating-surfaces/)) | [DialogTitleInput](api/DialogTitleInput.md) ([examples](https://ui.rv-grid.com/components/dialogs-and-floating-surfaces/)) | [EditableDialogHeader](api/EditableDialogHeader.md) ([examples](https://ui.rv-grid.com/components/dialogs-and-floating-surfaces/))
+[Dialog](api/Dialog.md) ([examples](https://ui.rv-grid.com/components/dialogs-and-floating-surfaces/)) | [ConfirmDialog](api/ConfirmDialog.md) ([examples](https://ui.rv-grid.com/components/dialogs-and-floating-surfaces/)) | [Popover](api/Popover.md) ([examples](https://ui.rv-grid.com/components/dialogs-and-floating-surfaces/)) | [DialogHeader](api/DialogHeader.md) ([examples](https://ui.rv-grid.com/components/dialogs-and-floating-surfaces/)) | [DialogBody](api/DialogBody.md) ([examples](https://ui.rv-grid.com/components/dialogs-and-floating-surfaces/)) | [DialogFooter](api/DialogFooter.md) ([examples](https://ui.rv-grid.com/components/dialogs-and-floating-surfaces/)) | [DialogForm](api/DialogForm.md) ([examples](https://ui.rv-grid.com/components/dialogs-and-floating-surfaces/)) | [DialogCloseButton](api/DialogCloseButton.md) ([examples](https://ui.rv-grid.com/components/dialogs-and-floating-surfaces/)) | [DialogActionFooter](api/DialogActionFooter.md) ([examples](https://ui.rv-grid.com/components/dialogs-and-floating-surfaces/)) | [DialogActions](api/DialogActions.md) ([examples](https://ui.rv-grid.com/components/dialogs-and-floating-surfaces/)) | [DialogTitleInput](api/DialogTitleInput.md) ([examples](https://ui.rv-grid.com/components/dialogs-and-floating-surfaces/)) | [EditableDialogHeader](api/EditableDialogHeader.md) ([examples](https://ui.rv-grid.com/components/dialogs-and-floating-surfaces/))
+
+### Tooltip
+
+Contextual information shown on pointer hover or keyboard focus.
+
+[Tooltip](api/Tooltip.md) ([examples](https://ui.rv-grid.com/components/tooltip/)) | [ControlTooltip](api/ControlTooltip.md) ([examples](https://ui.rv-grid.com/components/tooltip/))
 
 ### Menus and toolbars
 
@@ -165,6 +201,12 @@ Command menus, nested commands, separators and grouped toolbar actions.
 Semantic badges, counters, alerts, progress indicators, loading surfaces, empty states and feedback panels.
 
 [Badge](api/Badge.md) ([examples](https://ui.rv-grid.com/components/status-and-feedback/)) | [CountBadge](api/CountBadge.md) ([examples](https://ui.rv-grid.com/components/status-and-feedback/)) | [Alert](api/Alert.md) ([examples](https://ui.rv-grid.com/components/status-and-feedback/)) | [Spinner](api/Spinner.md) ([examples](https://ui.rv-grid.com/components/status-and-feedback/)) | [LoadingOverlay](api/LoadingOverlay.md) ([examples](https://ui.rv-grid.com/components/status-and-feedback/)) | [EmptyState](api/EmptyState.md) ([examples](https://ui.rv-grid.com/components/status-and-feedback/)) | [StatusFeedbackPanel](api/StatusFeedbackPanel.md) ([examples](https://ui.rv-grid.com/components/status-and-feedback/)) | [StatusBadge](api/StatusBadge.md) ([examples](https://ui.rv-grid.com/components/status-and-feedback/))
+
+### Accordion
+
+Expandable sections with keyboard controls and persistent draft content.
+
+[CollapsibleSection](api/CollapsibleSection.md) ([examples](https://ui.rv-grid.com/components/accordion/))
 
 ### Layout
 
@@ -344,7 +386,7 @@ const initialRows = [
 
 Events support single colors or weighted color segments. Moving/resizing preserves metadata and scales phase proportions. Hover/focus tooltips show the event name and range; use `getTooltip` for custom text or `tooltip={false}` to disable them. Pointer dragging and Left/Right keyboard controls are demonstrated on [Timeline track](https://ui.rv-grid.com/components/timeline-track/).
 
-`TimeGrid` is the separate weekly-availability surface. Compose it with `useTimeGridInteraction` for painting and keyboard movement; provide cells, focus state, day/hour labels, weekends and working hours. See [weekly planning and calendar examples](https://ui.rv-grid.com/components/calendar-and-dates/).
+`TimeGrid` is the separate weekly-availability surface. Compose it with `useTimeGridInteraction` for painting and keyboard movement; provide cells, focus state, day/hour labels, weekends and working hours. See [weekly time grid examples](https://ui.rv-grid.com/components/weekly-time-grid/).
 
 ## Theming, sizing, and motion
 

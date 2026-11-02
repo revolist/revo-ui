@@ -1,8 +1,8 @@
 # Legend
 
-Calendar views and date/time fields, ranges, duration drafts, weekly availability and descriptive legends.
+Explain colors, states and marker styles with compact legend items.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/components/calendar-and-dates/) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/legend/) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { Legend } from '@revolist/ui/preact'`
 

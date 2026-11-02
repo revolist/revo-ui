@@ -1,3 +1,4 @@
+import { CollapsibleSection } from '@revolist/ui/preact';
 import { ApiPage } from './api-page';
 import { componentHref, pageKind, redirectLegacyRoute } from './routing';
 import { MemberDropdown } from './home-planning';
@@ -6,7 +7,7 @@ import { Select } from '@revolist/ui/select';
 import { TimePickerExamples } from './time-picker';
 import { PdfViewerExamples } from './pdf-viewer';
 import { DateTimeField } from '@revolist/ui/date-time';
-import { SharedEditorExamples } from './shared-editors';
+import { SharedEditorExamples, DurationEffortExample, RemoteLookupExample, AssigneeFieldExample } from './shared-editors';
 import { RichTextEditorExample } from './rich-text';
 import { ColorsExamples } from './colors';
 import { AiExamples } from './ai';
@@ -546,14 +547,7 @@ function App() {
             onSelect={setCalendarDate}
           />
         </Example>
-        <Example title="Legend">
-          <Legend label="Calendar legend" items={[
-            { id: 'working', label: 'Working day', marker: 'outline' },
-            { id: 'closed', label: 'Non-working', color: 'var(--rv-ui-text-muted)' },
-            { id: 'exception', label: 'Exception', tone: 'selected' },
-            { id: 'inherited', label: 'Inherited', marker: 'dashed' },
-          ]} />
-        </Example>
+
         <CalendarExamples />
         <SharedEditorExamples />
         <Example title="Date pickers">
@@ -593,6 +587,27 @@ function App() {
             picker={{ timeFormat: '24h', text: { chooseDate: 'Choose field date and time' } }} />
         </Example>
         <TimePickerExamples />
+      </Section>
+      <Section title="Duration and effort">
+        <DurationEffortExample />
+      </Section>
+      <Section title="Assignee field">
+        <AssigneeFieldExample />
+      </Section>
+      <Section title="Remote lookup field">
+        <RemoteLookupExample />
+      </Section>
+      <Section title="Legend">
+        <Example title="Legend">
+          <Legend label="Calendar legend" items={[
+            { id: 'working', label: 'Working day', marker: 'outline' },
+            { id: 'closed', label: 'Non-working', color: 'var(--rv-ui-text-muted)' },
+            { id: 'exception', label: 'Exception', tone: 'selected' },
+            { id: 'inherited', label: 'Inherited', marker: 'dashed' },
+          ]} />
+        </Example>
+      </Section>
+      <Section title="Weekly time grid">
         <TimeGridExample />
       </Section>
       <Section title="Color">
@@ -642,11 +657,6 @@ function App() {
         >
           <TextInput aria-label="Popover input" placeholder="Quick setting" />
         </Popover>
-        <Example title="Tooltip">
-          <Tooltip text="Keyboard and pointer tooltip">
-            <Button>Tooltip trigger</Button>
-          </Tooltip>
-        </Example>
         <Dialog
           open={dialog}
           title="Edit project"
@@ -683,6 +693,28 @@ function App() {
         >
           Apply the selected changes?
         </ConfirmDialog>
+      </Section>
+      <Section title="Accordion">
+        <Example title="Accordion sections" wide>
+          <div class="catalog-accordion">
+            <CollapsibleSection title="Project details" description="Each section expands independently." defaultOpen>
+              <TextInput aria-label="Accordion project name" placeholder="Project name" />
+            </CollapsibleSection>
+            <CollapsibleSection title="Display settings" description="Collapsed content keeps its draft values.">
+              <TextInput aria-label="Accordion display label" placeholder="Display label" />
+            </CollapsibleSection>
+            <CollapsibleSection title="How does this work?">
+              <p>Use Enter or Space to toggle a section. Multiple sections can stay open.</p>
+            </CollapsibleSection>
+          </div>
+        </Example>
+      </Section>
+      <Section title="Tooltip">
+        <Example title="Tooltip">
+          <Tooltip text="Keyboard and pointer tooltip">
+            <Button>Tooltip trigger</Button>
+          </Tooltip>
+        </Example>
       </Section>
       <Section title="Menus and toolbars">
         <Example title="Drawing toolbar">

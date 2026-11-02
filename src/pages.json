@@ -69,8 +69,38 @@
     {
       "title": "Calendar and dates",
       "group": "Pickers",
-      "description": "Independent calendars, date inputs, ranges and time slots.",
-      "keywords": "date time datetime calendar picker availability weekly grid legend"
+      "description": "Independent calendars, date inputs, date ranges and time pickers.",
+      "keywords": "date time datetime calendar picker range"
+    },
+    {
+      "title": "Duration and effort",
+      "group": "Controls",
+      "description": "Edit duration and effort with units, elapsed time and optional sliders.",
+      "keywords": "duration effort units elapsed day hour minute slider"
+    },
+    {
+      "title": "Assignee field",
+      "group": "Pickers",
+      "description": "Assign people and edit their allocation units.",
+      "keywords": "assignee field people resource allocation units assignment"
+    },
+    {
+      "title": "Remote lookup field",
+      "group": "Pickers",
+      "description": "Search remote records and apply linked-record selections.",
+      "keywords": "lookup remote search linked records async data source"
+    },
+    {
+      "title": "Legend",
+      "group": "Controls",
+      "description": "Explain colors, states and marker styles with compact legend items.",
+      "keywords": "legend markers colors status key labels outline dashed"
+    },
+    {
+      "title": "Weekly time grid",
+      "group": "Compositions",
+      "description": "Paint weekly availability with working hours, weekends and keyboard navigation.",
+      "keywords": "time grid weekly availability schedule working hours weekend paint"
     },
     {
       "title": "Color",
@@ -100,7 +130,13 @@
       "title": "Dialogs and floating surfaces",
       "group": "Compositions",
       "description": "Focused tasks, confirmations and contextual details.",
-      "keywords": "dialog confirmation popover tooltip overlay"
+      "keywords": "dialog confirmation popover overlay"
+    },
+    {
+      "title": "Tooltip",
+      "group": "Compositions",
+      "description": "Helpful contextual information on keyboard focus and pointer hover.",
+      "keywords": "tooltip hint help hover focus accessible"
     },
     {
       "title": "Menus and toolbars",
@@ -113,6 +149,12 @@
       "group": "Compositions",
       "description": "Badges, alerts, loading states and helpful empty content.",
       "keywords": "badge alert spinner loading empty feedback"
+    },
+    {
+      "title": "Accordion",
+      "group": "Compositions",
+      "description": "Expandable sections with keyboard controls and persistent draft content.",
+      "keywords": "accordion collapsible section disclosure expand collapse configurator"
     },
     {
       "title": "Layout",

@@ -2,7 +2,7 @@
 
 Single or multiple selections, searchable options, selected-value templates, avatars, resource lists and assignee fields.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/components/selects-chips-and-resources/) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/assignee-field/) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { AssigneeField } from '@revolist/ui/assignee'`
 
