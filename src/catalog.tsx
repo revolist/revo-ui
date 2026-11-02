@@ -206,7 +206,6 @@ export function CatalogShell({
             <small class="catalog-version" aria-label="UI library version">v{__UI_VERSION__}</small>
           </a>
           <nav class="catalog-pages" aria-label="Library pages">
-            <a href={siteHref("api/")} aria-current={page === "api" ? "page" : undefined}>API</a>
             <a href={siteHref()} aria-current={home ? 'page' : undefined}>
               Overview
             </a>
@@ -228,6 +227,7 @@ export function CatalogShell({
             >
               Docs
             </a>
+            <a href={siteHref("api/")} aria-current={page === "api" ? "page" : undefined}>API</a>
           </nav>
           <Toolbar label="Gallery settings">
             <a class="rv-btn rv-btn-ghost rv-btn-icon catalog-github-link" href="https://github.com/revolist/revo-ui" target="_blank" rel="noopener noreferrer" aria-label="Revo UI on GitHub" title="Revo UI on GitHub">
