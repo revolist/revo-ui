@@ -347,7 +347,6 @@ const common = {
   change: 'Updates the draft assignee selection without committing the field.',
   defaultUnits: 'Default allocation units applied when assigning a resource.',
   showAvatars: 'Displays resource avatars beside assignee labels.',
-  legacyClassPrefix: 'Compatibility prefix used for the time-grid CSS classes.',
 };
 
 const calendar = {

@@ -1,3 +1,4 @@
+import { Legend } from '@revolist/ui/legend';
 import { Dropdown } from '@revolist/ui/dropdown/index';
 import { ChoiceChips } from '@revolist/ui/choice-chips/index';
 import { ButtonControl } from '@revolist/ui/native-control';
@@ -9,7 +10,6 @@ import { AreaChart, BarChart, LineChart } from '@revolist/ui/distribution-chart'
 import { BrushRange } from '@revolist/ui/brush-range';
 import {
   OptionButton,
-  Legend,
   HighlightedTextInput,
   InlineFieldGroup,
 } from '@revolist/ui/filter-controls';
