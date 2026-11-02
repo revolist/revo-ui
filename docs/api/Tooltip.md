@@ -2,7 +2,7 @@
 
 Dialogs, confirmations, contextual surfaces and editable dialog sections with shared actions.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/components/dialogs-and-floating-surfaces/) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/tooltip/) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { Tooltip } from '@revolist/ui/preact'`
 

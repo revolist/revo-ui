@@ -642,11 +642,6 @@ function App() {
         >
           <TextInput aria-label="Popover input" placeholder="Quick setting" />
         </Popover>
-        <Example title="Tooltip">
-          <Tooltip text="Keyboard and pointer tooltip">
-            <Button>Tooltip trigger</Button>
-          </Tooltip>
-        </Example>
         <Dialog
           open={dialog}
           title="Edit project"
@@ -683,6 +678,13 @@ function App() {
         >
           Apply the selected changes?
         </ConfirmDialog>
+      </Section>
+      <Section title="Tooltip">
+        <Example title="Tooltip">
+          <Tooltip text="Keyboard and pointer tooltip">
+            <Button>Tooltip trigger</Button>
+          </Tooltip>
+        </Example>
       </Section>
       <Section title="Menus and toolbars">
         <Example title="Drawing toolbar">

@@ -100,7 +100,13 @@
       "title": "Dialogs and floating surfaces",
       "group": "Compositions",
       "description": "Focused tasks, confirmations and contextual details.",
-      "keywords": "dialog confirmation popover tooltip overlay"
+      "keywords": "dialog confirmation popover overlay"
+    },
+    {
+      "title": "Tooltip",
+      "group": "Compositions",
+      "description": "Helpful contextual information on keyboard focus and pointer hover.",
+      "keywords": "tooltip hint help hover focus accessible"
     },
     {
       "title": "Menus and toolbars",
