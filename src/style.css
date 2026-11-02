@@ -2247,7 +2247,8 @@ body {
 .api-family-links a span { color:light-dark(#4468c3,#9bb8ff); }
 .api-document-reference { margin:0; }
 .api-document-reference > details > summary { display:none; }
-.api-document-reference > details { border:1px solid light-dark(#e3e5e9,#383838); border-radius:12px; }
+.api-document-reference > details { border:0; border-radius:0; }
+.api-document-reference .component-api-content { padding:0; border-block-start:0; }
 .api-browse { display:none; }
 @media(max-width:800px) { .api-workspace { grid-template-columns:minmax(0,1fr); gap:20px; } .api-browse { display:inline-flex; } .api-sidebar { display:none; position:static; max-height:45dvh; padding:12px; border:1px solid #8884; border-radius:10px; } .api-sidebar.is-open { display:block; } .api-document-heading h1 { font-size:34px; } }
 .catalog-workspace--api { display:block; }
