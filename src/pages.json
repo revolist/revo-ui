@@ -79,6 +79,12 @@
       "keywords": "duration effort units elapsed day hour minute slider"
     },
     {
+      "title": "Assignee field",
+      "group": "Pickers",
+      "description": "Assign people and edit their allocation units.",
+      "keywords": "assignee field people resource allocation units assignment"
+    },
+    {
       "title": "Remote lookup field",
       "group": "Pickers",
       "description": "Search remote records and apply linked-record selections.",

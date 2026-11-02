@@ -7,7 +7,7 @@ import { Select } from '@revolist/ui/select';
 import { TimePickerExamples } from './time-picker';
 import { PdfViewerExamples } from './pdf-viewer';
 import { DateTimeField } from '@revolist/ui/date-time';
-import { SharedEditorExamples, DurationEffortExample, RemoteLookupExample } from './shared-editors';
+import { SharedEditorExamples, DurationEffortExample, RemoteLookupExample, AssigneeFieldExample } from './shared-editors';
 import { RichTextEditorExample } from './rich-text';
 import { ColorsExamples } from './colors';
 import { AiExamples } from './ai';
@@ -597,6 +597,9 @@ function App() {
       </Section>
       <Section title="Duration and effort">
         <DurationEffortExample />
+      </Section>
+      <Section title="Assignee field">
+        <AssigneeFieldExample />
       </Section>
       <Section title="Remote lookup field">
         <RemoteLookupExample />

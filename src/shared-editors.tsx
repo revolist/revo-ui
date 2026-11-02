@@ -15,10 +15,6 @@ import { Input } from '@revolist/ui/native-control';
 import type { TemporalControlValue } from '@revolist/dates';
 import { Example } from './catalog';
 export function SharedEditorExamples() {
-  const [assigneeOpen, setAssigneeOpen] = useState(false);
-  const [assignees, setAssignees] = useState<AssigneeAssignment[]>([
-    { value: 'ana', units: 100 },
-  ]);
   const [selection, setSelection] = useState<'single' | 'range' | 'multiple'>(
     'range',
   );
@@ -185,27 +181,6 @@ export function SharedEditorExamples() {
           }}
         />
       </Example>
-      <Example title="Assignee allocation field">
-        {assigneeOpen ? (
-          <AssigneeField
-            value={assignees}
-            options={{
-              source: [
-                { value: 'ana', label: 'Ana', role: 'Engineer' },
-                { value: 'bea', label: 'Bea', role: 'Designer' },
-              ],
-            }}
-            save={(next) => {
-              setAssignees(next);
-              setAssigneeOpen(false);
-            }}
-            cancel={() => setAssigneeOpen(false)}
-          />
-        ) : (
-          <Button onClick={() => setAssigneeOpen(true)}>Assign people</Button>
-        )}
-        <output>{JSON.stringify(assignees)}</output>
-      </Example>
     </>
   );
 }
@@ -268,6 +243,36 @@ export function DurationEffortExample() {
         allowElapsed
       />
       <output>{JSON.stringify(duration)}</output>
+    </Example>
+  );
+}
+
+export function AssigneeFieldExample() {
+  const [assigneeOpen, setAssigneeOpen] = useState(false);
+  const [assignees, setAssignees] = useState<AssigneeAssignment[]>([
+    { value: 'ana', units: 100 },
+  ]);
+  return (
+    <Example title="Assignee allocation field">
+      {assigneeOpen ? (
+        <AssigneeField
+          value={assignees}
+          options={{
+            source: [
+              { value: 'ana', label: 'Ana', role: 'Engineer' },
+              { value: 'bea', label: 'Bea', role: 'Designer' },
+            ],
+          }}
+          save={(next) => {
+            setAssignees(next);
+            setAssigneeOpen(false);
+          }}
+          cancel={() => setAssigneeOpen(false)}
+        />
+      ) : (
+        <Button onClick={() => setAssigneeOpen(true)}>Assign people</Button>
+      )}
+      <output>{JSON.stringify(assignees)}</output>
     </Example>
   );
 }
