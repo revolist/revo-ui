@@ -547,14 +547,7 @@ function App() {
             onSelect={setCalendarDate}
           />
         </Example>
-        <Example title="Legend">
-          <Legend label="Calendar legend" items={[
-            { id: 'working', label: 'Working day', marker: 'outline' },
-            { id: 'closed', label: 'Non-working', color: 'var(--rv-ui-text-muted)' },
-            { id: 'exception', label: 'Exception', tone: 'selected' },
-            { id: 'inherited', label: 'Inherited', marker: 'dashed' },
-          ]} />
-        </Example>
+
         <CalendarExamples />
         <SharedEditorExamples />
         <Example title="Date pickers">
@@ -603,6 +596,16 @@ function App() {
       </Section>
       <Section title="Remote lookup field">
         <RemoteLookupExample />
+      </Section>
+      <Section title="Legend">
+        <Example title="Legend">
+          <Legend label="Calendar legend" items={[
+            { id: 'working', label: 'Working day', marker: 'outline' },
+            { id: 'closed', label: 'Non-working', color: 'var(--rv-ui-text-muted)' },
+            { id: 'exception', label: 'Exception', tone: 'selected' },
+            { id: 'inherited', label: 'Inherited', marker: 'dashed' },
+          ]} />
+        </Example>
       </Section>
       <Section title="Weekly time grid">
         <TimeGridExample />
