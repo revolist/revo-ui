@@ -73,7 +73,7 @@ export function FinancialWidgets({ preview }: { preview: ComponentChildren }) {
           <option value="growth">Growth</option>
           <option value="conservative">Conservative</option>
         </Select>
-        <div class="finance-table-scroll">
+        <div class="finance-table-scroll" role="region" aria-label="Asset allocation" tabIndex={0}>
           <table class="finance-detail-table">
             <caption class="finance-visually-hidden">
               Portfolio holdings

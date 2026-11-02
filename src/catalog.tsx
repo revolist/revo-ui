@@ -403,7 +403,8 @@ export function CatalogShell({
                   </p>
                 </div>
               )}
-              {active === 'components' ? (
+              {/* Explicit section queries retain focused specimen links. */}
+              {active === 'components' && !included.length ? (
                 <nav class="component-directory" aria-label="All components">
                   {families.map(family => <a href={componentHref(sectionId(family.title))}><strong>{family.title}</strong><span>{family.description}</span></a>)}
                 </nav>

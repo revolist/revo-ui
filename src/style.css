@@ -1136,10 +1136,6 @@ body {
   text-align: start;
   direction: ltr;
 }
-.example-code:not(.is-expanded) .example-code-body {
-  opacity: 0.48;
-  mask-image: linear-gradient(#000, transparent);
-}
 .example-code-toggle {
   display: flex;
   justify-content: center;
