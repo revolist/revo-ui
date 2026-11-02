@@ -168,7 +168,7 @@ export function ApiReference({ family }: { family: string }) {
       </summary>
       <div class="component-api-content">
         <p>
-          Generated from the current library’s TypeScript contracts. Includes
+          Generated from Revo UI v{__UI_VERSION__} TypeScript contracts. Includes
           inherited attributes and public controller methods exposed through
           props or callbacks. Types use the Preact contract; see Frameworks for
           adapter usage.

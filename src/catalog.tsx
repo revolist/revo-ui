@@ -198,6 +198,7 @@ export function CatalogShell({
               height={24}
             />
             Revo <span>UI</span>
+            <small class="catalog-version" aria-label="UI library version">v{__UI_VERSION__}</small>
           </a>
           <nav class="catalog-pages" aria-label="Library pages">
             <a href={siteHref()} aria-current={home ? 'page' : undefined}>

@@ -1,4 +1,5 @@
 import { readFile } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
 import { format } from 'prettier';
 import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
@@ -6,6 +7,9 @@ import preact from '@preact/preset-vite';
 import { componentApi, apiModule } from './scripts/component-api.mjs';
 export default defineConfig({
   root: resolve(import.meta.dirname),
+  define: {
+    __UI_VERSION__: JSON.stringify(JSON.parse(readFileSync(resolve(import.meta.dirname, '../../packages/ui/package.json'), 'utf8')).version),
+  },
   plugins: [
     {
       name: 'gallery-component-api',

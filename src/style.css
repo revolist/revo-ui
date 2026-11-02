@@ -2163,3 +2163,5 @@ body {
 .component-api-table td:nth-child(2) { min-width: 180px; max-width: 500px; overflow-wrap: anywhere; }
 .component-api-table code { white-space: pre-wrap; }
 @media (max-width: 600px) { .component-api summary span { display: block; margin: 8px 0 0; } }
+
+.catalog-version { font-size: 11px; font-weight: 400; color: var(--rv-ui-text-muted); white-space: nowrap; }
