@@ -1,9 +1,10 @@
+import { ComponentContents } from './component-contents';
 import { GalleryHome } from './home';
 import { ApiReference } from './component-api';
 import { ExampleCode, examples, slug } from './example-source';
 import { SvgIcon } from '@revolist/ui/icons/icon';
 import codeIcon from '@fortawesome/fontawesome-free/svgs/solid/code.svg?raw';
-import arrowDownIcon from '@fortawesome/fontawesome-free/svgs/solid/arrow-down.svg?raw';
+import arrowDownIcon from '@fortawesome/fontawesome-free/svgs/solid/arrow-right.svg?raw';
 import revogridLogo from './assets/revogrid.svg';
 import {
   createContext,
@@ -119,7 +120,7 @@ export function CatalogShell({
   onRtlChange,
 }: {
   children: ComponentChildren;
-  page?: 'components' | 'colors' | 'frameworks';
+  page?: 'components' | 'colors' | 'frameworks' | 'api';
   theme: string;
   rtl: boolean;
   onThemeChange: (value: string) => void;
@@ -133,14 +134,14 @@ export function CatalogShell({
     const update = () => {
       setActive(currentRoute());
       setMobileOpen(false);
-      if (location.hash.endsWith('-api')) return;
+      if (location.hash && (location.pathname.includes('/components/') || page === 'api')) return;
       if (location.hash === '#frameworks') requestAnimationFrame(() => document.getElementById('frameworks')?.scrollIntoView({ behavior: 'smooth' }));
       else window.scrollTo(0, 0);
     };
     window.addEventListener('hashchange', update);
     return () => window.removeEventListener('hashchange', update);
   }, []);
-  const knownRoute =
+  const knownRoute = page === 'api' ||
     (page === 'frameworks' && (!active || pages.frameworks.some(name => sectionId(name) === active))) ||
     !active ||
     active === 'components' ||
@@ -164,7 +165,7 @@ export function CatalogShell({
   });
   const visible = families.filter((family) => inScope(family.title) && matches(family, query));
   useEffect(() => {
-    const title = home ? 'Revo UI — Components for Finance, Reporting & Project Management' : `${component?.title ?? (page === 'frameworks' ? (pages.frameworks.find(name => sectionId(name) === active) ? `${pages.frameworks.find(name => sectionId(name) === active)} integration` : 'Framework integration guides') : page === 'colors' ? 'Design system colors' : 'UI components')} · Revo UI`;
+    const title = home ? 'Revo UI — Components for Finance, Reporting & Project Management' : `${component?.title ?? (page === 'frameworks' ? (pages.frameworks.find(name => sectionId(name) === active) ? `${pages.frameworks.find(name => sectionId(name) === active)} integration` : 'Documentation') : page === 'colors' ? 'Design system colors' : 'UI components')} · Revo UI`;
     document.title = title;
     const frameworkName = page === 'frameworks' ? pages.frameworks.find(name => sectionId(name) === active) : undefined;
     const description = frameworkName ? `Use Revo UI with ${frameworkName}: installation, component examples, state, callbacks, and styling for financial and reporting applications.` : home ? 'Build financial dashboards, reporting apps, and project workspaces with Revo UI. Explore UI components for React, Vue, Angular, Svelte, Preact, and TypeScript.' : component?.description ?? (page === 'colors' ? 'Explore Revo UI semantic colors, palettes, and theme tokens for consistent application interfaces.' : page === 'frameworks' ? 'Integrate Revo UI with React, Vue, Angular, Svelte, Preact, or vanilla TypeScript. Follow installation and usage guides for your stack.' : 'Browse Revo UI controls, pickers, layouts, and compositions with interactive variants and formatted usage examples.');
@@ -224,8 +225,9 @@ export function CatalogShell({
               href={siteHref('frameworks/')}
               aria-current={page === 'frameworks' ? 'page' : undefined}
             >
-              Frameworks
+              Docs
             </a>
+            <a href={siteHref("api/")} aria-current={page === "api" ? "page" : undefined}>API</a>
           </nav>
           <Toolbar label="Gallery settings">
             <a class="rv-btn rv-btn-ghost rv-btn-icon catalog-github-link" href="https://github.com/revolist/revo-ui" target="_blank" rel="noopener noreferrer" aria-label="Revo UI on GitHub" title="Revo UI on GitHub">
@@ -292,7 +294,7 @@ export function CatalogShell({
       </header>
       <main
         id="components"
-        class={`catalog-workspace${page === 'colors' ? ' catalog-workspace--colors' : ''}${home ? ' catalog-workspace--home' : ''}${component ? ' catalog-workspace--component' : ''}`}
+        class={`catalog-workspace${page === 'api' ? ' catalog-workspace--api' : ''}${page === 'colors' ? ' catalog-workspace--colors' : ''}${home ? ' catalog-workspace--home' : ''}${component ? ' catalog-workspace--component' : ''}`}
         dir={rtl ? 'rtl' : 'ltr'}
         tabIndex={-1}
       >
@@ -364,9 +366,9 @@ export function CatalogShell({
         )}
         {page === 'frameworks' && (
           <aside class="catalog-sidebar catalog-framework-sidebar">
-            <nav aria-label="Framework navigation">
+            <nav aria-label="Documentation navigation">
               <div class="catalog-nav-group">
-                <p>Frameworks</p>
+                <p>Docs</p>
                 <a
                   href={siteHref('frameworks/')}
                   aria-current={!active ? 'page' : undefined}
@@ -389,10 +391,10 @@ export function CatalogShell({
           </aside>
         )}
         <div class="catalog-content">
-          {home ? (
+          {page === "api" ? children : home ? (
             <GalleryHome />
           ) : (
-            <Route.Provider
+            <div class={component ? "component-document-layout" : undefined}><div class="component-document-main"><Route.Provider
               value={component ? sectionId(component.title) : active}
             >
               {active === 'components' && <div class="component-intro"><h1>UI components</h1><p>Explore components for finance, reporting, and project management.</p></div>}
@@ -409,7 +411,7 @@ export function CatalogShell({
                     usage code.
                   </p>
                   <div class="component-intro-actions">
-                    <Button href={`#${sectionId(component.title)}-api`} size="compact" className="component-api-link">
+                    <Button href={`${siteHref("api/")}?family=${encodeURIComponent(component.title)}`} size="compact" className="component-api-link">
                       <SvgIcon svg={codeIcon} size={14} />
                       API reference
                       <SvgIcon svg={arrowDownIcon} size={11} />
@@ -433,7 +435,7 @@ export function CatalogShell({
                   </a>
                 </div>
               )}
-            </Route.Provider>
+            </Route.Provider></div>{component && <ComponentContents family={component.title} />}</div>
           )}
           <footer class="catalog-footer">
             <span>Revo UI</span>

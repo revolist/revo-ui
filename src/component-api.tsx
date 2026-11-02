@@ -1,6 +1,6 @@
 import { h, createContext } from 'preact';
-import { useContext, useEffect, useMemo, useRef, useState } from 'preact/hooks';
-import { Button, Disclosure } from '@revolist/ui/preact';
+import { useContext, useEffect, useMemo, useState } from 'preact/hooks';
+import { Disclosure } from '@revolist/ui/preact';
 import { SvgIcon } from '@revolist/ui/icons/icon';
 import chevronRight from '@fortawesome/fontawesome-free/svgs/solid/chevron-right.svg?raw';
 
@@ -11,6 +11,7 @@ import type {
   ComponentApi,
 } from './api-types';
 export type { ComponentApi } from './api-types';
+import { apiHref } from './routing';
 
 function Chevron() {
   return <SvgIcon svg={chevronRight} className="component-api-chevron" />;
@@ -283,19 +284,28 @@ function MemberTable({
 
 function MemberHeading({ title, count }: { title: string; count: number }) {
   return (
-    <h4 class="component-api-member-heading">
+    <h4
+      id={`api-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
+      class="component-api-member-heading"
+    >
       {title}
       <span>{count}</span>
     </h4>
   );
 }
 
-function ComponentReference({ component }: { component: ComponentApi }) {
+export function ComponentReference({
+  component,
+  expanded = false,
+}: {
+  component: ComponentApi;
+  expanded?: boolean;
+}) {
   const types = useMemo(
     () => new Map(component.types.map((type) => [type.id, type])),
     [component.types],
   );
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(expanded);
   const [nativeOpen, setNativeOpen] = useState(false);
   const props = component.props.filter((member) => !member.inherited);
   const events = component.events.filter((member) => !member.inherited);
@@ -305,6 +315,7 @@ function ComponentReference({ component }: { component: ComponentApi }) {
     <TypeContext.Provider value={types}>
       <Disclosure
         className="component-api-component"
+        open={expanded || undefined}
         onToggle={(event) => {
           setOpen(event.currentTarget.open);
           if (!event.currentTarget.open) setNativeOpen(false);
@@ -354,32 +365,34 @@ function ComponentReference({ component }: { component: ComponentApi }) {
               </p>
             )}
             {!!(inheritedProps.length + inheritedEvents.length) && (
-              <Disclosure
-                className="component-api-inherited"
-                onToggle={(event) => setNativeOpen(event.currentTarget.open)}
-                summary={
-                  <>
-                    <Chevron />
-                    <span>Inherited HTML props and events</span>
-                    <span class="component-api-inherited-count">
-                      {inheritedProps.length + inheritedEvents.length}
-                    </span>
-                  </>
-                }
-              >
-                {nativeOpen && !!inheritedProps.length && (
-                  <MemberTable
-                    title={`${component.name} inherited props`}
-                    members={inheritedProps}
-                  />
-                )}
-                {nativeOpen && !!inheritedEvents.length && (
-                  <MemberTable
-                    title={`${component.name} inherited events`}
-                    members={inheritedEvents}
-                  />
-                )}
-              </Disclosure>
+              <div id="api-inherited">
+                <Disclosure
+                  className="component-api-inherited"
+                  onToggle={(event) => setNativeOpen(event.currentTarget.open)}
+                  summary={
+                    <>
+                      <Chevron />
+                      <span>Inherited HTML props and events</span>
+                      <span class="component-api-inherited-count">
+                        {inheritedProps.length + inheritedEvents.length}
+                      </span>
+                    </>
+                  }
+                >
+                  {nativeOpen && !!inheritedProps.length && (
+                    <MemberTable
+                      title={`${component.name} inherited props`}
+                      members={inheritedProps}
+                    />
+                  )}
+                  {nativeOpen && !!inheritedEvents.length && (
+                    <MemberTable
+                      title={`${component.name} inherited events`}
+                      members={inheritedEvents}
+                    />
+                  )}
+                </Disclosure>
+              </div>
             )}
           </div>
         )}
@@ -389,76 +402,27 @@ function ComponentReference({ component }: { component: ComponentApi }) {
 }
 
 export function ApiReference({ family }: { family: string }) {
-  const section = useRef<HTMLElement>(null);
-  const id = `${family.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-api`;
-  const [components, setComponents] = useState<ComponentApi[]>();
-  const [error, setError] = useState(false);
-  const [attempt, setAttempt] = useState(0);
+  const [components, setComponents] = useState<ComponentApi[]>([]);
   useEffect(() => {
-    let active = true;
-    setComponents(undefined);
-    setError(false);
-    import('virtual:component-api')
-      .then(({ default: api }) => {
-        if (active)
-          setComponents(
-            api
-              .filter((component) => component.families.includes(family))
-              .sort((a, b) => a.name.localeCompare(b.name)),
-          );
-      })
-      .catch(() => {
-        if (active) setError(true);
-      });
-    return () => {
-      active = false;
-    };
-  }, [family, attempt]);
-  useEffect(() => {
-    if (!components || location.hash !== `#${id}`) return;
-    // Restore direct fragment navigation after the client has mounted the API data.
-    const frame = requestAnimationFrame(() => {
-      section.current?.scrollIntoView({ block: 'start' });
-      section.current?.focus({ preventScroll: true });
-    });
-    return () => cancelAnimationFrame(frame);
-  }, [components, id]);
+    import('virtual:component-api').then(({ default: api }) =>
+      setComponents(api.filter((item) => item.families.includes(family))),
+    );
+  }, [family]);
   return (
     <section
       class="component-api"
-      id={id}
-      ref={section}
-      tabIndex={-1}
-      aria-label={`${family} API reference`}
+      id={`${family.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-api`}
     >
-      <header class="component-api-heading">
-        <div>
-          <h3>API reference</h3>
-          <p>Props, events and methods for every component.</p>
-        </div>
-        <span class="component-api-version">v{__UI_VERSION__}</span>
-      </header>
-      <p class="component-api-intro">
-        Based on the Preact TypeScript contracts. Includes inherited HTML
-        attributes and public controller methods. Expand an underlined type to
-        inspect its values, fields and callback arguments.
-      </p>
-      {error ? (
-        <p role="alert">
-          Could not load the API reference.{' '}
-          <Button onClick={() => setAttempt((value) => value + 1)}>
-            Retry
-          </Button>
-        </p>
-      ) : !components ? (
-        <p role="status">Loading API reference…</p>
-      ) : (
-        <div class="component-api-list">
-          {components.map((component) => (
-            <ComponentReference key={component.name} component={component} />
-          ))}
-        </div>
-      )}
+      <h3>API reference</h3>
+      <p>Explore the complete contracts and inspect complex types.</p>
+      <nav class="api-family-links" aria-label={`${family} API pages`}>
+        {components.map((item) => (
+          <a href={apiHref(item.name)}>
+            {item.name}
+            <span>View API →</span>
+          </a>
+        ))}
+      </nav>
     </section>
   );
 }
