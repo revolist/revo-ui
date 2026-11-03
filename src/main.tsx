@@ -37,6 +37,7 @@ import {
   InlineFieldsExample,
 } from './filter-controls';
 import { h, render } from 'preact';
+import { IconToolbarExample } from './icon-toolbar';
 import { CatalogShell, Section, Example } from './catalog';
 import undoIcon from '@fortawesome/fontawesome-free/svgs/solid/rotate-left.svg?raw';
 import redoIcon from '@fortawesome/fontawesome-free/svgs/solid/rotate-right.svg?raw';
@@ -717,6 +718,7 @@ function App() {
         </Example>
       </Section>
       <Section title="Menus and toolbars">
+        <IconToolbarExample />
         <Example title="Drawing toolbar">
           <Toolbar label="Drawing tools" className="rv-toolbar--surface">
             {(['select', 'rectangle', 'line', 'arrow', 'note'] as const).map(tool => (
