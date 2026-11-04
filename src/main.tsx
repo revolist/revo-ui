@@ -62,15 +62,15 @@ import {
   NumberStepper,
   Combobox,
   MultiSelect,
-  SingleValueSlider as Slider,
-  PreactRangeSlider as RangeSlider,
+  SingleValueSlider,
+  PreactRangeSlider,
   Calendar,
   DatePicker,
   DateRangePicker,
   ColorPicker,
   ColorPalette,
   Avatar,
-  SharedResourcePicker as ResourcePicker,
+  SharedResourcePicker,
   FormField,
   FieldError,
   FieldHint,
@@ -89,7 +89,7 @@ import {
   Badge,
   CountBadge,
   StatusBadge,
-  StatusFeedbackPanel as FeedbackPanel,
+  StatusFeedbackPanel,
   Alert,
   Spinner,
   LoadingOverlay,
@@ -456,7 +456,7 @@ function App() {
           <Avatar value="Morgan Lee" label="Morgan Lee" />
         </Example>
         <Example title="Resource selection">
-          <ResourcePicker
+          <SharedResourcePicker
             resources={resources}
             selectedResourceIds={people}
             onChange={setPeople}
@@ -477,7 +477,7 @@ function App() {
         <SliderLayoutExamples />
         <Example title="Scalar slider">
           <FormField label="Opacity">
-            <Slider
+            <SingleValueSlider
               min={0}
               max={100}
               value={opacity}
@@ -487,7 +487,7 @@ function App() {
           </FormField>
         </Example>
         <Example title="Range slider">
-          <RangeSlider
+          <PreactRangeSlider
             min={0}
             max={100}
             {...range}
@@ -499,7 +499,7 @@ function App() {
           />
         </Example>
         <Example title="Disabled slider">
-          <Slider
+          <SingleValueSlider
             min={0}
             max={100}
             value={50}
@@ -799,7 +799,7 @@ function App() {
           />
         </Example>
         <Example title="Activity panel">
-          <FeedbackPanel
+          <StatusFeedbackPanel
             title="Activity"
             ariaLabel="Activity"
             items={[{ id: 'saved', title: 'Project saved', tone: 'success' }]}
