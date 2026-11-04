@@ -212,7 +212,7 @@ export function GalleryHome() {
           </article>
         </div>
         <div class="home-widget-stack">
-          <WeeklyPlanning />
+          <WeeklyPlanning controlsHref={componentHref('calendar-and-dates')} />
           <article class="home-widget finance-savings">
             <div class="widget-caption">
               <span>Savings goal</span>

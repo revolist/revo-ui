@@ -1,4 +1,4 @@
-import { componentHref } from './routing';
+/** @jsxImportSource preact */
 import { useRef, useState } from 'preact/hooks';
 import {
   Avatar,
@@ -14,8 +14,8 @@ import {
   useTimeGridInteraction,
 } from '@revolist/ui/time-grid';
 import { Legend } from '@revolist/ui/legend';
-import alex from './assets/people/contact-1.jpg';
-import sam from './assets/people/contact-2.jpg';
+import alex from './assets/people/contact-1.jpg?url';
+import sam from './assets/people/contact-2.jpg?url';
 const days = [
   'Monday',
   'Tuesday',
@@ -62,7 +62,13 @@ const defaults = (member: string) =>
       timeGridCellKey(day, hour + 1),
     ]),
   );
-export function WeeklyPlanning() {
+export function WeeklyPlanning({
+  controlsHref,
+  showCaption = true,
+}: {
+  controlsHref: string;
+  showCaption?: boolean;
+}) {
   const [member, setMember] = useState('alex');
   const [schedules, setSchedules] = useState<Record<string, Set<string>>>({
     alex: defaults('alex'),
@@ -97,8 +103,8 @@ export function WeeklyPlanning() {
   return (
     <article class="home-widget home-weekly-planner">
       <div class="widget-caption">
-        <span>Weekly planning</span>
-        <a href={componentHref('calendar-and-dates')}>Time grid & controls</a>
+        {showCaption && <span>Weekly planning</span>}
+        <a href={controlsHref}>Time grid & controls</a>
       </div>
       <div class="widget-between">
         <div>
@@ -136,7 +142,12 @@ export function WeeklyPlanning() {
         <div class="planning-grid-panel">
           <div class="widget-between">
             <div class="planning-person">
-              <Avatar value={person.photo} label={person.name} size={32} />
+              <Avatar
+                value={person.photo}
+                label={person.name}
+                initials={person.name.slice(0, 1)}
+                size={32}
+              />
               <div>
                 <strong>{person.name}</strong>
                 <span>{person.role}</span>
