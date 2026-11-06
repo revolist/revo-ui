@@ -8,6 +8,12 @@ Compose data-rich workspaces with shared controls, pickers, charts, timelines, d
 
 [![Revo UI components for financial dashboards and project management](docs/assets/components-preview.jpg)](https://ui.rv-grid.com/)
 
+## Web Components
+
+Use the [runnable custom-element example](examples/web-components/) to mount
+Revo UI controls with the `<revo-ui>` adapter. The example supports property
+updates, native events, and disconnect/reconnect cleanup.
+
 ## Get started
 
 ```sh

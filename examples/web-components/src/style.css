@@ -1,0 +1,8 @@
+:root { font-family: system-ui, sans-serif; color: #172438; background: #f4f7fb; }
+body { margin: 0; }
+main { max-width: 680px; margin: 60px auto; padding: 28px; background: white; border-radius: 14px; }
+a { color: #2454ac; }
+h1 { font-size: 2rem; letter-spacing: -0.03em; }
+p { line-height: 1.6; }
+label, revo-ui { display: block; margin-top: 16px; }
+@media (max-width: 720px) { main { margin: 20px; } }
