@@ -26,10 +26,10 @@ Compose data-rich workspaces with shared controls, pickers, charts, timelines, d
 
 ## Getting started
 
-Install from a registry configured with access to `@revolist/ui`, or use the package in the RevoGrid workspace. Preact is the shared rendering peer; also install your application's host framework. React adapters require `react-dom`.
+Install the package from npm. Its renderer is bundled, so you do not need to install Preact separately. Framework adapters use your application's existing framework; the React adapter also uses `react-dom`.
 
 ```sh
-pnpm add @revolist/ui preact
+pnpm add @revolist/ui
 ```
 
 Import the shared stylesheet once in your application entry point:

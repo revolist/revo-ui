@@ -16,7 +16,7 @@ Compose data-rich workspaces with shared controls, pickers, charts, timelines, d
 ## Get started
 
 ```sh
-pnpm add @revolist/ui preact
+pnpm add @revolist/ui
 ```
 
 Import the shared styles once:

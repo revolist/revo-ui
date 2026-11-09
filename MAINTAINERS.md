@@ -8,7 +8,7 @@ Shared controls for Grid Pro, Pivot, Charts, Gantt, Scheduler, Kanban and standa
 
 ```ts
 // No grid or global browser state required at import time.
-// Preact is the required shared rendering peer.
+// The public package bundles its shared Preact renderer.
 import {
   DialogController,
   PopoverController,
