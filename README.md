@@ -1,4 +1,4 @@
-# Revo UI
+# Revo UI — A minimal, framework-agnostic UI library
 
 [![npm version](https://img.shields.io/npm/v/%40revolist%2Fui?style=flat&color=2563eb)](https://www.npmjs.com/package/@revolist/ui)
 [![MIT license](https://img.shields.io/github/license/revolist/revo-ui?style=flat&color=16a34a)](LICENSE)
