@@ -8,12 +8,6 @@ Compose data-rich workspaces with shared controls, pickers, charts, timelines, d
 
 [![Revo UI components for financial dashboards and project management](docs/assets/components-preview.jpg)](https://ui.rv-grid.com/)
 
-## Web Components
-
-Use the [runnable custom-element example](examples/web-components/) to mount
-Revo UI controls with the `<revo-ui>` adapter. The example supports property
-updates, native events, and disconnect/reconnect cleanup.
-
 ## Get started
 
 ```sh
@@ -29,6 +23,19 @@ import '@revolist/ui/styles.css';
 Choose your framework for setup instructions and usage examples:
 
 [React](https://ui.rv-grid.com/frameworks/react/) · [Vue](https://ui.rv-grid.com/frameworks/vue/) · [Angular](https://ui.rv-grid.com/frameworks/angular/) · [Svelte](https://ui.rv-grid.com/frameworks/svelte/) · [Preact](https://ui.rv-grid.com/frameworks/preact/) · [Vanilla TypeScript](https://ui.rv-grid.com/frameworks/vanilla-typescript/)
+
+## Framework support
+
+Use the same component library and shared styles across frameworks, while keeping application state in your chosen stack.
+
+| Framework | Integration |
+| --- | --- |
+| React | Named components from `@revolist/ui/react`, with React state, children, and callbacks. |
+| Vue | Named components from `@revolist/ui/vue`, with events, slots, and `v-model` for controls with a declared model. |
+| Angular | Standalone `UiComponent` from `@revolist/ui/angular`, with props, events, and templates for custom content. |
+| Svelte | Svelte 5 `UiComponent` from `@revolist/ui/svelte`, with reactive props, callbacks, and snippets. |
+| Preact | Components from `@revolist/ui/preact`, with Preact hooks and JSX. |
+| Vanilla TypeScript | Mount components into a DOM element with `createFrameworkMount` from `@revolist/ui/framework`. |
 
 ## Components
 
