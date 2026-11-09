@@ -30,12 +30,12 @@ Use the same component library and shared styles across frameworks, while keepin
 
 | Framework | Integration |
 | --- | --- |
-| React | Named components from `@revolist/ui/react`, with React state, children, and callbacks. |
-| Vue | Named components from `@revolist/ui/vue`, with events, slots, and `v-model` for controls with a declared model. |
-| Angular | Standalone `UiComponent` from `@revolist/ui/angular`, with props, events, and templates for custom content. |
-| Svelte | Svelte 5 `UiComponent` from `@revolist/ui/svelte`, with reactive props, callbacks, and snippets. |
-| Preact | Components from `@revolist/ui/preact`, with Preact hooks and JSX. |
-| Vanilla TypeScript | Mount components into a DOM element with `createFrameworkMount` from `@revolist/ui/framework`. |
+| <img src="src/assets/frameworks/react.svg" width="24" height="24" alt=""> React | Named components from `@revolist/ui/react`, with React state, children, and callbacks. |
+| <img src="src/assets/frameworks/vue.svg" width="24" height="24" alt=""> Vue | Named components from `@revolist/ui/vue`, with events, slots, and `v-model` for controls with a declared model. |
+| <img src="src/assets/frameworks/angular.svg" width="24" height="24" alt=""> Angular | Standalone `UiComponent` from `@revolist/ui/angular`, with props, events, and templates for custom content. |
+| <img src="src/assets/frameworks/svelte.svg" width="24" height="24" alt=""> Svelte | Svelte 5 `UiComponent` from `@revolist/ui/svelte`, with reactive props, callbacks, and snippets. |
+| <img src="src/assets/frameworks/preact.svg" width="24" height="24" alt=""> Preact | Components from `@revolist/ui/preact`, with Preact hooks and JSX. |
+| <img src="src/assets/frameworks/typescript.svg" width="24" height="24" alt=""> Vanilla TypeScript | Mount components into a DOM element with `createFrameworkMount` from `@revolist/ui/framework`. |
 
 ## Components
 
