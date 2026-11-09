@@ -13,3 +13,6 @@ overrides:
   '@angular/common': '22.2.0'
   vue: '3.5.43'
   vite: '8.2.4'
+
+# Install explicitly so an embedding monorepo retains its shared dependency tree.
+verifyDepsBeforeRun: false
