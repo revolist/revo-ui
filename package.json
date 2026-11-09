@@ -1,6 +1,6 @@
 {
   "name": "@revolist/ui",
-  "version": "4.0.1",
+  "version": "4.0.3",
   "type": "module",
   "description": "Revo UI: UI components for financial apps, reporting dashboards, and project management with React, Vue, Angular, Svelte, Preact, and vanilla TypeScript adapters",
   "author": "revolist",
