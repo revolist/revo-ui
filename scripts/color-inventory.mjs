@@ -18,7 +18,7 @@ const literal = /#[\da-f]{3,8}\b|\brgba?\([^)]*\)|\bhsla?\([^)]*\)/gi;
 if (process.argv.includes('--palettes')) {
   const { tsImport } = await import('tsx/esm/api');
   const { builtInColorPalettes } = await tsImport(
-    '../src/color-palette/built-in-palettes.ts',
+    '../package/color-palette/built-in-palettes.ts',
     import.meta.url,
   );
   console.log(

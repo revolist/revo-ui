@@ -10,7 +10,7 @@ const component = (name) => api.find((item) => item.name === name);
 
 test('documents every catalog component and maps it to a live family', () => {
   const catalog = readFileSync(
-    resolve(gallery, 'package/src/component-catalog.ts'),
+    resolve(gallery, 'package/component-catalog.ts'),
     'utf8',
   );
   const names = [...catalog.matchAll(/^  (\w+):/gm)].map((match) => match[1]);

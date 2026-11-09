@@ -77,18 +77,19 @@ Revo UI is [MIT licensed](LICENSE). Anyone can use, modify, and distribute it, i
 
 ## Develop from source
 
-The gallery and MIT-licensed library live in this repository. No private repository access is needed.
+This repository contains the MIT-licensed Revo UI library and its gallery demo. No private repository access is needed.
 
 ```sh
 pnpm install --frozen-lockfile
 pnpm dev
 pnpm --filter @revolist/ui lint
 pnpm --filter @revolist/ui test
+pnpm build
 pnpm --filter @revolist/ui pack:public
 pnpm --filter @revolist/ui test:public
-pnpm build
+pnpm build:demo
 ```
 
-Library source and public exports live in `package/`. The private workspace packages in `internal/` provide date and chart utilities that are bundled into the public distribution. Gallery source lives in `src/`.
+Library source lives directly in `package/`; the root manifest owns its public exports. The internal workspace packages in `internal/` provide date and chart utilities that are bundled into the public distribution. Gallery source lives in `src/`.
 
-Gallery and package builds share `vite.config.ts`; library builds select `--mode library`. The npm archive uses this README. The `package/` folder is a regular directory in this repository, not a submodule.
+Gallery and package builds share `vite.config.ts`; library builds select `--mode library`. The npm archive uses this README. The `package/` folder contains source only. All manifests, scripts, configuration and project documentation live at the repository root. The gallery in `src/` is the demo.

@@ -14,7 +14,7 @@ Pivot uses these components for selected Rows, Columns, Values and Filters. It r
 
 Field search and the RevoGrid Pro tree are unchanged and remain product-owned. The gallery's Selected field group example demonstrates presentation and callbacks, without implementing a substitute searchable field browser.
 
-Field appearance is owned by `src/styles/_field-configurator.scss`, with shared field palette tokens in `src/styles/_theme.scss`. Native Pivot action adapters and gallery buttons use `rv-configurator-action-button`; remove controls use `FieldRemoveButton`. Both resolve the same 28px button, 12px SVG, neutral color, hover/focus/disabled treatment and animated removal icon. Pivot styles retain host/shelf layout and domain-specific editors, rather than overriding these shared field controls.
+Field appearance is owned by `package/styles/_field-configurator.scss`, with shared field palette tokens in `package/styles/_theme.scss`. Native Pivot action adapters and gallery buttons use `rv-configurator-action-button`; remove controls use `FieldRemoveButton`. Both resolve the same 28px button, 12px SVG, neutral color, hover/focus/disabled treatment and animated removal icon. Pivot styles retain host/shelf layout and domain-specific editors, rather than overriding these shared field controls.
 
 Reordering uses `reorderFields` and `fieldDropIndex` from `@revolist/ui/field-reorder` (framework-neutral). The insertion index is a boundary in the original list, so moving downward adjusts for the removed source. No-op or invalid moves retain the original list, and repeated fields preserve their distinct instances. Full and compact Pivot delegate to these helpers and retain their domain commits and cross-section policies.
 

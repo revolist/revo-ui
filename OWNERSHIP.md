@@ -5,11 +5,11 @@ canonical exports and leaf modules contain the current implementations. Product 
 values, validation, commands, persistence and domain layout.
 
 AI prompt, suggestions, applied-request trail, action status, result and assistant compositions live in
-`src/ai/`; `src/ai/_style.scss` owns their token-based presentation. Pro's AI
+`package/ai/`; `package/ai/_style.scss` owns their token-based presentation. Pro's AI
 adapter owns interpretation, field policy, view commands, query execution and
 view snapshots. Framework adapters and native mounting reuse the same TSX.
 
-| Component family                                                     | Implementation owner under `src/`                                                                                                  | Style owner under `src/`                                                                                                   |
+| Component family                                                     | Implementation owner under `package/`                                                                                                  | Style owner under `package/`                                                                                                   |
 | -------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
 | Native button, input, select, textarea, summary                      | `control-presentation.tsx`; Preact `native-control.tsx`                                                                            | `styles/_primitives.scss`, `styles/_control.scss`, `_form.scss`                                                            |
 | Button variants, icon button, toggle, group                          | `controls.tsx`, `buttons/`                                                                                                         | `styles/_primitives.scss`                                                                                                  |
@@ -63,7 +63,7 @@ menus keep domain policy and data operations in their product. Large title
 fields and toolbar layouts remain product compositions using shared primitives.
 Grid cells, timeline event/task hit targets, dependency handles, card drag
 surfaces, grid expansion and virtualization keep their product geometry.
-`src/ownership.test.ts` records the explicit scene exceptions and rejects new
+`package/ownership.test.ts` records the explicit scene exceptions and rejects new
 local primitive JSX/factories elsewhere. UI's native dependency boundary and
 Charts' rendering boundary have separate assertions.
 
@@ -92,7 +92,7 @@ BarChart and LineChart are independent compact visual components, exported throu
 
 ### Field configurators
 
-`src/field-configurator.tsx` owns field libraries, headings, lists, drag-ready rows, neutral items and icon/caption slots. `src/styles/_field-configurator.scss` owns presentation and UI-token fallbacks. Pivot configurator exports remain aliases; its SCSS mixin delegates to UI. Query rules, native policy inspection, field metadata icons, tooltips and grid drag/drop stay in Pivot. The gallery demonstrates these primitives independently.
+`package/field-configurator.tsx` owns field libraries, headings, lists, drag-ready rows, neutral items and icon/caption slots. `package/styles/_field-configurator.scss` owns presentation and UI-token fallbacks. Pivot configurator exports remain aliases; its SCSS mixin delegates to UI. Query rules, native policy inspection, field metadata icons, tooltips and grid drag/drop stay in Pivot. The gallery demonstrates these primitives independently.
 
 Pivot configuration and chart query searchable fields both use `PivotDimensionsGrid` and Pro `TreeDataPlugin` in Pivot. The UI field library is a neutral disclosure/list shell, never a substitute for these grid-backed browsers.
 
@@ -108,7 +108,7 @@ Link-style action buttons use `Button variant="link"` or `SvgButton variant="lin
 
 ## Interactive timeline track
 
-`src/timeline-track/` owns controlled bar rendering, selection, pointer capture/movement/resizing, keyboard edits, numeric geometry helpers and track styles. Pro's Timeline editor adapter retains draft validation, localization and commits; its existing model helper exports forward to the shared model. The read-only cell timeline renderer remains in `cell-visuals/timeline.ts`.
+`package/timeline-track/` owns controlled bar rendering, selection, pointer capture/movement/resizing, keyboard edits, numeric geometry helpers and track styles. Pro's Timeline editor adapter retains draft validation, localization and commits; its existing model helper exports forward to the shared model. The read-only cell timeline renderer remains in `cell-visuals/timeline.ts`.
 
 ## Editable dialog composition
 

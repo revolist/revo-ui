@@ -10,7 +10,7 @@ export function createBundledUtilityTypes(
 ) {
   const owners = ['dates', 'chart-utils'].map((name) => ({
     name: `@revolist/${name}`,
-    source: resolve(packageRoot, '../internal', name, 'src'),
+    source: resolve(packageRoot, 'internal', name, 'src'),
     destination: resolve(output, '_shared', name),
   }));
   const files = (directory: string): string[] =>

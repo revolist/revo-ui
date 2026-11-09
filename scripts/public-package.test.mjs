@@ -90,7 +90,10 @@ test('archive exposes real typed ESM/CSS exports without private dependencies or
   );
   assert.equal(
     readFileSync(join(packageRoot, 'README.md'), 'utf8'),
-    readFileSync(resolve(root, '../README.md'), 'utf8'),
+    readFileSync(resolve(root, 'README.md'), 'utf8'),
+  );
+  assert(
+    !Object.keys(manifest.exports).some((name) => name.startsWith('./demo/')),
   );
   assert.equal(manifest.license, 'MIT');
   assert.match(

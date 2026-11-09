@@ -3,9 +3,9 @@ import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import test from 'node:test';
 
-const root = fileURLToPath(new URL('../../', import.meta.url));
+const root = fileURLToPath(new URL('./', import.meta.url));
 function inventory(config) {
-  const report = JSON.parse(execFileSync('pnpm', ['--filter', '@revolist/ui-gallery', 'exec', 'playwright', 'test', '--config', config, '--list', '--reporter=json'], { cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }));
+  const report = JSON.parse(execFileSync('pnpm', ['--filter', '@revolist/ui', 'exec', 'playwright', 'test', '--config', config, '--list', '--reporter=json'], { cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }));
   assert.deepEqual(report.errors, []);
   function cases(suite) {
     return [...(suite.specs ?? []).map(spec => ({ file: spec.file, title: spec.title })), ...(suite.suites ?? []).flatMap(cases)];

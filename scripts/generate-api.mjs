@@ -5,8 +5,8 @@ import { fileURLToPath } from 'node:url';
 
 const gallery = fileURLToPath(new URL('../', import.meta.url));
 const library = resolve(process.argv[2] ?? gallery);
-const catalogPath = resolve(library, 'package/src/component-catalog.ts');
-const selectPath = resolve(library, 'package/src/select.tsx');
+const catalogPath = resolve(library, 'package/component-catalog.ts');
+const selectPath = resolve(library, 'package/select.tsx');
 const program = ts.createProgram([catalogPath, selectPath], {
   target: ts.ScriptTarget.ESNext, module: ts.ModuleKind.ESNext,
   moduleResolution: ts.ModuleResolutionKind.Bundler, jsx: ts.JsxEmit.ReactJSX,
@@ -49,7 +49,7 @@ for (const {name,node} of entries) {
     text += `| \`${escape(property.name)}\` | \`${escape(valueType)}\` | ${property.flags & ts.SymbolFlags.Optional ? 'No' : 'Yes'} | ${escape(description)} |\n`;
   }
   if (!own.length) text += '| — | No component-specific props listed | — | See the linked examples and package declarations. |\n';
-  text += '\n## Composition\n\nKeep controlled values and side effects in your application. Use the matching framework adapter rather than passing another framework’s VNodes through Preact callbacks. The live page groups this control with related variants and composition helpers.\n\nThis reference is generated from the local `package/src` library source. Rebuild it with `node scripts/generate-api.mjs`.\n';
+  text += '\n## Composition\n\nKeep controlled values and side effects in your application. Use the matching framework adapter rather than passing another framework’s VNodes through Preact callbacks. The live page groups this control with related variants and composition helpers.\n\nThis reference is generated from the local `package` library source. Rebuild it with `node scripts/generate-api.mjs`.\n';
   writeFileSync(resolve(output, `${name}.md`),text);count++;
 }
 console.log(`Generated ${count} component API references from TypeScript declarations.`);

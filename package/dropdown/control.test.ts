@@ -4,7 +4,7 @@ import { createDropdownControl, renderDropdownControl } from './control';
 import {
   chooseDropdownOption,
   dropdownOptions,
-} from '../../../tests/helpers/dropdown.mjs';
+} from '../../tests/helpers/dropdown.mjs';
 
 const controls: ReturnType<typeof createDropdownControl>[] = [];
 const renderedRefs: Array<(host: HTMLElement | null) => void> = [];

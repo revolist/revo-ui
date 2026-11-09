@@ -18,9 +18,11 @@
       "node"
     ],
     "allowImportingTsExtensions": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "experimentalDecorators": true
   },
   "include": [
+    "package",
     "src",
     "*.ts"
   ],

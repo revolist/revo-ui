@@ -6,12 +6,12 @@ const root = new URL('../', import.meta.url);
 const pages = JSON.parse(await readFile(new URL('src/pages.json', root), 'utf8'));
 const slug = title => title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 const paths = [...apiRoutes, '', 'components/', ...pages.components.map(page => `components/${slug(page.title)}/`), 'colors/', 'frameworks/', ...pages.frameworks.map(name => `frameworks/${slug(name)}/`)];
-const sitemap = await readFile(new URL('dist/sitemap.xml', root), 'utf8');
+const sitemap = await readFile(new URL('dist-gallery/sitemap.xml', root), 'utf8');
 assert.equal([...sitemap.matchAll(/<loc>/g)].length, paths.length);
 const titles = new Set();
 const descriptions = new Set();
 for (const path of paths) {
-  const html = await readFile(new URL(`dist/${path}index.html`, root), 'utf8');
+  const html = await readFile(new URL(`dist-gallery/${path}index.html`, root), 'utf8');
   const canonical = `https://ui.rv-grid.com/${path}`;
   assert.ok(sitemap.includes(`<loc>${canonical}</loc>`), `Missing sitemap URL: ${path}`);
   assert.ok(html.includes(`rel="canonical" href="${canonical}"`), `Missing canonical: ${path}`);

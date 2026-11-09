@@ -1,6 +1,6 @@
 import dts from 'unplugin-dts/vite';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
-import { createBundledUtilityTypes } from './package/scripts/bundled-utility-types.ts';
+import { createBundledUtilityTypes } from './scripts/bundled-utility-types.ts';
 import { readFile } from 'node:fs/promises';
 import { readFileSync } from 'node:fs';
 import { format } from 'prettier';
@@ -10,7 +10,7 @@ import preact from '@preact/preset-vite';
 import { componentApi, apiModule } from './scripts/component-api.mjs';
 export default defineConfig(({ mode }) => {
   if (mode === 'library') {
-    const root = resolve(import.meta.dirname, 'package');
+    const root = import.meta.dirname;
     const manifest = JSON.parse(
       readFileSync(resolve(root, 'package.json'), 'utf8'),
     );
@@ -18,11 +18,12 @@ export default defineConfig(({ mode }) => {
       Object.values<string>(manifest.exports)
         .filter(
           (source) =>
+            source.startsWith('./package/') &&
             /\.tsx?$/.test(source) &&
             !/(?:angular-control|angular)\.ts$/.test(source),
         )
         .map((source) => [
-          source.replace(/^\.\/src\//, '').replace(/\.tsx?$/, ''),
+          source.replace(/^\.\/package\//, '').replace(/\.tsx?$/, ''),
           resolve(root, source),
         ]),
     );
@@ -36,8 +37,8 @@ export default defineConfig(({ mode }) => {
         utilities.plugin,
         dts({
           tsconfigPath: resolve(root, 'tsconfig.json'),
-          entryRoot: resolve(root, 'src'),
-          include: ['src'],
+          entryRoot: resolve(root, 'package'),
+          include: ['package'],
           exclude: ['**/*.test.ts', '**/*.test.tsx'],
           beforeWriteFile: (filePath, content) => ({
             filePath,
@@ -66,10 +67,7 @@ export default defineConfig(({ mode }) => {
     define: {
       __UI_VERSION__: JSON.stringify(
         JSON.parse(
-          readFileSync(
-            resolve(import.meta.dirname, './package/package.json'),
-            'utf8',
-          ),
+          readFileSync(resolve(import.meta.dirname, './package.json'), 'utf8'),
         ).version,
       ),
     },
@@ -104,6 +102,6 @@ export default defineConfig(({ mode }) => {
       },
       preact(),
     ],
-    build: { outDir: 'dist' },
+    build: { outDir: 'dist-gallery' },
   };
 });

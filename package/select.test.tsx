@@ -10,7 +10,7 @@ import {
   chooseDropdownValue,
   dropdownOptions,
   chooseDropdownValueSync,
-} from '../../tests/helpers/dropdown.mjs';
+} from '../tests/helpers/dropdown.mjs';
 
 afterEach(() => {
   act(() => render(null, document.body));

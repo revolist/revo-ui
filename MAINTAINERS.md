@@ -86,7 +86,7 @@ Grid-backed selection and filter policy belong to Pro.
 
 Compact `BarChart`, `LineChart` and `AreaChart` render independently of brush controls or grid instances. Import them from `@revolist/ui/preact` or their leaf entries (`@revolist/ui/bar-chart`, `@revolist/ui/line-chart`, `@revolist/ui/area-chart`). They accept explicit `data`, `ariaLabel`, height, selection flags and tooltip content. `DistributionChart` preserves the existing type-switching contract; `BrushRange` remains the slider composition. The gallery includes separate bar and line cards.
 
-Field configurators use `FieldLibrary`, `FieldLibraryList`, `FieldGroup`, `FieldGroupHeading`, `FieldList`, `FieldRow`, `FieldItem`, and `FieldContent` from `@revolist/ui/field-configurator` (also in the Preact entry). They provide native disclosure, row structure, panel shells, field identity icons, expansion state, and rendering slots. Shared action menus, aggregation choices, drop zones and focus restoration are exported through the `configurator-actions`, `configurator-aggregation-list`, `configurator-drop-zone`, `configurator-field-icon`, and `configurator-focus` public entries. Pro owns ordinary-grid provider integration and nested field grids; Pivot owns report search policy, axis assignment, ordering and selection state. Both import the shared UI owner directly. The clean Fields-grid CSS is owned by `src/styles/_fields-grid.scss` and included by the common UI stylesheet. Pro, Pivot and Pivot Charts use `rv-configurator-fields-grid`; do not add product-local copies or hide overflow scrollbars to compensate for column sizing.
+Field configurators use `FieldLibrary`, `FieldLibraryList`, `FieldGroup`, `FieldGroupHeading`, `FieldList`, `FieldRow`, `FieldItem`, and `FieldContent` from `@revolist/ui/field-configurator` (also in the Preact entry). They provide native disclosure, row structure, panel shells, field identity icons, expansion state, and rendering slots. Shared action menus, aggregation choices, drop zones and focus restoration are exported through the `configurator-actions`, `configurator-aggregation-list`, `configurator-drop-zone`, `configurator-field-icon`, and `configurator-focus` public entries. Pro owns ordinary-grid provider integration and nested field grids; Pivot owns report search policy, axis assignment, ordering and selection state. Both import the shared UI owner directly. The clean Fields-grid CSS is owned by `package/styles/_fields-grid.scss` and included by the common UI stylesheet. Pro, Pivot and Pivot Charts use `rv-configurator-fields-grid`; do not add product-local copies or hide overflow scrollbars to compensate for column sizing.
 
 ### Interactive timeline track
 
@@ -108,7 +108,7 @@ The footer shows standard Cancel and submit Save actions by default. `cancel`, `
 
 See [Colors and usage](COLORS.md) for semantic roles, theming, and compatibility overrides. The gallery header links to the independent Colors page (`?page=colors`).
 
-Built-in product defaults live in named `src/color-palette/*-palettes.ts` modules. The Colors page shows each palette's values, usage, and consumers. Products import purpose-specific constants or the generated `@revolist/ui/palettes.scss` lookup; run `pnpm --filter @revolist/ui generate:palettes` after changing definitions. `check:palettes` verifies the generated source is current.
+Built-in product defaults live in named `package/color-palette/*-palettes.ts` modules. The Colors page shows each palette's values, usage, and consumers. Products import purpose-specific constants or the generated `@revolist/ui/palettes.scss` lookup; run `pnpm --filter @revolist/ui generate:palettes` after changing definitions. `check:palettes` verifies the generated source is current.
 
 ## Accessibility
 
@@ -345,7 +345,7 @@ pnpm --filter @revolist/ui-gallery exec playwright test --config ../../tests/sha
 rotation, local files, download and printing. It is available through the Preact,
 React and Vue entries and the Angular/Svelte component catalog. Install the optional
 `pdfjs-dist` peer and provide its matching worker URL. See
-[`src/pdf-viewer/README.md`](src/pdf-viewer/README.md) for setup, API and lifecycle.
+[`package/pdf-viewer/README.md`](package/pdf-viewer/README.md) for setup, API and lifecycle.
 
 Pagination supports `boundaryButtons` to show or hide the first/last page buttons.
 The native `PaginationPanel` (and Pro pagination) defaults to `true`; the framework

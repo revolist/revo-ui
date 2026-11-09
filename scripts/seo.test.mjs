@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readFile, stat } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
-const dist = resolve(process.argv[2] ?? 'dist');
+const dist = resolve(process.argv[2] ?? 'dist-gallery');
 const html = await readFile(resolve(dist, 'index.html'), 'utf8');
 assert.match(html, /<title>Revo UI — Components for Finance, Reporting/);
 assert.match(html, /name="description" content="Build financial dashboards/);

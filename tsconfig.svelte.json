@@ -4,5 +4,5 @@
     "allowJs": true,
     "checkJs": false
   },
-  "include": ["src/svelte/**/*.svelte", "src/svelte-props.ts"]
+  "include": ["package/svelte/**/*.svelte", "package/svelte-props.ts"]
 }

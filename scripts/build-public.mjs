@@ -27,15 +27,7 @@ function run(args) {
   if (result.status !== 0)
     throw new Error(`pnpm ${args.join(' ')} failed (${result.status})`);
 }
-run([
-  'exec',
-  'vite',
-  'build',
-  '--config',
-  '../vite.config.ts',
-  '--mode',
-  'library',
-]);
+run(['exec', 'vite', 'build', '--mode', 'library']);
 
 // Preserve every Sass/CSS export, including its relative imports, and also offer
 // compiled CSS so ordinary consumers don't need a Sass toolchain.
@@ -44,15 +36,15 @@ function copyStyles(directory) {
     const file = resolve(directory, entry.name);
     if (entry.isDirectory()) copyStyles(file);
     else if (/\.(?:scss|css|svg|woff2?)$/.test(entry.name)) {
-      const target = resolve(output, relative(resolve(root, 'src'), file));
+      const target = resolve(output, relative(resolve(root, 'package'), file));
       mkdirSync(dirname(target), { recursive: true });
       cpSync(file, target);
     }
   }
 }
-copyStyles(resolve(root, 'src'));
+copyStyles(resolve(root, 'package'));
 for (const name of ['styles', 'native-styles']) {
-  const css = await compileAsync(resolve(root, `src/${name}.scss`), {
+  const css = await compileAsync(resolve(root, `package/${name}.scss`), {
     style: 'compressed',
   });
   writeFileSync(resolve(output, `${name}.css`), css.css);
@@ -65,7 +57,7 @@ mkdirSync(staging, { recursive: true });
 for (const name of ['angular-control', 'angular']) {
   writeFileSync(
     resolve(staging, `${name}.ts`),
-    readFileSync(resolve(root, `src/${name}.ts`), 'utf8')
+    readFileSync(resolve(root, `package/${name}.ts`), 'utf8')
       .replaceAll("'./control-attributes'", "'../control-attributes.js'")
       .replaceAll("'./framework'", "'../framework.js'")
       .replace(/'\.\/pdf-viewer\/([^']+)'/g, "'../pdf-viewer/$1.js'"),
@@ -106,7 +98,7 @@ for (const name of ['angular-control', 'angular'])
 // Preserve Svelte source for compiler-aware consumers and provide precompiled
 // browser/server fallbacks for bundlers that do not resolve the svelte condition.
 const svelteSource = readFileSync(
-  resolve(root, 'src/svelte/UiComponent.svelte'),
+  resolve(root, 'package/svelte/UiComponent.svelte'),
   'utf8',
 );
 mkdirSync(resolve(output, 'svelte'), { recursive: true });
@@ -185,38 +177,40 @@ mkdirSync(preactTypes, { recursive: true });
 cpSync(resolve(preactRoot, 'LICENSE'), resolve(preactTypes, 'LICENSE'));
 
 const exports = Object.fromEntries(
-  Object.entries(source.exports).map(([name, file]) => {
-    if (name === './svelte')
+  Object.entries(source.exports)
+    .filter(([name]) => !name.startsWith('./demo/'))
+    .map(([name, file]) => {
+      if (name === './svelte')
+        return [
+          name,
+          {
+            types: './svelte.d.ts',
+            svelte: './svelte-source.js',
+            browser: './svelte.js',
+            default: './svelte-server.js',
+          },
+        ];
+      if (name === './angular-control' || name === './angular')
+        return [
+          name,
+          {
+            types: `./angular/${name.slice(2)}.d.ts`,
+            import: `./angular/${name.slice(2)}.js`,
+            default: `./angular/${name.slice(2)}.js`,
+          },
+        ];
+      const target = file.replace('./package/', './');
       return [
         name,
-        {
-          types: './svelte.d.ts',
-          svelte: './svelte-source.js',
-          browser: './svelte.js',
-          default: './svelte-server.js',
-        },
+        /\.tsx?$/.test(target)
+          ? {
+              types: target.replace(/\.tsx?$/, '.d.ts'),
+              import: target.replace(/\.tsx?$/, '.js'),
+              default: target.replace(/\.tsx?$/, '.js'),
+            }
+          : target,
       ];
-    if (name === './angular-control' || name === './angular')
-      return [
-        name,
-        {
-          types: `./angular/${name.slice(2)}.d.ts`,
-          import: `./angular/${name.slice(2)}.js`,
-          default: `./angular/${name.slice(2)}.js`,
-        },
-      ];
-    const target = file.replace('./src/', './');
-    return [
-      name,
-      /\.tsx?$/.test(target)
-        ? {
-            types: target.replace(/\.tsx?$/, '.d.ts'),
-            import: target.replace(/\.tsx?$/, '.js'),
-            default: target.replace(/\.tsx?$/, '.js'),
-          }
-        : target,
-    ];
-  }),
+    }),
 );
 exports['./styles.css'] = './styles.css';
 exports['./native-styles.css'] = './native-styles.css';
@@ -260,7 +254,7 @@ writeFileSync(
   resolve(output, 'package.json'),
   JSON.stringify(manifest, null, 2) + '\n',
 );
-cpSync(resolve(root, '../README.md'), resolve(output, 'README.md'));
+cpSync(resolve(root, 'README.md'), resolve(output, 'README.md'));
 for (const name of ['OWNERSHIP.md', 'MIGRATION.md', 'LICENSE'])
   if (existsSync(resolve(root, name)))
     cpSync(resolve(root, name), resolve(output, name));

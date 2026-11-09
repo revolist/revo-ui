@@ -1,6 +1,6 @@
 # RevoGrid colors
 
-`@revolist/ui` owns shared interface color values. The Sass palette supplies reusable raw colors; the theme assigns semantic roles. Product styles consume semantic `--rv-ui-*` variables. The **Colors** page of the UI gallery (`?page=colors`) shows the light and dark palettes side by side, resolved directly from theme CSS, and provides searchable usage guidance from `src/styles/color-roles.ts`. That catalog stores names and usage, never color values.
+`@revolist/ui` owns shared interface color values. The Sass palette supplies reusable raw colors; the theme assigns semantic roles. Product styles consume semantic `--rv-ui-*` variables. The **Colors** page of the UI gallery (`?page=colors`) shows the light and dark palettes side by side, resolved directly from theme CSS, and provides searchable usage guidance from `package/styles/color-roles.ts`. That catalog stores names and usage, never color values.
 
 ## Choose by purpose
 
@@ -49,7 +49,7 @@ The Colors page also lists each selectable swatch name and hexadecimal value. `@
 
 ## Named built-in palettes
 
-`src/color-palette/built-in-palettes.ts` is the catalog of palette IDs, titles, usage, consumers, and exact values. The Colors page lists every palette with searchable usage and expandable swatches. These fixed palettes intentionally preserve their distinct appearance; semantic theme tokens remain the interface customization layer.
+`package/color-palette/built-in-palettes.ts` is the catalog of palette IDs, titles, usage, consumers, and exact values. The Colors page lists every palette with searchable usage and expandable swatches. These fixed palettes intentionally preserve their distinct appearance; semantic theme tokens remain the interface customization layer.
 
 Product TypeScript imports the smallest purpose-specific export so unrelated palettes can be removed from bundles:
 
@@ -79,6 +79,6 @@ For hexadecimal colors embedded in SVG data URIs, use `palettes.uri-color(id, ke
 
 ## Primitive ownership
 
-`src/color-palette/common-palettes.ts` owns `commonColors`, the exact primitive strings used by every built-in product palette, picker swatch, and picker default. Product palette files import these primitives and keep their own semantic keys and order. Avatar gradients compose shared stops; Sass `_palette.scss` reads the generated `common` palette.
+`package/color-palette/common-palettes.ts` owns `commonColors`, the exact primitive strings used by every built-in product palette, picker swatch, and picker default. Product palette files import these primitives and keep their own semantic keys and order. Avatar gradients compose shared stops; Sass `_palette.scss` reads the generated `common` palette.
 
 Hexadecimal keys identify fixed paint without assigning a product role. Exact serialization variants (hexadecimal case, short hex, CSS keywords, and RGB spellings) remain distinct for portable exports and existing contracts. Do not add a repeated literal to another palette; reference the shared value and regenerate Sass with `pnpm --filter @revolist/ui generate:palettes`.

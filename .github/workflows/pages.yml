@@ -44,22 +44,19 @@ jobs:
           pnpm --filter @revolist/ui test:public
       - name: Verify generated API contracts
         working-directory: gallery
-        run: pnpm --filter @revolist/ui-gallery test:api
-      - name: Typecheck gallery
-        working-directory: gallery
-        run: pnpm --filter @revolist/ui-gallery lint
+        run: pnpm --filter @revolist/ui test:api
       - name: Install browser for static rendering
         working-directory: gallery
-        run: pnpm --filter @revolist/ui-gallery exec playwright install --with-deps chromium
+        run: pnpm --filter @revolist/ui exec playwright install --with-deps chromium
       - name: Build Pages site
         working-directory: gallery
-        run: pnpm --filter @revolist/ui-gallery build --base /
+        run: pnpm --filter @revolist/ui build:demo --base /
       - name: Verify static SEO output
-        run: node gallery/scripts/seo.test.mjs gallery/dist
+        run: node gallery/scripts/seo.test.mjs gallery/dist-gallery
       - name: Upload static site only
         uses: actions/upload-pages-artifact@v4
         with:
-          path: gallery/dist
+          path: gallery/dist-gallery
 
   deploy:
     needs: build

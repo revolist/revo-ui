@@ -1,4 +1,4 @@
-import { dropdownOptions } from '../../../tests/helpers/dropdown.mjs';
+import { dropdownOptions } from '../../tests/helpers/dropdown.mjs';
 import { h, render } from 'preact';
 import { act } from 'preact/test-utils';
 import { afterEach, expect, it, vi } from 'vitest';
