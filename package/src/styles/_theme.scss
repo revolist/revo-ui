@@ -1,0 +1,207 @@
+@use './motion';
+@use './palette';
+@use '../variables' as variables;
+@mixin rv-ui-light-tokens {
+  --rv-ui-color-scheme: light;
+  color-scheme: light;
+  --rv-ui-overlay: color-mix(in srgb, black 38%, transparent);
+  --rv-ui-shadow: color-mix(in srgb, black 10%, transparent);
+  --rv-ui-disabled-bg: var(--rv-ui-surface-sunken);
+  --rv-ui-disabled-fg: var(--rv-ui-text-muted);
+  --rv-ui-danger-surface: color-mix(
+    in srgb,
+    var(--rv-ui-danger) 10%,
+    var(--rv-ui-surface)
+  );
+  --rv-ui-warning-surface: color-mix(
+    in srgb,
+    var(--rv-ui-warning) 10%,
+    var(--rv-ui-surface)
+  );
+  --rv-ui-success-surface: color-mix(
+    in srgb,
+    var(--rv-ui-success) 10%,
+    var(--rv-ui-surface)
+  );
+  --rv-ui-field-muted: var(--rv-ui-text-muted);
+  --rv-ui-field-accent-text: color-mix(
+    in srgb,
+    var(--rv-ui-accent, #{palette.$blue-600}) 90%,
+    black
+  );
+  --rv-ui-field-surface: #{palette.$gray-f6f6f6};
+  --rv-ui-field-text: var(--rv-ui-text);
+  /* Typography */
+  --rv-ui-font-weight-medium: #{variables.$rv-font-weight-medium};
+
+  /* Semantic surfaces and content */
+  --rv-ui-canvas: #{palette.$neutral-100};
+  --rv-ui-surface: #{palette.$white};
+  --rv-ui-surface-elevated: #{palette.$white};
+  --rv-ui-surface-sunken: #{palette.$gray-f8f8f8};
+  --rv-ui-surface-hover: #{palette.$gray-f1f1f1};
+  --rv-ui-border: #{palette.$neutral-200};
+  --rv-ui-border-strong: #{palette.$neutral-300};
+  --rv-ui-text: #{palette.$neutral-900};
+  --rv-ui-text-muted: #{palette.$neutral-600};
+  --rv-ui-text-subtle: #{palette.$neutral-500};
+  --rv-ui-selected-bg: color-mix(
+    in srgb,
+    var(--rv-ui-accent) 12%,
+    var(--rv-ui-surface)
+  );
+  --rv-dropdown-container-tag-background: #{palette.$gray-eeeeee};
+  --rv-dropdown-placeholder-color: var(--rv-ui-text-muted);
+  --rv-ui-selected-fg: #{palette.$neutral-900};
+  --rv-ui-selected-accent-fg: color-mix(
+    in srgb,
+    var(--rv-ui-accent) 65%,
+    black
+  );
+
+  --rv-ui-danger: #{palette.$red-700};
+  --rv-ui-warning: #{palette.$amber-700};
+  --rv-ui-success: #{palette.$green-700};
+
+  /* Accent (primary / switch on) */
+  --rv-ui-accent: #{palette.$blue-600};
+  --rv-ui-accent-hover: #{palette.$blue-700};
+  --rv-ui-accent-fg: #{palette.$white};
+  --rv-ui-accent-text-weight: 90%;
+  --rv-ui-accent-text-base: black;
+  --rv-ui-accent-text: color-mix(in srgb, var(--rv-ui-accent) 90%, black);
+
+  /* Outline button (default) */
+  --rv-ui-btn-outline-bg: transparent;
+  --rv-ui-btn-outline-bg-hover: var(--rv-ui-surface-hover);
+  --rv-ui-btn-outline-fg: var(--rv-ui-text);
+  --rv-ui-btn-outline-border: var(--rv-ui-border);
+  --rv-ui-btn-outline-border-hover: var(--rv-ui-border-strong);
+
+  /* Filled neutral button */
+  --rv-ui-btn-bg: #{palette.$neutral-800};
+  --rv-ui-btn-bg-hover: #{palette.$neutral-700};
+  --rv-ui-btn-fg: #{palette.$white};
+
+  /* Secondary button */
+  --rv-ui-btn-secondary-bg: var(--rv-ui-border);
+  --rv-ui-btn-secondary-bg-hover: var(--rv-ui-border-strong);
+  --rv-ui-btn-secondary-fg: var(--rv-ui-text);
+
+  /* Danger button */
+  --rv-ui-btn-danger-bg: transparent;
+  --rv-ui-btn-danger-bg-hover: #{palette.$red-overlay-8};
+  --rv-ui-btn-danger-fg: var(--rv-ui-danger);
+  --rv-ui-btn-danger-outline: #{palette.$gray-dc2626};
+  --rv-ui-btn-danger-outline-hover: #{palette.$red-overlay-8};
+
+  /* Ghost hover overlay */
+  --rv-ui-btn-ghost-hover-bg: #{palette.$black-overlay-6};
+  --rv-ui-btn-ghost-active-bg: #{palette.$black-overlay-10};
+
+  /* Toggle switch */
+  --rv-ui-switch-track-off: #{palette.$gray-9ca3af};
+  --rv-ui-switch-thumb: #{palette.$white};
+
+  /* Button group */
+  --rv-ui-group-border: var(--rv-ui-border);
+  --rv-ui-group-hover-bg: var(--rv-ui-surface-hover);
+
+  /* Badge */
+  --rv-ui-badge-bg: var(--rv-ui-accent);
+  --rv-ui-badge-fg: var(--rv-ui-accent-fg);
+  --rv-ui-badge-disabled-bg: #{palette.$gray-a1a1aa};
+  --rv-ui-badge-disabled-fg: #{palette.$white};
+
+  /* Shared */
+  --rv-ui-radius: 6px;
+  --rv-ui-transition: var(--rv-ui-motion-fast, 120ms);
+  --rv-ui-focus-ring: color-mix(in srgb, var(--rv-ui-accent) 35%, transparent);
+}
+
+@mixin rv-ui-dark-tokens {
+  --rv-ui-color-scheme: dark;
+  --rv-ui-disabled-bg: var(--rv-ui-surface-sunken);
+  --rv-ui-disabled-fg: var(--rv-ui-text-muted);
+  --rv-ui-danger-surface: color-mix(
+    in srgb,
+    var(--rv-ui-danger) 10%,
+    var(--rv-ui-surface)
+  );
+  --rv-ui-warning-surface: color-mix(
+    in srgb,
+    var(--rv-ui-warning) 10%,
+    var(--rv-ui-surface)
+  );
+  --rv-ui-success-surface: color-mix(
+    in srgb,
+    var(--rv-ui-success) 10%,
+    var(--rv-ui-surface)
+  );
+  --rv-ui-overlay: color-mix(in srgb, black 60%, transparent);
+  --rv-ui-shadow: color-mix(in srgb, black 32%, transparent);
+  --rv-ui-field-muted: var(--rv-ui-text-muted);
+  --rv-ui-field-accent-text: color-mix(
+    in srgb,
+    var(--rv-ui-accent, #{palette.$blue-600}) 45%,
+    white
+  );
+  --rv-ui-field-surface: #{palette.$neutral-800};
+  --rv-ui-field-text: var(--rv-ui-text);
+  --rv-ui-canvas: #{palette.$neutral-950};
+  --rv-ui-surface: #{palette.$gray-1f1f1f};
+  --rv-ui-surface-elevated: #{palette.$neutral-800};
+  --rv-ui-surface-sunken: #{palette.$gray-111111};
+  --rv-ui-surface-hover: #{palette.$gray-2f2f2f};
+  --rv-ui-border: #{palette.$gray-3a3a3a};
+  --rv-ui-border-strong: #{palette.$gray-525252};
+  --rv-ui-text: #{palette.$neutral-100};
+  --rv-ui-text-muted: #{palette.$gray-a3a3a3};
+  --rv-ui-text-subtle: #{palette.$neutral-500};
+  --rv-ui-selected-bg: color-mix(
+    in srgb,
+    var(--rv-ui-accent) 12%,
+    var(--rv-ui-surface)
+  );
+  --rv-dropdown-container-tag-background: #{palette.$gray-2b2b2b};
+  --rv-dropdown-placeholder-color: var(--rv-ui-text-muted);
+  --rv-ui-selected-fg: #{palette.$neutral-100};
+  --rv-ui-selected-accent-fg: var(--rv-ui-accent-text);
+  --rv-ui-danger: #{palette.$red-300};
+  --rv-ui-warning: #{palette.$amber-300};
+  --rv-ui-success: #{palette.$green-300};
+  --rv-ui-btn-danger-outline: #{palette.$red-300};
+  --rv-ui-btn-danger-outline-hover: #{palette.$red-light-overlay-10};
+  color-scheme: dark;
+
+  --rv-ui-accent: #{palette.$blue-600};
+  --rv-ui-accent-hover: #{palette.$blue-700};
+  --rv-ui-accent-text-weight: 45%;
+  --rv-ui-accent-text-base: white;
+  --rv-ui-accent-text: color-mix(in srgb, var(--rv-ui-accent) 45%, white);
+
+  --rv-ui-btn-outline-bg: transparent;
+  --rv-ui-btn-outline-bg-hover: var(--rv-ui-surface-hover);
+  --rv-ui-btn-outline-fg: var(--rv-ui-text);
+  --rv-ui-btn-outline-border: var(--rv-ui-border);
+  --rv-ui-btn-outline-border-hover: var(--rv-ui-border-strong);
+
+  --rv-ui-btn-bg: var(--rv-ui-surface-elevated);
+  --rv-ui-btn-bg-hover: #{palette.$neutral-700};
+
+  --rv-ui-btn-secondary-bg: var(--rv-ui-surface);
+  --rv-ui-btn-secondary-bg-hover: var(--rv-ui-surface-hover);
+  --rv-ui-btn-secondary-fg: var(--rv-ui-text);
+
+  --rv-ui-btn-ghost-hover-bg: #{palette.$white-overlay-8};
+  --rv-ui-btn-ghost-active-bg: #{palette.$white-overlay-14};
+
+  --rv-ui-switch-track-off: #{palette.$neutral-600};
+  --rv-ui-switch-thumb: var(--rv-ui-text);
+
+  --rv-ui-group-border: var(--rv-ui-border);
+  --rv-ui-group-hover-bg: var(--rv-ui-surface-hover);
+  --rv-ui-focus-ring: color-mix(in srgb, var(--rv-ui-accent) 38%, transparent);
+  --rv-ui-badge-disabled-bg: #{palette.$gray-52525b};
+  --rv-ui-badge-disabled-fg: #{palette.$gray-e4e4e7};
+}

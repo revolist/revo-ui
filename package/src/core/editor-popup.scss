@@ -1,0 +1,35 @@
+.rv-editor-popup {
+  box-sizing: border-box;
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  z-index: 10000;
+  width: max-content;
+  min-width: min(280px, calc(100vw - 16px));
+  max-width: calc(100vw - 16px);
+  max-height: calc(100vh - 16px);
+  overflow: auto;
+  padding: 12px;
+  border: 1px solid var(--rv-ui-border);
+  border-radius: 8px;
+  background: var(--rv-ui-surface);
+  color: var(--rv-ui-text);
+  box-shadow: 0 8px 24px #0003;
+  font:
+    13px system-ui,
+    sans-serif;
+  .rv-editor-actions {
+    position: sticky;
+    bottom: 0;
+    padding-top: 8px;
+    background: var(--rv-ui-surface);
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .rv-editor-error {
+    color: var(--rv-ui-danger);
+    margin-block: 8px;
+  }
+}

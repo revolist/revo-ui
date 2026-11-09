@@ -8,7 +8,7 @@ import { componentApi, apiModule } from './scripts/component-api.mjs';
 export default defineConfig({
   root: resolve(import.meta.dirname),
   define: {
-    __UI_VERSION__: JSON.stringify(JSON.parse(readFileSync(resolve(import.meta.dirname, '../../packages/ui/package.json'), 'utf8')).version),
+    __UI_VERSION__: JSON.stringify(JSON.parse(readFileSync(resolve(import.meta.dirname, './package/package.json'), 'utf8')).version),
   },
   plugins: [
     {
@@ -18,7 +18,7 @@ export default defineConfig({
       },
       load(id) {
         if (id !== '\0virtual:component-api') return;
-        const library = resolve(import.meta.dirname, '../..');
+        const library = resolve(import.meta.dirname);
         return apiModule(componentApi(library, import.meta.dirname, file => this.addWatchFile(file)));
       },
     },
@@ -26,7 +26,7 @@ export default defineConfig({
       name: 'gallery-formatted-source',
       enforce: 'pre',
       async load(id) {
-        if (!id.includes('/revo-ui/src/') || !id.endsWith('.tsx?raw'))
+        if (!id.startsWith(resolve(import.meta.dirname, 'src') + '/') || !id.endsWith('.tsx?raw'))
           return;
         const source = await readFile(id.slice(0, -4), 'utf8');
         return `export default ${JSON.stringify(await format(source, { parser: 'typescript', singleQuote: true, printWidth: 80 }))}`;

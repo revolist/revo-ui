@@ -1,0 +1,12 @@
+/* Container for the summary content */
+.summary-percentage-content {
+  overflow: auto;
+  max-height: 100%;
+  list-style: none;
+  padding: 2px 15px;
+  margin: 0;
+  line-height: 16px;
+  font-size: 11px;
+  flex-grow: 1;
+  color: var(--summary-percentage-color, var(--rv-ui-text-muted));
+}

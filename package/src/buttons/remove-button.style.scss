@@ -1,0 +1,10 @@
+@use '../styles/icon-action';
+
+// Neutral remove actions override destructive button styling.
+button.remove-btn.rv-remove-button {
+  @include icon-action.neutral;
+  &.rv-remove-button--compact {
+    --rv-icon-action-size: 24px;
+    --rv-icon-action-padding: 3px;
+  }
+}

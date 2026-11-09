@@ -1,0 +1,22 @@
+// Scoped, self-contained native controls for hosts that inject CSS strings.
+@use 'sass:meta';
+@use './styles/theme';
+@use './styles/motion';
+@use './styles/disclosure';
+.rv-native-controls {
+  @include theme.rv-ui-light-tokens;
+  --rv-control-height: 32px;
+  --rv-control-padding: 6px 9px;
+  color: var(--rv-ui-text);
+  @include meta.load-css('./styles/primitives');
+  @include meta.load-css('./form');
+  @include meta.load-css('./checkbox/checkbox');
+}
+.rv-native-controls[data-theme^='dark'] {
+  @include theme.rv-ui-dark-tokens;
+}
+@media (prefers-color-scheme: dark) {
+  .rv-native-controls[data-theme='auto'] {
+    @include theme.rv-ui-dark-tokens;
+  }
+}

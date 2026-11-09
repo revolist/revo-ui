@@ -1,0 +1,30 @@
+.rv-temporal-value {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 100%;
+  min-width: 0;
+  overflow: hidden;
+  font-variant-numeric: tabular-nums;
+  .rv-badge {
+    position: static;
+    min-width: 0;
+    height: auto;
+    padding: 2px 7px;
+    border: 1px solid var(--rv-ui-border);
+    border-radius: 4px;
+    background: var(--rv-ui-surface-sunken);
+    color: var(--rv-ui-text);
+    font: inherit;
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+  &__item {
+    flex: 0 1 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  &__more {
+    flex: 0 0 auto;
+  }
+}

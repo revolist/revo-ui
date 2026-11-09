@@ -1,0 +1,11 @@
+/** Shared active-cell frame; inset so the grid viewport cannot clip it. */
+@mixin cell-editor-frame {
+  border: 0;
+  border-radius: var(--rv-control-radius, 6px);
+  outline: 2px solid var(--rv-ui-accent, var(--rg-theme-primary, #2563eb));
+  outline-offset: -2px;
+
+  &[aria-invalid='true'] {
+    outline-color: var(--rv-ui-danger, #dc2626);
+  }
+}

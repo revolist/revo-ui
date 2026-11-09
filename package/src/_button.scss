@@ -1,0 +1,79 @@
+@use './styles/motion';
+/**
+* Buttons styling
+*/
+
+@use './variables' as *;
+
+.rv-button {
+  border: 1px solid var(--rv-ui-btn-outline-border);
+  border-radius: 5px;
+  background-color: var(--rv-ui-btn-outline-bg, transparent);
+  color: var(--rv-ui-btn-outline-fg, inherit);
+  transition:
+    background-color var(--rv-ui-motion-fast, 120ms)
+      var(--rv-ui-motion-ease, ease),
+    color var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease),
+    border-color var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease),
+    opacity var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease);
+
+  &:not(.disabled) {
+    cursor: pointer;
+  }
+
+  &.disabled {
+    opacity: 0.5;
+  }
+
+  &.small {
+    padding: 3px 6px;
+    min-width: 30px;
+    font-size: 16px;
+  }
+
+  &:not(.small) {
+    padding: 5px 20px;
+    font-size: 14px;
+  }
+
+  &:not(.disabled):hover {
+    background-color: var(
+      --rv-ui-btn-outline-bg-hover,
+      $button-alt-bg-light-hover
+    );
+    border-color: var(--rv-ui-btn-outline-border-hover);
+  }
+
+  &.dark {
+    border-color: var(--rv-ui-btn-outline-border, $button-alt-bg-light);
+    background-color: var(--rv-ui-btn-outline-bg, $background-color-dark);
+    color: var(--rv-ui-btn-outline-fg, $text-color-dark);
+  }
+
+  &.solid {
+    border-color: transparent;
+    background-color: var(--rv-ui-btn-bg);
+    color: var(--rv-ui-btn-fg);
+
+    &:not(.disabled):hover {
+      background-color: var(--rv-ui-btn-bg-hover, $button-alt-bg-light);
+      border-color: transparent;
+    }
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--rv-ui-focus-ring);
+  }
+}
+
+revo-grid[theme^='dark'] .rv-button:not(.solid) {
+  border-color: var(--rv-ui-btn-outline-border, $button-alt-bg-light);
+  background-color: var(--rv-ui-btn-outline-bg, $background-color-dark);
+  color: var(--rv-ui-btn-outline-fg, $text-color-dark);
+
+  &:hover {
+    background-color: var(--rv-ui-btn-outline-bg-hover, $button-alt-bg-light);
+    border-color: var(--rv-ui-btn-outline-border-hover, $button-alt-bg-light);
+  }
+}

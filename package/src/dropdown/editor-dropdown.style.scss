@@ -1,0 +1,346 @@
+@use '../styles/motion';
+@use '../styles/palette';
+@use '../styles/control';
+
+// Mixins
+@mixin focus-style {
+  outline: none;
+  border-color: var(--rv-ui-accent);
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+}
+
+revo-grid,
+.rv-formula-bar,
+.rv-native-controls,
+:root {
+  --rv-dropdown-container-tag-background: #{palette.$gray-eeeeee};
+  --rv-dropdown-placeholder-color: var(--rv-ui-text-muted);
+
+  &[theme*='dark'] {
+    --rv-dropdown-container-tag-background: #{palette.$gray-2b2b2b};
+    --rv-dropdown-placeholder-color: var(--rv-ui-text-muted);
+  }
+
+  .revo-dropdown-container {
+    display: block;
+    height: calc(100% - 2px);
+    width: 100%;
+  }
+
+  .dropdown-container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+
+    &.disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+
+      .dropdown-trigger {
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .dropdown-trigger {
+    --rv-dropdown-arrow-size: 6px;
+    --rv-dropdown-arrow-right: 5px;
+    --rv-dropdown-arrow-gap: 4px;
+    --rv-dropdown-value-right-space: calc(
+      var(--rv-dropdown-arrow-size) + var(--rv-dropdown-arrow-right) +
+        var(--rv-dropdown-arrow-gap)
+    );
+
+    @include flex-center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    cursor: pointer;
+    height: 100%;
+    min-width: 0;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+
+    &:focus {
+      @include focus-style;
+    }
+
+    &.open {
+      border-color: var(--rv-ui-accent);
+
+      .dropdown-arrow {
+        transform: translateY(-50%) rotate(180deg);
+      }
+    }
+  }
+
+  .dropdown-arrow {
+    display: inline-flex;
+    width: var(--rv-dropdown-arrow-size);
+    height: var(--rv-dropdown-arrow-size);
+    flex: 0 0 var(--rv-dropdown-arrow-size);
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    position: absolute;
+    inset-inline-end: var(--rv-dropdown-arrow-right);
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform var(--rv-ui-motion-normal, 160ms)
+      var(--rv-ui-motion-ease, ease-out);
+    z-index: 1;
+
+    svg {
+      display: block;
+      width: var(--rv-dropdown-arrow-size);
+      height: var(--rv-dropdown-arrow-size);
+      fill: currentColor;
+    }
+  }
+
+  .selected-values {
+    display: flex;
+    flex-wrap: nowrap;
+    box-sizing: border-box;
+    flex: 1 1 0%;
+    gap: 4px;
+    height: 100%;
+    line-height: 18px;
+    justify-content: flex-start;
+    align-items: center;
+    min-width: 0;
+    overflow: hidden;
+    padding-inline-start: 5px;
+    padding-inline-end: var(--rv-dropdown-value-right-space);
+  }
+
+  .selected-value {
+    align-items: center;
+    box-sizing: border-box;
+    display: flex;
+    flex: 1 1 0%;
+    height: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    padding-inline-start: 5px;
+    padding-inline-end: var(--rv-dropdown-value-right-space);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+
+    > * {
+      box-sizing: border-box;
+      max-width: 100%;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  .selected-tag {
+    @include flex-center;
+    background-color: var(--rv-dropdown-container-tag-background);
+    border-radius: 3px;
+    padding: 2px 6px;
+    padding-inline-end: 0;
+    font-size: 14px;
+
+    // Custom tag palettes also own the remove glyph's foreground.
+    > button.rv-remove-button {
+      color: inherit;
+    }
+  }
+
+  .placeholder {
+    box-sizing: border-box;
+    color: var(--rv-dropdown-placeholder-color);
+    flex: 1 1 0%;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    padding-inline-end: var(--rv-dropdown-value-right-space);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+  }
+}
+
+.revo-dropdown-menu {
+  --rv-dropdown-menu-background: var(--rv-ui-surface-elevated);
+  --rv-dropdown-menu-border: var(--rv-ui-border);
+  --rv-dropdown-menu-box-shadow: 0 12px 32px var(--rv-ui-shadow);
+  --rv-dropdown-menu-option-color: var(--rv-ui-text);
+  --rv-dropdown-container-hover-background: var(--rv-ui-surface-hover);
+  --rv-dropdown-container-selected-background: var(--rv-ui-selected-bg);
+
+  --rv-dropdown-menu-search-border: var(--rv-ui-border);
+  --rv-dropdown-menu-min-width: 184px;
+  --rv-dropdown-menu-max-width: 300px;
+  --rv-dropdown-menu-max-height: 300px;
+  --rv-dropdown-menu-options-max-height: 250px;
+
+  [data-theme='dark'] &,
+  &[data-theme^='dark'],
+  &:has(.theme-darkMaterial),
+  &:has(.theme-darkCompact),
+  &:has(.theme-dark) {
+    --rv-dropdown-container-hover-background: var(--rv-ui-surface-hover);
+    --rv-dropdown-container-selected-background: var(--rv-ui-selected-bg);
+    --rv-dropdown-menu-background: var(--rv-ui-surface-elevated);
+    --rv-dropdown-menu-border: var(--rv-ui-border);
+    --rv-dropdown-menu-box-shadow: 0 12px 32px var(--rv-ui-shadow);
+    --rv-dropdown-menu-option-color: var(--rv-ui-text);
+    --rv-dropdown-menu-search-border: var(--rv-ui-border);
+  }
+
+  position: absolute;
+  display: none;
+  z-index: 1000;
+  min-width: var(--rv-dropdown-menu-min-width);
+  max-width: var(--rv-dropdown-menu-max-width);
+  max-height: var(--rv-dropdown-menu-max-height);
+  background-color: var(--rv-dropdown-menu-background);
+  border: 1px solid var(--rv-dropdown-menu-border);
+  border-radius: 12px;
+  box-shadow: var(--rv-dropdown-menu-box-shadow);
+  overflow: hidden;
+  padding: 6px;
+  flex-direction: column;
+  transform-origin: top left;
+  animation: revoDropdownMenuIn var(--rv-ui-motion-enter, 180ms)
+    var(--rv-ui-motion-ease, ease-out);
+
+  .dropdown-listbox {
+    display: flex;
+    min-height: 0;
+    max-height: inherit;
+    flex-direction: column;
+  }
+
+  .dropdown-search {
+    flex: 0 0 auto;
+    padding: 8px;
+    border-bottom: 1px solid var(--rv-dropdown-menu-search-border);
+
+    input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid var(--rv-dropdown-menu-border);
+      border-radius: 4px;
+      font-size: 14px;
+
+      &:focus {
+        @include focus-style;
+      }
+    }
+  }
+
+  .dropdown-options {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    min-height: 0;
+    max-height: var(--rv-dropdown-menu-options-max-height);
+    flex: 1 1 auto;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    background-color: var(--rv-dropdown-menu-background);
+
+    .dropdown-option {
+      box-sizing: border-box;
+      display: flex;
+      min-height: 38px;
+      align-items: center;
+      border-radius: 8px;
+      color: var(--rv-dropdown-menu-option-color);
+      font-size: 14px;
+      font-weight: 400;
+      list-style: none;
+      padding: 8px 10px;
+      cursor: pointer;
+      user-select: none;
+      margin: 1px 0;
+      transition:
+        background-color var(--rv-ui-motion-fast, 120ms)
+          var(--rv-ui-motion-ease, ease-out),
+        color var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease-out);
+
+      &[class*='theme-dark'] {
+        color: var(--rv-ui-text);
+      }
+
+      &:hover,
+      &.focused {
+        background-color: var(--rv-dropdown-container-hover-background);
+      }
+
+      &.selected {
+        background-color: var(--rv-dropdown-container-selected-background);
+        color: var(--rv-ui-selected-fg);
+        font-weight: 400;
+      }
+
+      &.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+
+    .option-content {
+      @include flex-center;
+      gap: 8px;
+      width: 100%;
+      min-width: 0;
+    }
+    .no-results {
+      padding: 12px;
+      text-align: center;
+    }
+  }
+}
+
+@keyframes revoDropdownMenuIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+// Standalone controls share Dropdown behavior with grid editors and have form chrome.
+.dropdown-container.rv-select {
+  height: auto;
+  min-width: 0;
+  .dropdown-trigger {
+    @include control.action-size;
+    padding-inline-end: 24px;
+    border: 1px solid var(--rv-ui-border);
+    border-radius: var(--rv-control-radius, 8px);
+    background: var(--rv-ui-surface-sunken);
+    color: var(--rv-ui-text);
+    &:focus-visible {
+      outline: 2px solid var(--rv-ui-accent);
+      outline-offset: 1px;
+    }
+  }
+}
+
+// Standalone controls own the padding once; grid editors retain their compact insets.
+.dropdown-container:is(.rv-select, .rv-combobox, .rv-multi-select)
+  .dropdown-trigger {
+  --rv-dropdown-arrow-size: 9px;
+  --rv-dropdown-arrow-right: 12px;
+  padding-inline-end: 32px;
+  > .selected-value,
+  > .selected-values {
+    padding-inline: 0;
+  }
+}

@@ -1,0 +1,47 @@
+.rv-filter-badges {
+  display: flex;
+  min-height: 32px;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.rv-filter-badges-list {
+  display: inline-flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.rv-filter-badges-slot {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+}
+
+.rv-filter-badges-slot--end {
+  margin-inline-start: auto;
+}
+
+.rv-filter-badge-label {
+  overflow: hidden;
+  max-width: 220px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rv-filter-badge-description {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.rv-filter-badges-empty {
+  color: var(--rv-ui-text-muted);
+  font-size: 13px;
+}

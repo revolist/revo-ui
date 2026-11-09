@@ -1,0 +1,45 @@
+@use '../styles/motion';
+.badge-cell {
+  --badge-cell-source-background-color: var(
+    --badge-cell-appearance-background-color,
+    var(
+      --badge-cell-value-background-color,
+      var(--badge-cell-background-color, #475569)
+    )
+  );
+
+  display: inline-block;
+  background-color: var(--badge-cell-source-background-color);
+  color: var(
+    --badge-cell-appearance-color,
+    var(
+      --badge-cell-value-color,
+      var(
+        --badge-cell-color,
+        var(--rg-theme-text, var(--revo-grid-text, currentColor))
+      )
+    )
+  );
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  text-align: center;
+  white-space: nowrap;
+  transition:
+    background-color var(--rv-ui-motion-normal, 160ms)
+      var(--rv-ui-motion-ease, cubic-bezier(0.2, 0, 0, 1)),
+    color var(--rv-ui-motion-normal, 160ms)
+      var(--rv-ui-motion-ease, cubic-bezier(0.2, 0, 0, 1)),
+    opacity var(--rv-ui-motion-fast, 120ms)
+      var(--rv-ui-motion-ease, cubic-bezier(0.2, 0, 0, 1));
+  line-height: 14px;
+  &.rectangular {
+    border-radius: 6px;
+  }
+  &:hover {
+    opacity: 0.9;
+    cursor: pointer;
+  }
+}

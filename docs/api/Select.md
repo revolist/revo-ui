@@ -22,4 +22,4 @@ The table lists library-declared props. Standard inherited HTML attributes are o
 
 Keep controlled values and side effects in your application. Use the matching framework adapter rather than passing another framework’s VNodes through Preact callbacks. The live page groups this control with related variants and composition helpers.
 
-This reference is generated from the library source pinned in `library-source.json`. Rebuild it with `node scripts/generate-api.mjs <library-workspace>`.
+This reference is generated from the local `package/src` library source. Rebuild it with `node scripts/generate-api.mjs`.

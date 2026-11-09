@@ -1,0 +1,78 @@
+@use './motion';
+revo-grid,
+.rv-ui,
+:root {
+  .revo-counter {
+    --counter-button-size: 24px;
+    --counter-value-size: 14px;
+    --counter-spacing: 4px;
+    --counter-button-bg: var(--revo-grid-background, var(--rv-ui-surface));
+    --counter-button-color: var(--revo-grid-text, var(--rv-ui-text));
+    --counter-button-hover-bg: var(
+      --revo-primary-light,
+      var(--rv-ui-surface-hover)
+    );
+    --counter-button-border-color: var(
+      --revo-grid-cell-border,
+      var(--rv-ui-border)
+    );
+    --counter-value-color: var(--revo-grid-text, var(--rv-ui-text));
+    --counter-disabled-opacity: 0.5;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--counter-spacing);
+    height: 100%;
+    padding: 0 var(--counter-spacing);
+
+    .revo-counter-button {
+      width: var(--counter-button-size);
+      height: var(--counter-button-size);
+      min-width: var(--counter-button-size);
+      min-height: var(--counter-button-size);
+      border: 1px solid var(--counter-button-border-color);
+      border-radius: 4px;
+      background: var(--counter-button-bg);
+      color: var(--counter-button-color);
+      font-size: calc(var(--counter-button-size) * 0.5);
+      font-weight: 500;
+      line-height: 1;
+      cursor: pointer;
+      transition:
+        background-color var(--rv-ui-motion-fast, 120ms)
+          var(--rv-ui-motion-ease, ease),
+        border-color var(--rv-ui-motion-fast, 120ms)
+          var(--rv-ui-motion-ease, ease),
+        color var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease),
+        opacity var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease);
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover:not(.revo-counter-button-disabled) {
+        background: var(--counter-button-hover-bg);
+        border-color: var(--revo-primary, var(--rv-ui-accent));
+        outline: 1px solid var(--revo-primary, var(--rv-ui-accent));
+      }
+
+      &:active:not(.revo-counter-button-disabled) {
+        background: var(--counter-button-hover-bg);
+      }
+
+      &.revo-counter-button-disabled {
+        opacity: var(--counter-disabled-opacity);
+        cursor: not-allowed;
+      }
+    }
+
+    .revo-counter-value {
+      font-size: var(--counter-value-size);
+      color: var(--counter-value-color);
+      min-width: calc(var(--counter-value-size) * 2);
+      text-align: center;
+      user-select: none;
+    }
+  }
+}

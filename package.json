@@ -11,11 +11,9 @@
     "test:api": "node --test scripts/component-api.test.mjs",
     "test:browser": "playwright test",
     "test:pdf-viewer": "playwright test --config playwright.pdf.config.ts",
-    "test:visual-audit": "playwright test --config playwright.audit.config.ts",
-    "test:pdf-frameworks": "playwright test --config ../../tests/shared-ui/playwright.framework-adapters.config.ts pdf-frameworks.spec.ts"
+    "test:visual-audit": "playwright test --config playwright.audit.config.ts"
   },
   "dependencies": {
-    "@revolist/dates": "workspace:*",
     "@revolist/ui": "workspace:*",
     "pdfjs-dist": "^6.4.299",
     "preact": "^10.29.1"
@@ -31,5 +29,11 @@
     "typescript": "~6.0.3",
     "vite": "8.2.4"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "packageManager": "pnpm@11.25.0",
+  "exports": {
+    "./home-planning": "./src/home-planning.tsx",
+    "./pdf-viewer": "./src/pdf-viewer.tsx",
+    "./pages.json": "./src/pages.json"
+  }
 }

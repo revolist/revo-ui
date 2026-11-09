@@ -1,0 +1,64 @@
+/** One scalar thumb/track presentation for native, Stencil and Preact consumers. */
+@mixin presentation {
+  appearance: none;
+  position: static;
+  width: 100%;
+  height: var(--slider-thumb-size, 20px);
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: linear-gradient(
+      to right,
+      var(--range-color, var(--rv-ui-accent)) 0
+        var(--rv-single-slider-value, 0%),
+      var(--slider-color, var(--rv-ui-border)) var(--rv-single-slider-value, 0%)
+        100%
+    )
+    center / 100% var(--slider-track-height, 4px) no-repeat;
+  cursor: pointer;
+  pointer-events: auto;
+
+  &::-webkit-slider-thumb {
+    appearance: none;
+    box-sizing: border-box;
+    width: var(--slider-thumb-size, 20px);
+    height: var(--slider-thumb-size, 20px);
+    border: 3px solid
+      var(--slider-thumb-border, var(--range-color, var(--rv-ui-accent)));
+    border-radius: 50%;
+    background: var(
+      --slider-thumb-bg,
+      var(--revo-grid-filter-control-thumb-bg, var(--rv-ui-surface))
+    );
+    box-shadow: 0 1px 3px var(--rv-ui-shadow);
+    transition: box-shadow var(--rv-ui-motion-fast, 120ms)
+      var(--rv-ui-motion-ease, ease);
+    pointer-events: all;
+  }
+
+  &::-moz-range-thumb {
+    box-sizing: border-box;
+    width: var(--slider-thumb-size, 20px);
+    height: var(--slider-thumb-size, 20px);
+    border: 3px solid
+      var(--slider-thumb-border, var(--range-color, var(--rv-ui-accent)));
+    border-radius: 50%;
+    background: var(
+      --slider-thumb-bg,
+      var(--revo-grid-filter-control-thumb-bg, var(--rv-ui-surface))
+    );
+    box-shadow: 0 1px 3px var(--rv-ui-shadow);
+    transition: box-shadow var(--rv-ui-motion-fast, 120ms)
+      var(--rv-ui-motion-ease, ease);
+    pointer-events: all;
+  }
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+  &:focus-visible {
+    outline: 2px solid var(--range-color, var(--rv-ui-accent));
+    outline-offset: 2px;
+  }
+}

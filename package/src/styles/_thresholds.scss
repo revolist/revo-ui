@@ -1,0 +1,31 @@
+@use '../variables' as *;
+
+@mixin thresholds {
+  &.low {
+    --threshold-color: var(--progress-bar-low-color, #{$rv-low-color});
+    --progress-bar-text-color: #ffffff;
+  }
+  &.medium {
+    --threshold-color: var(--progress-bar-medium-color, #{$rv-medium-color});
+    --progress-bar-text-color: #000000;
+  }
+  &.high {
+    --threshold-color: var(--progress-bar-high-color, #{$rv-high-color});
+    --progress-bar-text-color: #ffffff;
+  }
+  &.critical {
+    --threshold-color: var(
+      --progress-bar-critical-color,
+      #{$rv-critical-color}
+    );
+    --progress-bar-text-color: #ffffff;
+  }
+  &.info {
+    --threshold-color: var(--progress-bar-info-color, #{$rv-info-color});
+    --progress-bar-text-color: #ffffff;
+  }
+  &.neutral {
+    --threshold-color: var(--progress-bar-neutral-color, #{$rv-neutral-color});
+    --progress-bar-text-color: #ffffff;
+  }
+}

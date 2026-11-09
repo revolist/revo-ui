@@ -1,0 +1,55 @@
+.brush-range {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+}
+
+.brush-range__range {
+  margin: 0;
+  gap: 0;
+}
+
+// Keep chart tooltips above the interactive range-control layer when they
+// overflow below a line or area chart.
+.brush-range__chart {
+  z-index: 2;
+}
+
+.brush-range__controls {
+  margin-top: 12px;
+}
+
+.brush-range__labels {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  margin-top: 11px;
+  color: var(--rv-brush-muted, var(--rv-ui-text-muted));
+  font:
+    12px/18px ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    monospace;
+}
+
+.brush-range__label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.brush-range__label--end {
+  text-align: end;
+}
+
+.brush-range__selection {
+  color: var(--rv-brush-accent, var(--rv-ui-accent-text, var(--rv-ui-accent)));
+  font-weight: 500;
+  text-align: center;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}

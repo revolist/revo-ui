@@ -6,8 +6,8 @@ import { resolve } from 'node:path';
 
 /** Build documentation from the same component contracts consumed by framework adapters. */
 export function componentApi(library, gallery, watchSource = () => {}) {
-  const catalog = resolve(library, 'packages/ui/src/component-catalog.ts');
-  const select = resolve(library, 'packages/ui/src/select.tsx');
+  const catalog = resolve(library, 'package/src/component-catalog.ts');
+  const select = resolve(library, 'package/src/select.tsx');
   const program = ts.createProgram([catalog, select], {
     target: ts.ScriptTarget.ESNext,
     module: ts.ModuleKind.ESNext,
@@ -20,14 +20,14 @@ export function componentApi(library, gallery, watchSource = () => {}) {
   });
   const checker = program.getTypeChecker();
   for (const source of program.getSourceFiles())
-    if (source.fileName.startsWith(resolve(library, 'packages')))
+    if (source.fileName.startsWith(resolve(library, 'package')))
       watchSource(source.fileName);
   watchSource(resolve(gallery, 'docs/component-groups.json'));
   const groups = JSON.parse(
     readFileSync(resolve(gallery, 'docs/component-groups.json'), 'utf8'),
   );
   const libraryDeclaration = (declaration) =>
-    /\/packages\/(?:ui|dates|chart-utils)\/src\//.test(
+    /\/(?:package|internal\/(?:dates|chart-utils))\/src\//.test(
       declaration.getSourceFile().fileName,
     );
   const format = (type, node) =>

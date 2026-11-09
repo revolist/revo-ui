@@ -74,3 +74,19 @@ Build alongside [RevoGrid](https://rv-grid.com/), [Grid Pro](https://pro.rv-grid
 ## Licensing
 
 Revo UI is [MIT licensed](LICENSE). Anyone can use, modify, and distribute it, including in commercial projects.
+
+## Develop from source
+
+The gallery and MIT-licensed library live in this repository. No private repository access is needed.
+
+```sh
+pnpm install --frozen-lockfile
+pnpm dev
+pnpm --filter @revolist/ui lint
+pnpm --filter @revolist/ui test
+pnpm --filter @revolist/ui pack:public
+pnpm --filter @revolist/ui test:public
+pnpm build
+```
+
+Library source and public exports live in `package/`. The private workspace packages in `internal/` provide date and chart utilities that are bundled into the public distribution. Gallery source lives in `src/`.

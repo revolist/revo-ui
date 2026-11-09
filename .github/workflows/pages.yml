@@ -23,23 +23,6 @@ jobs:
         with:
           path: gallery
           persist-credentials: false
-      - name: Read pinned library source
-        id: library
-        working-directory: gallery
-        run: |
-          node --input-type=module -e "import fs from 'node:fs'; const source = JSON.parse(fs.readFileSync('library-source.json')); fs.appendFileSync(process.env.GITHUB_OUTPUT, 'ref=' + source.ref + '\n');"
-      - name: Check out library source (read-only)
-        uses: actions/checkout@v5
-        with:
-          repository: revolist/revogrid-pro
-          ref: ${{ steps.library.outputs.ref }}
-          ssh-key: ${{ secrets.REVO_UI_LIBRARY_READ_KEY }}
-          persist-credentials: false
-          path: library
-          sparse-checkout: |
-            packages/ui
-            packages/dates
-            packages/chart-utils
       - uses: pnpm/action-setup@v4
         with:
           version: 11.25.0
@@ -47,31 +30,36 @@ jobs:
         with:
           node-version: 24.15.0
           package-manager-cache: false
-      - name: Prepare isolated build workspace
-        run: node gallery/scripts/prepare-pages.mjs library site
       - name: Verify component documentation references
-        run: node gallery/scripts/check-docs.mjs library
+        run: node gallery/scripts/check-docs.mjs
       - name: Install locked dependencies
-        working-directory: site
+        working-directory: gallery
         run: pnpm install --frozen-lockfile
+      - name: Verify UI library and public package
+        working-directory: gallery
+        run: |
+          pnpm --filter @revolist/ui lint
+          pnpm --filter @revolist/ui test
+          pnpm --filter @revolist/ui pack:public
+          pnpm --filter @revolist/ui test:public
       - name: Verify generated API contracts
-        working-directory: site
+        working-directory: gallery
         run: pnpm --filter @revolist/ui-gallery test:api
       - name: Typecheck gallery
-        working-directory: site
+        working-directory: gallery
         run: pnpm --filter @revolist/ui-gallery lint
       - name: Install browser for static rendering
-        working-directory: site
+        working-directory: gallery
         run: pnpm --filter @revolist/ui-gallery exec playwright install --with-deps chromium
       - name: Build Pages site
-        working-directory: site
+        working-directory: gallery
         run: pnpm --filter @revolist/ui-gallery build --base /
       - name: Verify static SEO output
-        run: node gallery/scripts/seo.test.mjs site/apps/revo-ui/dist
+        run: node gallery/scripts/seo.test.mjs gallery/dist
       - name: Upload static site only
         uses: actions/upload-pages-artifact@v4
         with:
-          path: site/apps/revo-ui/dist
+          path: gallery/dist
 
   deploy:
     needs: build

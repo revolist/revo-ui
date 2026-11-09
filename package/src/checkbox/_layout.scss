@@ -1,0 +1,8 @@
+// Layout shared by the checkbox component and native policy adapters.
+@mixin control-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+  cursor: pointer;
+}

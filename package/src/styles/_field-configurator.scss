@@ -1,0 +1,588 @@
+@use './fields-grid';
+@use './motion';
+@use './disclosure';
+@use './icon-action';
+
+@mixin palette($prefix, $dark: false) {
+  --#{$prefix}-bg: var(--rv-ui-surface);
+  --#{$prefix}-surface: var(--rv-ui-field-surface);
+  --#{$prefix}-border: var(--rv-ui-border);
+  --#{$prefix}-text: var(--rv-ui-field-text);
+  --#{$prefix}-muted: var(--rv-ui-field-muted);
+}
+
+@mixin icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  box-sizing: border-box;
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  min-height: 28px;
+  margin: 0;
+  padding: 6px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--rv-configurator-muted);
+  &:hover:not(:disabled) {
+    background: var(--rv-configurator-surface);
+    color: var(--rv-configurator-accent-text);
+  }
+}
+
+@mixin empty-zone {
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: var(--rv-configurator-surface, var(--rv-ui-field-surface));
+  color: var(--rv-configurator-muted, var(--rv-ui-field-muted));
+}
+@mixin six-dot-grip {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    currentColor 1px,
+    transparent 1.25px
+  );
+  background-position: 0 0;
+  background-repeat: repeat;
+  background-size: 4px 4px;
+  content: '';
+  display: block;
+  height: 10px;
+  width: 6px;
+}
+@mixin field {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  min-height: 36px;
+  padding: 5px 7px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: var(--rv-configurator-surface, var(--rv-ui-field-surface));
+  color: var(--rv-configurator-text, var(--rv-ui-field-text));
+}
+@mixin presentation {
+  .rv-configurator-zone-heading {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 32px;
+    padding: 0 0 5px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .rv-configurator-zone-label,
+  .rv-configurator-zone-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+  }
+  .rv-configurator-zone-actions {
+    margin-inline-start: auto;
+  }
+  .rv-configurator-zone-label > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .rv-configurator-field {
+    @include field;
+  }
+  .rv-configurator-field-content {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  .rv-configurator-field-content > .rv-configurator-icon {
+    display: inline-flex;
+    flex: 0 0 12px;
+    width: 12px;
+    height: 12px;
+    svg {
+      width: 12px;
+      height: 12px;
+    }
+  }
+  .rv-configurator-field-caption {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .rv-configurator-icon {
+    display: inline-flex;
+    flex: none;
+    color: var(--rv-configurator-muted, var(--rv-ui-field-muted));
+    svg {
+      display: block;
+      width: 12px;
+      height: 12px;
+      fill: currentColor;
+    }
+  }
+  .rv-configurator-available-fields {
+    border: 1px solid var(--rv-configurator-border, var(--rv-ui-border));
+    border-radius: 9px;
+    margin-bottom: 10px;
+    overflow: clip;
+    > .rv-configurator-summary {
+      padding-inline: 10px;
+    }
+  }
+  .rv-configurator-field-count {
+    margin-inline-start: 8px;
+    color: var(--rv-configurator-muted, var(--rv-ui-field-muted));
+    font-size: 11px;
+    font-weight: 400;
+  }
+  .rv-configurator-library-content {
+    display: grid;
+    gap: 6px;
+    padding: 0 8px 8px;
+  }
+  .rv-configurator-library-list {
+    max-height: 150px;
+    overflow: auto;
+  }
+  .rv-configurator-library-list .rv-configurator-field {
+    background: transparent;
+  }
+  .rv-configurator-summary {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    box-sizing: border-box;
+    min-height: 42px;
+    padding: 10px 0;
+    color: var(--rv-configurator-text, var(--rv-ui-field-text));
+    font-size: 12px;
+    font-weight: 500;
+    list-style: none;
+    cursor: pointer;
+    transition: color var(--rv-ui-motion-fast, 120ms)
+      var(--rv-ui-motion-ease, cubic-bezier(0.2, 0, 0, 1));
+    &::-webkit-details-marker {
+      display: none;
+    }
+    .rv-disclosure-summary__label {
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+    .rv-disclosure-summary__icon {
+      display: inline-flex;
+      flex: none;
+    }
+    .rv-configurator-icon {
+      transition: transform var(--rv-ui-motion-fast, 120ms)
+        var(--rv-ui-motion-ease, cubic-bezier(0.2, 0, 0, 1));
+    }
+    &:hover {
+      color: var(--rv-configurator-accent-text, var(--rv-ui-accent));
+    }
+  }
+  details[open] > .rv-configurator-summary .rv-configurator-icon {
+    transform: rotate(90deg);
+  }
+  .rv-configurator-zone {
+    min-width: 0;
+  }
+  .rv-configurator-zone > ul.rv-configurator-field-list {
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+    min-height: 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--rv-configurator-text, var(--rv-ui-field-text));
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 7px;
+    background: transparent;
+    > .rv-configurator-empty-zone {
+      @include empty-zone;
+      padding: 10px;
+      font-size: 11px;
+      list-style: none;
+    }
+    > .rv-configurator-field-row {
+      @include field;
+      position: relative;
+      transition:
+        background-color var(--rv-ui-motion-fast, 120ms)
+          var(--rv-ui-motion-ease, cubic-bezier(0.2, 0, 0, 1)),
+        border-color var(--rv-ui-motion-fast, 120ms)
+          var(--rv-ui-motion-ease, cubic-bezier(0.2, 0, 0, 1));
+      &[draggable='true'] {
+        cursor: grab;
+      }
+      &[draggable='false'] {
+        cursor: default;
+      }
+      flex-wrap: nowrap;
+      &::before {
+        display: none;
+      }
+    }
+  }
+  .rv-configurator-drag-handle {
+    @include six-dot-grip;
+    flex: 0 0 6px;
+    align-self: center;
+    margin-inline-end: 4px;
+    color: var(--rv-configurator-muted, var(--rv-ui-field-muted));
+    cursor: grab;
+  }
+  .rv-configurator-field-row[draggable='false'] .rv-configurator-drag-handle {
+    visibility: hidden;
+  }
+}
+
+.rv-configurator-field-actions {
+  display: inline-flex;
+  flex: 0 0 auto;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0;
+  min-width: 0;
+}
+.rv-configurator-action-trigger {
+  display: inline-flex;
+  flex: none;
+  min-width: 0;
+}
+.rv-configurator-status-badge {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  max-width: 7ch;
+  margin-inline-end: 4px;
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: var(--rv-configurator-muted-bg, var(--rv-ui-surface-hover));
+  color: inherit;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 16px;
+  white-space: nowrap;
+  transition:
+    background-color var(--rv-ui-motion-fast, 120ms)
+      var(--rv-ui-motion-ease, cubic-bezier(0.2, 0, 0, 1)),
+    color var(--rv-ui-motion-fast, 120ms)
+      var(--rv-ui-motion-ease, cubic-bezier(0.2, 0, 0, 1));
+  &[data-active='true'] {
+    color: var(
+      --rv-configurator-accent-text,
+      var(--rv-ui-field-accent-text, var(--rv-ui-accent))
+    );
+    background: color-mix(in srgb, var(--rv-ui-accent) 12%, transparent);
+  }
+}
+
+// Native adapters and Preact examples use this same field action presentation.
+button.rv-configurator-action-button {
+  @include icon-action.neutral;
+  &[data-configurator-action='settings'] {
+    &:hover,
+    &:active,
+    &[aria-expanded='true'] {
+      background: transparent;
+      color: var(--rv-configurator-muted, var(--rv-ui-field-muted));
+      opacity: 1;
+      transform: none;
+      box-shadow: none;
+    }
+  }
+  &[data-configured='true'] {
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      inset-block-start: 2px;
+      inset-inline-end: 2px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--rv-ui-accent);
+      pointer-events: none;
+    }
+  }
+}
+
+.rv-configurator-drop-indicator {
+  position: absolute;
+  inset-inline: 4px;
+  top: -2px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--rv-ui-accent);
+  box-shadow: 0 0 0 1px var(--rv-configurator-bg, var(--rv-ui-surface));
+  pointer-events: none;
+  z-index: 2;
+  &[data-position='after'] {
+    top: auto;
+    bottom: -2px;
+  }
+}
+
+.rv-collapsible-section {
+  min-width: 0;
+  margin: 0;
+  border: 0;
+  border-top: 1px solid var(--rv-configurator-border, var(--rv-ui-border));
+  border-radius: 0;
+  background: transparent;
+}
+.rv-collapsible-section > .rv-configurator-summary {
+  min-height: 52px;
+}
+.rv-collapsible-section__content {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+  padding: 0 0 14px;
+  overflow-wrap: anywhere;
+}
+.rv-collapsible-section__description {
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rv-collapsible-section > .rv-configurator-summary svg {
+    transition: none;
+  }
+}
+
+// Product-neutral panel shell; grid bodies remain rendering slots in their adapters.
+.rv-configurator-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+  min-width: 0;
+  box-sizing: border-box;
+  .pivot-field-annotation {
+    color: var(--rv-configurator-muted, var(--rv-ui-text-muted));
+    font-size: 12px;
+  }
+  .pivot-filter-active {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--rv-ui-accent);
+  }
+}
+
+.rv-configurator-panel--standalone {
+  @include presentation;
+  --rv-configurator-bg: var(--rv-ui-surface);
+  --rv-configurator-surface: var(--rv-ui-field-surface);
+  --rv-configurator-text: var(--rv-ui-text);
+  --rv-configurator-muted: var(--rv-ui-text-muted);
+  --rv-configurator-border: var(--rv-ui-border);
+  --rv-configurator-accent: var(--rv-ui-accent);
+  --rv-configurator-accent-text: var(--rv-ui-accent);
+  flex-shrink: 0;
+  max-width: 100%;
+  max-height: 100%;
+  overflow: auto;
+  padding: 8px 16px 16px;
+  border: 1px solid var(--rv-ui-border);
+  border-radius: 10px;
+  background: var(--rv-ui-surface);
+  color: var(--rv-ui-text);
+  font: 13px/1.5 sans-serif;
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .rv-configurator-library-content > .rv-configurator-field-search {
+    margin: 8px;
+    width: auto;
+  }
+  .rv-configurator-icon svg {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+// Compact rail presentation is shared by Grid, Pivot and Pivot Charts.
+.rv-configurator-panel__content {
+  display: contents;
+}
+.rv-configurator-panel__content[hidden] {
+  display: none;
+}
+.rv-configurator-rail {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.rv-configurator-rail__button.rv-btn {
+  position: relative;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  padding: 8px;
+  justify-content: center;
+}
+.rv-configurator-rail__button .rv-configurator-icon svg {
+  width: 18px;
+  height: 18px;
+}
+.rv-configurator-rail__count.rv-badge {
+  position: absolute;
+  inset: -4px -4px auto auto;
+}
+.rv-configurator-panel[data-compact='true'] {
+  border: 0;
+  border-left: 1px solid var(--rv-ui-border);
+  border-radius: 0;
+  width: 56px !important;
+  min-width: 56px;
+  padding: 8px;
+  flex: none;
+}
+.rv-configurator-panel[data-compact='true'] > .rv-configurator-rail {
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.rv-configurator-panel[data-mini-mode='true'][data-compact='true'] {
+  box-sizing: border-box;
+  min-height: 0;
+  overflow: auto;
+}
+.rv-configurator-panel[data-mini-mode='true']
+  .rv-configurator-rail__button.rv-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  height: auto;
+  min-height: 36px;
+}
+.rv-configurator-rail__label {
+  writing-mode: vertical-rl;
+  white-space: nowrap;
+}
+.rv-configurator-panel__toggle {
+  display: flex;
+  flex: none;
+  justify-content: flex-end;
+  padding: 4px 8px;
+}
+
+.rv-configurator-panel[data-resizable='true'] {
+  position: relative;
+}
+// Configurator hosts supply content; shared switches retain all control appearance.
+.rv-configurator-section-tabs.rv-segmented-switch {
+  display: flex;
+  flex: none;
+  width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  > button {
+    flex: 1 0 auto;
+  }
+}
+.rv-configurator-header {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+  padding-block: 8px;
+  margin-block: -8px 0;
+  margin-inline: var(--rv-configurator-header-inline-offset, 0px);
+  background: var(--rv-configurator-bg, var(--rv-ui-surface));
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -8px -16px 0;
+    z-index: -1;
+    background: inherit;
+  }
+  > .rv-segmented-switch {
+    flex: 1 1 0%;
+    width: 0;
+  }
+}
+.rv-configurator-custom-section,
+.rv-configurator-section-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+.rv-configurator-panel:has(
+  > .rv-configurator-panel__content
+    > .rv-configurator-custom-section:not([hidden])
+) {
+  height: 100%;
+  min-height: 0;
+}
+.rv-configurator-custom-section[hidden] {
+  display: none;
+}
+
+// A compact icon with a native/shared select hit target; field text stays in its popup.
+.rv-icon-select {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  margin: 0;
+  border-radius: 6px;
+  &:focus-within {
+    outline: 2px solid var(--rv-ui-accent);
+    outline-offset: 2px;
+  }
+  &:has(.rv-select-control.disabled) {
+    opacity: 0.5;
+  }
+  &:has(.rv-select-control:hover:not(.disabled)) {
+    background: var(--rv-ui-surface-hover);
+  }
+  // This icon composition must outrank the normal standalone form padding.
+  .dropdown-container.rv-select .dropdown-trigger {
+    width: 100%;
+    min-width: 0;
+    padding: 0;
+    .selected-value,
+    .dropdown-arrow {
+      display: none;
+    }
+  }
+  .rv-select-control {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    min-height: 28px;
+    padding: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+}

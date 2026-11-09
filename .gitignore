@@ -8,3 +8,12 @@ design-qa.md
 .DS_Store
 .pages-workspace/
 site/
+
+artifacts/
+dist-github/
+*.tsbuildinfo
+.turbo/
+dist-*/
+.generated/
+*.log
+output/

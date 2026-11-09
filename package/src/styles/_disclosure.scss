@@ -1,0 +1,64 @@
+@use './motion';
+
+// Compose with rv-btn and rv-btn-sm for compact, native expand controls.
+.rv-disclosure-summary.rv-disclosure-summary--compact {
+  display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
+  margin-block: 8px;
+  text-align: start;
+
+  &::before {
+    content: '';
+    flex: none;
+    width: 6px;
+    height: 6px;
+    margin-inline: 1px 3px;
+    border-inline-end: 1.5px solid currentColor;
+    border-block-end: 1.5px solid currentColor;
+    transform: rotate(-45deg);
+    transition: transform var(--rv-ui-motion-fast, 120ms) ease;
+  }
+}
+
+details[open] > .rv-disclosure-summary--compact::before {
+  transform: rotate(45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rv-disclosure-summary--compact::before {
+    transition: none;
+  }
+}
+
+// Keep native details state, keyboard behavior and intrinsic content sizing.
+// Browsers without these capabilities retain immediate native disclosure behavior.
+@supports (interpolate-size: allow-keywords) and
+  (transition-behavior: allow-discrete) {
+  :where(
+    .rv-ui details,
+    .rv-disclosure,
+    .rv-format-inspector-section,
+    .rv-configurator-available-fields
+  ) {
+    interpolate-size: allow-keywords;
+
+    &::details-content {
+      block-size: 0;
+      opacity: 0;
+      overflow: clip;
+      overflow-clip-margin: 4px;
+      transition:
+        block-size var(--rv-ui-motion-normal, 160ms)
+          var(--rv-ui-motion-ease, ease-out),
+        opacity var(--rv-ui-motion-normal, 160ms)
+          var(--rv-ui-motion-ease, ease-out),
+        content-visibility var(--rv-ui-motion-normal, 160ms) allow-discrete;
+    }
+
+    &[open]::details-content {
+      block-size: auto;
+      opacity: 1;
+    }
+  }
+}

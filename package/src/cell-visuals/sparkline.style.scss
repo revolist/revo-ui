@@ -1,0 +1,36 @@
+@use '../styles/motion';
+@use '../styles/thresholds' as *;
+
+/* Container for the sparkline */
+.sparkline-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
+/* SVG element for the sparkline */
+.sparkline {
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  stroke-width: 2;
+  fill: none;
+  overflow: visible;
+}
+
+/* Sparkline segment (line chart) */
+.sparkline-segment {
+  @include thresholds;
+  stroke: var(--threshold-color, #008620);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+  fill: none;
+  transition: stroke var(--rv-ui-motion-normal, 160ms)
+    var(--rv-ui-motion-ease, cubic-bezier(0.2, 0, 0, 1));
+}

@@ -1,0 +1,377 @@
+@use '../styles/motion';
+
+/* Independent calendar component; consumers provide surrounding layout. */
+.revo-calendar {
+  display: grid;
+  width: fit-content;
+  --calendar-cell-size: var(--revo-calendar-cell-size, var(--cell-size, 32px));
+  max-width: var(--revo-calendar-max-width, 100%);
+  margin-inline: auto;
+  gap: 4px;
+  color: var(--filter-input-color, var(--rv-ui-text));
+  font-size: 13px;
+}
+
+.revo-calendar__header {
+  display: grid;
+  grid-template-columns: var(--calendar-cell-size) minmax(0, 1fr) var(
+      --calendar-cell-size
+    );
+  align-items: center;
+  min-height: var(--calendar-cell-size);
+  text-align: center;
+}
+
+.revo-calendar__header button,
+.revo-calendar__day,
+.revo-calendar__month,
+.revo-calendar__today {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  transition:
+    background-color var(--rv-ui-motion-fast, 120ms)
+      var(--rv-ui-motion-ease, ease-out),
+    color var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease-out),
+    opacity var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease-out);
+}
+
+.revo-calendar__header button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--calendar-cell-size);
+  height: var(--calendar-cell-size);
+  padding: 7px;
+  border-radius: 7px;
+}
+
+.revo-calendar__header button:hover,
+.revo-calendar__day:hover:not(:disabled),
+.revo-calendar__month:hover:not(:disabled),
+.revo-calendar__today:hover {
+  background: var(
+    --revo-grid-filter-control-hover-bg,
+    var(--rv-ui-surface-hover)
+  );
+}
+
+.revo-calendar__header button:disabled,
+.revo-calendar__today:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.revo-calendar__day:hover:not(:disabled):not(.in-range):not(.in-preview) {
+  border-radius: 7px;
+}
+
+.revo-calendar__header svg {
+  display: block;
+  width: 12px;
+  height: 12px;
+}
+
+.revo-calendar__month-label {
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.revo-calendar__header .revo-calendar__month-label-button {
+  width: auto;
+  max-width: 100%;
+  height: var(--calendar-cell-size);
+  padding: 4px 9px;
+  justify-self: center;
+}
+
+.revo-calendar__year-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  padding: 5px 0 2px;
+}
+
+.revo-calendar__month {
+  min-width: 0;
+  min-height: 36px;
+  padding: 5px 3px;
+  border-radius: 7px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.revo-calendar__month.current {
+  color: var(--rv-filter-active-icon-color, var(--rv-ui-accent-text));
+  font-weight: 600;
+}
+
+.revo-calendar__month.active {
+  background: var(--revo-grid-filter-active-badge-bg, var(--rv-ui-selected-bg));
+  color: var(
+    --rv-filter-active-icon-color,
+    var(--rv-ui-selected-accent-fg, var(--rv-ui-accent-text))
+  );
+  font-weight: 500;
+}
+
+.revo-calendar__month:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.revo-calendar__calendar,
+.revo-calendar__month-grid {
+  display: grid;
+  gap: 1px;
+}
+
+.revo-calendar__weekdays,
+.revo-calendar__week {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  align-items: center;
+}
+
+.revo-calendar__weekdays span {
+  min-height: 18px;
+  color: var(--revo-grid-filter-popup-label-color, var(--rv-ui-text-muted));
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 18px;
+  text-align: center;
+}
+
+.revo-calendar__day {
+  position: relative;
+  min-width: 0;
+  height: var(--calendar-cell-size);
+  padding: 0;
+  border-radius: 0;
+  line-height: var(--calendar-cell-size);
+  text-align: center;
+}
+
+.revo-calendar__day.outside {
+  color: var(--revo-grid-filter-popup-label-color, var(--rv-ui-text-muted));
+  opacity: 1;
+}
+
+.revo-calendar__day.outside[aria-hidden='true'] {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.revo-calendar__day.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.revo-calendar__day.in-range {
+  background: var(--revo-grid-filter-active-badge-bg, var(--rv-ui-selected-bg));
+}
+
+.revo-calendar__day.in-preview:not(.in-range) {
+  background: color-mix(
+    in srgb,
+    var(--rv-filter-active-icon-color, var(--rv-ui-accent)) 9%,
+    transparent
+  );
+  box-shadow:
+    inset 0 1px
+      color-mix(
+        in srgb,
+        var(--rv-filter-active-icon-color, var(--rv-ui-accent)) 28%,
+        transparent
+      ),
+    inset 0 -1px
+      color-mix(
+        in srgb,
+        var(--rv-filter-active-icon-color, var(--rv-ui-accent)) 28%,
+        transparent
+      );
+}
+
+.revo-calendar__day.range-start,
+.revo-calendar__day.range-end {
+  background: var(--rv-filter-active-icon-color, var(--rv-ui-accent));
+  color: var(--rv-ui-accent-fg);
+  font-weight: 600;
+}
+
+.revo-calendar__day.range-start:focus,
+.revo-calendar__day.range-end:focus {
+  background: var(--rv-filter-active-icon-color, var(--rv-ui-accent));
+  color: var(--rv-ui-accent-fg);
+}
+
+.revo-calendar__day.range-start,
+.revo-calendar__day.preview-start {
+  border-start-start-radius: 7px;
+  border-end-start-radius: 7px;
+}
+.revo-calendar__day.range-end,
+.revo-calendar__day.preview-end {
+  border-start-end-radius: 7px;
+  border-end-end-radius: 7px;
+}
+.revo-calendar__day.range-start.range-end,
+.revo-calendar__day.preview-start.preview-end {
+  border-radius: 7px;
+}
+
+.revo-calendar__day[aria-current='date']:not(.range-start):not(.range-end) {
+  color: var(--rv-filter-active-icon-color, var(--rv-ui-accent-text));
+  font-weight: 700;
+  background: var(--rv-ui-selected-bg);
+  border-radius: 7px;
+}
+
+.revo-calendar__header button:focus-visible,
+.revo-calendar__day:focus-visible,
+.revo-calendar__month:focus-visible,
+.revo-calendar__today:focus-visible {
+  z-index: 1;
+  outline: 2px solid var(--rv-filter-active-icon-color, var(--rv-ui-accent));
+  outline-offset: 1px;
+}
+
+.revo-calendar__today {
+  justify-self: center;
+  min-height: 24px;
+  padding: 0 9px;
+  border-radius: 7px;
+  color: var(--rv-filter-active-icon-color, var(--rv-ui-accent-text));
+}
+
+.revo-calendar__months {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  min-width: 0;
+  max-width: 100%;
+}
+.revo-calendar__month-panel {
+  width: var(--revo-calendar-month-width, calc(var(--calendar-cell-size) * 7));
+  max-width: 100%;
+  min-width: 0;
+}
+.revo-calendar--week-numbers .revo-calendar__month-panel {
+  width: calc(var(--calendar-cell-size) * 8);
+}
+.revo-calendar--week-numbers .revo-calendar__weekdays,
+.revo-calendar--week-numbers .revo-calendar__week {
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+}
+.revo-calendar__week-number {
+  color: var(--rv-ui-text-muted);
+  text-align: center;
+  font-size: 11px;
+}
+.revo-calendar__caption {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-width: 0;
+}
+.revo-calendar__caption .dropdown-container {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 58%;
+}
+.revo-calendar__caption .rv-select .dropdown-trigger {
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  min-height: var(--calendar-cell-size);
+  height: var(--calendar-cell-size);
+  padding-block: 2px;
+  padding-inline-start: 4px;
+  font-size: var(--rv-control-font-size, 0.875rem);
+  background-color: transparent;
+  border-color: transparent;
+}
+.revo-calendar__presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding-top: 12px;
+  border-top: 1px solid var(--rv-ui-border);
+}
+.revo-calendar__presets button {
+  font-size: 12px;
+}
+.revo-calendar__footer {
+  display: grid;
+  gap: 12px;
+  margin-top: 8px;
+  min-width: 0;
+}
+.revo-calendar:dir(rtl) .revo-calendar__header > button svg {
+  transform: rotate(180deg);
+}
+.revo-calendar__day.range-start:hover,
+.revo-calendar__day.range-end:hover {
+  background: var(--rv-filter-active-icon-color, var(--rv-ui-accent));
+}
+@media (prefers-reduced-motion: reduce) {
+  .revo-calendar * {
+    transition: none;
+  }
+}
+
+// Invalid previews communicate the blocked action without changing selected dates.
+.revo-calendar .revo-calendar__day.in-preview.in-invalid-preview,
+.revo-calendar .revo-calendar__day.in-preview.in-invalid-preview:hover,
+.revo-calendar .revo-calendar__day.in-preview.in-invalid-preview:focus {
+  background: color-mix(in srgb, var(--rv-ui-danger) 12%, var(--rv-ui-surface));
+  color: var(--rv-ui-danger);
+  // Keep disabled dates from punching faded holes through the preview band.
+  opacity: 1;
+  &.disabled {
+    text-decoration: line-through;
+  }
+  // A connected band: shared horizontal edges, caps only at the real endpoints.
+  box-shadow: none;
+  border-radius: 0;
+  border-block: 1px solid
+    color-mix(in srgb, var(--rv-ui-danger) 32%, transparent);
+  border-inline: 0;
+  &.preview-start {
+    border-start-start-radius: 7px;
+    border-end-start-radius: 7px;
+    border-inline-start: 1px solid
+      color-mix(in srgb, var(--rv-ui-danger) 32%, transparent);
+  }
+  &.preview-end {
+    border-start-end-radius: 7px;
+    border-end-end-radius: 7px;
+    border-inline-end: 1px solid
+      color-mix(in srgb, var(--rv-ui-danger) 32%, transparent);
+  }
+}
+.revo-calendar__feedback {
+  box-sizing: border-box;
+  inline-size: 0;
+  min-inline-size: 100%;
+  min-block-size: 1.4em;
+  margin: 4px 0 0;
+  color: var(--rv-ui-danger);
+  font-size: 12px;
+  line-height: 1.4;
+}
+@media (forced-colors: active) {
+  .revo-calendar__day.in-invalid-preview {
+    outline: 1px dashed CanvasText;
+    outline-offset: -3px;
+  }
+}

@@ -1,0 +1,53 @@
+@use '../styles/motion';
+@use '../styles/thresholds' as *;
+
+.circular-progress-container {
+  $size: 32px;
+  $stroke-width: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 4px;
+  box-sizing: border-box;
+  .circular-progress {
+    position: relative;
+    width: $size;
+    height: $size;
+    max-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .circular-progress-svg {
+    transform: rotate(-90deg);
+    width: 100%;
+    height: 100%;
+  }
+
+  .circular-progress-bg {
+    fill: none;
+    stroke: var(--progress-bg-color, var(--rv-ui-border));
+    stroke-width: $stroke-width;
+  }
+
+  .circular-progress-path {
+    @include thresholds;
+    fill: none;
+    stroke: var(--threshold-color, #2196f3);
+    stroke-width: $stroke-width;
+    stroke-linecap: round;
+    // Keep the value and visible arc in sync.
+    transition: stroke var(--rv-ui-motion-normal, 160ms)
+      var(--rv-ui-motion-ease, cubic-bezier(0.2, 0, 0, 1));
+  }
+
+  .circular-progress-value {
+    position: absolute;
+    font-size: 7px;
+    letter-spacing: -0.5px;
+    font-weight: 500;
+    margin-right: -1px;
+  }
+}

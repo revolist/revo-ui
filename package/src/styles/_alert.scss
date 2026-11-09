@@ -1,0 +1,96 @@
+.rv-alert {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  width: 100%;
+  min-width: 0;
+  padding: 12px 16px;
+  border: 1px solid var(--rv-ui-border);
+  border-radius: var(--rv-ui-radius, 8px);
+  background: var(--rv-alert-surface, var(--rv-ui-surface));
+  color: var(--rv-ui-text);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  overflow-wrap: anywhere;
+}
+.rv-alert--with-icon {
+  grid-template-columns: 16px minmax(0, 1fr);
+  column-gap: 12px;
+}
+.rv-alert__icon {
+  --rv-icon-size: 16px;
+  display: inline-flex;
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  color: var(--rv-alert-tone, currentColor);
+}
+.rv-alert__icon svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+.rv-alert__content {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+}
+.rv-alert__title {
+  font-weight: 500;
+}
+.rv-alert__description {
+  color: var(--rv-ui-text-muted);
+}
+.rv-alert__content > p,
+.rv-alert__description > p {
+  margin: 0;
+}
+.rv-alert--danger,
+.rv-alert--warning,
+.rv-alert--success {
+  border: 0;
+}
+
+.rv-alert--danger {
+  --rv-alert-tone: var(--rv-ui-danger);
+  --rv-alert-surface: var(--rv-ui-danger-surface);
+  color: var(--rv-alert-tone);
+}
+.rv-alert--danger .rv-alert__description {
+  color: inherit;
+}
+.rv-alert--warning {
+  --rv-alert-tone: var(--rv-ui-warning);
+  --rv-alert-surface: var(--rv-ui-warning-surface);
+}
+.rv-alert--success {
+  --rv-alert-tone: var(--rv-ui-success);
+  --rv-alert-surface: var(--rv-ui-success-surface);
+}
+
+.rv-alert--with-actions {
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: 12px;
+  align-items: center;
+}
+.rv-alert--with-icon.rv-alert--with-actions {
+  grid-template-columns: 16px minmax(0, 1fr) auto;
+}
+.rv-alert__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.rv-alert[hidden] {
+  display: none;
+}
+
+.rv-alert .rv-alert__icon > * {
+  color: inherit;
+  inline-size: 100%;
+  block-size: 100%;
+  margin: 0;
+}

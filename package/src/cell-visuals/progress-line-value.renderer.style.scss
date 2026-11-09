@@ -1,0 +1,52 @@
+@use '../styles/motion';
+@use '../styles/thresholds' as *;
+
+/* Container for the entire cell */
+.progress-line-cell {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  padding: 4px; /* Adds space around the content */
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  box-sizing: border-box;
+
+  @include thresholds;
+
+  /* Nested selectors for child elements */
+  .progress-line-background {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: var(--progress-bg-color, var(--rv-ui-border));
+    bottom: 0;
+    z-index: 0;
+  }
+
+  .progress-line-bar {
+    position: absolute;
+    left: 0;
+    height: 2px;
+    bottom: 0;
+    z-index: 1;
+    background-color: var(--threshold-color, #008620);
+    transition: background-color var(--rv-ui-motion-normal, 160ms)
+      var(--rv-ui-motion-ease, cubic-bezier(0.2, 0, 0, 1));
+  }
+
+  .progress-line-bar-shadow {
+    position: absolute;
+    left: 0;
+    height: 100%;
+    top: 0;
+    z-index: 0;
+    background-color: var(--threshold-color, #008620);
+    opacity: 0.1;
+    transition: background-color var(--rv-ui-motion-normal, 160ms)
+      var(--rv-ui-motion-ease, cubic-bezier(0.2, 0, 0, 1));
+  }
+}

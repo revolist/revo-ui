@@ -1,0 +1,82 @@
+@use 'sass:map';
+@use '../styles/built-in-palettes' as palettes;
+
+.avatar-cell {
+  --avatar-cell-size: 24px;
+  --avatar-cell-background: #{palettes.color('avatar-cell', '0')};
+
+  display: inline-grid;
+  width: var(--avatar-cell-size);
+  height: var(--avatar-cell-size);
+  min-width: var(--avatar-cell-size);
+  place-items: center;
+  align-self: center;
+  overflow: hidden;
+  border-radius: 50%;
+  background: var(--avatar-cell-background);
+  color: palettes.color('common', 'white');
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.avatar-cell--rectangular {
+  border-radius: 8px;
+}
+
+.avatar-cell--size-16 {
+  --avatar-cell-size: 16px;
+  font-size: 8px;
+}
+.avatar-cell--size-20 {
+  --avatar-cell-size: 20px;
+  font-size: 9px;
+}
+.avatar-cell--size-32 {
+  --avatar-cell-size: 32px;
+  font-size: 12px;
+}
+.avatar-cell--size-40 {
+  --avatar-cell-size: 40px;
+  font-size: 14px;
+}
+.avatar-cell--size-48 {
+  --avatar-cell-size: 48px;
+  font-size: 16px;
+}
+
+@each $index, $background in map.get(palettes.$palettes, 'avatar-cell') {
+  .avatar-cell--#{$index} {
+    --avatar-cell-background: #{$background};
+  }
+}
+
+// Keep host responsive-image and content-spacing rules out of the avatar.
+.avatar-cell > .avatar-cell__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  // Allow the image grid item to shrink below its intrinsic dimensions.
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  object-fit: cover;
+  object-position: center;
+}
+
+.avatar-cell-with-text {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: 12px;
+  align-self: center;
+  line-height: var(--avatar-cell-size, 24px);
+}
+
+.avatar-cell-with-text__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

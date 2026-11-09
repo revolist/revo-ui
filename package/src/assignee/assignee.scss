@@ -1,0 +1,126 @@
+.rv-assignee-editor {
+  --rv-dropdown-container-tag-background: color-mix(
+    in srgb,
+    var(--rv-ui-accent) 15%,
+    var(--rv-ui-surface)
+  );
+}
+.rv-assignee-editor .dropdown-trigger {
+  min-height: 100%;
+  flex-wrap: wrap;
+}
+.rv-assignee-picker-menu.revo-dropdown-menu {
+  --rv-dropdown-menu-max-height: 520px;
+  width: min(460px, calc(100vw - 16px));
+  max-width: calc(100vw - 16px);
+  padding: 0;
+  overflow: auto;
+}
+.rv-assignee-picker {
+  width: 100%;
+  color: var(--rv-ui-text);
+  background: var(--rv-ui-surface);
+  &__search {
+    padding: 12px;
+    border-bottom: 1px solid var(--rv-ui-border);
+  }
+  &__search input {
+    box-sizing: border-box;
+    width: 100%;
+  }
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    border-top: 1px solid var(--rv-ui-border);
+    gap: 12px;
+  }
+  .rv-editor-actions {
+    display: flex;
+    gap: 8px;
+  }
+  p {
+    margin: 8px 12px;
+  }
+}
+
+.rv-assignee-editor.dropdown-container .selected-tag {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 16px;
+  padding: 3px 10px;
+  font-size: 14px;
+  line-height: 18px;
+  white-space: nowrap;
+  color: var(--rv-ui-text);
+
+  // Keep the full 24px remove target within the 24px value pill.
+  > button.rv-remove-button {
+    margin-block: -3px;
+  }
+}
+.rv-assignee-picker__allocations {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  input {
+    width: 100px;
+  }
+}
+
+.rv-assignee-avatar--hidden {
+  display: none;
+}
+
+// The standalone picker owns its gutters; virtualized consumer layouts retain
+// their separate search/body wrappers.
+.rv-assignee-picker > .rv-resource-picker {
+  box-sizing: border-box;
+  padding: 12px;
+  gap: 10px;
+  min-width: 0;
+  .rv-resource-picker__list {
+    grid-template-columns: minmax(0, 1fr);
+    border: 0;
+    padding: 0;
+    gap: 4px;
+    background: transparent;
+  }
+}
+.rv-assignee-picker__allocations {
+  border-top: 1px solid var(--rv-ui-border);
+  &:empty {
+    display: none;
+  }
+  label {
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: var(--rv-ui-field-surface);
+    font-size: 12px;
+    > span {
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+  }
+  input {
+    flex: 0 0 88px;
+    width: 88px;
+    min-height: 32px;
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+}
+.rv-assignee-picker__footer {
+  flex-wrap: wrap;
+  font-size: 12px;
+}
+.rv-assignee-picker__footer .rv-editor-actions {
+  margin-inline-start: auto;
+}

@@ -1,0 +1,175 @@
+@use './styles/control';
+/**
+ * Framework-neutral form primitives shared by product dialogs and panels.
+ */
+
+.rv-form-section {
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid var(--rv-form-border, var(--rv-ui-border));
+  border-radius: 10px;
+  // Sections group fields without competing with their editable surface.
+  background: var(--rv-form-section-bg, transparent);
+}
+
+.rv-form-section__heading {
+  display: grid;
+  gap: 3px;
+}
+
+.rv-form-section__title {
+  margin: 0;
+  color: inherit;
+  font-size: 13px;
+  font-weight: var(--rv-ui-font-weight-medium, 500);
+  line-height: 1.35;
+}
+
+.rv-form-section__description,
+.rv-form-description {
+  margin: 0;
+  color: var(--rv-dialog-muted, var(--rv-ui-text-muted));
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.rv-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.rv-field {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  min-width: 0;
+}
+
+.rv-field[hidden] {
+  display: none;
+}
+
+.rv-field--wide {
+  grid-column: 1 / -1;
+}
+
+.rv-field__label {
+  color: inherit;
+  font-size: 12px;
+  font-weight: var(--rv-ui-font-weight-medium, 500);
+  line-height: 1.35;
+}
+
+.rv-field__hint {
+  color: var(--rv-dialog-muted, var(--rv-ui-text-muted));
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+// Shared fields; products customize tokens instead of copying this rule set.
+.rv-control {
+  @include control.field;
+}
+textarea.rv-control {
+  min-height: var(--rv-textarea-height, 92px);
+  resize: vertical;
+}
+// Inherit from the nearest explicit direction, including nested LTR surfaces.
+// CSS builds may lower :dir() to :lang(), which misses direction-only hosts.
+[dir='ltr'] {
+  --rv-select-caret-position: calc(100% - 16px) 50%, calc(100% - 11px) 50%;
+}
+[dir='rtl'] {
+  --rv-select-caret-position: 11px 50%, 16px 50%;
+}
+select.rv-control {
+  padding-inline-end: 34px;
+  background-image:
+    linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: var(
+    --rv-select-caret-position,
+    calc(100% - 16px) 50%,
+    calc(100% - 11px) 50%
+  );
+  background-repeat: no-repeat;
+  background-size: 5px 5px;
+}
+select.rv-control[multiple] {
+  background-image: none;
+  padding-inline-end: 10px;
+}
+.rv-control--compact {
+  --rv-control-font-size: 12px;
+  --rv-control-height: 30px;
+  --rv-control-padding: 5px 8px;
+  --rv-control-radius: var(--rv-ui-radius, 6px);
+  font-size: 12px;
+}
+select.rv-control--compact {
+  padding-inline-end: 28px;
+}
+.rv-radio {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  flex: none;
+  accent-color: var(--rv-ui-accent);
+}
+.rv-radio:focus-visible {
+  outline: 2px solid var(--rv-ui-accent);
+  outline-offset: 2px;
+}
+.rv-radio:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+@media (max-width: 560px) {
+  .rv-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .rv-field--wide {
+    grid-column: auto;
+  }
+}
+
+// Reusable summary presentation; native details and consumer variants own open state.
+.rv-disclosure-summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  cursor: pointer;
+  list-style: none;
+  &::-webkit-details-marker {
+    display: none;
+  }
+}
+.rv-disclosure-summary__label {
+  min-width: 0;
+}
+.rv-disclosure-summary__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+.rv-native-slider {
+  width: 100%;
+  min-width: 0;
+  accent-color: var(--rv-ui-accent);
+  cursor: pointer;
+}
+.rv-native-slider:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.rv-native-slider:focus-visible {
+  outline: 2px solid var(--rv-ui-accent);
+  outline-offset: 2px;
+}

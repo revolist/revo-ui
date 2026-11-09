@@ -1,0 +1,54 @@
+.rating-star-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px; /* Space between stars */
+  padding: 4px;
+  font-size: 16px;
+  height: 100%;
+}
+
+.star {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  clip-path: polygon(
+    50% 0%,
+    61% 35%,
+    98% 35%,
+    68% 57%,
+    79% 91%,
+    50% 70%,
+    21% 91%,
+    32% 57%,
+    2% 35%,
+    39% 35%
+  ); /* Star shape */
+  background-color: var(--star-empty-color, var(--rv-ui-border));
+  transition: background-color var(--rv-ui-motion-fast, 120ms)
+    var(--rv-ui-motion-ease, ease);
+}
+
+.filled-star {
+  background-color: var(
+    --star-filled-color,
+    var(--rv-ui-accent)
+  ); /* Shared accent unless explicitly customized */
+}
+
+.empty-star {
+  background-color: var(
+    --star-empty-color,
+    var(--rv-ui-border-strong)
+  ); /* Default empty star color: light gray */
+}
+
+[data-rv-ui-motion='off'] .rating-star-container .star {
+  transition: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .rating-star-container .star {
+    transition: none !important;
+  }
+}

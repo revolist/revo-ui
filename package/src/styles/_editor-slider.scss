@@ -1,0 +1,62 @@
+@use './motion';
+@use './thresholds' as *;
+@use '../filter/filters/slider/single-slider';
+
+revo-grid,
+.rv-ui,
+:root {
+  .revo-slider {
+    --slider-thumb-size: 20px;
+    --slider-track-height: 4px;
+    --slider-value-size: 12px;
+    --slider-spacing: 8px;
+    --threshold-color: var(--revo-primary, var(--rv-ui-accent));
+    --slider-thumb-bg: var(--rv-ui-surface);
+    --slider-thumb-border: var(--threshold-color);
+    --slider-track-bg: var(--rv-ui-border);
+    --slider-value-color: var(--rv-ui-text);
+    @include thresholds;
+
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding-inline: var(--slider-spacing);
+    gap: var(--slider-spacing);
+
+    &-container {
+      @include thresholds;
+      --range-color: var(--threshold-color);
+      --slider-color: var(--slider-track-bg);
+      position: relative;
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+    }
+    &-input {
+      @include single-slider.presentation;
+      min-width: 0;
+      flex: 1;
+    }
+    &-value {
+      @include thresholds;
+      --rv-ui-badge-bg: color-mix(
+        in srgb,
+        var(--threshold-color) 16%,
+        var(--rv-ui-surface)
+      );
+      --rv-ui-badge-fg: var(--slider-value-color);
+      position: static;
+      inset: auto;
+      transform: none;
+      flex: none;
+      min-width: 32px;
+      height: auto;
+      min-height: 24px;
+      padding: 4px 8px;
+      font-size: var(--slider-value-size);
+    }
+  }
+}

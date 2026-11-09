@@ -1,0 +1,81 @@
+// One timing policy for shared UI. Theme changes must not reset these values.
+:root {
+  --rv-ui-motion-enabled: 1;
+  --rv-ui-motion-fast: 120ms;
+  --rv-ui-motion-normal: 160ms;
+  --rv-ui-motion-enter: 180ms;
+  --rv-ui-motion-exit: 120ms;
+  --rv-ui-motion-ease: cubic-bezier(0.2, 0, 0, 1);
+}
+
+@mixin immediate {
+  &,
+  &::before,
+  &::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  &::details-content {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+// Deliberate opt-out regions apply to every descendant, including native controls.
+[data-rv-ui-motion='off'] {
+  --rv-ui-motion-enabled: 0;
+  --rv-ui-motion-fast: 0ms;
+  --rv-ui-motion-normal: 0ms;
+  --rv-ui-motion-enter: 0ms;
+  --rv-ui-motion-exit: 0ms;
+  --rv-ui-transition: 0s;
+  @include immediate;
+  * {
+    @include immediate;
+  }
+}
+
+@keyframes rv-ui-surface-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+[data-rv-ui-surface]:not(.rv-status-feedback):not([data-status-feedback-exit]) {
+  animation: rv-ui-surface-in var(--rv-ui-motion-enter, 180ms)
+    var(--rv-ui-motion-ease, ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --rv-ui-motion-enabled: 0;
+    --rv-ui-motion-fast: 0ms;
+    --rv-ui-motion-normal: 0ms;
+    --rv-ui-motion-enter: 0ms;
+    --rv-ui-motion-exit: 0ms;
+    --rv-ui-transition: 0s;
+  }
+  // Shared controls can also be mounted independently or in body-level portals.
+  :where(
+    [class^='rv-'],
+    [class*=' rv-'],
+    [class^='revo-'],
+    [class*=' revo-'],
+    .avatar-cell,
+    .range_container,
+    [data-rv-ui-surface]
+  ),
+  :where(
+      .rv-ui,
+      .rv-native-controls,
+      .rv-dialog-overlay,
+      .revo-calendar,
+      .range_container
+    )
+    * {
+    @include immediate;
+  }
+}

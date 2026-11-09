@@ -1,0 +1,46 @@
+.change-cell {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  height: 100%;
+  padding: 4px;
+  box-sizing: border-box;
+}
+
+/* Positive value styling */
+.change-positive {
+  color: var(
+    --change-positive-color,
+    var(--rv-ui-success, #008620)
+  ); /* Default green color */
+  display: flex;
+  align-items: center;
+  gap: var(--change-icon-gap, 4px); /* Space between arrow and value */
+}
+
+.change-positive .change-icon {
+  font-size: var(--change-icon-size, 12px); /* Arrow size */
+}
+
+/* Negative value styling */
+.change-negative {
+  color: var(
+    --change-negative-color,
+    var(--rv-ui-danger, #f44336)
+  ); /* Default red color */
+  display: flex;
+  align-items: center;
+  gap: var(--change-icon-gap, 4px);
+}
+
+.change-negative .change-icon {
+  font-size: var(--change-icon-size, 12px);
+}
+
+/* Neutral value styling */
+.change-neutral {
+  color: var(
+    --change-neutral-color,
+    var(--rv-ui-text-muted, #888)
+  ); /* Default gray for neutral */
+}

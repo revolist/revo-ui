@@ -5,12 +5,12 @@ import { resolve } from 'node:path';
 import { componentApi, apiModule } from './component-api.mjs';
 
 const gallery = resolve(import.meta.dirname, '..');
-const api = componentApi(resolve(gallery, '../..'), gallery);
+const api = componentApi(gallery, gallery);
 const component = (name) => api.find((item) => item.name === name);
 
 test('documents every catalog component and maps it to a live family', () => {
   const catalog = readFileSync(
-    resolve(gallery, '../../packages/ui/src/component-catalog.ts'),
+    resolve(gallery, 'package/src/component-catalog.ts'),
     'utf8',
   );
   const names = [...catalog.matchAll(/^  (\w+):/gm)].map((match) => match[1]);

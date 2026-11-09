@@ -1,0 +1,84 @@
+@use './styles/motion';
+.rv-reorder-list {
+  position: relative;
+  min-width: 0;
+}
+.rv-reorder-row {
+  position: relative;
+  min-width: 0;
+  &.dragging {
+    border-radius: 8px;
+    background: var(--rv-ui-selected-bg);
+    > :not(.rv-reorder-handle) {
+      opacity: 0.3;
+    }
+  }
+  &.drop-before::after {
+    content: '';
+    position: absolute;
+    z-index: 4;
+    top: -4px;
+    right: 0;
+    left: var(--rv-reorder-marker-inset, 30px);
+    height: 2px;
+    border-radius: 2px;
+    background: var(--rv-ui-accent);
+    box-shadow: 0 0 0 3px
+      color-mix(in srgb, var(--rv-ui-accent) 14%, transparent);
+    pointer-events: none;
+  }
+}
+.rv-reorder-drop-end {
+  position: relative;
+  height: 16px;
+  margin: 4px 0 0 var(--rv-reorder-marker-inset, 30px);
+  pointer-events: none;
+  &::after {
+    content: '';
+    position: absolute;
+    top: 7px;
+    right: 0;
+    left: 0;
+    height: 2px;
+    border-radius: 2px;
+    background: transparent;
+  }
+}
+.rv-reorder-list.drop-at-end > .rv-reorder-drop-end::after {
+  background: var(--rv-ui-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--rv-ui-accent) 14%, transparent);
+}
+.rv-reorder-handle.rv-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 32px;
+  min-width: 24px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--rv-ui-field-muted);
+  cursor: grab;
+  opacity: 0.58;
+  transition:
+    opacity var(--rv-ui-motion-fast, 120ms)
+      var(--rv-ui-motion-ease, cubic-bezier(0.2, 0, 0, 1)),
+    color var(--rv-ui-motion-fast, 120ms)
+      var(--rv-ui-motion-ease, cubic-bezier(0.2, 0, 0, 1));
+  > span,
+  svg {
+    display: block;
+    width: 8px;
+    height: 11px;
+    pointer-events: none;
+  }
+  &:hover,
+  &:focus-visible {
+    opacity: 1;
+  }
+  &:active {
+    cursor: grabbing;
+  }
+}

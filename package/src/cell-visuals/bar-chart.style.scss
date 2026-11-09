@@ -1,0 +1,44 @@
+@use '../styles/motion';
+@use '../styles/thresholds' as *;
+
+.bar-chart-container {
+  display: flex; /* Flexbox layout to arrange bars */
+  flex-direction: column; /* Flex direction for vertical alignment */
+  height: 100%; /* Stretch to fill available height */
+  width: 100%; /* Stretch to fill the cell or formatting preview */
+
+  .bar-chart {
+    display: flex; /* Arrange bars horizontally */
+    flex-direction: row; /* Horizontal alignment */
+    height: 100%; /* Stretch to fill available height */
+    align-items: end;
+
+    &.top {
+      align-items: start;
+    }
+
+    &-bar {
+      background-color: var(
+        --threshold-color,
+        #008620
+      ); /* Green color for bars */
+      @include thresholds;
+      margin-right: 1px; /* Space between bars */
+      transition: background-color var(--rv-ui-motion-normal, 160ms)
+        var(--rv-ui-motion-ease, cubic-bezier(0.2, 0, 0, 1));
+
+      &:hover {
+        position: relative;
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.1);
+        }
+      }
+    }
+  }
+}

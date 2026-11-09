@@ -1,0 +1,54 @@
+@use './styles/motion';
+.rv-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  min-width: 0;
+  color: var(--rv-ui-text-muted);
+  font-size: 11px;
+}
+.rv-legend__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  max-width: 100%;
+}
+.rv-legend__label {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.rv-legend__item i {
+  box-sizing: border-box;
+  flex: 0 0 9px;
+  width: 9px;
+  height: 9px;
+  border-radius: 3px;
+  color: var(
+    --rv-legend-marker-color,
+    var(--rv-matrix-muted, var(--rv-ui-border-strong))
+  );
+  background: currentColor;
+  transition: color var(--rv-ui-motion-fast, 120ms)
+    var(--rv-ui-motion-ease, cubic-bezier(0.2, 0, 0, 1));
+}
+.rv-legend__item[data-tone='selected'] i {
+  color: var(
+    --rv-legend-marker-color,
+    var(--rv-matrix-accent, var(--rv-ui-accent))
+  );
+}
+.rv-legend__item[data-tone='outside'] i {
+  color: var(
+    --rv-legend-marker-color,
+    var(--rv-matrix-outside, var(--rv-ui-surface-hover))
+  );
+}
+.rv-legend__item i[data-marker='outline'],
+.rv-legend__item i[data-marker='dashed'] {
+  background: transparent;
+  border: 1px solid currentColor;
+}
+.rv-legend__item i[data-marker='dashed'] {
+  border-style: dashed;
+}

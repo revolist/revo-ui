@@ -1,0 +1,1223 @@
+@use './motion';
+@use './loading';
+@use './control';
+%rv-btn-base {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: var(--rv-ui-radius);
+  @include control.action-size;
+  border: 1px solid transparent;
+  font-weight: var(--rv-ui-button-font-weight, 500);
+  cursor: pointer;
+  user-select: none;
+  box-shadow: none;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color var(--rv-ui-motion-fast, 120ms)
+      var(--rv-ui-motion-ease, ease),
+    color var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease),
+    border-color var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease),
+    opacity var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease);
+
+  &:focus-visible {
+    outline: 2px solid var(--rv-ui-accent-text);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px var(--rv-ui-focus-ring);
+  }
+
+  &:disabled,
+  &[disabled] {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}
+
+/* ─── Button variants ─────────────────────────────────────────────────────── */
+
+.rv-btn {
+  @extend %rv-btn-base;
+  // Transparent adapters add the base class even when a variant is supplied.
+  // Default colors must never override a variant's hover or active state.
+  &:where(
+    :not(
+      .rv-btn-solid,
+      .rv-btn-primary,
+      .rv-btn-danger,
+      .rv-btn-danger-outline,
+      .rv-btn-danger-ghost,
+      .rv-btn-secondary,
+      .rv-btn-ghost,
+      .rv-btn-link,
+      .rv-btn-tab
+    )
+  ) {
+    background: var(--rv-ui-btn-outline-bg);
+    border-color: var(--rv-ui-btn-outline-border);
+    color: var(--rv-ui-btn-outline-fg);
+    &:hover,
+    &:active {
+      background: var(--rv-ui-btn-outline-bg-hover);
+      border-color: var(--rv-ui-btn-outline-border-hover);
+    }
+  }
+}
+
+.rv-btn[hidden]:not([hidden='until-found']) {
+  display: none;
+}
+
+/* Explicit filled neutral variant (use when outline is not desired). */
+.rv-btn-solid {
+  @extend %rv-btn-base;
+  background: var(--rv-ui-btn-bg);
+  color: var(--rv-ui-btn-fg);
+
+  &:hover {
+    background: var(--rv-ui-btn-bg-hover);
+  }
+  &:active {
+    background: var(--rv-ui-btn-bg-hover);
+  }
+}
+
+.rv-btn-primary {
+  @extend %rv-btn-base;
+  background: var(--rv-ui-accent);
+  color: var(--rv-ui-accent-fg);
+
+  &:hover {
+    background: var(--rv-ui-accent-hover);
+  }
+  &:active {
+    background: var(--rv-ui-accent-hover);
+  }
+}
+
+.rv-btn-danger,
+.rv-btn-danger-outline {
+  @extend %rv-btn-base;
+  border-color: var(--rv-ui-btn-danger-outline);
+  background: transparent;
+  color: var(--rv-ui-btn-danger-outline);
+
+  &:hover,
+  &:active {
+    background: var(--rv-ui-btn-danger-outline-hover);
+  }
+}
+
+// Destructive toolbar actions share the ghost geometry without an outline.
+.rv-btn-danger-ghost {
+  @extend %rv-btn-base;
+  background: var(--rv-ui-btn-danger-bg);
+  color: var(--rv-ui-btn-danger-fg);
+
+  &:hover,
+  &:active {
+    background: var(--rv-ui-btn-danger-bg-hover);
+  }
+}
+
+.rv-btn-secondary {
+  @extend %rv-btn-base;
+  background: var(--rv-ui-btn-secondary-bg);
+  color: var(--rv-ui-btn-secondary-fg);
+
+  &:hover {
+    background: var(--rv-ui-btn-secondary-bg-hover);
+  }
+  &:active {
+    background: var(--rv-ui-btn-secondary-bg-hover);
+  }
+}
+
+.rv-btn-ghost {
+  @extend %rv-btn-base;
+  background: transparent;
+  color: inherit;
+
+  &:hover {
+    background: var(--rv-ui-btn-ghost-hover-bg);
+  }
+  &:active {
+    background: var(--rv-ui-btn-ghost-active-bg);
+  }
+}
+
+/* ─── Toggle switch ───────────────────────────────────────────────────────── */
+.rv-switch {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  text-align: start;
+  user-select: none;
+
+  &:focus-visible {
+    border-radius: 8px;
+    outline: 2px solid var(--rv-ui-accent);
+    outline-offset: 3px;
+  }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.55;
+  }
+}
+
+.rv-switch-label {
+  min-width: 0;
+  line-height: 1.35;
+}
+
+/* Backward-compatible native-input markup uses the same visual owner. */
+label.rv-switch-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  user-select: none;
+}
+
+.rv-switch-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+
+  &:checked + .rv-switch-track {
+    background: var(--rv-ui-accent);
+  }
+  &:checked + .rv-switch-track .rv-switch-thumb {
+    inset-inline-start: 15px;
+  }
+  &:focus-visible + .rv-switch-track {
+    outline: 2px solid var(--rv-ui-accent);
+    outline-offset: 3px;
+  }
+}
+
+.rv-switch-track {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: 34px;
+  height: 19px;
+  padding: 2px;
+  box-sizing: border-box;
+  border-radius: 999px;
+  background: var(--rv-ui-switch-track-off);
+  transition: background-color var(--rv-ui-motion-fast, 120ms)
+    var(--rv-ui-motion-ease, ease);
+}
+
+.rv-switch-thumb {
+  position: relative;
+  inset-inline-start: 0;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--rv-ui-switch-thumb);
+  box-shadow: 0 1px 3px var(--rv-ui-shadow);
+  transition: inset-inline-start var(--rv-ui-motion-normal, 160ms)
+    var(--rv-ui-motion-ease, ease);
+}
+
+.rv-switch[aria-checked='true'] .rv-switch-track {
+  background: var(--rv-ui-accent);
+}
+
+.rv-switch[aria-checked='true'] .rv-switch-thumb {
+  inset-inline-start: 15px;
+}
+
+/* ─── Button group (segmented radio/checkbox toggle) ──────────────────────── */
+/*
+ * Markup:
+ *   <div class="rv-btn-group">
+ *     <label class="rv-btn-group-item">
+ *       <input type="radio" name="g" value="a"><span>All</span>
+ *     </label>
+ *     <label class="rv-btn-group-item">
+ *       <input type="radio" name="g" value="b"><span>Last</span>
+ *     </label>
+ *   </div>
+ */
+
+.rv-btn-group {
+  display: inline-flex;
+  align-items: stretch;
+  gap: 0;
+  border-radius: var(--rv-ui-radius);
+  border: 1px solid var(--rv-ui-group-border);
+  overflow: visible;
+}
+
+// Joined command buttons use the group's outline rather than nested outlines.
+.rv-btn-group > .rv-btn {
+  border: 0;
+  border-radius: 0;
+}
+.rv-btn-group > .rv-btn + .rv-btn {
+  border-inline-start: 1px solid var(--rv-ui-group-border);
+}
+.rv-btn-group > .rv-btn:first-child {
+  border-start-start-radius: calc(var(--rv-ui-radius) - 1px);
+  border-end-start-radius: calc(var(--rv-ui-radius) - 1px);
+}
+.rv-btn-group > .rv-btn:last-child {
+  border-start-end-radius: calc(var(--rv-ui-radius) - 1px);
+  border-end-end-radius: calc(var(--rv-ui-radius) - 1px);
+}
+.rv-btn-group > .rv-btn:focus-visible {
+  z-index: 1;
+}
+.rv-btn-group > .rv-btn-group-item:first-child > span {
+  border-start-start-radius: calc(var(--rv-ui-radius) - 1px);
+  border-end-start-radius: calc(var(--rv-ui-radius) - 1px);
+}
+.rv-btn-group > .rv-btn-group-item:last-child > span {
+  border-start-end-radius: calc(var(--rv-ui-radius) - 1px);
+  border-end-end-radius: calc(var(--rv-ui-radius) - 1px);
+}
+
+.rv-btn-group-item {
+  position: relative;
+  display: inline-flex;
+
+  input[type='radio'],
+  input[type='checkbox'] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+    &:checked + span {
+      background: var(--rv-ui-accent);
+      color: var(--rv-ui-accent-fg);
+    }
+  }
+
+  span {
+    display: block;
+    padding: 6px 16px;
+    font-size: 0.875rem;
+    cursor: pointer;
+    user-select: none;
+    color: inherit;
+    transition:
+      background-color var(--rv-ui-motion-fast, 120ms)
+        var(--rv-ui-motion-ease, ease),
+      color var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease);
+  }
+
+  & + & span {
+    border-inline-start: 1px solid var(--rv-ui-group-border);
+  }
+
+  &:hover span {
+    background: var(--rv-ui-group-hover-bg);
+  }
+}
+
+/* ─── Chip remove button ──────────────────────────────────────────────────── */
+/*
+ *   <button class="rv-chip-remove" type="button">×</button>
+ */
+
+.rv-chip-remove {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 0;
+  border-radius: calc(var(--rv-ui-radius) / 2);
+  color: inherit;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  opacity: 0.5;
+  padding: 0 2px;
+  transition:
+    opacity var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease),
+    background-color var(--rv-ui-motion-fast, 120ms)
+      var(--rv-ui-motion-ease, ease);
+
+  &:hover:not(:disabled) {
+    opacity: 1;
+    background: var(--rv-ui-btn-ghost-hover-bg);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+/* ─── Pill button (small outlined, for toolbars) ──────────────────────────── */
+/*
+ *   <button class="rv-btn-pill" type="button">Expand all</button>
+ */
+
+.rv-btn-pill {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border: 1px solid var(--rv-ui-group-border);
+  border-radius: 999px;
+  background: var(--rv-ui-btn-secondary-bg);
+  color: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+  white-space: nowrap;
+  line-height: 1.4;
+  transition: background-color var(--rv-ui-motion-fast, 120ms)
+    var(--rv-ui-motion-ease, ease);
+
+  &:hover {
+    background: var(--rv-ui-btn-secondary-bg-hover);
+  }
+  &:active {
+    opacity: 0.75;
+  }
+  &:disabled,
+  &[disabled] {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}
+
+/* ─── Small toggle switch (.rv-switch-sm) ─────────────────────────────────── */
+/*
+ * Compact variant of .rv-switch for dense toolbars (28×16, 12px knob).
+ * Supports both the shared button component and the native input adapters.
+ *
+ *   <label class="rv-switch-label rv-switch-sm">
+ *     <input class="rv-switch-input" type="checkbox">
+ *     <span class="rv-switch-track"><span class="rv-switch-thumb"></span></span>
+ *     Label
+ *   </label>
+ */
+
+.rv-switch-sm {
+  .rv-switch-track {
+    width: 28px;
+    height: 16px;
+  }
+
+  .rv-switch-thumb {
+    width: 12px;
+    height: 12px;
+  }
+
+  &[aria-checked='true'] .rv-switch-thumb {
+    inset-inline-start: 12px;
+  }
+
+  .rv-switch-input:checked + .rv-switch-track .rv-switch-thumb {
+    inset-inline-start: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rv-switch-track,
+  .rv-switch-thumb {
+    transition: none;
+  }
+}
+
+/* ─── Compact choice chips ───────────────────────────────────────────────── */
+.rv-choice-chips {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.rv-choice-chips--scrollable {
+  display: flex;
+  flex-wrap: nowrap;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-block: 3px;
+  --rv-choice-chips-fade-left: 0px;
+  --rv-choice-chips-fade-right: 0px;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 var(--rv-choice-chips-fade-left),
+    #000 calc(100% - var(--rv-choice-chips-fade-right)),
+    transparent
+  );
+  &[data-scroll-edges~='left'] {
+    --rv-choice-chips-fade-left: 12px;
+  }
+  &[data-scroll-edges~='right'] {
+    --rv-choice-chips-fade-right: 36px;
+  }
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  > .rv-choice-chip {
+    flex: none;
+  }
+}
+
+.rv-choice-chip {
+  appearance: none;
+  min-height: 29px;
+  padding: 0 11px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: var(--rv-ui-surface-sunken);
+  color: var(--rv-ui-text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
+  transition:
+    background-color var(--rv-ui-motion-fast, 120ms)
+      var(--rv-ui-motion-ease, ease),
+    border-color var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease),
+    color var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease),
+    opacity var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease);
+
+  &:hover:not(:disabled) {
+    background: var(--rv-ui-surface-hover);
+  }
+
+  &[aria-pressed='true'],
+  &[data-selected='true'] {
+    border-color: transparent;
+    background: var(--rv-ui-choice-chip-selected-bg, var(--rv-ui-selected-bg));
+    color: var(--rv-ui-selected-fg);
+    font-weight: 400;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--rv-ui-accent);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.5;
+  }
+}
+
+.rv-choice-chips--outlined .rv-choice-chip {
+  border-color: var(--rv-ui-border);
+  background: var(--rv-ui-surface);
+
+  &[aria-pressed='true'],
+  &[data-selected='true'] {
+    border-color: transparent;
+    background: var(--rv-ui-choice-chip-selected-bg, var(--rv-ui-selected-bg));
+  }
+}
+
+// Selectable choices need a visible pressed state; passive summary chips keep
+// their neutral surface. Colored choices retain their color-specific rules below.
+.rv-choice-chip[aria-pressed='true'],
+.rv-choice-chip[aria-pressed='true']:hover {
+  border-color: transparent;
+  background: var(--rv-ui-choice-chip-selected-bg, var(--rv-ui-selected-bg));
+  color: var(--rv-ui-selected-accent-fg, var(--rv-ui-accent-text));
+  font-weight: 500;
+}
+
+.rv-choice-chips--small .rv-choice-chip {
+  min-height: 24px;
+  padding: 0 9px;
+  border-radius: 7px;
+  font-size: 12px;
+}
+
+/* ─── Group expand toggle (pivot / tree row expand button) ───────────────── */
+/*
+ *   <button class="group-expand" type="button">›</button>
+ */
+
+.group-expand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border: none;
+  border-radius: var(--rv-ui-radius);
+  background: transparent;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  transition: background-color var(--rv-ui-motion-fast, 120ms)
+    var(--rv-ui-motion-ease, ease);
+
+  &:hover {
+    background: var(--rv-ui-btn-ghost-hover-bg);
+  }
+}
+
+/* ─── History controls toolbar ───────────────────────────────────────────── */
+
+.rv-segmented-switch,
+.rv-value-selection-editor {
+  --rv-ui-accent-text: color-mix(
+    in srgb,
+    var(--rv-ui-accent) var(--rv-ui-accent-text-weight, 90%),
+    var(--rv-ui-accent-text-base, black)
+  );
+}
+
+.rv-segmented-switch {
+  --rv-segmented-theme-item-hover-bg: color-mix(
+    in srgb,
+    var(--rv-ui-text) 8%,
+    var(--rv-ui-surface-sunken)
+  );
+  display: inline-flex;
+  box-sizing: border-box;
+  height: 37px;
+  align-items: center;
+  gap: 2px;
+  background: var(
+    --rv-segmented-bg,
+    var(
+      --rv-ah-bg-up,
+      var(--rv-segmented-theme-bg, var(--rv-ui-surface-sunken))
+    )
+  );
+  border: 1px solid var(--rv-segmented-border, var(--rv-ah-border, transparent));
+  border-radius: 10px;
+  padding: 2px;
+  box-shadow: none;
+}
+
+:where(.dark, [data-theme^='dark'], revo-grid[theme^='dark'])
+  .rv-segmented-switch,
+.rv-segmented-switch[data-theme^='dark'] {
+  --rv-segmented-theme-bg: var(--rv-ui-surface-sunken);
+  --rv-segmented-theme-border: var(--rv-ui-border);
+  --rv-segmented-theme-item-color: var(--rv-ui-text);
+  --rv-segmented-theme-item-hover-bg: var(--rv-ui-surface-hover);
+  --rv-segmented-theme-item-hover-color: var(--rv-ui-text);
+  --rv-segmented-theme-active-bg: var(--rv-ui-surface-elevated);
+  --rv-segmented-theme-active-border: var(--rv-ui-border-strong);
+  --rv-segmented-theme-active-color: var(--rv-ui-accent-text);
+  --rv-segmented-theme-focus-outline: var(--rv-ui-surface-elevated);
+}
+
+.rv-segmented-switch-item {
+  box-sizing: border-box;
+  flex: 1 1 auto;
+  display: flex;
+  appearance: none;
+  height: 31px;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  padding: 0 14px;
+  background: transparent;
+  color: var(
+    --rv-segmented-item-color,
+    var(--rv-ah-text-2, var(--rv-segmented-theme-item-color, var(--rv-ui-text)))
+  );
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1;
+  transition:
+    background-color var(--rv-ui-motion-fast, 120ms)
+      var(--rv-ui-motion-ease, ease),
+    color var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease),
+    opacity var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease);
+}
+
+.rv-segmented-switch--icon-only .rv-segmented-switch-item {
+  flex: none;
+  width: 30px;
+  padding: 0;
+}
+
+.rv-segmented-switch-label {
+  gap: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rv-segmented-switch-item:where(:not(.on)):hover:not(:disabled) {
+  background: var(
+    --rv-segmented-item-hover-bg,
+    var(--rv-segmented-theme-item-hover-bg, var(--rv-ui-surface-hover))
+  );
+  color: var(
+    --rv-segmented-item-hover-color,
+    var(
+      --rv-ah-text-2,
+      var(--rv-segmented-theme-item-hover-color, var(--rv-ui-text))
+    )
+  );
+}
+
+.rv-segmented-switch-item.on {
+  background: var(
+    --rv-segmented-active-bg,
+    var(--rv-ah-bg, var(--rv-segmented-theme-active-bg, var(--rv-ui-surface)))
+  );
+  color: var(
+    --rv-segmented-active-color,
+    var(--rv-ui-selected-accent-fg, var(--rv-ui-accent-text))
+  );
+  font-weight: 500;
+  border-color: var(
+    --rv-segmented-active-border,
+    var(--rv-segmented-theme-active-border, var(--rv-ui-border))
+  );
+  box-shadow: none;
+}
+
+.rv-segmented-switch-item:focus-visible {
+  outline: 2px solid
+    var(
+      --rv-segmented-focus-outline,
+      var(
+        --rv-ah-bg,
+        var(--rv-segmented-theme-focus-outline, var(--rv-ui-text-muted))
+      )
+    );
+  box-shadow: 0 0 0 4px
+    var(
+      --rv-segmented-focus-ring,
+      color-mix(in srgb, var(--rv-ui-accent) 28%, transparent)
+    );
+}
+
+.rv-segmented-switch-item:disabled {
+  cursor: not-allowed;
+  color: var(--rv-ui-text-muted);
+  opacity: 0.55;
+}
+
+.rv-segmented-switch-count {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 9.5px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(
+    --rv-segmented-count-bg,
+    var(--rv-ah-bg-up, var(--rv-ui-surface-sunken))
+  );
+  color: var(
+    --rv-segmented-count-color,
+    var(--rv-ah-text-2, var(--rv-ui-text-muted))
+  );
+  border: 1px solid
+    var(--rv-segmented-count-border, var(--rv-ah-border, var(--rv-ui-border)));
+}
+
+.rv-segmented-switch-item.on .rv-segmented-switch-count {
+  background: var(
+    --rv-segmented-active-count-bg,
+    var(--rv-ah-bg-hover, var(--rv-ui-surface-sunken))
+  );
+  color: var(
+    --rv-segmented-active-count-color,
+    var(--rv-ah-text-2, var(--rv-ui-text-muted))
+  );
+}
+
+.rv-search-input {
+  min-width: 0;
+  position: relative;
+}
+
+.rv-search-input-icon {
+  position: absolute;
+  inset-inline-start: 10px;
+  top: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-50%);
+  color: var(
+    --rv-search-input-icon-color,
+    var(--rv-ah-text-2, var(--rv-ui-text-muted))
+  );
+  pointer-events: none;
+}
+
+.rv-search-input > input:is([type='search'], [type='text']) {
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--rv-search-input-height, var(--rv-control-height, 32px));
+  min-height: var(--rv-search-input-height, var(--rv-control-height, 32px));
+  appearance: none;
+  background: var(
+    --rv-search-input-bg,
+    var(--rv-ah-bg-input, var(--rv-ui-surface-sunken))
+  );
+  border: 1px solid
+    var(--rv-search-input-border, var(--rv-ah-border, var(--rv-ui-border)));
+  border-radius: 8px;
+  padding-block: 0;
+  padding-inline: 32px 38px;
+  color: var(--rv-search-input-color, var(--rv-ah-text, var(--rv-ui-text)));
+  outline: none;
+  font: inherit;
+  font-size: var(--rv-control-font-size, 0.875rem);
+  transition:
+    border-color var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease),
+    background-color var(--rv-ui-motion-fast, 120ms)
+      var(--rv-ui-motion-ease, ease);
+}
+
+.rv-search-input > input[type='search']::-webkit-search-cancel-button {
+  appearance: none;
+}
+
+.rv-search-input > input:is([type='search'], [type='text'])::placeholder {
+  color: var(
+    --rv-search-input-placeholder-color,
+    var(--rv-ah-text-2, var(--rv-ui-text-muted))
+  );
+}
+
+.rv-search-input > input:is([type='search'], [type='text']):focus {
+  transition: none;
+  border-color: var(
+    --rv-search-input-focus-border,
+    var(--rv-ah-border-strong, var(--rv-ui-border-strong))
+  );
+  background: var(
+    --rv-search-input-focus-bg,
+    var(--rv-ah-bg, var(--rv-ui-surface))
+  );
+}
+
+.rv-search-input--no-icon > input:is([type='search'], [type='text']) {
+  padding-inline-start: 12px;
+}
+
+.rv-search-input--no-shortcut > input:is([type='search'], [type='text']) {
+  padding-inline-end: 12px;
+}
+
+.rv-search-input-shortcut {
+  position: absolute;
+  inset-inline-end: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 10px;
+  color: var(
+    --rv-search-input-shortcut-color,
+    var(--rv-ah-text-2, var(--rv-ui-text-muted))
+  );
+  background: var(
+    --rv-search-input-shortcut-bg,
+    var(--rv-ah-canvas, var(--rv-ui-surface-elevated))
+  );
+  border: 1px solid
+    var(
+      --rv-search-input-shortcut-border,
+      var(--rv-ah-border, var(--rv-ui-border))
+    );
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+/* ─── Count chip — inline inside a button ─────────────────────────────────── */
+/*
+ * Shows a numeric count inline next to button text.
+ * All rv-btn variants already have `position: relative`.
+ *
+ *   <button class="rv-btn">Undo <span class="rv-count">3</span></button>
+ */
+
+.rv-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--rv-ui-badge-bg);
+  color: var(--rv-ui-badge-fg);
+  font-size: 10px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  padding: 0 4px;
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* ─── Badge — absolute corner placement ───────────────────────────────────── */
+/*
+ * Floats above the top-right corner of its parent (must be `position: relative`).
+ * All rv-btn variants already set that.
+ *
+ *   <button class="rv-btn">Alerts <span class="rv-badge">5</span></button>
+ */
+
+.rv-badge {
+  position: absolute;
+  inset-block-start: -6px;
+  inset-inline-end: -6px;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--rv-ui-badge-bg);
+  color: var(--rv-ui-badge-fg);
+  font-size: 10px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  line-height: 1;
+  pointer-events: none;
+}
+
+// Inline badges can also act as compact filter buttons.
+button.rv-badge--inline {
+  border: 0;
+  appearance: none;
+  font-family: inherit;
+  box-shadow: none;
+  cursor: pointer;
+  pointer-events: auto;
+
+  &:focus-visible {
+    outline: 2px solid var(--rv-ui-accent-text);
+    outline-offset: 2px;
+  }
+}
+
+// Inline variants leave legacy corner badges and custom badge tokens intact.
+.rv-badge--inline:is(.rv-badge--neutral, .rv-badge--accent) {
+  min-height: 20px;
+  height: auto;
+  padding: 2px 7px;
+  font-size: 12px;
+}
+
+.rv-badge--neutral {
+  background: var(--rv-ui-surface-hover);
+  color: var(--rv-ui-text-muted);
+}
+
+.rv-badge--accent {
+  background: var(--rv-ui-selected-bg);
+  color: var(--rv-ui-selected-accent-fg, var(--rv-ui-accent-text));
+}
+
+.rv-badge--rounded {
+  border-radius: 4px;
+}
+
+.rv-btn:disabled .rv-badge,
+.rv-btn[disabled] .rv-badge {
+  background: var(--rv-ui-badge-disabled-bg);
+  color: var(--rv-ui-badge-disabled-fg);
+}
+
+// Shared bundled SVG presentation.
+.rv-svg-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: var(--rv-icon-size, 14px);
+  height: var(--rv-icon-size, 14px);
+  line-height: 1;
+}
+.rv-svg-icon > svg {
+  display: block;
+  width: var(--rv-icon-size, 14px);
+  height: var(--rv-icon-size, 14px);
+  fill: currentColor;
+}
+
+// Square icon controls and their native hover/focus tooltips share one owner.
+.rv-btn-icon {
+  box-sizing: border-box;
+  flex: none;
+  width: var(--rv-icon-button-size, 32px);
+  height: var(--rv-icon-button-size, 32px);
+  padding: 6px;
+}
+.rv-btn-icon[aria-pressed='true'],
+.rv-btn-icon[data-active='true'] {
+  background: var(--rv-ui-selected-bg);
+  color: var(--rv-ui-selected-fg);
+}
+
+.rv-btn-icon {
+  position: relative;
+  overflow: visible;
+}
+.rv-btn-icon .rv-badge {
+  position: absolute;
+  inset-block-start: -5px;
+  inset-inline-end: -6px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  font-size: 10px;
+  line-height: 16px;
+  pointer-events: none;
+}
+// Reserve the icon badges' overhang so toolbars can center controls without clipping them.
+.rv-history-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-block: 5px;
+  padding-inline-end: 6px;
+}
+
+// Native disabled buttons still expose their explanation on pointer hover.
+.rv-btn-icon:disabled {
+  pointer-events: auto;
+}
+
+// Contained tool strips share geometry across native Charts and Preact hosts.
+.rv-toolbar--surface {
+  --rv-icon-size: 18px;
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  width: fit-content;
+  max-width: 100%;
+  gap: 3px;
+  padding: 4px;
+  border: 1px solid var(--rv-ui-border);
+  border-radius: 10px;
+  background: var(--rv-ui-surface);
+  box-shadow: 0 4px 10px -3px var(--rv-ui-shadow);
+}
+.rv-toolbar--surface > .rv-btn-icon[aria-pressed='true'] {
+  background: var(--rv-ui-selected-bg);
+  color: var(--rv-ui-selected-fg);
+}
+.rv-toolbar--surface > .rv-btn-icon[aria-pressed='true']:hover:not(:disabled) {
+  background: var(--rv-ui-selected-bg);
+}
+.rv-svg-icon > svg[fill='none'] {
+  fill: none;
+}
+
+.rv-choice-chip--composite {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: default;
+  .rv-choice-chip-label {
+    min-width: 0;
+  }
+  button.rv-choice-chip-label {
+    appearance: none;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    &:focus-visible {
+      outline: 2px solid var(--rv-ui-accent);
+      outline-offset: 2px;
+    }
+  }
+  &[aria-disabled='true'] {
+    opacity: 0.5;
+  }
+}
+button.rv-choice-chip-info {
+  box-sizing: border-box;
+  min-width: 24px;
+  min-height: 24px;
+  box-shadow: none;
+  display: inline-grid;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--rv-ui-text-muted);
+  font:
+    600 13px/1 system-ui,
+    sans-serif;
+  cursor: pointer;
+  transition:
+    background-color var(--rv-ui-motion-fast, 120ms)
+      var(--rv-ui-motion-ease, ease),
+    color var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease);
+}
+
+button.rv-choice-chip-info:hover,
+button.rv-choice-chip-info:focus-visible {
+  background: color-mix(in srgb, currentColor 10%, transparent);
+  color: var(--rv-filter-active-icon-color, var(--rv-ui-accent-text));
+}
+
+button.rv-choice-chip-info:focus-visible,
+.rv-choice-chip .rv-chip-remove:focus-visible {
+  outline: 2px solid var(--rv-filter-active-icon-color, var(--rv-ui-accent));
+  outline-offset: 1px;
+}
+
+.rv-choice-chip[data-color='true']:is(
+    [aria-pressed='true'],
+    [data-selected='true']
+  ) {
+  border-color: transparent;
+  background: color-mix(
+    in srgb,
+    var(--rv-choice-chip-color) 9%,
+    var(--rv-ui-surface)
+  );
+  color: var(--rv-ui-text);
+}
+
+.rv-btn-tab {
+  @extend %rv-btn-base;
+  min-height: 40px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--rv-tab-color, var(--rv-ui-text-muted));
+  font-size: 14px;
+  font-weight: 500;
+
+  &::after {
+    position: absolute;
+    inset-inline: 8px;
+    bottom: 0;
+    height: 2px;
+    border-radius: 2px 2px 0 0;
+    background: transparent;
+    content: '';
+  }
+
+  &:hover:not(:disabled),
+  &[aria-selected='true'] {
+    color: var(--rv-tab-accent, var(--rv-ui-accent-text));
+  }
+  &[aria-selected='true']::after {
+    background: var(--rv-tab-accent, var(--rv-ui-accent-text));
+  }
+  &:focus-visible {
+    z-index: 2;
+    border-radius: 6px;
+    outline-color: var(--rv-tab-accent, var(--rv-ui-accent-text));
+    outline-offset: -4px;
+    box-shadow: none;
+  }
+}
+
+.rv-btn-link {
+  @extend %rv-btn-base;
+  min-height: 30px;
+  padding: 0 7px;
+  gap: 6px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--rv-ui-accent-text);
+  font-weight: 400;
+  text-decoration: none;
+  svg {
+    width: 12px;
+    height: 12px;
+    fill: currentColor;
+  }
+  &:hover:not(:disabled) {
+    background: transparent;
+    text-decoration: underline;
+  }
+  &:focus-visible {
+    outline: 2px solid var(--rv-ui-accent);
+    outline-offset: 2px;
+    box-shadow: none;
+  }
+}
+
+// Forced colors suppress box shadows; focus must remain a visible outline.
+@media (forced-colors: active) {
+  :is(
+    .rv-btn,
+    .rv-btn-solid,
+    .rv-btn-primary,
+    .rv-btn-ghost,
+    .rv-btn-link,
+    .rv-control,
+    .rv-choice-chip,
+    .rv-segmented-switch-item,
+    .rv-rating-choice
+  ):focus-visible {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+}
+
+// Busy is unavailable for interaction but retains its enabled variant paint.
+.rv-btn.rv-btn-busy:disabled {
+  pointer-events: auto;
+  cursor: progress;
+}
+.rv-btn.rv-btn-busy:not(.rv-btn-busy-disabled):disabled {
+  opacity: 1;
+}
+.rv-button-spinner {
+  @include loading.ring(1em, 2px);
+  flex: 0 0 auto;
+  border-color: color-mix(in srgb, currentColor 30%, transparent);
+  border-block-start-color: currentColor;
+}
+.rv-btn-busy.rv-btn-icon > :not(.rv-button-spinner) {
+  display: none;
+}
+
+// Applies uniformly to action variants, icon controls and navigation buttons.
+.rv-btn-rounded.rv-btn-rounded {
+  border-radius: 9999px;
+}
+.rv-btn-rounded[aria-disabled='true'] {
+  opacity: 0.5;
+  pointer-events: none;
+}

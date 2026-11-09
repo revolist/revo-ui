@@ -1,0 +1,39 @@
+{
+  "name": "@revolist/dates",
+  "version": "4.0.1",
+  "private": true,
+  "type": "module",
+  "description": "Framework-independent date, time, duration, and working-calendar utilities",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.ts",
+    "./analysis-calendar": "./src/analysis-calendar.ts",
+    "./calendar-range": "./src/calendar-range.ts",
+    "./calendar-tick-label": "./src/calendar-tick-label.ts",
+    "./calendar-ticks": "./src/calendar-ticks.ts",
+    "./calendars": "./src/calendars.ts",
+    "./civil-time": "./src/civil-time.ts",
+    "./date-bucket": "./src/date-bucket.ts",
+    "./date-controls": "./src/date-controls.ts",
+    "./date-math": "./src/date-math.ts",
+    "./display": "./src/display.ts",
+    "./duration": "./src/duration.ts",
+    "./iso": "./src/iso.ts",
+    "./relative-window": "./src/relative-window.ts",
+    "./spreadsheet-date": "./src/spreadsheet-date.ts",
+    "./time-of-day": "./src/time-of-day.ts",
+    "./timeline": "./src/timeline.ts",
+    "./working-days": "./src/working-days.ts",
+    "./sequence": "./src/sequence.ts",
+    "./local-calendar": "./src/local-calendar.ts"
+  },
+  "scripts": {
+    "lint": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "~6.0.3",
+    "vitest": "^5.0.4"
+  }
+}

@@ -1,0 +1,27 @@
+@use './theme';
+:root,
+.light,
+[data-theme^='light'],
+revo-grid[theme^='light'] {
+  @include theme.rv-ui-light-tokens;
+}
+
+/* Explicit dark selectors */
+[data-theme^='dark'],
+.dark,
+revo-grid[theme^='dark'] {
+  @include theme.rv-ui-dark-tokens;
+}
+
+:root.dark {
+  @include theme.rv-ui-dark-tokens;
+}
+
+/* OS-level dark preference (only when no explicit class overrides) */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light):not([data-theme^='light']) {
+    @include theme.rv-ui-dark-tokens;
+  }
+}
+
+/* ─── Base button placeholder ─────────────────────────────────────────────── */

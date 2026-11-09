@@ -1,0 +1,18 @@
+// Keep the remove glyph stable; the shared button surface communicates hover.
+.remove-btn svg {
+  width: 10px;
+  align-self: center;
+}
+
+.remove-btn.rv-chip-remove {
+  border: 1px solid var(--rv-ui-btn-danger-outline);
+  color: var(--rv-ui-btn-danger-outline);
+  background: transparent;
+  border-radius: var(--rv-ui-radius, 6px);
+  &:hover:not(:disabled) {
+    background: var(--rv-ui-btn-danger-outline-hover);
+  }
+  svg {
+    fill: currentColor;
+  }
+}

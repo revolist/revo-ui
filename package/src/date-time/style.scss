@@ -1,0 +1,318 @@
+.rv-temporal-picker {
+  --filter-input-color: var(--rv-ui-text);
+  --rv-filter-active-icon-color: var(--rv-ui-accent);
+  --revo-grid-filter-active-badge-bg: color-mix(
+    in srgb,
+    var(--rv-ui-accent) 12%,
+    var(--rv-ui-surface)
+  );
+  --revo-grid-filter-popup-label-color: var(--rv-ui-text-muted);
+  --revo-grid-filter-control-hover-bg: var(--rv-ui-surface-hover);
+  &__dates,
+  &__endpoints,
+  &__times {
+    display: flex;
+    gap: 8px;
+    justify-content: space-between;
+  }
+  &__time {
+    display: grid;
+    gap: 4px;
+    min-width: 0;
+  }
+  &__time input {
+    min-width: 0;
+    width: 100%;
+  }
+}
+
+// Validation follows the picker's width without contributing to popup sizing.
+.rv-temporal-picker > .rv-alert,
+.rv-temporal-draft > .rv-alert {
+  inline-size: 0;
+  min-inline-size: 100%;
+  white-space: normal;
+}
+
+.rv-date-time-field {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  gap: 2px;
+  width: 100%;
+  > .rv-control {
+    flex: 1 1 0;
+    min-width: 0;
+    width: 100%;
+  }
+  > button {
+    flex: 0 0 auto;
+  }
+}
+
+.rv-temporal-picker__dates {
+  margin-block-end: 8px;
+}
+.rv-temporal-picker__dates > input {
+  min-width: 0;
+  width: 100%;
+  flex: 1 1 0;
+}
+
+.rv-temporal-picker__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 8px;
+  margin-block-end: 8px;
+  &:empty {
+    display: none;
+  }
+  > .rv-temporal-picker__dates {
+    flex: 1 1 112px;
+    margin-block-end: 0;
+  }
+  > .rv-temporal-picker__time--single {
+    flex: 0 1 132px;
+    min-width: 110px;
+  }
+}
+
+.rv-temporal-picker__header .rv-control,
+.rv-temporal-picker__times .rv-control {
+  font-size: var(--rv-control-font-size, 0.875rem);
+  min-height: var(--rv-control-height, 32px);
+  padding: var(--rv-control-padding, 6px 12px);
+}
+.rv-temporal-picker__dates {
+  flex-wrap: wrap;
+}
+.rv-temporal-picker__endpoint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 1 224px;
+  min-width: 0;
+  // Ten date characters plus the control's horizontal padding and borders.
+  > .rv-control {
+    flex: 0 0 auto;
+    min-width: 0;
+    width: calc(10ch + 26px);
+  }
+  > .rv-temporal-picker__time {
+    flex: 0 1 100px;
+    min-width: 86px;
+  }
+}
+.rv-temporal-picker__endpoint:not(:has(.rv-temporal-picker__time)) {
+  flex: 0 0 auto;
+}
+
+.rv-temporal-picker .rv-temporal-picker__endpoint > .rv-temporal-picker__time {
+  flex: 0 1 100px;
+}
+
+// Time-only surfaces follow their content rather than the calendar's minimum width.
+.rv-editor-popup.rv-editor-popup--time {
+  min-width: min(240px, calc(100vw - 16px));
+  width: 240px;
+}
+.rv-temporal-picker__body {
+  display: flex;
+  align-items: start;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.rv-temporal-picker--datetime .rv-temporal-picker__body {
+  flex-direction: column;
+  align-items: stretch;
+}
+.rv-temporal-picker--datetime .rv-temporal-picker__body > .rv-time-selection {
+  flex: 0 0 auto;
+}
+.rv-temporal-picker--time .rv-temporal-picker__body > .rv-time-selection {
+  flex: 1 1 0;
+}
+.rv-temporal-picker--time .rv-temporal-picker__header {
+  margin: 0;
+}
+.rv-temporal-picker__times {
+  flex-wrap: wrap;
+}
+.rv-temporal-picker__times > .rv-time-selection {
+  flex: 1 1 196px;
+}
+.rv-time-selection {
+  max-width: 208px;
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+  width: 100%;
+  font-variant-numeric: tabular-nums;
+  &__entry-row {
+    display: flex;
+    align-items: end;
+    gap: 4px;
+    min-width: 0;
+  }
+  &__entry-row > .rv-time-selection__entry {
+    flex: 1 1 0;
+  }
+  &__clock {
+    display: grid;
+    gap: 12px;
+    min-width: 0;
+  }
+  &__toggle {
+    flex: 0 0 auto;
+  }
+  &__toggle[aria-expanded='true'] .rv-svg-icon {
+    transform: rotate(180deg);
+  }
+  &__entry {
+    display: grid;
+    gap: 6px;
+    min-width: 0;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  &__entry > .rv-control {
+    width: 100%;
+    min-width: 0;
+    height: var(--rv-control-height, 32px);
+    font: inherit;
+    font-size: var(--rv-control-font-size, 0.875rem);
+    font-weight: 400;
+  }
+  &__entry input[type='time']::-webkit-calendar-picker-indicator {
+    display: none;
+  }
+  &__columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  &__columns--seconds {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  &__column {
+    display: grid;
+    gap: 6px;
+    min-width: 0;
+  }
+  &__label {
+    color: var(--rv-ui-text-muted);
+    font-size: 11px;
+    text-align: center;
+  }
+  &__list.rv-editor-list {
+    position: relative;
+    height: 174px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 3px;
+    border: 1px solid var(--rv-ui-border);
+    border-radius: 6px;
+    scrollbar-width: thin;
+  }
+  &__list .rv-editor-list__item {
+    min-height: 32px;
+    height: 32px;
+    padding: 4px;
+    text-align: center;
+    font-size: 13px;
+  }
+  &__list .rv-editor-list__item:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+  &__period {
+    border-block-start: 1px solid var(--rv-ui-border);
+    padding-block-start: 6px;
+  }
+  &__period .rv-editor-list {
+    display: flex;
+    height: auto;
+    overflow: visible;
+  }
+  &__period .rv-editor-list__item {
+    flex: 1 1 0;
+  }
+  &__empty {
+    margin: 0;
+    color: var(--rv-ui-text-muted);
+    font-size: 12px;
+  }
+}
+// Keep validation and actions in scroll order when a calendar and clock are tall.
+.rv-editor-popup--datetime .rv-temporal-draft .rv-editor-actions,
+.rv-editor-popup
+  .rv-temporal-draft:has(.rv-temporal-picker--multi-month)
+  .rv-editor-actions {
+  position: static;
+}
+.rv-temporal-draft--time .rv-editor-actions {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--rv-ui-border);
+}
+.rv-temporal-draft--time .rv-editor-actions__clear {
+  margin-inline-end: auto;
+}
+
+// One calendar keeps its clock visible alongside it; multi-month calendars keep
+// the optional clock below the calendar panels.
+.rv-editor-popup:has(
+  .rv-temporal-picker--datetime:not(.rv-temporal-picker--multi-month)
+    .rv-time-selection
+) {
+  width: min(480px, calc(100vw - 16px));
+}
+.rv-temporal-picker--datetime:not(.rv-temporal-picker--multi-month)
+  .rv-temporal-picker__body {
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 8px;
+}
+.rv-temporal-picker--datetime:not(.rv-temporal-picker--multi-month)
+  .rv-temporal-picker__body
+  > .rv-time-selection {
+  flex: 0 1 208px;
+  border-inline-start: 1px solid var(--rv-ui-border);
+  padding-inline-start: 8px;
+}
+@media (max-width: 540px) {
+  .rv-temporal-picker--datetime:not(.rv-temporal-picker--multi-month)
+    .rv-temporal-picker__body {
+    flex-direction: column;
+  }
+  .rv-temporal-picker--datetime:not(.rv-temporal-picker--multi-month)
+    .rv-temporal-picker__body
+    > .rv-time-selection {
+    flex-basis: auto;
+    border-inline-start: 0;
+    padding-inline-start: 0;
+    border-block-start: 1px solid var(--rv-ui-border);
+    padding-block-start: 8px;
+  }
+}
+
+.rv-editor-popup:has(
+    .rv-temporal-picker--datetime:not(.rv-temporal-picker--multi-month)
+      .revo-calendar--week-numbers
+  ):has(.rv-time-selection) {
+  width: min(512px, calc(100vw - 16px));
+}
+
+// Paired clocks need a wider surface than a single time-only field.
+.rv-editor-popup:has(.rv-temporal-picker--time > .rv-temporal-picker__times) {
+  width: min(458px, calc(100vw - 16px));
+}
+
+// Grid adapters and standalone fields share the same compact single-clock size.
+.rv-editor-popup:has(.rv-temporal-picker--time):not(
+    :has(.rv-temporal-picker__times)
+  ) {
+  min-width: min(234px, calc(100vw - 16px));
+  width: 234px;
+}

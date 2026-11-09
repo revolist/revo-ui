@@ -1,0 +1,383 @@
+@use './chat';
+@use './results/style';
+.rv-ai-assistant {
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 0;
+  padding: 1rem;
+  color: var(--rv-ui-text);
+  background: var(--rv-ui-surface);
+  font: 400 0.875rem/1.5 var(--rv-ai-font, system-ui, sans-serif);
+}
+.rv-ai-prompt {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  min-width: 0;
+}
+.rv-ai-prompt-composer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  min-width: 0;
+  border: 1px solid var(--rv-ui-border);
+  border-radius: 24px;
+  background: var(--rv-ui-surface-sunken);
+  transition:
+    border-color var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease),
+    box-shadow var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease);
+
+  &:focus-within {
+    border-color: var(--rv-ui-border-strong);
+    box-shadow: 0 0 0 3px var(--rv-ui-focus-ring);
+  }
+}
+.rv-ai-prompt-composer textarea.rv-control {
+  grid-column: 1;
+  grid-row: 1;
+  display: block;
+  min-height: 1.5rem;
+  max-height: 12rem;
+  padding: 0.75rem 1rem;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  color: inherit;
+  line-height: 1.5;
+  resize: none;
+  field-sizing: content;
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+}
+.rv-ai-prompt-toolbar {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 0;
+  padding: 0.5rem 0.5rem 0.5rem 0;
+}
+.rv-ai-prompt-footer {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  min-width: 0;
+  margin-inline: 1rem;
+  padding-block: 0.625rem;
+  &:empty {
+    display: none;
+  }
+}
+.rv-ai-prompt-composer:has(.rv-ai-prompt-hint) {
+  grid-template-columns: minmax(0, 1fr);
+  .rv-ai-prompt-toolbar {
+    grid-column: 1;
+    grid-row: 3;
+    padding-inline-start: 1rem;
+  }
+}
+.rv-ai-request-trail {
+  min-width: 0;
+}
+.rv-popover.rv-ai-trail-popover {
+  box-sizing: border-box;
+  width: 22rem;
+  max-width: calc(100% - 16px);
+  max-height: min(30rem, calc(100dvh - 16px));
+  padding: 0;
+  border-radius: 12px;
+  font: inherit;
+  &:focus {
+    outline: none;
+  }
+}
+.rv-ai-trail-header {
+  padding: 0.875rem 1rem 0.625rem;
+}
+.rv-ai-trail-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--rv-ui-text);
+  font-size: 0.75rem;
+  font-weight: var(--rv-ui-font-weight-medium, 500);
+}
+.rv-ai-trail-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+  margin: 0;
+  padding: 0 0.5rem 0.625rem;
+  list-style: none;
+}
+.rv-ai-step {
+  position: relative;
+  &:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 32px;
+    bottom: -12px;
+    width: 1px;
+    background: var(--rv-ui-border);
+  }
+}
+.rv-ai-step-chip {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  min-width: 0;
+  padding: 0.5rem;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--rv-ui-text);
+}
+.rv-ai-step:hover .rv-ai-step-chip,
+.rv-ai-step:focus-within .rv-ai-step-chip {
+  background: var(--rv-ui-surface-hover);
+}
+.rv-ai-step[data-current] .rv-ai-step-chip {
+  background: color-mix(
+    in srgb,
+    var(--rv-ui-selected-bg) 55%,
+    var(--rv-ui-surface)
+  );
+}
+.rv-ai-step-number {
+  position: relative;
+  box-sizing: border-box;
+  flex: none;
+  min-width: 24px;
+  height: 24px;
+  margin-block: 2px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--rv-ui-surface-sunken);
+  color: var(--rv-ui-text-muted);
+  font-size: 0.6875rem;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  line-height: 24px;
+}
+.rv-ai-step[data-current] .rv-ai-step-number {
+  background: var(--rv-ui-accent);
+  color: var(--rv-ui-accent-contrast, #fff);
+}
+.rv-ai-step-label {
+  flex: 1;
+  min-width: 0;
+  padding-block: 0.25rem;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  font-size: 0.75rem;
+}
+.rv-ai-step .rv-remove-button.rv-remove-button--compact {
+  --rv-icon-action-size: 28px;
+  flex: none;
+}
+.rv-ai-trail-message {
+  margin: 0 0.875rem 0.75rem;
+  color: var(--rv-ui-text-muted);
+  font-size: 0.75rem;
+  overflow-wrap: anywhere;
+}
+.rv-ai-trail-footer {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.5rem;
+  border-block-start: 1px solid var(--rv-ui-border);
+  background: var(--rv-ui-surface-elevated);
+}
+.rv-ai-prompt-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  align-items: center;
+  min-width: 0;
+}
+.rv-ai-prompt-hint {
+  color: var(--rv-ui-text-muted);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.rv-ai-prompt-toolbar .rv-ai-prompt-submit {
+  --rv-icon-button-size: 30px;
+  min-height: var(--rv-icon-button-size);
+  flex: 0 0 auto;
+  padding: 0.25rem;
+  border-radius: 50%;
+}
+.rv-ai-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem;
+  min-width: 0;
+  // Leave room for focus outlines.
+  padding: 4px;
+  margin: -4px;
+}
+.rv-ai-suggestions .dropdown-container.rv-ai-examples {
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+}
+.rv-ai-examples .dropdown-trigger {
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--rv-ui-radius, 6px);
+  background: transparent;
+  color: var(--rv-ui-text);
+  font-size: 0.75rem;
+  line-height: 1.25;
+}
+.rv-ai-suggestions .rv-ai-suggestion {
+  flex: 0 0 auto;
+  min-height: 28px;
+  padding: 0.25rem 0.625rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+.rv-ai-result-actions {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.rv-ai-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875em;
+  color: var(--rv-ui-text-muted);
+  overflow-wrap: anywhere;
+}
+.rv-ai-status:empty {
+  display: none;
+}
+.rv-ai-status[data-state='error'] {
+  color: var(--rv-ui-danger);
+}
+.rv-ai-result {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  overflow-wrap: anywhere;
+}
+.rv-ai-result-summary,
+.rv-ai-result-count {
+  margin: 0;
+}
+.rv-ai-result-count,
+.rv-ai-assistant-footer {
+  color: var(--rv-ui-text-muted);
+  font-size: 0.875em;
+}
+.rv-ai-assistant-footer {
+  border-top: 1px solid var(--rv-ui-border);
+  padding-top: 0.75rem;
+  overflow-wrap: anywhere;
+}
+@media (forced-colors: active) {
+  .rv-ai-prompt-composer:focus-within {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+}
+
+.rv-ai-result-details {
+  margin: 0;
+  max-height: 16rem;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 0.875em;
+}
+.rv-ai-preview-changes {
+  max-width: 100%;
+  overflow-x: auto;
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+  }
+  th,
+  td {
+    padding: 0.5rem 0.625rem;
+    border-bottom: 1px solid var(--rv-ui-border);
+    text-align: start;
+    vertical-align: top;
+    overflow-wrap: anywhere;
+  }
+  th {
+    font-weight: 500;
+  }
+  thead th {
+    color: var(--rv-ui-text-muted);
+  }
+  td {
+    min-width: 4rem;
+  }
+}
+.rv-ai-preview-item {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.125rem;
+}
+.rv-ai-preview-notice {
+  margin: 0;
+  color: var(--rv-ui-text-muted);
+}
+
+// Opt-in bounded chat surfaces; toolbar mounts keep their natural height.
+.rv-ai-assistant--fill {
+  padding: 0;
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+  > .rv-ai-mounted-chat {
+    flex: 1;
+    min-height: 0;
+  }
+  .rv-ai-chat-viewport {
+    max-height: none;
+  }
+  .rv-ai-result-actions,
+  .rv-ai-assistant-footer {
+    flex: none;
+  }
+  .rv-ai-chat-content {
+    min-height: 100%;
+    box-sizing: border-box;
+  }
+}
+
+// Keep the trigger compact while giving long requests room in the shared popup.
+.rv-ai-examples-menu {
+  box-sizing: border-box;
+  width: min(420px, calc(100vw - 16px));
+  max-width: calc(100vw - 16px);
+
+  .dropdown-option {
+    min-height: 36px;
+    white-space: normal;
+  }
+}

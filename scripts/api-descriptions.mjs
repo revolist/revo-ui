@@ -596,7 +596,7 @@ const words = (name) =>
     .replace(/[-_]/g, ' ')
     .toLowerCase();
 export function supplementalDescription(name, node) {
-  const file = node?.getSourceFile().fileName.split('/packages/ui/src/')[1];
+  const file = node?.getSourceFile().fileName.split('/package/src/')[1];
   if (/\/translations\.ts$/.test(file ?? ''))
     return `Localized text for ${words(name)}; retain any substitution placeholders.`;
   if (sources[file]?.[name]) return sources[file][name];

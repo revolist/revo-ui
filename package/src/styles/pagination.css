@@ -1,0 +1,213 @@
+/* Shared native and Preact pagination; product loading stays with the host. */
+.rv-pagination-panel,
+.rv-pagination {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  min-width: 0;
+  max-width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--rv-ui-text, inherit);
+  font-size: 14px;
+  line-height: 1.4;
+  font-variant-numeric: tabular-nums;
+}
+.rv-pagination-panel {
+  box-sizing: border-box;
+  padding: 8px 12px;
+  justify-content: space-between;
+}
+.rv-pagination-panel > span {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  min-width: 0;
+  white-space: nowrap;
+}
+.rv-pagination-panel > span:last-child {
+  color: var(--rv-ui-text-muted);
+  font-size: 12px;
+}
+.rv-pagination-panel .rv-pagination-selector {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  gap: 8px;
+  margin-inline-start: 8px;
+  white-space: nowrap;
+}
+.rv-pagination-panel select {
+  width: auto;
+  min-width: 60px;
+  --rv-control-height: 32px;
+  --rv-control-padding: 5px 8px;
+  text-align: center;
+}
+.rv-pagination .rv-pagination-button,
+.rv-pagination-panel .rv-pagination-button {
+  box-sizing: border-box;
+  min-width: 32px;
+  height: 32px;
+  padding: 6px 8px;
+  border: 1px solid transparent;
+  border-radius: var(--rv-ui-radius, 6px);
+  flex: none;
+}
+.rv-pagination .rv-pagination-button[aria-current='page'],
+.rv-pagination-panel .rv-pagination-button[aria-current='page'] {
+  border-color: var(--rv-ui-border);
+  background: var(--rv-ui-surface);
+  color: var(--rv-ui-text, inherit);
+  opacity: 1;
+}
+.rv-pagination .rv-pagination-button:hover:not(:disabled),
+.rv-pagination-panel .rv-pagination-button:hover:not(:disabled) {
+  border-color: transparent;
+  background: var(--rv-ui-surface-hover);
+}
+.rv-pagination-button--icon {
+  width: 32px;
+}
+.rv-pagination-chevron {
+  display: block;
+  flex: none;
+}
+.rv-pagination-chevron:dir(rtl) {
+  transform: rotate(180deg);
+}
+.rv-pagination-summary,
+.rv-pagination-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  white-space: nowrap;
+}
+.rv-pagination-ellipsis {
+  color: var(--rv-ui-text-muted);
+}
+.rv-pagination-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.rv-pagination {
+  gap: 4px;
+}
+.rv-pagination-layout {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  width: 100%;
+}
+.rv-pagination-layout > label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  font-size: 13px;
+}
+.rv-pagination-layout select {
+  width: auto;
+  --rv-control-height: 32px;
+  --rv-control-padding: 5px 8px;
+}
+.rv-pagination--numbered {
+  container-type: inline-size;
+  inline-size: 100%;
+  flex-wrap: nowrap;
+}
+.rv-pagination-pages {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.rv-pagination-summary--responsive {
+  display: none;
+}
+@container (max-width: 300px) {
+  .rv-pagination-pages:not(.rv-pagination-pages--compact) {
+    display: none;
+  }
+  .rv-pagination-summary--responsive {
+    display: inline-flex;
+  }
+}
+
+@container (max-width: 900px) {
+  .rv-pagination-pages {
+    gap: 2px;
+  }
+  .rv-pagination-button {
+    min-width: 28px !important;
+    width: 28px;
+    height: 28px !important;
+    padding: 4px !important;
+  }
+  .rv-pagination-panel
+    .rv-pagination-button:not(.rv-pagination-button--icon):not([aria-current]),
+  .rv-pagination-panel .rv-pagination-ellipsis {
+    display: none;
+  }
+}
+.rv-pagination-panel {
+  container-type: inline-size;
+  inline-size: 100%;
+}
+@container (max-width: 900px) {
+  .rv-pagination-panel > span:first-child {
+    flex-wrap: nowrap;
+  }
+  .rv-pagination-panel > span:last-child {
+    margin-inline-start: auto;
+  }
+}
+@container (max-width: 580px) {
+  .rv-pagination-panel .rv-pagination-selector {
+    display: none;
+  }
+}
+
+/* Numeric fractions keep their reading order inside an RTL navigation row. */
+.rv-pagination-summary {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.rv-pagination-button--icon:dir(rtl) .rv-svg-icon {
+  transform: rotate(180deg);
+}
+
+@container (max-width: 420px) {
+  .rv-pagination-panel
+    > span:first-child
+    > .rv-pagination-button--icon:first-child,
+  .rv-pagination-panel
+    > span:first-child
+    > .rv-pagination-button--icon:last-of-type {
+    display: none;
+  }
+}
+
+@container (min-width: 621px) and (max-width: 900px) {
+  .rv-pagination-panel
+    .rv-pagination-button:not(.rv-pagination-button--icon):has(
+      + [aria-current='page']
+    ),
+  .rv-pagination-panel
+    [aria-current='page']
+    + .rv-pagination-button:not(.rv-pagination-button--icon) {
+    display: inline-flex;
+  }
+}

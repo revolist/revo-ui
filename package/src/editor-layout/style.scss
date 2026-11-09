@@ -1,0 +1,148 @@
+@use '../styles/motion';
+
+.rv-editor-split {
+  display: grid;
+  grid-template-columns: var(
+    --rv-editor-columns,
+    minmax(0, 1fr) minmax(0, 1fr)
+  );
+  gap: var(--rv-editor-gap, 12px);
+  min-width: 0;
+  min-height: 0;
+}
+.rv-editor-pane {
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid
+    var(--rv-editor-divider, var(--rv-dialog-border, var(--rv-ui-border)));
+  border-radius: var(--rv-editor-radius, 10px);
+  background: var(--rv-dialog-bg, var(--rv-ui-surface));
+}
+.rv-editor-pane.rv-editor-pane--scrollable {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.rv-editor-list {
+  display: grid;
+  align-content: start;
+  gap: 2px;
+  min-width: 0;
+  padding: 4px;
+  border: 1px solid var(--rv-ui-border);
+  border-radius: var(--rv-ui-radius, 6px);
+  background: var(--rv-ui-surface);
+}
+.rv-editor-list.rv-editor-list--plain {
+  border: 0;
+  border-radius: 0;
+  border-inline-end: var(--rv-editor-list-divider-inline-end, 0);
+  border-block-end: var(--rv-editor-list-divider-block-end, 0);
+}
+.rv-editor-list.rv-editor-list--comfortable {
+  // Keep two-line rows and their padding intact; the containing list owns scrolling.
+  grid-auto-rows: max-content;
+  min-height: 0;
+  padding: 8px;
+}
+.rv-editor-list--comfortable .rv-editor-list__item {
+  min-height: 44px;
+  padding: 10px 12px;
+}
+.rv-editor-list__item {
+  appearance: none;
+  width: 100%;
+  min-width: 0;
+  min-height: 34px;
+  padding: 8px 10px;
+  border-radius: 4px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+.rv-editor-list__item {
+  transition:
+    background-color var(--rv-ui-motion-fast, 120ms)
+      var(--rv-ui-motion-ease, ease-out),
+    color var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease-out),
+    opacity var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease-out);
+}
+.rv-editor-list__item:hover {
+  background: var(--rv-ui-surface-hover);
+}
+.rv-editor-list__item.rv-editor-list__item--selected {
+  background: var(--rv-ui-selected-bg);
+  color: var(--rv-ui-selected-fg);
+}
+.rv-editor-list__item:focus-visible {
+  outline: 2px solid var(--rv-ui-accent);
+  outline-offset: -2px;
+}
+@media (forced-colors: active) {
+  .rv-editor-list__item--selected {
+    outline: 2px solid Highlight;
+  }
+}
+
+.rv-editor-list__item:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.rv-editor-list__content {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  align-items: center;
+  gap: 9px;
+  font-size: 12px;
+  line-height: 1.4;
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+.rv-editor-list__content--text {
+  grid-template-columns: minmax(0, 1fr);
+}
+.rv-editor-list__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+}
+.rv-editor-list__icon svg {
+  display: block;
+  width: 13px;
+  height: 13px;
+  fill: currentColor;
+}
+.rv-editor-list__copy {
+  display: grid;
+  min-width: 0;
+  gap: 0;
+}
+.rv-editor-list__label,
+.rv-editor-list__description {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.rv-editor-list__label {
+  font-weight: var(--rv-editor-list-font-weight, 500);
+}
+.rv-editor-list__description {
+  font-size: 11px;
+  color: var(--rv-ui-text-muted);
+}
+.rv-editor-list__group {
+  display: grid;
+  gap: 2px;
+}
+.rv-editor-list__group-label {
+  font-weight: var(--rv-editor-list-font-weight, inherit);
+  padding: 8px 8px 4px;
+  font-size: 11px;
+  color: var(--rv-ui-text-muted);
+}

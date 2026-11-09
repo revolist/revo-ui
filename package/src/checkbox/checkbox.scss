@@ -1,0 +1,87 @@
+@use '../styles/motion';
+@use './layout';
+/** Shared native checkbox primitive. */
+.rv-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: var(--rv-ui-checkbox-bg, var(--rv-ui-surface));
+  border: 2px solid var(--rv-ui-checkbox-border, var(--rv-ui-border-strong));
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: var(--rv-ui-checkbox-check, var(--rv-ui-accent-fg));
+  cursor: pointer;
+  display: inline-grid;
+  flex: 0 0 auto;
+  height: 17px;
+  margin: 0;
+  place-content: center;
+  vertical-align: middle;
+  width: 17px;
+  transition:
+    background-color var(--rv-ui-motion-fast, 120ms)
+      var(--rv-ui-motion-ease, ease),
+    border-color var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease),
+    opacity var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease);
+
+  &::after {
+    content: '';
+    display: block;
+    transform: scale(0);
+  }
+
+  &:checked,
+  &:indeterminate {
+    background-color: var(--rv-ui-checkbox-checked, var(--rv-ui-accent));
+    border-color: var(--rv-ui-checkbox-checked, var(--rv-ui-accent));
+  }
+
+  &:checked::after {
+    border: solid currentColor;
+    border-width: 0 2px 2px 0;
+    height: 8px;
+    transform: translateY(-1px) rotate(45deg) scale(1);
+    width: 4px;
+  }
+
+  &:indeterminate::after {
+    background: currentColor;
+    border-radius: 1px;
+    height: 2px;
+    transform: scale(1);
+    width: 9px;
+  }
+
+  &:focus-visible {
+    box-shadow: 0 0 0 3px var(--rv-ui-checkbox-focus, var(--rv-ui-focus-ring));
+    outline: none;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+}
+
+.rv-checkbox-control {
+  @include layout.control-row;
+}
+
+.rv-checkbox-control__copy {
+  display: inline-flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.rv-checkbox-control__label {
+  line-height: 1.25;
+}
+.rv-checkbox-control__description {
+  color: var(--rv-ui-text-muted);
+  font-size: 0.85em;
+  line-height: 1.3;
+}
+
+.rv-checkbox-control:has(.rv-checkbox:disabled) {
+  cursor: not-allowed;
+  opacity: 0.55;
+}

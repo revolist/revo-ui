@@ -4,8 +4,8 @@ import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const gallery = fileURLToPath(new URL('../', import.meta.url));
-const library = resolve(process.argv[2] ?? resolve(gallery, '../..'));
-const source = readFileSync(resolve(library, 'packages/ui/src/component-catalog.ts'), 'utf8');
+const library = resolve(process.argv[2] ?? gallery);
+const source = readFileSync(resolve(library, 'package/src/component-catalog.ts'), 'utf8');
 const names = [...source.matchAll(/^  (\w+): /gm)].map(match => match[1]);
 const readme = readFileSync(resolve(gallery, 'README.md'), 'utf8');
 const reference = readFileSync(resolve(gallery, 'docs/component-reference.md'), 'utf8');

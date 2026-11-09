@@ -1,0 +1,18 @@
+.rv-number-draft {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  &__entry {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    > input {
+      min-width: 0;
+      width: 100%;
+    }
+  }
+  .rv-editor-error {
+    margin: 0;
+  }
+}

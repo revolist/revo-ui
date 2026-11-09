@@ -1,0 +1,53 @@
+@use 'styles/built-in-palettes' as palettes;
+@use './styles/palette';
+/**
+* Variables
+*/
+
+$rv-font-weight-medium: 500 !default;
+
+$primary-color-light: palettes.color('common', 'hex007bff');
+$primary-color-dark: palettes.color('common', 'hex0d63e8');
+
+$text-color-light: palettes.color('common', 'hex000');
+$text-color-light-secondary: palettes.color('common', 'hex757575');
+$text-color-dark: palette.$white;
+$text-color-dark-secondary: palettes.color('common', 'hex999');
+$background-color-light: palettes.color('common', 'hexf6f6f7');
+
+$button-alt-bg-light: palettes.color('common', 'hexebebef');
+$button-alt-bg-light-hover: palettes.color('common', 'hexe4e4e9');
+
+$background-color-dark: palettes.color('common', 'hex333333');
+
+$border-color-light: palettes.color('common', 'hexebebef');
+$border-color-dark: palettes.color('common', 'hexebebef');
+
+$rv-badge-bg-color: palettes.color('common', 'hexf0f0f0');
+$rv-badge-bg-color-dark: palettes.color('common', 'hex2d2d2d');
+
+$rv-popup-bg-color: palette.$white;
+$rv-popup-border-color: palettes.color('common', 'hexd4d4d4');
+$rv-popup-border-opacity: 0.5;
+$rv-popup-shadow-color: palettes.color('common', 'rgba_0_0_0_0_15');
+$rv-popup-hover-bg-color: palettes.color('common', 'hexf6f6f7');
+$rv-popup-border-radius: 8px;
+$rv-popup-padding: 10px;
+$rv-popup-box-shadow: 0 4px 12px #{palettes.color('common', 'rgba_0_0_0_0_15')};
+$rv-popup-bg-color-dark: palettes.color('common', 'hex1c1c1c');
+$rv-popup-border-color-dark: palettes.color('common', 'hex686868');
+$rv-popup-border-opacity-dark: 0;
+$rv-popup-shadow-color-dark: palettes.color('common', 'rgba_0_0_0_0_5');
+$rv-popup-hover-bg-color-dark: palettes.color('common', 'hex2c2c2c');
+$rv-popup-box-shadow-dark: 0 4px 12px
+  #{palettes.color('common', 'rgba_0_0_0_0_5')};
+
+$rv-low-color: palettes.color('common', 'hexfa2057');
+$rv-medium-color: palettes.color('common', 'hexf7c605');
+$rv-high-color: palettes.color('common', 'hex01c26e');
+$rv-critical-color: palettes.color('common', 'hexa8183c');
+$rv-info-color: palettes.color('common', 'hex5555fc');
+$rv-neutral-color: palettes.color('common', 'hex161a42');
+
+$rv-progress-bg-color: palettes.color('common', 'hexf0f0f0');
+$rv-progress-bg-color-dark: palettes.color('common', 'hex252525');

@@ -1,0 +1,330 @@
+@use '../styles/motion';
+
+.rv-color-palette {
+  --rv-color-palette-border: var(--rv-ui-border);
+  --rv-color-palette-surface: var(--rv-ui-surface);
+  --rv-color-palette-hover: var(--rv-ui-surface-hover);
+  --rv-color-palette-text: var(--rv-ui-text);
+  --rv-color-palette-accent: var(--rv-ui-accent);
+
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+
+.rv-color-palette__swatches {
+  display: grid;
+  grid-template-columns: repeat(9, 28px);
+  gap: 8px;
+}
+
+.rv-color-palette__swatch,
+.rv-color-palette-menu__swatch {
+  display: inline-flex;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background: var(--rv-color-palette-color);
+  color: #fff;
+}
+
+.rv-color-palette__swatch {
+  padding: 0;
+  cursor: pointer;
+}
+
+.rv-color-palette__swatch:hover:not(:disabled),
+.rv-color-palette__swatch:focus-visible {
+  border-color: var(--rv-color-palette-surface);
+  outline: 2px solid var(--rv-color-palette-accent);
+  outline-offset: 1px;
+}
+
+.rv-color-palette__swatch:disabled,
+.rv-color-palette__default:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+.rv-color-palette__check,
+.rv-color-palette__check svg,
+.rv-color-palette__default-check,
+.rv-color-palette__default-check svg {
+  display: block;
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+}
+
+.rv-color-palette__default {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 12px;
+  border: 1px solid var(--rv-color-palette-border);
+  border-radius: 8px;
+  background: var(--rv-color-palette-hover);
+  color: var(--rv-color-palette-text);
+  cursor: pointer;
+  font: inherit;
+}
+
+.rv-color-palette__default:focus-visible {
+  outline: 2px solid var(--rv-color-palette-accent);
+  outline-offset: 2px;
+}
+
+.rv-color-palette__default-check {
+  display: inline-flex;
+  width: 22px;
+  height: 22px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--rv-color-palette-accent);
+  color: #fff;
+}
+
+.rv-color-palette-menu[aria-expanded='true'] > .rv-context-menu__submenu {
+  display: grid !important;
+  grid-template-columns: repeat(9, 32px);
+  gap: 4px;
+  box-sizing: border-box;
+  min-width: 0;
+  width: 346px;
+  max-width: calc(100vw - 16px);
+  padding: 12px;
+}
+
+.rv-color-palette-menu[aria-expanded='true']
+  > .rv-context-menu__submenu
+  > .rv-color-palette-menu__swatch-item {
+  width: 32px;
+  min-width: 32px;
+  min-height: 32px;
+  padding: 2px !important;
+  justify-content: center;
+  gap: 0;
+}
+
+revo-grid
+  .rv-context-menu
+  .rv-color-palette-menu__swatch-item[aria-checked='true'] {
+  min-height: 32px;
+  margin: 0;
+  padding: 2px;
+  background: transparent;
+}
+
+revo-grid
+  .rv-context-menu
+  .rv-color-palette-menu__swatch-item[aria-checked='true']:hover,
+revo-grid
+  .rv-context-menu
+  .rv-color-palette-menu__swatch-item[aria-checked='true']:focus-visible {
+  background: var(--rv-context-menu-hover-bg-color, #eef1f5);
+}
+
+.rv-color-palette-menu__swatch-item .rv-context-menu__check,
+.rv-color-palette-menu__swatch-item .rv-context-menu__label {
+  display: none;
+}
+
+.rv-color-palette-menu__swatch--selected {
+  border-color: #fff;
+  outline: 2px solid var(--rv-ui-accent);
+}
+
+.rv-color-palette-menu__swatch svg {
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+}
+
+.rv-color-palette-menu__default-item {
+  grid-column: 1 / -1;
+  justify-content: center;
+  margin-top: 4px;
+  padding-inline: 10px;
+  background: var(--rv-ui-surface-hover);
+}
+
+.rv-color-palette-menu__default-content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.rv-color-palette-menu__default-check {
+  display: inline-flex;
+  width: 22px;
+  height: 22px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--rv-ui-accent);
+  color: #fff;
+}
+
+.rv-color-palette-menu__default-check svg {
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+}
+
+@media (max-width: 520px) {
+  .rv-color-palette__swatches {
+    grid-template-columns: repeat(6, 32px);
+  }
+
+  .rv-color-palette__swatch {
+    width: 32px;
+    height: 32px;
+  }
+
+  .rv-color-palette-menu[aria-expanded='true'] > .rv-context-menu__submenu {
+    grid-template-columns: repeat(6, 32px);
+    width: 244px;
+    padding-right: 12px;
+  }
+}
+
+@media (max-width: 280px) {
+  .rv-color-palette-menu[aria-expanded='true'] > .rv-context-menu__submenu {
+    grid-template-columns: repeat(4, 32px);
+    width: 172px;
+  }
+}
+
+@media (forced-colors: active) {
+  .rv-color-palette__swatch,
+  .rv-color-palette-menu__swatch {
+    border-color: ButtonText;
+  }
+}
+
+// Preset chooser: the no-color choice occupies the next swatch slot.
+.rv-color-palette {
+  grid-template-columns: repeat(5, 28px);
+  gap: 12px 18px;
+}
+.rv-color-palette__swatches {
+  display: contents;
+}
+.rv-color-palette__swatch,
+.rv-color-palette-menu__swatch {
+  border-radius: 8px;
+}
+.rv-color-palette__swatch[aria-checked='true'] {
+  border-color: var(--rv-color-palette-surface);
+  outline: 2px solid var(--rv-color-palette-accent);
+  outline-offset: 2px;
+}
+.rv-color-palette__check {
+  filter: drop-shadow(0 1px 1px rgb(0 0 0 / 65%));
+}
+.rv-color-palette__default {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  min-height: 28px;
+  padding: 0;
+  border-radius: 8px;
+  background: var(--rv-color-palette-surface);
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    background: linear-gradient(
+      45deg,
+      transparent calc(50% - 1px),
+      var(--rv-color-palette-border) 50%,
+      transparent calc(50% + 1px)
+    );
+  }
+  &[aria-checked='true'] {
+    outline: 2px solid var(--rv-color-palette-accent);
+    outline-offset: 2px;
+  }
+}
+.rv-color-palette__default-check {
+  display: none;
+}
+.rv-color-palette__default-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+@media (max-width: 520px) {
+  .rv-color-palette {
+    grid-template-columns: repeat(5, 32px);
+  }
+  .rv-color-palette__default {
+    width: 32px;
+    height: 32px;
+    min-height: 32px;
+  }
+}
+
+.rv-color-palette-menu[aria-expanded='true'] > .rv-context-menu__submenu {
+  grid-template-columns: repeat(5, 32px);
+  gap: 10px 14px;
+  width: 242px;
+}
+.rv-color-palette-menu__default-item {
+  grid-column: auto;
+  width: 32px;
+  min-width: 32px;
+  min-height: 32px;
+  margin: 0;
+  padding: 2px !important;
+  background: transparent;
+}
+.rv-color-palette-menu__default-content {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--rv-ui-border);
+  border-radius: 8px;
+  box-sizing: border-box;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    background: linear-gradient(
+      45deg,
+      transparent calc(50% - 1px),
+      var(--rv-ui-border) 50%,
+      transparent calc(50% + 1px)
+    );
+  }
+  > span {
+    display: none;
+  }
+}
+.rv-color-palette-menu__default-item[aria-checked='true']
+  .rv-color-palette-menu__default-content {
+  outline: 2px solid var(--rv-ui-accent);
+  outline-offset: 2px;
+}
+
+// Swatch fills and checked outlines remain exact; soften only hover borders/disabled state.
+.rv-color-palette__swatch,
+.rv-color-palette__default {
+  transition:
+    border-color var(--rv-ui-motion-fast, 120ms)
+      var(--rv-ui-motion-ease, ease-out),
+    opacity var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease-out);
+}
