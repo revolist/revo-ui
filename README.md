@@ -1,5 +1,10 @@
 # Revo UI
 
+[![npm version](https://img.shields.io/npm/v/%40revolist%2Fui?style=flat&color=2563eb)](https://www.npmjs.com/package/@revolist/ui)
+[![MIT license](https://img.shields.io/github/license/revolist/revo-ui?style=flat&color=16a34a)](LICENSE)
+[![Build status](https://img.shields.io/github/actions/workflow/status/revolist/revo-ui/pages.yml?branch=main&style=flat&label=build)](https://github.com/revolist/revo-ui/actions/workflows/pages.yml)
+[![GitHub stars](https://img.shields.io/github/stars/revolist/revo-ui?style=flat&color=eab308)](https://github.com/revolist/revo-ui/stargazers)
+
 **RevoGrid's UI component library for financial apps, reporting dashboards, and project management.**
 
 Compose data-rich workspaces with shared controls, pickers, charts, timelines, dialogs, and feedback. Use React, Vue, Angular, Svelte, Preact, or vanilla TypeScript. The package name remains **`@revolist/ui`**.
