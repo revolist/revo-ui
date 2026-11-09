@@ -27,7 +27,15 @@ function run(args) {
   if (result.status !== 0)
     throw new Error(`pnpm ${args.join(' ')} failed (${result.status})`);
 }
-run(['exec', 'vite', 'build']);
+run([
+  'exec',
+  'vite',
+  'build',
+  '--config',
+  '../vite.config.ts',
+  '--mode',
+  'library',
+]);
 
 // Preserve every Sass/CSS export, including its relative imports, and also offer
 // compiled CSS so ordinary consumers don't need a Sass toolchain.
@@ -252,7 +260,8 @@ writeFileSync(
   resolve(output, 'package.json'),
   JSON.stringify(manifest, null, 2) + '\n',
 );
-for (const name of ['README.md', 'OWNERSHIP.md', 'MIGRATION.md', 'LICENSE'])
+cpSync(resolve(root, '../README.md'), resolve(output, 'README.md'));
+for (const name of ['OWNERSHIP.md', 'MIGRATION.md', 'LICENSE'])
   if (existsSync(resolve(root, name)))
     cpSync(resolve(root, name), resolve(output, name));
 console.log(

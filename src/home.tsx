@@ -81,7 +81,24 @@ const transactions = [
   },
 ];
 
-export function GalleryHome() {
+export interface GalleryStarText {
+  introduction: string;
+  description: string;
+  action: string;
+}
+
+export const defaultGalleryStarText: GalleryStarText = {
+  introduction: 'Revo UI is new here.',
+  description: 'If it’s useful to you, a star helps others find it.',
+  action: 'Star on GitHub',
+};
+
+export function GalleryHome({
+  starText,
+}: {
+  starText?: Partial<GalleryStarText>;
+} = {}) {
+  const invitation = { ...defaultGalleryStarText, ...starText };
   const [period, setPeriod] = useState('6m');
   const [status, setStatus] = useState('all');
   const [saved, setSaved] = useState(14200);
@@ -119,11 +136,31 @@ export function GalleryHome() {
           </Button>
         </div>
         <nav class="home-framework-links" aria-label="Supported frameworks">
-          {Object.keys(frameworkLogos).map(name => <a class="home-framework-link" href="#frameworks"><FrameworkLogo name={name} /><span>{name}</span></a>)}
+          {Object.keys(frameworkLogos).map((name) => (
+            <a class="home-framework-link" href="#frameworks">
+              <FrameworkLogo name={name} />
+              <span>{name}</span>
+            </a>
+          ))}
         </nav>
         <div class="home-meta">
           Accessible controls <span>·</span> Flexible composition <span>·</span>{' '}
           One shared system
+        </div>
+        <div class="home-star-invitation">
+          <p class="home-star-copy">
+            <strong>{invitation.introduction}</strong> {invitation.description}
+          </p>
+          <Button
+            rounded
+            className="home-star-link"
+            href="https://github.com/revolist/revo-ui"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span aria-hidden="true">☆</span>
+            {invitation.action}
+          </Button>
         </div>
       </section>
       <div class="home-showcase-heading">
@@ -135,7 +172,9 @@ export function GalleryHome() {
           <article class="home-widget finance-revenue">
             <div class="widget-caption">
               <span>Revenue overview</span>
-              <a href={componentHref('charts-and-range-selection')}>Area chart</a>
+              <a href={componentHref('charts-and-range-selection')}>
+                Area chart
+              </a>
             </div>
             <div class="widget-between">
               <div>
@@ -180,7 +219,9 @@ export function GalleryHome() {
           <article class="home-widget finance-spending">
             <div class="widget-caption">
               <span>Spending overview</span>
-              <a href={componentHref('charts-and-range-selection')}>Bar chart</a>
+              <a href={componentHref('charts-and-range-selection')}>
+                Bar chart
+              </a>
             </div>
             <div class="widget-between">
               <div>
@@ -216,9 +257,7 @@ export function GalleryHome() {
           <article class="home-widget finance-savings">
             <div class="widget-caption">
               <span>Savings goal</span>
-              <a href={componentHref('sliders')}>
-                Slider & inputs
-              </a>
+              <a href={componentHref('sliders')}>Slider & inputs</a>
             </div>
             <div class="widget-between">
               <h3>A little closer to what's next.</h3>
@@ -284,7 +323,9 @@ export function GalleryHome() {
           <article class="home-widget finance-recent">
             <div class="widget-caption">
               <span>Recent transactions</span>
-              <a href={componentHref('selects-chips-and-resources')}>Select & badges</a>
+              <a href={componentHref('selects-chips-and-resources')}>
+                Select & badges
+              </a>
             </div>
             <div class="widget-between">
               <h3>A little more clarity.</h3>
@@ -331,12 +372,22 @@ export function GalleryHome() {
           </article>
         }
       />
-      <section id="frameworks" class="home-frameworks" aria-labelledby="home-frameworks-title">
+      <section
+        id="frameworks"
+        class="home-frameworks"
+        aria-labelledby="home-frameworks-title"
+      >
         <div>
           <span class="home-eyebrow">YOUR FRAMEWORK. ONE SHARED SYSTEM.</span>
           <h2 id="home-frameworks-title">Fits the stack you already use.</h2>
-          <p>Build financial apps, reporting dashboards, and project workspaces with the same components across frameworks. Keep your application state and workflows in your stack.</p>
-          <Button rounded href={siteHref('frameworks/')}>Explore framework guides →</Button>
+          <p>
+            Build financial apps, reporting dashboards, and project workspaces
+            with the same components across frameworks. Keep your application
+            state and workflows in your stack.
+          </p>
+          <Button rounded href={siteHref('frameworks/')}>
+            Explore framework guides →
+          </Button>
         </div>
         <div class="home-framework-grid">
           {[
@@ -347,8 +398,17 @@ export function GalleryHome() {
             ['Preact', 'Direct components with Preact hooks.'],
             ['Vanilla TypeScript', 'Mount, update, and dispose in the DOM.'],
           ].map(([name, description]) => (
-            <a class="home-framework-card" href={frameworkHref(name.toLowerCase().replaceAll(' ', '-'))}>
-              <strong><span class="home-framework-name"><FrameworkLogo name={name} />{name}</span><span aria-hidden="true">↗</span></strong>
+            <a
+              class="home-framework-card"
+              href={frameworkHref(name.toLowerCase().replaceAll(' ', '-'))}
+            >
+              <strong>
+                <span class="home-framework-name">
+                  <FrameworkLogo name={name} />
+                  {name}
+                </span>
+                <span aria-hidden="true">↗</span>
+              </strong>
               <span>{description}</span>
             </a>
           ))}

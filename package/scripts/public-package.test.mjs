@@ -88,6 +88,10 @@ test('archive exposes real typed ESM/CSS exports without private dependencies or
     manifest.repository.url,
     'https://github.com/revolist/revo-ui.git',
   );
+  assert.equal(
+    readFileSync(join(packageRoot, 'README.md'), 'utf8'),
+    readFileSync(resolve(root, '../README.md'), 'utf8'),
+  );
   assert.equal(manifest.license, 'MIT');
   assert.match(
     readFileSync(join(packageRoot, 'LICENSE'), 'utf8'),

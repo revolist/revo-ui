@@ -90,3 +90,5 @@ pnpm build
 ```
 
 Library source and public exports live in `package/`. The private workspace packages in `internal/` provide date and chart utilities that are bundled into the public distribution. Gallery source lives in `src/`.
+
+Gallery and package builds share `vite.config.ts`; library builds select `--mode library`. The npm archive uses this README. The `package/` folder is a regular directory in this repository, not a submodule.

@@ -2313,3 +2313,31 @@ body {
 }
 .catalog-topbar .gallery-settings { z-index:1; }
 .catalog-accordion { display:grid; gap:10px; width:100%; max-width:640px; }
+
+/* An optional invitation below the homepage hero, alongside the normal content. */
+.home-star-invitation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  max-width: 680px;
+  margin: 28px auto 0;
+  padding: 16px 20px;
+  border: 1px solid var(--gallery-outline);
+  border-radius: 12px;
+  background: var(--rv-ui-surface);
+  text-align: start;
+}
+.home-hero .home-star-copy {
+  flex: 1 1 300px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.home-star-copy strong {
+  color: var(--rv-ui-text);
+  font-weight: 550;
+}
+.home-star-link {
+  flex-shrink: 0;
+}
