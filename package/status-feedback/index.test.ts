@@ -3,7 +3,7 @@
 import { expect, it } from 'vitest';
 import { resolve } from 'node:path';
 import ts from 'typescript';
-import { compile } from 'sass-embedded';
+import { compileAsync } from 'sass-embedded';
 
 // Allow the TypeScript consumer check to finish on shared CI runners.
 it('compiles the status feedback entry with strict side-effect import checks and no SCSS declarations', () => {
@@ -41,10 +41,13 @@ it('compiles the status feedback entry with strict side-effect import checks and
   expect(errors).toEqual([]);
 }, 30_000);
 
-it('includes feedback panel and badge styles in the shared stylesheet', () => {
-  const { css } = compile(resolve(import.meta.dirname, '../styles.scss'), {
-    logger: { warn() {}, debug() {} },
-  });
+it('includes feedback panel and badge styles in the shared stylesheet', async () => {
+  const { css } = await compileAsync(
+    resolve(import.meta.dirname, '../styles.scss'),
+    {
+      logger: { warn() {}, debug() {} },
+    },
+  );
   expect(css).toContain('.rv-status-feedback {');
   expect(css).toContain('.rv-status-badge {');
 });

@@ -1,0 +1,82 @@
+import { expect, test } from '@playwright/test';
+import { compileAsync } from 'sass-embedded';
+import { resolve } from 'node:path';
+
+const root = resolve(import.meta.dirname, '../..');
+let css: string;
+test.beforeAll(async () => {
+  css = (
+    await compileAsync(resolve(root, 'package/styles.scss'))
+  ).css;
+});
+
+test('resize handle keeps keyboard focus visible in forced colors', async ({
+  page,
+}) => {
+  await page.setContent(
+    '<div class="rv-resize-handle" role="separator" aria-label="Panel width" tabindex="0"></div>',
+  );
+  await page.addStyleTag({ content: css });
+  await page.keyboard.press('Tab');
+  const handle = page.getByRole('separator', { name: 'Panel width' });
+  await expect(handle).toBeFocused();
+  await expect(handle).toHaveCSS('outline-style', 'none');
+  await page.emulateMedia({ forcedColors: 'active' });
+  await expect(handle).toHaveCSS('outline-style', 'solid');
+  await expect(handle).toHaveCSS('outline-width', '2px');
+});
+
+test('common UI styles alone provide the clean Fields surface', async ({
+  page,
+}) => {
+  await page.setContent(`<div class="rv-configurator-panel rv-configurator-panel--standalone" style="width:240px">
+    <revo-grid theme="compact" class="rv-configurator-fields-grid" style="height:36px">
+      <revogr-data><div class="rgRow" style="display:flex;height:36px">
+        <div class="rgCell disabled" style="width:26px"><span class="rv-configurator-field-drag" draggable="true"><span class="rv-configurator-drag-handle"></span></span></div>
+        <div class="rgCell disabled" style="flex:1">Country</div>
+        <div class="rgCell disabled" style="width:56px"><div class="rv-configurator-field-actions">Actions</div></div>
+      </div></revogr-data>
+    </revo-grid></div>`);
+  // Representative host defaults must be overridden by UI, without product CSS.
+  await page.addStyleTag({
+    content:
+      'revo-grid .rgRow{box-shadow:0 -1px #ccc inset} revo-grid .rgCell{padding:0 15px;border-bottom:1px solid #ccc;background:#eee} revo-grid:is([theme=compact],[theme=darkCompact]) revogr-data .rgCell.disabled{box-shadow:0 -1px #ccc inset}',
+  });
+  await page.addStyleTag({ content: css });
+  for (const theme of ['light', 'dark']) {
+    await page.locator('.rv-configurator-panel').evaluate((element, theme) => {
+      element.setAttribute('data-theme', theme);
+    }, theme);
+    const surface = await page.locator('revo-grid').evaluate((grid) => {
+      const row = grid.querySelector<HTMLElement>('.rgRow')!;
+      const cells = [...row.querySelectorAll<HTMLElement>('.rgCell')];
+      const grip = row
+        .querySelector<HTMLElement>('.rv-configurator-drag-handle')!
+        .getBoundingClientRect();
+      const bounds = row.getBoundingClientRect();
+      return {
+        borderless:
+          getComputedStyle(row).boxShadow === 'none' &&
+          cells.every(
+            (cell) =>
+              getComputedStyle(cell).borderBottomWidth === '0px' &&
+              getComputedStyle(cell).boxShadow === 'none',
+          ),
+        spacing: cells.every(
+          (cell) => getComputedStyle(cell).paddingInlineStart === '0px',
+        ),
+        centered:
+          Math.abs(
+            grip.top + grip.height / 2 - bounds.top - bounds.height / 2,
+          ) < 1,
+        fits: grid.scrollWidth <= grid.clientWidth,
+      };
+    });
+    expect(surface).toEqual({
+      borderless: true,
+      spacing: true,
+      centered: true,
+      fits: true,
+    });
+  }
+});

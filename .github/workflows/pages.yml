@@ -51,6 +51,20 @@ jobs:
       - name: Build Pages site
         working-directory: gallery
         run: pnpm --filter @revolist/ui build:demo --base /
+      - name: Verify browser test discovery
+        working-directory: gallery
+        run: pnpm test:discovery
+      - name: Test UI browser behavior
+        working-directory: gallery
+        env:
+          UI_SKIP_BUILD: '1'
+        run: pnpm test:browser
+      - name: Test framework adapters and tooltip behavior
+        working-directory: gallery
+        run: |
+          pnpm test:frameworks
+          pnpm test:tooltips
+          pnpm test:fields-styles
       - name: Verify static SEO output
         run: node gallery/scripts/seo.test.mjs gallery/dist-gallery
       - name: Upload static site only

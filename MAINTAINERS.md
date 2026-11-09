@@ -69,11 +69,11 @@ See [OWNERSHIP.md](./OWNERSHIP.md) for implementation/style owners, renderer con
 The standalone gallery app lives in [the repository root](../). Run `pnpm dev` from the public repository root or `pnpm dev:ui` from the parent monorepo.
 
 ```sh
-pnpm --filter @revolist/ui-gallery dev
-pnpm --filter @revolist/ui-gallery build
+pnpm --filter @revolist/ui dev
+pnpm --filter @revolist/ui build
 pnpm --filter @revolist/ui lint
 pnpm --filter @revolist/ui test
-pnpm --filter @revolist/ui-gallery test:browser
+pnpm --filter @revolist/ui test:browser
 ```
 
 The gallery shows default, compact, disabled, selected, mixed, invalid, read-only, loading, light/dark and RTL examples. The Chromium suite uses the built gallery and covers keyboard controls, nested overlays, focus return, multiple picker instances and narrow layouts. CI runs UI unit tests in the remaining-package group and browser tests alongside the existing Chromium integration job.
@@ -152,7 +152,7 @@ Each adapter preserves native elements, events, values and form bindings. React 
 
 ## Build and release preparation
 
-Run `pnpm --dir packages/ui/package pack:public` from the monorepo, then `pnpm --dir packages/ui/package test:public`. The generated public package is `dist/`, and the archive is `artifacts/revolist-ui-<version>.tgz`. The generated distribution manifest declares public access and contains no workspace dependencies.
+Run `pnpm --dir packages/ui pack:public` from the monorepo, then `pnpm --dir packages/ui test:public`. The generated public package is `dist/`, and the archive is `artifacts/revolist-ui-<version>.tgz`. The generated distribution manifest declares public access and contains no workspace dependencies.
 
 Before publication, standalone repositories consume an identical archive in their own `vendor/` directory using relative `file:` dependencies and a lockfile generated against that real archive. These paths are portable with the cloned repository. Include its vendor archive when copying a starter out of that repository. After an authorized registry release, dependencies can switch to the published version and locks can be regenerated from the registry. Do not substitute unverified registry URLs or integrity values for the prepared archive.
 
@@ -221,7 +221,7 @@ The focused browser check runs against its own framework fixture, independently 
 Preact gallery:
 
 ```sh
-pnpm --filter @revolist/ui-gallery exec playwright test --config ../../tests/shared-ui/playwright.framework-adapters.config.ts
+pnpm --filter @revolist/ui exec playwright test --config playwright.framework-adapters.config.ts
 ```
 
 ## React, Angular and Svelte component adapters
@@ -336,7 +336,7 @@ The dedicated browser fixture covers all four frameworks:
 
 ```sh
 pnpm --filter @revolist/ui lint:svelte
-pnpm --filter @revolist/ui-gallery exec playwright test --config ../../tests/shared-ui/playwright.framework-adapters.config.ts
+pnpm --filter @revolist/ui exec playwright test --config playwright.framework-adapters.config.ts
 ```
 
 ### PDF viewer

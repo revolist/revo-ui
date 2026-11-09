@@ -72,7 +72,7 @@ These motion changes preserve the accessibility review boundaries in [ACCESSIBIL
 
 ## Verification
 
-Owner tests cover inherited flags, live portal policy updates, shadow-boundary opt-out, timing values, cancellation and cleanup. Gallery browser coverage in `tests/shared-ui/motion.spec.ts` checks enabled/off restoration, both themes, pseudo-elements/loading indicators, portaled dialogs and nested dropdowns, OS reduced motion, and immediate value/drag geometry. Existing accessibility, keyboard and responsive suites remain canonical.
+Owner tests cover inherited flags, live portal policy updates, shadow-boundary opt-out, timing values, cancellation and cleanup. Gallery browser coverage in `tests/browser/motion.spec.ts` checks enabled/off restoration, both themes, pseudo-elements/loading indicators, portaled dialogs and nested dropdowns, OS reduced motion, and immediate value/drag geometry. Existing accessibility, keyboard and responsive suites remain canonical.
 
 Validation for this change: all 236 UI unit tests and 69 shared UI browser tests passed; gallery type-check, full/native/standalone Sass compilation, production build with relative asset URLs, and `git diff --check` passed. Desktop/mobile and a dark dialog were visually inspected. Local runs reused installed Vite 8.2.1 / Vitest 5.0.0; CI validates locked Vite 8.2.4 / Vitest 5.0.5. No full product suite, Docker-image build, publication, or non-Chromium motion qualification was performed.
 
