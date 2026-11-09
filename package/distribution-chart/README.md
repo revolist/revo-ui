@@ -22,4 +22,4 @@ Use the shared `--rv-distribution-*` variables to customize a visualization. Def
 
 These are nonnegative, single-measure compact distributions. Nonfinite/negative values retain the existing normalization to zero. They do not replace `@revolist/charts`: that product already owns multiple measures, stacked/grouped/horizontal/radial charts, axes/domains, legend actions, shared tooltips and exports. Keep those options in its existing model/renderer; never import this optional Preact adapter into the native Charts runtime.
 
-The comparison with shadcn informs presentation and composition, not Recharts API compatibility. Gallery examples demonstrate each option and the existing Pro-style range-brush composition.
+Gallery examples demonstrate each option and the existing Pro-style range-brush composition.

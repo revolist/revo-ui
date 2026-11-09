@@ -2,7 +2,7 @@
 
 Chat presentation lives in `@revolist/ui`. Standalone components do not call a model, execute tools or own model conversation; their host supplies those behaviors. The existing grid assistant can optionally mount these same primitives with `ui: { mode: 'chat' }`. No new SDK or Markdown dependency is required. Mounted assistants accept `controlsMountTo` to render reactive undo/redo and view controls in a separate host, and `showClearChat: false` to omit the chat-clearing button. Both are optional; view controls stay inline and New conversation is a separate icon. It clears chat/draft and AI context without changing the workspace. Request history is hidden in chat by default, and uses an icon without a step count in toolbar mode (`showRequestHistory`). Workspace reset belongs to the application.
 
-Inspired by the composition of shadcn's [Chat](https://ui.shadcn.com/docs/ai-elements/base/chat), [Message](https://ui.shadcn.com/docs/ai-elements/base/message), [Reasoning](https://ui.shadcn.com/docs/ai-elements/base/reasoning) and [Task](https://ui.shadcn.com/docs/ai-elements/base/task); implemented with the library's existing controls, disclosure, theme tokens and translation helpers.
+Chat, message, reasoning and task components compose the library's existing controls, disclosure, theme tokens and translation helpers.
 
 ```tsx
 import {

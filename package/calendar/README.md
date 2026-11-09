@@ -1,6 +1,6 @@
 # Shared calendar
 
-The visual reference is [shadcn Calendar](https://ui.shadcn.com/docs/components/base/calendar). We retain the product's standard blue selection, ISO civil-date values and Preact/native controls. This is an additive shared API, not a React DayPicker compatibility layer.
+Shared calendar controls use the product's standard blue selection, ISO civil-date values and Preact/native controls. This is an additive shared API, not a React DayPicker compatibility layer.
 
 ## Supported compositions
 
