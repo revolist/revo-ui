@@ -1,4 +1,4 @@
-import { frameworkHref, currentRoute } from './routing';
+import { frameworkHref, currentRoute, siteHref } from './routing';
 import { useEffect, useState } from 'preact/hooks';
 import { Highlight } from './example-source';
 
@@ -214,6 +214,11 @@ export function FrameworksPage() {
             </details>
           </section>
         ))}
+      <section class="framework-setup" aria-labelledby="framework-accessibility-title">
+        <h2 id="framework-accessibility-title">Build accessible applications</h2>
+        <p>Learn how to preserve keyboard navigation, label controls, explain errors and provide alternatives to dragging. Try live examples and review the checks your application needs before release.</p>
+        <a href={siteHref('accessibility/')}>Read the accessibility guide →</a>
+      </section>
       <p class="framework-lifecycle">
         Framework adapters manage their mount lifecycle. For manual mounts,
         always call destroy() when the view is removed. Styles are shared;

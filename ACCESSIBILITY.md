@@ -24,6 +24,7 @@ The ordinary gallery runner builds its own gallery. `UI_SKIP_BUILD=1` skips that
 - Keyboard focus is checked with forced colors and reduced motion. The gallery header is checked at 320 CSS pixels, and full specimens are checked for page-level reflow with increased line/paragraph/letter/word spacing. These checks do not establish that all text remains readable in every custom composition.
 - `accessibility-interactions.spec.ts` uses actual taps at 320px and 1280px for all timeline move/resize commands and field reordering. Existing suites cover calendar, tabs/radios, menus, dialog focus, Escape, focus return, resizing, RTL, editing and responsive layouts.
 - `tooltip.spec.ts` covers clipping, shared presentation, slow travel across the anchor-to-tooltip gap, hovering the tooltip, persistence, Escape dismissal and pointer exit. The shared owner also serves declarative, title and delegated selection-list hints.
+- The public `/accessibility/` guide includes shared-component keyboard/dialog, form-feedback and no-drag timeline examples. `accessibility-guide.spec.ts` checks these at 320px, 800px and 1280px, scans light/dark themes, and verifies discovery from Docs. Its six axe scans reported zero violations; this is additional automated evidence, not completion of the manual checks below.
 - PDF behavior and automated viewer/mobile-tools scans live in `pdf-viewer.spec.ts`; the document text layer and the host-provided PDF's accessibility require separate review.
 
 ## Changes closing documented engineering gaps
@@ -137,7 +138,7 @@ The red-before-green checks reproduced tooltip dismissal during pointer travel, 
 - All nine tooltip browser cases passed, including boundary/milestone handle hit-testing and dragging, hover travel/Escape, and real scrolling with a keyboard-focused trigger.
 - All 22 framework/PDF adapter cases passed after the tooltip focus/scroll fixes. These include keyboard-trigger tooltips and framework-owned content lifecycle.
 - The dedicated PDF viewer/mobile-tools automated accessibility case passed in both themes.
-- The final production gallery build verified 221 static pages, titles, canonicals and navigation. The entire 216-case gallery suite was not rerun after the tooltip/calendar follow-up; its affected production accessibility/calendar, tooltip and adapter suites were rerun as described above.
+- The final production gallery build verified 222 static pages, titles, canonicals and navigation. The entire 216-case gallery suite was not rerun after the tooltip/calendar follow-up; its affected production accessibility/calendar, tooltip and adapter suites were rerun as described above.
 
 ### Screen-reader attempt and readiness gate
 

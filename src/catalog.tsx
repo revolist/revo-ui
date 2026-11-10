@@ -1,3 +1,4 @@
+import { accessibilityArticle } from './accessibility';
 import { GallerySettings } from './gallery-settings';
 import { ComponentContents } from './component-contents';
 import { GalleryHome } from './home';
@@ -121,7 +122,7 @@ export function CatalogShell({
   onRtlChange,
 }: {
   children: ComponentChildren;
-  page?: 'components' | 'colors' | 'frameworks' | 'api';
+  page?: 'components' | 'colors' | 'frameworks' | 'api' | 'accessibility';
   theme: string;
   rtl: boolean;
   onThemeChange: (value: string) => void;
@@ -136,7 +137,7 @@ export function CatalogShell({
     const update = () => {
       setActive(currentRoute());
       setMobileOpen(false);
-      if (location.hash && (location.pathname.includes('/components/') || page === 'api')) return;
+      if (location.hash && (location.pathname.includes('/components/') || page === 'api' || page === 'accessibility')) return;
       if (location.hash === '#frameworks') requestAnimationFrame(() => document.getElementById('frameworks')?.scrollIntoView({ behavior: 'smooth' }));
       else window.scrollTo(0, 0);
     };
@@ -167,10 +168,11 @@ export function CatalogShell({
   });
   const visible = families.filter((family) => inScope(family.title) && matches(family, query));
   useEffect(() => {
-    const title = home ? 'Revo UI — Components for Finance, Reporting & Project Management' : `${component?.title ?? (page === 'frameworks' ? (pages.frameworks.find(name => sectionId(name) === active) ? `${pages.frameworks.find(name => sectionId(name) === active)} integration` : 'Documentation') : page === 'colors' ? 'Design system colors' : 'UI components')} · Revo UI`;
+    const title = page === 'accessibility' ? accessibilityArticle.title : home ? 'Revo UI — Components for Finance, Reporting & Project Management' : `${component?.title ?? (page === 'frameworks' ? (pages.frameworks.find(name => sectionId(name) === active) ? `${pages.frameworks.find(name => sectionId(name) === active)} integration` : 'Documentation') : page === 'colors' ? 'Design system colors' : 'UI components')} · Revo UI`;
     document.title = title;
+    document.querySelector('meta[property="og:type"]')?.setAttribute('content', page === 'accessibility' ? 'article' : 'website');
     const frameworkName = page === 'frameworks' ? pages.frameworks.find(name => sectionId(name) === active) : undefined;
-    const description = frameworkName ? `Use Revo UI with ${frameworkName}: installation, component examples, state, callbacks, and styling for financial and reporting applications.` : home ? 'Build financial dashboards, reporting apps, and project workspaces with Revo UI. Explore UI components for React, Vue, Angular, Svelte, Preact, and TypeScript.' : component?.description ?? (page === 'colors' ? 'Explore Revo UI semantic colors, palettes, and theme tokens for consistent application interfaces.' : page === 'frameworks' ? 'Integrate Revo UI with React, Vue, Angular, Svelte, Preact, or vanilla TypeScript. Follow installation and usage guides for your stack.' : 'Browse Revo UI controls, pickers, layouts, and compositions with interactive variants and formatted usage examples.');
+    const description = page === 'accessibility' ? accessibilityArticle.description : frameworkName ? `Use Revo UI with ${frameworkName}: installation, component examples, state, callbacks, and styling for financial and reporting applications.` : home ? 'Build financial dashboards, reporting apps, and project workspaces with Revo UI. Explore UI components for React, Vue, Angular, Svelte, Preact, and TypeScript.' : component?.description ?? (page === 'colors' ? 'Explore Revo UI semantic colors, palettes, and theme tokens for consistent application interfaces.' : page === 'frameworks' ? 'Integrate Revo UI with React, Vue, Angular, Svelte, Preact, or vanilla TypeScript. Follow installation and usage guides for your stack.' : 'Browse Revo UI controls, pickers, layouts, and compositions with interactive variants and formatted usage examples.');
     document.querySelector('meta[name="description"]')?.setAttribute('content', description);
     document.querySelector('meta[property="og:title"]')?.setAttribute('content', title);
     document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
@@ -181,6 +183,24 @@ export function CatalogShell({
     canonical.href = `https://ui.rv-grid.com${location.pathname}`;
     document.querySelector('meta[property="og:url"]')?.setAttribute('content', canonical.href);
     document.querySelector('meta[name="robots"]')?.setAttribute('content', (home || knownRoute) ? 'index, follow, max-image-preview:large' : 'noindex, follow');
+    document.getElementById('accessibility-article-schema')?.remove();
+    if (page === 'accessibility' && knownRoute) {
+      const structured = document.createElement('script');
+      structured.id = 'accessibility-article-schema';
+      structured.type = 'application/ld+json';
+      structured.textContent = JSON.stringify({
+        '@context': 'https://schema.org', '@type': 'TechArticle',
+        '@id': `${canonical.href}#article`, url: canonical.href,
+        headline: accessibilityArticle.headline, description: accessibilityArticle.description,
+        datePublished: accessibilityArticle.published, dateModified: accessibilityArticle.published,
+        inLanguage: 'en', mainEntityOfPage: canonical.href,
+        author: { '@type': 'Organization', name: 'Revo UI team', url: 'https://github.com/revolist/revo-ui' },
+        publisher: { '@type': 'Organization', name: 'Revolist', url: 'https://ui.rv-grid.com/' },
+        image: 'https://ui.rv-grid.com/og-image.png',
+      });
+      document.head.append(structured);
+    }
+
   }, [active, home, page, component?.title]);
   return (
     <div class="rv-ui catalog" data-theme={theme} dir={rtl ? 'rtl' : 'ltr'}>
@@ -192,7 +212,7 @@ export function CatalogShell({
         }}
         href={page === 'colors' ? '#colors-title' : '#components'}
       >
-        {page === 'colors' ? 'Skip to colors' : 'Skip to components'}
+        {page === 'accessibility' ? 'Skip to accessibility guide' : page === 'colors' ? 'Skip to colors' : 'Skip to components'}
       </a>
       <header class="catalog-topbar">
         <div class="catalog-topbar-inner">
@@ -230,6 +250,7 @@ export function CatalogShell({
               Docs
             </a>
             <a href={siteHref("api/")} aria-current={page === "api" ? "page" : undefined}>API</a>
+            <a href={siteHref('accessibility/')} aria-current={page === 'accessibility' ? 'page' : undefined}>Accessibility</a>
           </nav>
           <GallerySettings><Toolbar label="Gallery settings">
             <a class="rv-btn rv-btn-ghost rv-btn-icon catalog-github-link" href="https://github.com/revolist/revo-ui" target="_blank" rel="noopener noreferrer" aria-label="Revo UI on GitHub" title="Revo UI on GitHub">
@@ -296,7 +317,7 @@ export function CatalogShell({
       </header>
       <main
         id="components"
-        class={`catalog-workspace${page === 'api' ? ' catalog-workspace--api' : ''}${page === 'colors' ? ' catalog-workspace--colors' : ''}${home ? ' catalog-workspace--home' : ''}${component ? ' catalog-workspace--component' : ''}`}
+        class={`catalog-workspace${page === 'api' ? ' catalog-workspace--api' : ''}${page === 'colors' || page === 'accessibility' ? ' catalog-workspace--colors' : ''}${home ? ' catalog-workspace--home' : ''}${component ? ' catalog-workspace--component' : ''}`}
         dir={rtl ? 'rtl' : 'ltr'}
         tabIndex={-1}
       >
@@ -377,6 +398,7 @@ export function CatalogShell({
                 >
                   Getting started
                 </a>
+                <a href={siteHref('accessibility/')}>Accessibility</a>
                 {pages.frameworks.map((name) => {
                   const id = name.toLowerCase().replaceAll(' ', '-');
                   return (
@@ -453,6 +475,7 @@ export function CatalogShell({
             <a href={componentHref('buttons')}>
               Explore components
             </a>
+            <a href={siteHref('accessibility/')}>Accessibility guide</a>
           </footer>
         </div>
       </main>
