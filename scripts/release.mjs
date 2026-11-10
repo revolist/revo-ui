@@ -48,7 +48,10 @@ export async function publicationNeeded(
   validatePublishTarget(manifest, registry, access);
   const url = `${registry.replace(/\/$/, "")}/${encodeURIComponent(manifest.name)}`;
   const response = await fetchImpl(url, {
-    headers: { authorization: `Bearer ${token}`, accept: "application/json" },
+    headers: {
+      accept: "application/json",
+      ...(token ? { authorization: `Bearer ${token}` } : {}),
+    },
     signal: AbortSignal.timeout(30000),
   });
   if (response.status === 404) return true;
@@ -72,6 +75,60 @@ export async function publicationNeeded(
     );
   return false;
 }
+export async function publishRelease({
+  manifest,
+  registry,
+  access,
+  archive,
+  token,
+  fetchImpl = fetch,
+  run = execFileSync,
+}) {
+  validatePublishTarget(manifest, registry, access);
+  const trustedNpm =
+    registry.replace(/\/$/, "") === "https://registry.npmjs.org";
+  if (!trustedNpm && !token)
+    throw new Error("Missing GitHub Packages publication credential.");
+  if (
+    !(await publicationNeeded(
+      manifest,
+      registry,
+      access,
+      trustedNpm ? undefined : token,
+      fetchImpl,
+    ))
+  ) {
+    console.log(
+      `${manifest.name}@${manifest.version} already published from the same source; skipping this registry.`,
+    );
+    return;
+  }
+  const client = trustedNpm ? "npm" : "pnpm";
+  if (trustedNpm) {
+    const version = run("npm", ["--version"], { encoding: "utf8" }).trim();
+    const [major, minor, patch] = version.split(".").map(Number);
+    if (
+      !(
+        major > 11 ||
+        (major === 11 && (minor > 5 || (minor === 5 && patch >= 1)))
+      )
+    )
+      throw new Error("npm CLI >=11.5.1 is required for trusted publishing.");
+  }
+  run(
+    client,
+    [
+      "publish",
+      resolve(archive),
+      `--registry=${registry}`,
+      `--access=${access}`,
+      `--tag=${manifest.version.includes("-") ? "next" : "latest"}`,
+      ...(trustedNpm ? [] : ["--no-git-checks"]),
+    ],
+    { stdio: "inherit" },
+  );
+}
+
 if (
   process.argv[1] &&
   import.meta.url === pathToFileURL(process.argv[1]).href
@@ -88,23 +145,12 @@ if (
     const registry = process.env.PUBLISH_REGISTRY,
       access = process.env.PUBLISH_ACCESS;
     const token = process.env.NODE_AUTH_TOKEN;
-    if (!token) throw new Error("Missing registry publication credential.");
-    if (await publicationNeeded(manifest, registry, access, token)) {
-      execFileSync(
-        "pnpm",
-        [
-          "publish",
-          resolve(process.env.RELEASE_ARCHIVE),
-          `--registry=${registry}`,
-          `--access=${access}`,
-          `--tag=${manifest.version.includes("-") ? "next" : "latest"}`,
-          "--no-git-checks",
-        ],
-        { stdio: "inherit" },
-      );
-    } else
-      console.log(
-        `${manifest.name}@${manifest.version} already published from the same source; skipping this registry.`,
-      );
+    await publishRelease({
+      manifest,
+      registry,
+      access,
+      archive: process.env.RELEASE_ARCHIVE,
+      token,
+    });
   } else throw new Error("Expected stamp or publish command.");
 }
