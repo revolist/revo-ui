@@ -16,7 +16,7 @@ test('Vue controls preserve keyboard selection, dialog slots and overlay cleanup
   await page.getByRole('listbox').getByRole('option', { name: 'Beta' }).click();
   await expect(page.locator('#status')).toHaveText('b');
   await chooseOption(
-    page.getByLabel('Secondary status', { exact: true }),
+    page.getByRole('combobox', { name: 'Secondary status', exact: true }),
     'Alpha',
   );
   await expect(page.locator('#status')).toHaveText('a');

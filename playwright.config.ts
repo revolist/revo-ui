@@ -8,6 +8,7 @@ export default defineConfig({
     'pdf-viewer.spec.ts',
     'gallery-capture.spec.ts',
     'tooltip.spec.ts',
+    'cdn.spec.ts',
     'fields-styles.spec.ts',
   ],
   outputDir: './test-results/gallery',

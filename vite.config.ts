@@ -9,6 +9,25 @@ import { defineConfig } from 'vite';
 import preact from '@preact/preset-vite';
 import { componentApi, apiModule } from './scripts/component-api.mjs';
 export default defineConfig(({ mode }) => {
+  if (mode === 'browser') {
+    return {
+      root: import.meta.dirname,
+      oxc: { jsx: { runtime: 'automatic', importSource: 'preact' } },
+      build: {
+        outDir: 'dist/browser',
+        target: 'esnext',
+        lib: {
+          entry: resolve(import.meta.dirname, 'package/browser.ts'),
+          name: 'RevoUI',
+          formats: ['es', 'iife'],
+          fileName: (format) =>
+            format === 'es' ? 'revo-ui.js' : 'revo-ui.global.js',
+          cssFileName: 'pdf-viewer',
+        },
+        rolldownOptions: { output: { inlineDynamicImports: true } },
+      },
+    };
+  }
   if (mode === 'library') {
     const root = import.meta.dirname;
     const manifest = JSON.parse(

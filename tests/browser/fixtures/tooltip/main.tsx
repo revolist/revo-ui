@@ -7,6 +7,12 @@ import {
 import { Select } from '@revolist/ui/select';
 import { SharedResourcePicker } from '@revolist/ui/resource-picker/index';
 import { render } from 'preact';
+import { useState } from 'preact/hooks';
+import {
+  TimelineTrack,
+  type TimelineTrackItem,
+  type TimelineTrackEvent,
+} from '@revolist/ui/timeline-track';
 import { IconToolbar } from '@revolist/ui/icon-toolbar';
 import { SvgButton } from '@revolist/ui/buttons/svg-button';
 import { useTooltip } from '@revolist/ui/surfaces';
@@ -102,22 +108,54 @@ function Hints() {
     </div>
   );
 }
+function BoundaryTimeline() {
+  const [rows, setRows] = useState<TimelineTrackItem<TimelineTrackEvent>[]>([
+    { id: 'left', event: { start: 0, end: 1, label: 'Left edge' } },
+    { id: 'right', event: { start: 22, end: 23, label: 'Right edge' } },
+    { id: 'milestone', event: { start: 24, end: 24, label: 'End milestone' } },
+    { id: 'full', event: { start: 0, end: 24, label: 'Full range' } },
+  ]);
+  return (
+    <section style={{ width: 320, maxWidth: '100%' }}>
+      <TimelineTrack
+        rows={rows}
+        range={{ start: 0, end: 24 }}
+        tooltip={false}
+        labels={{ preview: 'Boundary timeline preview' }}
+        onSelect={() => {}}
+        onEventChange={(id, event) =>
+          setRows((current) =>
+            current.map((row) => (row.id === id ? { ...row, event } : row)),
+          )
+        }
+      />
+    </section>
+  );
+}
 render(
-  <main style={{ margin: 30 }}>
-    <Hints />
-    <style>{`.dropdown-option [data-select-option] { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }`}</style>
-    <SelectionHints />
-    <BarChart
-      ariaLabel="Values"
-      height={100}
-      data={[
-        {
-          key: 'a',
-          value: 2,
-          tooltip: { title: 'First', details: ['2 items'] },
-        },
-      ]}
-    />
-  </main>,
+  new URLSearchParams(location.search).has('timeline') ? (
+    <BoundaryTimeline />
+  ) : (
+    <main style={{ margin: 30 }}>
+      <Hints />
+      <style>{`.dropdown-option [data-select-option] { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }`}</style>
+      {!new URLSearchParams(location.search).has('hints') && (
+        <>
+          <SelectionHints />
+          <BarChart
+            ariaLabel="Values"
+            height={100}
+            data={[
+              {
+                key: 'a',
+                value: 2,
+                tooltip: { title: 'First', details: ['2 items'] },
+              },
+            ]}
+          />
+        </>
+      )}
+    </main>
+  ),
   document.getElementById('app')!,
 );

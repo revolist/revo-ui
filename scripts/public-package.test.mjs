@@ -247,3 +247,18 @@ test('an isolated TypeScript consumer resolves published declarations without wo
     { cwd: fixture, stdio: 'pipe' },
   );
 });
+
+test('archive exposes standalone module and classic browser builds with CDN defaults', () => {
+  assert.equal(manifest.unpkg, './browser/revo-ui.global.js');
+  assert.equal(manifest.jsdelivr, manifest.unpkg);
+  assert.equal(manifest.exports['./browser'].import, './browser/revo-ui.js');
+  for (const file of ['revo-ui.js', 'revo-ui.global.js']) {
+    const code = readFileSync(join(packageRoot, 'browser', file), 'utf8');
+    assert.match(code, /createFrameworkMount/);
+    assert.match(code, /uiComponents/);
+    assert.doesNotMatch(code, /(?:from\s*|import\s*\()['"](?:preact|pdfjs-dist|@revolist\/)/);
+  }
+  assert.match(readFileSync(join(packageRoot, 'browser/revo-ui.global.js'), 'utf8'), /RevoUI/);
+  for (const file of ['browser/pdf-viewer.css', 'browser/pdf.worker.min.mjs', 'browser/pdfjs-LICENSE'])
+    assert.ok(existsSync(join(packageRoot, file)), file);
+});

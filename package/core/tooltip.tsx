@@ -43,7 +43,7 @@ export function useControlTooltip(
       onMouseEnter: (event: TargetedEvent<HTMLElement>) =>
         session.show(event.currentTarget),
       onMouseLeave: (event?: TargetedEvent<HTMLElement>) =>
-        session.leave(event?.currentTarget),
+        session.leave(event?.currentTarget, event as MouseEvent | undefined),
       onPointerDown: (_event: TargetedEvent<HTMLElement>) =>
         session.pointerDown(),
       onPointerCancel: () => session.hide(),

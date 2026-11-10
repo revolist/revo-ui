@@ -11,6 +11,7 @@ export const frameworkHref = (id: string) => siteHref(`frameworks/${id}/`);
 const pathParts = () =>
   location.pathname.slice(base.length).split('/').filter(Boolean);
 export function pageKind() {
+  if (pathParts()[0] === 'accessibility') return 'accessibility';
   if (pathParts()[0] === 'api') return 'api';
   return pathParts()[0] === 'frameworks'
     ? 'frameworks'
@@ -20,6 +21,7 @@ export function pageKind() {
 }
 export function currentRoute() {
   const [kind, id] = pathParts();
+  if (kind === 'accessibility') return id ? 'not-found' : '';
   if (kind === 'api') return id ?? '';
   if (kind === 'components') return id ?? 'components';
   if (kind === 'frameworks') return id ?? '';

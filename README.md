@@ -30,6 +30,39 @@ Choose your framework for setup instructions and usage examples:
 
 [React](https://ui.rv-grid.com/frameworks/react/) · [Vue](https://ui.rv-grid.com/frameworks/vue/) · [Angular](https://ui.rv-grid.com/frameworks/angular/) · [Svelte](https://ui.rv-grid.com/frameworks/svelte/) · [Preact](https://ui.rv-grid.com/frameworks/preact/) · [Vanilla TypeScript](https://ui.rv-grid.com/frameworks/vanilla-typescript/)
 
+## Browser JavaScript / CDN (no build step)
+
+The standalone browser builds are prepared for **4.0.7**. The URLs below become available after that npm version is published. Pin CSS and JavaScript to the same released version.
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@revolist/ui@4.0.7/styles.css">
+<div id="report-action" class="rv-ui"></div>
+<script type="module">
+import { createFrameworkMount, uiComponents } from
+  'https://cdn.jsdelivr.net/npm/@revolist/ui@4.0.7/browser/revo-ui.js';
+
+const mount = createFrameworkMount(document.querySelector('#report-action'), () => {});
+let count = 0;
+function update() {
+  mount.render(uiComponents.Button, {
+    variant: 'primary',
+    children: 'Create report · ' + count,
+    onClick: () => { count++; update(); },
+  });
+}
+update();
+// Call mount.destroy() before removing the host view.
+</script>
+```
+
+For a classic script, load `https://cdn.jsdelivr.net/npm/@revolist/ui@4.0.7/browser/revo-ui.global.js` and use `const { createFrameworkMount, uiComponents } = RevoUI` instead of the import. Both builds bundle their renderer and shared utilities; no import map or framework runtime is needed. Serve your HTML over HTTP(S) in a modern browser.
+
+You can replace the CDN prefix with `https://unpkg.com/@revolist/ui@4.0.7`, or self-host the package files. The `unpkg` and `jsdelivr` package defaults point to the classic script. The `@revolist/ui/browser` export points to the standalone ES module. Existing npm/framework ESM entries remain available for tree-shaking; host-framework adapters still require their respective frameworks.
+
+The complete browser bundles include the component catalog and PDF engine. PDF viewers also need `browser/pdf-viewer.css` and the matching `browser/pdf.worker.min.mjs` served from **your own origin**, with its URL supplied as `workerSrc`. Direct cross-origin CDN Worker URLs are not supported by the browser Worker constructor. Configure PDF document/asset access for your application.
+
+See the [CDN examples in Docs](https://ui.rv-grid.com/frameworks/#browser-cdn) for complete module and classic-script HTML and lifecycle guidance.
+
 ## Framework support
 
 Use the same component library and shared styles across frameworks, while keeping application state in your chosen stack.

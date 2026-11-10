@@ -17,7 +17,7 @@ function ThemePalette({ theme, query }: { theme: 'light' | 'dark'; query: string
     ])));
   }, []);
   return (
-    <div ref={root} class="colors-theme" data-theme={theme} aria-label={`${theme} color palette`}>
+    <div ref={root} class="colors-theme" data-theme={theme} role="group" aria-label={`${theme} color palette`}>
       <h3>{theme === 'light' ? 'Light' : 'Dark'}</h3>
       <div class="colors-sample">
         <strong>Shared controls</strong>

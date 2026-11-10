@@ -258,6 +258,7 @@ export function FieldStatusBadge({
   return (
     <TooltipText
       className={`rv-configurator-status-badge ${className}`}
+      role="img"
       data-active={active ? 'true' : undefined}
       title={label}
       aria-label={label}

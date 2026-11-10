@@ -98,3 +98,29 @@ it('installs one presentation per document and shadow root without changing grid
   grid.className = 'grid-tooltip';
   expect(grid.classList.contains('rv-tooltip')).toBe(false);
 });
+
+it('describes an already-focused framework trigger when its controller binds', () => {
+  document.body.append(host);
+  const trigger = document.createElement('button');
+  trigger.textContent = 'Framework help';
+  host.append(trigger);
+  trigger.focus();
+  const controller = new TooltipController();
+  const dispose = controller.bind(trigger, 'Framework details');
+  const tooltip = document.querySelector<HTMLElement>(
+    '.rv-tooltip:not([hidden])',
+  );
+  expect(tooltip?.textContent).toBe('Framework details');
+  expect(trigger.getAttribute('aria-describedby')).toBe(tooltip?.id);
+  dispose();
+  expect(trigger.hasAttribute('aria-describedby')).toBe(false);
+  const disposeClick = controller.bind(trigger, 'Click-only details', {
+    trigger: 'click',
+  });
+  expect(document.querySelector('.rv-tooltip:not([hidden])')).toBeNull();
+  trigger.click();
+  expect(document.querySelector('.rv-tooltip:not([hidden])')?.textContent).toBe(
+    'Click-only details',
+  );
+  disposeClick();
+});

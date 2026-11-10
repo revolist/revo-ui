@@ -6,7 +6,7 @@ import { resolve } from 'node:path';
 
 const pages = JSON.parse(await readFile(new URL('../src/pages.json', import.meta.url), 'utf8'));
 const slug = title => title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-const routes = [...apiRoutes, '', 'components/', ...pages.components.map(page => `components/${slug(page.title)}/`), 'colors/', 'frameworks/', ...pages.frameworks.map(name => `frameworks/${slug(name)}/`)];
+const routes = [...apiRoutes, '', 'components/', ...pages.components.map(page => `components/${slug(page.title)}/`), 'colors/', 'accessibility/', 'frameworks/', ...pages.frameworks.map(name => `frameworks/${slug(name)}/`)];
 const origin = 'https://ui.rv-grid.com';
 const root = resolve(import.meta.dirname, '..');
 const baseFlag = process.argv.indexOf('--base');

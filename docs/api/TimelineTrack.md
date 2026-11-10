@@ -16,17 +16,18 @@ Angular/Svelte: pass `component="TimelineTrack"` to the framework's `UiComponent
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `rows` | `readonly TimelineTrackItem<T>[]` | Yes |  |
-| `tooltip` | `boolean \| undefined` | No |  |
-| `formatValue` | `((value: number) => string) \| undefined` | No |  |
-| `getTooltip` | `((event: T) => string) \| undefined` | No |  |
-| `selected` | `string \| number \| undefined` | No |  |
-| `range` | `TimelineTrackRange` | Yes | Finite bounds with end greater than start. |
-| `labels` | `Partial<TimelineTrackLabels> \| undefined` | No |  |
-| `onSelect` | `(id: string \| number) => void` | Yes |  |
-| `onEventChange` | `(id: string \| number, event: T) => void` | Yes |  |
+| Prop            | Type                                        | Required | Description                                                                                                 |
+| --------------- | ------------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------- |
+| `rows`          | `readonly TimelineTrackItem<T>[]`           | Yes      |                                                                                                             |
+| `showActions`   | `boolean \| undefined`                      | No       | Show click/tap alternatives to dragging (default true). Hosts hiding these must supply equivalent controls. |
+| `tooltip`       | `boolean \| undefined`                      | No       |                                                                                                             |
+| `formatValue`   | `((value: number) => string) \| undefined`  | No       |                                                                                                             |
+| `getTooltip`    | `((event: T) => string) \| undefined`       | No       |                                                                                                             |
+| `selected`      | `string \| number \| undefined`             | No       |                                                                                                             |
+| `range`         | `TimelineTrackRange`                        | Yes      | Finite bounds with end greater than start.                                                                  |
+| `labels`        | `Partial<TimelineTrackLabels> \| undefined` | No       |                                                                                                             |
+| `onSelect`      | `(id: string \| number) => void`            | Yes      |                                                                                                             |
+| `onEventChange` | `(id: string \| number, event: T) => void`  | Yes      |                                                                                                             |
 
 ## Composition
 

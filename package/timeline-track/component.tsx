@@ -21,12 +21,26 @@ export interface TimelineTrackItem<T extends TimelineTrackEvent> {
 }
 export interface TimelineTrackLabels {
   readonly preview: string;
+  readonly editEvents?: string;
+  readonly moveEarlier?: string;
+  readonly moveLater?: string;
+  readonly startEarlier?: string;
+  readonly startLater?: string;
+  readonly endEarlier?: string;
+  readonly endLater?: string;
   readonly moveEvent: (index: number) => string;
   readonly resizeStart: (label: string) => string;
   readonly resizeEnd: (label: string) => string;
 }
-const defaultLabels: TimelineTrackLabels = {
+const defaultLabels: Required<TimelineTrackLabels> = {
   preview: 'Timeline preview',
+  editEvents: 'Edit timeline events',
+  moveEarlier: 'Move earlier',
+  moveLater: 'Move later',
+  startEarlier: 'Start earlier',
+  startLater: 'Start later',
+  endEarlier: 'End earlier',
+  endLater: 'End later',
   moveEvent: (index) => `Move event ${index}`,
   resizeStart: (label) => `Resize start of ${label}`,
   resizeEnd: (label) => `Resize end of ${label}`,
@@ -43,6 +57,8 @@ interface PointerSession<T extends TimelineTrackEvent> {
 export interface TimelineTrackProps<T extends TimelineTrackEvent> {
   readonly rows: readonly TimelineTrackItem<T>[];
   readonly tooltip?: boolean;
+  /** Show click/tap alternatives to dragging. Hosts hiding these must supply equivalent controls. */
+  readonly showActions?: boolean;
   readonly formatValue?: (value: number) => string;
   readonly getTooltip?: (event: T) => string;
   readonly selected?: string | number;
@@ -57,6 +73,7 @@ export interface TimelineTrackProps<T extends TimelineTrackEvent> {
 export function TimelineTrack<T extends TimelineTrackEvent>({
   rows,
   tooltip = true,
+  showActions = true,
   formatValue = String,
   getTooltip,
   selected,
@@ -125,137 +142,201 @@ export function TimelineTrack<T extends TimelineTrackEvent>({
   };
 
   return (
-    <div
-      class="rv-timeline-editor__track rv-timeline-control__track"
-      role="group"
-      aria-label={locale.preview}
-    >
-      <span class="rv-timeline-editor__range rv-timeline-editor__range--start rv-timeline-control__range rv-timeline-control__range--start">
-        {range.start}
-      </span>
-      <span class="rv-timeline-editor__range rv-timeline-editor__range--end rv-timeline-control__range rv-timeline-control__range--end">
-        {range.end}
-      </span>
-      {rows
-        .map((row, index) => ({ row, index }))
-        .filter(
-          ({ row }) =>
-            Number.isFinite(row.event.start) &&
-            Number.isFinite(row.event.end) &&
-            row.event.end >= row.event.start,
-        )
-        .map(({ row, index }) => {
-          const geometry = timelineGeometry(row.event, range);
-          const outside = eventOutsideRange(row.event, range);
-          const eventName = row.event.label || locale.moveEvent(index + 1);
-          return (
-            <TimelineEventFrame
-              tooltipText={
-                tooltip
-                  ? (getTooltip?.(row.event) ??
-                    `${eventName}: ${formatValue(row.event.start)} – ${formatValue(row.event.end)}`)
-                  : undefined
-              }
-              key={row.id}
-              class={[
-                'rv-timeline-editor__bar rv-timeline-control__bar',
-                selected === row.id
-                  ? 'rv-timeline-editor__bar--selected rv-timeline-control__bar--selected'
-                  : '',
-                row.event.start === row.event.end
-                  ? 'rv-timeline-editor__bar--milestone rv-timeline-control__bar--milestone'
-                  : '',
-                outside
-                  ? 'rv-timeline-editor__bar--outside rv-timeline-control__bar--outside'
-                  : '',
-              ]
-                .filter(Boolean)
-                .join(' ')}
-              style={{
-                left: `${geometry.left}%`,
-                width: `${geometry.width}%`,
-                background: timelineEventBackground(row.event),
-                color: row.event.textColor,
-                '--timeline-event-color': row.event.color,
-                '--timeline-event-color-end': row.event.color,
-              }}
-              role="group"
-              aria-label={eventName}
-            >
-              <UiButton
-                unstyled
-                type="button"
-                class="rv-timeline-editor__bar-move rv-timeline-control__bar-move"
-                data-autofocus={index === 0 ? '' : undefined}
-                aria-label={
-                  row.event.label
-                    ? `${locale.moveEvent(index + 1)}: ${row.event.label}`
-                    : locale.moveEvent(index + 1)
+    <>
+      <div
+        class="rv-timeline-editor__track rv-timeline-control__track"
+        role="group"
+        aria-label={locale.preview}
+        style={{
+          height: `max(112px, calc(70px + ${rows.length} * var(--rv-timeline-lane-size)))`,
+        }}
+      >
+        <span class="rv-timeline-editor__range rv-timeline-editor__range--start rv-timeline-control__range rv-timeline-control__range--start">
+          {range.start}
+        </span>
+        <span class="rv-timeline-editor__range rv-timeline-editor__range--end rv-timeline-control__range rv-timeline-control__range--end">
+          {range.end}
+        </span>
+        {rows
+          .map((row, index) => ({ row, index }))
+          .filter(
+            ({ row }) =>
+              Number.isFinite(row.event.start) &&
+              Number.isFinite(row.event.end) &&
+              row.event.end >= row.event.start,
+          )
+          .map(({ row, index }) => {
+            const geometry = timelineGeometry(row.event, range);
+            // Keep the minimum-sized interaction area and both edge handles
+            // inside the clipped track, including milestones at either bound.
+            const affordanceWidth = `clamp(56px, ${geometry.width}%, calc(100% - 24px))`;
+            const outside = eventOutsideRange(row.event, range);
+            const eventName = row.event.label || locale.moveEvent(index + 1);
+            return (
+              <TimelineEventFrame
+                tooltipText={
+                  tooltip
+                    ? (getTooltip?.(row.event) ??
+                      `${eventName}: ${formatValue(row.event.start)} – ${formatValue(row.event.end)}`)
+                    : undefined
                 }
-                aria-keyshortcuts="ArrowLeft ArrowRight"
-                onFocus={() => onSelect(row.id)}
-                onPointerDown={(event) => beginPointer(event, row, 'move')}
-                onPointerMove={continuePointer}
-                onPointerUp={endPointer}
-                onPointerCancel={endPointer}
-                onKeyDown={(event) => keyboardChange(event, row, 'move')}
+                key={row.id}
+                class={[
+                  'rv-timeline-editor__bar rv-timeline-control__bar',
+                  selected === row.id
+                    ? 'rv-timeline-editor__bar--selected rv-timeline-control__bar--selected'
+                    : '',
+                  row.event.start === row.event.end
+                    ? 'rv-timeline-editor__bar--milestone rv-timeline-control__bar--milestone'
+                    : '',
+                  outside
+                    ? 'rv-timeline-editor__bar--outside rv-timeline-control__bar--outside'
+                    : '',
+                ]
+                  .filter(Boolean)
+                  .join(' ')}
+                style={{
+                  top: `calc(39px + ${index} * var(--rv-timeline-lane-size))`,
+                  left: `clamp(12px, ${geometry.left}%, calc(100% - ${affordanceWidth} - 12px))`,
+                  width: affordanceWidth,
+                  background: timelineEventBackground(row.event),
+                  color: row.event.textColor,
+                  '--timeline-event-color': row.event.color,
+                  '--timeline-event-color-end': row.event.color,
+                }}
+                role="group"
+                aria-label={eventName}
               >
-                <span class="rv-timeline-editor__bar-label rv-timeline-control__bar-label">
-                  {row.event.label}
-                </span>
-              </UiButton>
-              <UiButton
-                unstyled
-                type="button"
-                class="rv-timeline-editor__handle rv-timeline-editor__handle--start rv-timeline-control__handle rv-timeline-control__handle--start"
-                role="slider"
-                aria-orientation="horizontal"
-                aria-label={locale.resizeStart(eventName)}
-                aria-valuemin={Math.min(range.start, row.event.start)}
-                aria-valuemax={row.event.end}
-                aria-valuenow={row.event.start}
-                aria-keyshortcuts="ArrowLeft ArrowRight"
-                onFocus={() => onSelect(row.id)}
-                onPointerDown={(event) => {
-                  event.stopPropagation();
-                  beginPointer(event, row, 'start');
-                }}
-                onPointerMove={continuePointer}
-                onPointerUp={endPointer}
-                onPointerCancel={endPointer}
-                onKeyDown={(event) => {
-                  event.stopPropagation();
-                  keyboardChange(event, row, 'start');
-                }}
-              />
-              <UiButton
-                unstyled
-                type="button"
-                class="rv-timeline-editor__handle rv-timeline-editor__handle--end rv-timeline-control__handle rv-timeline-control__handle--end"
-                role="slider"
-                aria-orientation="horizontal"
-                aria-label={locale.resizeEnd(eventName)}
-                aria-valuemin={row.event.start}
-                aria-valuemax={Math.max(range.end, row.event.end)}
-                aria-valuenow={row.event.end}
-                aria-keyshortcuts="ArrowLeft ArrowRight"
-                onFocus={() => onSelect(row.id)}
-                onPointerDown={(event) => {
-                  event.stopPropagation();
-                  beginPointer(event, row, 'end');
-                }}
-                onPointerMove={continuePointer}
-                onPointerUp={endPointer}
-                onPointerCancel={endPointer}
-                onKeyDown={(event) => {
-                  event.stopPropagation();
-                  keyboardChange(event, row, 'end');
-                }}
-              />
-            </TimelineEventFrame>
-          );
-        })}
-    </div>
+                <UiButton
+                  unstyled
+                  type="button"
+                  class="rv-timeline-editor__bar-move rv-timeline-control__bar-move"
+                  data-autofocus={index === 0 ? '' : undefined}
+                  aria-label={
+                    row.event.label
+                      ? `${locale.moveEvent(index + 1)}: ${row.event.label}`
+                      : locale.moveEvent(index + 1)
+                  }
+                  aria-keyshortcuts="ArrowLeft ArrowRight"
+                  onFocus={() => onSelect(row.id)}
+                  onPointerDown={(event) => beginPointer(event, row, 'move')}
+                  onPointerMove={continuePointer}
+                  onPointerUp={endPointer}
+                  onPointerCancel={endPointer}
+                  onKeyDown={(event) => keyboardChange(event, row, 'move')}
+                >
+                  <span class="rv-timeline-editor__bar-label rv-timeline-control__bar-label">
+                    {row.event.label}
+                  </span>
+                </UiButton>
+                <UiButton
+                  unstyled
+                  type="button"
+                  class="rv-timeline-editor__handle rv-timeline-editor__handle--start rv-timeline-control__handle rv-timeline-control__handle--start"
+                  role="slider"
+                  aria-orientation="horizontal"
+                  aria-label={locale.resizeStart(eventName)}
+                  aria-valuemin={Math.min(range.start, row.event.start)}
+                  aria-valuemax={row.event.end}
+                  aria-valuenow={row.event.start}
+                  aria-keyshortcuts="ArrowLeft ArrowRight"
+                  onFocus={() => onSelect(row.id)}
+                  onPointerDown={(event) => {
+                    event.stopPropagation();
+                    beginPointer(event, row, 'start');
+                  }}
+                  onPointerMove={continuePointer}
+                  onPointerUp={endPointer}
+                  onPointerCancel={endPointer}
+                  onKeyDown={(event) => {
+                    event.stopPropagation();
+                    keyboardChange(event, row, 'start');
+                  }}
+                />
+                <UiButton
+                  unstyled
+                  type="button"
+                  class="rv-timeline-editor__handle rv-timeline-editor__handle--end rv-timeline-control__handle rv-timeline-control__handle--end"
+                  role="slider"
+                  aria-orientation="horizontal"
+                  aria-label={locale.resizeEnd(eventName)}
+                  aria-valuemin={row.event.start}
+                  aria-valuemax={Math.max(range.end, row.event.end)}
+                  aria-valuenow={row.event.end}
+                  aria-keyshortcuts="ArrowLeft ArrowRight"
+                  onFocus={() => onSelect(row.id)}
+                  onPointerDown={(event) => {
+                    event.stopPropagation();
+                    beginPointer(event, row, 'end');
+                  }}
+                  onPointerMove={continuePointer}
+                  onPointerUp={endPointer}
+                  onPointerCancel={endPointer}
+                  onKeyDown={(event) => {
+                    event.stopPropagation();
+                    keyboardChange(event, row, 'end');
+                  }}
+                />
+              </TimelineEventFrame>
+            );
+          })}
+      </div>
+      {showActions && (
+        <details class="rv-timeline-control__actions">
+          <summary>{locale.editEvents}</summary>
+          {rows
+            .filter(
+              ({ event }) =>
+                Number.isFinite(event.start) &&
+                Number.isFinite(event.end) &&
+                event.end >= event.start,
+            )
+            .map((row, index) => (
+              <fieldset key={row.id}>
+                <legend>
+                  {row.event.label || locale.moveEvent(index + 1)}
+                </legend>
+                <output>
+                  {formatValue(row.event.start)} – {formatValue(row.event.end)}
+                </output>
+                <div class="rv-timeline-control__commands">
+                  {(
+                    [
+                      ['move', -1, locale.moveEarlier],
+                      ['move', 1, locale.moveLater],
+                      ['start', -1, locale.startEarlier],
+                      ['start', 1, locale.startLater],
+                      ['end', -1, locale.endEarlier],
+                      ['end', 1, locale.endLater],
+                    ] as const
+                  ).map(([mode, direction, label]) => (
+                    <UiButton
+                      type="button"
+                      onClick={() => {
+                        const delta = niceTimelineStep(range) * direction;
+                        onSelect(row.id);
+                        onEventChange(
+                          row.id,
+                          mode === 'move'
+                            ? moveTimelineEvent(row.event, delta, range)
+                            : resizeTimelineEvent(
+                                row.event,
+                                mode,
+                                delta,
+                                range,
+                              ),
+                        );
+                      }}
+                    >
+                      {label}
+                    </UiButton>
+                  ))}
+                </div>
+              </fieldset>
+            ))}
+        </details>
+      )}
+    </>
   );
 }
 

@@ -2341,3 +2341,40 @@ body {
 .home-star-link {
   flex-shrink: 0;
 }
+
+/* Text-spacing overrides must not force page-wide horizontal scrolling. */
+.catalog-example output { overflow-wrap: anywhere; }
+@media (max-width: 640px) {
+  .catalog-topbar-inner > .catalog-pages { flex-wrap: wrap; row-gap: 8px; max-width: 100%; }
+}
+
+/* Editorial accessibility guide: shared tokens, readable measure, no fixed text heights. */
+.accessibility-layout { max-width:1100px; margin-inline:auto; }
+.accessibility-article { display:grid; grid-template-columns:minmax(0, 760px) 200px; column-gap:64px; justify-content:center; min-width:0; font-size:16px; line-height:1.8; overflow-wrap:anywhere; }
+.accessibility-article > header,.accessibility-article > section { grid-column:1; }
+.accessibility-article > .page-contents { grid-column:2; grid-row:1 / span 9; }
+.accessibility-article .page-contents h2 { font-size:12px; line-height:1.5; margin:0 0 12px; letter-spacing:normal; }
+.accessibility-article .page-contents a { text-decoration:none; }
+.accessibility-article .component-intro { padding-top:8px; }
+.accessibility-article h1 { max-width:18ch; font-size:clamp(34px, 4.5vw, 56px); line-height:1.12; letter-spacing:-.035em; }
+.accessibility-article h2 { margin:0 0 18px; font-size:clamp(24px, 3vw, 30px); line-height:1.3; letter-spacing:-.02em; scroll-margin-top:calc(var(--catalog-header-height) + 28px); }
+.accessibility-article h3 { font-size:18px; line-height:1.5; margin:24px 0 10px; }
+.accessibility-article p { margin:0 0 20px; }
+.accessibility-article section { margin-block:48px; }
+.accessibility-article a { color:var(--rv-ui-accent-text); text-decoration:underline; text-underline-offset:3px; }
+.accessibility-article .accessibility-byline { font-size:13px; color:var(--rv-ui-text-muted); }
+.accessibility-note,.accessibility-demo { margin-block:28px; padding:24px; border:1px solid var(--rv-ui-border); border-radius:12px; background:var(--rv-ui-surface); min-width:0; }
+.accessibility-note { border-inline-start:4px solid var(--rv-ui-accent-text); background:var(--rv-ui-surface-sunken); }
+.accessibility-note p { margin:8px 0 0; }
+.accessibility-demo h3 { margin-top:0; }
+.accessibility-demo > label { display:block; font-weight:600; margin-bottom:8px; }
+.accessibility-demo > input { display:block; width:100%; box-sizing:border-box; }
+.accessibility-demo > .rv-field__hint,.accessibility-demo > .rv-field__error { display:block; margin-block:8px; }
+.accessibility-demo > button { margin-block:12px; }
+.accessibility-demo [role="status"] { margin:12px 0 0; }
+.accessibility-article ol { padding-inline-start:24px; }
+.accessibility-article li { padding-inline-start:6px; margin-block:16px; }
+@media(max-width:1199px) { .accessibility-layout { max-width:760px; } .accessibility-article { display:block; } }
+@media(max-width:480px) { .accessibility-note,.accessibility-demo { padding:18px; } }
+
+.catalog-field-reorder { margin-block-start: 12px; }

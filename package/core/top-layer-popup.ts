@@ -3,7 +3,8 @@ export {
   prepareTooltipSurface,
   TOOLTIP_STYLES,
 } from './tooltip-surface';
-export { ownsPopupTarget } from './popup-ownership';
+import { ownsPopupTarget } from './popup-ownership';
+export { ownsPopupTarget };
 
 const originalSurfaceAttributes = new WeakMap<HTMLElement, string | null>();
 
@@ -72,13 +73,5 @@ export function popupOwnsTarget(
   panel: HTMLElement,
   target: Node | null,
 ): boolean {
-  if (!target) return false;
-  if (panel.contains(target)) return true;
-  return [...panel.querySelectorAll<HTMLElement>('[aria-controls]')].some(
-    (trigger) =>
-      trigger
-        .getAttribute('aria-controls')
-        ?.split(/\s+/)
-        .some((id) => panel.ownerDocument.getElementById(id)?.contains(target)),
-  );
+  return ownsPopupTarget(panel, target);
 }

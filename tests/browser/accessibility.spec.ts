@@ -1,11 +1,39 @@
 import { chooseOption } from './choose-option';
 import { createRequire } from 'node:module';
-import { test, expect } from './gallery-test';
+import { test, expect, type Page } from './gallery-test';
+import type { TestInfo } from '@playwright/test';
 
-const require = createRequire(
-  new URL('../../package.json', import.meta.url),
-);
+const require = createRequire(new URL('../../package.json', import.meta.url));
 const axeScript = require.resolve('axe-core/axe.min.js');
+
+async function scan(page: Page, info: TestInfo, label: string, scope?: string) {
+  // Finish finite entrance/theme motion, including suspended offscreen controls.
+  // Motion behavior has separate tests; these scans inspect the settled state.
+  await page.screenshot({
+    path: info.outputPath(`${label}.png`),
+    animations: 'disabled',
+  });
+  await page.addScriptTag({ path: axeScript });
+  const results = await page.evaluate(async (scope) => {
+    const axe = (window as unknown as { axe: typeof import('axe-core') }).axe;
+    return axe.run(scope ? document.querySelector(scope)! : document, {
+      runOnly: {
+        type: 'tag',
+        values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'],
+      },
+    });
+  }, scope);
+  await info.attach(`${label}-axe.json`, {
+    body: JSON.stringify(results, null, 2),
+    contentType: 'application/json',
+  });
+  expect(
+    results.violations.map(({ id, nodes }) => ({
+      id,
+      targets: nodes.map((node) => node.target),
+    })),
+  ).toEqual([]);
+}
 
 for (const width of [1280, 390])
   for (const theme of ['light', 'dark']) {
@@ -14,36 +42,17 @@ for (const width of [1280, 390])
     }, info) => {
       test.setTimeout(90_000);
       await page.setViewportSize({ width, height: 900 });
-      for (const path of ['/', '/?page=colors']) {
+      for (const path of ['/#components', '/?page=colors']) {
         await page.goto(path);
         await chooseOption(
           page.getByRole('button', { name: 'Theme', exact: true }),
           theme === 'light' ? 'Light' : 'Dark',
         );
-        await page.addScriptTag({ path: axeScript });
-        const results = await page.evaluate(async () => {
-          const axe = (window as unknown as { axe: typeof import('axe-core') })
-            .axe;
-          return axe.run(document, {
-            runOnly: {
-              type: 'tag',
-              values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'],
-            },
-          });
-        });
-        await info.attach(
-          `${path === '/' ? 'components' : 'colors'}-axe.json`,
-          {
-            body: JSON.stringify(results, null, 2),
-            contentType: 'application/json',
-          },
+        await scan(
+          page,
+          info,
+          path === '/#components' ? 'components' : 'colors',
         );
-        expect(
-          results.violations.map(({ id, nodes }) => ({
-            id,
-            targets: nodes.map((node) => node.target),
-          })),
-        ).toEqual([]);
       }
     });
   }
@@ -106,4 +115,192 @@ test('header content reflows without overlap at 320 CSS pixels', async ({
       () => document.documentElement.scrollWidth <= innerWidth,
     ),
   ).toBe(true);
+});
+
+for (const theme of ['light', 'dark']) {
+  test(`open and invalid component states have no automated WCAG violations: ${theme}`, async ({
+    page,
+  }, info) => {
+    test.setTimeout(90_000);
+    await page.goto('/components/dialogs-and-floating-surfaces/');
+    await chooseOption(
+      page.getByRole('button', { name: 'Theme', exact: true }),
+      theme === 'light' ? 'Light' : 'Dark',
+    );
+    await page
+      .getByRole('button', { name: 'Open dialog', exact: true })
+      .click();
+    await expect(
+      page.getByRole('dialog', { name: 'Edit project', exact: true }),
+    ).toBeVisible();
+    await scan(page, info, 'dialog');
+    await page
+      .getByRole('combobox', { name: 'Dialog view', exact: true })
+      .click();
+    await expect(page.getByRole('listbox')).toBeVisible();
+    await scan(page, info, 'nested-dropdown', '.revo-dropdown-menu');
+    await page.keyboard.press('Escape');
+    await page
+      .getByRole('button', { name: 'Open nested confirmation', exact: true })
+      .click();
+    await expect(
+      page.getByRole('dialog', { name: 'Confirm changes', exact: true }),
+    ).toBeVisible();
+    await scan(page, info, 'nested-confirmation');
+    await page.goto('/components/remote-lookup-field/');
+    await page.getByRole('button', { name: 'Select linked record' }).click();
+    await page.getByRole('combobox', { name: 'Linked records' }).press('Enter');
+    await page
+      .getByRole('textbox', { name: 'Search options' })
+      .fill('no matching target');
+    await expect(
+      page.getByText('No results found', { exact: true }),
+    ).toBeVisible();
+    await scan(page, info, 'empty-lookup', '.revo-dropdown-menu');
+    await page.keyboard.press('Escape');
+    await scan(page, info, 'lookup-editor');
+    await page.goto('/components/calendar-and-dates/');
+    const card = page.locator('.catalog-example').filter({
+      has: page.getByRole('heading', { name: 'Range calendar', exact: true }),
+    });
+    await card
+      .locator(
+        'button[data-calendar-date="2026-10-10"]:not([aria-hidden="true"])',
+      )
+      .click();
+    await card
+      .locator(
+        'button[data-calendar-date="2026-10-11"]:not([aria-hidden="true"])',
+      )
+      .hover();
+    await expect(card.getByRole('status')).toHaveText(
+      'This date cannot be selected.',
+    );
+    await scan(page, info, 'invalid-date-range');
+  });
+}
+
+test('all specimens reflow at 320px with WCAG text spacing', async ({
+  page,
+}, info) => {
+  await page.setViewportSize({ width: 320, height: 900 });
+  await page.goto('/#components');
+  await page.addStyleTag({
+    content:
+      '* { line-height: 1.5 !important; letter-spacing: .12em !important; word-spacing: .16em !important; } p { margin-bottom: 2em !important; }',
+  });
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+  await page.screenshot({
+    path: info.outputPath('text-spacing-320.png'),
+    fullPage: true,
+  });
+});
+
+// Double computed text metrics rather than scaling the whole page: fixed-size
+// controls must accommodate enlarged text as well as a narrow viewport.
+test('doubled text sizes preserve gallery content and controls', async ({
+  page,
+}, info) => {
+  test.setTimeout(180_000);
+  const { readFileSync } = await import('node:fs');
+  const catalog = JSON.parse(
+    readFileSync(new URL('../../src/pages.json', import.meta.url), 'utf8'),
+  ) as { components: { title: string }[] };
+  const findings: { page: string; overflow: number; clips: unknown[] }[] = [];
+  for (const { title } of catalog.components.filter(
+    (item) => item.title !== 'PDF viewer',
+  )) {
+    const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    await page.goto(`/components/${slug}/`);
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+    await page.evaluate(() => {
+      const sizes = [...document.querySelectorAll<HTMLElement>('body *')]
+        .filter((el) => el.namespaceURI === 'http://www.w3.org/1999/xhtml')
+        .map((el) => {
+          const css = getComputedStyle(el);
+          return {
+            el,
+            font: parseFloat(css.fontSize),
+            line: parseFloat(css.lineHeight),
+          };
+        });
+      for (const { el, font, line } of sizes) {
+        if (Number.isFinite(font))
+          el.style.setProperty('font-size', `${font * 2}px`, 'important');
+        if (Number.isFinite(line))
+          el.style.setProperty('line-height', `${line * 2}px`, 'important');
+      }
+    });
+    const metrics = await page.evaluate(() => ({
+      overflow: document.documentElement.scrollWidth - innerWidth,
+      clips: [
+        ...document.querySelectorAll<HTMLElement>(
+          'button,label,input,summary,.revo-calendar__weekdays span',
+        ),
+      ]
+        .filter((el) => {
+          const css = getComputedStyle(el);
+          return (
+            el.getClientRects().length &&
+            css.visibility !== 'hidden' &&
+            css.clipPath !== 'inset(50%)' &&
+            css.clip !== 'rect(0px, 0px, 0px, 0px)' &&
+            el.textContent?.trim() &&
+            (((css.overflowY === 'hidden' ||
+              css.overflowY === 'clip' ||
+              el.matches('.revo-calendar__day')) &&
+              el.scrollHeight > el.clientHeight + 2) ||
+              (el.matches('.revo-calendar__weekdays span') &&
+                el.scrollWidth > el.clientWidth + 2))
+          );
+        })
+        .map((el) => ({
+          tag: el.tagName,
+          class: el.className,
+          text: el.textContent?.trim(),
+          client: el.clientHeight,
+          scroll: el.scrollHeight,
+          width: el.clientWidth,
+          scrollWidth: el.scrollWidth,
+        })),
+    }));
+    const specimen =
+      slug === 'calendar-and-dates'
+        ? '.revo-calendar'
+        : slug === 'timeline-track'
+          ? '.rv-timeline-control__track'
+          : undefined;
+    if (specimen)
+      await page
+        .locator(specimen)
+        .first()
+        .screenshot({
+          path: info.outputPath(`${slug}-text-200.png`),
+          animations: 'disabled',
+        });
+    findings.push({ page: slug, ...metrics });
+    if ((metrics.overflow > 1 || metrics.clips.length) && !specimen)
+      await page.screenshot({
+        path: info.outputPath(`${slug}-text-200.png`),
+        fullPage: true,
+        animations: 'disabled',
+      });
+    expect
+      .soft(metrics.overflow, `${slug}: page overflow with 200% text`)
+      .toBeLessThanOrEqual(1);
+    expect
+      .soft(
+        metrics.clips.length,
+        `${slug}: enlarged control text overflows: ${JSON.stringify(metrics.clips.slice(0, 5))}`,
+      )
+      .toBe(0);
+  }
+  await info.attach('text-resize-findings.json', {
+    body: JSON.stringify(findings, null, 2),
+    contentType: 'application/json',
+  });
 });

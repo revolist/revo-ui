@@ -27,6 +27,8 @@ type DropdownContentProps<T = any> = {
   dropdownListRef: RefObject<HTMLUListElement>;
   theme?: string | null;
   optionIdPrefix: string;
+  listboxLabel?: string;
+  loading?: boolean;
 };
 // DropdownPopupContent component that includes the service
 export function DropdownPopupContent<T = any>({
@@ -137,7 +139,7 @@ export function DropdownPopupContent<T = any>({
         return;
       }
 
-      listboxRef.current?.focus({ preventScroll: true });
+      dropdownListRef.current?.focus({ preventScroll: true });
     };
 
     const ownerWindow =
@@ -162,12 +164,6 @@ export function DropdownPopupContent<T = any>({
       ref={setListboxRef}
       className={`dropdown-listbox`}
       data-theme={theme ?? 'default'}
-      role="listbox"
-      id={listboxId}
-      aria-multiselectable={multiSelect}
-      aria-activedescendant={activeOptionId}
-      tabIndex={-1}
-      aria-busy={remote?.loading}
       onScrollCapture={(event) => {
         const target = event.target as HTMLElement;
         if (
@@ -213,6 +209,8 @@ export function DropdownPopupContent<T = any>({
             onChange={handleSearchChange}
             onInput={handleSearchChange}
             aria-label={config.searchAriaLabel ?? 'Search options'}
+            aria-controls={listboxId}
+            aria-activedescendant={activeOptionId}
           />
         </div>
       )}
@@ -241,6 +239,8 @@ export function DropdownPopupContent<T = any>({
         dropdownListRef={dropdownListRef}
         theme={theme}
         optionIdPrefix={listboxId}
+        listboxLabel={config.ariaLabel ?? config.searchAriaLabel ?? 'Options'}
+        loading={remote?.loading}
       />
       {remote?.hasMore && (
         <Button disabled={remote.loading} onClick={remote.loadMore}>
@@ -264,6 +264,8 @@ export function DropdownContent<T = any>({
   dropdownListRef,
   theme,
   optionIdPrefix,
+  listboxLabel,
+  loading,
 }: DropdownContentProps<T>) {
   // Check if an option is selected
   const isOptionSelected = useCallback(
@@ -337,21 +339,25 @@ export function DropdownContent<T = any>({
       <ul
         ref={dropdownListRef}
         className="dropdown-options"
-        role="presentation"
+        role="listbox"
+        id={optionIdPrefix}
+        aria-label={listboxLabel}
+        aria-multiselectable={multiSelect}
+        aria-activedescendant={
+          focusedIndex >= 0
+            ? `${optionIdPrefix}-option-${focusedIndex}`
+            : undefined
+        }
+        aria-busy={loading}
         tabIndex={-1}
       >
-        {filteredOptions.length > 0 ? (
-          filteredOptions.map(renderOptionItem)
-        ) : (
-          <li className="no-results">
-            {renderNoResults ? (
-              renderNoResults(h)
-            ) : (
-              <span>No results found</span>
-            )}
-          </li>
-        )}
+        {filteredOptions.map(renderOptionItem)}
       </ul>
+      {!filteredOptions.length && (
+        <div className="no-results" role="status">
+          {renderNoResults ? renderNoResults(h) : <span>No results found</span>}
+        </div>
+      )}
     </>
   );
 }

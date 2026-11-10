@@ -205,7 +205,8 @@ export class TooltipController {
     const toggle = () => (session.isOpen ? session.hide() : show());
     const focus = () => session.focus(anchor);
     const blur = () => session.blur();
-    const leave = () => session.leave(anchor);
+    const leave = (event: Event) =>
+      session.leave(anchor, event as PointerEvent);
     const pointerDown = () => {
       session.pointerDown();
       session.hide();
@@ -235,6 +236,9 @@ export class TooltipController {
       }
       if (!options.surface) releasePreactElement(surface);
     };
+    // Framework content can already hold focus when its binding is installed.
+    // Recover that state without waiting for another focus event.
+    if (!clickOnly && anchor.ownerDocument.activeElement === anchor) focus();
     return () => this.destroy();
   }
   destroy() {

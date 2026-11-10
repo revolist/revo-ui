@@ -23,6 +23,13 @@ export class TooltipSession {
   private cleanup?: () => void;
   private mounted = false;
   private pointerFocus = false;
+  private pointerTravel = false;
+  private hoverArea?: {
+    left: number;
+    right: number;
+    top: number;
+    bottom: number;
+  };
   private open = false;
   private addedDescription = false;
   onHide?: () => void;
@@ -75,16 +82,7 @@ export class TooltipSession {
       positionArea: 'none',
     });
     this.mode = showTopLayerPopup(surface, 'block');
-    const view = anchor.ownerDocument.defaultView;
-    const point = calculateTooltipPosition(
-      anchor.getBoundingClientRect(),
-      surface.getBoundingClientRect(),
-      { width: view?.innerWidth ?? 0, height: view?.innerHeight ?? 0 },
-    );
-    Object.assign(surface.style, {
-      left: `${point.left}px`,
-      top: `${point.top}px`,
-    });
+    this.position(anchor, surface);
     const descriptions = new Set(
       (anchor.getAttribute('aria-describedby') ?? '')
         .split(/\s+/)
@@ -94,6 +92,34 @@ export class TooltipSession {
     descriptions.add(surface.id);
     anchor.setAttribute('aria-describedby', [...descriptions].join(' '));
     this.open = true;
+  }
+
+  private position(anchor: TooltipAnchor, surface: HTMLElement) {
+    const view = anchor.ownerDocument.defaultView;
+    const anchorBounds = anchor.getBoundingClientRect();
+    const surfaceBounds = surface.getBoundingClientRect();
+    const point = calculateTooltipPosition(anchorBounds, surfaceBounds, {
+      width: view?.innerWidth ?? 0,
+      height: view?.innerHeight ?? 0,
+    });
+    Object.assign(surface.style, {
+      left: `${point.left}px`,
+      top: `${point.top}px`,
+    });
+    // Placement already measured both boxes; pointer travel needs no layout reads.
+    if (
+      anchorBounds.width > 0 &&
+      anchorBounds.height > 0 &&
+      surfaceBounds.width > 0 &&
+      surfaceBounds.height > 0
+    ) {
+      this.hoverArea = {
+        left: Math.min(anchorBounds.left, point.left),
+        right: Math.max(anchorBounds.right, point.left + surfaceBounds.width),
+        top: Math.min(anchorBounds.top, point.top),
+        bottom: Math.max(anchorBounds.bottom, point.top + surfaceBounds.height),
+      };
+    }
   }
 
   hide() {
@@ -120,6 +146,8 @@ export class TooltipSession {
     }
     const wasOpen = this.open;
     this.open = false;
+    this.pointerTravel = false;
+    this.hoverArea = undefined;
     if (wasOpen) this.onHide?.();
     this.mode = undefined;
     this.mounted = false;
@@ -135,13 +163,28 @@ export class TooltipSession {
   pointerDown() {
     this.pointerFocus = true;
   }
-  leave(anchor?: TooltipAnchor) {
+  leave(anchor?: TooltipAnchor, event?: MouseEvent) {
+    // Keep the gap traversable at any pointer speed; there is no hide timeout.
+    if (this.open && event && this.insideHoverArea(event)) {
+      this.pointerTravel = true;
+      return;
+    }
     if (
       !anchor ||
       this.pointerFocus ||
       anchor.ownerDocument.activeElement !== anchor
     )
       this.hide();
+  }
+  private insideHoverArea(event: MouseEvent) {
+    const area = this.hoverArea;
+    return (
+      !!area &&
+      event.clientX >= area.left &&
+      event.clientX <= area.right &&
+      event.clientY >= area.top &&
+      event.clientY <= area.bottom
+    );
   }
   keyDown(event: KeyboardEvent) {
     if (
@@ -167,11 +210,31 @@ export class TooltipSession {
     const parent = anchor.closest('[popover]');
     const hide = () => this.hide();
     const outside = (event: Event) => {
-      if (!event.composedPath().includes(anchor)) this.hide();
+      const path = event.composedPath();
+      if (
+        !path.includes(anchor) &&
+        (!this.surface || !path.includes(this.surface))
+      )
+        this.hide();
     };
+    const move = (event: PointerEvent) => {
+      if (this.pointerTravel && !this.insideHoverArea(event))
+        this.leave(anchor);
+    };
+    const enterSurface = () => {
+      this.pointerTravel = true;
+    };
+    const leaveSurface = (event: PointerEvent) => this.leave(anchor, event);
+    const surface = this.surface;
     const scroll = (event: Event) => {
       const target = event.target as Node | null;
-      if (target === document || target?.contains?.(anchor)) this.hide();
+      if (target === document || target?.contains?.(anchor)) {
+        // Focus itself can scroll the trigger into view. Keep its keyboard hint
+        // available and anchored when that scroll event arrives after focus.
+        if (this.open && document.activeElement === anchor && this.surface)
+          this.position(anchor, this.surface);
+        else this.hide();
+      }
     };
     const toggle = () => {
       if (!parent?.matches(':popover-open')) this.hide();
@@ -188,6 +251,9 @@ export class TooltipSession {
     observer?.observe(document, { childList: true, subtree: true });
     document.addEventListener('keydown', keyboard, true);
     document.addEventListener('pointerdown', outside, true);
+    document.addEventListener('pointermove', move, true);
+    surface?.addEventListener('pointerenter', enterSurface);
+    surface?.addEventListener('pointerleave', leaveSurface);
     document.addEventListener('scroll', scroll, true);
     document.addEventListener('visibilitychange', hide);
     view?.addEventListener('resize', hide);
@@ -197,6 +263,9 @@ export class TooltipSession {
       observer?.disconnect();
       document.removeEventListener('keydown', keyboard, true);
       document.removeEventListener('pointerdown', outside, true);
+      document.removeEventListener('pointermove', move, true);
+      surface?.removeEventListener('pointerenter', enterSurface);
+      surface?.removeEventListener('pointerleave', leaveSurface);
       document.removeEventListener('scroll', scroll, true);
       document.removeEventListener('visibilitychange', hide);
       view?.removeEventListener('resize', hide);

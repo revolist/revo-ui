@@ -74,7 +74,7 @@ export function SvgButton({
         attributes.onMouseEnter?.(event);
       }}
       onMouseLeave={(event) => {
-        tooltip.triggerProps.onMouseLeave();
+        tooltip.triggerProps.onMouseLeave(event);
         attributes.onMouseLeave?.(event);
       }}
       onPointerDown={(event) => {

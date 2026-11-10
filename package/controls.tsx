@@ -460,7 +460,7 @@ export function ToolbarSeparator() {
 export { Badge } from './badge.view';
 export function CountBadge({ count, label }: { count: number; label: string }) {
   return (
-    <span class="rv-count" aria-label={label}>
+    <span class="rv-count" role="img" aria-label={label}>
       {count}
     </span>
   );
@@ -763,7 +763,7 @@ export function Pagination({
                 <span
                   key={`gap-${index}`}
                   class="rv-pagination-ellipsis"
-                  aria-label="More pages"
+                  aria-hidden="true"
                 >
                   …
                 </span>

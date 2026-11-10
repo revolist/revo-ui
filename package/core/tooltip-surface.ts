@@ -27,7 +27,7 @@ export const TOOLTIP_STYLES = `
   max-width: min(360px, calc(100vw - 16px));
   max-height: calc(100dvh - 16px);
   overflow: auto;
-  pointer-events: none;
+  pointer-events: auto;
 }
 .rv-tooltip[hidden], .rv-tooltip[data-visible="false"] { display: none; }
 .rv-tooltip[data-overflow] { pointer-events: auto; }

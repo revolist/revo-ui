@@ -21,8 +21,10 @@ import {
 } from '@revolist/ui/field-configurator';
 import { Button, Checkbox } from '@revolist/ui/preact';
 import { Example } from './catalog';
+import { Select } from '@revolist/ui/select';
 import textIcon from '@fortawesome/fontawesome-free/svgs/solid/font.svg?raw';
 export function FieldConfiguratorExamples() {
+  const [fieldToMove, setFieldToMove] = useState('Country');
   const [measures, setMeasures] = useState(['Revenue (USD)']);
   const [areas, setAreas] = useState<Record<string, string[]>>({
     Fields: ['Country', 'Revenue (USD)', 'Year', 'Category'],
@@ -30,6 +32,8 @@ export function FieldConfiguratorExamples() {
   const reorder = useFieldReorder(areas.Fields, (next) =>
     setAreas({ Fields: next }),
   );
+  const movableField = areas.Fields.includes(fieldToMove) ? fieldToMove : (areas.Fields[0] ?? '');
+  const moveIndex = areas.Fields.indexOf(movableField);
   const [configured, setConfigured] = useState<Record<string, boolean>>({
     Year: true,
     'Revenue (USD)': true,
@@ -159,6 +163,15 @@ export function FieldConfiguratorExamples() {
                 />
               ))}
             </FieldList>
+            <div class="catalog-row catalog-field-reorder">
+              <Select aria-label="Field to move" value={movableField} disabled={!fields.length} onValueChange={setFieldToMove}>
+                {fields.map(field => <option value={field}>{field}</option>)}
+              </Select>
+              <Button variant="ghost" size="compact" aria-label={`Move up: ${movableField}`} disabled={moveIndex <= 0}
+                onClick={() => reorder.move(moveIndex, moveIndex - 1)}>Move up</Button>
+              <Button variant="ghost" size="compact" aria-label={`Move down: ${movableField}`} disabled={moveIndex < 0 || moveIndex === fields.length - 1}
+                onClick={() => reorder.move(moveIndex, moveIndex + 2)}>Move down</Button>
+            </div>
           </FieldGroup>
         ))}
       </Example>
