@@ -1,0 +1,167 @@
+name: Publish UI package
+run-name: UI ${{ inputs.version || github.event.release.tag_name }} · ${{ inputs.request_id || github.run_id }}
+
+on:
+  release:
+    types: [published]
+  pull_request:
+    paths:
+      [
+        ".github/workflows/publish.yml",
+        "scripts/release*",
+        "scripts/prepare-github-package.mjs",
+      ]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Exact package version (for example 4.0.8 or 4.1.0-rc.1)
+        required: true
+        type: string
+      source_ref:
+        description: UI commit or tag to publish; defaults to selected workflow ref
+        required: false
+        type: string
+      request_id:
+        description: Correlation ID supplied by the Pro release
+        required: false
+        type: string
+      dry_run:
+        description: Validate and sign archives without publishing either registry
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24.15.0
+      - run: node --test scripts/release.test.mjs
+
+  publish:
+    if: github.event_name != 'pull_request'
+    needs: validate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    concurrency:
+      group: revo-ui-package-publication
+      # Supported by GitHub; actionlint 1.7.12 has an older concurrency schema.
+      queue: max
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    steps:
+      # Automation stays on this workflow revision, even when Pro pins older UI code.
+      - name: Check out release automation
+        uses: actions/checkout@v5
+        with:
+          path: automation
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Resolve immutable source and version
+        id: source
+        working-directory: automation
+        env:
+          SOURCE_REF: ${{ inputs.source_ref || github.event.release.tag_name || github.sha }}
+          RELEASE_VERSION: ${{ inputs.version || github.event.release.tag_name }}
+        run: |
+          SHA=$(git rev-parse --verify --end-of-options "${SOURCE_REF}^{commit}")
+          git merge-base --is-ancestor "$SHA" origin/main
+          echo "sha=$SHA" >> "$GITHUB_OUTPUT"
+          node --input-type=module -e 'import {releaseVersion} from "./scripts/release.mjs"; console.log(`version=${releaseVersion(process.env.RELEASE_VERSION)}`)' >> "$GITHUB_OUTPUT"
+      - name: Check out UI release source
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ steps.source.outputs.sha }}
+          path: source
+          persist-credentials: false
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.25.0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24.15.0
+          package-manager-cache: false
+      - name: Check npm credential
+        if: inputs.dry_run != true
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: test -n "$NPM_TOKEN" || { echo '::error::Set NPM_TOKEN in revo-ui Actions secrets.'; exit 1; }
+      - name: Install locked source dependencies
+        working-directory: source
+        run: pnpm install --frozen-lockfile
+      - name: Stamp synchronized package version
+        env:
+          RELEASE_VERSION: ${{ steps.source.outputs.version }}
+          SOURCE_SHA: ${{ steps.source.outputs.sha }}
+        run: node automation/scripts/release.mjs stamp source
+      - name: Build and validate public package
+        working-directory: source
+        run: |
+          pnpm lint
+          pnpm test
+          pnpm build:public
+      - name: Stamp compiled distribution and validate archive
+        env:
+          RELEASE_VERSION: ${{ steps.source.outputs.version }}
+          SOURCE_SHA: ${{ steps.source.outputs.sha }}
+        run: |
+          node automation/scripts/release.mjs stamp source/dist
+          pnpm --dir source/dist pack --pack-destination ../artifacts
+          pnpm --dir source test:public
+      - name: Prepare GitHub Packages mirror
+        run: |
+          node automation/scripts/prepare-github-package.mjs source/dist source/dist-github
+          pnpm --dir source/dist-github pack --pack-destination ../artifacts-github
+      - name: Install cosign
+        uses: sigstore/cosign-installer@v3
+      - name: Sign release archives
+        run: |
+          for archive in source/artifacts/*.tgz source/artifacts-github/*.tgz; do
+            cosign sign-blob --yes "$archive" --bundle "${archive}.sigstore.json"
+          done
+      - name: Upload signed release archives
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-${{ steps.source.outputs.version }}-${{ steps.source.outputs.sha }}
+          if-no-files-found: error
+          path: |
+            source/artifacts/*.tgz
+            source/artifacts/*.sigstore.json
+            source/artifacts-github/*.tgz
+            source/artifacts-github/*.sigstore.json
+      - name: Publish npm package
+        if: inputs.dry_run != true
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          PUBLISH_REGISTRY: https://registry.npmjs.org/
+          PUBLISH_ACCESS: public
+          RELEASE_VERSION: ${{ steps.source.outputs.version }}
+          NPM_CONFIG_USERCONFIG: ${{ runner.temp }}/ui-npm.npmrc
+        run: |
+          trap 'rm -f "$NPM_CONFIG_USERCONFIG"' EXIT
+          node automation/scripts/publish-target.mjs source/dist/package.json --npmrc > "$NPM_CONFIG_USERCONFIG"
+          export RELEASE_ARCHIVE="$GITHUB_WORKSPACE/source/artifacts/revolist-ui-${RELEASE_VERSION}.tgz"
+          node automation/scripts/release.mjs publish source/dist
+      - name: Publish GitHub Packages mirror
+        if: inputs.dry_run != true
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUBLISH_REGISTRY: https://npm.pkg.github.com/
+          PUBLISH_ACCESS: restricted
+          RELEASE_VERSION: ${{ steps.source.outputs.version }}
+          NPM_CONFIG_USERCONFIG: ${{ runner.temp }}/ui-github.npmrc
+        run: |
+          trap 'rm -f "$NPM_CONFIG_USERCONFIG"' EXIT
+          node automation/scripts/publish-target.mjs source/dist-github/package.json --npmrc > "$NPM_CONFIG_USERCONFIG"
+          export RELEASE_ARCHIVE="$GITHUB_WORKSPACE/source/artifacts-github/revolist-ui-${RELEASE_VERSION}.tgz"
+          node automation/scripts/release.mjs publish source/dist-github
