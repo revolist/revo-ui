@@ -132,3 +132,5 @@ pnpm build:demo
 Library source lives directly in `package/`; the root manifest owns its public exports. The internal workspace packages in `internal/` provide date and chart utilities that are bundled into the public distribution. Gallery source lives in `src/`.
 
 Gallery and package builds share `vite.config.ts`; library builds select `--mode library`. The npm archive uses this README. The `package/` folder contains source only. All manifests, scripts, configuration and project documentation live at the repository root. The gallery in `src/` is the demo.
+
+Package maintainers: [UI publication and synchronized Pro releases](docs/releases.md).

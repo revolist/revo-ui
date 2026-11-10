@@ -21,8 +21,7 @@ manifest.publishConfig = {
 };
 manifest.repository = {
   type: 'git',
-  url: 'git+https://github.com/revolist/revogrid-pro.git',
-  directory: 'packages/ui',
+  url: 'git+https://github.com/revolist/revo-ui.git',
 };
 validatePublishTarget(
   manifest,
