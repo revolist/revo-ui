@@ -1,7 +1,7 @@
 /** @jsxImportSource preact */
 import { h, render } from 'preact';
 import { useState } from 'preact/hooks';
-import { useTooltip } from './tooltip';
+import { useTooltip, ControlTooltip } from './tooltip';
 import { act } from 'preact/test-utils';
 import { afterEach, expect, it, vi } from 'vitest';
 import { Tooltip } from '../pickers';
@@ -469,3 +469,74 @@ it('click hook bypasses group and explicit hover timing while preserving host ac
   vi.advanceTimersByTime(1200);
   expect(popup.hidden).toBe(true);
 });
+
+for (const delegated of [false, true])
+  for (const grouped of [false, true]) {
+    it(`preserves ${grouped ? 'group' : 'explicit'} opening delay across ${delegated ? 'delegated' : 'direct'} trigger descendants`, () => {
+      vi.useFakeTimers();
+      const root = document.createElement('div');
+      const trigger = document.createElement('button');
+      const first = document.createElement('span'),
+        second = document.createElement('span');
+      trigger.dataset.hint = 'Details';
+      trigger.append(first, second);
+      root.append(trigger);
+      document.body.append(root);
+      const controller = new TooltipController();
+      controllers.push(controller);
+      controller.bind(delegated ? root : trigger, 'Details', {
+        ...(delegated ? { filter: '[data-hint]' } : {}),
+        ...(grouped
+          ? { group: createTooltipGroup({ delay: 600 }) }
+          : { delay: 600 }),
+      });
+      const type = delegated ? 'pointerover' : 'pointerenter';
+      trigger.dispatchEvent(
+        new PointerEvent(type, {
+          bubbles: delegated,
+          relatedTarget: document.body,
+        }),
+      );
+      vi.advanceTimersByTime(300);
+      first.dispatchEvent(
+        new PointerEvent(type, { bubbles: delegated, relatedTarget: trigger }),
+      );
+      vi.advanceTimersByTime(200);
+      second.dispatchEvent(
+        new PointerEvent(type, { bubbles: delegated, relatedTarget: first }),
+      );
+      vi.advanceTimersByTime(100);
+      expect(controller.isOpen).toBe(true);
+      expect(controller.target()).toBe(trigger);
+      controller.destroy();
+      expect(vi.getTimerCount()).toBe(0);
+    });
+  }
+
+for (const initiallyDisabled of [false, true]) {
+  it(`controlled surface follows visible state when re-enabled (initial disabled=${initiallyDisabled})`, () => {
+    document.body.append(host);
+    const anchor = document.createElement('button');
+    document.body.append(anchor);
+    const view = (disabled: boolean) => (
+      <ControlTooltip
+        id="controlled-surface"
+        text="Surface details"
+        visible
+        anchor={anchor}
+        disabled={disabled}
+      />
+    );
+    act(() => render(view(initiallyDisabled), host));
+    const popup = host.querySelector<HTMLElement>('[role="tooltip"]')!;
+    expect(popup.hidden).toBe(initiallyDisabled);
+    act(() => render(view(true), host));
+    expect(popup.hidden).toBe(true);
+    act(() => render(view(false), host));
+    expect(popup.hidden).toBe(false);
+    expect(anchor.getAttribute('aria-describedby')).toBe('controlled-surface');
+    act(() => render(view(true), host));
+    expect(popup.hidden).toBe(true);
+    expect(anchor.hasAttribute('aria-describedby')).toBe(false);
+  });
+}

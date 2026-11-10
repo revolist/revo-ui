@@ -348,6 +348,8 @@ export class TooltipController {
               : ['hover', 'focus'];
     const enter = (event: Event) => {
       const target = resolve(event);
+      const related = (event as PointerEvent).relatedTarget as Node | null;
+      if (related && target?.contains(related)) return;
       if (
         target &&
         triggers().includes('hover') &&

@@ -1,10 +1,19 @@
 /** @jsxImportSource preact */
 import { useLayoutEffect, useRef, useState } from 'preact/hooks';
-import { Tooltip, createTooltipGroup, useTooltip } from '@revolist/ui/preact';
+import {
+  Tooltip,
+  ControlTooltip,
+  createTooltipGroup,
+  useTooltip,
+} from '@revolist/ui/preact';
 import { TooltipController } from '@revolist/ui/native';
 
 export function TooltipApiFixture() {
   const [open, setOpen] = useState(false);
+  const [surfaceDisabled, setSurfaceDisabled] = useState(true);
+  const [surfaceAnchor, setSurfaceAnchor] = useState<HTMLButtonElement | null>(
+    null,
+  );
   const [loads, setLoads] = useState(0);
   const [fail, setFail] = useState(false);
   const [clicks, setClicks] = useState(0);
@@ -61,6 +70,17 @@ export function TooltipApiFixture() {
       <button {...manual.triggerProps}>Untouched manual help</button>
       {manual.tooltip}
       <button onClick={() => manual.show()}>Show manual hint</button>
+      <button ref={setSurfaceAnchor}>Controlled surface anchor</button>
+      <ControlTooltip
+        id="api-control-surface"
+        text="Controlled surface details"
+        visible
+        anchor={surfaceAnchor}
+        disabled={surfaceDisabled}
+      />
+      <button onClick={() => setSurfaceDisabled((value) => !value)}>
+        Toggle surface disabled
+      </button>
       <output aria-label="Clicks">{clicks}</output>
       <Tooltip
         text="Controlled details"

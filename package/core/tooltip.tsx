@@ -162,7 +162,7 @@ export function ControlTooltip({
     if (visible && anchor) session.show(anchor, 'controlled');
     else session.hide('controlled');
     return () => session.hide('destroy', undefined, true);
-  }, [visible, anchor]);
+  }, [visible, anchor, options.disabled]);
   useLayoutEffect(() => () => session.destroy(), [session]);
   return (
     <span

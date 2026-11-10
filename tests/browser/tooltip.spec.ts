@@ -306,3 +306,33 @@ test('manual hook opens an untouched trigger without moving focus', async ({
   await show.press('Escape');
   await expect(popup).toHaveCount(0);
 });
+
+test('visible controlled surface reopens when enabled without changing its anchor or visibility', async ({
+  page,
+}) => {
+  await page.goto('/tests/browser/fixtures/tooltip/index.html?api');
+  const trigger = page.getByRole('button', {
+    name: 'Controlled surface anchor',
+    exact: true,
+  });
+  const toggle = page.getByRole('button', {
+    name: 'Toggle surface disabled',
+    exact: true,
+  });
+  const popup = page.getByRole('tooltip', {
+    name: 'Controlled surface details',
+    exact: true,
+  });
+  await expect(popup).toHaveCount(0);
+  for (let cycle = 0; cycle < 2; cycle++) {
+    await toggle.click();
+    await expect(popup).toBeVisible();
+    await expect(trigger).toHaveAttribute(
+      'aria-describedby',
+      'api-control-surface',
+    );
+    await toggle.click();
+    await expect(popup).toHaveCount(0);
+    await expect(trigger).not.toHaveAttribute('aria-describedby');
+  }
+});
