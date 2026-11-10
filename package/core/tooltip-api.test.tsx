@@ -731,3 +731,82 @@ it('normalizes numeric styles as JSX lengths while preserving unitless values an
   expect(style.fontSize).toBe('');
   expect(style.getPropertyValue('--custom-value')).toBe('');
 });
+
+it('preserves a controlled wrapper exit across parent rerenders without restarting its deadline', () => {
+  vi.useFakeTimers();
+  document.body.append(host);
+  const onHide = vi.fn(),
+    complete = vi.fn();
+  const view = (open: boolean, revision = 0) => (
+    <Tooltip
+      text="Animated details"
+      open={open}
+      transitionDuration={100}
+      onHide={onHide}
+      onOpenChangeComplete={complete}
+    >
+      <button>Help {revision}</button>
+    </Tooltip>
+  );
+  act(() => render(view(true), host));
+  act(() => vi.advanceTimersByTime(100));
+  complete.mockClear();
+  const popup = document.querySelector<HTMLElement>('[role="tooltip"]')!;
+  act(() => render(view(false), host));
+  act(() => vi.advanceTimersByTime(40));
+  act(() => render(view(false, 1), host));
+  expect(popup.hidden).toBe(false);
+  expect(popup.dataset.state).toBe('closing');
+  expect(complete).not.toHaveBeenCalled();
+  act(() => vi.advanceTimersByTime(59));
+  act(() => render(view(false, 2), host));
+  expect(popup.hidden).toBe(false);
+  act(() => vi.advanceTimersByTime(1));
+  expect(popup.hidden).toBe(true);
+  expect(popup.dataset.state).toBe('closed');
+  expect(onHide).toHaveBeenCalledTimes(1);
+  expect(complete).toHaveBeenCalledExactlyOnceWith(
+    false,
+    expect.objectContaining({ reason: 'controlled' }),
+  );
+  act(() => render(view(false, 3), host));
+  act(() => vi.advanceTimersByTime(100));
+  expect(complete).toHaveBeenCalledTimes(1);
+});
+
+it.each(['destroy', 'disable', 'reopen'] as const)(
+  'allows %s to interrupt an exit after repeated hide requests',
+  (action) => {
+    vi.useFakeTimers();
+    const complete = vi.fn();
+    const { anchor, controller } = bind('Animated', {
+      trigger: 'manual',
+      transitionDuration: 100,
+      onOpenChangeComplete: complete,
+    });
+    controller.show();
+    vi.advanceTimersByTime(100);
+    complete.mockClear();
+    const popup = controller.element!;
+    controller.hide();
+    vi.advanceTimersByTime(40);
+    controller.hide();
+    expect(popup.dataset.state).toBe('closing');
+    if (action === 'destroy') controller.destroy();
+    else if (action === 'disable') controller.update({ disabled: true });
+    else controller.show();
+    vi.advanceTimersByTime(200);
+    expect(complete).not.toHaveBeenCalledWith(false, expect.anything());
+    if (action === 'reopen') {
+      expect(popup.hidden).toBe(false);
+      expect(popup.dataset.state).toBe('open');
+      expect(anchor.getAttribute('aria-describedby')).toBe(popup.id);
+      expect(complete).toHaveBeenCalledExactlyOnceWith(true, expect.anything());
+    } else {
+      expect(popup.hidden).toBe(true);
+      expect(anchor.hasAttribute('aria-describedby')).toBe(false);
+      expect(complete).not.toHaveBeenCalled();
+      expect(vi.getTimerCount()).toBe(0);
+    }
+  },
+);

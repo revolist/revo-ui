@@ -418,3 +418,21 @@ test('numeric JSX styles apply pixel lengths without corrupting unitless values'
     ),
   ).toBe('3');
 });
+
+test('controlled exit completes when onHide rerenders its parent', async ({
+  page,
+}) => {
+  await page.goto('/tests/browser/fixtures/tooltip/index.html?exit-transition');
+  const tooltip = page.getByRole('tooltip');
+  await expect(tooltip).toHaveAttribute('data-state', 'open');
+  await page
+    .getByRole('button', { name: 'Close animated hint', exact: true })
+    .click();
+  await expect(page.getByRole('status', { name: 'Hide requests' })).toHaveText(
+    '1',
+  );
+  await expect(tooltip).toBeHidden();
+  await expect(
+    page.getByRole('status', { name: 'Exit completions' }),
+  ).toHaveText('1');
+});

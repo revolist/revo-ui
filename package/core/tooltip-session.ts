@@ -317,6 +317,9 @@ export class TooltipSession {
     }
   }
   hide(reason: TooltipReason = 'imperative', event?: Event, force = false) {
+    // Repeated state synchronization must retain the original exit deadline
+    // and completion callback. Forced teardown/reopening can still interrupt it.
+    if (!force && !this.open && this.transitionTimer !== undefined) return;
     const anchor = this.anchor,
       surface = this.surface;
     const details = anchor ? { target: anchor, reason, event } : undefined;

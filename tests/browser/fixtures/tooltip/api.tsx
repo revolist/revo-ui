@@ -167,3 +167,28 @@ export function TooltipApiFixture() {
     </main>
   );
 }
+
+export function TooltipExitFixture() {
+  const [open, setOpen] = useState(true);
+  const [hides, setHides] = useState(0);
+  const [completions, setCompletions] = useState(0);
+  return (
+    <main>
+      <Tooltip
+        text="Animated hint"
+        open={open}
+        trigger="manual"
+        transitionDuration={300}
+        onHide={() => setHides((count) => count + 1)}
+        onOpenChangeComplete={(visible) => {
+          if (!visible) setCompletions((count) => count + 1);
+        }}
+      >
+        <button>Animated help</button>
+      </Tooltip>
+      <button onClick={() => setOpen(false)}>Close animated hint</button>
+      <output aria-label="Hide requests">{hides}</output>
+      <output aria-label="Exit completions">{completions}</output>
+    </main>
+  );
+}

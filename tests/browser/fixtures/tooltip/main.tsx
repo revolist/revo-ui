@@ -1,4 +1,4 @@
-import { TooltipApiFixture } from './api';
+import { TooltipApiFixture, TooltipExitFixture } from './api';
 /** @jsxImportSource preact */
 import {
   Listbox,
@@ -134,7 +134,9 @@ function BoundaryTimeline() {
   );
 }
 render(
-  new URLSearchParams(location.search).has('api') ? (
+  new URLSearchParams(location.search).has('exit-transition') ? (
+    <TooltipExitFixture />
+  ) : new URLSearchParams(location.search).has('api') ? (
     <TooltipApiFixture />
   ) : new URLSearchParams(location.search).has('timeline') ? (
     <BoundaryTimeline />
