@@ -4,7 +4,7 @@ const require = createRequire(new URL('../../package.json', import.meta.url));
 const axeScript = require.resolve('axe-core/axe.min.js');
 
 for (const width of [320, 1280]) {
-  test(`tooltip gallery documents expanded APIs and usable examples at ${width}px`, async ({
+  test(`tooltip gallery keeps usable examples without the prose guidance card at ${width}px`, async ({
     page,
   }, info) => {
     const errors: string[] = [];
@@ -19,10 +19,8 @@ for (const width of [320, 1280]) {
         name: 'Tooltip API and accessibility guidance',
         exact: true,
       }),
-    ).toBeVisible();
-    await expect(
-      page.getByRole('link', { name: 'Read the complete tooltip guide' }),
-    ).toHaveAttribute('href', /docs\/tooltip\.md$/);
+    ).toHaveCount(0);
+    await expect(page.locator('.component-api')).toBeVisible();
     const rich = page.getByRole('button', {
       name: 'Rich export hint',
       exact: true,
