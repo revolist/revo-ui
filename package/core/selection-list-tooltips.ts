@@ -15,6 +15,9 @@ export function useSelectionListTooltips(optionSelector = '[role="option"]') {
       const surface = createTooltipElement(root.ownerDocument, 'rv-tooltip');
       session.setSurface(surface);
       let active: HTMLElement | undefined;
+      session.onHide = () => {
+        active = undefined;
+      };
       const optionFor = (target: EventTarget | null) => {
         const element = target as HTMLElement | null;
         const option = element?.closest?.<HTMLElement>(optionSelector);
@@ -60,7 +63,11 @@ export function useSelectionListTooltips(optionSelector = '[role="option"]') {
       };
       const enter = (event: Event) => reveal(optionFor(event.target));
       const leave = (event: Event) => {
-        if (optionFor((event as MouseEvent).relatedTarget) !== active) hide();
+        if (optionFor((event as MouseEvent).relatedTarget) !== active) {
+          if (event.type === 'pointerout')
+            session.leave(active, event as PointerEvent);
+          else hide();
+        }
       };
       const keyup = (event: KeyboardEvent) => {
         if (!['ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.key))

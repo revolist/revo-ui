@@ -1,6 +1,6 @@
 import { h } from 'preact';
 import { useLayoutEffect, useRef, useState } from 'preact/hooks';
-import { Disclosure, Pane, ResizeHandle, SplitLayout } from '@revolist/ui/preact';
+import { Disclosure, Pane, ResizeHandle, SplitLayout, NumberStepper } from '@revolist/ui/preact';
 
 export function ResizeExample({ rtl }: { rtl: boolean }) {
   const host = useRef<HTMLDivElement>(null);
@@ -23,7 +23,9 @@ export function ResizeExample({ rtl }: { rtl: boolean }) {
       <Pane className="catalog-resizable-pane">
         <div class="catalog-resize-content" role="region" aria-label="Resizable panel">
           <strong>Resizable content</strong>
-          <p>Drag the divider or use the arrow keys.</p>
+          <p>Drag the divider, use the arrow keys, or adjust the width below.</p>
+          <NumberStepper label="Panel width in pixels" value={width} min={100} max={maximum} step={10}
+            decreaseLabel="Narrow panel" increaseLabel="Widen panel" onChange={setWidth} />
           <output aria-label="Panel width value">{width}px</output>
         </div>
         <ResizeHandle label="Panel width" value={width} min={100} max={maximum} onChange={setWidth} direction={rtl ? 'rtl' : 'ltr'} />

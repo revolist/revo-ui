@@ -2341,3 +2341,9 @@ body {
 .home-star-link {
   flex-shrink: 0;
 }
+
+/* Text-spacing overrides must not force page-wide horizontal scrolling. */
+.catalog-example output { overflow-wrap: anywhere; }
+@media (max-width: 640px) {
+  .catalog-topbar-inner > .catalog-pages { flex-wrap: wrap; row-gap: 8px; max-width: 100%; }
+}

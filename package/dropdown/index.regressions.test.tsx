@@ -98,3 +98,54 @@ it('resets search only when the host changes initialSearch', async () => {
     host.remove();
   }
 });
+
+it('owns a portalled search field outside the semantic listbox', async () => {
+  const { ownsPopupTarget } = await import('../core/popup-ownership');
+  const host = document.createElement('div');
+  document.body.append(host);
+  try {
+    await act(async () =>
+      render(
+        <Dropdown
+          source={[{ value: 'a', label: 'Office' }]}
+          config={{ search: true, autoOpen: true, portalTarget: document.body }}
+        />,
+        host,
+      ),
+    );
+    const input = document.querySelector<HTMLInputElement>(
+      '.dropdown-search-input',
+    )!;
+    expect(input.closest('[role="listbox"]')).toBeNull();
+    expect(ownsPopupTarget(host, input)).toBe(true);
+  } finally {
+    act(() => render(null, host));
+    host.remove();
+  }
+});
+
+it('only references a listbox while its popup is mounted', async () => {
+  const host = document.createElement('div');
+  document.body.append(host);
+  try {
+    await act(async () =>
+      render(<Dropdown source={[{ value: 'a', label: 'Office' }]} />, host),
+    );
+    const trigger = host.querySelector<HTMLElement>('[role="combobox"]')!;
+    expect(trigger.hasAttribute('aria-controls')).toBe(false);
+    await act(async () => trigger.click());
+    const listbox = document.getElementById(
+      trigger.getAttribute('aria-controls')!,
+    );
+    expect(listbox?.getAttribute('role')).toBe('listbox');
+    await act(async () =>
+      trigger.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }),
+      ),
+    );
+    expect(trigger.hasAttribute('aria-controls')).toBe(false);
+  } finally {
+    act(() => render(null, host));
+    host.remove();
+  }
+});

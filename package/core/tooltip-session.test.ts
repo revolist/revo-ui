@@ -76,3 +76,41 @@ it('leaves native keyboard click toggling to the imperative adapter', () => {
     dispose();
   }
 });
+
+it('keeps slow pointer travel between an anchor and tooltip open until exit or Escape', () => {
+  const { anchor, surface, session } = fixture();
+  vi.spyOn(anchor, 'getBoundingClientRect').mockReturnValue(
+    new DOMRect(40, 100, 60, 24),
+  );
+  vi.spyOn(surface, 'getBoundingClientRect').mockReturnValue(
+    new DOMRect(20, 60, 100, 32),
+  );
+  session.show(anchor);
+  session.leave(
+    anchor,
+    new MouseEvent('mouseleave', { clientX: 70, clientY: 96 }),
+  );
+  expect(session.isOpen).toBe(true);
+  surface.dispatchEvent(new PointerEvent('pointerenter'));
+  document.dispatchEvent(
+    new PointerEvent('pointermove', { clientX: 50, clientY: 75 }),
+  );
+  expect(session.isOpen).toBe(true);
+  document.dispatchEvent(
+    new PointerEvent('pointermove', { clientX: 500, clientY: 500 }),
+  );
+  expect(session.isOpen).toBe(false);
+  session.show(anchor);
+  session.leave(
+    anchor,
+    new MouseEvent('mouseleave', { clientX: 70, clientY: 96 }),
+  );
+  document.dispatchEvent(
+    new KeyboardEvent('keydown', {
+      key: 'Escape',
+      bubbles: true,
+      cancelable: true,
+    }),
+  );
+  expect(surface.hidden).toBe(true);
+});

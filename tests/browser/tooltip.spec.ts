@@ -109,3 +109,35 @@ test('resource dropdown reveals clipped active names while focus stays in search
   await search.press('Escape');
   await expect(hints).toHaveCount(0);
 });
+
+for (const name of ['Bold', 'Clear formatting', 'Help']) {
+  test(`hover hint stays readable while crossing to its surface: ${name}`, async ({
+    page,
+  }) => {
+    await page.goto('/tests/browser/fixtures/tooltip/index.html');
+    const trigger = page.getByRole('button', { name, exact: true });
+    const tooltip = page.locator('.rv-tooltip:visible');
+    await trigger.hover();
+    await expect(tooltip).toHaveCount(1);
+    const from = (await trigger.boundingBox())!;
+    const to = (await tooltip.boundingBox())!;
+    // Pause over the gap: a fixed hide timeout must not cut off slow travel.
+    await page.mouse.move(
+      from.x + from.width / 2,
+      (from.y + to.y + to.height) / 2,
+    );
+    await page.waitForTimeout(400);
+    await expect(tooltip).toHaveCount(1);
+    await tooltip.hover();
+    await page.waitForTimeout(400);
+    await expect(tooltip).toHaveCount(1);
+    await page.keyboard.press('Escape');
+    await expect(tooltip).toHaveCount(0);
+    await page.mouse.move(1000, 650);
+    await trigger.hover();
+    await expect(tooltip).toHaveCount(1);
+    await tooltip.hover();
+    await page.mouse.move(1000, 650);
+    await expect(tooltip).toHaveCount(0);
+  });
+}

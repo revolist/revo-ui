@@ -64,7 +64,7 @@
   top: 39px;
   z-index: 1;
   box-sizing: border-box;
-  min-width: 6px;
+  min-width: 56px;
   height: 30px;
   border: 1px solid var(--timeline-event-color-end, #15803d);
   border-radius: 7px;
@@ -189,5 +189,34 @@
   }
   .rv-timeline-control__handle::after {
     background: HighlightText;
+  }
+}
+
+.rv-timeline-control__actions {
+  margin-block: 8px;
+  summary {
+    cursor: pointer;
+    min-height: 24px;
+  }
+  fieldset {
+    min-width: 0;
+    margin-block: 8px;
+    border: 1px solid var(--rv-ui-border);
+    border-radius: 6px;
+  }
+  output {
+    display: block;
+    margin-bottom: 8px;
+  }
+}
+.rv-timeline-control__commands {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+@media (forced-colors: active) {
+  .rv-timeline-control__track button:focus-visible {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
   }
 }

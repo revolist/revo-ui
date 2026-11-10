@@ -303,3 +303,32 @@ it('renders rounded buttons without leaking the prop to HTML', () => {
   expect(button.classList.contains('rv-btn-rounded')).toBe(true);
   expect(button.hasAttribute('rounded')).toBe(false);
 });
+
+it('exposes count badges as named noninteractive graphics', async () => {
+  const { CountBadge } = await import('./controls');
+  const host = mount(<CountBadge count={12} label="12 tâches" />);
+  expect(host.querySelector('[role="img"]')?.getAttribute('aria-label')).toBe(
+    '12 tâches',
+  );
+});
+
+it('keeps pagination gap markers decorative like the native paginator', async () => {
+  const { Pagination } = await import('./controls');
+  const host = mount(
+    <Pagination
+      page={5}
+      pageCount={20}
+      variant="numbered"
+      onChange={() => {}}
+    />,
+  );
+  const gaps = [...host.querySelectorAll('.rv-pagination-ellipsis')];
+  expect(gaps.length).toBeGreaterThan(0);
+  expect(
+    gaps.every(
+      (gap) =>
+        gap.getAttribute('aria-hidden') === 'true' &&
+        !gap.hasAttribute('aria-label'),
+    ),
+  ).toBe(true);
+});
