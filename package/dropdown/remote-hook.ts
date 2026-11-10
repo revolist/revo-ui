@@ -1,10 +1,4 @@
-import {
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'preact/hooks';
+import { useLayoutEffect, useMemo, useRef, useState } from 'preact/hooks';
 import {
   RemoteDropdownController,
   defaultDropdownRemoteText,
@@ -74,7 +68,8 @@ export function useRemoteDropdown<T>(
     props.disabled,
     text,
   ]);
-  useEffect(() => {
+  // Finish opening/closing before user input can queue a newer search.
+  useLayoutEffect(() => {
     if (props.open) controller.current?.search(props.initialQuery, true);
     else controller.current?.close();
   }, [

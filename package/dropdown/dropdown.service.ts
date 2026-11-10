@@ -5,6 +5,7 @@ import {
   useCallback,
   useMemo,
   useEffect,
+  useLayoutEffect,
   useRef,
 } from 'preact/hooks';
 import type {
@@ -112,7 +113,8 @@ export function useDropdownService<T = any>(
     !!remote,
   ]);
 
-  useEffect(() => {
+  // Reset before the mounted search field can receive its first input.
+  useLayoutEffect(() => {
     userNavigatedRef.current = false;
     setSearchValue(initialSearch);
   }, [initialSearch]);

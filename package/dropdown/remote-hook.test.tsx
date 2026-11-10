@@ -55,3 +55,29 @@ it('resolves once per selection and restarts open sessions when context or local
   expect(state.items).toEqual([]);
   expect(state.selected).toEqual([]);
 });
+
+it('does not replace an early search with the initial query when opening (#1023)', async () => {
+  const search = vi.fn(async () => ({ items: [] }));
+  const source = { search, resolve: async () => [] };
+  const seed: [] = [];
+  let query!: (query: string) => void;
+  function Harness({ open }: { open: boolean }) {
+    query = useRemoteDropdown({
+      dataSource: source,
+      dataContext: null,
+      source: seed,
+      open,
+      initialQuery: 'initial',
+    }).search;
+    return null;
+  }
+  await act(async () => render(<Harness open={false} />, host));
+  render(<Harness open />, host);
+  query('no matching target');
+  await act(async () => {
+    await new Promise((resolve) => setTimeout(resolve, 250));
+  });
+  expect(search).toHaveBeenLastCalledWith(
+    expect.objectContaining({ query: 'no matching target' }),
+  );
+});
