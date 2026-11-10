@@ -13,7 +13,14 @@ export function TooltipApiFixture() {
   );
   const [count, setCount] = useState(1);
   const root = useRef<HTMLDivElement>(null);
-  const hook = useTooltip('Hook click details', true, { trigger: 'click' });
+  const hook = useTooltip('Hook click details', true, {
+    trigger: 'click',
+    delay: 60000,
+    group,
+  });
+  const manual = useTooltip('Untouched manual details', true, {
+    trigger: 'manual',
+  });
   useLayoutEffect(() => {
     const controller = new TooltipController();
     controller.bind(root.current!, '', {
@@ -39,7 +46,7 @@ export function TooltipApiFixture() {
       >
         <button>Positioned help</button>
       </Tooltip>
-      <Tooltip trigger="click" text="Click details">
+      <Tooltip trigger="click" text="Click details" delay={60000} group={group}>
         <button onClick={() => setClicks((value) => value + 1)}>
           Click help
         </button>
@@ -51,6 +58,9 @@ export function TooltipApiFixture() {
         Hook help
       </button>
       {hook.tooltip}
+      <button {...manual.triggerProps}>Untouched manual help</button>
+      {manual.tooltip}
+      <button onClick={() => manual.show()}>Show manual hint</button>
       <output aria-label="Clicks">{clicks}</output>
       <Tooltip
         text="Controlled details"

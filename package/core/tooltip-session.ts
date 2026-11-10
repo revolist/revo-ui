@@ -107,7 +107,7 @@ export class TooltipSession {
     this.details = { target: anchor, reason, event };
     this.listen(anchor);
     const delay =
-      reason === 'controlled'
+      reason === 'controlled' || reason === 'click'
         ? 0
         : reason === 'imperative'
           ? this.delay

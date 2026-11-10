@@ -395,3 +395,77 @@ it('does not cancel close delay when hoverable content is disabled', () => {
   vi.advanceTimersByTime(100);
   expect(controller.isOpen).toBe(false);
 });
+
+it('opens an untouched manual hook trigger through show without taking focus', () => {
+  document.body.append(host);
+  let show!: () => void;
+  function View() {
+    const hint = useTooltip('Manual description', true, { trigger: 'manual' });
+    show = hint.show;
+    return (
+      <>
+        <button {...hint.triggerProps}>Untouched help</button>
+        {hint.tooltip}
+      </>
+    );
+  }
+  act(() => render(<View />, host));
+  const trigger = host.querySelector('button')!;
+  act(() => show());
+  expect(document.querySelector<HTMLElement>('[role="tooltip"]')?.hidden).toBe(
+    false,
+  );
+  expect(document.activeElement).not.toBe(trigger);
+});
+
+for (const timing of ['delay', 'group', 'both'] as const) {
+  it(`click controller bypasses ${timing} hover timing and toggles immediately`, () => {
+    vi.useFakeTimers();
+    const { anchor, controller } = bind('Click details', {
+      trigger: 'click',
+      ...(timing !== 'group' ? { delay: 1000 } : {}),
+      ...(timing !== 'delay'
+        ? { group: createTooltipGroup({ delay: 600 }) }
+        : {}),
+    });
+    anchor.click();
+    expect(controller.isOpen).toBe(true);
+    anchor.click();
+    expect(controller.isOpen).toBe(false);
+    vi.advanceTimersByTime(1200);
+    expect(controller.isOpen).toBe(false);
+    expect(vi.getTimerCount()).toBe(0);
+  });
+}
+
+it('click hook bypasses group and explicit hover timing while preserving host activation', () => {
+  vi.useFakeTimers();
+  document.body.append(host);
+  const clicked = vi.fn();
+  const group = createTooltipGroup({ delay: 600 });
+  function View() {
+    const hint = useTooltip('Click description', true, {
+      trigger: 'click',
+      delay: 1000,
+      group,
+    });
+    return (
+      <>
+        <button {...hint.triggerProps} onClick={clicked}>
+          Click help
+        </button>
+        {hint.tooltip}
+      </>
+    );
+  }
+  act(() => render(<View />, host));
+  const trigger = host.querySelector('button')!;
+  act(() => trigger.click());
+  const popup = document.querySelector<HTMLElement>('[role="tooltip"]')!;
+  expect(popup.hidden).toBe(false);
+  act(() => trigger.click());
+  expect(popup.hidden).toBe(true);
+  expect(clicked).toHaveBeenCalledTimes(2);
+  vi.advanceTimersByTime(1200);
+  expect(popup.hidden).toBe(true);
+});

@@ -31,22 +31,31 @@ export function useControlTooltip(
     },
     [session],
   );
+  // Resolve on demand so manual show() works before any trigger interaction.
+  // Scope the fallback to the surface's root, including a shadow root.
+  const resolveAnchor = () => {
+    if (presentation?.anchor) anchor.current = presentation.anchor;
+    if (!anchor.current?.isConnected) {
+      const root = session.element?.getRootNode() as
+        | Document
+        | ShadowRoot
+        | undefined;
+      anchor.current =
+        [
+          ...(root?.querySelectorAll<TooltipAnchor>('[aria-describedby]') ??
+            []),
+        ].find((element) =>
+          element.getAttribute('aria-describedby')?.split(/\s+/).includes(id),
+        ) ?? null;
+    }
+    return anchor.current;
+  };
   useLayoutEffect(() => {
     session.hide();
   }, [text, presentation?.delay]);
   useLayoutEffect(() => {
     session.configure(presentation ?? {});
-    if (presentation?.anchor) anchor.current = presentation.anchor;
-    if (!anchor.current && (presentation?.open || presentation?.defaultOpen)) {
-      anchor.current =
-        [
-          ...(session.element?.ownerDocument.querySelectorAll<HTMLElement>(
-            '[aria-describedby]',
-          ) ?? []),
-        ].find((element) =>
-          element.getAttribute('aria-describedby')?.split(/\s+/).includes(id),
-        ) ?? null;
-    }
+    if (presentation?.open || presentation?.defaultOpen) resolveAnchor();
     if (presentation?.open !== undefined) {
       if (presentation.open && anchor.current)
         session.show(anchor.current, 'controlled');
@@ -71,7 +80,8 @@ export function useControlTooltip(
     id,
     hide,
     show: () => {
-      if (anchor.current) session.show(anchor.current);
+      const target = resolveAnchor();
+      if (target) session.show(target);
     },
     refresh: () => session.refresh(),
     triggerProps: {

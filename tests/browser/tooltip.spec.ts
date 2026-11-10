@@ -279,3 +279,30 @@ test('async results survive parent updates and delegated dynamic targets use one
   await second.press('Escape');
   await expect(popup).toHaveCount(0);
 });
+
+test('manual hook opens an untouched trigger without moving focus', async ({
+  page,
+}) => {
+  await page.goto('/tests/browser/fixtures/tooltip/index.html?api');
+  const trigger = page.getByRole('button', {
+    name: 'Untouched manual help',
+    exact: true,
+  });
+  const show = page.getByRole('button', {
+    name: 'Show manual hint',
+    exact: true,
+  });
+  await show.click();
+  const popup = page.getByRole('tooltip', {
+    name: 'Untouched manual details',
+    exact: true,
+  });
+  await expect(popup).toBeVisible();
+  await expect(trigger).toHaveAttribute(
+    'aria-describedby',
+    (await popup.getAttribute('id'))!,
+  );
+  await expect(show).toBeFocused();
+  await show.press('Escape');
+  await expect(popup).toHaveCount(0);
+});
