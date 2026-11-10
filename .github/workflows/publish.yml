@@ -92,11 +92,6 @@ jobs:
         with:
           node-version: 24.15.0
           package-manager-cache: false
-      - name: Check npm credential
-        if: inputs.dry_run != true
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: test -n "$NPM_TOKEN" || { echo '::error::Set NPM_TOKEN in revo-ui Actions secrets.'; exit 1; }
       - name: Install locked source dependencies
         working-directory: source
         run: pnpm install --frozen-lockfile
@@ -143,14 +138,13 @@ jobs:
       - name: Publish npm package
         if: inputs.dry_run != true
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           PUBLISH_REGISTRY: https://registry.npmjs.org/
           PUBLISH_ACCESS: public
           RELEASE_VERSION: ${{ steps.source.outputs.version }}
           NPM_CONFIG_USERCONFIG: ${{ runner.temp }}/ui-npm.npmrc
         run: |
           trap 'rm -f "$NPM_CONFIG_USERCONFIG"' EXIT
-          node automation/scripts/publish-target.mjs source/dist/package.json --npmrc > "$NPM_CONFIG_USERCONFIG"
+          printf 'registry=https://registry.npmjs.org/\n@revolist:registry=https://registry.npmjs.org/\n' > "$NPM_CONFIG_USERCONFIG"
           export RELEASE_ARCHIVE="$GITHUB_WORKSPACE/source/artifacts/revolist-ui-${RELEASE_VERSION}.tgz"
           node automation/scripts/release.mjs publish source/dist
       - name: Publish GitHub Packages mirror
