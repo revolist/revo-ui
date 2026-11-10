@@ -159,4 +159,5 @@ test("workflow separates trusted automation from released source and gates publi
   assert.equal(workflow.match(/if: inputs.dry_run != true/g).length, 3);
   assert.match(workflow, /cancel-in-progress: false/);
   assert.match(workflow, /queue: max/);
+  assert.equal(workflow.match(/package-manager-cache: false/g).length, 2);
 });
