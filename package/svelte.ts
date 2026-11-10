@@ -14,3 +14,20 @@ export type {
   PdfViewerToolbarConfig,
 } from './pdf-viewer/toolbar-options';
 export { defaultPdfViewerText } from './pdf-viewer/translations';
+
+export { createTooltipGroup, TooltipGroup } from './core/tooltip-options';
+export type {
+  TooltipAnchor,
+  TooltipSide,
+  TooltipAlign,
+  TooltipReason,
+  TooltipContent,
+  TooltipOffset,
+  TooltipOffsetContext,
+  TooltipGroupOptions,
+  TooltipOptions,
+  TooltipControllerOptions,
+  TooltipChangeDetails,
+  TooltipContentContext,
+  TooltipPositionOptions,
+} from './core/tooltip-options';

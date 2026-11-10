@@ -29,12 +29,13 @@ const escape = text => text.replaceAll('|','\\|').replaceAll('\n',' ').replaceAl
 const output = resolve(gallery, 'docs/api'); mkdirSync(output, {recursive:true});
 let count = 0;
 for (const {name,node} of entries) {
+  if (process.env.UI_API_COMPONENTS && !process.env.UI_API_COMPONENTS.split(',').includes(name)) continue;
   const type = checker.getTypeAtLocation(node);
   const signature = type.getCallSignatures()[0];
   if (!signature) throw new Error(`Missing props signature: ${name}`);
   const props = signature.parameters[0] ? checker.getTypeOfSymbolAtLocation(signature.parameters[0], node) : undefined;
   const allProperties = props ? checker.getPropertiesOfType(props) : [];
-  const own = allProperties.filter(property => property.declarations?.some(declaration => /\/packages\/(?:ui|dates)\/src\//.test(declaration.getSourceFile().fileName)));
+  const own = allProperties.filter(property => property.declarations?.some(declaration => declaration.getSourceFile().fileName.startsWith(resolve(library, 'package') + '/') || /\/packages\/dates\/src\//.test(declaration.getSourceFile().fileName)));
   const group = routes.get(name); if (!group) throw new Error(`Missing group: ${name}`);
   let text = `# ${name}\n\n${group.description}\n\n[Live examples and formatted usage](https://ui.rv-grid.com/components/${group.route}/) · [Component index](../../README.md#complete-component-reference)\n\n`;
   const directEntries = { LookupField: 'dropdown/lookup-field', NumberDraft: 'number-input', MaskedDraft: 'masked-input', DurationField: 'duration', DurationDraft: 'duration', HtmlEditor: 'rich-text', TemporalPicker: 'date-time', TemporalDraft: 'date-time', DateTimeField: 'date-time', AssigneePicker: 'assignee', AssigneeField: 'assignee', AssigneePickerLayout: 'assignee' };

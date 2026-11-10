@@ -159,7 +159,10 @@ createApp({
         h(
           Tooltip,
           { text: 'Vue tooltip details' },
-          { default: () => h('button', 'Vue help') },
+          {
+            default: () => h('button', 'Vue help'),
+            content: () => h('strong', 'Vue tooltip details'),
+          },
         ),
         h(Dropdown, {
           config: { ariaLabel: 'Secondary status' },

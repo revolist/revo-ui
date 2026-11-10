@@ -42,6 +42,57 @@ for (const format of ['module', 'classic'] as const) {
     expect(errors).toEqual([]);
   });
 
+  test(`packed ${format} tooltip supports imperative APIs and cleanup`, async ({
+    page,
+    baseURL,
+  }) => {
+    const errors: string[] = [];
+    page.on('pageerror', (error) => errors.push(error.message));
+    await page.goto('/');
+    if (format === 'classic')
+      await page.addScriptTag({ url: '/browser/revo-ui.global.js' });
+    await page.evaluate(
+      async ({ format, baseURL }) => {
+        const ui =
+          format === 'module'
+            ? await import(/* @vite-ignore */ `${baseURL}/browser/revo-ui.js`)
+            : (window as any).RevoUI;
+        const trigger = document.createElement('button');
+        trigger.textContent = 'CDN tooltip';
+        trigger.style.margin = '100px';
+        document.body.append(trigger);
+        const controller = new ui.TooltipController();
+        controller.bind(trigger, 'CDN details', {
+          side: 'right',
+          arrow: true,
+          group: ui.createTooltipGroup({ delay: 0 }),
+        });
+        (window as any).cdnTooltip = controller;
+      },
+      { format, baseURL },
+    );
+    const trigger = page.getByRole('button', {
+      name: 'CDN tooltip',
+      exact: true,
+    });
+    await trigger.focus();
+    const popup = page.getByRole('tooltip', {
+      name: 'CDN details',
+      exact: true,
+    });
+    await expect(popup).toBeVisible();
+    await expect(popup).toHaveAttribute('data-side', 'right');
+    await expect(popup).toHaveAttribute('data-arrow', 'true');
+    await page.evaluate(() =>
+      (window as any).cdnTooltip.setContent('Updated CDN details'),
+    );
+    await expect(page.getByRole('tooltip')).toHaveText('Updated CDN details');
+    await page.evaluate(() => (window as any).cdnTooltip.destroy());
+    await expect(page.getByRole('tooltip')).toHaveCount(0);
+    await expect(trigger).not.toHaveAttribute('aria-describedby');
+    expect(errors).toEqual([]);
+  });
+
   test(`packed ${format} browser bundle starts the PDF engine and matching worker`, async ({
     page,
     baseURL,

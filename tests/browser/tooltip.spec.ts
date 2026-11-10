@@ -202,3 +202,237 @@ test('keyboard tooltip survives focus scrolling and follows its trigger', async 
   await trigger.press('Tab');
   await expect(tooltip).toHaveCount(0);
 });
+
+test('expanded tooltip placement, rich content, native click and controlled state', async ({
+  page,
+}) => {
+  await page.goto('/tests/browser/fixtures/tooltip/index.html?api');
+  const popup = page.getByRole('tooltip');
+  const trigger = page.getByRole('button', {
+    name: 'Positioned help',
+    exact: true,
+  });
+  await trigger.focus();
+  await expect(popup.locator('strong')).toHaveText('Rich placement details');
+  await expect(popup).toHaveAttribute('data-side', 'right');
+  await expect(popup).toHaveAttribute('data-arrow', 'true');
+  const anchor = (await trigger.boundingBox())!;
+  const bounds = (await popup.boundingBox())!;
+  expect(Math.abs(bounds.x - (anchor.x + anchor.width + 16))).toBeLessThan(1);
+  expect(Math.abs(bounds.y - anchor.y)).toBeLessThan(1);
+  await page.keyboard.press('Escape');
+  for (const [name, content, count] of [
+    ['Click help', 'Click details', '1'],
+    ['Hook help', 'Hook click details', '3'],
+  ]) {
+    const button = page.getByRole('button', { name, exact: true });
+    await button.focus();
+    await button.press('Enter');
+    await expect(popup).toHaveText(content);
+    await expect(page.getByRole('status', { name: 'Clicks' })).toHaveText(
+      count,
+    );
+    await button.press('Space');
+    await expect(popup).toHaveCount(0);
+  }
+  const controlled = page.getByRole('button', {
+    name: 'Controlled help',
+    exact: true,
+  });
+  await controlled.focus();
+  await expect(popup).toHaveText('Controlled details');
+  await expect(page.getByRole('status', { name: 'Open' })).toHaveText('true');
+  await controlled.press('Escape');
+  await expect(page.getByRole('status', { name: 'Open' })).toHaveText('false');
+  await expect(popup).toHaveCount(0);
+});
+
+test('async results survive parent updates and delegated dynamic targets use one rich surface', async ({
+  page,
+}) => {
+  await page.goto('/tests/browser/fixtures/tooltip/index.html?api');
+  const popup = page.getByRole('tooltip');
+  await page.getByRole('button', { name: 'Async help', exact: true }).focus();
+  await expect(popup).toHaveText('Loading details');
+  await expect(popup).toHaveText('Loaded details');
+  await expect(page.getByRole('status', { name: 'Loads' })).toHaveText('1');
+  await expect(popup).toHaveText('Loaded details');
+  await page
+    .getByRole('button', { name: 'Toggle failure', exact: true })
+    .click();
+  await page.getByRole('button', { name: 'Async help', exact: true }).focus();
+  await expect(popup).toHaveText('Details unavailable');
+  await expect(page.getByRole('status', { name: 'Loads' })).toHaveText('2');
+  await page
+    .getByRole('button', { name: 'Add delegated trigger', exact: true })
+    .click();
+  const second = page.getByRole('button', { name: 'Delegated 2', exact: true });
+  await second.click();
+  await expect(popup.locator('strong')).toHaveText('Item 2 details');
+  await expect(second).toHaveAttribute(
+    'aria-describedby',
+    (await popup.getAttribute('id'))!,
+  );
+  await expect(
+    page.getByRole('button', { name: 'Delegated 1', exact: true }),
+  ).not.toHaveAttribute('aria-describedby');
+  await second.press('Escape');
+  await expect(popup).toHaveCount(0);
+});
+
+test('manual hook opens an untouched trigger without moving focus', async ({
+  page,
+}) => {
+  await page.goto('/tests/browser/fixtures/tooltip/index.html?api');
+  const trigger = page.getByRole('button', {
+    name: 'Untouched manual help',
+    exact: true,
+  });
+  const show = page.getByRole('button', {
+    name: 'Show manual hint',
+    exact: true,
+  });
+  await show.click();
+  const popup = page.getByRole('tooltip', {
+    name: 'Untouched manual details',
+    exact: true,
+  });
+  await expect(popup).toBeVisible();
+  await expect(trigger).toHaveAttribute(
+    'aria-describedby',
+    (await popup.getAttribute('id'))!,
+  );
+  await expect(show).toBeFocused();
+  await show.press('Escape');
+  await expect(popup).toHaveCount(0);
+});
+
+test('visible controlled surface reopens when enabled without changing its anchor or visibility', async ({
+  page,
+}) => {
+  await page.goto('/tests/browser/fixtures/tooltip/index.html?api');
+  const trigger = page.getByRole('button', {
+    name: 'Controlled surface anchor',
+    exact: true,
+  });
+  const toggle = page.getByRole('button', {
+    name: 'Toggle surface disabled',
+    exact: true,
+  });
+  const popup = page.getByRole('tooltip', {
+    name: 'Controlled surface details',
+    exact: true,
+  });
+  await expect(popup).toHaveCount(0);
+  for (let cycle = 0; cycle < 2; cycle++) {
+    await toggle.click();
+    await expect(popup).toBeVisible();
+    await expect(trigger).toHaveAttribute(
+      'aria-describedby',
+      'api-control-surface',
+    );
+    await toggle.click();
+    await expect(popup).toHaveCount(0);
+    await expect(trigger).not.toHaveAttribute('aria-describedby');
+  }
+});
+
+test('arrow tooltip keeps overflowing content inside its bounded scroll area', async ({
+  page,
+}) => {
+  await page.goto('/tests/browser/fixtures/tooltip/index.html?api');
+  await page
+    .getByRole('button', { name: 'Overflow help', exact: true })
+    .focus();
+  const popup = page.getByRole('tooltip');
+  await expect(popup).toBeVisible();
+  const geometry = await popup.evaluate((element) => {
+    const content = element.querySelector<HTMLElement>('.rv-tooltip__content')!;
+    const outer = element.getBoundingClientRect(),
+      inner = content.getBoundingClientRect();
+    return {
+      height: outer.height,
+      inside: inner.bottom <= outer.bottom && inner.top >= outer.top,
+      scrollable: content.scrollHeight > content.clientHeight,
+    };
+  });
+  expect(geometry.height).toBeLessThanOrEqual(80);
+  expect(geometry.inside).toBe(true);
+  expect(geometry.scrollable).toBe(true);
+});
+
+test('native form, disclosure and editable triggers receive their own descriptions', async ({
+  page,
+}) => {
+  await page.goto('/tests/browser/fixtures/tooltip/index.html?api');
+  const controls = [
+    [
+      page.getByRole('textbox', { name: 'Native textarea', exact: true }),
+      'Textarea details',
+    ],
+    [
+      page.getByRole('combobox', { name: 'Native select', exact: true }),
+      'Select details',
+    ],
+    [
+      page.locator('summary').filter({ hasText: 'Native summary' }),
+      'Summary details',
+    ],
+    [
+      page.getByRole('textbox', { name: 'Native editable', exact: true }),
+      'Editable details',
+    ],
+  ] as const;
+  for (const [trigger, text] of controls) {
+    await trigger.focus();
+    const popup = page.getByRole('tooltip', { name: text, exact: true });
+    await expect(popup).toBeVisible();
+    await expect(trigger).toHaveAttribute(
+      'aria-describedby',
+      (await popup.getAttribute('id'))!,
+    );
+    await trigger.press('Escape');
+    await expect(popup).toHaveCount(0);
+    await expect(trigger).not.toHaveAttribute('aria-describedby');
+  }
+});
+
+test('numeric JSX styles apply pixel lengths without corrupting unitless values', async ({
+  page,
+}) => {
+  await page.goto('/tests/browser/fixtures/tooltip/index.html?api');
+  await page.getByRole('button', { name: 'Styled help', exact: true }).focus();
+  const popup = page.getByRole('tooltip', {
+    name: 'Styled details',
+    exact: true,
+  });
+  await expect(popup).toBeVisible();
+  await expect(popup).toHaveCSS('padding', '12px');
+  await expect(popup).toHaveCSS('font-size', '14px');
+  await expect(popup).toHaveCSS('line-height', '21px');
+  await expect(popup).toHaveCSS('opacity', '0.9');
+  await expect(popup).toHaveCSS('z-index', '1234');
+  expect(
+    await popup.evaluate((element) =>
+      getComputedStyle(element).getPropertyValue('--custom-value'),
+    ),
+  ).toBe('3');
+});
+
+test('controlled exit completes when onHide rerenders its parent', async ({
+  page,
+}) => {
+  await page.goto('/tests/browser/fixtures/tooltip/index.html?exit-transition');
+  const tooltip = page.getByRole('tooltip');
+  await expect(tooltip).toHaveAttribute('data-state', 'open');
+  await page
+    .getByRole('button', { name: 'Close animated hint', exact: true })
+    .click();
+  await expect(page.getByRole('status', { name: 'Hide requests' })).toHaveText(
+    '1',
+  );
+  await expect(tooltip).toBeHidden();
+  await expect(
+    page.getByRole('status', { name: 'Exit completions' }),
+  ).toHaveText('1');
+});

@@ -1,3 +1,4 @@
+import { TooltipPlacementExamples, TooltipTimingExamples, TooltipStateExamples, TooltipContentExamples, TooltipBoundaryExample, TooltipControllerExample, TooltipApiGuide } from './tooltips';
 import { CollapsibleSection } from '@revolist/ui/preact';
 import { AccessibilityPage } from './accessibility';
 import { ApiPage } from './api-page';
@@ -713,6 +714,13 @@ function App() {
         </Example>
       </Section>
       <Section title="Tooltip">
+        <TooltipApiGuide />
+        <TooltipPlacementExamples />
+        <TooltipTimingExamples />
+        <TooltipStateExamples />
+        <TooltipContentExamples />
+        <TooltipBoundaryExample />
+        <TooltipControllerExample />
         <Example title="Tooltip">
           <Tooltip text="Keyboard and pointer tooltip">
             <Button>Tooltip trigger</Button>

@@ -1,5 +1,15 @@
 import { h } from 'preact';
-import { createPreactElement, releasePreactElement } from '../preact-mount';
+import type {
+  TooltipAnchor,
+  TooltipChangeDetails,
+  TooltipContent,
+  TooltipControllerOptions,
+} from './tooltip-options';
+import {
+  createPreactElement,
+  releasePreactElement,
+  renderPreactInto,
+} from '../preact-mount';
 import { calculateTooltipPosition } from './tooltip-surface';
 import { TooltipSession } from './tooltip-session';
 import { calculateAnchoredPopoverPosition } from './anchored-popover';
@@ -171,78 +181,320 @@ export function createTooltipElement(
   );
 }
 
-/** Imperative binding adapter over the same session used by useTooltip. */
+/** Imperative/delegated adapter over the shared tooltip session. */
 export class TooltipController {
+  private session?: TooltipSession;
+  private root?: TooltipAnchor;
+  private content: TooltipContent = '';
+  private options: TooltipControllerOptions = {};
   private release?: () => void;
+  private abort?: AbortController;
+  private context?: TooltipChangeDetails;
+  private generation = 0;
+  private loading = false;
+  private asyncContent: TooltipContent | undefined;
+  private renderedNode?: Node;
+  private renderedNodes: Node[] = [];
+  get isOpen() {
+    return this.session?.isOpen ?? false;
+  }
+  get element() {
+    return this.session?.element;
+  }
+  target() {
+    return this.session?.target;
+  }
+  private render(value: TooltipContent) {
+    const surface = this.element;
+    if (!surface) return;
+    const node =
+      value && typeof value === 'object' && 'nodeType' in value
+        ? (value as Node)
+        : undefined;
+    // Appending a fragment moves its children, not the fragment itself. Retain
+    // those children across refreshes and clean up only nodes still owned here.
+    const nodes =
+      node?.nodeType === 11
+        ? node === this.renderedNode && !node.childNodes.length
+          ? this.renderedNodes
+          : [...node.childNodes]
+        : node
+          ? [node]
+          : [];
+    for (const previous of this.renderedNodes)
+      if (surface.contains(previous))
+        previous.parentNode?.removeChild(previous);
+    this.renderedNode = node;
+    this.renderedNodes = nodes;
+    renderPreactInto(
+      surface,
+      h(
+        'span',
+        {
+          class: 'rv-tooltip__content',
+          ref: node
+            ? (host: HTMLSpanElement | null) => {
+                if (host)
+                  for (const child of nodes)
+                    if (child.parentNode !== host) host.append(child);
+              }
+            : undefined,
+        },
+        node ? null : (value as import('preact').ComponentChildren),
+      ),
+    );
+    this.session?.refresh();
+  }
+  private renderCurrent() {
+    if (this.context)
+      this.render(
+        this.options.loadContent && this.asyncContent !== undefined
+          ? this.asyncContent
+          : (this.options.renderContent?.(this.context) ?? this.content),
+      );
+  }
+  private load(details: TooltipChangeDetails) {
+    this.abort?.abort();
+    this.abort = new AbortController();
+    const generation = ++this.generation;
+    this.asyncContent = undefined;
+    const loader = this.options.loadContent;
+    if (!loader) {
+      this.loading = false;
+      this.renderCurrent();
+      return;
+    }
+    this.loading = true;
+    this.element?.setAttribute('aria-busy', 'true');
+    this.render(this.options.loadingContent ?? this.content);
+    const signal = this.abort.signal;
+    Promise.resolve()
+      .then(() => loader({ ...details, signal }))
+      .then(
+        (value) => {
+          if (signal.aborted || generation !== this.generation || !this.isOpen)
+            return;
+          this.loading = false;
+          this.element?.removeAttribute('aria-busy');
+          this.asyncContent = value;
+          this.render(value);
+          this.options.onContentLoad?.(value, details);
+        },
+        (error) => {
+          if (signal.aborted || generation !== this.generation || !this.isOpen)
+            return;
+          this.loading = false;
+          this.element?.removeAttribute('aria-busy');
+          if (this.options.errorContent !== undefined) {
+            this.asyncContent = this.options.errorContent;
+            this.render(this.options.errorContent);
+          } else this.hide();
+          this.options.onError?.(error, details);
+        },
+      );
+  }
+  private reveal(
+    target: TooltipAnchor,
+    reason: TooltipChangeDetails['reason'],
+    event?: Event,
+  ) {
+    this.context = { target, reason, event };
+    if (!this.isOpen || this.target() !== target) this.renderCurrent();
+    this.session?.show(target, reason, event);
+  }
+  /** Bind one trigger, or a container with options.filter for delegated triggers. */
   bind(
-    anchor: HTMLElement | SVGElement,
-    text: string,
-    options: {
-      trigger?: 'hover' | 'click';
-      surface?: HTMLElement;
-      onEscape?: () => void;
-    } = {},
+    anchor: TooltipAnchor,
+    content: TooltipContent,
+    options: TooltipControllerOptions = {},
   ) {
     this.destroy();
+    this.root = anchor;
+    this.content = content;
+    this.options = options;
+    // Validate delegated selectors once at binding rather than on pointer events.
+    if (options.filter) anchor.querySelector(options.filter);
     const surface =
       options.surface ??
       createTooltipElement(anchor.ownerDocument, 'rv-tooltip');
-    surface.textContent = text;
-    const session = new TooltipSession();
+    if (options.id) surface.id = options.id;
+    if (!surface.id) surface.id = createControlId('rv-tooltip');
+    const session = (this.session = new TooltipSession());
     session.setSurface(surface);
-    session.onEscape = options.onEscape;
-    const clickOnly = options.trigger === 'click';
-    const expanded = anchor.getAttribute('aria-expanded');
-    if (clickOnly) anchor.setAttribute('aria-expanded', 'false');
+    session.configure(options);
+    const expanded = new Map<TooltipAnchor, string | null>();
+    const setExpanded = (target: TooltipAnchor, open: boolean) => {
+      if (!expanded.has(target))
+        expanded.set(target, target.getAttribute('aria-expanded'));
+      target.setAttribute('aria-expanded', String(open));
+    };
+    if (options.trigger === 'click' && !options.filter)
+      setExpanded(anchor, false);
+    session.onShow = (details) => {
+      if (triggers().includes('click')) setExpanded(details.target, true);
+      this.context = details;
+      this.load(details);
+    };
     session.onHide = () => {
-      if (clickOnly) anchor.setAttribute('aria-expanded', 'false');
+      this.abort?.abort();
+      this.generation++;
+      this.loading = false;
+      surface.removeAttribute('aria-busy');
+      if (this.target() && expanded.has(this.target()!))
+        setExpanded(this.target()!, false);
     };
-    const show = () => {
-      session.show(anchor);
-      if (clickOnly)
-        anchor.setAttribute('aria-expanded', String(session.isOpen));
+    const resolve = (event: Event) => {
+      if (!this.options.filter) return anchor;
+      const target = (event.target as Element | null)?.closest?.(
+        this.options.filter,
+      );
+      return target && anchor.contains(target)
+        ? (target as TooltipAnchor)
+        : undefined;
     };
-    const toggle = () => (session.isOpen ? session.hide() : show());
-    const focus = () => session.focus(anchor);
-    const blur = () => session.blur();
-    const leave = (event: Event) =>
-      session.leave(anchor, event as PointerEvent);
-    const pointerDown = () => {
+    const triggers = () =>
+      Array.isArray(this.options.trigger)
+        ? this.options.trigger
+        : this.options.trigger === 'manual'
+          ? []
+          : this.options.trigger === 'click'
+            ? ['click']
+            : this.options.trigger === 'focus'
+              ? ['focus']
+              : ['hover', 'focus'];
+    const enter = (event: Event) => {
+      const target = resolve(event);
+      const related = (event as PointerEvent).relatedTarget as Node | null;
+      if (related && target?.contains(related)) return;
+      if (
+        target &&
+        triggers().includes('hover') &&
+        (event as PointerEvent).pointerType !== 'touch'
+      )
+        this.reveal(target, 'hover', event);
+    };
+    const leave = (event: Event) => {
+      const target = resolve(event);
+      if (!target || target !== this.target()) return;
+      const related = (event as MouseEvent).relatedTarget as Node | null;
+      if (related && target.contains(related)) return;
+      session.leave(target, event as MouseEvent);
+    };
+    const focus = (event: Event) => {
+      const target = resolve(event);
+      if (target && triggers().includes('focus'))
+        this.reveal(target, 'focus', event);
+    };
+    const blur = (event: Event) => {
+      const target = resolve(event);
+      if (target && target === this.target()) session.blur(event);
+    };
+    const pointerDown = (event: Event) => {
       session.pointerDown();
-      session.hide();
+      if (this.options.hideOnClick !== false && !triggers().includes('click'))
+        session.hide('press', event);
     };
-    const keyboard = (event: Event) => session.keyDown(event as KeyboardEvent);
-    if (clickOnly) anchor.addEventListener('click', toggle);
-    else {
-      anchor.addEventListener('pointerenter', show);
-      anchor.addEventListener('pointerleave', leave);
-      anchor.addEventListener('focus', focus);
-      anchor.addEventListener('blur', blur);
-      anchor.addEventListener('pointerdown', pointerDown);
-      anchor.addEventListener('keydown', keyboard);
-    }
+    const click = (event: Event) => {
+      const target = resolve(event);
+      if (!target) return;
+      if (!triggers().includes('click')) {
+        if (this.options.hideOnClick !== false) session.hide('press', event);
+        return;
+      }
+      if (this.isOpen && this.target() === target) session.hide('click', event);
+      else this.reveal(target, 'click', event);
+    };
+    const keyboard = (event: Event) => {
+      if (
+        !triggers().includes('click') ||
+        (event as KeyboardEvent).key === 'Escape'
+      )
+        session.keyDown(event as KeyboardEvent);
+    };
+    const entries: [string, EventListener][] = [
+      [options.filter ? 'pointerover' : 'pointerenter', enter],
+      [options.filter ? 'pointerout' : 'pointerleave', leave],
+      ['focus', focus],
+      ['blur', blur],
+      ['pointerdown', pointerDown],
+      ['keydown', keyboard],
+      ['click', click],
+    ];
+    for (const [type, listener] of entries)
+      anchor.addEventListener(type, listener, true);
     this.release = () => {
+      this.abort?.abort();
+      this.generation++;
+      for (const [type, listener] of entries)
+        anchor.removeEventListener(type, listener, true);
       session.destroy();
-      anchor.removeEventListener('click', toggle);
-      anchor.removeEventListener('pointerenter', show);
-      anchor.removeEventListener('pointerleave', leave);
-      anchor.removeEventListener('focus', focus);
-      anchor.removeEventListener('blur', blur);
-      anchor.removeEventListener('pointerdown', pointerDown);
-      anchor.removeEventListener('keydown', keyboard);
-      if (clickOnly) {
-        if (expanded === null) anchor.removeAttribute('aria-expanded');
-        else anchor.setAttribute('aria-expanded', expanded);
+      renderPreactInto(surface, null);
+      for (const [target, original] of expanded) {
+        if (original === null) target.removeAttribute('aria-expanded');
+        else target.setAttribute('aria-expanded', original);
       }
       if (!options.surface) releasePreactElement(surface);
     };
-    // Framework content can already hold focus when its binding is installed.
-    // Recover that state without waiting for another focus event.
-    if (!clickOnly && anchor.ownerDocument.activeElement === anchor) focus();
+    if (!options.filter) {
+      this.context = { target: anchor, reason: 'imperative' };
+      this.renderCurrent();
+    }
+    if (
+      anchor.ownerDocument.activeElement === anchor &&
+      triggers().includes('focus')
+    )
+      this.reveal(anchor, 'focus');
     return () => this.destroy();
+  }
+  update(options: TooltipControllerOptions) {
+    // A removed loader relinquishes ownership immediately. Changing an existing
+    // callback does not reload: adapters may recreate it on every host render.
+    if (this.options.loadContent && !options.loadContent) {
+      this.abort?.abort();
+      this.generation++;
+      this.loading = false;
+      this.asyncContent = undefined;
+      this.element?.removeAttribute('aria-busy');
+    }
+    this.options = options;
+    this.session?.configure(options);
+    if (options.id && this.element && !this.isOpen)
+      this.element.id = options.id;
+    if (this.isOpen && !this.loading) this.renderCurrent();
+  }
+  setContent(content: TooltipContent) {
+    this.content = content;
+    if (this.isOpen && !this.loading) this.renderCurrent();
+  }
+  /** Immediate imperative methods; controlled values still authorize visibility. */
+  show(target = this.target() ?? this.root) {
+    if (target) this.reveal(target, 'imperative');
+  }
+  hide() {
+    this.session?.hide();
+  }
+  toggle(target = this.target() ?? this.root) {
+    if (this.isOpen) this.hide();
+    else this.show(target);
+  }
+  /** Synchronize controlled/default state without emitting another change request. */
+  setOpen(open: boolean, target = this.target() ?? this.root) {
+    if (open && target) this.reveal(target, 'controlled');
+    else this.session?.hide('controlled');
+  }
+  refresh() {
+    if (this.isOpen && this.context) this.load(this.context);
+    this.session?.refresh();
   }
   destroy() {
     this.release?.();
     this.release = undefined;
+    this.session = undefined;
+    this.root = undefined;
+    this.context = undefined;
+    this.abort = undefined;
+    this.asyncContent = undefined;
+    this.renderedNode = undefined;
+    this.renderedNodes = [];
   }
 }

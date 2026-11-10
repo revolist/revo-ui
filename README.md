@@ -89,6 +89,7 @@ Explore live previews, variants, and expandable code examples on the website.
 - [Timeline](https://ui.rv-grid.com/components/timeline-track/) — Draggable, resizable events with colors and tooltips.
 - [Calendars and dates](https://ui.rv-grid.com/components/calendar-and-dates/) — Date and time pickers, ranges, and weekly planning.
 - [Charts](https://ui.rv-grid.com/components/charts-and-range-selection/) — Bar, line, and area charts with tooltips and range selection.
+- [Tooltip API and behavior](docs/tooltip.md) — Placement, timing groups, controlled state, rich/async content, delegation, events, and imperative methods.
 - [Dialogs and tooltips](https://ui.rv-grid.com/components/dialogs-and-floating-surfaces/) — Dialogs, confirmations, popovers, and tooltips.
 - [Menus and toolbars](https://ui.rv-grid.com/components/menus-and-toolbars/) — Dropdown menus, nested commands, and toolbar actions.
 - [Status and feedback](https://ui.rv-grid.com/components/status-and-feedback/) — Badges, alerts, loading indicators, and empty states.

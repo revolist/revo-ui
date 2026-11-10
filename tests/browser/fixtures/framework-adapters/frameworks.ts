@@ -46,7 +46,7 @@ function ReactHarness() {
     ),
     h(
       Tooltip,
-      { text: 'React tooltip details' },
+      { content: h('strong', null, 'React tooltip details') },
       h('button', null, 'React help'),
     ),
     mounted &&
@@ -110,7 +110,10 @@ function ReactHarness() {
           (input)="slotRevision = slotRevision + 1"
       /></ng-template>
     </rv-ui>
-    <rv-ui component="Tooltip" [props]="{ text: 'Angular tooltip details' }">
+    <rv-ui component="Tooltip">
+      <ng-template rvUiSlot="content"
+        ><strong>Angular tooltip details</strong></ng-template
+      >
       <ng-template rvUiSlot="default"
         ><button>Angular help</button></ng-template
       >

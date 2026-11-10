@@ -186,3 +186,36 @@ test('resolves array items and callback arguments without exposing private contr
     ])
       walkTypes(component, member);
 });
+
+test('tooltip reference includes state, positioning, asynchronous content and lifecycle contracts', () => {
+  const tooltip = component('Tooltip');
+  for (const name of [
+    'side',
+    'align',
+    'sideOffset',
+    'collisionBoundary',
+    'open',
+    'group',
+    'loadContent',
+    'appendTo',
+    'arrow',
+    'keepMounted',
+  ]) {
+    assert.ok(
+      tooltip.props.some((prop) => prop.name === name),
+      name,
+    );
+  }
+  for (const name of [
+    'onOpenChange',
+    'onBeforeOpenChange',
+    'onOpenChangeComplete',
+    'onContentLoad',
+    'onError',
+  ]) {
+    assert.ok(
+      tooltip.events.some((event) => event.name === name),
+      name,
+    );
+  }
+});

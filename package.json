@@ -99,6 +99,7 @@
     "./core/anchored-popover": "./package/core/anchored-popover.ts",
     "./core/top-layer-popup": "./package/core/top-layer-popup.ts",
     "./core/control-id": "./package/core/control-id.ts",
+    "./core/tooltip-options": "./package/core/tooltip-options.ts",
     "./dialog/dialog.types": "./package/dialog/dialog.types.ts",
     "./dialog/dialog.dom": "./package/dialog/dialog.dom.tsx",
     "./dialog/dialog.drag": "./package/dialog/dialog.drag.ts",

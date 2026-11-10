@@ -21,6 +21,7 @@ import {
   attachMenuKeyboard,
 } from './surfaces';
 import { Button } from './controls';
+import type { TooltipControllerOptions } from './core/tooltip-options';
 import { DateControl } from './date-time/date-control';
 import { avatarTemplate, type AvatarTemplateOptions } from './avatar';
 import { renderProgressBar, type ProgressBarProps } from './progress/bar';
@@ -129,51 +130,76 @@ export function Popover({
   );
 }
 
-export function Tooltip({
-  text,
-  children,
-}: {
-  text: string;
-  children: ComponentChildren;
-}) {
+export interface TooltipProps extends TooltipControllerOptions {
+  /** Simple text remains supported; content/renderContent can provide rich non-interactive descriptions. */
+  text?: string;
+  content?: import('./core/tooltip-options').TooltipContent;
+  children?: ComponentChildren;
+  defaultOpen?: boolean;
+  /** Position against an external trigger. Otherwise the first focusable child is used. */
+  anchor?: HTMLElement | SVGElement | null;
+}
+export function Tooltip(props: TooltipProps) {
   const ref = useRef<HTMLSpanElement>(null);
+  const latest = useRef(props);
+  latest.current = props;
+  const [controller] = useState(() => new TooltipController());
+  const initial = useRef(false);
+  const reopenAfterBind = useRef(false);
+  const synchronize = () => {
+    const options = latest.current;
+    controller.update(options);
+    controller.setContent(options.content ?? options.text ?? '');
+    if (options.open !== undefined) controller.setOpen(options.open);
+    else if (!initial.current) {
+      initial.current = true;
+      if (options.defaultOpen) controller.setOpen(true);
+    }
+  };
   useLayoutEffect(() => {
     const root = ref.current;
     if (!root) return;
-    const tooltip = new TooltipController();
-    let anchor: HTMLElement | undefined;
+    let anchor: HTMLElement | SVGElement | undefined;
     const bind = () => {
+      const options = latest.current;
       const next =
-        root.querySelector<HTMLElement>('button, input, a[href], [tabindex]') ??
-        root;
+        options.anchor ??
+        (options.filter
+          ? root
+          : (root.querySelector<HTMLElement>(
+              'button, input, textarea, select, a[href], summary, [contenteditable]:not([contenteditable="false"]), [tabindex]',
+            ) ?? root));
       if (next === anchor) return;
-      tooltip.bind(next, text);
+      const wasOpen = controller.isOpen || reopenAfterBind.current;
+      reopenAfterBind.current = false;
+      controller.bind(next, options.content ?? options.text ?? '', options);
       anchor = next;
+      synchronize();
+      if (wasOpen && options.open === undefined) controller.setOpen(true);
     };
     bind();
-    // Framework portals/snippets can populate or replace the trigger after the
-    // surrounding Preact layout effect has run. Observe only trigger structure.
+    // Framework-owned content can arrive after the surrounding layout effect.
     const observer = new root.ownerDocument.defaultView!.MutationObserver(bind);
     observer.observe(root, {
       childList: true,
       subtree: true,
       attributes: true,
-      attributeFilter: ['href', 'tabindex'],
+      attributeFilter: ['href', 'tabindex', 'contenteditable'],
     });
-    // Capture also handles autofocus before the observer's next microtask, while
-    // allowing the controller's newly bound target listener to see that focus.
     root.addEventListener('focus', bind, true);
     root.addEventListener('pointerenter', bind, true);
     return () => {
       observer.disconnect();
       root.removeEventListener('focus', bind, true);
       root.removeEventListener('pointerenter', bind, true);
-      tooltip.destroy();
+      reopenAfterBind.current = controller.isOpen;
+      controller.destroy();
     };
-  }, [text]);
+  }, [controller, props.anchor, props.filter]);
+  useLayoutEffect(synchronize);
   return (
     <span ref={ref} class="rv-tooltip-anchor">
-      {children}
+      {props.children}
     </span>
   );
 }
