@@ -274,3 +274,5 @@ export {
   ensureTooltipStyles,
 } from './core/tooltip-surface';
 export { TooltipText } from './core/tooltip-text';
+
+export * from './core/tooltip-options';

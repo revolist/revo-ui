@@ -92,3 +92,20 @@ export * from './icon-toolbar';
 export * from './legend';
 
 export * from './view-switcher';
+
+export { createTooltipGroup, TooltipGroup } from './core/tooltip-options';
+export type {
+  TooltipAnchor,
+  TooltipSide,
+  TooltipAlign,
+  TooltipReason,
+  TooltipContent,
+  TooltipOffset,
+  TooltipOffsetContext,
+  TooltipGroupOptions,
+  TooltipOptions,
+  TooltipControllerOptions,
+  TooltipChangeDetails,
+  TooltipContentContext,
+  TooltipPositionOptions,
+} from './core/tooltip-options';

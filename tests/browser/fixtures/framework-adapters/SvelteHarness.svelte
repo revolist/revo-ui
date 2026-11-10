@@ -16,7 +16,8 @@
   />
   <output data-svelte-search>{search}</output>
   <button onclick={() => (search = '')}>Clear Svelte search</button>
-  <UiComponent component="Tooltip" props={{ text: 'Svelte tooltip details' }}>
+  {#snippet tooltipContent()}<strong>Svelte tooltip details</strong>{/snippet}
+  <UiComponent component="Tooltip" slots={{ content: tooltipContent }}>
     <button>Svelte help</button>
   </UiComponent>
   {#if mounted}

@@ -61,6 +61,7 @@ for (const name of ['angular-control', 'angular']) {
     readFileSync(resolve(root, `package/${name}.ts`), 'utf8')
       .replaceAll("'./control-attributes'", "'../control-attributes.js'")
       .replaceAll("'./framework'", "'../framework.js'")
+      .replaceAll("'./core/tooltip-options'", "'../core/tooltip-options.js'")
       .replace(/'\.\/pdf-viewer\/([^']+)'/g, "'../pdf-viewer/$1.js'"),
   );
 }

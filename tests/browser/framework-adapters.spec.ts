@@ -103,6 +103,9 @@ for (const framework of ['Vue', 'React', 'Angular', 'Svelte']) {
       name: `${framework} tooltip details`,
     });
     await expect(tooltip).toBeVisible();
+    await expect(tooltip.locator('strong')).toHaveText(
+      `${framework} tooltip details`,
+    );
     await expect(trigger).toHaveAttribute(
       'aria-describedby',
       (await tooltip.getAttribute('id')) as string,

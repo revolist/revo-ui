@@ -353,7 +353,9 @@ export const ProgressBar = /* @__PURE__ */ createVueAdapter(
   'ProgressBar',
 );
 export const Popover = /* @__PURE__ */ createVueAdapter(ui.Popover, 'Popover');
-export const Tooltip = /* @__PURE__ */ createVueAdapter(ui.Tooltip, 'Tooltip');
+export const Tooltip = /* @__PURE__ */ createVueAdapter(ui.Tooltip, 'Tooltip', {
+  renderSlots: { content: { prop: 'renderContent', args: ['context'] } },
+});
 export const Dialog = /* @__PURE__ */ createVueAdapter(ui.Dialog, 'Dialog');
 export const ConfirmDialog = /* @__PURE__ */ createVueAdapter(
   ui.ConfirmDialog,
@@ -734,3 +736,20 @@ export const IconToolbar = /* @__PURE__ */ createVueAdapter(
   ui.IconToolbar,
   'IconToolbar',
 );
+
+export { createTooltipGroup, TooltipGroup } from './core/tooltip-options';
+export type {
+  TooltipAnchor,
+  TooltipSide,
+  TooltipAlign,
+  TooltipReason,
+  TooltipContent,
+  TooltipOffset,
+  TooltipOffsetContext,
+  TooltipGroupOptions,
+  TooltipOptions,
+  TooltipControllerOptions,
+  TooltipChangeDetails,
+  TooltipContentContext,
+  TooltipPositionOptions,
+} from './core/tooltip-options';

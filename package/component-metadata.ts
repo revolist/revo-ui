@@ -42,6 +42,8 @@ export function componentRenderSlots(
   )
     return dropdownRenderSlots;
   if (name === 'PdfViewer') return pdfViewerRenderSlots;
+  if (name === 'Tooltip')
+    return { content: { prop: 'renderContent', args: ['context'] } };
   if (name === 'ReorderList')
     return {
       item: { prop: 'renderItem', args: ['item', 'index'] },

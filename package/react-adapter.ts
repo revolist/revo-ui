@@ -50,6 +50,8 @@ const contentProps = [
   'hint',
   'iconContent',
   'content',
+  'loadingContent',
+  'errorContent',
   'caption',
   'count',
   'detail',

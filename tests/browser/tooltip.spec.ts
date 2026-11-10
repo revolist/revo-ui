@@ -202,3 +202,80 @@ test('keyboard tooltip survives focus scrolling and follows its trigger', async 
   await trigger.press('Tab');
   await expect(tooltip).toHaveCount(0);
 });
+
+test('expanded tooltip placement, rich content, native click and controlled state', async ({
+  page,
+}) => {
+  await page.goto('/tests/browser/fixtures/tooltip/index.html?api');
+  const popup = page.getByRole('tooltip');
+  const trigger = page.getByRole('button', {
+    name: 'Positioned help',
+    exact: true,
+  });
+  await trigger.focus();
+  await expect(popup.locator('strong')).toHaveText('Rich placement details');
+  await expect(popup).toHaveAttribute('data-side', 'right');
+  await expect(popup).toHaveAttribute('data-arrow', 'true');
+  const anchor = (await trigger.boundingBox())!;
+  const bounds = (await popup.boundingBox())!;
+  expect(Math.abs(bounds.x - (anchor.x + anchor.width + 16))).toBeLessThan(1);
+  expect(Math.abs(bounds.y - anchor.y)).toBeLessThan(1);
+  await page.keyboard.press('Escape');
+  for (const [name, content, count] of [
+    ['Click help', 'Click details', '1'],
+    ['Hook help', 'Hook click details', '3'],
+  ]) {
+    const button = page.getByRole('button', { name, exact: true });
+    await button.focus();
+    await button.press('Enter');
+    await expect(popup).toHaveText(content);
+    await expect(page.getByRole('status', { name: 'Clicks' })).toHaveText(
+      count,
+    );
+    await button.press('Space');
+    await expect(popup).toHaveCount(0);
+  }
+  const controlled = page.getByRole('button', {
+    name: 'Controlled help',
+    exact: true,
+  });
+  await controlled.focus();
+  await expect(popup).toHaveText('Controlled details');
+  await expect(page.getByRole('status', { name: 'Open' })).toHaveText('true');
+  await controlled.press('Escape');
+  await expect(page.getByRole('status', { name: 'Open' })).toHaveText('false');
+  await expect(popup).toHaveCount(0);
+});
+
+test('async results survive parent updates and delegated dynamic targets use one rich surface', async ({
+  page,
+}) => {
+  await page.goto('/tests/browser/fixtures/tooltip/index.html?api');
+  const popup = page.getByRole('tooltip');
+  await page.getByRole('button', { name: 'Async help', exact: true }).focus();
+  await expect(popup).toHaveText('Loading details');
+  await expect(popup).toHaveText('Loaded details');
+  await expect(page.getByRole('status', { name: 'Loads' })).toHaveText('1');
+  await expect(popup).toHaveText('Loaded details');
+  await page
+    .getByRole('button', { name: 'Toggle failure', exact: true })
+    .click();
+  await page.getByRole('button', { name: 'Async help', exact: true }).focus();
+  await expect(popup).toHaveText('Details unavailable');
+  await expect(page.getByRole('status', { name: 'Loads' })).toHaveText('2');
+  await page
+    .getByRole('button', { name: 'Add delegated trigger', exact: true })
+    .click();
+  const second = page.getByRole('button', { name: 'Delegated 2', exact: true });
+  await second.click();
+  await expect(popup.locator('strong')).toHaveText('Item 2 details');
+  await expect(second).toHaveAttribute(
+    'aria-describedby',
+    (await popup.getAttribute('id'))!,
+  );
+  await expect(
+    page.getByRole('button', { name: 'Delegated 1', exact: true }),
+  ).not.toHaveAttribute('aria-describedby');
+  await second.press('Escape');
+  await expect(popup).toHaveCount(0);
+});

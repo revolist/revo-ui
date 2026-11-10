@@ -501,3 +501,20 @@ export const AiTaskItem: ReactUiComponent<typeof ui.AiTaskItem> =
 
 export const IconToolbar: ReactUiComponent<typeof ui.IconToolbar> =
   /* @__PURE__ */ createReactAdapter(ui.IconToolbar, 'IconToolbar');
+
+export { createTooltipGroup, TooltipGroup } from './core/tooltip-options';
+export type {
+  TooltipAnchor,
+  TooltipSide,
+  TooltipAlign,
+  TooltipReason,
+  TooltipContent,
+  TooltipOffset,
+  TooltipOffsetContext,
+  TooltipGroupOptions,
+  TooltipOptions,
+  TooltipControllerOptions,
+  TooltipChangeDetails,
+  TooltipContentContext,
+  TooltipPositionOptions,
+} from './core/tooltip-options';

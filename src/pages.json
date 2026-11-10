@@ -135,8 +135,8 @@
     {
       "title": "Tooltip",
       "group": "Compositions",
-      "description": "Helpful contextual information on keyboard focus and pointer hover.",
-      "keywords": "tooltip hint help hover focus accessible"
+      "description": "Cross-framework tooltips with controlled state, smart placement, shared delays, rich and async content, and delegated triggers.",
+      "keywords": "tooltip hint help hover focus click controlled async collision delay arrow delegated accessible"
     },
     {
       "title": "Menus and toolbars",

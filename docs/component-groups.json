@@ -17,7 +17,7 @@
 ["Formatting controls","formatting-controls","Typography choices, icon choices, inspector sections, preview comparisons and contextual filter badges.","InspectorSection IconChoiceGroup IconToggleButton TypographyControls ComparisonPreview FilterBadgeInfoButton FilterBadge"],
 ["Charts and range selection","charts-and-range-selection","Compact bar, line and area charts with values, labels, tooltips and a composed range brush.","DistributionChart BarChart LineChart AreaChart BrushRange"],
 ["Dialogs and floating surfaces","dialogs-and-floating-surfaces","Dialogs, confirmations, contextual surfaces and editable dialog sections with shared actions.","Dialog ConfirmDialog Popover DialogHeader DialogBody DialogFooter DialogForm DialogCloseButton DialogActionFooter DialogActions DialogTitleInput EditableDialogHeader"],
-["Tooltip","tooltip","Contextual information shown on pointer hover or keyboard focus.","Tooltip ControlTooltip"],
+["Tooltip","tooltip","Cross-framework descriptive tooltips with controlled state, placement, timing groups, rich and async content, and delegated triggers.","Tooltip ControlTooltip"],
 ["Menus and toolbars","menus-and-toolbars","Command menus, nested commands, separators and grouped toolbar actions.","Menu MenuItem MenuSeparator Submenu Toolbar IconToolbar ToolbarGroup ToolbarSeparator"],
 ["Status and feedback","status-and-feedback","Semantic badges, counters, alerts, progress indicators, loading surfaces, empty states and feedback panels.","Badge CountBadge Alert Spinner LoadingOverlay EmptyState StatusFeedbackPanel StatusBadge"],
 ["Accordion","accordion","Expandable sections with keyboard controls and persistent draft content.","CollapsibleSection"],
