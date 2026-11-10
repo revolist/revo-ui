@@ -1,0 +1,63 @@
+name: UI coverage
+
+on:
+  # Merges and direct commits to main run the complete suite independently of Pages.
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: revo-ui-coverage-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  coverage:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.25.0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24.15.0
+          package-manager-cache: false
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Verify UI library and public package
+        run: |
+          pnpm lint
+          pnpm test
+          pnpm pack:public
+          pnpm test:public
+      - name: Verify generated API contracts and test discovery
+        run: |
+          pnpm test:api
+          pnpm test:discovery
+      - name: Install browser
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Build gallery fixtures
+        run: pnpm build:demo --base /
+      - name: Test UI browser behavior
+        env:
+          UI_SKIP_BUILD: '1'
+        run: pnpm test:browser
+      - name: Test framework adapters and tooltip behavior
+        run: |
+          pnpm test:frameworks
+          pnpm test:tooltips
+          pnpm test:cdn
+          pnpm test:fields-styles
+      - name: Retain browser failure traces
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-browser-failures
+          path: test-results/
+          if-no-files-found: ignore

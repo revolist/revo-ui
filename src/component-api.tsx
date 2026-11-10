@@ -402,7 +402,7 @@ export function ComponentReference({
 }
 
 export function ApiReference({ family }: { family: string }) {
-  const [components, setComponents] = useState<ComponentApi[]>([]);
+  const [components, setComponents] = useState<ComponentApi[]>();
   useEffect(() => {
     import('virtual:component-api').then(({ default: api }) =>
       setComponents(api.filter((item) => item.families.includes(family))),
@@ -411,12 +411,13 @@ export function ApiReference({ family }: { family: string }) {
   return (
     <section
       class="component-api"
+      aria-busy={!components}
       id={`${family.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-api`}
     >
       <h3>API reference</h3>
       <p>Explore the complete contracts and inspect complex types.</p>
       <nav class="api-family-links" aria-label={`${family} API pages`}>
-        {components.map((item) => (
+        {components?.map((item) => (
           <a href={apiHref(item.name)}>
             {item.name}
             <span>View API →</span>

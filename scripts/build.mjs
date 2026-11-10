@@ -11,7 +11,9 @@ const origin = 'https://ui.rv-grid.com';
 const root = resolve(import.meta.dirname, '..');
 const baseFlag = process.argv.indexOf('--base');
 const base = baseFlag >= 0 ? process.argv[baseFlag + 1] : '/';
+const started = performance.now();
 await build({ root, base });
+console.log(`Compiled gallery in ${((performance.now() - started) / 1000).toFixed(1)}s.`);
 const server = await preview({ root, base, preview: { host: '127.0.0.1', port: 0 } });
 let browser;
 try {
@@ -19,16 +21,25 @@ try {
   const page = await browser.newPage({ viewport: { width: 1280, height: 900 }, reducedMotion: 'reduce' });
   const address = server.httpServer.address();
   const url = `http://127.0.0.1:${address.port}${base === './' ? '/' : base}`;
+  const renderStarted = performance.now();
   for (const route of routes) {
-    await page.goto(`${url}${route}`, { waitUntil: 'networkidle' });
+    await page.goto(`${url}${route}`, { waitUntil: 'domcontentloaded' });
     await page.locator('h1').first().waitFor();
     await page.waitForFunction(expected => document.querySelector('link[rel="canonical"]')?.getAttribute('href') === expected, `${origin}${base === './' ? '/' : base}${route}`);
+    // Metadata effects run after the initial render. API data loads separately;
+    // wait for its owning sections rather than a fixed 500ms network-idle delay.
+    await page.locator('.api-workspace[aria-busy="true"], .component-api[aria-busy="true"]').waitFor({ state: 'detached' });
+    if (route.startsWith('api/')) {
+      // API metadata is committed by an effect after its data-backed heading.
+      await page.waitForFunction(() => document.title === `${document.querySelector('h1')?.textContent} · Revo UI`);
+    }
     await page.evaluate(() => document.fonts.ready);
     const html = await page.content();
     const destination = resolve(root, 'dist-gallery', route);
     await mkdir(destination, { recursive: true });
     await writeFile(resolve(destination, 'index.html'), html);
   }
+  console.log(`Rendered ${routes.length} pages in ${((performance.now() - renderStarted) / 1000).toFixed(1)}s.`);
   await writeFile(resolve(root, 'dist-gallery/sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${routes.map(route => `  <url><loc>${origin}${base === './' ? '/' : base}${route}</loc></url>`).join('\n')}\n</urlset>\n`);
 
   // Code-native brand artwork: no remote fonts, images or network dependencies.

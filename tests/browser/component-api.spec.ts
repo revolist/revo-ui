@@ -210,7 +210,18 @@ test('compact header keeps settings behind an overflow button', async ({
   await expect(
     page.getByRole('button', { name: 'Theme', exact: true }),
   ).toHaveAttribute('aria-pressed', 'true');
+  // Escape dismisses the innermost layer before the containing menu.
+  const tooltip = page.getByRole('tooltip');
+  await expect(tooltip).toBeVisible();
   await page.keyboard.press('Escape');
+  await expect(tooltip).toBeHidden();
+  await expect(more).toHaveAttribute('aria-expanded', 'true');
+  await expect(
+    page.getByRole('button', { name: 'Theme', exact: true }),
+  ).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(more).toHaveAttribute('aria-expanded', 'false');
+  await expect(more).toBeFocused();
   await expect(
     page.getByRole('button', { name: 'Theme', exact: true }),
   ).toBeHidden();

@@ -40,9 +40,9 @@ Import shared components through `@revolist/ui` exports and load `@revolist/ui/s
 
 The gallery is deployed independently from demos: [Open Revo UI](https://ui.rv-grid.com/).
 
-`.github/workflows/pages.yml` builds and deploys on pushes to `main` and manual dispatch. It checks out the exact library commit recorded in `library-source.json`, prepares an isolated UI/dates/chart-utils workspace, installs `pages.pnpm-lock.yaml` with `--frozen-lockfile`, typechecks, and builds with the `/` asset base for `ui.rv-grid.com`. Only the static `dist` output is uploaded to Pages.
+`.github/workflows/pages.yml` installs this repository's locked dependencies, builds and prerenders the gallery with the `/` asset base, and checks static SEO output. Only `dist-gallery` is uploaded. Pushes to `main` deploy to `ui.rv-grid.com`; manual runs on other branches verify the build without deploying.
 
-The workflow uses `REVO_UI_LIBRARY_READ_KEY`, a read-only deploy key for the private library repository. It does not publish that repository's source tree. To update the component version, change `library-source.json` to a published source commit and regenerate the Pages lockfile if dependency manifests changed.
+`.github/workflows/coverage.yml` runs independently on pushes to `main` (including merges), with manual dispatch available after the workflow lands on `main`. It retains typechecking, unit tests, public package checks, generated API contracts, browser discovery, and the gallery, framework, tooltip, CDN and field-style browser suites. Coverage does not run in the Pages build or block its deployment. No publishing credentials or private repository access are needed for either workflow.
 
 The demos Docker image no longer builds or serves Revo UI.
 
@@ -54,13 +54,14 @@ The custom domain requires a DNS CNAME record: `ui.rv-grid.com` → `revolist.gi
 
 The production build pre-renders the overview, component directory, all component families, colors, and framework guides into separate HTML files. Routes such as `/components/buttons/` and `/frameworks/react/` work on direct visits to GitHub Pages. Each page has its own title, description, canonical URL, and social URL. Navigation and the generated `sitemap.xml` share `src/pages.json`; `robots.txt` references the sitemap. Existing hash and `?page=` links redirect in the browser to their canonical paths; hashes remain available for sections and individual examples.
 
-The build verifies every generated page with `scripts/check-pages.mjs` and emits the RevoGrid favicon, touch icon, and PNG social preview. `node scripts/seo.test.mjs dist` checks the homepage and shared SEO assets. The build requires Chromium (`pnpm exec playwright install chromium` locally); the Pages workflow installs it automatically.
+Prerendering waits for rendered headings, canonical metadata, loaded API sections and fonts rather than a fixed network-idle delay on each route. The build verifies every generated page with `scripts/check-pages.mjs` and emits the RevoGrid favicon, touch icon, and PNG social preview. `node scripts/seo.test.mjs dist-gallery` checks the homepage and shared SEO assets. The build requires Chromium (`pnpm exec playwright install chromium` locally); the Pages workflow installs it automatically.
 
 ## Browser suites
 
 - `pnpm test:browser`: standalone component and gallery behavior.
 - `pnpm test:frameworks`: React, Vue, Angular and Svelte adapter contracts.
 - `pnpm test:tooltips`: clipping, placement and tooltip lifecycle.
+- `pnpm test:cdn`: packed browser bundles without a bundler.
 - `pnpm test:fields-styles`: native field styling and focus states.
 - `pnpm test:pdf-viewer` and `pnpm test:pdf-frameworks`: explicit PDF suites.
 - `pnpm test:visual-audit`: explicit exhaustive screenshot capture.

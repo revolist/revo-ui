@@ -12,6 +12,8 @@ const titles = new Set();
 const descriptions = new Set();
 for (const path of paths) {
   const html = await readFile(new URL(`dist-gallery/${path}index.html`, root), 'utf8');
+  assert.ok(!/<[^>]*class="(?:api-workspace|component-api)[^"]*"[^>]*aria-busy="true"/.test(html), `Unfinished API content: ${path}`);
+  if (path.startsWith('api/')) assert.ok(html.includes(path === 'api/' ? 'class="api-directory"' : 'class="component-api api-document-reference"'), `Missing API content: ${path}`);
   const canonical = `https://ui.rv-grid.com/${path}`;
   assert.ok(sitemap.includes(`<loc>${canonical}</loc>`), `Missing sitemap URL: ${path}`);
   assert.ok(html.includes(`rel="canonical" href="${canonical}"`), `Missing canonical: ${path}`);
