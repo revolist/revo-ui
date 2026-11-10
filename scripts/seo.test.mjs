@@ -33,7 +33,7 @@ assert.match(article, /property="og:type" content="article"/);
 assert.match(article, /<article[^>]*aria-labelledby="accessibility-title"/);
 assert.match(article, /id="keyboard-and-focus"/);
 assert.match(article, /id="integration-checklist"/);
-assert.match(html, /href="\/accessibility\/"/);
+assert.match(await readFile(resolve(dist, 'frameworks/index.html'), 'utf8'), /href="\/accessibility\/"/);
 assert.match(sitemap, /<loc>https:\/\/ui\.rv-grid\.com\/accessibility\/<\/loc>/);
 const articleSchema = JSON.parse(article.match(/<script id="accessibility-article-schema" type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
 assert.equal(articleSchema['@type'], 'TechArticle');

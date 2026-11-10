@@ -137,7 +137,7 @@ export function CatalogShell({
     const update = () => {
       setActive(currentRoute());
       setMobileOpen(false);
-      if (location.hash && (location.pathname.includes('/components/') || page === 'api' || page === 'accessibility')) return;
+      if (location.hash && (location.pathname.includes('/components/') || page === 'api' || page === 'accessibility' || page === 'frameworks')) return;
       if (location.hash === '#frameworks') requestAnimationFrame(() => document.getElementById('frameworks')?.scrollIntoView({ behavior: 'smooth' }));
       else window.scrollTo(0, 0);
     };
@@ -245,12 +245,11 @@ export function CatalogShell({
             </a>
             <a
               href={siteHref('frameworks/')}
-              aria-current={page === 'frameworks' ? 'page' : undefined}
+              aria-current={page === 'frameworks' || page === 'accessibility' ? 'page' : undefined}
             >
               Docs
             </a>
             <a href={siteHref("api/")} aria-current={page === "api" ? "page" : undefined}>API</a>
-            <a href={siteHref('accessibility/')} aria-current={page === 'accessibility' ? 'page' : undefined}>Accessibility</a>
           </nav>
           <GallerySettings><Toolbar label="Gallery settings">
             <a class="rv-btn rv-btn-ghost rv-btn-icon catalog-github-link" href="https://github.com/revolist/revo-ui" target="_blank" rel="noopener noreferrer" aria-label="Revo UI on GitHub" title="Revo UI on GitHub">
@@ -399,6 +398,7 @@ export function CatalogShell({
                   Getting started
                 </a>
                 <a href={siteHref('accessibility/')}>Accessibility</a>
+                <a href={siteHref('frameworks/#browser-cdn')}>JavaScript / CDN</a>
                 {pages.frameworks.map((name) => {
                   const id = name.toLowerCase().replaceAll(' ', '-');
                   return (
@@ -475,7 +475,6 @@ export function CatalogShell({
             <a href={componentHref('buttons')}>
               Explore components
             </a>
-            <a href={siteHref('accessibility/')}>Accessibility guide</a>
           </footer>
         </div>
       </main>

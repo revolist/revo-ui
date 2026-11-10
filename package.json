@@ -1,6 +1,6 @@
 {
   "name": "@revolist/ui",
-  "version": "4.0.3",
+  "version": "4.0.7",
   "type": "module",
   "description": "Revo UI: UI components for financial apps, reporting dashboards, and project management with React, Vue, Angular, Svelte, Preact, and vanilla TypeScript adapters",
   "author": "revolist",
@@ -45,6 +45,7 @@
     ".": "./package/native.ts",
     "./cell-input": "./package/cell-input.ts",
     "./native": "./package/native.ts",
+    "./browser": "./package/browser.ts",
     "./preact-mount": "./package/preact-mount.ts",
     "./rating-choice": "./package/rating-choice.tsx",
     "./filter-badge": "./package/filter-badge.tsx",
@@ -268,6 +269,7 @@
     "test:discovery": "node --test playwright.test.mjs",
     "test:frameworks": "playwright test --config playwright.framework-adapters.config.ts framework-adapters.spec.ts",
     "test:pdf-frameworks": "playwright test --config playwright.framework-adapters.config.ts pdf-frameworks.spec.ts",
+    "test:cdn": "playwright test --config playwright.cdn.config.ts",
     "test:tooltips": "playwright test --config playwright.tooltip.config.ts",
     "test:fields-styles": "playwright test --config playwright.fields-styles.config.ts"
   },

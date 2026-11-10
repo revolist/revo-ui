@@ -20,8 +20,13 @@ for (const width of [320, 800, 1280]) {
     await expect(
       page
         .getByRole('navigation', { name: 'Library pages' })
-        .getByRole('link', { name: 'Accessibility', exact: true }),
+        .getByRole('link', { name: 'Docs', exact: true }),
     ).toHaveAttribute('aria-current', 'page');
+    await expect(
+      page
+        .getByRole('navigation', { name: 'Library pages' })
+        .getByRole('link', { name: 'Accessibility', exact: true }),
+    ).toHaveCount(0);
     await page
       .getByRole('link', { name: 'Skip to accessibility guide' })
       .focus();
@@ -151,6 +156,16 @@ test('documentation makes the accessibility guide discoverable', async ({
       .getByRole('navigation', { name: 'Documentation navigation' })
       .getByRole('link', { name: 'Accessibility', exact: true }),
   ).toHaveAttribute('href', '/accessibility/');
+  await page
+    .getByRole('navigation', { name: 'Documentation navigation' })
+    .getByRole('link', { name: 'JavaScript / CDN', exact: true })
+    .click();
+  await expect(page).toHaveURL(/#browser-cdn$/);
+  await expect(
+    page.getByRole('heading', {
+      name: 'Use JavaScript from a CDN, without a build step',
+    }),
+  ).toBeVisible();
   await page
     .getByRole('link', { name: 'Read the accessibility guide →', exact: true })
     .click();

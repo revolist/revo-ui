@@ -163,7 +163,7 @@ export function FieldConfiguratorExamples() {
                 />
               ))}
             </FieldList>
-            <div class="catalog-row">
+            <div class="catalog-row catalog-field-reorder">
               <Select aria-label="Field to move" value={movableField} disabled={!fields.length} onValueChange={setFieldToMove}>
                 {fields.map(field => <option value={field}>{field}</option>)}
               </Select>

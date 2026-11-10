@@ -28,6 +28,7 @@ function run(args) {
     throw new Error(`pnpm ${args.join(' ')} failed (${result.status})`);
 }
 run(['exec', 'vite', 'build', '--mode', 'library']);
+run(['exec', 'vite', 'build', '--mode', 'browser']);
 
 // Preserve every Sass/CSS export, including its relative imports, and also offer
 // compiled CSS so ordinary consumers don't need a Sass toolchain.
@@ -126,6 +127,14 @@ writeFileSync(
 // Public declarations must resolve without a consumer installation of Preact.
 // Copy only reachable declarations, preserving their upstream license.
 const require = createRequire(import.meta.url);
+const pdfRoot = dirname(require.resolve('pdfjs-dist/package.json'));
+cpSync(
+  resolve(pdfRoot, 'build/pdf.worker.min.mjs'),
+  resolve(output, 'browser/pdf.worker.min.mjs'),
+);
+for (const name of ['LICENSE', 'NOTICE'])
+  if (existsSync(resolve(pdfRoot, name)))
+    cpSync(resolve(pdfRoot, name), resolve(output, `browser/pdfjs-${name}`));
 const preactRoot = dirname(require.resolve('preact/package.json'));
 const preactTypes = resolve(output, '_vendor/preact');
 const copiedTypes = new Set();
@@ -212,6 +221,15 @@ const exports = Object.fromEntries(
       ];
     }),
 );
+exports['./browser'] = {
+  types: './browser.d.ts',
+  import: './browser/revo-ui.js',
+  default: './browser/revo-ui.js',
+};
+exports['./browser/revo-ui.js'] = './browser/revo-ui.js';
+exports['./browser/revo-ui.global.js'] = './browser/revo-ui.global.js';
+exports['./browser/pdf-viewer.css'] = './browser/pdf-viewer.css';
+exports['./browser/pdf.worker.min.mjs'] = './browser/pdf.worker.min.mjs';
 exports['./styles.css'] = './styles.css';
 exports['./native-styles.css'] = './native-styles.css';
 exports['./package.json'] = './package.json';
@@ -234,6 +252,8 @@ const manifest = {
   publishConfig: { registry: 'https://registry.npmjs.org/', access: 'public' },
   main: './native.js',
   module: './native.js',
+  unpkg: './browser/revo-ui.global.js',
+  jsdelivr: './browser/revo-ui.global.js',
   types: './native.d.ts',
   exports,
   sideEffects: source.sideEffects,

@@ -34,12 +34,27 @@ for (const width of [320, 1280]) {
     ).toBe(true);
   });
 
-  test(`field ordering works with taps at ${width}px`, async ({ page }) => {
+  test(`field ordering works with taps at ${width}px`, async ({
+    page,
+  }, info) => {
     await page.setViewportSize({ width, height: 900 });
     await page.goto('/components/field-configurators/');
     const fields = page.getByRole('region', {
       name: 'Pivot selected fields',
       exact: true,
+    });
+    const listBounds = (await fields
+      .locator('.rv-configurator-field-list')
+      .boundingBox())!;
+    const selectBounds = (await fields
+      .getByRole('combobox', { name: 'Field to move' })
+      .boundingBox())!;
+    expect(
+      selectBounds.y - (listBounds.y + listBounds.height),
+    ).toBeGreaterThanOrEqual(12);
+    await fields.screenshot({
+      path: info.outputPath('field-reorder-spacing.png'),
+      animations: 'disabled',
     });
     const names = fields.locator('.rv-configurator-field-content');
     const before = await names.allTextContents();

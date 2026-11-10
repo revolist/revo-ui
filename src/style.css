@@ -2376,4 +2376,5 @@ body {
 .accessibility-article li { padding-inline-start:6px; margin-block:16px; }
 @media(max-width:1199px) { .accessibility-layout { max-width:760px; } .accessibility-article { display:block; } }
 @media(max-width:480px) { .accessibility-note,.accessibility-demo { padding:18px; } }
-.catalog-pages { flex-wrap:wrap; row-gap:8px; min-width:0; white-space:normal; }
+
+.catalog-field-reorder { margin-block-start: 12px; }
