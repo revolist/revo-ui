@@ -161,7 +161,6 @@ export function ControlTooltip({
   useLayoutEffect(() => {
     if (visible && anchor) session.show(anchor, 'controlled');
     else session.hide('controlled');
-    return () => session.hide('destroy', undefined, true);
   }, [visible, anchor, options.disabled]);
   useLayoutEffect(() => () => session.destroy(), [session]);
   return (
@@ -170,8 +169,8 @@ export function ControlTooltip({
       id={id}
       class={`rv-tooltip ${className}`}
       role="tooltip"
-      data-visible={visible}
-      hidden={!visible}
+      data-visible="false"
+      hidden
     >
       <span class="rv-tooltip__content">{content ?? text}</span>
     </span>

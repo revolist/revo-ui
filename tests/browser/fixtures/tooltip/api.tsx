@@ -81,6 +81,14 @@ export function TooltipApiFixture() {
       <button onClick={() => setSurfaceDisabled((value) => !value)}>
         Toggle surface disabled
       </button>
+      <Tooltip
+        text={'Long description line\n'.repeat(30)}
+        maxHeight={80}
+        arrow
+        side="bottom"
+      >
+        <button>Overflow help</button>
+      </Tooltip>
       <output aria-label="Clicks">{clicks}</output>
       <Tooltip
         text="Controlled details"
@@ -125,6 +133,37 @@ export function TooltipApiFixture() {
       <button onClick={() => setCount((value) => value + 1)}>
         Add delegated trigger
       </button>
+      <Tooltip text="Textarea details">
+        <textarea aria-label="Native textarea" />
+      </Tooltip>
+      <Tooltip text="Select details">
+        <select aria-label="Native select">
+          <option>Choice</option>
+        </select>
+      </Tooltip>
+      <Tooltip text="Summary details">
+        <details open>
+          <summary>Native summary</summary>
+        </details>
+      </Tooltip>
+      <Tooltip text="Editable details">
+        <div contentEditable role="textbox" aria-label="Native editable">
+          Editable
+        </div>
+      </Tooltip>
+      <Tooltip
+        text="Styled details"
+        style={{
+          padding: 12,
+          fontSize: 14,
+          lineHeight: 1.5,
+          opacity: 0.9,
+          zIndex: 1234,
+          '--custom-value': 3,
+        }}
+      >
+        <button>Styled help</button>
+      </Tooltip>
     </main>
   );
 }

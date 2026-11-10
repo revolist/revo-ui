@@ -194,6 +194,7 @@ export class TooltipController {
   private loading = false;
   private asyncContent: TooltipContent | undefined;
   private renderedNode?: Node;
+  private renderedNodes: Node[] = [];
   get isOpen() {
     return this.session?.isOpen ?? false;
   }
@@ -206,13 +207,25 @@ export class TooltipController {
   private render(value: TooltipContent) {
     const surface = this.element;
     if (!surface) return;
-    this.renderedNode?.parentNode?.removeChild(this.renderedNode);
-    this.renderedNode = undefined;
     const node =
       value && typeof value === 'object' && 'nodeType' in value
         ? (value as Node)
         : undefined;
+    // Appending a fragment moves its children, not the fragment itself. Retain
+    // those children across refreshes and clean up only nodes still owned here.
+    const nodes =
+      node?.nodeType === 11
+        ? node === this.renderedNode && !node.childNodes.length
+          ? this.renderedNodes
+          : [...node.childNodes]
+        : node
+          ? [node]
+          : [];
+    for (const previous of this.renderedNodes)
+      if (surface.contains(previous))
+        previous.parentNode?.removeChild(previous);
     this.renderedNode = node;
+    this.renderedNodes = nodes;
     renderPreactInto(
       surface,
       h(
@@ -221,7 +234,9 @@ export class TooltipController {
           class: 'rv-tooltip__content',
           ref: node
             ? (host: HTMLSpanElement | null) => {
-                if (host && node.parentNode !== host) host.append(node);
+                if (host)
+                  for (const child of nodes)
+                    if (child.parentNode !== host) host.append(child);
               }
             : undefined,
         },
@@ -303,6 +318,7 @@ export class TooltipController {
       options.surface ??
       createTooltipElement(anchor.ownerDocument, 'rv-tooltip');
     if (options.id) surface.id = options.id;
+    if (!surface.id) surface.id = createControlId('rv-tooltip');
     const session = (this.session = new TooltipSession());
     session.setSurface(surface);
     session.configure(options);
@@ -431,6 +447,15 @@ export class TooltipController {
     return () => this.destroy();
   }
   update(options: TooltipControllerOptions) {
+    // A removed loader relinquishes ownership immediately. Changing an existing
+    // callback does not reload: adapters may recreate it on every host render.
+    if (this.options.loadContent && !options.loadContent) {
+      this.abort?.abort();
+      this.generation++;
+      this.loading = false;
+      this.asyncContent = undefined;
+      this.element?.removeAttribute('aria-busy');
+    }
     this.options = options;
     this.session?.configure(options);
     if (options.id && this.element && !this.isOpen)
@@ -470,5 +495,6 @@ export class TooltipController {
     this.abort = undefined;
     this.asyncContent = undefined;
     this.renderedNode = undefined;
+    this.renderedNodes = [];
   }
 }

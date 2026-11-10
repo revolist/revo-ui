@@ -540,3 +540,194 @@ for (const initiallyDisabled of [false, true]) {
     expect(anchor.hasAttribute('aria-describedby')).toBe(false);
   });
 }
+
+it('keeps an open uncontrolled tooltip open when its external anchor changes', () => {
+  document.body.append(host);
+  const first = document.createElement('button'),
+    second = document.createElement('button');
+  document.body.append(first, second);
+  const view = (anchor: HTMLElement) => (
+    <Tooltip anchor={anchor} defaultOpen text="Moved details" />
+  );
+  act(() => render(view(first), host));
+  expect(first.hasAttribute('aria-describedby')).toBe(true);
+  act(() => render(view(second), host));
+  expect(first.hasAttribute('aria-describedby')).toBe(false);
+  const popup = document.querySelector<HTMLElement>(
+    '.rv-tooltip:not([hidden])',
+  );
+  expect(popup?.textContent).toBe('Moved details');
+  expect(second.getAttribute('aria-describedby')).toBe(popup?.id);
+});
+
+it('aborts a removed loader and restores local content without stale completion callbacks', async () => {
+  let signal!: AbortSignal, resolve!: (value: string) => void;
+  const loaded = vi.fn();
+  const { controller } = bind('Local content', {
+    trigger: 'manual',
+    loadingContent: 'Loading',
+    onContentLoad: loaded,
+    loadContent: (context) => {
+      signal = context.signal;
+      return new Promise((done) => {
+        resolve = done;
+      });
+    },
+  });
+  controller.show();
+  await Promise.resolve();
+  controller.update({ trigger: 'manual', onContentLoad: loaded });
+  expect(signal.aborted).toBe(true);
+  expect(controller.element?.textContent).toBe('Local content');
+  resolve('Obsolete server content');
+  await Promise.resolve();
+  await Promise.resolve();
+  await Promise.resolve();
+  expect(controller.element?.textContent).toBe('Local content');
+  expect(loaded).not.toHaveBeenCalled();
+  expect(controller.element?.hasAttribute('aria-busy')).toBe(false);
+});
+
+it('generates an accessible description ID for a caller-supplied surface', () => {
+  const surface = document.createElement('div');
+  const { anchor, controller } = bind('Supplied details', { surface });
+  controller.show();
+  expect(surface.id).not.toBe('');
+  expect(anchor.getAttribute('aria-describedby')).toBe(surface.id);
+  controller.hide();
+  expect(anchor.hasAttribute('aria-describedby')).toBe(false);
+});
+
+it('does not remove native content that the application has moved out of the tooltip', () => {
+  const { controller } = bind();
+  const node = document.createElement('strong');
+  node.textContent = 'Shared node';
+  controller.setContent(node);
+  controller.show();
+  const applicationHost = document.createElement('section');
+  document.body.append(applicationHost);
+  applicationHost.append(node);
+  controller.setContent('Replacement');
+  expect(applicationHost.firstChild).toBe(node);
+  expect(controller.element?.textContent).toBe('Replacement');
+});
+
+it('preserves native fragment content on refresh and replaces all owned children', () => {
+  const { controller } = bind();
+  const fragment = document.createDocumentFragment();
+  const first = document.createElement('strong');
+  first.textContent = 'Fragment title';
+  fragment.append(first, document.createTextNode(' and details'));
+  controller.setContent(fragment);
+  controller.show();
+  expect(controller.element?.textContent).toBe('Fragment title and details');
+  controller.refresh();
+  expect(controller.element?.textContent).toBe('Fragment title and details');
+  controller.setContent('Replacement');
+  expect(controller.element?.textContent).toBe('Replacement');
+  expect(first.isConnected).toBe(false);
+});
+
+for (const kind of ['textarea', 'select', 'summary', 'contenteditable']) {
+  it(`describes the actual ${kind} trigger rather than its wrapper`, () => {
+    document.body.append(host);
+    const child =
+      kind === 'summary' ? (
+        <details open>
+          <summary>Details</summary>
+        </details>
+      ) : kind === 'contenteditable' ? (
+        <div contentEditable>Editable</div>
+      ) : (
+        h(kind, {}, kind === 'select' ? <option>Choice</option> : null)
+      );
+    act(() =>
+      render(<Tooltip text="Native control details">{child}</Tooltip>, host),
+    );
+    const trigger = host.querySelector<HTMLElement>(
+      kind === 'contenteditable' ? '[contenteditable]' : kind,
+    )!;
+    act(() => trigger.focus());
+    const popup = document.querySelector<HTMLElement>(
+      '.rv-tooltip:not([hidden])',
+    );
+    expect(popup).not.toBeNull();
+    expect(trigger.getAttribute('aria-describedby')).toBe(popup!.id);
+    expect(
+      host
+        .querySelector('.rv-tooltip-anchor')
+        ?.hasAttribute('aria-describedby'),
+    ).toBe(false);
+  });
+}
+
+it('closes controlled surfaces with callbacks and exit motion, reserving silent cleanup for unmount', () => {
+  vi.useFakeTimers();
+  document.body.append(host);
+  const anchor = document.createElement('button');
+  document.body.append(anchor);
+  const onHide = vi.fn(),
+    complete = vi.fn();
+  const view = (visible: boolean) => (
+    <ControlTooltip
+      id="transition-surface"
+      text="Details"
+      visible={visible}
+      anchor={anchor}
+      transitionDuration={100}
+      onHide={onHide}
+      onOpenChangeComplete={complete}
+    />
+  );
+  act(() => render(view(true), host));
+  act(() => vi.advanceTimersByTime(100));
+  const popup = host.querySelector<HTMLElement>('[role="tooltip"]')!;
+  act(() => render(view(false), host));
+  expect(onHide).toHaveBeenCalledWith(
+    expect.objectContaining({ reason: 'controlled', target: anchor }),
+  );
+  expect(popup.dataset.state).toBe('closing');
+  expect(popup.hidden).toBe(false);
+  expect(complete).not.toHaveBeenCalledWith(false, expect.anything());
+  act(() => vi.advanceTimersByTime(100));
+  expect(popup.hidden).toBe(true);
+  expect(complete).toHaveBeenCalledWith(
+    false,
+    expect.objectContaining({ reason: 'controlled' }),
+  );
+  act(() => render(view(true), host));
+  onHide.mockClear();
+  complete.mockClear();
+  act(() => render(null, host));
+  act(() => vi.advanceTimersByTime(200));
+  expect(onHide).not.toHaveBeenCalled();
+  expect(complete).not.toHaveBeenCalled();
+  expect(vi.getTimerCount()).toBe(0);
+});
+
+it('normalizes numeric styles as JSX lengths while preserving unitless values and custom properties', () => {
+  const { controller } = bind('Styled details', {
+    style: {
+      padding: 12,
+      fontSize: 14,
+      borderRadius: 9,
+      lineHeight: 1.5,
+      opacity: 0.9,
+      zIndex: 1234,
+      '--custom-value': 3,
+    },
+  });
+  controller.show();
+  const style = controller.element!.style;
+  expect(style.padding).toBe('12px');
+  expect(style.fontSize).toBe('14px');
+  expect(style.borderRadius).toBe('9px');
+  expect(style.lineHeight).toBe('1.5');
+  expect(style.opacity).toBe('0.9');
+  expect(style.zIndex).toBe('1234');
+  expect(style.getPropertyValue('--custom-value')).toBe('3');
+  controller.update({ style: { padding: 4 } });
+  expect(style.padding).toBe('4px');
+  expect(style.fontSize).toBe('');
+  expect(style.getPropertyValue('--custom-value')).toBe('');
+});

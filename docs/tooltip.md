@@ -18,7 +18,7 @@ import { Tooltip } from '@revolist/ui/react'; // or /preact
 </Tooltip>
 ```
 
-The first button, input, link, or element with a tabindex is the trigger. An explicit `anchor` can reference an external HTML or SVG element. `text` remains the simple fallback; `content` supplies rich descriptions; `renderContent({ target, reason, event })` renders per-target content. Strings are text, never automatically interpreted as HTML.
+The first button, input, textarea, select, link, summary, editable element, or element with a tabindex is the trigger. An explicit `anchor` can reference an external HTML or SVG element. `text` remains the simple fallback; `content` supplies rich descriptions; `renderContent({ target, reason, event })` renders per-target content. Strings are text, never automatically interpreted as HTML.
 
 React content and render callbacks use React nodes; Preact uses Preact nodes. In Vue use the default slot for the trigger and the `content` slot for its description. Angular uses `rvUiSlot="default"` and `rvUiSlot="content"`; Svelte uses children and `slots={{ content: descriptionSnippet }}`. Content slot scope includes `context` (target, reason, event). Use the corresponding framework adapter, rather than passing one framework's VNodes to another.
 
@@ -106,7 +106,7 @@ Details include `target`, optional native `event`, and a `reason`: `hover`, `foc
 </Tooltip>
 ```
 
-`loadContent` returns a Promise of text. It runs when the tooltip opens and on controller `refresh()`. The AbortSignal is canceled on closing, changing targets, refreshing, or destroying the controller. Stale results and errors are ignored. Loading sets `aria-busy`; successful/error results survive parent rerenders. Without `errorContent`, an unsuccessful load closes the hint. Provide translated loading/error content and use the host application's data layer for caching, authentication, request-start instrumentation, and retries. Changing a loader does not implicitly restart an in-flight load; call `refresh()` to reload.
+`loadContent` returns a Promise of text. It runs when the tooltip opens and on controller `refresh()`. The AbortSignal is canceled on closing, changing targets, refreshing, or destroying the controller. Stale results and errors are ignored. Loading sets `aria-busy`; successful/error results survive parent rerenders. Without `errorContent`, an unsuccessful load closes the hint. Provide translated loading/error content and use the host application's data layer for caching, authentication, request-start instrumentation, and retries. Changing a loader callback does not implicitly restart an in-flight load; call `refresh()` to reload. Removing `loadContent` aborts the pending request and restores local content immediately.
 
 ## Vanilla JavaScript, delegation, and imperative methods
 

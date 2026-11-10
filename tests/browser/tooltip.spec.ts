@@ -336,3 +336,85 @@ test('visible controlled surface reopens when enabled without changing its ancho
     await expect(trigger).not.toHaveAttribute('aria-describedby');
   }
 });
+
+test('arrow tooltip keeps overflowing content inside its bounded scroll area', async ({
+  page,
+}) => {
+  await page.goto('/tests/browser/fixtures/tooltip/index.html?api');
+  await page
+    .getByRole('button', { name: 'Overflow help', exact: true })
+    .focus();
+  const popup = page.getByRole('tooltip');
+  await expect(popup).toBeVisible();
+  const geometry = await popup.evaluate((element) => {
+    const content = element.querySelector<HTMLElement>('.rv-tooltip__content')!;
+    const outer = element.getBoundingClientRect(),
+      inner = content.getBoundingClientRect();
+    return {
+      height: outer.height,
+      inside: inner.bottom <= outer.bottom && inner.top >= outer.top,
+      scrollable: content.scrollHeight > content.clientHeight,
+    };
+  });
+  expect(geometry.height).toBeLessThanOrEqual(80);
+  expect(geometry.inside).toBe(true);
+  expect(geometry.scrollable).toBe(true);
+});
+
+test('native form, disclosure and editable triggers receive their own descriptions', async ({
+  page,
+}) => {
+  await page.goto('/tests/browser/fixtures/tooltip/index.html?api');
+  const controls = [
+    [
+      page.getByRole('textbox', { name: 'Native textarea', exact: true }),
+      'Textarea details',
+    ],
+    [
+      page.getByRole('combobox', { name: 'Native select', exact: true }),
+      'Select details',
+    ],
+    [
+      page.locator('summary').filter({ hasText: 'Native summary' }),
+      'Summary details',
+    ],
+    [
+      page.getByRole('textbox', { name: 'Native editable', exact: true }),
+      'Editable details',
+    ],
+  ] as const;
+  for (const [trigger, text] of controls) {
+    await trigger.focus();
+    const popup = page.getByRole('tooltip', { name: text, exact: true });
+    await expect(popup).toBeVisible();
+    await expect(trigger).toHaveAttribute(
+      'aria-describedby',
+      (await popup.getAttribute('id'))!,
+    );
+    await trigger.press('Escape');
+    await expect(popup).toHaveCount(0);
+    await expect(trigger).not.toHaveAttribute('aria-describedby');
+  }
+});
+
+test('numeric JSX styles apply pixel lengths without corrupting unitless values', async ({
+  page,
+}) => {
+  await page.goto('/tests/browser/fixtures/tooltip/index.html?api');
+  await page.getByRole('button', { name: 'Styled help', exact: true }).focus();
+  const popup = page.getByRole('tooltip', {
+    name: 'Styled details',
+    exact: true,
+  });
+  await expect(popup).toBeVisible();
+  await expect(popup).toHaveCSS('padding', '12px');
+  await expect(popup).toHaveCSS('font-size', '14px');
+  await expect(popup).toHaveCSS('line-height', '21px');
+  await expect(popup).toHaveCSS('opacity', '0.9');
+  await expect(popup).toHaveCSS('z-index', '1234');
+  expect(
+    await popup.evaluate((element) =>
+      getComputedStyle(element).getPropertyValue('--custom-value'),
+    ),
+  ).toBe('3');
+});

@@ -5,6 +5,7 @@ import {
 import {
   calculateTooltipPosition,
   prepareTooltipSurface,
+  normalizeTooltipStyles,
 } from './tooltip-surface';
 import {
   hideTopLayerPopup,
@@ -124,11 +125,12 @@ export class TooltipSession {
     else this.present();
   }
   private applyStyles(surface: HTMLElement) {
-    for (const key of this.styleKeys) {
-      if (key.startsWith('--')) surface.style.removeProperty(key);
-      else (surface.style as any)[key] = '';
-    }
-    this.styleKeys = Object.keys(this.options.style ?? {});
+    for (const key of this.styleKeys) surface.style.removeProperty(key);
+    const styles = normalizeTooltipStyles(
+      surface.ownerDocument,
+      this.options.style,
+    );
+    this.styleKeys = styles.map(([key]) => key);
     surface.classList.remove(...this.classes);
     this.classes = this.options.className?.split(/\s+/).filter(Boolean) ?? [];
     surface.classList.add(...this.classes);
@@ -140,10 +142,8 @@ export class TooltipSession {
       maxWidth: size(this.options.maxWidth, 'min(360px, calc(100vw - 16px))'),
       maxHeight: size(this.options.maxHeight, 'calc(100dvh - 16px)'),
     });
-    for (const [key, value] of Object.entries(this.options.style ?? {})) {
-      if (key.startsWith('--')) surface.style.setProperty(key, String(value));
-      else (surface.style as any)[key] = value;
-    }
+    for (const [key, value, priority] of styles)
+      surface.style.setProperty(key, value, priority);
     surface.dataset.arrow = String(this.options.arrow ?? false);
   }
   private present() {
@@ -193,7 +193,7 @@ export class TooltipSession {
       positionAnchor: 'auto',
       positionArea: 'none',
     });
-    this.mode = showTopLayerPopup(surface, 'block');
+    this.mode = showTopLayerPopup(surface, 'flex');
     const descriptions = new Set(
       (anchor.getAttribute('aria-describedby') ?? '')
         .split(/\s+/)

@@ -145,6 +145,7 @@ export function Tooltip(props: TooltipProps) {
   latest.current = props;
   const [controller] = useState(() => new TooltipController());
   const initial = useRef(false);
+  const reopenAfterBind = useRef(false);
   const synchronize = () => {
     const options = latest.current;
     controller.update(options);
@@ -166,10 +167,11 @@ export function Tooltip(props: TooltipProps) {
         (options.filter
           ? root
           : (root.querySelector<HTMLElement>(
-              'button, input, a[href], [tabindex]',
+              'button, input, textarea, select, a[href], summary, [contenteditable]:not([contenteditable="false"]), [tabindex]',
             ) ?? root));
       if (next === anchor) return;
-      const wasOpen = controller.isOpen;
+      const wasOpen = controller.isOpen || reopenAfterBind.current;
+      reopenAfterBind.current = false;
       controller.bind(next, options.content ?? options.text ?? '', options);
       anchor = next;
       synchronize();
@@ -182,7 +184,7 @@ export function Tooltip(props: TooltipProps) {
       childList: true,
       subtree: true,
       attributes: true,
-      attributeFilter: ['href', 'tabindex'],
+      attributeFilter: ['href', 'tabindex', 'contenteditable'],
     });
     root.addEventListener('focus', bind, true);
     root.addEventListener('pointerenter', bind, true);
@@ -190,6 +192,7 @@ export function Tooltip(props: TooltipProps) {
       observer.disconnect();
       root.removeEventListener('focus', bind, true);
       root.removeEventListener('pointerenter', bind, true);
+      reopenAfterBind.current = controller.isOpen;
       controller.destroy();
     };
   }, [controller, props.anchor, props.filter]);

@@ -4,14 +4,15 @@ import type {
   TooltipPositionOptions,
   TooltipOffsetContext,
 } from './tooltip-options';
-import { h } from 'preact';
-import { createPreactElement } from '../preact-mount';
+import { h, type JSX } from 'preact';
+import { createPreactElement, releasePreactElement } from '../preact-mount';
 
 /** Shared presentation for text hints and rich product/chart tooltip content. */
 export const TOOLTIP_STYLES = `
 .rv-tooltip.rv-tooltip {
   box-sizing: border-box;
   position: fixed;
+  flex-direction: column;
   z-index: 100000;
   margin: 0;
   inset: auto;
@@ -35,7 +36,7 @@ export const TOOLTIP_STYLES = `
   pointer-events: auto;
 }
 .rv-tooltip[data-arrow="true"] { overflow: visible; }
-.rv-tooltip__content { display:block; max-height:inherit; overflow:auto; }
+.rv-tooltip__content { display:block; min-height:0; max-height:inherit; overflow:auto; }
 .rv-tooltip[data-arrow="true"]::before { content:''; position:absolute; width:8px; height:8px; background:inherit; transform:rotate(45deg); pointer-events:none; }
 .rv-tooltip[data-side="top"]::before { bottom:-4px; left:calc(var(--rv-tooltip-arrow-x) - 4px); }
 .rv-tooltip[data-side="bottom"]::before { top:-4px; left:calc(var(--rv-tooltip-arrow-x) - 4px); }
@@ -207,4 +208,29 @@ export function calculateTooltipPosition(
     availableWidth: Math.max(0, box.right - box.left),
     availableHeight: Math.max(0, box.bottom - box.top),
   };
+}
+
+/** Use the renderer's public style contract, including its unitless property list.
+ * The detached probe never participates in layout and is disposed after copying. */
+export function normalizeTooltipStyles(
+  document: Document,
+  style?: JSX.CSSProperties,
+) {
+  if (!style) return [];
+  const probe = createPreactElement<HTMLSpanElement>(
+    document,
+    h('span', { style }),
+  );
+  try {
+    return Array.from({ length: probe.style.length }, (_, index) => {
+      const property = probe.style.item(index);
+      return [
+        property,
+        probe.style.getPropertyValue(property),
+        probe.style.getPropertyPriority(property),
+      ] as const;
+    });
+  } finally {
+    releasePreactElement(probe);
+  }
 }
