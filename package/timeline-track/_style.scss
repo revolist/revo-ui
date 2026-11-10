@@ -3,6 +3,8 @@
   position: relative;
   box-sizing: border-box;
   width: 100%;
+  min-width: 82px;
+  --rv-timeline-lane-size: max(42px, calc(1lh + 24px));
   height: 112px;
   margin: 0 0 12px;
   overflow: hidden;
@@ -65,7 +67,7 @@
   z-index: 1;
   box-sizing: border-box;
   min-width: 56px;
-  height: 30px;
+  height: max(30px, calc(1lh + 12px));
   border: 1px solid var(--timeline-event-color-end, #15803d);
   border-radius: 7px;
   background: var(--timeline-event-color, #16a34a);

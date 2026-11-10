@@ -114,7 +114,7 @@ for (const name of ['Bold', 'Clear formatting', 'Help']) {
   test(`hover hint stays readable while crossing to its surface: ${name}`, async ({
     page,
   }) => {
-    await page.goto('/tests/browser/fixtures/tooltip/index.html');
+    await page.goto('/tests/browser/fixtures/tooltip/index.html?hints');
     const trigger = page.getByRole('button', { name, exact: true });
     const tooltip = page.locator('.rv-tooltip:visible');
     await trigger.hover();
@@ -141,3 +141,64 @@ for (const name of ['Bold', 'Clear formatting', 'Help']) {
     await expect(tooltip).toHaveCount(0);
   });
 }
+
+test('timeline boundary and milestone handles remain fully reachable and draggable', async ({
+  page,
+}) => {
+  await page.goto('/tests/browser/fixtures/tooltip/index.html?timeline');
+  const track = page.getByRole('group', {
+    name: 'Boundary timeline preview',
+    exact: true,
+  });
+  await track.scrollIntoViewIfNeeded();
+  const bounds = (await track.boundingBox())!;
+  for (const handle of await track.getByRole('slider').all()) {
+    const box = (await handle.boundingBox())!;
+    expect(box.x).toBeGreaterThanOrEqual(bounds.x);
+    expect(box.x + box.width).toBeLessThanOrEqual(bounds.x + bounds.width);
+    expect(box.width).toBeGreaterThanOrEqual(24);
+    expect(
+      await handle.evaluate((el) => {
+        const r = el.getBoundingClientRect();
+        return el.contains(
+          document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2),
+        );
+      }),
+    ).toBe(true);
+  }
+  const end = track.getByRole('slider', {
+    name: 'Resize end of Right edge',
+    exact: true,
+  });
+  const box = (await end.boundingBox())!;
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(
+    box.x + box.width / 2 + bounds.width / 24,
+    box.y + box.height / 2,
+    { steps: 3 },
+  );
+  await page.mouse.up();
+  await expect(end).toHaveAttribute('aria-valuenow', '24');
+});
+
+test('keyboard tooltip survives focus scrolling and follows its trigger', async ({
+  page,
+}) => {
+  await page.goto('/tests/browser/fixtures/tooltip/index.html');
+  await page.addStyleTag({ content: 'body { min-height: 1400px; }' });
+  const trigger = page.getByRole('button', { name: 'Bold', exact: true });
+  await trigger.focus();
+  const tooltip = page.getByRole('tooltip', { name: 'Bold', exact: true });
+  await expect(tooltip).toBeVisible();
+  const initialTop = (await tooltip.boundingBox())!.y;
+  await page.evaluate(() => window.scrollTo(0, 20));
+  await expect.poll(() => page.evaluate(() => scrollY)).toBe(20);
+  await expect(tooltip).toBeVisible();
+  await expect
+    .poll(async () => (await tooltip.boundingBox())?.y)
+    .not.toBe(initialTop);
+  await expect(trigger).toBeFocused();
+  await trigger.press('Tab');
+  await expect(tooltip).toHaveCount(0);
+});

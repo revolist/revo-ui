@@ -147,7 +147,9 @@ export function TimelineTrack<T extends TimelineTrackEvent>({
         class="rv-timeline-editor__track rv-timeline-control__track"
         role="group"
         aria-label={locale.preview}
-        style={{ height: `${Math.max(112, rows.length * 42 + 70)}px` }}
+        style={{
+          height: `max(112px, calc(70px + ${rows.length} * var(--rv-timeline-lane-size)))`,
+        }}
       >
         <span class="rv-timeline-editor__range rv-timeline-editor__range--start rv-timeline-control__range rv-timeline-control__range--start">
           {range.start}
@@ -165,6 +167,9 @@ export function TimelineTrack<T extends TimelineTrackEvent>({
           )
           .map(({ row, index }) => {
             const geometry = timelineGeometry(row.event, range);
+            // Keep the minimum-sized interaction area and both edge handles
+            // inside the clipped track, including milestones at either bound.
+            const affordanceWidth = `clamp(56px, ${geometry.width}%, calc(100% - 24px))`;
             const outside = eventOutsideRange(row.event, range);
             const eventName = row.event.label || locale.moveEvent(index + 1);
             return (
@@ -191,9 +196,9 @@ export function TimelineTrack<T extends TimelineTrackEvent>({
                   .filter(Boolean)
                   .join(' ')}
                 style={{
-                  top: `${39 + index * 42}px`,
-                  left: `${geometry.left}%`,
-                  width: `${geometry.width}%`,
+                  top: `calc(39px + ${index} * var(--rv-timeline-lane-size))`,
+                  left: `clamp(12px, ${geometry.left}%, calc(100% - ${affordanceWidth} - 12px))`,
+                  width: affordanceWidth,
                   background: timelineEventBackground(row.event),
                   color: row.event.textColor,
                   '--timeline-event-color': row.event.color,

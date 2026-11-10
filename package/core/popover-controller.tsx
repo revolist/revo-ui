@@ -236,6 +236,9 @@ export class TooltipController {
       }
       if (!options.surface) releasePreactElement(surface);
     };
+    // Framework content can already hold focus when its binding is installed.
+    // Recover that state without waiting for another focus event.
+    if (!clickOnly && anchor.ownerDocument.activeElement === anchor) focus();
     return () => this.destroy();
   }
   destroy() {

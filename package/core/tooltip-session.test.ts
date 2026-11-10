@@ -114,3 +114,23 @@ it('keeps slow pointer travel between an anchor and tooltip open until exit or E
   );
   expect(surface.hidden).toBe(true);
 });
+
+it('keeps a keyboard hint positioned when focus scrolling arrives after focus', () => {
+  const { anchor, surface, session } = fixture();
+  const anchorBounds = vi
+    .spyOn(anchor, 'getBoundingClientRect')
+    .mockReturnValue(new DOMRect(40, 100, 60, 24));
+  vi.spyOn(surface, 'getBoundingClientRect').mockReturnValue(
+    new DOMRect(20, 60, 100, 32),
+  );
+  anchor.focus();
+  session.focus(anchor);
+  const originalTop = surface.style.top;
+  anchorBounds.mockReturnValue(new DOMRect(40, 160, 60, 24));
+  document.dispatchEvent(new Event('scroll'));
+  expect(session.isOpen).toBe(true);
+  expect(surface.style.top).not.toBe(originalTop);
+  anchor.blur();
+  document.dispatchEvent(new Event('scroll'));
+  expect(surface.hidden).toBe(true);
+});

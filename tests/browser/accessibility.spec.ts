@@ -199,3 +199,108 @@ test('all specimens reflow at 320px with WCAG text spacing', async ({
     fullPage: true,
   });
 });
+
+// Double computed text metrics rather than scaling the whole page: fixed-size
+// controls must accommodate enlarged text as well as a narrow viewport.
+test('doubled text sizes preserve gallery content and controls', async ({
+  page,
+}, info) => {
+  test.setTimeout(180_000);
+  const { readFileSync } = await import('node:fs');
+  const catalog = JSON.parse(
+    readFileSync(new URL('../../src/pages.json', import.meta.url), 'utf8'),
+  ) as { components: { title: string }[] };
+  const findings: { page: string; overflow: number; clips: unknown[] }[] = [];
+  for (const { title } of catalog.components.filter(
+    (item) => item.title !== 'PDF viewer',
+  )) {
+    const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    await page.goto(`/components/${slug}/`);
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+    await page.evaluate(() => {
+      const sizes = [...document.querySelectorAll<HTMLElement>('body *')]
+        .filter((el) => el.namespaceURI === 'http://www.w3.org/1999/xhtml')
+        .map((el) => {
+          const css = getComputedStyle(el);
+          return {
+            el,
+            font: parseFloat(css.fontSize),
+            line: parseFloat(css.lineHeight),
+          };
+        });
+      for (const { el, font, line } of sizes) {
+        if (Number.isFinite(font))
+          el.style.setProperty('font-size', `${font * 2}px`, 'important');
+        if (Number.isFinite(line))
+          el.style.setProperty('line-height', `${line * 2}px`, 'important');
+      }
+    });
+    const metrics = await page.evaluate(() => ({
+      overflow: document.documentElement.scrollWidth - innerWidth,
+      clips: [
+        ...document.querySelectorAll<HTMLElement>(
+          'button,label,input,summary,.revo-calendar__weekdays span',
+        ),
+      ]
+        .filter((el) => {
+          const css = getComputedStyle(el);
+          return (
+            el.getClientRects().length &&
+            css.visibility !== 'hidden' &&
+            css.clipPath !== 'inset(50%)' &&
+            css.clip !== 'rect(0px, 0px, 0px, 0px)' &&
+            el.textContent?.trim() &&
+            (((css.overflowY === 'hidden' ||
+              css.overflowY === 'clip' ||
+              el.matches('.revo-calendar__day')) &&
+              el.scrollHeight > el.clientHeight + 2) ||
+              (el.matches('.revo-calendar__weekdays span') &&
+                el.scrollWidth > el.clientWidth + 2))
+          );
+        })
+        .map((el) => ({
+          tag: el.tagName,
+          class: el.className,
+          text: el.textContent?.trim(),
+          client: el.clientHeight,
+          scroll: el.scrollHeight,
+          width: el.clientWidth,
+          scrollWidth: el.scrollWidth,
+        })),
+    }));
+    const specimen =
+      slug === 'calendar-and-dates'
+        ? '.revo-calendar'
+        : slug === 'timeline-track'
+          ? '.rv-timeline-control__track'
+          : undefined;
+    if (specimen)
+      await page
+        .locator(specimen)
+        .first()
+        .screenshot({
+          path: info.outputPath(`${slug}-text-200.png`),
+          animations: 'disabled',
+        });
+    findings.push({ page: slug, ...metrics });
+    if ((metrics.overflow > 1 || metrics.clips.length) && !specimen)
+      await page.screenshot({
+        path: info.outputPath(`${slug}-text-200.png`),
+        fullPage: true,
+        animations: 'disabled',
+      });
+    expect
+      .soft(metrics.overflow, `${slug}: page overflow with 200% text`)
+      .toBeLessThanOrEqual(1);
+    expect
+      .soft(
+        metrics.clips.length,
+        `${slug}: enlarged control text overflows: ${JSON.stringify(metrics.clips.slice(0, 5))}`,
+      )
+      .toBe(0);
+  }
+  await info.attach('text-resize-findings.json', {
+    body: JSON.stringify(findings, null, 2),
+    contentType: 'application/json',
+  });
+});

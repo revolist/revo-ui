@@ -87,7 +87,11 @@
 .revo-calendar__header .revo-calendar__month-label-button {
   width: auto;
   max-width: 100%;
-  height: var(--calendar-cell-size);
+  min-height: var(--calendar-cell-size);
+  height: auto;
+  overflow: visible;
+  white-space: normal;
+  overflow-wrap: anywhere;
   padding: 4px 9px;
   justify-self: center;
 }
@@ -143,6 +147,7 @@
 
 .revo-calendar__weekdays span {
   min-height: 18px;
+  overflow-wrap: anywhere;
   color: var(--revo-grid-filter-popup-label-color, var(--rv-ui-text-muted));
   font-size: 11px;
   font-weight: 500;
@@ -153,7 +158,7 @@
 .revo-calendar__day {
   position: relative;
   min-width: 0;
-  height: var(--calendar-cell-size);
+  height: max(var(--calendar-cell-size), 1lh);
   padding: 0;
   border-radius: 0;
   line-height: var(--calendar-cell-size);
@@ -260,12 +265,15 @@
   max-width: 100%;
 }
 .revo-calendar__month-panel {
-  width: var(--revo-calendar-month-width, calc(var(--calendar-cell-size) * 7));
+  width: var(
+    --revo-calendar-month-width,
+    max(calc(var(--calendar-cell-size) * 7), 14em)
+  );
   max-width: 100%;
   min-width: 0;
 }
 .revo-calendar--week-numbers .revo-calendar__month-panel {
-  width: calc(var(--calendar-cell-size) * 8);
+  width: max(calc(var(--calendar-cell-size) * 8), 16em);
 }
 .revo-calendar--week-numbers .revo-calendar__weekdays,
 .revo-calendar--week-numbers .revo-calendar__week {

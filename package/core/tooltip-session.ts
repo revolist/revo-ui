@@ -82,6 +82,19 @@ export class TooltipSession {
       positionArea: 'none',
     });
     this.mode = showTopLayerPopup(surface, 'block');
+    this.position(anchor, surface);
+    const descriptions = new Set(
+      (anchor.getAttribute('aria-describedby') ?? '')
+        .split(/\s+/)
+        .filter(Boolean),
+    );
+    this.addedDescription = !descriptions.has(surface.id);
+    descriptions.add(surface.id);
+    anchor.setAttribute('aria-describedby', [...descriptions].join(' '));
+    this.open = true;
+  }
+
+  private position(anchor: TooltipAnchor, surface: HTMLElement) {
     const view = anchor.ownerDocument.defaultView;
     const anchorBounds = anchor.getBoundingClientRect();
     const surfaceBounds = surface.getBoundingClientRect();
@@ -107,15 +120,6 @@ export class TooltipSession {
         bottom: Math.max(anchorBounds.bottom, point.top + surfaceBounds.height),
       };
     }
-    const descriptions = new Set(
-      (anchor.getAttribute('aria-describedby') ?? '')
-        .split(/\s+/)
-        .filter(Boolean),
-    );
-    this.addedDescription = !descriptions.has(surface.id);
-    descriptions.add(surface.id);
-    anchor.setAttribute('aria-describedby', [...descriptions].join(' '));
-    this.open = true;
   }
 
   hide() {
@@ -224,7 +228,13 @@ export class TooltipSession {
     const surface = this.surface;
     const scroll = (event: Event) => {
       const target = event.target as Node | null;
-      if (target === document || target?.contains?.(anchor)) this.hide();
+      if (target === document || target?.contains?.(anchor)) {
+        // Focus itself can scroll the trigger into view. Keep its keyboard hint
+        // available and anchored when that scroll event arrives after focus.
+        if (this.open && document.activeElement === anchor && this.surface)
+          this.position(anchor, this.surface);
+        else this.hide();
+      }
     };
     const toggle = () => {
       if (!parent?.matches(':popover-open')) this.hide();
