@@ -9,14 +9,14 @@
       body {
         margin: 0;
         width: 1800px;
-        height: 1320px;
+        height: 1200px;
         overflow: hidden;
       }
       .preview-half {
         position: absolute;
         inset: 0;
         width: 1800px;
-        height: 1320px;
+        height: 1200px;
         font-family: Inter, Arial, sans-serif;
         color: var(--rv-ui-text);
         background: var(--rv-ui-surface);
@@ -29,45 +29,9 @@
         background: #141517;
         clip-path: inset(0 0 0 50%);
       }
-      .preview-header {
-        height: 132px;
-        padding: 32px 62px;
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-      .preview-brand {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        font-size: 30px;
-        font-weight: 650;
-        letter-spacing: -0.7px;
-      }
-      .preview-brand img {
-        width: 34px;
-        height: 40px;
-      }
-      .preview-subtitle {
-        font-size: 16px;
-        color: var(--rv-ui-text-muted);
-        margin-top: 9px;
-        letter-spacing: 0;
-        font-weight: 400;
-      }
-      .preview-theme {
-        border: 1px solid var(--rv-ui-border);
-        padding: 9px 15px;
-        border-radius: 24px;
-        color: var(--rv-ui-text-muted);
-        font-size: 13px;
-        letter-spacing: 1.8px;
-        font-weight: 600;
-      }
       .preview-grid {
         position: absolute;
-        top: 142px;
+        top: 112px;
         left: 62px;
         right: 62px;
         display: grid;
@@ -122,13 +86,13 @@
         min-height: 415px;
         box-sizing: border-box;
       }
-      .preview-footer {
+      .preview-highlights {
         position: absolute;
-        bottom: 37px;
+        top: 28px;
         left: 62px;
         right: 62px;
-        border-top: 1px solid var(--rv-ui-border);
-        padding-top: 27px;
+        border-bottom: 1px solid var(--rv-ui-border);
+        padding-bottom: 22px;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 26px;
@@ -159,7 +123,7 @@
         left: 899px;
         top: 0;
         width: 2px;
-        height: 1320px;
+        height: 1200px;
         background: linear-gradient(#8f9ab244, #91aaffaa 45%, #8f9ab244);
       }
       #source {
@@ -191,11 +155,11 @@
       document.head.append(captureStyle);
       const check =
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="6"/><path d="m7.5 12 3 3 6-6"/></svg>';
-      const footer = `<footer class="preview-footer">
+      const highlights = `<header class="preview-highlights">
       <div class="preview-feature">${check}<span>WCAG 2.2 AA checks<small>Automated accessibility regression checks</small></span></div>
       <div class="preview-feature">${check}<span>Keyboard navigation<small>Focus, selection and Escape dismissal</small></span></div>
       <div class="preview-feature">${check}<span>Visible focus<small>Shared focus indicators in both themes</small></span></div>
-    </footer>`;
+    </header>`;
       const columns = [
         [".finance-revenue", ".finance-spending"],
         [".home-weekly-planner", ".finance-recent"],
@@ -205,7 +169,7 @@
         const panel = document.createElement("section");
         panel.className = `rv-ui preview-half ${theme}`;
         panel.dataset.theme = theme;
-        panel.innerHTML = `<header class="preview-header"><div><div class="preview-brand"><img src="/favicon.svg" alt="">Revo UI</div><div class="preview-subtitle">Accessible components. One shared system.</div></div><span class="preview-theme">DARK THEME</span></header><div class="preview-grid"></div>${footer}`;
+        panel.innerHTML = `${highlights}<div class="preview-grid"></div>`;
         const grid = panel.querySelector(".preview-grid");
         for (const selectors of columns) {
           const stack = document.createElement("div");
@@ -220,14 +184,6 @@
         }
         document.body.append(panel);
       }
-      // Keep a visible theme label on each side of the center split.
-      const light = document.querySelector(
-        ".preview-half.light .preview-header",
-      );
-      light.insertAdjacentHTML(
-        "beforeend",
-        '<span class="preview-theme" style="position:absolute;left:710px">LIGHT THEME</span>',
-      );
       // Demonstrate the library's real keyboard focus treatment on the dark half.
       document
         .querySelector(".preview-half.dark .finance-contribution button")
