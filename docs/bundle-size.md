@@ -2,6 +2,8 @@
 
 The library provides tree-shakeable ESM exports and optional framework adapters. Preact is included in the UI implementation; React, Vue, Angular, Svelte and PDF.js remain optional peer dependencies. Import the components you use. The browser/CDN entrypoints are complete standalone builds and are not the small-import benchmark.
 
+For server-rendered applications, read [Server rendering and hydration](ssr.md) for the actual server output, extracted CSS setup, framework-specific client boundaries and CSP nonce delivery.
+
 ## Automatic styles across framework adapters
 
 React and Vue named components, Angular `UiComponent` and `UiControlDirective`, and Svelte `UiComponent` automatically install the styles they need. No separate CSS import is necessary for these adapters:

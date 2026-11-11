@@ -222,6 +222,76 @@ export function FrameworksPage() {
         ))}
       <section
         class="framework-setup"
+        id="server-rendering"
+        aria-labelledby="framework-ssr-title"
+      >
+        <h2 id="framework-ssr-title">Server rendering and hydration</h2>
+        <p>
+          React, Vue, Angular UiComponent and Svelte adapters render hosts on
+          the server and mount their interactive controls in the browser. They
+          do not prerender the complete controls. Keep important page content in
+          your host framework and provide a stable fallback until the client
+          mounts.
+        </p>
+        <h3>Deliver CSS with the initial page</h3>
+        <p>
+          Use a matching /unstyled entry and import CSS from the application's
+          global layout or styles configuration. Your SSR bundler can then
+          deliver stylesheet references with the response. CSS imports do not
+          make the controls themselves server-rendered.
+        </p>
+        <pre>
+          <Highlight
+            code={`import { SvgButton } from '@revolist/ui/react/unstyled';
+// Global layout/styles entry:
+import '@revolist/ui/styles/base.css';`}
+          />
+        </pre>
+        <h3>Use your framework's client boundary</h3>
+        <ul>
+          <li>
+            React/Next.js: put hooks and event handlers in a Client Component;
+            use the same mounted-state fallback on the server and first client
+            render.
+          </li>
+          <li>
+            Vue/Nuxt: use ClientOnly with a fallback, or an onMounted gate. Load
+            extracted CSS globally, outside the client-only component.
+          </li>
+          <li>
+            Angular: UiComponent skips its shared mount on the server; use
+            afterNextRender when replacing a fallback after hydration, and
+            configure global CSS in the CLI.
+          </li>
+          <li>
+            SvelteKit: import CSS in the root layout and use an onMount gate for
+            a fallback. Keep application SSR enabled.
+          </li>
+        </ul>
+        <h3>CSP and the no-document behavior</h3>
+        <p>
+          Automatic mode installs styles on the client. Configure its allowed
+          nonce before client bootstrap. A configureUiStyles call without a
+          document on the server does nothing: it does not collect CSS or
+          transfer a nonce to the browser. Deliver the response-specific nonce
+          through your application's safe serialization, then configure it in
+          the client. Extracted /unstyled entries do not insert stylesheet tags.
+        </p>
+        <p>
+          Keep the server and initial-client fallback identical and reserve
+          enough space to avoid layout shifts. The application owns its
+          framework's hydration and CSP; do not hydrate raw control HTML as an
+          adapter host.
+        </p>
+        <p>
+          <a href="https://github.com/revolist/revo-ui/blob/main/docs/ssr.md">
+            Full SSR guide: framework recipes, CSS modes, CSP and
+            troubleshooting
+          </a>
+        </p>
+      </section>
+      <section
+        class="framework-setup"
         id="browser-cdn"
         aria-labelledby="browser-cdn-title"
       >
