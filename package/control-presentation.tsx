@@ -62,9 +62,7 @@ export function decorateIconAction(element: HTMLElement, label: string): void {
   element.querySelector('.rv-control-tooltip')?.remove();
   const surface = createPreactElement<HTMLSpanElement>(
     element.ownerDocument,
-    <span class="rv-control-tooltip" role="tooltip" hidden>
-      {label}
-    </span>,
+    <span class="rv-control-tooltip" role="tooltip" hidden />,
   );
   element.append(surface);
   iconTooltips.set(

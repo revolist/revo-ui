@@ -3,6 +3,7 @@ import { h, render } from 'preact';
 import { act } from 'preact/test-utils';
 import { afterEach, expect, it, vi } from 'vitest';
 import {
+  decorateIconAction,
   controlAttributes,
   createControl,
   nativeControlTag,
@@ -168,4 +169,19 @@ it('renders busy state through the native factory without leaking busy attribute
   expect(button.hasAttribute('busy')).toBe(false);
   button.click();
   expect(click).not.toHaveBeenCalled();
+});
+
+it('decorates icon controls with one tooltip label across refreshes', () => {
+  document.body.append(host);
+  const button = document.createElement('button');
+  host.append(button);
+  act(() => decorateIconAction(button, 'Linked views'));
+  expect(button.querySelector('[role="tooltip"]')?.textContent).toBe(
+    'Linked views',
+  );
+  act(() => decorateIconAction(button, 'Vues liées'));
+  expect(button.querySelectorAll('[role="tooltip"]')).toHaveLength(1);
+  expect(button.querySelector('[role="tooltip"]')?.textContent).toBe(
+    'Vues liées',
+  );
 });

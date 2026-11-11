@@ -436,3 +436,13 @@ test('controlled exit completes when onHide rerenders its parent', async ({
     page.getByRole('status', { name: 'Exit completions' }),
   ).toHaveText('1');
 });
+
+test('decorated icon controls expose one tooltip label', async ({ page }) => {
+  await page.goto('/tests/browser/fixtures/tooltip/index.html?decorated-icon');
+  await page.getByRole('button', { name: 'Linked views', exact: true }).hover();
+  const tooltip = page.getByRole('tooltip');
+  await expect(tooltip).toBeVisible();
+  await expect(tooltip).toHaveText('Linked views');
+  await page.keyboard.press('Escape');
+  await expect(tooltip).toBeHidden();
+});
