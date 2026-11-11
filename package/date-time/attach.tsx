@@ -1,11 +1,13 @@
 /** @jsxRuntime automatic */
 /** @jsxImportSource preact */
+import { renderCellInput } from '../cell-input';
 import { Button } from '../controls';
 import { SvgIcon } from '../icons/icon';
 import clockIcon from '@fortawesome/fontawesome-free/svgs/regular/clock.svg?raw';
 import calendarIcon from '@fortawesome/fontawesome-free/svgs/regular/calendar.svg?raw';
 import { createPreactElement, releasePreactElement } from '../preact-mount';
 import { mountEditorPopup, type EditorPopupHandle } from '../core/editor-popup';
+import { temporalInputDraft } from './keyboard-input';
 import { TemporalDraft } from './field';
 import { temporalPickerLabel, type TemporalPickerOptions } from './types';
 
@@ -36,7 +38,7 @@ export function attachTemporalPicker(
           input,
           (close) => (
             <TemporalDraft
-              value={input.value || null}
+              value={temporalInputDraft(input.value, options)}
               options={{
                 ...options,
                 selection: 'single',
@@ -95,4 +97,16 @@ export function attachTemporalPicker(
   };
   pickerAttachments.set(input, dispose);
   return dispose;
+}
+
+/** Grid-native input with room for the same shared calendar trigger used by forms. */
+export function renderTemporalCellInput<H extends (...args: any[]) => any>(
+  h: H,
+  attributes: Record<string, unknown>,
+): ReturnType<H> {
+  return h(
+    'span',
+    { class: 'rv-date-time-field rv-temporal-cell-input' },
+    renderCellInput(h, attributes),
+  );
 }

@@ -1,15 +1,17 @@
 /** @jsxRuntime automatic */
 /** @jsxImportSource preact */
-import { useState } from 'preact/hooks';
+import { useLayoutEffect, useRef, useState } from 'preact/hooks';
+import { attachDateInputMask, parseDateInput } from './keyboard-input';
 import { Input } from '../native-control';
 import {
-  parseDateEntry,
   formatDateEntry,
   dateEntryPlaceholder,
   type DateEntryOptions,
 } from '@revolist/dates';
 export interface DateInputOptions extends DateEntryOptions {
   placeholder?: string;
+  /** ISO fixed-slot date entry with automatic separators; single dates only. */
+  inputMask?: 'YYYY-MM-DD';
   /** Date-only multiple selection uses a semicolon-separated list by default. */
   multipleSeparator?: string;
 }
@@ -40,8 +42,25 @@ export function DateControl({
   onFocus?: () => void;
   onChange: (date: string | string[]) => void;
 }) {
+  const input = useRef<HTMLInputElement>(null);
+  useLayoutEffect(
+    () =>
+      input.current && !multiple
+        ? attachDateInputMask(input.current, options)
+        : undefined,
+    [options.inputMask, multiple],
+  );
+  if (options.inputMask && !multiple)
+    options = {
+      ...options,
+      format: 'iso',
+      parse: undefined,
+      formatValue: undefined,
+    };
   const [editing, setEditing] = useState(false),
     [draft, setDraft] = useState('');
+  if (multiple && options.inputMask)
+    options = { ...options, inputMask: undefined };
   const separator = options.multipleSeparator?.trim() || ';';
   const display = Array.isArray(value)
     ? value.map((date) => formatDateEntry(date, options)).join(`${separator} `)
@@ -50,15 +69,16 @@ export function DateControl({
   const entered = multiple ? current.split(separator) : [current];
   const invalidEntry = entered.some((text) => {
     if (!text.trim()) return false;
-    const parsed = parseDateEntry(text, options);
+    const parsed = parseDateInput(text, options);
     return (
-      !parsed ||
-      !!(minDate && parsed < minDate) ||
-      !!(maxDate && parsed > maxDate)
+      parsed === undefined ||
+      !!(parsed && minDate && parsed < minDate) ||
+      !!(parsed && maxDate && parsed > maxDate)
     );
   });
   return (
     <Input
+      ref={input}
       type="text"
       disabled={disabled}
       readOnly={readOnly}
@@ -80,7 +100,7 @@ export function DateControl({
         const text = event.currentTarget.value;
         setDraft(text);
         const parse = (text: string) =>
-          parseDateEntry(text, options) ?? text.trim();
+          parseDateInput(text, options) ?? text.trim();
         onChange(
           multiple
             ? text.trim()

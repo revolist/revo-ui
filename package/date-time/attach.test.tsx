@@ -108,3 +108,25 @@ it('replaces an existing picker attachment without letting stale cleanup remove 
   act(() => secondTrigger.click());
   expect(document.querySelector('.rv-editor-popup')).toBeTruthy();
 });
+
+it('preserves localized or invalid inline drafts when opening the picker', () => {
+  const input = document.createElement('input');
+  input.value = '20/11/2026';
+  document.body.append(input);
+  act(() => {
+    dispose = attachTemporalPicker(
+      input,
+      { dateInput: { format: 'eu' }, calendar: { maxDate: '2026-11-19' } },
+      () => {},
+    );
+  });
+  act(() => (input.nextElementSibling as HTMLButtonElement).click());
+  expect(
+    document.querySelector<HTMLInputElement>('.rv-editor-popup input')?.value,
+  ).toBe('20/11/2026');
+  expect(
+    document
+      .querySelector<HTMLInputElement>('.rv-editor-popup input')
+      ?.getAttribute('aria-invalid'),
+  ).toBe('true');
+});
