@@ -14,8 +14,9 @@ concurrency:
 
 jobs:
   build:
-    # Playwright 1.59 does not support Ubuntu 26.04 (ubuntu-latest).
+    # Match the locked browser version; the image includes browser dependencies.
     runs-on: ubuntu-24.04
+    container: mcr.microsoft.com/playwright:v1.59.1-noble
     timeout-minutes: 20
     steps:
       - name: Check out gallery
@@ -33,13 +34,10 @@ jobs:
       - name: Verify component documentation references
         run: |
           node gallery/scripts/check-docs.mjs
-          node --test gallery/scripts/install-ci-browser.test.mjs
+          node --test gallery/scripts/browser-ci.test.mjs
       - name: Install locked dependencies
         working-directory: gallery
         run: pnpm install --frozen-lockfile
-      - name: Install browser for static rendering
-        working-directory: gallery
-        run: node scripts/install-ci-browser.mjs
       - name: Build Pages site
         working-directory: gallery
         run: pnpm --filter @revolist/ui build:demo --base /

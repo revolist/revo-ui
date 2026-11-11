@@ -16,6 +16,7 @@ concurrency:
 jobs:
   coverage:
     runs-on: ubuntu-24.04
+    container: mcr.microsoft.com/playwright:v1.59.1-noble
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v5
@@ -38,11 +39,9 @@ jobs:
           pnpm test:public
       - name: Verify generated API contracts and test discovery
         run: |
-          node --test scripts/install-ci-browser.test.mjs
+          node --test scripts/browser-ci.test.mjs
           pnpm test:api
           pnpm test:discovery
-      - name: Install browser
-        run: node scripts/install-ci-browser.mjs
       - name: Build gallery fixtures
         run: pnpm build:demo --base /
       - name: Test UI browser behavior
