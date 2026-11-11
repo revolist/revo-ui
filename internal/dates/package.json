@@ -1,6 +1,6 @@
 {
   "name": "@revolist/dates",
-  "version": "4.0.1",
+  "version": "4.0.9",
   "private": true,
   "type": "module",
   "description": "Framework-independent date, time, duration, and working-calendar utilities",
