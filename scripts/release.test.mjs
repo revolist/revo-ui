@@ -182,7 +182,7 @@ test("public npm metadata lookup sends no authorization without a token", async 
   assert.equal(Object.hasOwn(headers, "authorization"), false);
 });
 
-test("public publication workflow uses OIDC without an npm token or auth placeholder", () => {
+test("standalone and reusable publication use OIDC without an npm credential", () => {
   const workflow = readFileSync(
     new URL("../.github/workflows/publish.yml", import.meta.url),
     "utf8",
@@ -193,6 +193,7 @@ test("public publication workflow uses OIDC without an npm token or auth placeho
   );
   assert.doesNotMatch(workflow, /secrets\.NPM_TOKEN|Check npm credential/);
   assert.doesNotMatch(npmStep, /NODE_AUTH_TOKEN|_authToken|--npmrc/);
+  assert.doesNotMatch(workflow, /npm-token|REPO_TOKEN/);
   assert.match(workflow, /id-token: write/);
   assert.match(workflow, /NODE_AUTH_TOKEN: \$\{\{ secrets.GITHUB_TOKEN \}\}/);
 });
@@ -270,4 +271,12 @@ test("outdated npm clients cannot start a trusted publication", async () => {
     );
     assert.equal(calls.length, 1);
   }
+});
+
+test('reusable UI publisher explicitly checks out its own repository and uses caller OIDC', () => {
+ const workflow=readFileSync(new URL('../.github/workflows/publish.yml',import.meta.url),'utf8');
+ assert.match(workflow,/workflow_call:/);
+ assert.doesNotMatch(workflow,/npm-token|REPO_TOKEN/);
+ assert.equal(workflow.match(/repository: revolist\/revo-ui/g)?.length,3);
+ assert.match(workflow,/ref: \$\{\{ inputs.automation_ref \|\| github.sha \}\}/);
 });
