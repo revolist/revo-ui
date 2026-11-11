@@ -5,9 +5,7 @@ import { resolve } from 'node:path';
 const root = resolve(import.meta.dirname, '../..');
 let css: string;
 test.beforeAll(async () => {
-  css = (
-    await compileAsync(resolve(root, 'package/styles.scss'))
-  ).css;
+  css = (await compileAsync(resolve(root, 'package/styles.scss'))).css;
 });
 
 test('resize handle keeps keyboard focus visible in forced colors', async ({
@@ -78,5 +76,67 @@ test('common UI styles alone provide the clean Fields surface', async ({
       centered: true,
       fits: true,
     });
+  }
+});
+
+test('opt-in base, calendar and dialog CSS preserve aggregate control presentation across themes', async ({
+  page,
+}) => {
+  const { readFileSync } = await import('node:fs');
+  const aggregate = readFileSync(resolve(root, 'dist/styles.css'), 'utf8');
+  const modular = ['base', 'calendar', 'dialogs']
+    .map((name) =>
+      readFileSync(resolve(root, `dist/styles/${name}.css`), 'utf8'),
+    )
+    .join('\n');
+  const selectors = [
+    '.rv-btn-primary',
+    '.rv-control',
+    '.rv-checkbox',
+    '.revo-calendar__day',
+    '.rv-dialog__surface',
+  ];
+  const properties = [
+    'display',
+    'color',
+    'background-color',
+    'border-top-color',
+    'border-top-width',
+    'border-radius',
+    'padding',
+    'height',
+    'font-size',
+  ];
+  for (const width of [480, 1200]) {
+    await page.setViewportSize({ width, height: 800 });
+    for (const theme of ['light', 'dark']) {
+      const html = `<div data-theme="${theme}">
+        <button class="rv-btn rv-btn-primary">Save</button>
+        <input class="rv-control" aria-label="Name" value="Revo UI">
+        <input class="rv-checkbox" type="checkbox" aria-label="Enabled" checked>
+        <div class="revo-calendar"><button class="revo-calendar__day">15</button></div>
+        <dialog open class="rv-dialog"><form class="rv-dialog__surface"><div class="rv-dialog__body">Details</div></form></dialog>
+      </div>`;
+      const capture = async (styles: string) => {
+        await page.setContent(html);
+        await page.addStyleTag({ content: styles });
+        return page.evaluate(
+          ({ selectors, properties }) =>
+            selectors.map((selector) => {
+              const style = getComputedStyle(document.querySelector(selector)!);
+              return Object.fromEntries(
+                properties.map((property) => [
+                  property,
+                  style.getPropertyValue(property),
+                ]),
+              );
+            }),
+          { selectors, properties },
+        );
+      };
+      expect(await capture(modular), `${width}px ${theme}`).toEqual(
+        await capture(aggregate),
+      );
+    }
   }
 });

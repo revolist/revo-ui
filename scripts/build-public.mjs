@@ -12,6 +12,7 @@ import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import { createRequire } from 'node:module';
 import ts from 'typescript';
+import { styleEntrypoints } from './style-entrypoints.mjs';
 import { compileAsync } from 'sass-embedded';
 import { compile as compileSvelte } from 'svelte/compiler';
 
@@ -44,10 +45,15 @@ function copyStyles(directory) {
   }
 }
 copyStyles(resolve(root, 'package'));
-for (const name of ['styles', 'native-styles']) {
+for (const name of [
+  'styles',
+  'native-styles',
+  ...styleEntrypoints.map((name) => `styles/${name}`),
+]) {
   const css = await compileAsync(resolve(root, `package/${name}.scss`), {
     style: 'compressed',
   });
+  mkdirSync(dirname(resolve(output, `${name}.css`)), { recursive: true });
   writeFileSync(resolve(output, `${name}.css`), css.css);
 }
 

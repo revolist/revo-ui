@@ -26,6 +26,9 @@ Import the shared styles once:
 import '@revolist/ui/styles.css';
 ```
 
+For smaller applications, import `styles/base.css` and only the component families you use. See [selective styles and bundle-size budgets](docs/bundle-size.md).
+
+
 Choose your framework for setup instructions and usage examples:
 
 [React](https://ui.rv-grid.com/frameworks/react/) · [Vue](https://ui.rv-grid.com/frameworks/vue/) · [Angular](https://ui.rv-grid.com/frameworks/angular/) · [Svelte](https://ui.rv-grid.com/frameworks/svelte/) · [Preact](https://ui.rv-grid.com/frameworks/preact/) · [Vanilla TypeScript](https://ui.rv-grid.com/frameworks/vanilla-typescript/)

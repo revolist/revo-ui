@@ -46,8 +46,8 @@ export type ButtonProps = ButtonAttributes & {
     | 'solid';
   size?: 'compact' | 'default';
 };
-export const Button = registerControl(
-  forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+export const Button = /* @__PURE__ */ registerControl(
+  /* @__PURE__ */ forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     {
       href,
       target,
