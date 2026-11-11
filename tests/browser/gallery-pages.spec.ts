@@ -6,7 +6,7 @@ test('curated home widgets work and lead to component documentation', async ({
 }) => {
   await page.goto('/');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-    'Components for finance,reporting, and projects.',
+    'Components fordata-rich applications.',
   );
   await expect(page.locator('.home-widget')).toHaveCount(7);
   await expect(page.locator('.catalog-sidebar')).toHaveCount(0);
@@ -283,6 +283,18 @@ test('weekly planner combines independent member schedules, capacity and priorit
   await expect(
     page.getByRole('status', { name: 'Planned focus hours' }),
   ).toHaveText('14h / 40h');
+  const chart = page.getByRole('group', { name: 'Focus hours by day' });
+  await expect(
+    chart.getByRole('listitem', { name: 'Mon. Monday: 4 hours' }),
+  ).toBeVisible();
+  await expect(
+    chart.getByRole('listitem', { name: 'Sat. Saturday: 0 hours' }),
+  ).toBeVisible();
+  await expect(
+    chart
+      .getByRole('listitem', { name: 'Mon. Monday: 4 hours' })
+      .locator('.rv-distribution-chart__bar'),
+  ).toHaveAttribute('style', /height:\s*100%/);
   const slot = page
     .getByRole('grid', { name: 'Weekly focus plan' })
     .getByRole('gridcell', {
@@ -294,6 +306,14 @@ test('weekly planner combines independent member schedules, capacity and priorit
   await expect(
     page.getByRole('status', { name: 'Planned focus hours' }),
   ).toHaveText('12h / 40h');
+  await expect(
+    chart.getByRole('listitem', { name: 'Mon. Monday: 2 hours' }),
+  ).toBeVisible();
+  await expect(
+    chart
+      .getByRole('listitem', { name: 'Mon. Monday: 2 hours' })
+      .locator('.rv-distribution-chart__bar'),
+  ).toHaveAttribute('style', /height:\s*50%/);
   await chooseOption(
     page.getByRole('combobox', { name: 'Planning team member', exact: true }),
     'Sam Rivera',
@@ -301,6 +321,20 @@ test('weekly planner combines independent member schedules, capacity and priorit
   await expect(
     page.getByRole('status', { name: 'Planned focus hours' }),
   ).toHaveText('10h / 40h');
+  await expect(
+    chart.getByRole('listitem', { name: 'Tue. Tuesday: 4 hours' }),
+  ).toBeVisible();
+  const samSlot = page
+    .getByRole('grid', { name: 'Weekly focus plan' })
+    .getByRole('gridcell', {
+      name: 'Tuesday 08:00–10:00, selected',
+      exact: true,
+    });
+  await samSlot.focus();
+  await samSlot.press('Space');
+  await expect(
+    chart.getByRole('listitem', { name: 'Tue. Tuesday: 2 hours' }),
+  ).toBeVisible();
   const priority = page.getByRole('checkbox', {
     name: 'Protect time for deep work',
     exact: true,
@@ -309,6 +343,9 @@ test('weekly planner combines independent member schedules, capacity and priorit
   await expect(priority).toBeChecked();
   await page.getByRole('button', { name: 'Reset week', exact: true }).click();
   await expect(priority).not.toBeChecked();
+  await expect(
+    chart.getByRole('listitem', { name: 'Tue. Tuesday: 4 hours' }),
+  ).toBeVisible();
   await chooseOption(
     page.getByRole('combobox', { name: 'Planning team member', exact: true }),
     'Alex Morgan',
@@ -316,6 +353,9 @@ test('weekly planner combines independent member schedules, capacity and priorit
   await expect(
     page.getByRole('status', { name: 'Planned focus hours' }),
   ).toHaveText('12h / 40h');
+  await expect(
+    chart.getByRole('listitem', { name: 'Mon. Monday: 2 hours' }),
+  ).toBeVisible();
 });
 
 test('shared dropdown height and font size match buttons', async ({ page }) => {
@@ -714,4 +754,45 @@ test('footer product names link to RevoGrid and Pro documentation', async ({
       footer.getByRole('link', { name, exact: true }),
     ).toHaveAttribute('href', url);
   }
+});
+
+test('component pages keep the GitHub star link visible on desktop and mobile', async ({
+  page,
+}) => {
+  for (const width of [1280, 390]) {
+    await page.setViewportSize({ width, height: 800 });
+    await page.goto('/components/timeline-track/');
+    const star = page
+      .getByRole('navigation', { name: 'Library pages' })
+      .getByRole('link', { name: 'Star on GitHub' });
+    await expect(star).toBeVisible();
+    await expect(star).toHaveAttribute(
+      'href',
+      'https://github.com/revolist/revo-ui',
+    );
+    const bounds = await star.boundingBox();
+    expect(bounds).not.toBeNull();
+    expect(bounds!.x).toBeGreaterThanOrEqual(0);
+    expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(width);
+  }
+});
+
+test('wide planner keeps member controls in the grid column beside the summary', async ({
+  page,
+}) => {
+  await page.goto('/');
+  const planner = page.locator('.home-weekly-planner');
+  await planner.evaluate((element) => {
+    element.style.width = '1000px';
+    element.style.maxWidth = 'none';
+  });
+  const controls = (await planner
+    .locator('.planning-member-actions')
+    .boundingBox())!;
+  const summary = (await planner
+    .getByRole('complementary', { name: 'Weekly priorities' })
+    .boundingBox())!;
+  const gridPanel = (await planner.locator('.planning-grid-panel').boundingBox())!;
+  expect(controls.x + controls.width).toBeLessThanOrEqual(summary.x);
+  expect(Math.abs(summary.y - gridPanel.y)).toBeLessThan(5);
 });

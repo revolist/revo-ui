@@ -1918,6 +1918,7 @@ body {
   min-width: 112px;
 }
 .home-weekly-planner {
+  container-type: inline-size;
   margin-top: 24px;
   --rv-matrix-cell-height: 24px;
 }
@@ -1944,6 +1945,9 @@ body {
 .planning-summary strong {
   font-size: 13px;
   font-weight: 550;
+}
+.planning-summary strong {
+  font-weight: 500;
 }
 .planning-person span,
 .planning-summary output {
@@ -2008,6 +2012,12 @@ body {
   background: var(--rv-ui-surface-sunken);
   border-radius: 10px;
 }
+.planning-chart {
+  display: grid;
+  gap: 24px;
+  min-width: 0;
+  padding-block: 18px;
+}
 .planning-priority-list {
   display: grid;
   gap: 12px;
@@ -2044,6 +2054,20 @@ body {
 .planning-member-actions > .rv-btn {
   flex-shrink: 0;
   white-space: nowrap;
+}
+@container (min-width: 780px) {
+  .home-weekly-planner .planning-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 235px;
+    gap: 22px;
+    align-items: start;
+  }
+  .home-weekly-planner .planning-summary {
+    border-top: 0;
+    border-inline-start: 1px solid var(--rv-ui-border);
+    padding: 0;
+    padding-inline-start: 20px;
+  }
 }
 
 .finance-invoices .finance-detail-table tbody tr:last-child > * {
@@ -2397,3 +2421,13 @@ body {
 .markdown-guide a { color: var(--rv-ui-accent-text); text-decoration: underline; text-underline-offset: 3px; }
 .documentation-table :is(th, td):first-child { min-width: 180px; }
 .documentation-table code { white-space: nowrap; overflow-wrap: normal; }
+
+.catalog-pages .catalog-star-link {
+  color: var(--rv-ui-accent-text);
+  font-weight: 650;
+  white-space: nowrap;
+}
+.catalog-pages .catalog-star-link:focus-visible {
+  outline: 2px solid var(--rv-ui-accent-text);
+  outline-offset: 3px;
+}

@@ -111,16 +111,14 @@ export function GalleryHome({
       <section class="home-hero">
         <span class="home-eyebrow">REVO UI · COMPONENT LIBRARY</span>
         <h1>
-          Components for finance,
+          Components for
           <br />
-          reporting, and projects.
+          data-rich applications.
         </h1>
         <p>
-          Build financial apps, reporting dashboards, and project management
-          tools.
+          Charts, AI chat, PDF viewing, editable timelines, and date controls.
           <br />
-          Compose rich data views and everyday workflows with one shared UI
-          library.
+          Build with React, Vue, Angular, Svelte, Preact, or vanilla TypeScript.
         </p>
         <div class="home-actions">
           <Button

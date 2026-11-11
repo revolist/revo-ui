@@ -14,6 +14,7 @@ import {
   useTimeGridInteraction,
 } from '@revolist/ui/time-grid';
 import { Legend } from '@revolist/ui/legend';
+import { BarChart } from '@revolist/ui/distribution-chart';
 import alex from './assets/people/contact-1.jpg?url';
 import sam from './assets/people/contact-2.jpg?url';
 const days = [
@@ -62,12 +63,28 @@ const defaults = (member: string) =>
       timeGridCellKey(day, hour + 1),
     ]),
   );
+export interface PlanningChartText {
+  title: string;
+  label: string;
+  day: (long: string, short: string) => string;
+  hours: (day: string, count: number) => string;
+}
+
+export const defaultPlanningChartText: PlanningChartText = {
+  title: 'Focus hours by day',
+  label: 'Focus hours by day',
+  day: (_long, short) => short,
+  hours: (day, count) => `${day}: ${count} ${count === 1 ? 'hour' : 'hours'}`,
+};
+
 export function WeeklyPlanning({
   controlsHref,
   showCaption = true,
+  chartText = defaultPlanningChartText,
 }: {
   controlsHref: string;
   showCaption?: boolean;
+  chartText?: PlanningChartText;
 }) {
   const [member, setMember] = useState('alex');
   const [schedules, setSchedules] = useState<Record<string, Set<string>>>({
@@ -100,46 +117,48 @@ export function WeeklyPlanning({
     onCommit: () => {},
   });
   const person = members.find((item) => item.id === member)!;
+  const dailyHours = days.map((day) => {
+    const value = Array.from({ length: 24 }, (_, hour) =>
+      cells.has(timeGridCellKey(day.weekday, hour)) ? 1 : 0,
+    ).reduce<number>((sum, selected) => sum + selected, 0);
+    return {
+      key: String(day.weekday),
+      value,
+      tooltip: {
+        title: chartText.day(day.long, day.short),
+        details: [chartText.hours(day.long, value)],
+      },
+    };
+  });
   return (
     <article class="home-widget home-weekly-planner">
-      <div class="widget-caption">
-        {showCaption && <span>Weekly planning</span>}
-        <a href={controlsHref}>Time grid & controls</a>
-      </div>
-      <div class="widget-between">
-        <div>
-          <h3>A little structure. A better week.</h3>
-          <p class="widget-footnote">
-            Protect focus time and keep your priorities in view.
-          </p>
-        </div>
-        <div class="planning-member-actions">
-          <MemberDropdown
-            value={member}
-            label="Planning team member"
-            onChange={(value) => {
-              setMember(value);
-              setFocused('1:8');
-            }}
-          />
-          <Button
-            onClick={() => {
-              setSchedules((current) => ({
-                ...current,
-                [member]: defaults(member),
-              }));
-              setCompleted((current) => ({
-                ...current,
-                [member]: member === 'alex' ? [priorities[0]] : [],
-              }));
-            }}
-          >
-            Reset week
-          </Button>
-        </div>
-      </div>
       <div class="planning-layout">
         <div class="planning-grid-panel">
+          <div class="planning-member-actions">
+            <MemberDropdown
+              value={member}
+              label="Planning team member"
+              onChange={(value) => {
+                setMember(value);
+                setFocused('1:8');
+              }}
+            />
+            <Button
+              onClick={() => {
+                setSchedules((current) => ({
+                  ...current,
+                  [member]: defaults(member),
+                }));
+                setCompleted((current) => ({
+                  ...current,
+                  [member]: member === 'alex' ? [priorities[0]] : [],
+                }));
+              }}
+            >
+              Reset week
+            </Button>
+          </div>
+
           <div class="widget-between">
             <div class="planning-person">
               <Avatar
@@ -190,6 +209,20 @@ export function WeeklyPlanning({
             <ProgressBar
               value={Math.min(100, (cells.size / 40) * 100)}
               ariaLabel="Planned weekly capacity"
+            />
+          </div>
+          <div class="planning-chart">
+            <strong>{chartText.title}</strong>
+            <BarChart
+              ariaLabel={chartText.label}
+              data={dailyHours}
+              barColor={(datum) =>
+                datum.value ? 'var(--rv-ui-accent)' : undefined
+              }
+              height={72}
+              showLabels
+              showValues
+              formatValue={(value) => String(value)}
             />
           </div>
           <div class="widget-between">

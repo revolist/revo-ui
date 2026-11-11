@@ -1,4 +1,4 @@
-# Revo UI — A minimal, framework-agnostic UI library
+# Revo UI — Open-source components for data-rich applications
 
 [![npm version](https://img.shields.io/npm/v/%40revolist%2Fui?style=flat&color=2563eb)](https://www.npmjs.com/package/@revolist/ui)
 [![MIT license](https://img.shields.io/github/license/revolist/revo-ui?style=flat&color=16a34a)](LICENSE)
@@ -7,23 +7,38 @@
 [![Tree-shakeable ESM](https://img.shields.io/badge/tree%20shaking-supported-16a34a?style=flat)](https://github.com/revolist/revo-ui/blob/main/package.json)
 [![Component + styles (4.0.12): 25.4 KiB gzip](https://img.shields.io/badge/Component%20%2B%20styles%20(4.0.12)-25.4%20KiB%20gzip-16a34a?style=flat)](docs/bundle-size.md)
 
-Bundle size measures the published 4.0.12 React `SvgButton` import, including automatic styles and bundled Preact, with React excluded as a peer dependency.
+**Build data-rich applications with charts, AI chat, a PDF viewer, editable timelines, date controls, and more.**
 
-**RevoGrid's UI component library for financial apps, reporting dashboards, and project management.**
+Revo UI brings these components to React, Vue, Angular, Svelte, Preact, and vanilla TypeScript, alongside the controls and layouts needed to compose complete workflows.
 
-Compose data-rich workspaces with shared controls, pickers, charts, timelines, dialogs, and feedback. Use React, Vue, Angular, Svelte, Preact, or vanilla TypeScript.
-
-Lightweight and tree-shakeable: import only the controls you use.
+Lightweight and tree-shakeable: import only the controls you use. The bundle-size badge measures the published 4.0.12 React `SvgButton` import, including automatic styles and bundled Preact; React is excluded as a peer dependency.
 
 [Live components](https://ui.rv-grid.com/components/buttons/) · [Interactive overview](https://ui.rv-grid.com/) · [Framework guides](https://ui.rv-grid.com/frameworks/) · [RevoGrid](https://rv-grid.com/) · [Pro documentation](https://pro.rv-grid.com/)
 
-[![Revo UI components in light and dark themes, with keyboard navigation, visible focus and WCAG accessibility checks](docs/assets/components-preview.jpg)](https://ui.rv-grid.com/)
+[![Weekly planner demo showing member selection, time-grid editing, and a live daily-hours chart](docs/assets/components-demo.gif)](https://ui.rv-grid.com/)
+
+[View a static preview](docs/assets/planner-preview.png)
 
 ## Get started
 
 ```sh
 pnpm add @revolist/ui
 ```
+
+For a quick start in vanilla TypeScript, add `<div id="app"></div>` to your page and render a button:
+
+```ts
+import { createFrameworkMount, uiComponents } from '@revolist/ui/framework';
+
+const mount = createFrameworkMount(document.querySelector<HTMLElement>('#app')!, () => {});
+mount.render(uiComponents.Button, {
+  children: 'Create report',
+  onClick: () => alert('Report created'),
+});
+// Call mount.destroy() when removing the view.
+```
+
+[Try the live gallery](https://ui.rv-grid.com/components/buttons/) or choose a framework guide: [React](https://ui.rv-grid.com/frameworks/react/) · [Vue](https://ui.rv-grid.com/frameworks/vue/) · [Angular](https://ui.rv-grid.com/frameworks/angular/) · [Svelte](https://ui.rv-grid.com/frameworks/svelte/) · [Preact](https://ui.rv-grid.com/frameworks/preact/) · [Vanilla TypeScript](https://ui.rv-grid.com/frameworks/vanilla-typescript/).
 
 React, Vue, Angular and Svelte adapters automatically load their component styles. For extracted CSS, use the matching `/unstyled` entry and import shared styles once:
 
@@ -36,20 +51,16 @@ For smaller extracted stylesheets, use `styles/base.css` and only the required f
 
 For server-rendered applications, see the [SSR and hydration guide](docs/ssr.md) for framework recipes, initial CSS delivery, fallbacks and CSP.
 
-Choose your framework for setup instructions and usage examples:
-
-[React](https://ui.rv-grid.com/frameworks/react/) · [Vue](https://ui.rv-grid.com/frameworks/vue/) · [Angular](https://ui.rv-grid.com/frameworks/angular/) · [Svelte](https://ui.rv-grid.com/frameworks/svelte/) · [Preact](https://ui.rv-grid.com/frameworks/preact/) · [Vanilla TypeScript](https://ui.rv-grid.com/frameworks/vanilla-typescript/)
-
 ## Browser JavaScript / CDN (no build step)
 
-The standalone browser builds are prepared for **4.0.7**. The URLs below become available after that npm version is published. Pin CSS and JavaScript to the same released version.
+The standalone browser builds below use the published **4.0.12** release. Pin CSS and JavaScript to the same released version.
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@revolist/ui@4.0.7/styles.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@revolist/ui@4.0.12/styles.css">
 <div id="report-action" class="rv-ui"></div>
 <script type="module">
 import { createFrameworkMount, uiComponents } from
-  'https://cdn.jsdelivr.net/npm/@revolist/ui@4.0.7/browser/revo-ui.js';
+  'https://cdn.jsdelivr.net/npm/@revolist/ui@4.0.12/browser/revo-ui.js';
 
 const mount = createFrameworkMount(document.querySelector('#report-action'), () => {});
 let count = 0;
@@ -65,9 +76,9 @@ update();
 </script>
 ```
 
-For a classic script, load `https://cdn.jsdelivr.net/npm/@revolist/ui@4.0.7/browser/revo-ui.global.js` and use `const { createFrameworkMount, uiComponents } = RevoUI` instead of the import. Both builds bundle their renderer and shared utilities; no import map or framework runtime is needed. Serve your HTML over HTTP(S) in a modern browser.
+For a classic script, load `https://cdn.jsdelivr.net/npm/@revolist/ui@4.0.12/browser/revo-ui.global.js` and use `const { createFrameworkMount, uiComponents } = RevoUI` instead of the import. Both builds bundle their renderer and shared utilities; no import map or framework runtime is needed. Serve your HTML over HTTP(S) in a modern browser.
 
-You can replace the CDN prefix with `https://unpkg.com/@revolist/ui@4.0.7`, or self-host the package files. The `unpkg` and `jsdelivr` package defaults point to the classic script. The `@revolist/ui/browser` export points to the standalone ES module. Existing npm/framework ESM entries remain available for tree-shaking; host-framework adapters still require their respective frameworks.
+You can replace the CDN prefix with `https://unpkg.com/@revolist/ui@4.0.12`, or self-host the package files. The `unpkg` and `jsdelivr` package defaults point to the classic script. The `@revolist/ui/browser` export points to the standalone ES module. Existing npm/framework ESM entries remain available for tree-shaking; host-framework adapters still require their respective frameworks.
 
 The complete browser bundles include the component catalog and PDF engine. PDF viewers also need `browser/pdf-viewer.css` and the matching `browser/pdf.worker.min.mjs` served from **your own origin**, with its URL supplied as `workerSrc`. Direct cross-origin CDN Worker URLs are not supported by the browser Worker constructor. Configure PDF document/asset access for your application.
 

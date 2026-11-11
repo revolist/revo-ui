@@ -171,11 +171,11 @@ export function CatalogShell({
   const visible = families.filter((family) => inScope(family.title) && matches(family, query));
   useEffect(() => {
     const doc = page === 'frameworks' ? documentationPage(active) : undefined;
-    const title = doc ? `${doc.title} · Revo UI` : page === 'accessibility' ? accessibilityArticle.title : home ? 'Revo UI — Components for Finance, Reporting & Project Management' : `${component?.title ?? (page === 'frameworks' ? (pages.frameworks.find(name => sectionId(name) === active) ? `${pages.frameworks.find(name => sectionId(name) === active)} integration` : 'Getting started') : page === 'colors' ? 'Design system colors' : 'UI components')} · Revo UI`;
+    const title = doc ? `${doc.title} · Revo UI` : page === 'accessibility' ? accessibilityArticle.title : home ? 'Revo UI — Components for Data-Rich Applications' : `${component?.title ?? (page === 'frameworks' ? (pages.frameworks.find(name => sectionId(name) === active) ? `${pages.frameworks.find(name => sectionId(name) === active)} integration` : 'Getting started') : page === 'colors' ? 'Design system colors' : 'UI components')} · Revo UI`;
     document.title = title;
     document.querySelector('meta[property="og:type"]')?.setAttribute('content', page === 'accessibility' ? 'article' : 'website');
     const frameworkName = page === 'frameworks' ? pages.frameworks.find(name => sectionId(name) === active) : undefined;
-    const description = doc ? doc.description : page === 'accessibility' ? accessibilityArticle.description : frameworkName ? `Use Revo UI with ${frameworkName}: installation, component examples, state, callbacks, and styling for financial and reporting applications.` : home ? 'Build financial dashboards, reporting apps, and project workspaces with Revo UI. Explore UI components for React, Vue, Angular, Svelte, Preact, and TypeScript.' : component?.description ?? (page === 'colors' ? 'Explore Revo UI semantic colors, palettes, and theme tokens for consistent application interfaces.' : page === 'frameworks' ? 'Integrate Revo UI with React, Vue, Angular, Svelte, Preact, or vanilla TypeScript. Follow installation and usage guides for your stack.' : 'Browse Revo UI controls, pickers, layouts, and compositions with interactive variants and formatted usage examples.');
+    const description = doc ? doc.description : page === 'accessibility' ? accessibilityArticle.description : frameworkName ? `Use Revo UI with ${frameworkName}: installation, component examples, state, callbacks, and styling for financial and reporting applications.` : home ? 'Build data-rich applications with charts, AI chat, PDF viewing, timelines and date controls for React, Vue, Angular, Svelte, Preact and TypeScript.' : component?.description ?? (page === 'colors' ? 'Explore Revo UI semantic colors, palettes, and theme tokens for consistent application interfaces.' : page === 'frameworks' ? 'Integrate Revo UI with React, Vue, Angular, Svelte, Preact, or vanilla TypeScript. Follow installation and usage guides for your stack.' : 'Browse Revo UI controls, pickers, layouts, and compositions with interactive variants and formatted usage examples.');
     document.querySelector('meta[name="description"]')?.setAttribute('content', description);
     document.querySelector('meta[property="og:title"]')?.setAttribute('content', title);
     document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
@@ -253,6 +253,7 @@ export function CatalogShell({
               Docs
             </a>
             <a href={siteHref("api/")} aria-current={page === "api" ? "page" : undefined}>API</a>
+            <a class="catalog-star-link" href="https://github.com/revolist/revo-ui" target="_blank" rel="noopener noreferrer">Star on GitHub <span aria-hidden="true">★</span></a>
           </nav>
           <GallerySettings><Toolbar label="Gallery settings">
             <a class="rv-btn rv-btn-ghost rv-btn-icon catalog-github-link" href="https://github.com/revolist/revo-ui" target="_blank" rel="noopener noreferrer" aria-label="Revo UI on GitHub" title="Revo UI on GitHub">
@@ -428,7 +429,7 @@ export function CatalogShell({
             <div class={component ? "component-document-layout" : undefined}><div class="component-document-main" ref={content}><Route.Provider
               value={component ? sectionId(component.title) : active}
             >
-              {active === 'components' && <div class="component-intro"><h1>UI components</h1><p>Explore components for finance, reporting, and project management.</p></div>}
+              {active === 'components' && <div class="component-intro"><h1>UI components</h1><p>Explore charts, AI chat, PDF viewing, timelines, date controls, and more.</p></div>}
               {component && (
                 <div class="component-intro">
                   <a href={componentHref('buttons')}>
