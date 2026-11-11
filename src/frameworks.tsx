@@ -9,7 +9,7 @@ const guides = [
     entry: '@revolist/ui/react',
     language: 'TSX',
     description:
-      'Use named components with normal React state and callbacks. React owns your children and custom content. Install React and react-dom in your application.',
+      'Use named components with normal React state and callbacks. React owns your children and custom content. Install React and react-dom in your application. Named React components automatically load their required styles; no separate CSS import is needed.',
     code: `import { useState } from 'react';
 import { Button } from '@revolist/ui/react';
 
@@ -46,8 +46,12 @@ const count = ref(0);
     entry: '@revolist/ui/angular',
     language: 'TypeScript',
     description:
-      'Import the standalone UiComponent, select a component by name, and pass its props. uiEvent exposes callback names and arguments; valueChange handles a component’s declared value model. Use rvUiSlot templates for custom content.',
-    code: `import { Component } from '@angular/core';
+      'Import the standalone UiComponent, select a component by name, and pass its props. Angular requires an explicit global CSS import: add @revolist/ui/styles.css once in main.ts. uiEvent exposes callback names and arguments; valueChange handles a component’s declared value model. Use rvUiSlot templates for custom content.',
+    code: `// main.ts: load shared styles once for the application.
+import '@revolist/ui/styles.css';
+
+// report-action.component.ts
+import { Component } from '@angular/core';
 import { UiComponent, type UiEvent } from '@revolist/ui/angular';
 
 @Component({
@@ -167,9 +171,10 @@ export function FrameworksPage() {
           >
             <h2 id="framework-setup-title">Start with the shared styles</h2>
             <p>
-              Add the UI package to your app, then import its stylesheet once in
-              your application entry point. Keep your framework’s usual build
-              setup.
+              Add the UI package to your app. Named React components load their
+              styles automatically. Angular, Vue, Svelte, Preact and native
+              adapters require the stylesheet import below once in your
+              application entry point. Keep your framework’s usual build setup.
             </p>
             <pre>
               <code>pnpm add @revolist/ui</code>

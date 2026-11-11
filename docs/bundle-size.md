@@ -16,11 +16,13 @@ Importing or server-rendering the components does not access the DOM. The adapte
 
 ## Choosing styles for other adapters
 
-The existing convenience import remains supported:
+**Angular requires an explicit global stylesheet import.** Importing `UiComponent` or `UiControlDirective` does not automatically load component CSS. Add this once in your application's `main.ts` (or import the stylesheet through your global styles configuration):
 
 ```ts
 import '@revolist/ui/styles.css';
 ```
+
+This also applies to Vue, Svelte, Preact and native adapters. Automatic component styles currently apply only to the named React components from `@revolist/ui/react`.
 
 For a small application, use the base stylesheet and only the component families it renders **instead of** the aggregate stylesheet:
 
