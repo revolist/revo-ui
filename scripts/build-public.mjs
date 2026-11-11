@@ -29,6 +29,7 @@ function run(args) {
     throw new Error(`pnpm ${args.join(' ')} failed (${result.status})`);
 }
 run(['exec', 'vite', 'build', '--mode', 'library']);
+run(['exec', 'vite', 'build', '--mode', 'library-unstyled']);
 run(['exec', 'vite', 'build', '--mode', 'browser']);
 
 // Preserve every Sass/CSS export, including its relative imports, and also offer
@@ -59,49 +60,59 @@ for (const name of [
 
 // Angular consumers need partial declarations and static ɵdir metadata, not a
 // generic JS decorator transform. Compile against the already-emitted UI types.
-const staging = resolve(output, '.angular-source');
-mkdirSync(staging, { recursive: true });
-for (const name of ['angular-control', 'angular']) {
+for (const angularOutput of [output, resolve(output, 'unstyled')]) {
+  const staging = resolve(angularOutput, '.angular-source');
+  mkdirSync(staging, { recursive: true });
+  for (const name of ['angular-control', 'angular']) {
+    writeFileSync(
+      resolve(staging, `${name}.ts`),
+      readFileSync(resolve(root, `package/${name}.ts`), 'utf8')
+        .replaceAll(
+          "'./core/component-styles'",
+          "'../core/component-styles.js'",
+        )
+        .replaceAll(
+          "'./component-style-families'",
+          "'../component-style-families.js'",
+        )
+        .replaceAll("'./control-attributes'", "'../control-attributes.js'")
+        .replaceAll("'./framework'", "'../framework.js'")
+        .replaceAll("'./core/tooltip-options'", "'../core/tooltip-options.js'")
+        .replace(/'\.\/pdf-viewer\/([^']+)'/g, "'../pdf-viewer/$1.js'"),
+    );
+  }
   writeFileSync(
-    resolve(staging, `${name}.ts`),
-    readFileSync(resolve(root, `package/${name}.ts`), 'utf8')
-      .replaceAll("'./control-attributes'", "'../control-attributes.js'")
-      .replaceAll("'./framework'", "'../framework.js'")
-      .replaceAll("'./core/tooltip-options'", "'../core/tooltip-options.js'")
-      .replace(/'\.\/pdf-viewer\/([^']+)'/g, "'../pdf-viewer/$1.js'"),
+    resolve(staging, 'tsconfig.json'),
+    JSON.stringify(
+      {
+        compilerOptions: {
+          target: 'ES2022',
+          module: 'ES2022',
+          moduleResolution: 'bundler',
+          strict: true,
+          skipLibCheck: true,
+          experimentalDecorators: true,
+          declaration: true,
+          types: [],
+          rootDir: '.',
+          outDir: '../angular',
+        },
+        angularCompilerOptions: {
+          compilationMode: 'partial',
+          strictInjectionParameters: true,
+        },
+        files: ['angular-control.ts', 'angular.ts'],
+      },
+      null,
+      2,
+    ),
   );
+  run(['exec', 'ngc', '-p', resolve(staging, 'tsconfig.json')]);
+  rmSync(staging, { recursive: true, force: true });
+  // Remove the non-Angular declaration emitted by the general TS pass.
+  for (const name of ['angular-control', 'angular'])
+    rmSync(resolve(angularOutput, `${name}.d.ts`), { force: true });
 }
-writeFileSync(
-  resolve(staging, 'tsconfig.json'),
-  JSON.stringify(
-    {
-      compilerOptions: {
-        target: 'ES2022',
-        module: 'ES2022',
-        moduleResolution: 'bundler',
-        strict: true,
-        skipLibCheck: true,
-        experimentalDecorators: true,
-        declaration: true,
-        types: [],
-        rootDir: '.',
-        outDir: '../angular',
-      },
-      angularCompilerOptions: {
-        compilationMode: 'partial',
-        strictInjectionParameters: true,
-      },
-      files: ['angular-control.ts', 'angular.ts'],
-    },
-    null,
-    2,
-  ),
-);
-run(['exec', 'ngc', '-p', resolve(staging, 'tsconfig.json')]);
-rmSync(staging, { recursive: true, force: true });
-// Remove the non-Angular declaration emitted by the general TS pass.
-for (const name of ['angular-control', 'angular'])
-  rmSync(resolve(output, `${name}.d.ts`), { force: true });
 
 // Preserve Svelte source for compiler-aware consumers and provide precompiled
 // browser/server fallbacks for bundlers that do not resolve the svelte condition.
@@ -148,35 +159,40 @@ const copiedTypes = new Set();
 function bundlePreactTypes(sourceFile, targetFile, vendor = false) {
   if (copiedTypes.has(targetFile)) return;
   copiedTypes.add(targetFile);
-  const content = readFileSync(sourceFile, 'utf8').replace(
-    /((?:from\s*|import\s*\(\s*)['"])([^'"]+)(['"])/g,
-    (match, prefix, specifier, suffix) => {
-      if (
-        !/^preact(?:\/|$)/.test(specifier) &&
-        !(vendor && specifier.startsWith('.'))
-      )
-        return match;
-      const resolved = ts.resolveModuleName(
-        specifier,
-        sourceFile,
-        {
-          moduleResolution: ts.ModuleResolutionKind.Bundler,
-        },
-        ts.sys,
-      ).resolvedModule?.resolvedFileName;
-      if (!resolved || !resolved.startsWith(preactRoot + '/'))
-        throw new Error(
-          `Cannot bundle Preact type: ${specifier} from ${sourceFile}`,
-        );
-      const target = resolve(preactTypes, relative(preactRoot, resolved));
-      bundlePreactTypes(resolved, target, true);
-      let path = relative(dirname(targetFile), target)
-        .replaceAll('\\', '/')
-        .replace(/\.d\.ts$/, '');
-      if (!path.startsWith('.')) path = './' + path;
-      return prefix + path + suffix;
-    },
-  );
+  const content = readFileSync(sourceFile, 'utf8')
+    .replace(
+      /export\s*\{\s*default\s+as\s+(\w+)\s*\}\s*from\s*['"][^'"]+\?raw['"];?/g,
+      'export declare const $1: string;',
+    )
+    .replace(
+      /((?:from\s*|import\s*\(\s*)['"])([^'"]+)(['"])/g,
+      (match, prefix, specifier, suffix) => {
+        if (
+          !/^preact(?:\/|$)/.test(specifier) &&
+          !(vendor && specifier.startsWith('.'))
+        )
+          return match;
+        const resolved = ts.resolveModuleName(
+          specifier,
+          sourceFile,
+          {
+            moduleResolution: ts.ModuleResolutionKind.Bundler,
+          },
+          ts.sys,
+        ).resolvedModule?.resolvedFileName;
+        if (!resolved || !resolved.startsWith(preactRoot + '/'))
+          throw new Error(
+            `Cannot bundle Preact type: ${specifier} from ${sourceFile}`,
+          );
+        const target = resolve(preactTypes, relative(preactRoot, resolved));
+        bundlePreactTypes(resolved, target, true);
+        let path = relative(dirname(targetFile), target)
+          .replaceAll('\\', '/')
+          .replace(/\.d\.ts$/, '');
+        if (!path.startsWith('.')) path = './' + path;
+        return prefix + path + suffix;
+      },
+    );
   mkdirSync(dirname(targetFile), { recursive: true });
   writeFileSync(targetFile, content);
 }
@@ -228,6 +244,43 @@ const exports = Object.fromEntries(
       ];
     }),
 );
+for (const name of [
+  'react',
+  'vue',
+  'angular',
+  'angular-control',
+  'preact',
+  'framework',
+  'native',
+]) {
+  const original = exports[`./${name}`];
+  exports[`./${name}/unstyled`] = Object.fromEntries(
+    Object.entries(original).map(([condition, target]) => [
+      condition,
+      condition === 'types' ? target : target.replace('./', './unstyled/'),
+    ]),
+  );
+}
+exports['./svelte/unstyled'] = {
+  types: './svelte.d.ts',
+  svelte: './unstyled/svelte-source.js',
+  browser: './unstyled/svelte.js',
+  default: './unstyled/svelte-server.js',
+};
+exports['./style-config'] = {
+  types: './core/component-styles.d.ts',
+  import: './core/component-styles.js',
+  default: './core/component-styles.js',
+};
+for (const name of [
+  'svelte-source.js',
+  'svelte-server.js',
+  'svelte/UiComponent.svelte',
+  'svelte/UiComponent.server.js',
+]) {
+  mkdirSync(dirname(resolve(output, 'unstyled', name)), { recursive: true });
+  cpSync(resolve(output, name), resolve(output, 'unstyled', name));
+}
 exports['./browser'] = {
   types: './browser.d.ts',
   import: './browser/revo-ui.js',

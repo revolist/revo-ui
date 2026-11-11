@@ -2,36 +2,68 @@
 
 The library provides tree-shakeable ESM exports and optional framework adapters. Preact is included in the UI implementation; React, Vue, Angular, Svelte and PDF.js remain optional peer dependencies. Import the components you use. The browser/CDN entrypoints are complete standalone builds and are not the small-import benchmark.
 
-## Automatic React styles
+## Automatic styles across framework adapters
 
-React named imports include their required styles:
+React and Vue named components, Angular `UiComponent` and `UiControlDirective`, and Svelte `UiComponent` automatically install the styles they need. No separate CSS import is necessary for these adapters:
 
 ```ts
-import { SvgButton, Calendar } from '@revolist/ui/react';
+import { SvgButton } from '@revolist/ui/react';
+// Vue: import { SvgButton } from '@revolist/ui/vue';
+// Angular: import { UiComponent } from '@revolist/ui/angular';
+// Svelte: import { UiComponent } from '@revolist/ui/svelte';
 ```
 
-No CSS import is necessary for these components. Each retained adapter carries its shared base and component-family styles; unused families are tree-shaken with unused components. The existing Sass owners provide the CSS. Styles install once per document (and shadow root, when applicable), before mounting the component's contents, and stay installed across unmounts. Family order is stable regardless of mount order. Application styles remain later in the cascade so existing overrides keep working. A nonce from an existing script/style element is copied for CSP applications.
+Component metadata and style families belong to the shared UI layer. React installs styles in its insertion effect; all adapters prepare the owning document/shadow root before mounting the underlying UI. Styles are deduplicated per root, keep a stable family order, survive unmounts and precede application overrides. Repeated mounts reuse a root registry rather than scanning the document for each stylesheet. Existing styles are not removed while other components may need them.
 
-Importing or server-rendering the components does not access the DOM. The adapters mount their contents on the client, where they install their presentation before paint. React size measurements below include this automatic CSS inside the JS payload. Other framework/native adapters retain explicit stylesheet imports.
+Named React/Vue imports tree-shake unused components and families. Angular/Svelte select components by name from a complete catalog, so their catalog includes all available families. Future adapters using `createFrameworkMount` and the public shared components inherit the same preparation policy. Direct Preact rendering and low-level native DOM render helpers still use explicit CSS; the framework mount API prepares registered component styles automatically.
 
-## Choosing styles for other adapters
+Imports and React server rendering do not insert styles or access the DOM. Styles are installed on the client before the adapter mounts its contents. Automatic styles are static, compiled from the existing Sass owners; application props are never interpolated into stylesheet text.
 
-**Angular requires an explicit global stylesheet import.** Importing `UiComponent` or `UiControlDirective` does not automatically load component CSS. Add this once in your application's `main.ts` (or import the stylesheet through your global styles configuration):
+## Extracted CSS for production
+
+For independently cached CSS, restrictive CSP, or applications that already load styles globally, use the matching `/unstyled` adapter and load static CSS through the application bundler:
 
 ```ts
+import { SvgButton } from '@revolist/ui/react/unstyled';
+import '@revolist/ui/styles/base.css';
+```
+
+The same option is available as `vue/unstyled`, `angular/unstyled`, `angular-control/unstyled`, `svelte/unstyled`, `framework/unstyled`, `preact/unstyled` and `native/unstyled`. These builds share the implementation and public types, omit embedded static component/tooltip CSS, and do not insert runtime stylesheet tags. Use one style mode consistently within an application.
+
+For Angular, for example:
+
+```ts
+import { UiComponent } from '@revolist/ui/angular/unstyled';
+// main.ts: import the aggregate once, or base plus the required families.
 import '@revolist/ui/styles.css';
 ```
 
-This also applies to Vue, Svelte, Preact and native adapters. Automatic component styles currently apply only to the named React components from `@revolist/ui/react`.
-
-For a small application, use the base stylesheet and only the component families it renders **instead of** the aggregate stylesheet:
+Base includes tooltip presentation. Add family styles for complex components:
 
 ```ts
 import '@revolist/ui/styles/base.css';
 import '@revolist/ui/styles/calendar.css';
 import '@revolist/ui/styles/dialogs.css';
-import { SvgButton, Input, Checkbox, Calendar } from '@revolist/ui/preact';
 ```
+
+The aggregate `@revolist/ui/styles.css` remains supported for every adapter. Loading it alongside automatic styles is compatible but duplicates CSS transfer; prefer the extracted entry when managing styles yourself.
+
+## CSP and root configuration
+
+Automatic mode needs a nonce allowed by the application's `style-src` policy. Configure it before bootstrapping any framework:
+
+```ts
+import { configureUiStyles } from '@revolist/ui/style-config';
+configureUiStyles({ nonce: serverProvidedNonce });
+```
+
+The shared configuration applies across adapters and tooltip surfaces. It is owned by a document or shadow root, including across separate entrypoint bundles. Pass that root as the second argument for iframe/shadow applications. If no nonce is configured, installation can reuse a nonce from an existing style/script element; explicit configuration avoids ambiguity when script and style nonces differ. Calling the configuration helper without a document during SSR is a no-op; never store request-specific nonces in process-global configuration.
+
+`configureUiStyles({ mode: 'external' })` suppresses automatic insertion for applications already loading CSS, but keeps the automatic build's CSS strings in JS. Choose `/unstyled` to remove those bytes as well. Configure the mode before mounting; switching it does not remove previously installed styles. The same root configuration is used by every adapter.
+
+Browser regressions exercise nonce-restricted automatic styles and external-only stylesheet policies for React, Vue, Angular AOT and Svelte, including tooltips. Components retain their existing dynamic layout/positioning styles; the tested policy permits inline style attributes while restricting stylesheet elements. This is not a claim that every application-specific CSP is supported without configuration.
+
+## Stylesheet families
 
 Import base first. It provides shared theme tokens, buttons, native fields, checkboxes and control primitives, including light/dark and accessibility states. Tooltip surfaces install their shared styles through the existing tooltip owner. Add family styles when using those components:
 
@@ -60,15 +92,8 @@ pnpm build:public
 pnpm test:size
 ```
 
-This bundles consumer imports from the emitted distribution with pinned esbuild, ES2022, production minification and tree shaking, then measures gzip level 9. Bundled Preact and automatic React CSS are counted. Optional framework/PDF peers are external. It checks the button, three common controls, complete React/native exports, aggregate CSS, base CSS and each family. Application code, peer frameworks and separately loaded PDF.js are not included.
+This bundles consumer imports from the emitted distribution with pinned esbuild, ES2022, production minification and tree shaking, then measures gzip level 9. Bundled Preact and automatically included component CSS are counted. Optional framework/PDF peers are external. It checks the button, three common controls, complete React/native exports, aggregate CSS, base CSS and each family. Application code, peer frameworks and separately loaded PDF.js are not included.
 
 `pnpm test:size` is enforced by UI coverage CI after the public package checks. Limits live in `scripts/bundle-size.mjs`; missing measurements, invalid values and over-budget results fail. Limits are not rewritten automatically. `node scripts/bundle-size.mjs --report` prints measurements for investigation without updating any limit.
 
-Baseline measured on the same source before/after this optimization (gzip level 9):
-
-| Consumer                           | Before: JS + required aggregate CSS | After: JS including automatic CSS |
-| ---------------------------------- | ----------------------------------: | --------------------------------: |
-| React SvgButton                    |                        54,562 bytes |                      24,371 bytes |
-| React SvgButton + Input + Checkbox |                        54,821 bytes |                      24,720 bytes |
-
-The three-control consumer is about 55% smaller overall, without an extra CSS import. The existing aggregate stylesheet remains 28,576 gzip bytes; the optional base stylesheet is 6,782 bytes for adapters that use explicit CSS. Larger component sets include their corresponding families. Transfer compression and consumer bundler versions can change the exact result.
+Measure automatic JavaScript (including embedded CSS), extracted JavaScript and required external CSS separately when comparing consumer builds. The original three-control React consumer required 26,245 gzip bytes of JavaScript plus 28,576 bytes of aggregate CSS. Exact current measurements are printed by the budget command; optional peers, application code and separately loaded PDF.js are excluded.

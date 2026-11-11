@@ -107,3 +107,30 @@ test('direct Select imports retain native metadata without importing its native-
   );
   assert.equal(ui.nativeControlTag(ui.Select), 'select');
 });
+
+test('extracted-CSS React entry retains component behavior without embedded family CSS', async () => {
+  const { code, gzip } = await measureEntry('unstyled/react.js', ['SvgButton']);
+  assert(!code.includes('.rv-btn{'));
+  assert(!code.includes('.revo-calendar__header{'));
+  assert(!code.includes('.rv-ai-prompt'));
+  assert(gzip < 19 * 1024, `unstyled button is ${gzip} gzip bytes`);
+});
+
+test('all extracted framework entrypoints exclude static component and tooltip CSS', async () => {
+  for (const file of [
+    'react.js',
+    'vue.js',
+    'angular/angular.js',
+    'svelte.js',
+    'framework.js',
+  ]) {
+    const { code } = await measureEntry(`unstyled/${file}`);
+    for (const selector of [
+      '.rv-btn{',
+      '.revo-calendar__header{',
+      '.rv-ai-prompt',
+      '.rv-tooltip.rv-tooltip',
+    ])
+      assert(!code.includes(selector), `${file} retained ${selector}`);
+  }
+});

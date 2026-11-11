@@ -1,3 +1,7 @@
+import { execFileSync } from 'node:child_process';
+import { mkdirSync, writeFileSync, readFileSync } from 'node:fs';
+import { transformAsync } from '@babel/core-angular';
+import linker from '@angular/compiler-cli/linker/babel';
 import { expect, test } from '@playwright/test';
 import { compileAsync } from 'sass-embedded';
 import { resolve } from 'node:path';
@@ -235,3 +239,159 @@ test('opt-in base, calendar and dialog CSS preserve aggregate control presentati
     }
   }
 });
+
+for (const framework of ['react', 'vue', 'angular', 'svelte']) {
+  for (const extracted of [false, true]) {
+    test(`${framework} ${extracted ? 'extracted CSS' : 'automatic styles'} respects strict CSP`, async ({
+      page,
+    }) => {
+      const entry = extracted
+        ? `./dist/unstyled/${framework === 'angular' ? 'angular/angular' : framework}.js`
+        : `./dist/${framework === 'angular' ? 'angular/angular' : framework}.js`;
+      const props = `{label: 'CSP action', visibleLabel: 'CSP action'}`;
+      const startup: Record<string, string> = {
+        react: `import {createElement} from 'react'; import {createRoot} from 'react-dom/client'; import {SvgButton} from '${entry}'; createRoot(document.getElementById('app')).render(createElement(SvgButton, ${props}));`,
+        vue: `import {createApp, h} from 'vue'; import {SvgButton} from '${entry}'; createApp({render: () => h(SvgButton, ${props})}).mount('#app');`,
+        angular: `import '@angular/compiler'; import {Component} from '@angular/core'; import {bootstrapApplication} from '@angular/platform-browser'; import {UiComponent} from '${entry}'; class App {props = ${props};} Component({selector:'test-app',standalone:true,imports:[UiComponent],template:'<rv-ui component="SvgButton" [props]="props" />'})(App); export function startApp() { return bootstrapApplication(App); }`,
+        svelte: `import {mount} from 'svelte'; import {UiComponent} from '${entry}'; mount(UiComponent,{target:document.getElementById('app'),props:{component:'SvgButton',props:${props}}});`,
+      };
+      if (framework === 'angular') {
+        const fixture = resolve(
+          root,
+          'test-results/angular-csp',
+          extracted ? 'extracted' : 'automatic',
+        );
+        mkdirSync(fixture, { recursive: true });
+        writeFileSync(
+          resolve(fixture, 'main.ts'),
+          `import {Component} from '@angular/core'; import {bootstrapApplication} from '@angular/platform-browser'; import {UiComponent} from '${resolve(root, entry)}'; @Component({selector:'test-app',standalone:true,imports:[UiComponent],template:'<rv-ui component="SvgButton" [props]="props" />'}) class App {props = ${props};} export function startApp() { return bootstrapApplication(App); }`,
+        );
+        writeFileSync(
+          resolve(fixture, 'tsconfig.json'),
+          JSON.stringify({
+            compilerOptions: {
+              target: 'ES2022',
+              module: 'ES2022',
+              moduleResolution: 'bundler',
+              experimentalDecorators: true,
+              skipLibCheck: true,
+              types: [],
+              outDir: 'out',
+            },
+            angularCompilerOptions: {
+              compilationMode: 'full',
+              strictTemplates: true,
+            },
+            files: ['main.ts'],
+          }),
+        );
+        execFileSync(
+          process.execPath,
+          [
+            resolve(
+              root,
+              'node_modules/@angular/compiler-cli/bundles/src/bin/ngc.js',
+            ),
+            '-p',
+            resolve(fixture, 'tsconfig.json'),
+          ],
+          { cwd: root },
+        );
+        startup.angular = `import { startApp } from ${JSON.stringify(resolve(fixture, 'out/main.js'))}; startApp();`;
+      }
+      const result = await build({
+        stdin: {
+          contents: `
+          import {configureUiStyles} from './dist/core/component-styles.js';
+          ${extracted ? "import './dist/styles/base.css';" : ''}
+          configureUiStyles({mode: '${extracted ? 'external' : 'automatic'}', nonce:'ui-style-test'});
+          ${startup[framework]}
+        `,
+          resolveDir: root,
+        },
+        plugins:
+          framework === 'angular'
+            ? [
+                {
+                  name: 'angular-production-linker',
+                  setup(build) {
+                    build.onLoad({ filter: /\.[cm]?js$/ }, async ({ path }) => {
+                      const source = readFileSync(path, 'utf8');
+                      if (!source.includes('ɵɵngDeclare')) return;
+                      return {
+                        contents: (await transformAsync(source, {
+                          filename: path,
+                          plugins: [[linker, { linkerJitMode: false }]],
+                          babelrc: false,
+                          configFile: false,
+                        }))!.code!,
+                        loader: 'js',
+                      };
+                    });
+                  },
+                },
+              ]
+            : [],
+        bundle: true,
+        write: false,
+        outdir: 'out',
+        format: 'iife',
+        platform: 'browser',
+        define: { 'process.env.NODE_ENV': '"production"', ngDevMode: 'false' },
+        external: ['pdfjs-dist'],
+        logLevel: 'silent',
+      });
+      const js = result.outputFiles
+        .find((file) => file.path.endsWith('.js'))!
+        .text.replace(/<\/script/gi, '<\\/script');
+      const cssOutput = result.outputFiles.find((file) =>
+        file.path.endsWith('.css'),
+      )?.text;
+      const errors: string[] = [];
+      page.on('pageerror', (error) => errors.push(error.message));
+      await page.route('http://ui-style.test/**', async (route) => {
+        if (route.request().url().endsWith('/app.css'))
+          return route.fulfill({
+            contentType: 'text/css',
+            body: cssOutput ?? '',
+          });
+        await route.fulfill({
+          contentType: 'text/html',
+          headers: {
+            'Content-Security-Policy': `default-src 'none'; script-src 'nonce-ui-script-test'; style-src ${extracted ? "'self'" : "'nonce-ui-style-test'"}; style-src-attr 'unsafe-inline'`,
+          },
+          body: `<!doctype html><html><head>${extracted ? '<link rel="stylesheet" href="/app.css">' : ''}</head><body><test-app></test-app><div id="app"></div><script nonce="ui-script-test">window.styleViolations=[];document.addEventListener('securitypolicyviolation',e=>window.styleViolations.push(e.violatedDirective));${js}</script></body></html>`,
+        });
+      });
+      await page.goto('http://ui-style.test/');
+      const button = page.getByRole('button', {
+        name: 'CSP action',
+        exact: true,
+      });
+      try {
+        await expect(button).toBeVisible();
+      } catch (error) {
+        throw new Error(errors.join('\n') + '\n' + String(error));
+      }
+      await expect(button).toHaveCSS('display', 'inline-flex');
+      await button.focus();
+      await expect(page.getByRole('tooltip')).toBeVisible();
+      if (extracted)
+        await expect(
+          page.locator(
+            'style[data-rv-component-styles],style[data-rv-tooltip-styles]',
+          ),
+        ).toHaveCount(0);
+      else
+        expect(
+          await page
+            .locator('style[data-rv-component-styles="base"]')
+            .evaluate((style) => (style as HTMLStyleElement).nonce),
+        ).toBe('ui-style-test');
+      expect(
+        await page.evaluate(() => (window as any).styleViolations),
+      ).toEqual([]);
+      expect(errors).toEqual([]);
+    });
+  }
+}

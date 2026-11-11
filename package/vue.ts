@@ -570,62 +570,51 @@ export const ActivityMessage = /* @__PURE__ */ createVueAdapter(
   ui.ActivityMessage,
   'ActivityMessage',
 );
-import { NumberDraft as PreactNumberDraft } from './number-input/index';
 export const NumberDraft = /* @__PURE__ */ createVueAdapter(
-  PreactNumberDraft,
+  ui.NumberDraft,
   'NumberDraft',
 );
-import { MaskedDraft as PreactMaskedDraft } from './masked-input/index';
 export const MaskedDraft = /* @__PURE__ */ createVueAdapter(
-  PreactMaskedDraft,
+  ui.MaskedDraft,
   'MaskedDraft',
 );
-import { DurationField as PreactDurationField } from './duration/index';
 export const DurationField = /* @__PURE__ */ createVueAdapter(
-  PreactDurationField,
+  ui.DurationField,
   'DurationField',
   { model: { prop: 'value', callback: 'onChange' } },
 );
-import { DurationDraft as PreactDurationDraft } from './duration/index';
 export const DurationDraft = /* @__PURE__ */ createVueAdapter(
-  PreactDurationDraft,
+  ui.DurationDraft,
   'DurationDraft',
 );
-import { HtmlEditor as PreactHtmlEditor } from './rich-text/index';
 export const HtmlEditor = /* @__PURE__ */ createVueAdapter(
-  PreactHtmlEditor,
+  ui.HtmlEditor,
   'HtmlEditor',
 );
-import { TemporalPicker as PreactTemporalPicker } from './date-time/index';
 export const TemporalPicker = /* @__PURE__ */ createVueAdapter(
-  PreactTemporalPicker,
+  ui.TemporalPicker,
   'TemporalPicker',
   { model: { prop: 'value', callback: 'onChange' } },
 );
-import { TemporalDraft as PreactTemporalDraft } from './date-time/index';
 export const TemporalDraft = /* @__PURE__ */ createVueAdapter(
-  PreactTemporalDraft,
+  ui.TemporalDraft,
   'TemporalDraft',
 );
-import { DateTimeField as PreactDateTimeField } from './date-time/index';
 export const DateTimeField = /* @__PURE__ */ createVueAdapter(
-  PreactDateTimeField,
+  ui.DateTimeField,
   'DateTimeField',
   { model: { prop: 'value', callback: 'onValueChange' } },
 );
-import { AssigneePicker as PreactAssigneePicker } from './assignee/index';
 export const AssigneePicker = /* @__PURE__ */ createVueAdapter(
-  PreactAssigneePicker,
+  ui.AssigneePicker,
   'AssigneePicker',
 );
-import { AssigneeField as PreactAssigneeField } from './assignee/index';
 export const AssigneeField = /* @__PURE__ */ createVueAdapter(
-  PreactAssigneeField,
+  ui.AssigneeField,
   'AssigneeField',
 );
-import { AssigneePickerLayout as PreactAssigneePickerLayout } from './assignee/index';
 export const AssigneePickerLayout = /* @__PURE__ */ createVueAdapter(
-  PreactAssigneePickerLayout,
+  ui.AssigneePickerLayout,
   'AssigneePickerLayout',
 );
 
@@ -680,9 +669,8 @@ export const PdfViewer = /* @__PURE__ */ createVueAdapter(
   { renderSlots: pdfViewerRenderSlots },
 );
 
-import { PdfViewerToolbar as PreactPdfViewerToolbar } from './pdf-viewer/toolbar';
 export const PdfViewerToolbar = /* @__PURE__ */ createVueAdapter(
-  PreactPdfViewerToolbar,
+  ui.PdfViewerToolbar,
   'PdfViewerToolbar',
 );
 export type { PdfViewerToolbarProps } from './pdf-viewer/toolbar';

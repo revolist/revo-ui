@@ -1,3 +1,5 @@
+import { ensureComponentStyles } from './core/component-styles';
+import { baseStyles } from './component-style-families';
 import { Directive, ElementRef, inject, type DoCheck } from '@angular/core';
 import { controlAttributes, type ControlTag } from './control-attributes';
 
@@ -11,6 +13,15 @@ export class UiControlDirective implements DoCheck {
   private readonly element =
     inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
   private classes: string[] = [];
+  constructor() {
+    const root = this.element.getRootNode();
+    ensureComponentStyles(
+      root.nodeType === 11 && 'host' in root
+        ? (root as ShadowRoot)
+        : this.element.ownerDocument,
+      baseStyles,
+    );
+  }
 
   ngDoCheck(): void {
     const element = this.element;
