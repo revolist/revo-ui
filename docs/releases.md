@@ -8,6 +8,8 @@ The existing GitHub Packages **Manage Actions access** grants both `revogrid-pro
 
 npm publication uses OIDC only, with `id-token: write` on both caller and reusable publication jobs and npm CLI >=11.5.1. Existing npm trusted publisher entries authorize `revolist/revogrid-pro / publish.yml` (verified Valid) and `revolist/revo-ui / publish.yml` (pending first publication at the time of this fix). No npm token or auth placeholder is supplied. A reusable workflow uses its caller's identity, so Pro calls use the existing Pro publisher entry and standalone UI releases use the UI entry. No new registry or repository credential is required.
 
+The UI repository Actions policy must allow its workflow dependencies. It now uses a selected-actions list for the exact existing references: `actions/checkout@v5`, `actions/setup-node@v5`, `actions/upload-artifact@v4`, `actions/upload-pages-artifact@v4`, `actions/deploy-pages@v4`, `pnpm/action-setup@v4`, and `sigstore/cosign-installer@v3`. A local-only policy blocks validation before checkout. Update this list deliberately when upgrading action versions.
+
 ## Pro-synchronized releases
 
 Merge the reusable UI workflow before the Pro caller. Pin the workflow reference and `automation_ref` input to the same immutable UI commit. Pro supplies its exact resolved version and the UI gitlink from the selected release tree through `source_ref`; it waits for the native job result before paid packages publish. Failures and cancellation stop that gate. Product-only selections and trial-only publications are unchanged.
