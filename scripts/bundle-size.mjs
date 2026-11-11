@@ -15,7 +15,7 @@ export const entries = {
 };
 export const limits = {
   // React bundles now include the automatically installed component CSS.
-  'react-button': 25 * 1024,
+  'react-button': 24 * 1024,
   'react-controls': 26 * 1024,
   'react-all': 150 * 1024,
   'native-all': 65 * 1024,
