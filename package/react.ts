@@ -412,7 +412,7 @@ export const StatusFeedbackPanel: ReactUiComponent<
 );
 export const StatusBadge: ReactUiComponent<typeof ui.StatusBadge> =
   /* @__PURE__ */ createReactAdapter(ui.StatusBadge, 'StatusBadge', {
-    styles: layoutStyles,
+    styles: feedbackStyles,
   });
 export const Combobox: ReactUiComponent<
   typeof ui.Combobox,
@@ -450,7 +450,7 @@ export const MultiSelect: ReactUiComponent<
 });
 export const Avatar: ReactUiComponent<typeof ui.Avatar> =
   /* @__PURE__ */ createReactAdapter(ui.Avatar, 'Avatar', {
-    styles: layoutStyles,
+    styles: feedbackStyles,
   });
 export const ProgressBar: ReactUiComponent<typeof ui.ProgressBar> =
   /* @__PURE__ */ createReactAdapter(ui.ProgressBar, 'ProgressBar', {

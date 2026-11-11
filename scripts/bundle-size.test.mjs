@@ -50,6 +50,17 @@ test('a Calendar import includes its family CSS without retaining AI styles', as
   assert(!code.includes('.rv-ai-prompt'));
 });
 
+test('standalone feedback and confirmation components retain their owning family styles', async () => {
+  for (const [name, selector] of [
+    ['Avatar', '.avatar-cell{'],
+    ['StatusBadge', '.rv-status-badge{'],
+    ['ConfirmDialog', '.rv-dialog__surface{'],
+  ]) {
+    const { code } = await measureEntry('react.js', [name]);
+    assert(code.includes(selector), `${name} requires ${selector}`);
+  }
+});
+
 test('published React components import and render on the server without a DOM or CSS loader', () => {
   const html = execFileSync(
     process.execPath,
