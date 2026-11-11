@@ -1,3 +1,4 @@
+/// <reference path="./assets.d.ts" />
 import baseCss from './styles/base.scss?inline';
 import calendarCss from './styles/calendar.scss?inline';
 import dialogsCss from './styles/dialogs.scss?inline';
