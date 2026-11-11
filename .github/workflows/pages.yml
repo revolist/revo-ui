@@ -31,13 +31,15 @@ jobs:
           node-version: 24.15.0
           package-manager-cache: false
       - name: Verify component documentation references
-        run: node gallery/scripts/check-docs.mjs
+        run: |
+          node gallery/scripts/check-docs.mjs
+          node --test gallery/scripts/install-ci-browser.test.mjs
       - name: Install locked dependencies
         working-directory: gallery
         run: pnpm install --frozen-lockfile
       - name: Install browser for static rendering
         working-directory: gallery
-        run: pnpm --filter @revolist/ui exec playwright install --with-deps chromium
+        run: node scripts/install-ci-browser.mjs
       - name: Build Pages site
         working-directory: gallery
         run: pnpm --filter @revolist/ui build:demo --base /

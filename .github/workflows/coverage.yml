@@ -38,10 +38,11 @@ jobs:
           pnpm test:public
       - name: Verify generated API contracts and test discovery
         run: |
+          node --test scripts/install-ci-browser.test.mjs
           pnpm test:api
           pnpm test:discovery
       - name: Install browser
-        run: pnpm exec playwright install --with-deps chromium
+        run: node scripts/install-ci-browser.mjs
       - name: Build gallery fixtures
         run: pnpm build:demo --base /
       - name: Test UI browser behavior
