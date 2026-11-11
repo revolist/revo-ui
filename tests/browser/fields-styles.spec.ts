@@ -44,9 +44,14 @@ test('published React imports install only their required styles without a CSS i
     page.getByRole('button', { name: 'Save', exact: true }),
   ).toBeVisible();
   await expect(
-    page.locator('style[data-rv-component-styles="base"]'),
+    page.locator('style[data-rv-component-styles="base-button"]'),
   ).toHaveCount(1);
   await expect(page.locator('style[data-rv-component-styles]')).toHaveCount(1);
+  const buttonStyles = await page
+    .locator('style[data-rv-component-styles="base-button"]')
+    .textContent();
+  expect(buttonStyles).not.toContain('.rv-form-section');
+  expect(buttonStyles).not.toContain('.rv-checkbox');
   await expect(
     page.getByRole('button', { name: 'Save', exact: true }),
   ).toHaveCSS('display', 'inline-flex');
@@ -55,7 +60,7 @@ test('published React imports install only their required styles without a CSS i
   await expect(
     page.locator('style[data-rv-component-styles="calendar"]'),
   ).toHaveCount(1);
-  await expect(page.locator('style[data-rv-component-styles]')).toHaveCount(2);
+  await expect(page.locator('style[data-rv-component-styles]')).toHaveCount(4);
   for (const width of [480, 1200]) {
     await page.setViewportSize({ width, height: 800 });
     for (const theme of ['light', 'dark']) {
@@ -63,6 +68,18 @@ test('published React imports install only their required styles without a CSS i
         (theme) => (document.documentElement.dataset.theme = theme),
         theme,
       );
+      const buttonBefore = await page
+        .getByRole('button', { name: 'Save', exact: true })
+        .evaluate((node) => {
+          const style = getComputedStyle(node);
+          return [
+            style.display,
+            style.color,
+            style.backgroundColor,
+            style.padding,
+            style.borderRadius,
+          ];
+        });
       const before = await page
         .locator('.revo-calendar__day')
         .first()
@@ -91,6 +108,19 @@ test('published React imports install only their required styles without a CSS i
           ];
         });
       expect(before).toEqual(after);
+      const buttonAfter = await page
+        .getByRole('button', { name: 'Save', exact: true })
+        .evaluate((node) => {
+          const style = getComputedStyle(node);
+          return [
+            style.display,
+            style.color,
+            style.backgroundColor,
+            style.padding,
+            style.borderRadius,
+          ];
+        });
+      expect(buttonBefore).toEqual(buttonAfter);
       await aggregate.evaluate((node) => node.remove());
     }
   }
@@ -385,7 +415,7 @@ for (const framework of ['react', 'vue', 'angular', 'svelte']) {
       else
         expect(
           await page
-            .locator('style[data-rv-component-styles="base"]')
+            .locator('style[data-rv-component-styles="base-button"]')
             .evaluate((style) => (style as HTMLStyleElement).nonce),
         ).toBe('ui-style-test');
       expect(

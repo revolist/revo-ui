@@ -3,6 +3,7 @@ import * as ui from './preact-raw';
 import { registerComponentStyles } from './core/component-styles';
 import {
   baseStyles,
+  buttonStyles,
   layoutStyles,
   calendarStyles,
   pickerStyles,
@@ -24,7 +25,7 @@ export const Input: typeof ui.Input = /* @__PURE__ */ registerComponentStyles(
 export const SvgIcon: typeof ui.SvgIcon =
   /* @__PURE__ */ registerComponentStyles(ui.SvgIcon, baseStyles);
 export const SvgButton: typeof ui.SvgButton =
-  /* @__PURE__ */ registerComponentStyles(ui.SvgButton, baseStyles);
+  /* @__PURE__ */ registerComponentStyles(ui.SvgButton, buttonStyles);
 export const DeleteButton: typeof ui.DeleteButton =
   /* @__PURE__ */ registerComponentStyles(ui.DeleteButton, baseStyles);
 export const RemoveButton: typeof ui.RemoveButton =
