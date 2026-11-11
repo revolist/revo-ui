@@ -5,7 +5,9 @@
 [![Build status](https://img.shields.io/github/actions/workflow/status/revolist/revo-ui/pages.yml?branch=main&style=flat&label=build)](https://github.com/revolist/revo-ui/actions/workflows/pages.yml)
 [![0 runtime dependencies](https://img.shields.io/badge/dependencies-0-16a34a?style=flat)](https://www.npmjs.com/package/@revolist/ui?activeTab=dependencies)
 [![Tree-shakeable ESM](https://img.shields.io/badge/tree%20shaking-supported-16a34a?style=flat)](https://github.com/revolist/revo-ui/blob/main/package.json)
-[![Component + styles: 23.5 KiB gzip](https://img.shields.io/badge/Component%20%2B%20styles-23.5%20KiB%20gzip-16a34a?style=flat)](docs/bundle-size.md)
+[![Component + styles (4.0.12): 25.4 KiB gzip](https://img.shields.io/badge/Component%20%2B%20styles%20(4.0.12)-25.4%20KiB%20gzip-16a34a?style=flat)](docs/bundle-size.md)
+
+Bundle size measures the published 4.0.12 React `SvgButton` import, including automatic styles and bundled Preact, with React excluded as a peer dependency.
 
 **RevoGrid's UI component library for financial apps, reporting dashboards, and project management.**
 
