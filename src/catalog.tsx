@@ -1,3 +1,5 @@
+import documentation from './documentation.json';
+import { documentationPage } from './documentation';
 import { accessibilityArticle } from './accessibility';
 import { GallerySettings } from './gallery-settings';
 import { ComponentContents } from './component-contents';
@@ -145,7 +147,7 @@ export function CatalogShell({
     return () => window.removeEventListener('hashchange', update);
   }, []);
   const knownRoute = page === 'api' ||
-    (page === 'frameworks' && (!active || pages.frameworks.some(name => sectionId(name) === active))) ||
+    (page === 'frameworks' && (!active || pages.frameworks.some(name => sectionId(name) === active) || !!documentationPage(active))) ||
     !active ||
     active === 'components' ||
     families.some((family) => sectionId(family.title) === active) ||
@@ -168,11 +170,12 @@ export function CatalogShell({
   });
   const visible = families.filter((family) => inScope(family.title) && matches(family, query));
   useEffect(() => {
-    const title = page === 'accessibility' ? accessibilityArticle.title : home ? 'Revo UI — Components for Finance, Reporting & Project Management' : `${component?.title ?? (page === 'frameworks' ? (pages.frameworks.find(name => sectionId(name) === active) ? `${pages.frameworks.find(name => sectionId(name) === active)} integration` : 'Documentation') : page === 'colors' ? 'Design system colors' : 'UI components')} · Revo UI`;
+    const doc = page === 'frameworks' ? documentationPage(active) : undefined;
+    const title = doc ? `${doc.title} · Revo UI` : page === 'accessibility' ? accessibilityArticle.title : home ? 'Revo UI — Components for Finance, Reporting & Project Management' : `${component?.title ?? (page === 'frameworks' ? (pages.frameworks.find(name => sectionId(name) === active) ? `${pages.frameworks.find(name => sectionId(name) === active)} integration` : 'Documentation') : page === 'colors' ? 'Design system colors' : 'UI components')} · Revo UI`;
     document.title = title;
     document.querySelector('meta[property="og:type"]')?.setAttribute('content', page === 'accessibility' ? 'article' : 'website');
     const frameworkName = page === 'frameworks' ? pages.frameworks.find(name => sectionId(name) === active) : undefined;
-    const description = page === 'accessibility' ? accessibilityArticle.description : frameworkName ? `Use Revo UI with ${frameworkName}: installation, component examples, state, callbacks, and styling for financial and reporting applications.` : home ? 'Build financial dashboards, reporting apps, and project workspaces with Revo UI. Explore UI components for React, Vue, Angular, Svelte, Preact, and TypeScript.' : component?.description ?? (page === 'colors' ? 'Explore Revo UI semantic colors, palettes, and theme tokens for consistent application interfaces.' : page === 'frameworks' ? 'Integrate Revo UI with React, Vue, Angular, Svelte, Preact, or vanilla TypeScript. Follow installation and usage guides for your stack.' : 'Browse Revo UI controls, pickers, layouts, and compositions with interactive variants and formatted usage examples.');
+    const description = doc ? doc.description : page === 'accessibility' ? accessibilityArticle.description : frameworkName ? `Use Revo UI with ${frameworkName}: installation, component examples, state, callbacks, and styling for financial and reporting applications.` : home ? 'Build financial dashboards, reporting apps, and project workspaces with Revo UI. Explore UI components for React, Vue, Angular, Svelte, Preact, and TypeScript.' : component?.description ?? (page === 'colors' ? 'Explore Revo UI semantic colors, palettes, and theme tokens for consistent application interfaces.' : page === 'frameworks' ? 'Integrate Revo UI with React, Vue, Angular, Svelte, Preact, or vanilla TypeScript. Follow installation and usage guides for your stack.' : 'Browse Revo UI controls, pickers, layouts, and compositions with interactive variants and formatted usage examples.');
     document.querySelector('meta[name="description"]')?.setAttribute('content', description);
     document.querySelector('meta[property="og:title"]')?.setAttribute('content', title);
     document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
@@ -399,6 +402,11 @@ export function CatalogShell({
                 </a>
                 <a href={siteHref('accessibility/')}>Accessibility</a>
                 <a href={siteHref('frameworks/#browser-cdn')}>JavaScript / CDN</a>
+                {Object.entries(documentation).map(([id, doc]) => (
+                  <a key={id} href={frameworkHref(id)} aria-current={active === id ? 'page' : undefined}>
+                    {doc.label}
+                  </a>
+                ))}
                 {pages.frameworks.map((name) => {
                   const id = name.toLowerCase().replaceAll(' ', '-');
                   return (

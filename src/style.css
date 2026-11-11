@@ -2378,3 +2378,22 @@ body {
 @media(max-width:480px) { .accessibility-note,.accessibility-demo { padding:18px; } }
 
 .catalog-field-reorder { margin-block-start: 12px; }
+
+/* Markdown guides share the documentation layout; wide content scrolls locally. */
+.markdown-guide { min-width: 0; overflow-wrap: anywhere; }
+.markdown-guide h1 { font-size: clamp(30px, 4vw, 44px); line-height: 1.15; margin: 0 0 24px; letter-spacing: -.03em; }
+.markdown-guide h2 { margin-top: 40px; }
+.markdown-guide h3 { margin-top: 28px; }
+.markdown-guide :is(h1, h2, h3, h4) { scroll-margin-top: calc(var(--catalog-header-height) + 24px); }
+.markdown-guide :is(ul, ol) { padding-inline-start: 24px; line-height: 1.8; }
+.markdown-guide li + li { margin-top: 6px; }
+.markdown-guide :not(pre) > code { font-size: .9em; background: var(--rv-ui-surface-sunken); padding: 2px 4px; border-radius: 4px; }
+.markdown-guide pre { max-width: 100%; white-space: pre; overflow-wrap: normal; margin-bottom: 24px; }
+.documentation-table { overflow-x: auto; max-width: 100%; margin: 20px 0; }
+.documentation-table table { width: 100%; min-width: 560px; border-collapse: collapse; font-size: 13px; line-height: 1.65; }
+.documentation-table :is(th, td) { text-align: start; vertical-align: top; padding: 12px; border-bottom: 1px solid var(--gallery-outline); }
+.markdown-guide blockquote { margin-inline: 0; padding-inline-start: 16px; border-inline-start: 3px solid var(--gallery-outline); }
+.markdown-guide p { color: var(--rv-ui-text); }
+.markdown-guide a { color: var(--rv-ui-accent-text); text-decoration: underline; text-underline-offset: 3px; }
+.documentation-table :is(th, td):first-child { min-width: 180px; }
+.documentation-table code { white-space: nowrap; overflow-wrap: normal; }

@@ -1,3 +1,4 @@
+import { documentationPlugin } from './scripts/documentation.mjs';
 import dts from 'unplugin-dts/vite';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { createBundledUtilityTypes } from './scripts/bundled-utility-types.ts';
@@ -129,6 +130,7 @@ export default defineConfig(({ mode }) => {
       ),
     },
     plugins: [
+      documentationPlugin(),
       {
         name: 'gallery-component-api',
         resolveId(id) {

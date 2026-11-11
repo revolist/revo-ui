@@ -42,6 +42,7 @@ jobs:
         run: |
           node --test scripts/browser-ci.test.mjs
           pnpm test:api
+          pnpm test:docs
           pnpm test:discovery
       - name: Build gallery fixtures
         run: pnpm build:demo --base /

@@ -66,6 +66,9 @@ importers:
       happy-dom:
         specifier: ^21.0.4
         version: 21.0.4
+      marked:
+        specifier: 18.2.0
+        version: 18.2.0
       pdfjs-dist:
         specifier: ^6.4.299
         version: 6.4.299
@@ -1864,6 +1867,11 @@ packages:
   make-dir@5.1.0:
     resolution: {integrity: sha512-IfpFq6UM39dUNiphpA6uDezNx/AvWyhwfICWPR3t1VspkgkMZrL+Rk1RbN1bx+aeNYwOrqGJgEgV3yotk+ZUVw==}
     engines: {node: '>=18'}
+
+  marked@18.2.0:
+    resolution: {integrity: sha512-KaeL+tAbtvI930q7HE2PN5lYXYdT8EiSmxHlN6F3rsfb57wd5mp5W5TLazpdj4inTQBJdgjYwbs40W/0VUGU+Q==}
+    engines: {node: '>= 20'}
+    hasBin: true
 
   mime@1.6.0:
     resolution: {integrity: sha512-x0Vn8spI+wuJ1O6S7gnbaQg8Pxh4NNHb7KSINmEWKiPE4RKOplvijn+NkmYmmRgP68mc70j2EbeTFRsrswaQeg==}
@@ -4111,6 +4119,8 @@ snapshots:
 
   make-dir@5.1.0:
     optional: true
+
+  marked@18.2.0: {}
 
   mime@1.6.0:
     optional: true

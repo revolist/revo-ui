@@ -1,0 +1,14 @@
+{
+  "ssr": {
+    "label": "SSR",
+    "title": "Server rendering and hydration",
+    "description": "Use Revo UI in SSR applications: simple framework examples, initial CSS delivery, client mounting, hydration and CSP configuration.",
+    "source": "ssr.md"
+  },
+  "bundle-size": {
+    "label": "Bundle size",
+    "title": "Bundle size and selective styles",
+    "description": "Keep Revo UI bundles small with tree-shaken imports, automatic or extracted CSS, selective stylesheets and reproducible size budgets.",
+    "source": "bundle-size.md"
+  }
+}

@@ -1,3 +1,4 @@
+import { DocumentationPage, documentationPage } from './documentation';
 import { frameworkHref, currentRoute, siteHref } from './routing';
 import { useEffect, useState } from 'preact/hooks';
 import { cdnExamples } from './cdn-examples';
@@ -144,6 +145,7 @@ export function FrameworksPage() {
   const selected = guides.find(
     (guide) => guide.name.toLowerCase().replaceAll(' ', '-') === active,
   );
+  if (documentationPage(active)) return <DocumentationPage id={active} />;
   return (
     <div class="framework-guide">
       <div class="component-intro">
@@ -220,72 +222,13 @@ export function FrameworksPage() {
             </details>
           </section>
         ))}
-      <section
-        class="framework-setup"
-        id="server-rendering"
-        aria-labelledby="framework-ssr-title"
-      >
-        <h2 id="framework-ssr-title">Server rendering and hydration</h2>
+      <section class="framework-setup" id="server-rendering">
+        <h2>SSR and bundle size</h2>
         <p>
-          React, Vue, Angular UiComponent and Svelte adapters render hosts on
-          the server and mount their interactive controls in the browser. They
-          do not prerender the complete controls. Keep important page content in
-          your host framework. The adapters handle client mounting; add a
-          fallback only if your application needs one.
-        </p>
-        <h3>Deliver CSS with the initial page</h3>
-        <p>
-          Use a matching /unstyled entry and import CSS from the application's
-          global layout or styles configuration. Your SSR bundler can then
-          deliver stylesheet references with the response. CSS imports do not
-          make the controls themselves server-rendered.
-        </p>
-        <pre>
-          <Highlight
-            code={`import { SvgButton } from '@revolist/ui/react/unstyled';
-// Global layout/styles entry:
-import '@revolist/ui/styles/base.css';`}
-          />
-        </pre>
-        <h3>Use your framework's client boundary</h3>
-        <ul>
-          <li>
-            React/Next.js: put hooks and event handlers in a Client Component;
-            render the adapter directly without an extra mounted-state flag.
-          </li>
-          <li>
-            Vue/Nuxt: render named components directly and load extracted CSS
-            globally. ClientOnly and custom fallbacks are optional.
-          </li>
-          <li>
-            Angular: UiComponent skips its shared mount on the server; use
-            ngSkipHydration on the rv-ui host for the imperative region, and
-            configure global CSS in the CLI.
-          </li>
-          <li>
-            SvelteKit: import CSS in the root layout and render UiComponent
-            directly. Keep application SSR enabled.
-          </li>
-        </ul>
-        <h3>CSP and the no-document behavior</h3>
-        <p>
-          Automatic mode installs styles on the client. Configure its allowed
-          nonce before client bootstrap. A configureUiStyles call without a
-          document on the server does nothing: it does not collect CSS or
-          transfer a nonce to the browser. Deliver the response-specific nonce
-          through your application's safe serialization, then configure it in
-          the client. Extracted /unstyled entries do not insert stylesheet tags.
-        </p>
-        <p>
-          If you choose a fallback, keep its server and initial-client render
-          identical. The application owns its framework's hydration and CSP; do
-          not hydrate raw control HTML as an adapter host.
-        </p>
-        <p>
-          <a href="https://github.com/revolist/revo-ui/blob/main/docs/ssr.md">
-            Full SSR guide: framework recipes, CSS modes, CSP and
-            troubleshooting
-          </a>
+          Read the <a href={frameworkHref('ssr')}>SSR guide</a> for server
+          output, CSS delivery and simple framework setup. See{' '}
+          <a href={frameworkHref('bundle-size')}>Bundle size</a> for
+          automatic/extracted CSS, selective styles and size budgets.
         </p>
       </section>
       <section
