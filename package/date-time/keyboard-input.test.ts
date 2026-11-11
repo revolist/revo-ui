@@ -115,3 +115,25 @@ it('retains localized/custom formats and validates time and datetime', () => {
     value: '2026-11-11T09:30',
   });
 });
+
+it('inherits the calendar locale for ambiguous inline dates and formatting', () => {
+  const options = {
+    calendar: { locale: 'de-DE' },
+    dateInput: { format: 'locale' as const },
+  };
+  expect(parseTemporalInput('11/12/2026', options)).toEqual({
+    value: '2026-12-11',
+  });
+  expect(formatTemporalInput('2026-12-11', options)).toBe('11.12.2026');
+});
+
+it('lets an explicit date-input locale override the calendar locale', () => {
+  const options = {
+    calendar: { locale: 'de-DE' },
+    dateInput: { format: 'locale' as const, locale: 'en-US' },
+  };
+  expect(parseTemporalInput('11/12/2026', options)).toEqual({
+    value: '2026-11-12',
+  });
+  expect(formatTemporalInput('2026-11-12', options)).toBe('11/12/2026');
+});

@@ -130,3 +130,20 @@ it('preserves localized or invalid inline drafts when opening the picker', () =>
       ?.getAttribute('aria-invalid'),
   ).toBe('true');
 });
+
+it('opens an inline draft using the calendar locale rather than the host locale', () => {
+  const input = document.createElement('input');
+  input.value = '11/12/2026';
+  document.body.append(input);
+  act(() => {
+    dispose = attachTemporalPicker(
+      input,
+      { calendar: { locale: 'de-DE' }, dateInput: { format: 'locale' } },
+      () => {},
+    );
+  });
+  act(() => (input.nextElementSibling as HTMLButtonElement).click());
+  expect(
+    document.querySelector<HTMLInputElement>('.rv-editor-popup input')?.value,
+  ).toBe('11.12.2026');
+});

@@ -92,7 +92,10 @@ export function parseDateInput(
 }
 
 function dateOptions(options: TemporalPickerOptions): DateInputOptions {
-  return typeof options.dateInput === 'object' ? options.dateInput : {};
+  return {
+    locale: options.calendar?.locale,
+    ...(typeof options.dateInput === 'object' ? options.dateInput : {}),
+  };
 }
 export function formatTemporalInput(
   value: string,
