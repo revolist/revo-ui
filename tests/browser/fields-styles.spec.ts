@@ -395,3 +395,54 @@ for (const framework of ['react', 'vue', 'angular', 'svelte']) {
     });
   }
 }
+
+for (const component of ['Spinner', 'FilterBadge']) {
+  test(`standalone ${component} installs its complete automatic presentation`, async ({
+    page,
+  }) => {
+    const props =
+      component === 'Spinner'
+        ? { label: 'Loading' }
+        : {
+            label: 'Customer status '.repeat(40),
+            details: 'Only show active customers',
+            detailsLabel: 'Filter details',
+          };
+    const result = await build({
+      stdin: {
+        contents: `import {createElement} from 'react'; import {createRoot} from 'react-dom/client'; import {${component}} from './dist/react.js'; createRoot(document.getElementById('app')).render(createElement(${component},${JSON.stringify(props)}));`,
+        resolveDir: root,
+      },
+      bundle: true,
+      write: false,
+      format: 'iife',
+      platform: 'browser',
+      define: { 'process.env.NODE_ENV': '"production"' },
+      external: ['pdfjs-dist'],
+      logLevel: 'silent',
+    });
+    await page.setContent('<div id="app"></div>');
+    await page.addScriptTag({ content: result.outputFiles[0].text });
+    if (component === 'Spinner') {
+      const ring = page.locator('.rv-spinner__ring');
+      await expect(ring).toHaveCSS('width', '20px');
+      await expect(ring).toHaveCSS('height', '20px');
+      await expect(ring).toHaveCSS('border-top-width', '2px');
+      await expect(ring).toHaveCSS('animation-name', 'rv-ui-spin');
+      await page.emulateMedia({ reducedMotion: 'reduce' });
+      await expect(ring).toHaveCSS('animation-name', 'none');
+    } else {
+      const description = page.locator('.rv-filter-badge-description');
+      await expect(description).toHaveCSS('position', 'absolute');
+      await expect(description).toHaveCSS('width', '1px');
+      await expect(description).toHaveCSS('height', '1px');
+      await expect(description).toHaveCSS('clip-path', 'inset(50%)');
+      await expect(
+        page.getByRole('button', { name: 'Filter details', exact: true }),
+      ).toHaveAccessibleDescription('Only show active customers');
+      const label = page.locator('.rv-filter-badge-label');
+      await expect(label).toHaveCSS('text-overflow', 'ellipsis');
+      expect((await label.boundingBox())!.width).toBeLessThanOrEqual(220);
+    }
+  });
+}
