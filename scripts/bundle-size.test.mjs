@@ -134,3 +134,17 @@ test('all extracted framework entrypoints exclude static component and tooltip C
       assert(!code.includes(selector), `${file} retained ${selector}`);
   }
 });
+
+test('standalone Spinner and FilterBadge imports retain their required CSS rules', async () => {
+  for (const [name, selectors] of [
+    ['Spinner', ['.rv-spinner__ring{']],
+    [
+      'FilterBadge',
+      ['.rv-filter-badge-description{', '.rv-filter-badge-label{'],
+    ],
+  ]) {
+    const { code } = await measureEntry('react.js', [name]);
+    for (const selector of selectors)
+      assert(code.includes(selector), `${name} requires ${selector}`);
+  }
+});

@@ -168,7 +168,7 @@ export const Badge: typeof ui.Badge = /* @__PURE__ */ registerComponentStyles(
 export const CountBadge: typeof ui.CountBadge =
   /* @__PURE__ */ registerComponentStyles(ui.CountBadge, layoutStyles);
 export const Spinner: typeof ui.Spinner =
-  /* @__PURE__ */ registerComponentStyles(ui.Spinner, baseStyles);
+  /* @__PURE__ */ registerComponentStyles(ui.Spinner, layoutStyles);
 export const LoadingOverlay: typeof ui.LoadingOverlay =
   /* @__PURE__ */ registerComponentStyles(ui.LoadingOverlay, layoutStyles);
 export const EmptyState: typeof ui.EmptyState =
@@ -357,7 +357,7 @@ export const FilterBadgeInfoButton: typeof ui.FilterBadgeInfoButton =
     layoutStyles,
   );
 export const FilterBadge: typeof ui.FilterBadge =
-  /* @__PURE__ */ registerComponentStyles(ui.FilterBadge, layoutStyles);
+  /* @__PURE__ */ registerComponentStyles(ui.FilterBadge, fieldsStyles);
 export const RatingStar: typeof ui.RatingStar =
   /* @__PURE__ */ registerComponentStyles(ui.RatingStar, feedbackStyles);
 export const RatingChoice: typeof ui.RatingChoice =
