@@ -170,3 +170,56 @@ it('validates partial ranges before automatic calendar completion and supports m
   );
   expect(values).toEqual(['2026-10-20']);
 });
+
+it('uses shared masking in popup date inputs and commits or clears their ISO values', () => {
+  const values: unknown[] = [];
+  act(() =>
+    render(
+      <TemporalDraft
+        value="2026-11-11"
+        options={{ dateInput: { inputMask: 'YYYY-MM-DD' } }}
+        apply={(value) => {
+          values.push(value);
+        }}
+        cancel={() => {}}
+      />,
+      host,
+    ),
+  );
+  const input = host.querySelector('input')!;
+  act(() => {
+    input.focus();
+    input.select();
+    input.dispatchEvent(
+      new InputEvent('beforeinput', {
+        inputType: 'insertText',
+        data: '20261120',
+        bubbles: true,
+        cancelable: true,
+      }),
+    );
+  });
+  expect(input.value).toBe('2026-11-20');
+  act(() =>
+    input.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }),
+    ),
+  );
+  expect(values).toEqual(['2026-11-20']);
+  act(() => {
+    input.select();
+    input.dispatchEvent(
+      new InputEvent('beforeinput', {
+        inputType: 'deleteContentBackward',
+        bubbles: true,
+        cancelable: true,
+      }),
+    );
+  });
+  act(() =>
+    input.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }),
+    ),
+  );
+  expect(values).toEqual(['2026-11-20', null]);
+});
