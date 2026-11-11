@@ -230,8 +230,8 @@ export function FrameworksPage() {
           React, Vue, Angular UiComponent and Svelte adapters render hosts on
           the server and mount their interactive controls in the browser. They
           do not prerender the complete controls. Keep important page content in
-          your host framework and provide a stable fallback until the client
-          mounts.
+          your host framework. The adapters handle client mounting; add a
+          fallback only if your application needs one.
         </p>
         <h3>Deliver CSS with the initial page</h3>
         <p>
@@ -251,21 +251,20 @@ import '@revolist/ui/styles/base.css';`}
         <ul>
           <li>
             React/Next.js: put hooks and event handlers in a Client Component;
-            use the same mounted-state fallback on the server and first client
-            render.
+            render the adapter directly without an extra mounted-state flag.
           </li>
           <li>
-            Vue/Nuxt: use ClientOnly with a fallback, or an onMounted gate. Load
-            extracted CSS globally, outside the client-only component.
+            Vue/Nuxt: render named components directly and load extracted CSS
+            globally. ClientOnly and custom fallbacks are optional.
           </li>
           <li>
             Angular: UiComponent skips its shared mount on the server; use
-            afterNextRender when replacing a fallback after hydration, and
+            ngSkipHydration on the rv-ui host for the imperative region, and
             configure global CSS in the CLI.
           </li>
           <li>
-            SvelteKit: import CSS in the root layout and use an onMount gate for
-            a fallback. Keep application SSR enabled.
+            SvelteKit: import CSS in the root layout and render UiComponent
+            directly. Keep application SSR enabled.
           </li>
         </ul>
         <h3>CSP and the no-document behavior</h3>
@@ -278,10 +277,9 @@ import '@revolist/ui/styles/base.css';`}
           the client. Extracted /unstyled entries do not insert stylesheet tags.
         </p>
         <p>
-          Keep the server and initial-client fallback identical and reserve
-          enough space to avoid layout shifts. The application owns its
-          framework's hydration and CSP; do not hydrate raw control HTML as an
-          adapter host.
+          If you choose a fallback, keep its server and initial-client render
+          identical. The application owns its framework's hydration and CSP; do
+          not hydrate raw control HTML as an adapter host.
         </p>
         <p>
           <a href="https://github.com/revolist/revo-ui/blob/main/docs/ssr.md">

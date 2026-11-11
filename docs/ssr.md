@@ -2,7 +2,7 @@
 
 Revo UI can be used inside server-rendered applications. Its React, Vue, Angular `UiComponent` and Svelte adapters mount the interactive shared UI **in the browser**. They do not render the complete controls into the server response.
 
-Use the host framework to render your page content and a stable loading/fallback region. Load static UI CSS through the application's stylesheet pipeline, then let the adapter mount inside its own host after browser initialization.
+Use the host framework to render your page content. The adapters handle their own browser mounting; application-level mounted flags and fallbacks are not required. Load static UI CSS through the application's stylesheet pipeline, then let the adapter mount inside its own host after browser initialization.
 
 ## What the server renders
 
@@ -23,8 +23,9 @@ Angular's `UiControlDirective` is a separate native-element path: Angular owns t
 1. Keep SSR enabled for the application and its page content.
 2. Use the matching `/unstyled` adapter for extracted CSS.
 3. Import the aggregate stylesheet or base plus the required families from a global entry/layout included by the SSR framework.
-4. Put the interactive adapter behind the framework's client boundary or a mounted-state gate when providing a fallback.
-5. Render the same fallback on the server and on the client's first render. Reserve suitable space until the control mounts.
+4. Use the framework boundary shown below and render the adapter directly.
+
+A fallback is optional: add one only when the application needs visible content before JavaScript initializes. If you choose a fallback, keep its server and first-client render consistent.
 
 For example, an extracted button needs:
 
@@ -58,45 +59,35 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 }
 ```
 
-Provide a matching server/initial-client fallback and mount the control after hydration:
+Render the component directly:
 
 ```tsx
 // app/report-action.tsx
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { SvgButton } from '@revolist/ui/react/unstyled';
 
 export default function ReportAction() {
-  const [mounted, setMounted] = useState(false);
   const [count, setCount] = useState(0);
-  useEffect(() => setMounted(true), []);
 
   return (
-    <div style={{ minHeight: 32 }} aria-busy={!mounted}>
-      {mounted ? (
-        <SvgButton
-          label="Save"
-          visibleLabel={`Save ${count}`}
-          onClick={() => setCount((value) => value + 1)}
-        />
-      ) : (
-        <button type="button" disabled>
-          Save
-        </button>
-      )}
-    </div>
+    <SvgButton
+      label="Save"
+      visibleLabel={`Save ${count}`}
+      onClick={() => setCount((value) => value + 1)}
+    />
   );
 }
 ```
 
-Import `ReportAction` into a Server Component page as usual. The mounted-state gate is for the fallback; the adapter itself can also prerender its empty host without this gate. Do not pass event-handler functions across a Server Component boundary: define them in the Client Component. Pass only values your framework can serialize.
+Import `ReportAction` into a Server Component page as usual. The adapter handles its client mount; no `useEffect` or mounted-state flag is needed. Do not pass event-handler functions across a Server Component boundary: define them in the Client Component. Pass only values your framework can serialize.
 
 For other React SSR systems, load CSS from their global entry, render the same initial tree on server/client and use their normal hydration entry. Do not render raw Preact control HTML and try to hydrate it as a React adapter host.
 
 ## Vue and Nuxt
 
-In Nuxt, load CSS globally so it is available even when the control is inside `ClientOnly`:
+In Nuxt, load CSS globally:
 
 ```ts
 // nuxt.config.ts
@@ -118,23 +109,9 @@ const count = ref(0);
 </template>
 ```
 
-```vue
-<!-- app/pages/index.vue -->
-<template>
-  <div style="min-height: 32px">
-    <ClientOnly>
-      <ReportAction />
-      <template #fallback
-        ><button type="button" disabled>Save</button></template
-      >
-    </ClientOnly>
-  </div>
-</template>
-```
+Use `<ReportAction />` in the page. No `ClientOnly`, mounted flag or `onMounted` wrapper is needed for the adapter's host-only server output. Plain Vue SSR uses the same component and Vue's normal hydration process.
 
-Adjust the source directory for your Nuxt project. `ClientOnly` renders the fallback on the server and replaces it after client mount. Its default-slot dependencies can be excluded from the server build, so do not rely on a CSS import located only inside that slot to deliver initial CSS.
-
-For plain Vue SSR, use a wrapper with `const mounted = ref(false)` and `onMounted(() => { mounted.value = true; })`, with the same `v-if` fallback on server and initial client render. Keep CSS in the application's global entry and use Vue's normal hydration process.
+If the application chooses Nuxt's optional `ClientOnly` boundary, keep CSS global: dependencies inside its default slot can be excluded from the server build.
 
 ## Angular SSR and hydration
 
@@ -148,46 +125,30 @@ Keep Angular's SSR/hydration configuration. Load static styles through the CLI's
 
 Use `@revolist/ui/styles.css` instead of base for all component families. Add the needed family files when using base alone. The files are resolved from the installed package; keep normal Angular build and production linking enabled.
 
-A mounted-state gate provides an Angular-owned fallback and initializes the catalog host after browser rendering:
+Render the host directly. `ngSkipHydration` limits Angular's hydration boundary to the component that owns the imperative UI:
 
 ```ts
 // report-action.component.ts
-import { afterNextRender, Component, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { UiComponent } from '@revolist/ui/angular/unstyled';
 
 @Component({
   selector: 'app-report-action',
   standalone: true,
   imports: [UiComponent],
-  template: `
-    <div style="min-height: 32px" [attr.aria-busy]="!mounted()">
-      @if (mounted()) {
-        <rv-ui
-          component="SvgButton"
-          [props]="{
-            label: 'Save',
-            visibleLabel: 'Save ' + count(),
-            onClick: save,
-          }"
-        />
-      } @else {
-        <button type="button" disabled>Save</button>
-      }
-    </div>
-  `,
+  template: `<rv-ui
+    ngSkipHydration
+    component="SvgButton"
+    [props]="{ label: 'Save', visibleLabel: 'Save ' + count(), onClick: save }"
+  />`,
 })
 export class ReportAction {
-  readonly mounted = signal(false);
   readonly count = signal(0);
   readonly save = () => this.count.update((value) => value + 1);
-
-  constructor() {
-    afterNextRender(() => this.mounted.set(true));
-  }
 }
 ```
 
-`afterNextRender` initializes the client region without accessing `window` or `document` in a server-executed template. Keep this post-render gate for an SSR/hydrated Angular integration unless you have separately verified its DOM ownership and hydration behavior. `UiComponent` also checks the Angular platform before creating its shared mount, but a browser-platform check alone is not a guarantee that arbitrary imperative DOM work is hydration-safe. It does not itself prerender the catalog control's HTML.
+`UiComponent` already checks the Angular platform before creating its shared mount. Apply `ngSkipHydration` to the `rv-ui` component host, not an ordinary wrapper element; Angular recreates that small region on the client while the rest of the page can hydrate normally. No application `afterNextRender` callback or mounted-state flag is needed. The catalog control is still client-mounted, not prerendered as complete HTML.
 
 ## SvelteKit and Svelte 5
 
@@ -203,32 +164,23 @@ Import CSS from the root layout so the SSR build sees it:
 {@render children()}
 ```
 
-Keep page SSR enabled and use `onMount` for a stable fallback:
+Keep page SSR enabled and render the component directly:
 
 ```svelte
 <!-- src/routes/+page.svelte -->
 <script lang="ts">
-  import { onMount } from 'svelte';
   import { UiComponent } from '@revolist/ui/svelte/unstyled';
-  let mounted = $state(false);
   let count = $state(0);
-  onMount(() => { mounted = true; });
 </script>
 
-<div style="min-height: 32px" aria-busy={!mounted}>
-  {#if mounted}
-    <UiComponent component="SvgButton" props={{
-      label: 'Save',
-      visibleLabel: `Save ${count}`,
-      onClick: () => { count += 1; },
-    }} />
-  {:else}
-    <button type="button" disabled>Save</button>
-  {/if}
-</div>
+<UiComponent component="SvgButton" props={{
+  label: 'Save',
+  visibleLabel: `Save ${count}`,
+  onClick: () => { count += 1; },
+}} />
 ```
 
-`onMount` does not run on the server. The package provides a Svelte source condition and server/client fallbacks; let the normal SvelteKit resolver choose them. Do not force the browser bundle into a server build. Disabling SSR for the whole application is not required to mount these controls.
+The adapter handles its own `onMount`; application mount flags are unnecessary. Let the normal SvelteKit resolver choose the package's server/client entry. Disabling SSR for the whole application is not required.
 
 ## Automatic styles and CSP
 
@@ -269,7 +221,7 @@ Direct Preact rendering and low-level native helpers have their own rendering co
 | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `/unstyled` is not exported                        | Verify the installed package version includes these entrypoints, and use the same version for server and client builds.                                                        |
 | Server reports `document` or `window` is undefined | Move application DOM work and imperative mounts out of server module scope. Importing a CSS file in raw Node also needs a bundler/CSS loader.                                  |
-| Server HTML contains an empty adapter host         | Expected for these adapters. Render important static content and a fallback in the host framework.                                                                             |
+| Server HTML contains an empty adapter host         | Expected for these adapters. Render important static content in the host framework; add a fallback only if needed.                                                             |
 | CSS is absent from the first response              | Put extracted CSS in a global entry/layout; automatic styling and client-only component imports do not collect server CSS.                                                     |
 | Controls are unstyled after mount                  | Verify the `/unstyled` build has base plus required families, or that automatic mode has a valid CSP nonce. Inspect CSP violations.                                            |
 | Hydration warnings                                 | Keep server/initial-client data and placeholders identical. Avoid generating browser-only values during the server render, and do not mix raw control HTML with adapter hosts. |
@@ -277,4 +229,4 @@ Direct Preact rendering and low-level native helpers have their own rendering co
 
 The library verifies DOM-free React import/server rendering, public package consumers, Svelte server entry resolution, framework browser behavior and automatic/extracted CSP modes, including an Angular AOT production-linked browser fixture. These checks do not constitute end-to-end builds of every Next.js, Nuxt, Angular SSR or SvelteKit application. Verify your application's production server response, hydration, fallback, CSP and browser console with its chosen framework version.
 
-Framework references: [Next.js Client Components](https://nextjs.org/docs/app/getting-started/server-and-client-components), [Next.js CSS](https://nextjs.org/docs/app/getting-started/css), [Nuxt ClientOnly](https://nuxt.com/docs/4.x/api/components/client-only), [Angular SSR](https://angular.dev/guide/ssr), [Angular afterNextRender](https://angular.dev/api/core/afterNextRender), [Svelte lifecycle](https://svelte.dev/docs/svelte/lifecycle-hooks).
+Framework references: [Next.js Client Components](https://nextjs.org/docs/app/getting-started/server-and-client-components), [Next.js CSS](https://nextjs.org/docs/app/getting-started/css), [Nuxt ClientOnly](https://nuxt.com/docs/4.x/api/components/client-only), [Angular SSR](https://angular.dev/guide/ssr), [Angular hydration](https://angular.dev/guide/hydration), [Svelte lifecycle](https://svelte.dev/docs/svelte/lifecycle-hooks).
