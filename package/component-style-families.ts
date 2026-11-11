@@ -1,3 +1,4 @@
+/// <reference path="./assets.d.ts" />
 import baseCss from './styles/automatic-base.scss?inline';
 import formCss from './styles/automatic-form.scss?inline';
 import checkboxCss from './styles/automatic-checkbox.scss?inline';
