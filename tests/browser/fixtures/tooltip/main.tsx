@@ -1,3 +1,4 @@
+import { decorateIconAction } from '@revolist/ui/native';
 import { TooltipApiFixture, TooltipExitFixture } from './api';
 /** @jsxImportSource preact */
 import {
@@ -164,3 +165,10 @@ render(
   ),
   document.getElementById('app')!,
 );
+
+if (new URLSearchParams(location.search).has('decorated-icon')) {
+  const button = document.createElement('button');
+  button.textContent = '↗';
+  document.getElementById('app')!.replaceChildren(button);
+  decorateIconAction(button, 'Linked views');
+}
