@@ -64,3 +64,69 @@ for (const route of ['ssr', 'bundle-size']) {
     expect(await table.evaluate((node) => node.scrollLeft)).toBeGreaterThan(0);
   });
 }
+
+test('Getting started stays focused and CDN content has its own page', async ({
+  page,
+}) => {
+  await page.goto('/frameworks/');
+  await expect(
+    page.getByRole('heading', {
+      level: 1,
+      name: 'Getting started',
+      exact: true,
+    }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole('heading', { name: 'Install the package', exact: true }),
+  ).toBeVisible();
+  for (const name of [
+    'SSR and bundle size',
+    'Browser ES module import',
+    'Build accessible applications',
+  ]) {
+    await expect(page.getByRole('heading', { name, exact: true })).toHaveCount(
+      0,
+    );
+  }
+  await page
+    .getByRole('navigation', { name: 'Documentation navigation' })
+    .getByRole('link', { name: 'JavaScript / CDN', exact: true })
+    .click();
+  await expect(page).toHaveURL(/\/frameworks\/javascript-cdn\/$/);
+  await expect(
+    page.getByRole('heading', {
+      level: 1,
+      name: 'JavaScript / CDN',
+      exact: true,
+    }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole('heading', {
+      level: 2,
+      name: 'Browser ES module import',
+      exact: true,
+    }),
+  ).toBeVisible();
+  await expect(page.locator('article pre').first()).toContainText(
+    'browser/revo-ui.js',
+  );
+  await expect(
+    page.getByRole('heading', {
+      name: 'Build accessible applications',
+      exact: true,
+    }),
+  ).toHaveCount(0);
+});
+
+for (const [hash, target] of [
+  ['browser-cdn', 'javascript-cdn'],
+  ['server-rendering', 'ssr'],
+]) {
+  test(`old ${hash} overview links redirect to the dedicated guide`, async ({
+    page,
+  }) => {
+    await page.goto(`/frameworks/#${hash}`);
+    await expect(page).toHaveURL(new RegExp(`/frameworks/${target}/$`));
+    await expect(page.locator('article h1')).toBeVisible();
+  });
+}

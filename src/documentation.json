@@ -1,4 +1,9 @@
 {
+  "javascript-cdn": {
+    "label": "JavaScript / CDN",
+    "title": "JavaScript / CDN",
+    "description": "Use Revo UI directly in the browser with ES module or classic-script CDN examples, pinned assets and optional PDF worker setup."
+  },
   "ssr": {
     "label": "SSR",
     "title": "Server rendering and hydration",

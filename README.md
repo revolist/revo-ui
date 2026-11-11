@@ -69,7 +69,7 @@ You can replace the CDN prefix with `https://unpkg.com/@revolist/ui@4.0.7`, or s
 
 The complete browser bundles include the component catalog and PDF engine. PDF viewers also need `browser/pdf-viewer.css` and the matching `browser/pdf.worker.min.mjs` served from **your own origin**, with its URL supplied as `workerSrc`. Direct cross-origin CDN Worker URLs are not supported by the browser Worker constructor. Configure PDF document/asset access for your application.
 
-See the [CDN examples in Docs](https://ui.rv-grid.com/frameworks/#browser-cdn) for complete module and classic-script HTML and lifecycle guidance.
+See the [CDN examples in Docs](https://ui.rv-grid.com/frameworks/javascript-cdn/) for complete module and classic-script HTML and lifecycle guidance.
 
 ## Framework support
 

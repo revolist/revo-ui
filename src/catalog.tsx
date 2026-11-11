@@ -171,7 +171,7 @@ export function CatalogShell({
   const visible = families.filter((family) => inScope(family.title) && matches(family, query));
   useEffect(() => {
     const doc = page === 'frameworks' ? documentationPage(active) : undefined;
-    const title = doc ? `${doc.title} · Revo UI` : page === 'accessibility' ? accessibilityArticle.title : home ? 'Revo UI — Components for Finance, Reporting & Project Management' : `${component?.title ?? (page === 'frameworks' ? (pages.frameworks.find(name => sectionId(name) === active) ? `${pages.frameworks.find(name => sectionId(name) === active)} integration` : 'Documentation') : page === 'colors' ? 'Design system colors' : 'UI components')} · Revo UI`;
+    const title = doc ? `${doc.title} · Revo UI` : page === 'accessibility' ? accessibilityArticle.title : home ? 'Revo UI — Components for Finance, Reporting & Project Management' : `${component?.title ?? (page === 'frameworks' ? (pages.frameworks.find(name => sectionId(name) === active) ? `${pages.frameworks.find(name => sectionId(name) === active)} integration` : 'Getting started') : page === 'colors' ? 'Design system colors' : 'UI components')} · Revo UI`;
     document.title = title;
     document.querySelector('meta[property="og:type"]')?.setAttribute('content', page === 'accessibility' ? 'article' : 'website');
     const frameworkName = page === 'frameworks' ? pages.frameworks.find(name => sectionId(name) === active) : undefined;
@@ -401,7 +401,6 @@ export function CatalogShell({
                   Getting started
                 </a>
                 <a href={siteHref('accessibility/')}>Accessibility</a>
-                <a href={siteHref('frameworks/#browser-cdn')}>JavaScript / CDN</a>
                 {Object.entries(documentation).map(([id, doc]) => (
                   <a key={id} href={frameworkHref(id)} aria-current={active === id ? 'page' : undefined}>
                     {doc.label}

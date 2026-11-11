@@ -77,11 +77,16 @@ export function documentationPlugin() {
     load(source) {
       if (source !== id) return;
       const rendered = Object.fromEntries(
-        Object.entries(documentation).map(([slug, page]) => {
-          const file = new URL(`../docs/${page.source}`, import.meta.url);
-          this.addWatchFile(fileURLToPath(file));
-          return [slug, renderDocumentation(readFileSync(file, 'utf8'), base)];
-        }),
+        Object.entries(documentation)
+          .filter(([, page]) => page.source)
+          .map(([slug, page]) => {
+            const file = new URL(`../docs/${page.source}`, import.meta.url);
+            this.addWatchFile(fileURLToPath(file));
+            return [
+              slug,
+              renderDocumentation(readFileSync(file, 'utf8'), base),
+            ];
+          }),
       );
       return `export default ${JSON.stringify(rendered)};`;
     },

@@ -5,6 +5,7 @@ import { renderDocumentation, documentation } from './documentation.mjs';
 
 test('guides render complete Markdown with heading IDs, code and tables', () => {
   for (const page of Object.values(documentation)) {
+    if (!page.source) continue;
     const html = renderDocumentation(
       readFileSync(new URL(`../docs/${page.source}`, import.meta.url), 'utf8'),
     );

@@ -160,14 +160,16 @@ test('documentation makes the accessibility guide discoverable', async ({
     .getByRole('navigation', { name: 'Documentation navigation' })
     .getByRole('link', { name: 'JavaScript / CDN', exact: true })
     .click();
-  await expect(page).toHaveURL(/#browser-cdn$/);
+  await expect(page).toHaveURL(/\/frameworks\/javascript-cdn\/$/);
   await expect(
     page.getByRole('heading', {
-      name: 'Use JavaScript from a CDN, without a build step',
+      name: 'JavaScript / CDN',
+      level: 1,
     }),
   ).toBeVisible();
   await page
-    .getByRole('link', { name: 'Read the accessibility guide →', exact: true })
+    .getByRole('navigation', { name: 'Documentation navigation' })
+    .getByRole('link', { name: 'Accessibility', exact: true })
     .click();
   await expect(page).toHaveURL(/\/accessibility\/$/);
   await expect(page.locator('article h1')).toBeVisible();

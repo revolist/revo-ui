@@ -1,7 +1,7 @@
 import { DocumentationPage, documentationPage } from './documentation';
 import { frameworkHref, currentRoute, siteHref } from './routing';
 import { useEffect, useState } from 'preact/hooks';
-import { cdnExamples } from './cdn-examples';
+import { CdnGuide } from './cdn-guide';
 import { Highlight } from './example-source';
 
 const guides = [
@@ -96,6 +96,7 @@ let count = $state(0);
     description:
       'Use the components directly with Preact hooks. Configure your JSX runtime for Preact. Props, variants and callbacks are the same shared contracts used by the adapters.',
     code: `/** @jsxImportSource preact */
+import '@revolist/ui/styles.css';
 import { useState } from 'preact/hooks';
 import { Button } from '@revolist/ui/preact';
 
@@ -145,16 +146,13 @@ export function FrameworksPage() {
   const selected = guides.find(
     (guide) => guide.name.toLowerCase().replaceAll(' ', '-') === active,
   );
+  if (active === 'javascript-cdn') return <CdnGuide />;
   if (documentationPage(active)) return <DocumentationPage id={active} />;
   return (
     <div class="framework-guide">
       <div class="component-intro">
         <span class="home-eyebrow">ONE LIBRARY. YOUR STACK.</span>
-        <h1>
-          {selected
-            ? `${selected.name} integration`
-            : 'Build with your framework.'}
-        </h1>
+        <h1>{selected ? `${selected.name} integration` : 'Getting started'}</h1>
         <p>
           The same components, styling, and interaction patterns for financial
           apps, reporting, and project management—across React, Vue, Angular,
@@ -167,25 +165,16 @@ export function FrameworksPage() {
             class="framework-setup"
             aria-labelledby="framework-setup-title"
           >
-            <h2 id="framework-setup-title">Start with the shared styles</h2>
-            <p>
-              Add the UI package to your app. React, Vue, Angular and Svelte
-              adapters load their styles automatically. For extracted CSS,
-              choose the matching /unstyled entry and import the stylesheet
-              below once in your application entry point. Direct Preact/native
-              rendering uses explicit CSS. Keep your framework’s usual build
-              setup.
-            </p>
+            <h2 id="framework-setup-title">Install the package</h2>
+            <p>Add Revo UI, then choose your framework below.</p>
             <pre>
               <code>pnpm add @revolist/ui</code>
             </pre>
-            <pre>
-              <Highlight code={`import '@revolist/ui/styles.css';`} />
-            </pre>
             <p>
-              Choose your adapter below. These examples use the same rounded
-              primary button and a local click counter. Other frameworks can use
-              the vanilla mount API.
+              React, Vue, Angular and Svelte adapters load their styles
+              automatically. See{' '}
+              <a href={frameworkHref('bundle-size')}>Bundle size</a> for
+              extracted CSS and selective stylesheets.
             </p>
           </section>
           <nav class="framework-jump-links" aria-label="Framework guides">
@@ -222,87 +211,6 @@ export function FrameworksPage() {
             </details>
           </section>
         ))}
-      <section class="framework-setup" id="server-rendering">
-        <h2>SSR and bundle size</h2>
-        <p>
-          Read the <a href={frameworkHref('ssr')}>SSR guide</a> for server
-          output, CSS delivery and simple framework setup. See{' '}
-          <a href={frameworkHref('bundle-size')}>Bundle size</a> for
-          automatic/extracted CSS, selective styles and size budgets.
-        </p>
-      </section>
-      <section
-        class="framework-setup"
-        id="browser-cdn"
-        aria-labelledby="browser-cdn-title"
-      >
-        <h2 id="browser-cdn-title">
-          Use JavaScript from a CDN, without a build step
-        </h2>
-        <p>
-          Load Revo UI from a URL with a standard browser import, or use a
-          classic script and the RevoUI global. Both browser builds bundle the
-          rendering runtime and shared utilities: no npm install, JSX compiler,
-          import map or framework runtime is required. Modern browsers are
-          required.
-        </p>
-        <p>
-          The examples below target version {__UI_VERSION__}. These new browser
-          files become available on jsDelivr and unpkg after that npm version is
-          published. Keep JavaScript and CSS pinned to the same version; use a
-          local HTTP server rather than opening an HTML file directly.
-        </p>
-        <h3>Browser ES module import</h3>
-        <pre>
-          <Highlight code={cdnExamples(__UI_VERSION__).module} />
-        </pre>
-        <h3>Classic script tag</h3>
-        <pre>
-          <Highlight code={cdnExamples(__UI_VERSION__).classic} />
-        </pre>
-        <p>
-          For unpkg, replace the prefix with{' '}
-          <code>https://unpkg.com/@revolist/ui@{__UI_VERSION__}</code> and keep
-          the same file paths. Self-hosting the published files uses the same
-          API. Call <code>mount.render</code> to update a control and{' '}
-          <code>mount.destroy()</code> when its host view is disposed. Your
-          labels and callbacks stay in ordinary JavaScript.
-        </p>
-        <p>
-          The complete browser bundles include the component catalog and PDF
-          engine. For smaller, tree-shaken application builds, use the npm
-          framework entries above. React, Vue, Angular and Svelte adapters still
-          require their own framework.
-        </p>
-        <h3>Optional PDF viewer setup</h3>
-        <p>
-          Also load <code>browser/pdf-viewer.css</code>. Copy{' '}
-          <code>browser/pdf.worker.min.mjs</code> from the same package version
-          to your own origin and pass its URL as <code>workerSrc</code>. The
-          worker must be served over HTTP(S); a cross-origin CDN worker URL
-          cannot be passed directly to the browser Worker constructor. Your PDF
-          files and additional PDF assets must allow access from your page.
-        </p>
-      </section>
-      <section
-        class="framework-setup"
-        aria-labelledby="framework-accessibility-title"
-      >
-        <h2 id="framework-accessibility-title">
-          Build accessible applications
-        </h2>
-        <p>
-          Learn how to preserve keyboard navigation, label controls, explain
-          errors and provide alternatives to dragging. Try live examples and
-          review the checks your application needs before release.
-        </p>
-        <a href={siteHref('accessibility/')}>Read the accessibility guide →</a>
-      </section>
-      <p class="framework-lifecycle">
-        Framework adapters manage their mount lifecycle. For manual mounts,
-        always call destroy() when the view is removed. Styles are shared;
-        application state stays in your framework.
-      </p>
     </div>
   );
 }
