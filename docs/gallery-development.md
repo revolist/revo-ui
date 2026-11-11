@@ -71,15 +71,15 @@ All specs and fixtures live in `tests/browser/`. Product-feedback tests that dep
 
 ## README preview image
 
-The README image uses real gallery components, split into light and dark themes. `scripts/readme-preview.html` composes the gallery specimens with accessibility annotations; its WCAG label describes automated checks, not a certification.
+The README image uses real gallery components, split into light and dark themes. `scripts/readme-preview.html` composes the gallery specimens with accessibility highlights above the cards; its WCAG label describes automated checks, not a certification.
 
 To regenerate the image, start `pnpm dev --host 127.0.0.1 --port 5187`, then run in another terminal:
 
 ```sh
-pnpm exec playwright screenshot --viewport-size="1800,1320" \
+pnpm exec playwright screenshot --viewport-size="1800,1200" \
   --wait-for-selector='body[data-ready="true"]' \
   http://127.0.0.1:5187/scripts/readme-preview.html \
   docs/assets/components-preview.jpg
 ```
 
-Inspect the image for card/footer overlap and missing images before committing it.
+Inspect the image for highlight/card overlap or clipped cards and missing images before committing it.
