@@ -14,9 +14,10 @@ export const entries = {
   'native-all': ['native.js'],
 };
 export const limits = {
-  'react-button': 18 * 1024,
-  'react-controls': 19 * 1024,
-  'react-all': 120 * 1024,
+  // React bundles now include the automatically installed component CSS.
+  'react-button': 25 * 1024,
+  'react-controls': 26 * 1024,
+  'react-all': 150 * 1024,
   'native-all': 65 * 1024,
   'styles.css': 32 * 1024,
   'styles/base.css': 8 * 1024,

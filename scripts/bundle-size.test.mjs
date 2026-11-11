@@ -1,5 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { execFileSync } from 'node:child_process';
 import { resolve } from 'node:path';
 import {
   checkBudgets,
@@ -30,10 +31,44 @@ test('a published React button import does not retain dropdown implementation', 
     !result.code.includes('combobox'),
     'A button must not retain shared Select/Dropdown code',
   );
+  assert(result.code.includes('.rv-btn'), 'button includes its own CSS');
+  assert(
+    !result.code.includes('.revo-calendar__header{'),
+    'unused Calendar CSS is removed',
+  );
+  assert(!result.code.includes('.rv-ai-prompt'), 'unused AI CSS is removed');
   assert(
     result.gzip <= limits['react-button'],
     `button baseline is ${result.gzip} gzip bytes`,
   );
+});
+
+test('a Calendar import includes its family CSS without retaining AI styles', async () => {
+  const { code } = await measureEntry('react.js', ['Calendar']);
+  assert(code.includes('.rv-btn'));
+  assert(code.includes('.revo-calendar__header{'));
+  assert(!code.includes('.rv-ai-prompt'));
+});
+
+test('published React components import and render on the server without a DOM or CSS loader', () => {
+  const html = execFileSync(
+    process.execPath,
+    [
+      '--input-type=module',
+      '-e',
+      `
+    import { createElement } from 'react';
+    import { renderToString } from 'react-dom/server';
+    import { SvgButton, Calendar } from './dist/react.js';
+    if (typeof document !== 'undefined') throw new Error('Unexpected DOM');
+    console.log(renderToString(createElement(SvgButton, {label: 'Save'})));
+    console.log(renderToString(createElement(Calendar, {month: '2026-11-01', focusedDate: '2026-11-11'})));
+  `,
+    ],
+    { cwd: root, encoding: 'utf8' },
+  );
+  assert.match(html, /data-rv-react-host="SvgButton"/);
+  assert.match(html, /data-rv-react-host="Calendar"/);
 });
 
 test('retained controls keep their native registration after production tree-shaking', async () => {

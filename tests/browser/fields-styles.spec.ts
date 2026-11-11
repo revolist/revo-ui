@@ -1,8 +1,99 @@
 import { expect, test } from '@playwright/test';
 import { compileAsync } from 'sass-embedded';
 import { resolve } from 'node:path';
+import { build } from 'esbuild';
 
 const root = resolve(import.meta.dirname, '../..');
+
+test('published React imports install only their required styles without a CSS import', async ({
+  page,
+}) => {
+  const result = await build({
+    stdin: {
+      contents: `
+        import {createElement, StrictMode} from 'react';
+        import {createRoot} from 'react-dom/client';
+        import {flushSync} from 'react-dom';
+        import {SvgButton, Calendar} from './dist/react.js';
+        const root = createRoot(document.getElementById('app'));
+        globalThis.show = (calendar) => flushSync(() => root.render(createElement(StrictMode, null,
+          createElement(SvgButton, {label: 'Save', visibleLabel: 'Save'}),
+          createElement(SvgButton, {label: 'Other'}),
+          calendar && createElement(Calendar, {month: '2026-11-01', focusedDate: '2026-11-11'})
+        )));
+        globalThis.show(false);
+      `,
+      resolveDir: root,
+    },
+    bundle: true,
+    write: false,
+    format: 'iife',
+    define: { 'process.env.NODE_ENV': '"production"' },
+    external: ['pdfjs-dist'],
+    logLevel: 'silent',
+  });
+  await page.setContent(
+    '<style>*, *::before, *::after { transition: none !important; animation: none !important; }</style><div id="app"></div>',
+  );
+  await page.addScriptTag({ content: result.outputFiles[0].text });
+  await expect(
+    page.getByRole('button', { name: 'Save', exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.locator('style[data-rv-component-styles="base"]'),
+  ).toHaveCount(1);
+  await expect(page.locator('style[data-rv-component-styles]')).toHaveCount(1);
+  await expect(
+    page.getByRole('button', { name: 'Save', exact: true }),
+  ).toHaveCSS('display', 'inline-flex');
+  await page.evaluate(() => (globalThis as any).show(true));
+  await expect(page.getByRole('grid')).toBeVisible();
+  await expect(
+    page.locator('style[data-rv-component-styles="calendar"]'),
+  ).toHaveCount(1);
+  await expect(page.locator('style[data-rv-component-styles]')).toHaveCount(2);
+  for (const width of [480, 1200]) {
+    await page.setViewportSize({ width, height: 800 });
+    for (const theme of ['light', 'dark']) {
+      await page.evaluate(
+        (theme) => (document.documentElement.dataset.theme = theme),
+        theme,
+      );
+      const before = await page
+        .locator('.revo-calendar__day')
+        .first()
+        .evaluate((node) => {
+          const style = getComputedStyle(node);
+          return [
+            style.display,
+            style.backgroundColor,
+            style.color,
+            style.padding,
+            style.borderRadius,
+          ];
+        });
+      const aggregate = await page.addStyleTag({ content: css });
+      const after = await page
+        .locator('.revo-calendar__day')
+        .first()
+        .evaluate((node) => {
+          const style = getComputedStyle(node);
+          return [
+            style.display,
+            style.backgroundColor,
+            style.color,
+            style.padding,
+            style.borderRadius,
+          ];
+        });
+      expect(before).toEqual(after);
+      await aggregate.evaluate((node) => node.remove());
+    }
+  }
+  await page.evaluate(() => (globalThis as any).show(false));
+  await page.getByRole('button', { name: 'Save', exact: true }).focus();
+  await expect(page.getByRole('tooltip')).toBeVisible();
+});
 let css: string;
 test.beforeAll(async () => {
   css = (await compileAsync(resolve(root, 'package/styles.scss'))).css;
@@ -119,7 +210,11 @@ test('opt-in base, calendar and dialog CSS preserve aggregate control presentati
       </div>`;
       const capture = async (styles: string) => {
         await page.setContent(html);
-        await page.addStyleTag({ content: styles });
+        await page.addStyleTag({
+          content:
+            styles +
+            '\n*, *::before, *::after { transition: none !important; animation: none !important; }',
+        });
         return page.evaluate(
           ({ selectors, properties }) =>
             selectors.map((selector) => {

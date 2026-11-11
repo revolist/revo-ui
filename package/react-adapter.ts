@@ -1,4 +1,8 @@
 import {
+  ensureComponentStyles,
+  type ComponentStyles,
+} from './core/component-styles';
+import {
   createElement,
   forwardRef,
   isValidElement,
@@ -99,7 +103,7 @@ export function createReactAdapter<
 >(
   component: C,
   name: string,
-  options: { factoryCallbacks?: F } = {},
+  options: { factoryCallbacks?: F; styles?: readonly ComponentStyles[] } = {},
 ): ReactUiComponent<C, F[number]> {
   const Adapter = forwardRef<
     UiReactHandle,
@@ -110,6 +114,7 @@ export function createReactAdapter<
     const [targets, setTargets] = useState<UiContentTarget<ReactNode>[]>([]);
     useImperativeHandle(ref, () => ({ element: host.current }), []);
     useLayoutEffect(() => {
+      if (options.styles) ensureComponentStyles(host.current!, options.styles);
       setTargets([]);
       mount.current = createFrameworkMount(host.current!, setTargets);
       return () => {
