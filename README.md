@@ -5,10 +5,13 @@
 [![Build status](https://img.shields.io/github/actions/workflow/status/revolist/revo-ui/pages.yml?branch=main&style=flat&label=build)](https://github.com/revolist/revo-ui/actions/workflows/pages.yml)
 [![0 runtime dependencies](https://img.shields.io/badge/dependencies-0-16a34a?style=flat)](https://www.npmjs.com/package/@revolist/ui?activeTab=dependencies)
 [![Tree-shakeable ESM](https://img.shields.io/badge/tree%20shaking-supported-16a34a?style=flat)](https://github.com/revolist/revo-ui/blob/main/package.json)
+[![React button + CSS: 24.5 KiB gzip](https://img.shields.io/badge/React%20button%20%2B%20CSS-24.5%20KiB%20gzip-16a34a?style=flat)](docs/bundle-size.md)
 
 **RevoGrid's UI component library for financial apps, reporting dashboards, and project management.**
 
 Compose data-rich workspaces with shared controls, pickers, charts, timelines, dialogs, and feedback. Use React, Vue, Angular, Svelte, Preact, or vanilla TypeScript.
+
+Lightweight and tree-shakeable: import only the controls you use.
 
 [Live components](https://ui.rv-grid.com/components/buttons/) · [Interactive overview](https://ui.rv-grid.com/) · [Framework guides](https://ui.rv-grid.com/frameworks/) · [RevoGrid](https://rv-grid.com/) · [Pro documentation](https://pro.rv-grid.com/)
 
