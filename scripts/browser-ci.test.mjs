@@ -32,6 +32,7 @@ test('container CI retains gallery build, public package, browser, framework and
     'pnpm test',
     'pnpm pack:public',
     'pnpm test:public',
+    'pnpm test:size',
     'pnpm test:api',
     'pnpm test:discovery',
     'pnpm build:demo',

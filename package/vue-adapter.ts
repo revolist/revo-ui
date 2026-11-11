@@ -1,3 +1,4 @@
+import { prepareComponentStyles } from './core/component-styles';
 import {
   h as preactH,
   render,
@@ -174,6 +175,7 @@ export function createVueAdapter<
             );
           }
         }
+        prepareComponentStyles(component, host.value);
         render(preactH(component, props as P), host.value);
       }
       watchPostEffect(update);

@@ -5,17 +5,6 @@ export {
   type ReactUiProps,
   type UiReactHandle,
 } from './react-adapter';
-import { NumberDraft as PreactNumberDraft } from './number-input/index';
-import { MaskedDraft as PreactMaskedDraft } from './masked-input/index';
-import { DurationField as PreactDurationField } from './duration/index';
-import { DurationDraft as PreactDurationDraft } from './duration/index';
-import { HtmlEditor as PreactHtmlEditor } from './rich-text/index';
-import { TemporalPicker as PreactTemporalPicker } from './date-time/index';
-import { TemporalDraft as PreactTemporalDraft } from './date-time/index';
-import { DateTimeField as PreactDateTimeField } from './date-time/index';
-import { AssigneePicker as PreactAssigneePicker } from './assignee/index';
-import { AssigneeField as PreactAssigneeField } from './assignee/index';
-import { AssigneePickerLayout as PreactAssigneePickerLayout } from './assignee/index';
 export const Input: ReactUiComponent<typeof ui.Input> =
   /* @__PURE__ */ createReactAdapter(ui.Input, 'Input');
 export const SvgIcon: ReactUiComponent<typeof ui.SvgIcon> =
@@ -410,30 +399,30 @@ export const TimelineTrack: ReactUiComponent<typeof ui.TimelineTrack> =
   /* @__PURE__ */ createReactAdapter(ui.TimelineTrack, 'TimelineTrack');
 export const ActivityMessage: ReactUiComponent<typeof ui.ActivityMessage> =
   /* @__PURE__ */ createReactAdapter(ui.ActivityMessage, 'ActivityMessage');
-export const NumberDraft: ReactUiComponent<typeof PreactNumberDraft> =
-  /* @__PURE__ */ createReactAdapter(PreactNumberDraft, 'NumberDraft');
-export const MaskedDraft: ReactUiComponent<typeof PreactMaskedDraft> =
-  /* @__PURE__ */ createReactAdapter(PreactMaskedDraft, 'MaskedDraft');
-export const DurationField: ReactUiComponent<typeof PreactDurationField> =
-  /* @__PURE__ */ createReactAdapter(PreactDurationField, 'DurationField');
-export const DurationDraft: ReactUiComponent<typeof PreactDurationDraft> =
-  /* @__PURE__ */ createReactAdapter(PreactDurationDraft, 'DurationDraft');
-export const HtmlEditor: ReactUiComponent<typeof PreactHtmlEditor> =
-  /* @__PURE__ */ createReactAdapter(PreactHtmlEditor, 'HtmlEditor');
-export const TemporalPicker: ReactUiComponent<typeof PreactTemporalPicker> =
-  /* @__PURE__ */ createReactAdapter(PreactTemporalPicker, 'TemporalPicker');
-export const TemporalDraft: ReactUiComponent<typeof PreactTemporalDraft> =
-  /* @__PURE__ */ createReactAdapter(PreactTemporalDraft, 'TemporalDraft');
-export const DateTimeField: ReactUiComponent<typeof PreactDateTimeField> =
-  /* @__PURE__ */ createReactAdapter(PreactDateTimeField, 'DateTimeField');
-export const AssigneePicker: ReactUiComponent<typeof PreactAssigneePicker> =
-  /* @__PURE__ */ createReactAdapter(PreactAssigneePicker, 'AssigneePicker');
-export const AssigneeField: ReactUiComponent<typeof PreactAssigneeField> =
-  /* @__PURE__ */ createReactAdapter(PreactAssigneeField, 'AssigneeField');
+export const NumberDraft: ReactUiComponent<typeof ui.NumberDraft> =
+  /* @__PURE__ */ createReactAdapter(ui.NumberDraft, 'NumberDraft');
+export const MaskedDraft: ReactUiComponent<typeof ui.MaskedDraft> =
+  /* @__PURE__ */ createReactAdapter(ui.MaskedDraft, 'MaskedDraft');
+export const DurationField: ReactUiComponent<typeof ui.DurationField> =
+  /* @__PURE__ */ createReactAdapter(ui.DurationField, 'DurationField');
+export const DurationDraft: ReactUiComponent<typeof ui.DurationDraft> =
+  /* @__PURE__ */ createReactAdapter(ui.DurationDraft, 'DurationDraft');
+export const HtmlEditor: ReactUiComponent<typeof ui.HtmlEditor> =
+  /* @__PURE__ */ createReactAdapter(ui.HtmlEditor, 'HtmlEditor');
+export const TemporalPicker: ReactUiComponent<typeof ui.TemporalPicker> =
+  /* @__PURE__ */ createReactAdapter(ui.TemporalPicker, 'TemporalPicker');
+export const TemporalDraft: ReactUiComponent<typeof ui.TemporalDraft> =
+  /* @__PURE__ */ createReactAdapter(ui.TemporalDraft, 'TemporalDraft');
+export const DateTimeField: ReactUiComponent<typeof ui.DateTimeField> =
+  /* @__PURE__ */ createReactAdapter(ui.DateTimeField, 'DateTimeField');
+export const AssigneePicker: ReactUiComponent<typeof ui.AssigneePicker> =
+  /* @__PURE__ */ createReactAdapter(ui.AssigneePicker, 'AssigneePicker');
+export const AssigneeField: ReactUiComponent<typeof ui.AssigneeField> =
+  /* @__PURE__ */ createReactAdapter(ui.AssigneeField, 'AssigneeField');
 export const AssigneePickerLayout: ReactUiComponent<
-  typeof PreactAssigneePickerLayout
+  typeof ui.AssigneePickerLayout
 > = /* @__PURE__ */ createReactAdapter(
-  PreactAssigneePickerLayout,
+  ui.AssigneePickerLayout,
   'AssigneePickerLayout',
 );
 
@@ -462,9 +451,8 @@ export const AiRequestTrail: ReactUiComponent<typeof ui.AiRequestTrail> =
 export const PdfViewer: ReactUiComponent<typeof ui.PdfViewer> =
   /* @__PURE__ */ createReactAdapter(ui.PdfViewer, 'PdfViewer');
 
-import { PdfViewerToolbar as PreactPdfViewerToolbar } from './pdf-viewer/toolbar';
 export const PdfViewerToolbar = /* @__PURE__ */ createReactAdapter(
-  PreactPdfViewerToolbar,
+  ui.PdfViewerToolbar,
   'PdfViewerToolbar',
 );
 export type { PdfViewerToolbarProps } from './pdf-viewer/toolbar';

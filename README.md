@@ -20,11 +20,16 @@ Compose data-rich workspaces with shared controls, pickers, charts, timelines, d
 pnpm add @revolist/ui
 ```
 
-Import the shared styles once:
+React, Vue, Angular and Svelte adapters automatically load their component styles. For extracted CSS, use the matching `/unstyled` entry and import shared styles once:
 
 ```ts
 import '@revolist/ui/styles.css';
 ```
+
+For smaller extracted stylesheets, use `styles/base.css` and only the required families. Direct Preact/native rendering also uses explicit CSS. See [automatic/extracted styles, CSP configuration and bundle-size budgets](docs/bundle-size.md).
+
+
+For server-rendered applications, see the [SSR and hydration guide](docs/ssr.md) for framework recipes, initial CSS delivery, fallbacks and CSP.
 
 Choose your framework for setup instructions and usage examples:
 

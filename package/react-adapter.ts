@@ -1,5 +1,12 @@
 import {
+  ensureComponentStyles,
+  componentStyles,
+  type ComponentStyles,
+} from './core/component-styles';
+import {
   createElement,
+  useCallback,
+  useInsertionEffect,
   forwardRef,
   isValidElement,
   useImperativeHandle,
@@ -99,19 +106,42 @@ export function createReactAdapter<
 >(
   component: C,
   name: string,
-  options: { factoryCallbacks?: F } = {},
+  options: { factoryCallbacks?: F; styles?: readonly ComponentStyles[] } = {},
 ): ReactUiComponent<C, F[number]> {
   const Adapter = forwardRef<
     UiReactHandle,
     ReactUiProps<ComponentProps<C>, F[number]>
   >((props, ref) => {
     const host = useRef<HTMLDivElement>(null);
+    useInsertionEffect(() => {
+      if (typeof document !== 'undefined')
+        ensureComponentStyles(
+          document,
+          options.styles ?? componentStyles(component),
+        );
+    }, []);
+    // Refs attach after insertion effects. Cover the actual owner of shadow/iframe
+    // mounts before layout effects, without assuming the global document owns it.
+    const attachHost = useCallback((node: HTMLDivElement | null) => {
+      host.current = node;
+      if (node) {
+        const root = node.getRootNode();
+        ensureComponentStyles(
+          root.nodeType === 11 && 'host' in root
+            ? (root as ShadowRoot)
+            : node.ownerDocument,
+          options.styles ?? componentStyles(component),
+        );
+      }
+    }, []);
     const mount = useRef<UiFrameworkMount<ReactNode> | null>(null);
     const [targets, setTargets] = useState<UiContentTarget<ReactNode>[]>([]);
     useImperativeHandle(ref, () => ({ element: host.current }), []);
     useLayoutEffect(() => {
       setTargets([]);
-      mount.current = createFrameworkMount(host.current!, setTargets);
+      mount.current = createFrameworkMount(host.current!, setTargets, {
+        styles: false,
+      });
       return () => {
         mount.current?.destroy();
         mount.current = null;
@@ -168,7 +198,7 @@ export function createReactAdapter<
       'div',
       { style: { display: 'contents' } },
       createElement('div', {
-        ref: host,
+        ref: attachHost,
         style: { display: 'contents' },
         'data-rv-react-host': name,
       }),

@@ -1,16 +1,5 @@
 import { LookupField } from './dropdown/lookup-field';
 import * as ui from './preact';
-import { NumberDraft as PreactNumberDraft } from './number-input/index';
-import { MaskedDraft as PreactMaskedDraft } from './masked-input/index';
-import { DurationField as PreactDurationField } from './duration/index';
-import { DurationDraft as PreactDurationDraft } from './duration/index';
-import { HtmlEditor as PreactHtmlEditor } from './rich-text/index';
-import { TemporalPicker as PreactTemporalPicker } from './date-time/index';
-import { TemporalDraft as PreactTemporalDraft } from './date-time/index';
-import { DateTimeField as PreactDateTimeField } from './date-time/index';
-import { AssigneePicker as PreactAssigneePicker } from './assignee/index';
-import { AssigneeField as PreactAssigneeField } from './assignee/index';
-import { AssigneePickerLayout as PreactAssigneePickerLayout } from './assignee/index';
 export const uiComponents = {
   AiChat: ui.AiChat,
   AiChatContent: ui.AiChatContent,
@@ -183,17 +172,17 @@ export const uiComponents = {
   ActivityMessage: ui.ActivityMessage,
   PdfViewer: ui.PdfViewer,
   PdfViewerToolbar: ui.PdfViewerToolbar,
-  NumberDraft: PreactNumberDraft,
-  MaskedDraft: PreactMaskedDraft,
-  DurationField: PreactDurationField,
-  DurationDraft: PreactDurationDraft,
-  HtmlEditor: PreactHtmlEditor,
-  TemporalPicker: PreactTemporalPicker,
-  TemporalDraft: PreactTemporalDraft,
-  DateTimeField: PreactDateTimeField,
-  AssigneePicker: PreactAssigneePicker,
-  AssigneeField: PreactAssigneeField,
-  AssigneePickerLayout: PreactAssigneePickerLayout,
+  NumberDraft: ui.NumberDraft,
+  MaskedDraft: ui.MaskedDraft,
+  DurationField: ui.DurationField,
+  DurationDraft: ui.DurationDraft,
+  HtmlEditor: ui.HtmlEditor,
+  TemporalPicker: ui.TemporalPicker,
+  TemporalDraft: ui.TemporalDraft,
+  DateTimeField: ui.DateTimeField,
+  AssigneePicker: ui.AssigneePicker,
+  AssigneeField: ui.AssigneeField,
+  AssigneePickerLayout: ui.AssigneePickerLayout,
 } as const;
 export type UiComponentName = keyof typeof uiComponents;
 export type UiComponentProps<K extends UiComponentName> =

@@ -248,7 +248,31 @@
     "./styles/_time-grid.scss": "./package/styles/_time-grid.scss",
     "./styles/_primitives.scss": "./package/styles/_primitives.scss",
     "./demo/home-planning": "./src/home-planning.tsx",
-    "./demo/pdf-viewer": "./src/pdf-viewer.tsx"
+    "./demo/pdf-viewer": "./src/pdf-viewer.tsx",
+    "./styles/base.scss": "./package/styles/base.scss",
+    "./styles/base.css": "./package/styles/base.css",
+    "./styles/calendar.scss": "./package/styles/calendar.scss",
+    "./styles/calendar.css": "./package/styles/calendar.css",
+    "./styles/dialogs.scss": "./package/styles/dialogs.scss",
+    "./styles/dialogs.css": "./package/styles/dialogs.css",
+    "./styles/pickers.scss": "./package/styles/pickers.scss",
+    "./styles/pickers.css": "./package/styles/pickers.css",
+    "./styles/layout.scss": "./package/styles/layout.scss",
+    "./styles/layout.css": "./package/styles/layout.css",
+    "./styles/feedback.scss": "./package/styles/feedback.scss",
+    "./styles/feedback.css": "./package/styles/feedback.css",
+    "./styles/fields.scss": "./package/styles/fields.scss",
+    "./styles/fields.css": "./package/styles/fields.css",
+    "./styles/charts.scss": "./package/styles/charts.scss",
+    "./styles/charts.css": "./package/styles/charts.css",
+    "./styles/formatting.scss": "./package/styles/formatting.scss",
+    "./styles/formatting.css": "./package/styles/formatting.css",
+    "./styles/timeline.scss": "./package/styles/timeline.scss",
+    "./styles/timeline.css": "./package/styles/timeline.css",
+    "./styles/ai.scss": "./package/styles/ai.scss",
+    "./styles/ai.css": "./package/styles/ai.css",
+    "./styles/pdf-viewer.scss": "./package/styles/pdf-viewer.scss",
+    "./styles/pdf-viewer.css": "./package/styles/pdf-viewer.css"
   },
   "scripts": {
     "generate:palettes": "node scripts/generate-palettes.mjs",
@@ -272,7 +296,8 @@
     "test:pdf-frameworks": "playwright test --config playwright.framework-adapters.config.ts pdf-frameworks.spec.ts",
     "test:cdn": "playwright test --config playwright.cdn.config.ts",
     "test:tooltips": "playwright test --config playwright.tooltip.config.ts",
-    "test:fields-styles": "playwright test --config playwright.fields-styles.config.ts"
+    "test:fields-styles": "playwright test --config playwright.fields-styles.config.ts",
+    "test:size": "node --test scripts/bundle-size.test.mjs scripts/modular-css.test.mjs && node scripts/bundle-size.mjs"
   },
   "dependencies": {
     "@revolist/dates": "workspace:*",
@@ -335,7 +360,9 @@
     "axe-core": "^4.14.0",
     "prettier": "3.8.3",
     "unplugin-dts": "^1.0.3",
-    "@sveltejs/vite-plugin-svelte": "^7.2.0"
+    "@sveltejs/vite-plugin-svelte": "^7.2.0",
+    "esbuild": "0.28.2",
+    "@babel/core-angular": "npm:@babel/core@8.0.0"
   },
   "license": "MIT",
   "packageManager": "pnpm@11.25.0"

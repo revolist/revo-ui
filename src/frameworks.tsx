@@ -9,7 +9,7 @@ const guides = [
     entry: '@revolist/ui/react',
     language: 'TSX',
     description:
-      'Use named components with normal React state and callbacks. React owns your children and custom content. Install React and react-dom in your application.',
+      'Use named components with normal React state and callbacks. React owns your children and custom content. Install React and react-dom in your application. Named React components automatically load their required styles; no separate CSS import is needed.',
     code: `import { useState } from 'react';
 import { Button } from '@revolist/ui/react';
 
@@ -46,7 +46,7 @@ const count = ref(0);
     entry: '@revolist/ui/angular',
     language: 'TypeScript',
     description:
-      'Import the standalone UiComponent, select a component by name, and pass its props. uiEvent exposes callback names and arguments; valueChange handles a component’s declared value model. Use rvUiSlot templates for custom content.',
+      'Import the standalone UiComponent, select a component by name, and pass its props. Angular automatically loads the required component styles. For externally managed CSS, use @revolist/ui/angular/unstyled and import @revolist/ui/styles.css once in main.ts. uiEvent exposes callback names and arguments; valueChange handles a component’s declared value model. Use rvUiSlot templates for custom content.',
     code: `import { Component } from '@angular/core';
 import { UiComponent, type UiEvent } from '@revolist/ui/angular';
 
@@ -167,8 +167,11 @@ export function FrameworksPage() {
           >
             <h2 id="framework-setup-title">Start with the shared styles</h2>
             <p>
-              Add the UI package to your app, then import its stylesheet once in
-              your application entry point. Keep your framework’s usual build
+              Add the UI package to your app. React, Vue, Angular and Svelte
+              adapters load their styles automatically. For extracted CSS,
+              choose the matching /unstyled entry and import the stylesheet
+              below once in your application entry point. Direct Preact/native
+              rendering uses explicit CSS. Keep your framework’s usual build
               setup.
             </p>
             <pre>
@@ -186,7 +189,9 @@ export function FrameworksPage() {
           <nav class="framework-jump-links" aria-label="Framework guides">
             {guides.map((guide) => (
               <a
-                href={frameworkHref(guide.name.toLowerCase().replaceAll(' ', '-'))}
+                href={frameworkHref(
+                  guide.name.toLowerCase().replaceAll(' ', '-'),
+                )}
               >
                 {guide.name}
               </a>
@@ -215,22 +220,139 @@ export function FrameworksPage() {
             </details>
           </section>
         ))}
-      <section class="framework-setup" id="browser-cdn" aria-labelledby="browser-cdn-title">
-        <h2 id="browser-cdn-title">Use JavaScript from a CDN, without a build step</h2>
-        <p>Load Revo UI from a URL with a standard browser import, or use a classic script and the RevoUI global. Both browser builds bundle the rendering runtime and shared utilities: no npm install, JSX compiler, import map or framework runtime is required. Modern browsers are required.</p>
-        <p>The examples below target version {__UI_VERSION__}. These new browser files become available on jsDelivr and unpkg after that npm version is published. Keep JavaScript and CSS pinned to the same version; use a local HTTP server rather than opening an HTML file directly.</p>
-        <h3>Browser ES module import</h3>
-        <pre><Highlight code={cdnExamples(__UI_VERSION__).module} /></pre>
-        <h3>Classic script tag</h3>
-        <pre><Highlight code={cdnExamples(__UI_VERSION__).classic} /></pre>
-        <p>For unpkg, replace the prefix with <code>https://unpkg.com/@revolist/ui@{__UI_VERSION__}</code> and keep the same file paths. Self-hosting the published files uses the same API. Call <code>mount.render</code> to update a control and <code>mount.destroy()</code> when its host view is disposed. Your labels and callbacks stay in ordinary JavaScript.</p>
-        <p>The complete browser bundles include the component catalog and PDF engine. For smaller, tree-shaken application builds, use the npm framework entries above. React, Vue, Angular and Svelte adapters still require their own framework.</p>
-        <h3>Optional PDF viewer setup</h3>
-        <p>Also load <code>browser/pdf-viewer.css</code>. Copy <code>browser/pdf.worker.min.mjs</code> from the same package version to your own origin and pass its URL as <code>workerSrc</code>. The worker must be served over HTTP(S); a cross-origin CDN worker URL cannot be passed directly to the browser Worker constructor. Your PDF files and additional PDF assets must allow access from your page.</p>
+      <section
+        class="framework-setup"
+        id="server-rendering"
+        aria-labelledby="framework-ssr-title"
+      >
+        <h2 id="framework-ssr-title">Server rendering and hydration</h2>
+        <p>
+          React, Vue, Angular UiComponent and Svelte adapters render hosts on
+          the server and mount their interactive controls in the browser. They
+          do not prerender the complete controls. Keep important page content in
+          your host framework. The adapters handle client mounting; add a
+          fallback only if your application needs one.
+        </p>
+        <h3>Deliver CSS with the initial page</h3>
+        <p>
+          Use a matching /unstyled entry and import CSS from the application's
+          global layout or styles configuration. Your SSR bundler can then
+          deliver stylesheet references with the response. CSS imports do not
+          make the controls themselves server-rendered.
+        </p>
+        <pre>
+          <Highlight
+            code={`import { SvgButton } from '@revolist/ui/react/unstyled';
+// Global layout/styles entry:
+import '@revolist/ui/styles/base.css';`}
+          />
+        </pre>
+        <h3>Use your framework's client boundary</h3>
+        <ul>
+          <li>
+            React/Next.js: put hooks and event handlers in a Client Component;
+            render the adapter directly without an extra mounted-state flag.
+          </li>
+          <li>
+            Vue/Nuxt: render named components directly and load extracted CSS
+            globally. ClientOnly and custom fallbacks are optional.
+          </li>
+          <li>
+            Angular: UiComponent skips its shared mount on the server; use
+            ngSkipHydration on the rv-ui host for the imperative region, and
+            configure global CSS in the CLI.
+          </li>
+          <li>
+            SvelteKit: import CSS in the root layout and render UiComponent
+            directly. Keep application SSR enabled.
+          </li>
+        </ul>
+        <h3>CSP and the no-document behavior</h3>
+        <p>
+          Automatic mode installs styles on the client. Configure its allowed
+          nonce before client bootstrap. A configureUiStyles call without a
+          document on the server does nothing: it does not collect CSS or
+          transfer a nonce to the browser. Deliver the response-specific nonce
+          through your application's safe serialization, then configure it in
+          the client. Extracted /unstyled entries do not insert stylesheet tags.
+        </p>
+        <p>
+          If you choose a fallback, keep its server and initial-client render
+          identical. The application owns its framework's hydration and CSP; do
+          not hydrate raw control HTML as an adapter host.
+        </p>
+        <p>
+          <a href="https://github.com/revolist/revo-ui/blob/main/docs/ssr.md">
+            Full SSR guide: framework recipes, CSS modes, CSP and
+            troubleshooting
+          </a>
+        </p>
       </section>
-      <section class="framework-setup" aria-labelledby="framework-accessibility-title">
-        <h2 id="framework-accessibility-title">Build accessible applications</h2>
-        <p>Learn how to preserve keyboard navigation, label controls, explain errors and provide alternatives to dragging. Try live examples and review the checks your application needs before release.</p>
+      <section
+        class="framework-setup"
+        id="browser-cdn"
+        aria-labelledby="browser-cdn-title"
+      >
+        <h2 id="browser-cdn-title">
+          Use JavaScript from a CDN, without a build step
+        </h2>
+        <p>
+          Load Revo UI from a URL with a standard browser import, or use a
+          classic script and the RevoUI global. Both browser builds bundle the
+          rendering runtime and shared utilities: no npm install, JSX compiler,
+          import map or framework runtime is required. Modern browsers are
+          required.
+        </p>
+        <p>
+          The examples below target version {__UI_VERSION__}. These new browser
+          files become available on jsDelivr and unpkg after that npm version is
+          published. Keep JavaScript and CSS pinned to the same version; use a
+          local HTTP server rather than opening an HTML file directly.
+        </p>
+        <h3>Browser ES module import</h3>
+        <pre>
+          <Highlight code={cdnExamples(__UI_VERSION__).module} />
+        </pre>
+        <h3>Classic script tag</h3>
+        <pre>
+          <Highlight code={cdnExamples(__UI_VERSION__).classic} />
+        </pre>
+        <p>
+          For unpkg, replace the prefix with{' '}
+          <code>https://unpkg.com/@revolist/ui@{__UI_VERSION__}</code> and keep
+          the same file paths. Self-hosting the published files uses the same
+          API. Call <code>mount.render</code> to update a control and{' '}
+          <code>mount.destroy()</code> when its host view is disposed. Your
+          labels and callbacks stay in ordinary JavaScript.
+        </p>
+        <p>
+          The complete browser bundles include the component catalog and PDF
+          engine. For smaller, tree-shaken application builds, use the npm
+          framework entries above. React, Vue, Angular and Svelte adapters still
+          require their own framework.
+        </p>
+        <h3>Optional PDF viewer setup</h3>
+        <p>
+          Also load <code>browser/pdf-viewer.css</code>. Copy{' '}
+          <code>browser/pdf.worker.min.mjs</code> from the same package version
+          to your own origin and pass its URL as <code>workerSrc</code>. The
+          worker must be served over HTTP(S); a cross-origin CDN worker URL
+          cannot be passed directly to the browser Worker constructor. Your PDF
+          files and additional PDF assets must allow access from your page.
+        </p>
+      </section>
+      <section
+        class="framework-setup"
+        aria-labelledby="framework-accessibility-title"
+      >
+        <h2 id="framework-accessibility-title">
+          Build accessible applications
+        </h2>
+        <p>
+          Learn how to preserve keyboard navigation, label controls, explain
+          errors and provide alternatives to dragging. Try live examples and
+          review the checks your application needs before release.
+        </p>
         <a href={siteHref('accessibility/')}>Read the accessibility guide →</a>
       </section>
       <p class="framework-lifecycle">

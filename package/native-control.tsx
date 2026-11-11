@@ -1,4 +1,3 @@
-import { Select as SharedSelect } from './select';
 import { h, type JSX } from 'preact';
 import { useCallback } from 'preact/hooks';
 import { useTitleTooltip } from './core/title-tooltip';
@@ -29,7 +28,9 @@ function nativeNode(
   return node;
 }
 
-/** Transparent adapters preserve native event signatures and DOM refs. */
+/** Transparent adapters preserve native event signatures and DOM refs.
+ * Each registration is observable only through its returned component. Mark
+ * unused factories removable so importing a button does not retain Select. */
 function useHintRef<T extends HTMLElement>(
   title: unknown,
   ref: import('preact').Ref<T>,
@@ -46,8 +47,8 @@ function useHintRef<T extends HTMLElement>(
     [ref],
   );
 }
-export const Input = registerControl(
-  forwardRef<HTMLInputElement, NativeAttributes<'input'>>(
+export const Input = /* @__PURE__ */ registerControl(
+  /* @__PURE__ */ forwardRef<HTMLInputElement, NativeAttributes<'input'>>(
     ({ title, ...props }, ref) => {
       const hint = useHintRef<HTMLInputElement>(title, ref);
       return nativeNode('input', { ...props, ref: hint });
@@ -55,8 +56,8 @@ export const Input = registerControl(
   ),
   'input',
 );
-export const TextArea = registerControl(
-  forwardRef<HTMLTextAreaElement, NativeAttributes<'textarea'>>(
+export const TextArea = /* @__PURE__ */ registerControl(
+  /* @__PURE__ */ forwardRef<HTMLTextAreaElement, NativeAttributes<'textarea'>>(
     ({ children, title, ...props }, ref) => {
       const hint = useHintRef<HTMLTextAreaElement>(title, ref);
       return nativeNode('textarea', { ...props, ref: hint }, children);
@@ -65,8 +66,8 @@ export const TextArea = registerControl(
   'textarea',
 );
 // Unstyled interaction surfaces retain native semantics; their component owns geometry and paint.
-export const ButtonControl = registerControl(
-  forwardRef<
+export const ButtonControl = /* @__PURE__ */ registerControl(
+  /* @__PURE__ */ forwardRef<
     HTMLButtonElement,
     NativeAttributes<'button'> & {
       unstyled?: boolean;
@@ -99,8 +100,8 @@ export const ButtonControl = registerControl(
   }),
   'button',
 );
-export const Summary = registerControl(
-  forwardRef<HTMLElement, NativeAttributes<'summary'>>(
+export const Summary = /* @__PURE__ */ registerControl(
+  /* @__PURE__ */ forwardRef<HTMLElement, NativeAttributes<'summary'>>(
     ({ children, title, ...props }, ref) => {
       const hint = useHintRef<HTMLElement>(title, ref);
       return nativeNode('summary', { ...props, ref: hint }, children);
@@ -111,6 +112,6 @@ export const Summary = registerControl(
 export { nativeControlTag } from './control-presentation';
 
 /** Selection uses the shared Dropdown rather than browser-native UI. */
-export const Select = registerControl(SharedSelect, 'select');
+export { Select } from './select';
 
 export { Fieldset } from './fieldset';

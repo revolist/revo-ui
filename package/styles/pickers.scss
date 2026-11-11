@@ -1,0 +1,4 @@
+// Import base.css once before optional component families.
+@use '../resource-picker/resource-picker';
+@use '../color-palette/color-palette.style';
+@use '../color-palette/color-picker.style';
