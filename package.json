@@ -98,6 +98,7 @@
     "./resource-picker/index": "./package/resource-picker/index.ts",
     "./core/anchored-popover": "./package/core/anchored-popover.ts",
     "./core/top-layer-popup": "./package/core/top-layer-popup.ts",
+    "./core/pointer-gesture": "./package/core/pointer-gesture.ts",
     "./core/control-id": "./package/core/control-id.ts",
     "./core/tooltip-options": "./package/core/tooltip-options.ts",
     "./dialog/dialog.types": "./package/dialog/dialog.types.ts",
