@@ -3,7 +3,7 @@ import {
   parseDateEntry,
   todayIsoDate,
   type TemporalControlValue,
-} from '@revolist/dates';
+} from '@revolist/ui-dates';
 import {
   handleMaskedBeforeInput,
   handleMaskedHistory,

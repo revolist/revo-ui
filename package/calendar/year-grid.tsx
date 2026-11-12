@@ -6,7 +6,7 @@ import {
   type DisplayCalendarSystem,
   type ISODateString,
   formatDisplayCalendarDate,
-} from '@revolist/dates';
+} from '@revolist/ui-dates';
 
 import { isCalendarMonthDisabled } from './model';
 

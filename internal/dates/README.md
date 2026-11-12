@@ -1,11 +1,11 @@
-# @revolist/dates
+# @revolist/ui-dates
 
 Private, framework-independent generic date, time, and duration input utilities shared across RevoGrid products. This package is workspace-only; it is not published or separately installable. Products bundle the code and declarations they need.
 
 ```ts
-import { parseIsoDate, formatIsoDate } from '@revolist/dates';
-import { parseLocalDateControlValue } from '@revolist/dates/date-controls';
-import { parseTimelineInstantValue } from '@revolist/dates/timeline';
+import { parseIsoDate, formatIsoDate } from '@revolist/ui-dates';
+import { parseLocalDateControlValue } from '@revolist/ui-dates/date-controls';
+import { parseTimelineInstantValue } from '@revolist/ui-dates/timeline';
 ```
 
 ## Contracts
@@ -24,7 +24,7 @@ Root exports include the helper groups listed in `package.json`; explicit subpat
 ## UTC trailing windows
 
 Workspace consumers can use `resolveUtcCalendarWindow({ unit, count }, domain)`
-from `@revolist/dates/calendar-range` or the root export. `UtcCalendarWindowUnit`
+from `@revolist/ui-dates/calendar-range` or the root export. `UtcCalendarWindowUnit`
 is `'day'`, `'week'`, `'month'` or `'year'`; count must be a positive safe integer.
 The helper anchors to `domain.max`, preserves UTC time of day, clamps month/year
 shifts at month end, intersects the supplied increasing domain and returns an
@@ -38,13 +38,13 @@ presets reuse the same calendar-window implementation.
 
 ## Migration
 
-Generic date/time input, ISO/civil arithmetic, and duration text helpers remain in `@revolist/dates`. Working calendars, task/dependency durations, and event-range scheduling policy are owned by the commercial `@revolist/revogrid-pro/dates` export. Conditional-format evaluation is owned by `@revolist/revogrid-pro/conditional-rule`.
+Generic date/time input, ISO/civil arithmetic, and duration text helpers remain in `@revolist/ui-dates`. Working calendars, task/dependency durations, and event-range scheduling policy are owned by the commercial `@revolist/dates` package in the Pro repository. Conditional-format evaluation is owned by `@revolist/revogrid-pro/conditional-rule`.
 
 The UI package has no dependency on Pro. Products bundle private generic utility code and emit its declarations under `_shared/dates`; published UI artifacts must neither import private workspace packages nor contain commercial domain modules.
 
 ## Verification
 
-Run `pnpm --filter @revolist/dates lint`, `pnpm --filter @revolist/dates test`, and `pnpm check:date-imports`. Run contracts with `TZ=UTC`, `TZ=Europe/Lisbon`, and `TZ=America/New_York` when changing local/civil behavior. Consumer tests retain feature-specific contracts.
+Run `pnpm --filter @revolist/ui-dates lint`, `pnpm --filter @revolist/ui-dates test`, and `pnpm check:date-imports`. Run contracts with `TZ=UTC`, `TZ=Europe/Lisbon`, and `TZ=America/New_York` when changing local/civil behavior. Consumer tests retain feature-specific contracts.
 
 ## Consumer ownership audit
 

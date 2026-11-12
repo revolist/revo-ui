@@ -7,7 +7,7 @@ import {
   compareIsoDates,
   getUtcWeekday,
   type ISODateString,
-} from '@revolist/dates';
+} from '@revolist/ui-dates';
 
 import type {
   CalendarDateRange,

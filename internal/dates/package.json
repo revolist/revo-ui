@@ -1,5 +1,5 @@
 {
-  "name": "@revolist/dates",
+  "name": "@revolist/ui-dates",
   "version": "4.0.9",
   "private": true,
   "type": "module",
@@ -23,7 +23,9 @@
     "./time-of-day": "./src/time-of-day.ts",
     "./timeline": "./src/timeline.ts",
     "./sequence": "./src/sequence.ts",
-    "./local-calendar": "./src/local-calendar.ts"
+    "./local-calendar": "./src/local-calendar.ts",
+    "./calendars": "./src/calendars.ts",
+    "./working-days": "./src/working-days.ts"
   },
   "scripts": {
     "lint": "tsc --noEmit",

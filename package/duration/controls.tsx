@@ -3,7 +3,7 @@
 import { Dropdown } from '../dropdown';
 import { SingleValueSlider } from '../filter/filters/slider/single';
 import { SegmentedSwitch } from '../segmented-switch';
-import type { DurationUnit } from '@revolist/dates';
+import type { DurationUnit } from '@revolist/ui-dates';
 import type { DurationFieldOptions } from './index';
 import '../filter/filters/slider/_slider.scss';
 

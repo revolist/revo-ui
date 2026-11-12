@@ -3,7 +3,7 @@ import { h, render } from 'preact';
 import { useState } from 'preact/hooks';
 import { act } from 'preact/test-utils';
 import { DatePicker, DateRangePicker, Popover } from './pickers';
-import type { ISODateString } from '@revolist/dates';
+import type { ISODateString } from '@revolist/ui-dates';
 
 let host: HTMLDivElement;
 afterEach(() => {

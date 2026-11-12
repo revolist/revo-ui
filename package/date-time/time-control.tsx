@@ -6,7 +6,7 @@ import {
   formatClockControl,
   parseClockControl,
   isTimeControlAllowed,
-} from '@revolist/dates';
+} from '@revolist/ui-dates';
 export function TimeControl({
   value,
   label,

@@ -18,7 +18,7 @@ import {
   todayIsoDate,
   type ISODateString,
   type TemporalControlValue,
-} from '@revolist/dates';
+} from '@revolist/ui-dates';
 import { defaultTemporalPickerText, type TemporalPickerProps } from './types';
 import './style.scss';
 

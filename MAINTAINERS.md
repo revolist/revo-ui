@@ -56,7 +56,7 @@ See [OWNERSHIP.md](./OWNERSHIP.md) for implementation/style owners, renderer con
 
 ## Ownership and compatibility
 
-- UI does not import Core, Pro, or another product. Dates and working-calendar calculations stay in `@revolist/dates`.
+- UI does not import Core, Pro, or another product. Dates and working-calendar calculations stay in `@revolist/ui-dates`.
 - Existing Pro exports and leaf modules forward to the shared owner. Grid edit events, focus preservation, popup coordination, remote loading and cell/column types stay in Pro adapters.
 - Task/card/event editors, working-calendar editors, Pivot configurators and chart inspectors remain product compositions.
 - Controlled inputs receive values and callbacks. Date controls use civil date/native input strings; products retain timezone conversion, storage and validation policy.

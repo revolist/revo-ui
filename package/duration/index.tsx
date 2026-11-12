@@ -12,7 +12,7 @@ import {
   type DurationControlOptions,
   type ParsedDuration,
   type DurationUnit,
-} from '@revolist/dates';
+} from '@revolist/ui-dates';
 
 export interface DurationSliderOptions {
   /** Slider upper limit; the duration's max validation bound takes precedence. */

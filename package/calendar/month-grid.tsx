@@ -4,7 +4,7 @@ import {
   startOfDisplayMonth,
   type ISODateString,
   type DisplayCalendarSystem,
-} from '@revolist/dates';
+} from '@revolist/ui-dates';
 
 import { CalendarDay } from './day';
 import { isDateInCalendarRange } from './model';
