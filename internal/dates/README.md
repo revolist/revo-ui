@@ -38,7 +38,7 @@ presets reuse the same calendar-window implementation.
 
 ## Migration
 
-Generic date/time input, ISO/civil arithmetic, and duration text helpers remain in `@revolist/ui-dates`. Working calendars, task/dependency durations, and event-range scheduling policy are owned by the commercial `@revolist/dates` package in the Pro repository. Conditional-format evaluation is owned by `@revolist/revogrid-pro/conditional-rule`.
+Generic date/time input, ISO/civil arithmetic, and duration text helpers remain in `@revolist/ui-dates`. Working calendars, task/dependency durations, and event-range scheduling policy are owned by the commercial `@revolist/dates` package in the Pro repository. Conditional-format evaluation is owned by `@revolist/chart-utils/conditional-rule`.
 
 The UI package has no dependency on Pro. Products bundle private generic utility code and emit its declarations under `_shared/dates`; published UI artifacts must neither import private workspace packages nor contain commercial domain modules.
 

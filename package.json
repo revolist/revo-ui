@@ -302,7 +302,7 @@
   },
   "dependencies": {
     "@revolist/ui-dates": "workspace:*",
-    "@revolist/chart-utils": "workspace:*"
+    "@revolist/ui-chart-utils": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=18",

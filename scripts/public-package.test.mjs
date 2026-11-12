@@ -133,7 +133,7 @@ test('archive exposes real typed ESM/CSS exports without private dependencies or
     if (/\.(?:js|d\.ts)$/.test(file))
       assert.doesNotMatch(
         readFileSync(file, 'utf8'),
-        /(?:from\s*|import\s*\()['"]@revolist\/(?:dates|ui-dates|chart-utils|data-query|ui|revogrid-pro)(?:\/[^'"]*)?['"]/,
+        /(?:from\s*|import\s*\()['"]@revolist\/(?:dates|ui-dates|chart-utils|ui-chart-utils|data-query|ui|revogrid-pro)(?:\/[^'"]*)?['"]/,
       );
   }
   assert.match(
