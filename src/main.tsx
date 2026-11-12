@@ -105,7 +105,7 @@ import {
   renderScalarSlider,
 } from '@revolist/ui/native';
 import type { CalendarDateRange } from '@revolist/ui/calendar/types';
-import type { ISODateString } from '@revolist/dates';
+import type { ISODateString } from '@revolist/ui-dates';
 import '@revolist/ui/styles.scss';
 import './style.css';
 

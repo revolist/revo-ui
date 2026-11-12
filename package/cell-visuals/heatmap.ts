@@ -3,7 +3,7 @@ import {
   interpolateRgb,
   normalizeColorValue,
   type RgbColor,
-} from '@revolist/chart-utils/colors';
+} from '@revolist/ui-chart-utils/colors';
 import type { ElementFactory } from './types';
 function getHeatmapColor(value: number): string {
   if (value <= 0.5) {

@@ -12,7 +12,7 @@ import {
   type CalendarProps,
   type CalendarRangeSelection,
 } from './index';
-import type { ISODateString } from '@revolist/dates';
+import type { ISODateString } from '@revolist/ui-dates';
 const hosts: HTMLElement[] = [];
 function mount(node: preact.ComponentChildren) {
   const host = document.createElement('div');

@@ -1,6 +1,6 @@
 /** @jsxImportSource preact */
 import { h, type ComponentChildren } from 'preact';
-import { parseIsoDate, type ISODateString } from '@revolist/dates';
+import { parseIsoDate, type ISODateString } from '@revolist/ui-dates';
 
 export interface CalendarDayProps {
   readonly date: ISODateString;

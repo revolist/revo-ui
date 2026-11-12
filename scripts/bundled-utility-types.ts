@@ -9,9 +9,9 @@ export function createBundledUtilityTypes(
   output = resolve(packageRoot, 'dist'),
 ) {
   const owners = ['dates', 'chart-utils'].map((name) => ({
-    name: `@revolist/${name}`,
+    name: `@revolist/ui-${name}`,
     source: resolve(packageRoot, 'internal', name, 'src'),
-    destination: resolve(output, '_shared', name),
+    destination: resolve(output, '_shared', `ui-${name}`),
   }));
   const files = (directory: string): string[] =>
     readdirSync(directory, { withFileTypes: true }).flatMap((entry) =>
@@ -23,7 +23,7 @@ export function createBundledUtilityTypes(
     );
   function rewrite(filePath: string, content: string) {
     return content.replace(
-      /(['"])(@revolist\/(?:chart-utils|dates|ui|data-query))(?:\/([^'"]+))?\1/g,
+      /(['"])(@revolist\/(?:ui-chart-utils|chart-utils|ui-dates|dates|ui|data-query))(?:\/([^'"]+))?\1/g,
       (_match, quote: string, name: string, subpath?: string) => {
         const owner = owners.find((candidate) => candidate.name === name);
         if (!owner) return _match;

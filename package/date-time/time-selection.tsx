@@ -18,7 +18,7 @@ import {
   clockUses12Hours,
   clockPeriodLabel,
   type TimeColumn,
-} from '@revolist/dates';
+} from '@revolist/ui-dates';
 import type { TemporalPickerText } from './types';
 
 function TimeColumnList({

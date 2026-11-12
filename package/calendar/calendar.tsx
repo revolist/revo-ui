@@ -10,7 +10,7 @@ import {
   displayWeekNumber,
   getUtcWeekday,
   type ISODateString,
-} from '@revolist/dates';
+} from '@revolist/ui-dates';
 import { createControlId } from '../core/control-id';
 import { ButtonControl } from '../native-control';
 import { CalendarHeader, CalendarWeekdays } from './header';

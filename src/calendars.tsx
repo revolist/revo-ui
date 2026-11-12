@@ -1,7 +1,7 @@
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import { CalendarPicker, type CalendarRangeSelection } from '@revolist/ui/calendar/index';
-import { parseIsoDate, type ISODateString } from '@revolist/dates';
+import { parseIsoDate, type ISODateString } from '@revolist/ui-dates';
 import { DateTimeField } from '@revolist/ui/date-time';
 import { Example } from './catalog';
 const reference = '2026-10-24' as const;

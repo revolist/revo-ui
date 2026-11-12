@@ -5,7 +5,7 @@ import type { CalendarPickerProps } from '../calendar/picker';
 import type {
   LocalDateControlKind,
   TemporalControlValue,
-} from '@revolist/dates';
+} from '@revolist/ui-dates';
 import type { EditorActionText, EditorCommitOptions } from '../editor-actions';
 
 type CalendarOptions<T> = T extends unknown

@@ -9,7 +9,7 @@ import {
   startOfDisplayMonth,
   type ISODateString,
   type DisplayCalendarSystem,
-} from '@revolist/dates';
+} from '@revolist/ui-dates';
 import { Dropdown } from '../dropdown';
 import type { CalendarProps, CalendarTranslations } from './types';
 

@@ -301,8 +301,8 @@
     "test:docs": "node --test scripts/documentation.test.mjs"
   },
   "dependencies": {
-    "@revolist/dates": "workspace:*",
-    "@revolist/chart-utils": "workspace:*"
+    "@revolist/ui-dates": "workspace:*",
+    "@revolist/ui-chart-utils": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=18",

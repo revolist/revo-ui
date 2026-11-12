@@ -14,10 +14,10 @@ importers:
 
   .:
     dependencies:
-      '@revolist/chart-utils':
+      '@revolist/ui-chart-utils':
         specifier: workspace:*
         version: link:internal/chart-utils
-      '@revolist/dates':
+      '@revolist/ui-dates':
         specifier: workspace:*
         version: link:internal/dates
     devDependencies:

@@ -12,7 +12,7 @@ import {
 } from '@revolist/ui/date-time';
 import { DurationField, type ParsedDuration } from '@revolist/ui/duration';
 import { Input } from '@revolist/ui/native-control';
-import type { TemporalControlValue } from '@revolist/dates';
+import type { TemporalControlValue } from '@revolist/ui-dates';
 import { Example } from './catalog';
 export function SharedEditorExamples() {
   const [selection, setSelection] = useState<'single' | 'range' | 'multiple'>(

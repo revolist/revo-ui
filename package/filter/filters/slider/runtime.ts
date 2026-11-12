@@ -7,7 +7,7 @@ import {
 import {
   claimTooltip,
   releaseTooltip,
-} from '@revolist/chart-utils/tooltip-owner';
+} from '@revolist/ui-chart-utils/tooltip-owner';
 import { createControlId } from '../../../core/control-id';
 import type { RangeSliderProps } from './types';
 import {

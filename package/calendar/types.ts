@@ -1,5 +1,5 @@
 import type { ComponentChildren } from 'preact';
-import type { DisplayCalendarSystem, ISODateString } from '@revolist/dates';
+import type { DisplayCalendarSystem, ISODateString } from '@revolist/ui-dates';
 
 export type CalendarWeekStart = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 export type CalendarView = 'month' | 'year';

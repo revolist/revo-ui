@@ -8,7 +8,7 @@ import {
   temporalTimePart,
   startOfDisplayMonth,
   type ISODateString,
-} from '@revolist/dates';
+} from '@revolist/ui-dates';
 import { defaultTemporalPickerText, type TemporalPickerProps } from './types';
 /** One validation path for keyboard drafts and calendar selections. */
 export function validateTemporalSelection(

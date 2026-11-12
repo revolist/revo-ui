@@ -15,7 +15,7 @@ import {
   type DateTimeFieldProps,
   type TemporalPickerOptions,
 } from './types';
-import type { TemporalControlValue } from '@revolist/dates';
+import type { TemporalControlValue } from '@revolist/ui-dates';
 
 export function TemporalDraft({
   value,

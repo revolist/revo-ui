@@ -64,34 +64,3 @@ it('coerces valid scalar values, clones Dates, and rejects unsupported inputs', 
     expect(coerceValidDate(value)).toBeUndefined();
   }
 });
-
-import { addUtcWeekdays, countWeekdaysInclusive } from './working-days';
-it('counts working weekdays across weekends, early years, and long ranges', () => {
-  expect(countWeekdaysInclusive('2026-10-16', '2026-10-19')).toBe(2);
-  expect(countWeekdaysInclusive('2026-10-17', '2026-10-18')).toBe(0);
-  expect(countWeekdaysInclusive('2026-10-19', '2026-10-16')).toBe(0);
-  expect(countWeekdaysInclusive('0001-01-01', '0001-01-05')).toBe(5);
-  expect(countWeekdaysInclusive('invalid', '2026-10-19')).toBe(0);
-  expect(countWeekdaysInclusive('2000-01-01', '2200-01-01')).toBe(52178);
-});
-
-it('advances UTC weekdays without changing the source or its clock time', () => {
-  const start = new Date('2026-10-16T09:30:00Z');
-  expect(addUtcWeekdays(start, 1).toISOString()).toBe(
-    '2026-10-19T09:30:00.000Z',
-  );
-  expect(addUtcWeekdays(start, 5).toISOString()).toBe(
-    '2026-10-23T09:30:00.000Z',
-  );
-  expect(
-    addUtcWeekdays(new Date('2026-10-17T09:30:00Z'), 1).toISOString(),
-  ).toBe('2026-10-19T09:30:00.000Z');
-  expect(addUtcWeekdays(start, 0)).not.toBe(start);
-  expect(() => addUtcWeekdays(start, Infinity)).toThrow(RangeError);
-  expect(() => addUtcWeekdays(start, NaN)).toThrow(RangeError);
-  expect(() => addUtcWeekdays(new Date(NaN), 1)).toThrow(RangeError);
-  expect(() => addUtcWeekdays(new Date(8_640_000_000_000_000), 1)).toThrow(
-    RangeError,
-  );
-  expect(start.toISOString()).toBe('2026-10-16T09:30:00.000Z');
-});

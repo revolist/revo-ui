@@ -8,7 +8,7 @@ import {
   startOfDisplayMonth,
   todayIsoDate,
   type ISODateString,
-} from '@revolist/dates';
+} from '@revolist/ui-dates';
 import { Calendar } from './calendar';
 import { orderCalendarRange } from './model';
 import { DEFAULT_CALENDAR_TRANSLATIONS } from './translations';

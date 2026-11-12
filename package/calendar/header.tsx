@@ -2,7 +2,7 @@
 import chevronLeftIcon from '@fortawesome/fontawesome-free/svgs/solid/chevron-left.svg?raw';
 import chevronRightIcon from '@fortawesome/fontawesome-free/svgs/solid/chevron-right.svg?raw';
 import { h, type ComponentChildren } from 'preact';
-import type { ISODateString } from '@revolist/dates';
+import type { ISODateString } from '@revolist/ui-dates';
 
 export function CalendarHeader({
   label,

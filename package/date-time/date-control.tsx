@@ -7,7 +7,7 @@ import {
   formatDateEntry,
   dateEntryPlaceholder,
   type DateEntryOptions,
-} from '@revolist/dates';
+} from '@revolist/ui-dates';
 export interface DateInputOptions extends DateEntryOptions {
   placeholder?: string;
   /** ISO fixed-slot date entry with automatic separators; single dates only. */
