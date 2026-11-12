@@ -1,5 +1,6 @@
 /** @jsxRuntime automatic */
 /** @jsxImportSource preact */
+import { registerControl } from './control-presentation';
 import {
   Fragment,
   isValidElement,
@@ -83,7 +84,10 @@ export function selectOptions(
   ];
 }
 
-export function Select(props: SelectProps) {
+// Registration belongs to the exported component value, including direct imports.
+export const Select = /* @__PURE__ */ registerControl(function Select(
+  props: SelectProps,
+) {
   const {
     children,
     environment,
@@ -188,4 +192,4 @@ export function Select(props: SelectProps) {
         ))}
     </>
   );
-}
+}, 'select');

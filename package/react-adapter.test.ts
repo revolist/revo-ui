@@ -229,3 +229,50 @@ describe('React shared component adapters', () => {
     expect(clicks).toEqual(['Add', 'Drop here', 'Inspect']);
   });
 });
+
+it('installs styles before application layout effects and supports explicit nonce/external CSS', async () => {
+  const { useLayoutEffect } = await import('react');
+  const { configureUiStyles } = await import('./core/component-styles');
+  configureUiStyles({ nonce: 'explicit-nonce' });
+  const Styled = createReactAdapter(
+    () => preactH('button', null, 'Styled'),
+    'Styled',
+    {
+      styles: [{ id: 'test-insertion', css: 'button {color: red}', order: 0 }],
+    },
+  );
+  let observed = false;
+  function App() {
+    useLayoutEffect(() => {
+      observed = !!document.querySelector(
+        'style[data-rv-component-styles="test-insertion"]',
+      );
+    }, []);
+    return h(Styled);
+  }
+  setup();
+  await act(async () => {
+    root!.render(h(App));
+    await settle();
+  });
+  const style = document.querySelector(
+    'style[data-rv-component-styles="test-insertion"]',
+  );
+  expect(observed).toBe(true);
+  expect(style?.getAttribute('nonce')).toBe('explicit-nonce');
+  await act(async () => {
+    root!.render(null);
+    await settle();
+  });
+  style?.remove();
+  await act(async () => {
+    configureUiStyles({ mode: 'external' });
+    root!.render(h(Styled));
+    await settle();
+  });
+  expect(
+    document.querySelector('style[data-rv-component-styles="test-insertion"]'),
+  ).toBeNull();
+  expect(host.textContent).toContain('Styled');
+  configureUiStyles({});
+});

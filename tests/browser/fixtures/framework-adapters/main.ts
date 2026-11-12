@@ -8,7 +8,6 @@ import {
   Panel,
   Popover,
 } from '@revolist/ui/vue';
-import '@revolist/ui/styles.scss';
 
 createApp({
   setup() {

@@ -1,0 +1,11 @@
+// Import base.css once before optional component families.
+@use './field-configurator';
+@use './editor-slider';
+@use './editor-counter';
+@use '../filter/filters/slider/slider';
+@use './filter-controls';
+@use './filter-badge';
+@use './time-grid';
+
+@include slider.styles;
+@include field-configurator.presentation;

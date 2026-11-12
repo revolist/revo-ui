@@ -5,10 +5,13 @@
 [![Build status](https://img.shields.io/github/actions/workflow/status/revolist/revo-ui/pages.yml?branch=main&style=flat&label=build)](https://github.com/revolist/revo-ui/actions/workflows/pages.yml)
 [![0 runtime dependencies](https://img.shields.io/badge/dependencies-0-16a34a?style=flat)](https://www.npmjs.com/package/@revolist/ui?activeTab=dependencies)
 [![Tree-shakeable ESM](https://img.shields.io/badge/tree%20shaking-supported-16a34a?style=flat)](https://github.com/revolist/revo-ui/blob/main/package.json)
+[![Component + styles: 23.5 KiB gzip](https://img.shields.io/badge/Component%20%2B%20styles-23.5%20KiB%20gzip-16a34a?style=flat)](docs/bundle-size.md)
 
 **RevoGrid's UI component library for financial apps, reporting dashboards, and project management.**
 
 Compose data-rich workspaces with shared controls, pickers, charts, timelines, dialogs, and feedback. Use React, Vue, Angular, Svelte, Preact, or vanilla TypeScript.
+
+Lightweight and tree-shakeable: import only the controls you use.
 
 [Live components](https://ui.rv-grid.com/components/buttons/) · [Interactive overview](https://ui.rv-grid.com/) · [Framework guides](https://ui.rv-grid.com/frameworks/) · [RevoGrid](https://rv-grid.com/) · [Pro documentation](https://pro.rv-grid.com/)
 
@@ -20,11 +23,16 @@ Compose data-rich workspaces with shared controls, pickers, charts, timelines, d
 pnpm add @revolist/ui
 ```
 
-Import the shared styles once:
+React, Vue, Angular and Svelte adapters automatically load their component styles. For extracted CSS, use the matching `/unstyled` entry and import shared styles once:
 
 ```ts
 import '@revolist/ui/styles.css';
 ```
+
+For smaller extracted stylesheets, use `styles/base.css` and only the required families. Direct Preact/native rendering also uses explicit CSS. See [automatic/extracted styles, CSP configuration and bundle-size budgets](docs/bundle-size.md).
+
+
+For server-rendered applications, see the [SSR and hydration guide](docs/ssr.md) for framework recipes, initial CSS delivery, fallbacks and CSP.
 
 Choose your framework for setup instructions and usage examples:
 
@@ -61,7 +69,7 @@ You can replace the CDN prefix with `https://unpkg.com/@revolist/ui@4.0.7`, or s
 
 The complete browser bundles include the component catalog and PDF engine. PDF viewers also need `browser/pdf-viewer.css` and the matching `browser/pdf.worker.min.mjs` served from **your own origin**, with its URL supplied as `workerSrc`. Direct cross-origin CDN Worker URLs are not supported by the browser Worker constructor. Configure PDF document/asset access for your application.
 
-See the [CDN examples in Docs](https://ui.rv-grid.com/frameworks/#browser-cdn) for complete module and classic-script HTML and lifecycle guidance.
+See the [CDN examples in Docs](https://ui.rv-grid.com/frameworks/javascript-cdn/) for complete module and classic-script HTML and lifecycle guidance.
 
 ## Framework support
 

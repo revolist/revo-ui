@@ -1,0 +1,5 @@
+// Import base.css once before optional component families.
+@use '../cell-visuals/styles';
+@use '../distribution-chart/distribution-chart';
+@use '../brush-range/brush-range';
+@use '../legend';

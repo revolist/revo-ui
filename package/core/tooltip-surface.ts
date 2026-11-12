@@ -1,3 +1,7 @@
+import {
+  componentStyleNonce,
+  externalComponentStyles,
+} from './component-styles';
 import type {
   TooltipAlign,
   TooltipOffset,
@@ -8,8 +12,7 @@ import { h, type JSX } from 'preact';
 import { createPreactElement, releasePreactElement } from '../preact-mount';
 
 /** Shared presentation for text hints and rich product/chart tooltip content. */
-export const TOOLTIP_STYLES = `
-.rv-tooltip.rv-tooltip {
+export const TOOLTIP_STYLES = `\n.rv-tooltip.rv-tooltip {
   box-sizing: border-box;
   position: fixed;
   flex-direction: column;
@@ -55,12 +58,17 @@ export const TOOLTIP_STYLES = `
 
 /** Also installs into shadow roots/fullscreen roots used by standalone charts. */
 export function ensureTooltipStyles(root: Document | ShadowRoot): void {
+  if (externalComponentStyles(root)) return;
   if (root.querySelector('style[data-rv-tooltip-styles]')) return;
   const document =
     root.nodeType === 9 ? (root as Document) : root.ownerDocument!;
   const style = createPreactElement<HTMLStyleElement>(
     document,
-    h('style', { 'data-rv-tooltip-styles': '' }, TOOLTIP_STYLES),
+    h(
+      'style',
+      { 'data-rv-tooltip-styles': '', nonce: componentStyleNonce(root) },
+      TOOLTIP_STYLES,
+    ),
   );
   if (root.nodeType === 9) document.head.append(style);
   else root.append(style);

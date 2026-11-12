@@ -219,3 +219,19 @@ test('tooltip reference includes state, positioning, asynchronous content and li
     );
   }
 });
+
+test('registered Select preserves documented value and selection contracts', () => {
+  const select = component('Select');
+  assert(
+    select.props.some(
+      (prop) => prop.name === 'value' && prop.type.includes('string'),
+    ),
+  );
+  assert(select.props.some((prop) => prop.name === 'multiple'));
+  assert(
+    select.events.some(
+      (event) =>
+        event.name === 'onValueChange' && event.type.includes('string'),
+    ),
+  );
+});

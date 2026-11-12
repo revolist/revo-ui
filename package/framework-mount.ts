@@ -1,3 +1,4 @@
+import { prepareComponentStyles } from './core/component-styles';
 import { h, render, type ComponentType, type VNode } from 'preact';
 import { useLayoutEffect, useRef } from 'preact/hooks';
 import { componentRenderSlots } from './component-metadata';
@@ -24,6 +25,7 @@ export interface UiFrameworkMount<T> {
 export function createFrameworkMount<T>(
   host: HTMLElement,
   publish: (targets: UiContentTarget<T>[]) => void,
+  options: { styles?: boolean } = {},
 ): UiFrameworkMount<T> {
   const targets = new Map<HTMLElement, UiContentTarget<T>>();
   let disposed = false;
@@ -61,6 +63,7 @@ export function createFrameworkMount<T>(
   return {
     render(component, props, transform) {
       if (disposed) throw new Error('Cannot update a destroyed UI mount');
+      if (options.styles !== false) prepareComponentStyles(component, host);
       render(h(component, transform ? transform(props, content) : props), host);
     },
     destroy() {

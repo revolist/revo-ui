@@ -4,8 +4,9 @@ import { readFile } from 'node:fs/promises';
 
 const root = new URL('../', import.meta.url);
 const pages = JSON.parse(await readFile(new URL('src/pages.json', root), 'utf8'));
+const documentation = JSON.parse(await readFile(new URL('../src/documentation.json', import.meta.url), 'utf8'));
 const slug = title => title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-const paths = [...apiRoutes, '', 'components/', ...pages.components.map(page => `components/${slug(page.title)}/`), 'colors/', 'accessibility/', 'frameworks/', ...pages.frameworks.map(name => `frameworks/${slug(name)}/`)];
+const paths = [...apiRoutes, '', 'components/', ...pages.components.map(page => `components/${slug(page.title)}/`), 'colors/', 'accessibility/', 'frameworks/', ...Object.keys(documentation).map(id => `frameworks/${id}/`), ...pages.frameworks.map(name => `frameworks/${slug(name)}/`)];
 const sitemap = await readFile(new URL('dist-gallery/sitemap.xml', root), 'utf8');
 assert.equal([...sitemap.matchAll(/<loc>/g)].length, paths.length);
 const titles = new Set();

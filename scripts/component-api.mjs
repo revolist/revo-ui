@@ -81,13 +81,13 @@ export function componentApi(library, gallery, watchSource = () => {}) {
   }));
   entries.push({
     name: 'Select',
-    node: program
-      .getSourceFile(select)
-      .statements.find(
-        (statement) =>
-          ts.isFunctionDeclaration(statement) &&
-          statement.name?.text === 'Select',
-      ),
+    // Resolve the public export rather than depending on declaration syntax;
+    // registered component factories have the same callable props contract.
+    node: checker
+      .getExportsOfModule(
+        checker.getSymbolAtLocation(program.getSourceFile(select)),
+      )
+      .find((symbol) => symbol.name === 'Select')?.valueDeclaration,
   });
   return entries.map(({ name, node }) => {
     const signature = checker.getTypeAtLocation(node).getCallSignatures()[0];

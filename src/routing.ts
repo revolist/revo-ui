@@ -34,7 +34,12 @@ export function redirectLegacyRoute() {
     const query = new URLSearchParams(location.search);
     const hash = location.hash.slice(1);
     let target: string | undefined;
-    if (
+    const overview =
+      (pathParts()[0] === 'frameworks' && !pathParts()[1]) ||
+      query.get('page') === 'frameworks';
+    if (overview && (hash === 'browser-cdn' || hash === 'server-rendering'))
+      target = frameworkHref(hash === 'browser-cdn' ? 'javascript-cdn' : 'ssr');
+    else if (
       (pathParts()[0] === 'components' && pathParts()[1] === 'editors') ||
       hash === 'editors'
     )

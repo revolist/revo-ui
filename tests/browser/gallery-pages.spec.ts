@@ -543,8 +543,11 @@ test('framework guide covers supported adapters and works on mobile', async ({
     .getByRole('link', { name: 'Docs', exact: true })
     .click();
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-    'Build with your framework.',
+    'Getting started',
   );
+  await expect(
+    page.getByRole('heading', { name: 'Install the package', exact: true }),
+  ).toBeVisible();
   await expect(page.locator('.framework-card')).toHaveCount(0);
   const navigation = page.getByRole('navigation', {
     name: 'Documentation navigation',

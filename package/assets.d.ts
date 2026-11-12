@@ -4,3 +4,8 @@ declare module '*.svg?raw' {
 }
 declare module '*.scss';
 declare module '*.css';
+
+declare module '*.scss?inline' {
+  const css: string;
+  export default css;
+}

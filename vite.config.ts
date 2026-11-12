@@ -1,3 +1,4 @@
+import { documentationPlugin } from './scripts/documentation.mjs';
 import dts from 'unplugin-dts/vite';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { createBundledUtilityTypes } from './scripts/bundled-utility-types.ts';
@@ -28,7 +29,7 @@ export default defineConfig(({ mode }) => {
       },
     };
   }
-  if (mode === 'library') {
+  if (mode === 'library' || mode === 'library-unstyled') {
     const root = import.meta.dirname;
     const manifest = JSON.parse(
       readFileSync(resolve(root, 'package.json'), 'utf8'),
@@ -46,12 +47,50 @@ export default defineConfig(({ mode }) => {
           resolve(root, source),
         ]),
     );
+    entries['core/component-styles'] = resolve(
+      root,
+      'package/core/component-styles.ts',
+    );
+    entries['component-style-families'] = resolve(
+      root,
+      'package/component-style-families.ts',
+    );
     const utilities = createBundledUtilityTypes(root);
 
     return {
       root,
       // Shared UI never injects a product watermark, including during trial builds.
       plugins: [
+        {
+          name: 'extracted-css-entries',
+          load(id) {
+            if (
+              mode === 'library-unstyled' &&
+              id === resolve(root, 'package/core/tooltip-surface.ts')
+            )
+              return readFileSync(id, 'utf8').replace(
+                /export const TOOLTIP_STYLES = `[\s\S]*?`;/,
+                'export const TOOLTIP_STYLES = "";',
+              );
+            if (
+              mode === 'library-unstyled' &&
+              id === resolve(root, 'package/core/component-styles.ts')
+            )
+              return readFileSync(id, 'utf8').replace(
+                'const automaticStyles = true;',
+                'const automaticStyles = false;',
+              );
+            if (
+              mode === 'library-unstyled' &&
+              id === resolve(root, 'package/component-style-families.ts')
+            ) {
+              const source = readFileSync(id, 'utf8');
+              return [...source.matchAll(/export const (\w+)Styles/g)]
+                .map((match) => `export const ${match[1]}Styles = [];`)
+                .join('\n');
+            }
+          },
+        },
         svelte(),
         utilities.plugin,
         dts({
@@ -67,7 +106,7 @@ export default defineConfig(({ mode }) => {
       ],
       oxc: { jsx: { runtime: 'automatic', importSource: 'preact' } },
       build: {
-        outDir: 'dist',
+        outDir: mode === 'library-unstyled' ? 'dist/unstyled' : 'dist',
         lib: { entry: entries, formats: ['es'] },
         rolldownOptions: {
           external: [
@@ -91,6 +130,7 @@ export default defineConfig(({ mode }) => {
       ),
     },
     plugins: [
+      documentationPlugin(),
       {
         name: 'gallery-component-api',
         resolveId(id) {
