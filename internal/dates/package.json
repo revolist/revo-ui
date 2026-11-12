@@ -3,7 +3,7 @@
   "version": "4.0.9",
   "private": true,
   "type": "module",
-  "description": "Framework-independent date, time, duration, and working-calendar utilities",
+  "description": "Framework-independent date, time, and duration input utilities",
   "sideEffects": false,
   "exports": {
     ".": "./src/index.ts",
@@ -11,7 +11,6 @@
     "./calendar-range": "./src/calendar-range.ts",
     "./calendar-tick-label": "./src/calendar-tick-label.ts",
     "./calendar-ticks": "./src/calendar-ticks.ts",
-    "./calendars": "./src/calendars.ts",
     "./civil-time": "./src/civil-time.ts",
     "./date-bucket": "./src/date-bucket.ts",
     "./date-controls": "./src/date-controls.ts",
@@ -23,7 +22,6 @@
     "./spreadsheet-date": "./src/spreadsheet-date.ts",
     "./time-of-day": "./src/time-of-day.ts",
     "./timeline": "./src/timeline.ts",
-    "./working-days": "./src/working-days.ts",
     "./sequence": "./src/sequence.ts",
     "./local-calendar": "./src/local-calendar.ts"
   },

@@ -150,6 +150,22 @@ test('archive exposes real typed ESM/CSS exports without private dependencies or
   );
 });
 
+test('archive excludes commercial scheduling and conditional-format rules', () => {
+  for (const file of files(packageRoot)) {
+    assert.doesNotMatch(
+      file,
+      /[/\\](?:calendars|working-days|conditional-rule)\.d\.ts$/,
+    );
+    if (/\.(?:js|d\.ts)$/.test(file)) {
+      assert.doesNotMatch(
+        readFileSync(file, 'utf8'),
+        /\b(?:offsetByLagCalendar|resolveTaskEndDate|resolveTaskStartDateFromEnd|countWorkingDuration|CalendarExceptionRecurrence|CalendarEntity|resolveDurationSettings|durationToWorkingDays|formatWorkingDuration|diffInTaskDuration|moveDateTimeRange|shiftDateTimeByCalendarDays|snapDateTime|evaluateConditionalRule)\b/,
+        `Commercial helper shipped: ${file}`,
+      );
+    }
+  }
+});
+
 test('an isolated consumer executes native, React, Vue and Svelte adapters from the archive', () => {
   const script = `
     import assert from 'node:assert/strict';
@@ -256,9 +272,19 @@ test('archive exposes standalone module and classic browser builds with CDN defa
     const code = readFileSync(join(packageRoot, 'browser', file), 'utf8');
     assert.match(code, /createFrameworkMount/);
     assert.match(code, /uiComponents/);
-    assert.doesNotMatch(code, /(?:from\s*|import\s*\()['"](?:preact|pdfjs-dist|@revolist\/)/);
+    assert.doesNotMatch(
+      code,
+      /(?:from\s*|import\s*\()['"](?:preact|pdfjs-dist|@revolist\/)/,
+    );
   }
-  assert.match(readFileSync(join(packageRoot, 'browser/revo-ui.global.js'), 'utf8'), /RevoUI/);
-  for (const file of ['browser/pdf-viewer.css', 'browser/pdf.worker.min.mjs', 'browser/pdfjs-LICENSE'])
+  assert.match(
+    readFileSync(join(packageRoot, 'browser/revo-ui.global.js'), 'utf8'),
+    /RevoUI/,
+  );
+  for (const file of [
+    'browser/pdf-viewer.css',
+    'browser/pdf.worker.min.mjs',
+    'browser/pdfjs-LICENSE',
+  ])
     assert.ok(existsSync(join(packageRoot, file)), file);
 });

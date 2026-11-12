@@ -1,13 +1,9 @@
 # @revolist/dates
 
-Private, framework-independent date, time, duration, and working-calendar utilities shared across RevoGrid products. This package is workspace-only; it is not published or separately installable. Products bundle the code and declarations they need.
+Private, framework-independent generic date, time, and duration input utilities shared across RevoGrid products. This package is workspace-only; it is not published or separately installable. Products bundle the code and declarations they need.
 
 ```ts
-import {
-  parseIsoDate,
-  formatIsoDate,
-  type CalendarEntity,
-} from '@revolist/dates';
+import { parseIsoDate, formatIsoDate } from '@revolist/dates';
 import { parseLocalDateControlValue } from '@revolist/dates/date-controls';
 import { parseTimelineInstantValue } from '@revolist/dates/timeline';
 ```
@@ -17,7 +13,7 @@ import { parseTimelineInstantValue } from '@revolist/dates/timeline';
 - ISO date-only math uses UTC midnight; local date/control helpers preserve local calendar fields. Do not substitute one for the other.
 - Timeline instant parsing requires an explicit timezone for datetime strings; scheduler `parseDateTime` retains its existing UTC interpretation of zone-less datetime input.
 - Civil date/time helpers operate on Gregorian fields and explicitly resolve IANA timezone boundaries, including DST gaps and repeated hours.
-- Calendar math distinguishes clamped calendar-month shifts from native overflowing month arithmetic. Durations distinguish working time from elapsed time.
+- Calendar math distinguishes clamped calendar-month shifts from native overflowing month arithmetic. Duration inputs parse and format authored units without applying working calendars.
 - Spreadsheet helpers preserve Excel serial-date conventions and locale-sensitive parsing.
 - Sequence helpers preserve authored date/time formats and native UTC month overflow for autofill.
 - Invalid-input behavior is helper-specific (`undefined`, `null`, invalid Date, or throw) and documented/tested at that helper. Extraction does not silently unify these contracts.
@@ -42,11 +38,9 @@ presets reuse the same calendar-window implementation.
 
 ## Migration
 
-Import dates/calendar utilities directly from `@revolist/dates` or its explicit subpaths. Removed locations include `packages/pro/plugins/dates`, `packages/pro/plugins/calendars`, and `@revolist/chart-utils/dates/*`. Pro, Gantt, and Scheduler no longer re-export these utilities or shared types. There are no compatibility shims.
+Generic date/time input, ISO/civil arithmetic, and duration text helpers remain in `@revolist/dates`. Working calendars, task/dependency durations, and event-range scheduling policy are owned by the commercial `@revolist/revogrid-pro/dates` export. Conditional-format evaluation is owned by `@revolist/revogrid-pro/conditional-rule`.
 
-Public applications can infer calendar shapes from their product configuration types (for example `NonNullable<GanttPluginConfig['calendars']>[number]`) and supply explicit calendar definitions. The internal workspace package is not a public replacement dependency.
-
-Use `workspace:*` development dependencies. Shared build tooling bundles runtime code and emits declarations under `_shared/dates`; published artifacts must not import this private package.
+The UI package has no dependency on Pro. Products bundle private generic utility code and emit its declarations under `_shared/dates`; published UI artifacts must neither import private workspace packages nor contain commercial domain modules.
 
 ## Verification
 

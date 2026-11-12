@@ -78,24 +78,6 @@ export function diffInCalendarDays(startDate: string, endDate: string): number {
   return Math.round((end - start) / DAY_IN_MS);
 }
 
-/**
- * Returns the Gantt duration between two task dates.
- * Date-only ranges are inclusive; datetime ranges use elapsed days and keep a
- * non-zero positive duration at one minute minimum.
- */
-export function diffInTaskDuration(startDate: string, endDate: string): number {
-  if (isIsoDateTimeInput(startDate) || isIsoDateTimeInput(endDate)) {
-    const elapsedDays =
-      (parseIsoDate(endDate).getTime() - parseIsoDate(startDate).getTime()) /
-      DAY_IN_MS;
-    return elapsedDays < 0
-      ? elapsedDays
-      : Math.max(MINUTE_IN_DAYS, elapsedDays);
-  }
-
-  return diffInDays(startDate, endDate) + 1;
-}
-
 export function diffInHours(startDate: string, endDate: string): number {
   return Math.round(
     (parseIsoDate(endDate).getTime() - parseIsoDate(startDate).getTime()) /

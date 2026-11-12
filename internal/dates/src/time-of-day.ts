@@ -1,15 +1,5 @@
-import {
-  getCivilParts,
-  getPossibleInstants,
-  resolveCivilBoundary,
-} from './civil-time';
-import {
-  addDays,
-  addMinutes,
-  diffInCalendarDays,
-  diffInMinutes,
-  MINUTE_IN_MS,
-} from './date-math';
+import { getCivilParts, resolveCivilBoundary } from './civil-time';
+import { addDays, addMinutes, MINUTE_IN_MS } from './date-math';
 import {
   formatIsoDateTime,
   formatLocalIsoDate,
@@ -366,18 +356,6 @@ export function addElapsedMinutes(
   );
 }
 
-/** Exact elapsed duration, including seconds and milliseconds. Legacy rounded helpers are unchanged. */
-export function getElapsedDurationMinutes(event: {
-  readonly startDateTime: string;
-  readonly endDateTime: string;
-}): number {
-  return (
-    (parseDateTime(event.endDateTime).getTime() -
-      parseDateTime(event.startDateTime).getTime()) /
-    MINUTE_IN_MS
-  );
-}
-
 export function shiftDateTime(
   value: string,
   deltaMinutes: number,
@@ -416,72 +394,6 @@ export function replaceDateTimeDate(
   return formatIsoDateTime(target);
 }
 
-/** Advances whole schedule-local days. Fractional offsets retain legacy elapsed-day behavior. */
-export function shiftDateTimeByCalendarDays(
-  value: string,
-  days: number,
-  timeZone = 'UTC',
-): ISODateTimeString {
-  if (!Number.isInteger(days))
-    return addDays(
-      parseDateTime(value).toISOString(),
-      days,
-    ) as ISODateTimeString;
-  const date = addDays(toISODate(parseDateTime(value), timeZone), days);
-  return replaceDateTimeDate(value, date, timeZone);
-}
-
-export type DateTimeDurationMode = 'elapsed' | 'calendarDays';
-
-export interface MoveDateTimeRangeOptions {
-  /** Defaults to exact elapsed duration; calendarDays preserves civil date/clock duration. */
-  readonly durationMode?: DateTimeDurationMode;
-  /** Timezone for calendarDays arithmetic. Defaults to UTC. */
-  readonly timeZone?: string;
-}
-
-/** Moves a range preserving elapsed duration by default, or schedule-local civil duration. */
-export function moveDateTimeRange(
-  start: string,
-  end: string,
-  nextStart: string,
-  options: MoveDateTimeRangeOptions = {},
-): {
-  readonly startDateTime: ISODateTimeString;
-  readonly endDateTime: ISODateTimeString;
-} {
-  const instant = parseDateTime(nextStart);
-  const source = parseDateTime(start);
-  const finish = parseDateTime(end);
-  if (
-    options.durationMode === 'calendarDays' &&
-    instant.getTime() !== source.getTime()
-  ) {
-    const timeZone = options.timeZone ?? 'UTC';
-    const dayOffset = diffInCalendarDays(
-      toISODate(source, timeZone),
-      toISODate(finish, timeZone),
-    );
-    const clockMinutes =
-      getPreciseDateMinutes(instant, timeZone) +
-      getPreciseDateMinutes(finish, timeZone) -
-      getPreciseDateMinutes(source, timeZone);
-    return {
-      startDateTime: formatIsoDateTime(instant),
-      endDateTime: createDateTime(
-        addDays(toISODate(instant, timeZone), dayOffset),
-        clockMinutes,
-        timeZone,
-      ),
-    };
-  }
-  const duration = finish.getTime() - source.getTime();
-  return {
-    startDateTime: formatIsoDateTime(instant),
-    endDateTime: formatIsoDateTime(new Date(instant.getTime() + duration)),
-  };
-}
-
 export function isMidnightDateTime(value: string, timeZone = 'UTC'): boolean {
   const date = parseDateTime(value);
   if (timeZone !== 'UTC') {
@@ -499,72 +411,4 @@ export function isMidnightDateTime(value: string, timeZone = 'UTC'): boolean {
     date.getUTCSeconds() === 0 &&
     date.getUTCMilliseconds() === 0
   );
-}
-
-export function getDateTimeDurationMinutes(
-  startDateTime: string,
-  endDateTime: string,
-): number {
-  return diffInMinutes(startDateTime, endDateTime);
-}
-
-export function getDurationMinutes(event: {
-  readonly startDateTime: ISODateTimeString | string;
-  readonly endDateTime: ISODateTimeString | string;
-}): number {
-  return diffInMinutes(
-    event.startDateTime as ISODateTimeString,
-    event.endDateTime as ISODateTimeString,
-  );
-}
-
-/** Returns an event duration in minutes, clamped to zero for inverted ranges. */
-export function getClampedDateTimeDurationMinutes(
-  startDateTime: string,
-  endDateTime: string,
-): number {
-  return Math.max(
-    0,
-    Math.round(
-      (parseDateTime(endDateTime).getTime() -
-        parseDateTime(startDateTime).getTime()) /
-        MINUTE_IN_MS,
-    ),
-  );
-}
-
-export function snapMinutes(minutes: number, snap: number): number {
-  return Math.round(minutes / snap) * snap;
-}
-
-/** Snaps clock minutes in the requested timezone; repeated times retain the nearest original fold. */
-export function snapDateTime(
-  value: string,
-  snap: number,
-  timeZone = 'UTC',
-): ISODateTimeString {
-  const date = parseDateTime(value);
-  if (timeZone !== 'UTC') {
-    const minutes = snapMinutes(
-      Math.round(getPreciseDateMinutes(date, timeZone)),
-      snap,
-    );
-    const target = createDateTime(toISODate(date, timeZone), minutes, timeZone);
-    const civil = getCivilParts(parseDateTime(target), timeZone);
-    const candidates = getPossibleInstants(civil, timeZone);
-    return (
-      candidates.sort(
-        (a, b) =>
-          Math.abs(a.getTime() - date.getTime()) -
-          Math.abs(b.getTime() - date.getTime()),
-      )[0] ?? parseDateTime(target)
-    ).toISOString() as ISODateTimeString;
-  }
-  const dayStart = Date.UTC(
-    date.getUTCFullYear(),
-    date.getUTCMonth(),
-    date.getUTCDate(),
-  );
-  const minutes = Math.round((date.getTime() - dayStart) / MINUTE_IN_MS);
-  return createDateTime(toISODate(date), snapMinutes(minutes, snap));
 }
