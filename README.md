@@ -136,6 +136,12 @@ Build alongside [RevoGrid](https://rv-grid.com/), [Grid Pro](https://pro.rv-grid
 
 Revo UI is [MIT licensed](LICENSE). Anyone can use, modify, and distribute it, including in commercial projects.
 
+## Contributing
+
+Bug reports, documentation, tests, accessibility improvements, and code contributions are welcome. See the [contributing guide](CONTRIBUTING.md) for setup, validation, and pull request guidance.
+
+Please follow our [Code of Conduct](CODE_OF_CONDUCT.md). Report vulnerabilities privately using the [security policy](SECURITY.md).
+
 ## Develop from source
 
 This repository contains the MIT-licensed Revo UI library and its gallery demo. No private repository access is needed.
