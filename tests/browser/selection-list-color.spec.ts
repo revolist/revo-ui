@@ -2,7 +2,7 @@ import { chooseOption } from './choose-option';
 import { test, expect } from './gallery-test';
 
 test.use({
-  gallerySections: ['tabs-and-lists', 'selects-chips-and-resources'],
+  gallerySections: ['tabs-and-lists', 'resource-selection'],
 });
 
 test('selection lists use the resource selection tint in both themes', async ({

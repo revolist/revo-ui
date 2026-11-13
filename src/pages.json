@@ -79,6 +79,12 @@
       "keywords": "duration effort units elapsed day hour minute slider"
     },
     {
+      "title": "Resource selection",
+      "group": "Pickers",
+      "description": "Search and select people or other resources.",
+      "keywords": "resource selection picker people assignee search multiple"
+    },
+    {
       "title": "Assignee field",
       "group": "Pickers",
       "description": "Assign people and edit their allocation units.",

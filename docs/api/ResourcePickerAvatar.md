@@ -1,8 +1,8 @@
 # ResourcePickerAvatar
 
-Single or multiple selections, searchable options, selected-value templates, avatars, resource lists and assignee fields.
+Search and select people or other resources.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/components/selects-chips-and-resources/) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/resource-selection/) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { ResourcePickerAvatar } from '@revolist/ui/preact'`
 

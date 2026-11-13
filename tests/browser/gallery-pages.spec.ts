@@ -796,3 +796,19 @@ test('wide planner keeps member controls in the grid column beside the summary',
   expect(controls.x + controls.width).toBeLessThanOrEqual(summary.x);
   expect(Math.abs(summary.y - gridPanel.y)).toBeLessThan(5);
 });
+
+test('resource selection has a dedicated picker page', async ({ page }) => {
+  await page.goto('/components/resource-selection/');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'Resource selection',
+  );
+  await expect(page.getByRole('searchbox', { name: 'Search people' })).toBeVisible();
+  await expect(
+    page.getByRole('navigation', { name: 'Component sections' }).getByRole('link', {
+      name: 'Resource selection',
+      exact: true,
+    }),
+  ).toBeVisible();
+  await page.goto('/components/selects-chips-and-resources/');
+  await expect(page.getByRole('searchbox', { name: 'Search people' })).toHaveCount(0);
+});

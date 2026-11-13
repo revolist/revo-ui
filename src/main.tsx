@@ -458,6 +458,8 @@ function App() {
         <Example title="Avatar">
           <Avatar value="Morgan Lee" label="Morgan Lee" />
         </Example>
+      </Section>
+      <Section title="Resource selection">
         <Example title="Resource selection">
           <SharedResourcePicker
             resources={resources}
