@@ -4,11 +4,11 @@ import { resolve } from 'node:path';
 
 const dist = resolve(process.argv[2] ?? 'dist-gallery');
 const html = await readFile(resolve(dist, 'index.html'), 'utf8');
-assert.match(html, /<title>Revo UI — Components for Finance, Reporting/);
-assert.match(html, /name="description" content="Build financial dashboards/);
+assert.match(html, /<title>Revo UI — Components for Data-Rich Applications<\/title>/);
+assert.match(html, /name="description" content="Build data-rich applications with charts, AI chat, PDF viewing, timelines and date controls/);
 assert.equal((html.match(/rel="canonical"/g) ?? []).length, 1);
 assert.match(html, /rel="canonical" href="https:\/\/ui\.rv-grid\.com\/"/);
-assert.match(html, /<h1[^>]*>Components for finance,/);
+assert.match(html, /<h1[^>]*>Components for<br\s*\/?\s*>data-rich applications\.<\/h1>/);
 assert.match(html, /href="https:\/\/github\.com\/revolist\/revo-ui"/);
 assert.match(html, /name="twitter:card" content="summary_large_image"/);
 assert.match(html, /property="og:image" content="https:\/\/ui\.rv-grid\.com\/og-image\.png"/);
