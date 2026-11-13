@@ -119,11 +119,11 @@
 }
 
 .revo-calendar__month.active {
-  background: var(--revo-grid-filter-active-badge-bg, var(--rv-ui-selected-bg));
-  color: var(
-    --rv-filter-active-icon-color,
-    var(--rv-ui-selected-accent-fg, var(--rv-ui-accent-text))
+  background: var(
+    --revo-calendar-selection-bg,
+    color-mix(in srgb, var(--rv-ui-text-muted) 20%, var(--rv-ui-surface))
   );
+  color: var(--revo-calendar-selection-text, var(--rv-ui-text));
   font-weight: 500;
 }
 
@@ -207,15 +207,21 @@
 
 .revo-calendar__day.range-start,
 .revo-calendar__day.range-end {
-  background: var(--rv-filter-active-icon-color, var(--rv-ui-accent));
-  color: var(--rv-ui-accent-fg);
+  background: var(
+    --revo-calendar-selection-bg,
+    color-mix(in srgb, var(--rv-ui-text-muted) 20%, var(--rv-ui-surface))
+  );
+  color: var(--revo-calendar-selection-text, var(--rv-ui-text));
   font-weight: 600;
 }
 
 .revo-calendar__day.range-start:focus,
 .revo-calendar__day.range-end:focus {
-  background: var(--rv-filter-active-icon-color, var(--rv-ui-accent));
-  color: var(--rv-ui-accent-fg);
+  background: var(
+    --revo-calendar-selection-bg,
+    color-mix(in srgb, var(--rv-ui-text-muted) 20%, var(--rv-ui-surface))
+  );
+  color: var(--revo-calendar-selection-text, var(--rv-ui-text));
 }
 
 .revo-calendar__day.range-start,
@@ -230,7 +236,7 @@
 }
 .revo-calendar__day.range-start.range-end,
 .revo-calendar__day.preview-start.preview-end {
-  border-radius: 7px;
+  border-radius: 50%;
 }
 
 .revo-calendar__day[aria-current='date']:not(.range-start):not(.range-end) {

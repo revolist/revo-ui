@@ -284,3 +284,35 @@
     padding: 10px;
   }
 }
+
+.rv-status-feedback__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin-block-start: 8px;
+  .rv-badge {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+}
+.rv-status-feedback--headerless {
+  .rv-status-feedback__title {
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--rv-ui-text);
+  }
+  [data-tone='warning'] .rv-status-feedback__description {
+    color: var(--rv-status-warning);
+  }
+  [data-tone='danger'] .rv-status-feedback__description {
+    color: var(--rv-status-danger);
+  }
+}
+
+.rv-status-feedback__avatars {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}

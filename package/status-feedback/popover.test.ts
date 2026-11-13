@@ -6,7 +6,7 @@ afterEach(() => {
   document.body.replaceChildren();
   vi.restoreAllMocks();
 });
-function fixture(native = true) {
+function fixture(native = true, placement: 'auto' | 'above' = 'auto') {
   const anchor = document.createElement('div');
   const panel = document.createElement('section');
   panel.innerHTML =
@@ -23,12 +23,17 @@ function fixture(native = true) {
   vi.spyOn(panel, 'getBoundingClientRect').mockImplementation(
     () => ({ width: parseFloat(panel.style.width), height: 160 }) as DOMRect,
   );
-  const show = vi.fn();
-  const hide = vi.fn();
+  let open = false;
+  const show = vi.fn(() => { open = true; });
+  const hide = vi.fn(() => { open = false; });
+  const matches = panel.matches.bind(panel);
+  vi.spyOn(panel, 'matches').mockImplementation(selector => selector === ':popover-open' ? open : matches(selector));
   Object.defineProperties(panel, {
     showPopover: { value: native ? show : undefined },
     hidePopover: { value: hide },
   });
+  Object.defineProperty(panel, 'offsetHeight', { configurable: true, value: 160 });
+  Object.defineProperty(panel, 'offsetWidth', { configurable: true, get: () => parseFloat(panel.style.width) });
   let frame: FrameRequestCallback | undefined;
   vi.spyOn(window, 'requestAnimationFrame').mockImplementation((callback) => {
     frame = callback;
@@ -43,11 +48,11 @@ function fixture(native = true) {
     callback?.(0);
   };
   const change = vi.fn();
-  const controller = new StatusFeedbackPopoverController({ onChange: change });
+  const controller = new StatusFeedbackPopoverController({ onChange: change, placement });
   controller.anchorRef(anchor);
   controller.panelRef(panel);
   flush();
-  return { anchor, panel, show, hide, change, controller, flush };
+  return { anchor, panel, show, hide, change, controller, flush, closeSilently: () => { open = false; } };
 }
 it('opens once in the top layer, resizes when collapsed, preserves focus and cleans up', () => {
   const { panel, show, hide, change, controller, flush } = fixture();
@@ -96,4 +101,36 @@ it('keeps body-level feedback within the anchor subtree motion policy', () => {
   expect(panel.getAttribute('data-rv-ui-motion')).toBe('off');
   controller.destroy();
   expect(panel.hasAttribute('data-rv-ui-motion')).toBe(false);
+});
+
+it('keeps an above activity panel above its anchor even when there is room below', () => {
+  const { anchor, panel, controller, flush } = fixture(true, 'above');
+  vi.spyOn(anchor, 'getBoundingClientRect').mockReturnValue({left: 100, right: 700, top: 300, bottom: 300, width: 600, height: 0} as DOMRect);
+  controller.refresh();
+  flush();
+  expect(parseFloat(panel.style.top) + panel.offsetHeight).toBeLessThanOrEqual(300);
+  expect(parseFloat(panel.style.top)).toBeGreaterThanOrEqual(8);
+  controller.destroy();
+});
+
+it('restores the top layer after its live host is moved by a grid render', () => {
+  const { panel, show, controller, flush } = fixture();
+  const closed = new Event('toggle');
+  Object.defineProperty(closed, 'newState', { value: 'closed' });
+  panel.dispatchEvent(closed);
+  flush();
+  expect(show).toHaveBeenCalledTimes(2);
+  controller.destroy();
+  panel.dispatchEvent(closed);
+  flush();
+  expect(show).toHaveBeenCalledTimes(2);
+});
+
+it('reopens silent native closures when the owning renderer refreshes', () => {
+  const { show, controller, flush, closeSilently } = fixture();
+  closeSilently();
+  controller.refresh();
+  flush();
+  expect(show).toHaveBeenCalledTimes(2);
+  controller.destroy();
 });

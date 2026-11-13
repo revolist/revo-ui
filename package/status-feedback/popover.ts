@@ -15,6 +15,8 @@ export interface StatusFeedbackPopoverOptions {
   readonly width?: number;
   readonly collapsedWidth?: number;
   readonly collapsed?: boolean;
+  /** Prefer above-anchor feedback while keeping the full surface on screen. */
+  readonly placement?: 'auto' | 'above';
 }
 let nextPopoverId = 0;
 
@@ -54,10 +56,21 @@ export class StatusFeedbackPopoverController {
   readonly panelRef = (element?: HTMLElement | null): void => {
     const next = element ?? null;
     if (next !== this.panel) {
+      this.panel?.removeEventListener('toggle', this.onToggle);
       this.hide(true);
       this.panel = next;
+      this.panel?.addEventListener('toggle', this.onToggle);
     }
     if (this.panel) this.refresh();
+  };
+
+  private readonly onToggle = (event: Event): void => {
+    // Moving a live host during a framework/grid patch can close its native
+    // popover. Restore promotion while the owner still wants the panel open.
+    if (this.mode === 'popover' && (event as ToggleEvent).newState === 'closed') {
+      this.mode = undefined;
+      this.refresh();
+    }
   };
 
   setCollapsed(collapsed: boolean): void {
@@ -114,6 +127,7 @@ export class StatusFeedbackPopoverController {
     this.stopWatching();
   }
   destroy(): void {
+    this.panel?.removeEventListener('toggle', this.onToggle);
     this.hide();
     this.disposed = true;
     this.panel = null;
@@ -137,6 +151,9 @@ export class StatusFeedbackPopoverController {
     panel.style.width = `${width}px`;
     panel.style.maxHeight = `${size.maxHeight}px`;
     this.releaseMotion ??= inheritUiMotion(anchor, panel);
+    // Native promotion can be lost silently when a host is reinserted.
+    if (this.mode === 'popover' && !panel.matches(':popover-open'))
+      this.mode = undefined;
     const opening = !this.mode;
     if (opening) {
       this.removeExit?.();
@@ -156,7 +173,13 @@ export class StatusFeedbackPopoverController {
       0,
     );
     panel.style.left = `${location.left}px`;
-    panel.style.top = `${location.top}px`;
+    const top = this.options.placement === 'above'
+      ? Math.min(
+          Math.max(8, target.top - panel.offsetHeight),
+          Math.max(8, view.innerHeight - panel.offsetHeight - 8),
+        )
+      : location.top;
+    panel.style.top = `${top}px`;
     if (opening) {
       this.animation?.cancel();
       this.animation = animateStatusFeedback(
