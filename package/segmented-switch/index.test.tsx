@@ -1,7 +1,7 @@
 // @vitest-environment happy-dom
 import { h, render } from 'preact';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { SegmentedSwitch } from '.';
+import { SegmentedSwitch, renderSegmentedSwitch } from '.';
 
 afterEach(() => {
   document.body.innerHTML = '';
@@ -81,6 +81,7 @@ describe('SegmentedSwitch', () => {
     expect(onChange).toHaveBeenCalledWith(
       'all',
       expect.objectContaining({ value: 'all' }),
+      expect.any(MouseEvent),
     );
 
     host.querySelector<HTMLButtonElement>('[data-testid="cell"]')!.click();
@@ -138,6 +139,7 @@ describe('SegmentedSwitch', () => {
     expect(onChange).toHaveBeenLastCalledWith(
       'row',
       expect.objectContaining({ value: 'row' }),
+      expect.any(KeyboardEvent),
     );
 
     buttons[2].dispatchEvent(
@@ -226,6 +228,7 @@ it('shares icon-only button layout, localized names, tooltips and group selectio
   expect(onChange).toHaveBeenCalledWith(
     'table',
     expect.objectContaining({ value: 'table' }),
+    expect.any(MouseEvent),
   );
   draw(true);
   expect(board.disabled).toBe(true);
@@ -233,3 +236,32 @@ it('shares icon-only button layout, localized names, tooltips and group selectio
   table.click();
   expect(onChange).toHaveBeenCalledTimes(1);
 });
+
+it.each(['tablist', 'radiogroup', 'group'] as const)(
+  'serializes ARIA state for generic HTML renderers (%s)',
+  (role) => {
+    const buttons: Record<string, unknown>[] = [];
+    renderSegmentedSwitch(
+      (tag, attributes) => {
+        if (tag === 'button') buttons.push(attributes);
+        return null;
+      },
+      {
+        value: 'a',
+        role,
+        options: [
+          { value: 'a', label: 'A' },
+          { value: 'b', label: 'B' },
+        ],
+        onChange: () => {},
+      },
+    );
+    const state =
+      role === 'tablist'
+        ? 'aria-selected'
+        : role === 'radiogroup'
+          ? 'aria-checked'
+          : 'aria-pressed';
+    expect(buttons.map((button) => button[state])).toEqual(['true', 'false']);
+  },
+);

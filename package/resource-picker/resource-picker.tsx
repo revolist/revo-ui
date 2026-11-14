@@ -39,6 +39,7 @@ export function SharedResourcePicker<
   classNames,
   disabled = false,
   readOnly = false,
+  showSearch = true,
   presentation = 'inline',
   multiple = true,
   preserveOrder = false,
@@ -77,7 +78,7 @@ export function SharedResourcePicker<
     [preserveOrder, resources],
   );
   const filteredResources = useMemo(() => {
-    const query = searchText.trim().toLocaleLowerCase();
+    const query = showSearch ? searchText.trim().toLocaleLowerCase() : '';
     if (!query) {
       return orderedResources;
     }
@@ -86,7 +87,7 @@ export function SharedResourcePicker<
         .toLocaleLowerCase()
         .includes(query),
     );
-  }, [searchText, orderedResources]);
+  }, [showSearch, searchText, orderedResources]);
   const selectedResources = useMemo(() => {
     const resourcesById = new Map(
       resources.map((resource) => [resourcePickerIdKey(resource.id), resource]),
@@ -211,19 +212,21 @@ export function SharedResourcePicker<
       class="rv-resource-picker__popover"
       onKeyDown={dropdown ? handleDropdownKeyDown : undefined}
     >
-      <SearchInput
-        inputRef={searchRef}
-        rootClassName="rv-resource-picker__search-control"
-        inputClassName={resourcePickerClasses(
-          'rv-resource-picker__search',
-          classNames?.search,
-        )}
-        value={searchText}
-        disabled={disabled}
-        placeholder={text.searchPlaceholder}
-        aria-label={text.searchAriaLabel}
-        onValueChange={setSearchText}
-      />
+      {showSearch && (
+        <SearchInput
+          inputRef={searchRef}
+          rootClassName="rv-resource-picker__search-control"
+          inputClassName={resourcePickerClasses(
+            'rv-resource-picker__search',
+            classNames?.search,
+          )}
+          value={searchText}
+          disabled={disabled}
+          placeholder={text.searchPlaceholder}
+          aria-label={text.searchAriaLabel}
+          onValueChange={setSearchText}
+        />
+      )}
       <div
         ref={listRef}
         class={resourcePickerClasses(
@@ -245,10 +248,14 @@ export function SharedResourcePicker<
           >
             <input
               type="checkbox"
-              checked={selectedResourceIds.length === 0}
+              checked={unassigned.checked ?? selectedResourceIds.length === 0}
               disabled={disabled}
               {...resourcePickerDataAttribute(unassigned.dataAttribute, '')}
-              onChange={() => onChange([])}
+              onChange={(event) =>
+                unassigned.onChange
+                  ? unassigned.onChange(event.currentTarget.checked)
+                  : onChange([])
+              }
             />
             <span
               class="rv-resource-picker__avatar-spacer"
@@ -264,7 +271,9 @@ export function SharedResourcePicker<
             </span>
           </label>
         ) : null}
-        {resources.length === 0 ? (
+        {resources.length === 0 &&
+        unassigned &&
+        !readOnly ? null : resources.length === 0 ? (
           <ResourcePickerEmpty
             className={classNames?.muted}
             text={text.emptyResources}

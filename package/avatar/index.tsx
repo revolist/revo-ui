@@ -132,6 +132,7 @@ export function avatarTemplate(h: any, options: AvatarTemplateOptions = {}) {
     .filter(Boolean)
     .join(' ');
   const props: Record<string, unknown> = {
+    role: 'img',
     class: className,
     title: options.label || String(value ?? ''),
   };

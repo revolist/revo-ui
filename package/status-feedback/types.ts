@@ -1,4 +1,6 @@
 import type { StatusFeedbackPopoverController } from './popover';
+import type { BadgeOptions } from '../badge';
+import type { AvatarTemplateOptions } from '../avatar';
 /** Framework-neutral renderer compatible with RevoGrid templates and Preact. */
 export type StatusFeedbackH<T> = (
   tag: string,
@@ -18,7 +20,12 @@ export interface StatusFeedbackAction {
   readonly disabled?: boolean;
   readonly ariaLabel?: string;
 }
+export interface StatusFeedbackBadge extends BadgeOptions {
+  readonly label: string;
+}
 export interface StatusFeedbackItem {
+  readonly badges?: readonly StatusFeedbackBadge[];
+  readonly avatars?: readonly AvatarTemplateOptions[];
   readonly id: string;
   readonly title: string;
   readonly description?: string;
@@ -41,6 +48,8 @@ export interface StatusFeedbackPanelProps {
   /** The owner removes the item after its exit animation. */
   readonly onDismissItem?: (id: string) => void;
   readonly compact?: boolean;
+  /** Hide only the visible header; preserve the panel accessible name. */
+  readonly hideHeader?: boolean;
   readonly onClose?: () => void;
   readonly closeLabel?: string;
   readonly localeText?: Partial<StatusFeedbackLocaleText>;

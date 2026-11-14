@@ -56,6 +56,7 @@ export function renderStatusFeedbackPanel<T>(
         'rv-status-feedback',
         className,
         props.compact ? 'rv-status-feedback--compact' : '',
+        props.hideHeader ? 'rv-status-feedback--headerless' : '',
         popover ? 'rv-status-feedback--popover' : '',
         collapsed ? 'rv-status-feedback--collapsed' : '',
       ]
@@ -65,7 +66,9 @@ export function renderStatusFeedbackPanel<T>(
       'data-collapsed': String(collapsed),
     },
     [
-      renderHeader(h, props, collapsed, collapsible, setCollapsed),
+      props.hideHeader
+        ? null
+        : renderHeader(h, props, collapsed, collapsible, setCollapsed),
       h(
         'div',
         {

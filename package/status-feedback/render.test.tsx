@@ -116,3 +116,68 @@ it('supports compact presentation and a labeled close callback independently of 
   host.querySelector<HTMLButtonElement>('.rv-status-feedback__toggle')!.click();
   expect(onCollapsedChange).toHaveBeenCalledWith(true);
 });
+
+it('can hide the heading while retaining an accessible name and inline metadata badges', () => {
+  render(
+    <StatusFeedbackPanel
+      title="Activité"
+      hideHeader
+      items={[
+        {
+          id: 'move',
+          title: '09:00 → 10:00',
+          badges: [
+            { label: '1 h', variant: 'neutral' },
+            { label: 'Chambre', variant: 'accent' },
+          ],
+        },
+      ]}
+    />,
+    host,
+  );
+  expect(host.querySelector('.rv-status-feedback__header')).toBeNull();
+  expect(
+    host.querySelector('.rv-status-feedback')?.getAttribute('aria-label'),
+  ).toBe('Activité');
+  expect(host.querySelector('.rv-badge--accent')?.textContent).toBe('Chambre');
+  expect(
+    host.querySelectorAll('.rv-status-feedback__badges .rv-badge'),
+  ).toHaveLength(2);
+});
+
+it('renders avatar metadata with images, initials and accessible names', () => {
+  render(
+    <StatusFeedbackPanel
+      title="Status"
+      hideHeader
+      items={[
+        {
+          id: 'move',
+          title: '09:00 → 10:00',
+          avatars: [
+            {
+              value: '/ada.png',
+              label: 'Ada Lovelace',
+              ariaLabel: 'Ada avatar',
+            },
+            {
+              value: 'Grace Hopper',
+              label: 'Grace Hopper',
+              ariaLabel: 'Grace avatar',
+            },
+          ],
+        },
+      ]}
+    />,
+    host,
+  );
+  expect(
+    host.querySelector('.rv-status-feedback__avatars img')?.getAttribute('src'),
+  ).toBe('/ada.png');
+  expect(
+    host.querySelectorAll('.rv-status-feedback__avatars .avatar-cell'),
+  ).toHaveLength(2);
+  expect(host.querySelector('[aria-label="Grace avatar"]')?.textContent).toBe(
+    'GH',
+  );
+});

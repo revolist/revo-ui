@@ -37,6 +37,9 @@ describe('SharedResourcePicker', () => {
       host,
     );
 
+    expect(
+      host.querySelector('[data-resource-id="1"]')?.getAttribute('aria-label'),
+    ).toBe('Ada Lovelace');
     expect(host.querySelector('[role="option"]')).toBeNull();
     expect(
       host.querySelector<HTMLInputElement>('[data-resource-id="1"]')?.checked,
@@ -734,4 +737,96 @@ it('returns keyboard focus to the dropdown control when Escape removes its porta
   expect(document.activeElement).toBe(control);
   act(() => render(null, host));
   host.remove();
+});
+
+it('can hide local search when composed with a host search field', () => {
+  const host = document.createElement('div');
+  document.body.append(host);
+  render(
+    <SharedResourcePicker
+      resources={[{ id: 0, name: 'Maya' }]}
+      selectedResourceIds={[0]}
+      showSearch={false}
+      text={{
+        groupAriaLabel: 'People',
+        searchPlaceholder: 'Find people',
+        searchAriaLabel: 'Find people',
+        emptyResources: 'No people',
+        emptySearch: 'No matches',
+      }}
+      onChange={() => {}}
+    />,
+    host,
+  );
+  expect(host.querySelector('input[type="search"]')).toBeNull();
+  expect(host.querySelectorAll('input[type="checkbox"]')).toHaveLength(1);
+});
+
+it('uses explicit resource colors for checkbox accents and leaves uncolored options on the theme accent', () => {
+  const host = document.createElement('div');
+  document.body.append(host);
+  render(
+    <SharedResourcePicker
+      resources={[
+        { id: 0, name: 'Maya', color: '#d94b45' },
+        { id: 1, name: 'Leo', color: '#408c82' },
+        { id: 2, name: 'Uncolored' },
+      ]}
+      selectedResourceIds={[0, 1, 2]}
+      showSearch={false}
+      text={{
+        groupAriaLabel: 'People',
+        searchPlaceholder: 'Search',
+        searchAriaLabel: 'Search',
+        emptyResources: 'None',
+        emptySearch: 'None',
+      }}
+      onChange={() => {}}
+    />,
+    host,
+  );
+  const accent = (name: string) =>
+    host
+      .querySelector<HTMLInputElement>(`input[aria-label="${name}"]`)!
+      .closest('label')!
+      .style.getPropertyValue('--rv-resource-picker-accent');
+  expect(accent('Maya')).toBe('#d94b45');
+  expect(accent('Leo')).toBe('#408c82');
+  expect(accent('Uncolored')).toBe('');
+});
+
+it('supports an independent Unassigned checkbox without clearing resource selections', () => {
+  const host = document.createElement('div');
+  document.body.append(host);
+  const onChange = vi.fn(),
+    onUnassigned = vi.fn();
+  render(
+    <SharedResourcePicker
+      resources={[
+        { id: 1, name: 'Maya' },
+        { id: 2, name: 'Leo' },
+      ]}
+      selectedResourceIds={[1, 2]}
+      resourceDataAttribute="data-person"
+      unassigned={{
+        label: 'Unassigned',
+        dataAttribute: 'data-open',
+        checked: true,
+        onChange: onUnassigned,
+      }}
+      text={{
+        groupAriaLabel: 'People',
+        searchPlaceholder: 'Search',
+        searchAriaLabel: 'Search',
+        emptyResources: 'None',
+        emptySearch: 'None',
+      }}
+      onChange={onChange}
+    />,
+    host,
+  );
+  act(() => host.querySelector<HTMLInputElement>('[data-open]')!.click());
+  expect(onUnassigned).toHaveBeenCalledWith(false);
+  expect(onChange).not.toHaveBeenCalled();
+  expect(host.querySelectorAll('input[data-person]:checked')).toHaveLength(2);
 });

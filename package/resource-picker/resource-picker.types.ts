@@ -34,6 +34,9 @@ export interface ResourcePickerClassNames {
 }
 
 export interface ResourcePickerUnassignedOption {
+  /** Independent unassigned toggle; omit to retain exclusive selection behavior. */
+  readonly checked?: boolean;
+  readonly onChange?: (checked: boolean) => void;
   readonly label: string;
   readonly dataAttribute?: string;
 }
@@ -50,6 +53,8 @@ export interface SharedResourcePickerProps<
   readonly disabled?: boolean;
   /** Shows resource details without checkbox controls or selection changes. */
   readonly readOnly?: boolean;
+  /** Hide the local resource search when the host already supplies search. Defaults to true. */
+  readonly showSearch?: boolean;
   /** Keeps the full list visible or presents it as a compact combobox. */
   readonly presentation?: 'inline' | 'dropdown';
   /** Allows more than one selected resource. Defaults to true. */
