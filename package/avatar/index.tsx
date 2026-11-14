@@ -28,6 +28,7 @@ export function AvatarElement({
 }) {
   const [failed, setFailed] = useState(false);
   const { index = 0, initials, rectangular = false, size, value } = options;
+  const decorative = options.label === '' && !options.ariaLabel;
   const className = [
     'avatar-cell',
     `avatar-cell--${Math.max(index, 0) % AVATAR_CELL_BACKGROUNDS.length}`,
@@ -40,8 +41,9 @@ export function AvatarElement({
   return (
     <TooltipText
       class={className}
-      title={options.label || String(value ?? '')}
+      title={decorative ? undefined : options.label || String(value ?? '')}
       role="img"
+      aria-hidden={decorative || undefined}
       aria-label={options.ariaLabel || options.label || undefined}
       style={options.style}
     >
@@ -120,6 +122,7 @@ function getAvatarSizeClass(size?: number) {
 export function avatarTemplate(h: any, options: AvatarTemplateOptions = {}) {
   const { index = 0, initials, rectangular = false, size, value } = options;
   const image = isImageSource(value);
+  const decorative = options.label === '' && !options.ariaLabel;
   const sizeClass = getAvatarSizeClass(size);
   const toneClass = `avatar-cell--${Math.max(index, 0) % AVATAR_CELL_BACKGROUNDS.length}`;
   const className = [
@@ -134,7 +137,8 @@ export function avatarTemplate(h: any, options: AvatarTemplateOptions = {}) {
   const props: Record<string, unknown> = {
     role: 'img',
     class: className,
-    title: options.label || String(value ?? ''),
+    title: decorative ? undefined : options.label || String(value ?? ''),
+    'aria-hidden': decorative || undefined,
   };
   if (options.key !== undefined) props.key = options.key;
   if (options.style !== undefined) props.style = options.style;

@@ -2,7 +2,7 @@ import { chooseOption } from './choose-option';
 import { test, expect } from './gallery-test';
 
 for (const theme of ['light', 'dark']) {
-  test(`selected surfaces match the calendar in ${theme}`, async ({
+  test(`selected surfaces use shared tokens and calendar overrides in ${theme}`, async ({
     page,
   }, info) => {
     await page.goto('/#components');
@@ -19,16 +19,32 @@ for (const theme of ['light', 'dark']) {
     await calendar.getByRole('button', { name: /^Choose month:/ }).click();
     const month = calendar.locator('.revo-calendar__month.active');
     await expect(month).toBeVisible();
-    const background = await month.evaluate(
-      (node) => getComputedStyle(node).backgroundColor,
+    await expect(month).toHaveCSS(
+      'background-color',
+      theme === 'light'
+        ? 'color(srgb 0.88 0.88 0.88)'
+        : 'color(srgb 0.225098 0.225098 0.225098)',
     );
+    const background = await month.evaluate((node) => {
+      const probe = document.createElement('span');
+      probe.style.backgroundColor = 'var(--rv-ui-selected-bg)';
+      node.append(probe);
+      const color = getComputedStyle(probe).backgroundColor;
+      probe.remove();
+      return color;
+    });
     const toggle = page.getByRole('button', { name: 'Toggle', exact: true });
     await expect(toggle).toHaveAttribute('aria-pressed', 'true');
     await expect(toggle).toHaveCSS('background-color', background);
     await expect(toggle).toHaveCSS('border-top-color', 'rgba(0, 0, 0, 0)');
-    const accentText = await month.evaluate(
-      (node) => getComputedStyle(node).color,
-    );
+    const accentText = await toggle.evaluate((node) => {
+      const probe = document.createElement('span');
+      probe.style.color = 'var(--rv-ui-selected-accent-fg)';
+      node.append(probe);
+      const color = getComputedStyle(probe).color;
+      probe.remove();
+      return color;
+    });
     await expect(toggle).toHaveCSS('color', accentText);
     await expect(toggle).toHaveCSS('font-weight', '500');
     for (const button of await page
@@ -169,7 +185,14 @@ for (const theme of ['light', 'dark']) {
           'rgb(10, 20, 30)',
         ),
       );
-    await expect(month).toHaveCSS('background-color', 'rgb(10, 20, 30)');
+    await expect(month).not.toHaveCSS('background-color', 'rgb(10, 20, 30)');
+    await month.evaluate((node) =>
+      (node as HTMLElement).style.setProperty(
+        '--revo-calendar-selection-bg',
+        'rgb(30, 40, 50)',
+      ),
+    );
+    await expect(month).toHaveCSS('background-color', 'rgb(30, 40, 50)');
     await expect(
       page.locator('.rv-editor-list__item--selected').first(),
     ).toHaveCSS('background-color', 'rgb(10, 20, 30)');

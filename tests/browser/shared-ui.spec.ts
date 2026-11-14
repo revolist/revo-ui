@@ -1132,7 +1132,7 @@ test.describe('calendar family', () => {
   for (const width of [1440, 390])
     for (const theme of ['light', 'dark'])
       for (const rtl of [false, true]) {
-        test(`calendar variants keep blue selection and fit light dark LTR RTL layouts at ${width}px in ${theme} ${rtl ? 'RTL' : 'LTR'}`, async ({
+        test(`calendar variants keep neutral selection and fit light dark LTR RTL layouts at ${width}px in ${theme} ${rtl ? 'RTL' : 'LTR'}`, async ({
           page,
         }, info) => {
           const section = page.locator('#calendar-and-dates');
@@ -1149,9 +1149,30 @@ test.describe('calendar family', () => {
             .first();
           await expect(selected).toHaveCSS(
             'background-color',
-            'rgb(37, 99, 235)',
+            theme === 'light'
+              ? 'color(srgb 0.88 0.88 0.88)'
+              : 'color(srgb 0.225098 0.225098 0.225098)',
           );
-          await expect(selected).toHaveCSS('color', 'rgb(255, 255, 255)');
+          await expect(selected).toHaveCSS(
+            'color',
+            theme === 'light' ? 'rgb(23, 23, 23)' : 'rgb(245, 245, 245)',
+          );
+          await selected.evaluate((node) => {
+            const calendar = node.closest('.revo-calendar') as HTMLElement;
+            calendar.style.setProperty(
+              '--revo-calendar-selection-bg',
+              'rgb(10, 20, 30)',
+            );
+            calendar.style.setProperty(
+              '--revo-calendar-selection-text',
+              'rgb(240, 245, 250)',
+            );
+          });
+          await expect(selected).toHaveCSS(
+            'background-color',
+            'rgb(10, 20, 30)',
+          );
+          await expect(selected).toHaveCSS('color', 'rgb(240, 245, 250)');
           const overflow = await section
             .locator('.revo-calendar')
             .evaluateAll((nodes) =>

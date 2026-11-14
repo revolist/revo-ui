@@ -1,6 +1,7 @@
 /** One scalar thumb/track presentation for native, Stencil and Preact consumers. */
 @mixin presentation {
   appearance: none;
+  color-scheme: var(--rv-ui-color-scheme, normal);
   position: static;
   width: 100%;
   height: var(--slider-thumb-size, 20px);
