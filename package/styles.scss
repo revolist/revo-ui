@@ -1,4 +1,5 @@
 @use './core/tooltip.css';
+@use './event-tooltip';
 @use './pdf-viewer/style' as pdfViewer;
 @use './cell-visuals/styles';
 @use './ai/style' as aiStyle;
