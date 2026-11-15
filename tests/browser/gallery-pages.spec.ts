@@ -721,7 +721,9 @@ test('header repository link, favicon and pre-rendered SEO work together', async
 }) => {
   const response = await request.get('/');
   const html = await response.text();
-  expect(html).toContain('Components for finance,');
+  expect(html).toMatch(
+    /<h1[^>]*>Components for<br\s*\/?\s*>data-rich applications\.<\/h1>/,
+  );
   expect(html).toContain('https://ui.rv-grid.com/og-image.png');
   await page.goto('/');
   await expect(

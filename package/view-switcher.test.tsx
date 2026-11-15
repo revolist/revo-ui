@@ -22,7 +22,11 @@ it('shares selection and Back callbacks and disables transitions while busy', ()
       .find((button) => button.textContent === 'Chart')!
       .click(),
   );
-  expect(onSelect).toHaveBeenCalledWith('chart', expect.anything());
+  expect(onSelect).toHaveBeenCalledWith(
+    'chart',
+    { value: 'chart', label: 'Chart' },
+    expect.anything(),
+  );
   act(() =>
     [...document.querySelectorAll('button')]
       .find((button) => button.textContent === 'Back')!
@@ -64,7 +68,11 @@ it('switches Data Grid and the latest control while retaining both options', () 
     ),
   ).toEqual(['Data Grid', 'Gantt']);
   act(() => document.querySelector<HTMLButtonElement>('[role=radio]')!.click());
-  expect(onSelect).toHaveBeenCalledWith('grid', expect.anything());
+  expect(onSelect).toHaveBeenCalledWith(
+    'grid',
+    { value: 'grid', label: 'Data Grid' },
+    expect.anything(),
+  );
   act(() =>
     render(<ViewSwitcherControls {...props} value="grid" />, document.body),
   );

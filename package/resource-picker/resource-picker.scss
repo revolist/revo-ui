@@ -40,7 +40,10 @@
       color-mix(in srgb, currentColor 14%, transparent)
     );
   border-radius: var(--rv-resource-picker-radius, 6px);
-  background: var(--rv-resource-picker-background, Canvas);
+  background: var(
+    --rv-resource-picker-background,
+    var(--rv-ui-surface, Canvas)
+  );
 }
 
 .rv-resource-picker__option {
@@ -157,7 +160,10 @@
     );
   border-radius: var(--rv-resource-picker-radius, 8px);
   outline: none;
-  background: var(--rv-resource-picker-background, Canvas);
+  background: var(
+    --rv-resource-picker-background,
+    var(--rv-ui-surface, Canvas)
+  );
   color: var(--rv-resource-picker-color, inherit);
   cursor: pointer;
 }

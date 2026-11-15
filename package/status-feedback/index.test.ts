@@ -11,6 +11,8 @@ it('compiles the status feedback entry with strict side-effect import checks and
     target: ts.ScriptTarget.ES2022,
     module: ts.ModuleKind.ESNext,
     moduleResolution: ts.ModuleResolutionKind.Bundler,
+    jsx: ts.JsxEmit.ReactJSX,
+    jsxImportSource: 'preact',
     skipLibCheck: true,
     noEmit: true,
     noUncheckedSideEffectImports: true,

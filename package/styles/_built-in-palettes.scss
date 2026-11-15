@@ -4,6 +4,11 @@
 $palettes: (
   "common": (
     "black": "#000000",
+    "hexe5e5e5": "#e5e5e5",
+    "hex424242": "#424242",
+    "rgba_0_0_0_0_12": "rgba(0, 0, 0, 0.12)",
+    "rgba_255_255_255_0_12": "rgba(255, 255, 255, 0.12)",
+    "rgba_255_255_255_0_52": "rgba(255, 255, 255, 0.52)",
     "hex0003": "#0003",
     "white": "#ffffff",
     "transparent": "transparent",
@@ -766,6 +771,9 @@ $palettes: (
     "chip-icon": "#ffffff",
   ),
   "scheduler-event-states": (
+    "pending-sweep-edge": "rgba(255, 255, 255, 0.12)",
+    "pending-sweep-center": "rgba(255, 255, 255, 0.52)",
+    "pending-reduced-motion": "rgba(255, 255, 255, 0.08)",
     "state-highlight": "rgba(255, 255, 255, 0.32)",
     "state-icon": "#ffffff",
     "invalid-outline": "#dc2626",
@@ -773,6 +781,9 @@ $palettes: (
     "invalid-badge-text": "white",
   ),
   "scheduler-theme-light": (
+    "selected-date-bg": "#e5e5e5",
+    "editor-shadow": "rgba(0, 0, 0, 0.12)",
+    "editor-shadow-soft": "rgba(0, 0, 0, 0.06)",
     "event-color": "rgb(69, 115, 222)",
     "event-border-mix-base": "#0f172a",
     "confirmed-color": "rgb(69, 115, 222)",
@@ -835,6 +846,7 @@ $palettes: (
     "current-time-dot-ring": "rgba(255, 255, 255, 0.85)",
   ),
   "scheduler-theme-dark": (
+    "selected-date-bg": "#424242",
     "event-color": "rgb(80, 128, 235)",
     "event-bg": "rgb(80, 128, 235)",
     "event-text": "#ffffff",
