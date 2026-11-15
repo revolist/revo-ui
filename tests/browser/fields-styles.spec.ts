@@ -126,7 +126,8 @@ test('published React imports install only their required styles without a CSS i
   }
   await page.evaluate(() => (globalThis as any).show(false));
   await page.getByRole('button', { name: 'Save', exact: true }).focus();
-  await expect(page.getByRole('tooltip')).toBeVisible();
+  await expect(page.getByRole('tooltip')).toHaveCount(0);
+  await expect(page.locator('style[data-rv-tooltip-styles]')).toHaveCount(0);
 });
 let css: string;
 test.beforeAll(async () => {
@@ -335,7 +336,19 @@ for (const framework of ['react', 'vue', 'angular', 'svelte']) {
           import {configureUiStyles} from './dist/core/component-styles.js';
           ${extracted ? "import './dist/styles/base.css';" : ''}
           configureUiStyles({mode: '${extracted ? 'external' : 'automatic'}', nonce:'ui-style-test'});
+          import {TooltipController} from './dist/${extracted ? 'unstyled/' : ''}core/popover-controller.js';
+          // The host explicitly opts this otherwise tooltip-free button into a hint.
+          const hint = new TooltipController();
+          const attachHint = () => {
+            const trigger = document.querySelector('button[aria-label="CSP action"]');
+            if (!trigger) return;
+            observer.disconnect();
+            hint.bind(trigger, 'CSP action help');
+          };
+          const observer = new MutationObserver(attachHint);
+          observer.observe(document.body, {childList: true, subtree: true});
           ${startup[framework]}
+          attachHint();
         `,
           resolveDir: root,
         },
