@@ -446,3 +446,29 @@ test('decorated icon controls expose one tooltip label', async ({ page }) => {
   await page.keyboard.press('Escape');
   await expect(tooltip).toBeHidden();
 });
+
+test('event content preserves translated text, date badges and people', async ({
+  page,
+}) => {
+  await page.goto('/tests/browser/fixtures/tooltip/index.html?event-content');
+  const content = page.locator('.rv-event-tooltip');
+  await expect(content.locator('.rv-event-tooltip__title')).toHaveText(
+    '<Revisão>',
+  );
+  await expect(content.locator('revisão')).toHaveCount(0);
+  await expect(content.locator('.rv-event-tooltip__label')).toHaveText(
+    'Início',
+  );
+  await expect(content.locator('.rv-event-tooltip__badge')).toHaveAttribute(
+    'aria-hidden',
+    'true',
+  );
+  await expect(content.getByAltText('Iris')).toBeVisible();
+  await expect(content.locator('[aria-label="Equipa"]')).toContainText('Zoe');
+  await expect(content.locator('.rv-event-tooltip__footer')).toContainText(
+    'Confirmado',
+  );
+  expect(await content.evaluate((el) => getComputedStyle(el).display)).toBe(
+    'grid',
+  );
+});

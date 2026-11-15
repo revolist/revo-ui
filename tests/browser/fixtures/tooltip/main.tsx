@@ -1,3 +1,4 @@
+import { createEventTooltipContent } from '@revolist/ui/native';
 import { decorateIconAction } from '@revolist/ui/native';
 import { TooltipApiFixture, TooltipExitFixture } from './api';
 /** @jsxImportSource preact */
@@ -171,4 +172,31 @@ if (new URLSearchParams(location.search).has('decorated-icon')) {
   button.textContent = '↗';
   document.getElementById('app')!.replaceChildren(button);
   decorateIconAction(button, 'Linked views');
+}
+
+if (new URLSearchParams(location.search).has('event-content')) {
+  document.getElementById('app')!.replaceChildren(
+    createEventTooltipContent(document, {
+      title: '<Revisão>',
+      dates: [
+        {
+          label: 'Início',
+          month: 'nov.',
+          day: '16',
+          value: '16 nov. 2026, 09:00',
+        },
+      ],
+      description: 'Notas',
+      peopleLabel: 'Equipa',
+      people: [
+        {
+          name: 'Iris',
+          avatarUrl:
+            'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg"/%3E',
+        },
+        { name: 'Zoe' },
+      ],
+      details: ['Confirmado'],
+    }),
+  );
 }
