@@ -3,6 +3,7 @@ import { h, render } from 'preact';
 import { expect, it, vi } from 'vitest';
 import { act } from 'preact/test-utils';
 import { SvgButton } from './svg-button';
+import { Tooltip } from '../pickers';
 
 it('keeps an explicit ghost variant when a consumer supplies its own class', () => {
   const host = document.createElement('div');
@@ -89,7 +90,32 @@ it('includes visible badge text in the accessible name for speech input', () => 
   }
 });
 
-it('composes tooltip dismissal with consumer events and existing descriptions', () => {
+it('does not create a tooltip from the accessible label', () => {
+  const host = document.createElement('div');
+  document.body.append(host);
+  try {
+    act(() =>
+      render(
+        <SvgButton label="Rotate" aria-describedby="rotation-help" />,
+        host,
+      ),
+    );
+    const button = host.querySelector('button')!;
+    act(() => {
+      button.focus();
+      button.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
+    });
+    expect(button.getAttribute('aria-label')).toBe('Rotate');
+    expect(button.getAttribute('aria-describedby')).toBe('rotation-help');
+    expect(button.hasAttribute('title')).toBe(false);
+    expect(host.querySelector('[role="tooltip"]')).toBeNull();
+  } finally {
+    act(() => render(null, host));
+    host.remove();
+  }
+});
+
+it('forwards an explicit localized title and consumer events without custom tooltip machinery', () => {
   const host = document.createElement('div');
   document.body.append(host);
   const onFocus = vi.fn(),
@@ -99,7 +125,8 @@ it('composes tooltip dismissal with consumer events and existing descriptions', 
     act(() =>
       render(
         <SvgButton
-          label="Rotate"
+          label="Girar"
+          title="Girar a la derecha"
           aria-describedby="rotation-help"
           onFocus={onFocus}
           onKeyDown={onKeyDown}
@@ -109,31 +136,42 @@ it('composes tooltip dismissal with consumer events and existing descriptions', 
       ),
     );
     const button = host.querySelector('button')!;
-    const tooltip = host.querySelector('[role="tooltip"]')!;
-    expect(button.getAttribute('title')).toBeNull();
-    expect(button.getAttribute('aria-describedby')?.split(' ')).toEqual([
-      'rotation-help',
-      tooltip.id,
-    ]);
+    expect(button.title).toBe('Girar a la derecha');
+    expect(button.getAttribute('aria-describedby')).toBe('rotation-help');
     act(() => button.focus());
-    expect(onFocus).toHaveBeenCalledOnce();
-    expect(tooltip.getAttribute('data-visible')).toBe('true');
     act(() =>
       button.dispatchEvent(
         new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }),
       ),
     );
-    expect(onKeyDown).toHaveBeenCalledOnce();
-    expect(tooltip.getAttribute('data-visible')).toBe('false');
-    act(() => {
-      button.blur();
-      button.focus();
-    });
-    expect(tooltip.getAttribute('data-visible')).toBe('true');
     act(() => button.click());
+    expect(onFocus).toHaveBeenCalledOnce();
+    expect(onKeyDown).toHaveBeenCalledOnce();
     expect(onClick).toHaveBeenCalledOnce();
-    expect(tooltip.getAttribute('data-visible')).toBe('false');
-    expect(document.activeElement).toBe(button);
+    expect(host.querySelector('[role="tooltip"]')).toBeNull();
+  } finally {
+    act(() => render(null, host));
+    host.remove();
+  }
+});
+
+it('supports an explicitly composed shared tooltip', () => {
+  const host = document.createElement('div');
+  document.body.append(host);
+  try {
+    act(() =>
+      render(
+        <Tooltip text="Girar a la derecha">
+          <SvgButton label="Girar" />
+        </Tooltip>,
+        host,
+      ),
+    );
+    const button = host.querySelector('button')!;
+    act(() => button.focus());
+    const tooltip = document.querySelector('[role="tooltip"]')!;
+    expect(tooltip?.textContent).toBe('Girar a la derecha');
+    expect(button.getAttribute('aria-describedby')).toContain(tooltip.id);
   } finally {
     act(() => render(null, host));
     host.remove();

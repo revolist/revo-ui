@@ -758,24 +758,13 @@ test('footer product names link to RevoGrid and Pro documentation', async ({
   }
 });
 
-test('component pages keep the GitHub star link visible on desktop and mobile', async ({
-  page,
-}) => {
+test('header navigation omits the star request on desktop and mobile', async ({ page }) => {
   for (const width of [1280, 390]) {
     await page.setViewportSize({ width, height: 800 });
     await page.goto('/components/timeline-track/');
-    const star = page
-      .getByRole('navigation', { name: 'Library pages' })
-      .getByRole('link', { name: 'Star on GitHub' });
-    await expect(star).toBeVisible();
-    await expect(star).toHaveAttribute(
-      'href',
-      'https://github.com/revolist/revo-ui',
-    );
-    const bounds = await star.boundingBox();
-    expect(bounds).not.toBeNull();
-    expect(bounds!.x).toBeGreaterThanOrEqual(0);
-    expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(width);
+    const navigation = page.getByRole('navigation', { name: 'Library pages' });
+    await expect(navigation.getByRole('link', { name: 'Star on GitHub' })).toHaveCount(0);
+    await expect(navigation.getByRole('link')).toHaveText(['Overview', 'Components', 'Colors', 'Docs', 'API']);
   }
 });
 

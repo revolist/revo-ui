@@ -4,12 +4,12 @@ import { accessibilityArticle } from './accessibility';
 import { GallerySettings } from './gallery-settings';
 import { ComponentContents } from './component-contents';
 import { GalleryHome } from './home';
+import { PublishedVersion } from './published-version';
 import { ApiReference } from './component-api';
 import { ExampleCode, examples, slug } from './example-source';
 import { SvgIcon } from '@revolist/ui/icons/icon';
 import codeIcon from '@fortawesome/fontawesome-free/svgs/solid/code.svg?raw';
 import arrowDownIcon from '@fortawesome/fontawesome-free/svgs/solid/arrow-right.svg?raw';
-import revogridLogo from './assets/revogrid.svg';
 import {
   createContext,
   h,
@@ -222,13 +222,14 @@ export function CatalogShell({
           <a href={siteHref()} class="catalog-title">
             <img
               class="catalog-logo"
-              src={revogridLogo}
-              alt="Revo UI"
+              src={siteHref('logo-mark.svg')}
+              alt=""
+              aria-hidden="true"
               width={24}
               height={24}
             />
-            Revo <span>UI</span>
-            <small class="catalog-version" aria-label="UI library version">v{__UI_VERSION__}</small>
+            <span class="catalog-wordmark">Revo<span>UI</span></span>
+            <PublishedVersion />
           </a>
           <nav class="catalog-pages" aria-label="Library pages">
             <a href={siteHref()} aria-current={home ? 'page' : undefined}>
@@ -253,7 +254,6 @@ export function CatalogShell({
               Docs
             </a>
             <a href={siteHref("api/")} aria-current={page === "api" ? "page" : undefined}>API</a>
-            <a class="catalog-star-link" href="https://github.com/revolist/revo-ui" target="_blank" rel="noopener noreferrer">Star on GitHub <span aria-hidden="true">★</span></a>
           </nav>
           <GallerySettings><Toolbar label="Gallery settings">
             <a class="rv-btn rv-btn-ghost rv-btn-icon catalog-github-link" href="https://github.com/revolist/revo-ui" target="_blank" rel="noopener noreferrer" aria-label="Revo UI on GitHub" title="Revo UI on GitHub">
@@ -424,7 +424,7 @@ export function CatalogShell({
         )}
         <div class="catalog-content">
           {page === "api" ? children : home ? (
-            <GalleryHome />
+            <GalleryHome theme={theme} motion={motion} />
           ) : (
             <div class={component ? "component-document-layout" : undefined}><div class="component-document-main" ref={content}><Route.Provider
               value={component ? sectionId(component.title) : active}

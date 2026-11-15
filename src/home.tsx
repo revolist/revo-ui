@@ -7,7 +7,9 @@ import contact2 from './assets/people/contact-2.jpg';
 import contact3 from './assets/people/contact-3.jpg';
 import { FinancialWidgets } from './home-financials';
 import { formatMoney as money } from './finance-data';
-import { useState } from 'preact/hooks';
+import { useEffect, useRef, useState } from 'preact/hooks';
+import avatarLight from './assets/hero/avatar-light.mp4';
+import avatarDark from './assets/hero/avatar-dark.mp4';
 import {
   Badge,
   Button,
@@ -82,22 +84,36 @@ const transactions = [
 ];
 
 export interface GalleryStarText {
-  introduction: string;
-  description: string;
   action: string;
 }
 
 export const defaultGalleryStarText: GalleryStarText = {
-  introduction: 'Revo UI is new here.',
-  description: 'If it’s useful to you, a star helps others find it.',
-  action: 'Star on GitHub',
+  action: 'Star me',
 };
 
 export function GalleryHome({
   starText,
+  theme = 'light',
+  motion = 'system',
 }: {
   starText?: Partial<GalleryStarText>;
+  theme?: string;
+  motion?: string;
 } = {}) {
+  const video = useRef<HTMLVideoElement>(null);
+  const [reducedMotion, setReducedMotion] = useState(true);
+  useEffect(() => {
+    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const update = () => setReducedMotion(preference.matches);
+    update();
+    preference.addEventListener('change', update);
+    return () => preference.removeEventListener('change', update);
+  }, []);
+  const animate = motion !== 'off' && !reducedMotion;
+  useEffect(() => {
+    if (animate) void video.current?.play().catch(() => {});
+    else video.current?.pause();
+  }, [animate, theme]);
   const invitation = { ...defaultGalleryStarText, ...starText };
   const [period, setPeriod] = useState('6m');
   const [status, setStatus] = useState('all');
@@ -109,56 +125,72 @@ export function GalleryHome({
   return (
     <div class="gallery-home">
       <section class="home-hero">
-        <span class="home-eyebrow">REVO UI · COMPONENT LIBRARY</span>
-        <h1>
-          Components for
-          <br />
-          data-rich applications.
-        </h1>
-        <p>
-          Charts, AI chat, PDF viewing, editable timelines, and date controls.
-          <br />
-          Build with React, Vue, Angular, Svelte, Preact, or vanilla TypeScript.
-        </p>
-        <div class="home-actions">
-          <Button
-            rounded
-            variant="solid"
-            className="home-primary"
-            href={componentHref('buttons')}
-          >
-            Explore components
-          </Button>
-          <Button rounded className="home-secondary" href={siteHref('colors/')}>
-            Discover the palette
-          </Button>
-        </div>
-        <nav class="home-framework-links" aria-label="Supported frameworks">
-          {Object.keys(frameworkLogos).map((name) => (
-            <a class="home-framework-link" href="#frameworks">
-              <FrameworkLogo name={name} />
-              <span>{name}</span>
-            </a>
-          ))}
-        </nav>
-        <div class="home-meta">
-          Accessible controls <span>·</span> Flexible composition <span>·</span>{' '}
-          One shared system
-        </div>
-        <div class="home-star-invitation">
-          <p class="home-star-copy">
-            <strong>{invitation.introduction}</strong> {invitation.description}
+        <div class="home-hero-intro">
+          <span class="home-eyebrow">REVO UI · COMPONENT LIBRARY</span>
+          <h1>
+            Components for
+            <br />
+            data-rich applications.
+          </h1>
+          <p>
+            Charts, AI chat, PDF viewing, editable timelines, and date controls.
+            <br />
+            Build with React, Vue, Angular, Svelte, Preact, or vanilla
+            TypeScript.
           </p>
-          <Button
-            rounded
-            className="home-star-link"
-            href="https://github.com/revolist/revo-ui"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span aria-hidden="true">☆</span>
-            {invitation.action}
-          </Button>
+          <div class="home-actions">
+            <Button
+              rounded
+              variant="solid"
+              className="home-primary"
+              href={componentHref('buttons')}
+            >
+              Explore components
+            </Button>
+            <Button
+              rounded
+              className="home-secondary"
+              href={siteHref('colors/')}
+            >
+              Discover the palette
+            </Button>
+          </div>
+          <nav class="home-framework-links" aria-label="Supported frameworks">
+            {Object.keys(frameworkLogos).map((name) => (
+              <a class="home-framework-link" href="#frameworks">
+                <FrameworkLogo name={name} />
+                <span>{name}</span>
+              </a>
+            ))}
+          </nav>
+          <div class="home-meta">
+            Accessible controls <span>·</span> Flexible composition{' '}
+            <span>·</span> One shared system
+          </div>
+          <div class="home-star-invitation">
+            <div class="home-hero-animation" aria-hidden="true">
+              <video
+                key={theme}
+                ref={video}
+                src={theme === 'dark' ? avatarDark : avatarLight}
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                tabIndex={-1}
+              />
+            </div>
+            <Button
+              rounded
+              className="home-star-link"
+              href="https://github.com/revolist/revo-ui"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span aria-hidden="true">☆</span>
+              {invitation.action}
+            </Button>
+          </div>
         </div>
       </section>
       <div class="home-showcase-heading">

@@ -11,7 +11,7 @@ afterEach(() => {
   act(() => render(null, host));
   host.remove();
 });
-it('uses the shared tooltip for native titles and preserves refs, handlers and descriptions', () => {
+it('preserves explicit native button titles, refs, handlers and descriptions', () => {
   document.body.append(host);
   const ref = createRef<HTMLButtonElement>(),
     focus = vi.fn(),
@@ -32,26 +32,19 @@ it('uses the shared tooltip for native titles and preserves refs, handlers and d
   );
   const button = host.querySelector('button')!;
   expect(ref.current).toBe(button);
-  expect(button.hasAttribute('title')).toBe(false);
+  expect(button.title).toBe('Save changes');
   act(() => button.focus());
-  const tooltip = document.querySelector('[role="tooltip"]')!;
-  expect(tooltip.textContent).toBe('Save changes');
-  expect(tooltip.className).toBe('rv-tooltip');
-  expect(button.getAttribute('aria-describedby')).toContain(tooltip.id);
-  expect(focus).toHaveBeenCalledOnce();
   act(() => button.click());
+  expect(focus).toHaveBeenCalledOnce();
   expect(click).toHaveBeenCalledOnce();
-  act(() => button.blur());
   expect(button.getAttribute('aria-describedby')).toBe('help');
+  expect(document.querySelector('[role="tooltip"]')).toBeNull();
   act(() =>
     render(<ButtonControl title="Updated hint">Save</ButtonControl>, host),
   );
-  act(() => button.focus());
-  expect(document.querySelector('[role="tooltip"]')!.textContent).toBe(
-    'Updated hint',
-  );
+  expect(button.title).toBe('Updated hint');
   act(() => render(<ButtonControl>Save</ButtonControl>, host));
-  expect(document.querySelector('[role="tooltip"]')).toBeNull();
+  expect(button.title).toBe('');
 });
 it('uses shared tooltips for navigation buttons and leaves untitled buttons alone', () => {
   document.body.append(host);
@@ -75,19 +68,16 @@ it('uses shared tooltips for navigation buttons and leaves untitled buttons alon
   act(() => host.querySelector('button')!.focus());
   expect(document.querySelector('[role="tooltip"]')).toBeNull();
 });
-it('uses an explicit SVG button title as its single tooltip text', () => {
+it('uses an explicit SVG button title as a native hint', () => {
   document.body.append(host);
   act(() =>
     render(<SvgButton label="Rotate" title="Rotate clockwise" />, host),
   );
   const button = host.querySelector('button')!;
   expect(button.getAttribute('aria-label')).toBe('Rotate');
-  expect(button.hasAttribute('title')).toBe(false);
+  expect(button.title).toBe('Rotate clockwise');
   act(() => button.focus());
-  expect(document.querySelectorAll('[role="tooltip"]')).toHaveLength(1);
-  expect(document.querySelector('[role="tooltip"]')!.textContent).toBe(
-    'Rotate clockwise',
-  );
+  expect(document.querySelector('[role="tooltip"]')).toBeNull();
 });
 it('attaches a shared HTML tooltip to SVG actions without a native SVG title', () => {
   document.body.append(host);

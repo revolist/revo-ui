@@ -87,6 +87,10 @@ All families are under `@revolist/ui/styles/`. Matching `.scss` entrypoints are 
 
 ## Measuring and enforcing size
 
+The current production React `SvgButton` consumer measures **15.4 KiB gzip (15,752 bytes)**, including automatic button styles and bundled Preact; React remains external. This is the README badge measurement. The button does not create a tooltip from its accessible label or retain the tooltip engine and tooltip styles. An explicit native `title` hint adds no tooltip engine; wrap the button in `Tooltip` to opt into the shared tooltip implementation.
+
+Reproduce with `pnpm build:public` followed by `node scripts/bundle-size.mjs`, using the `react-button` entry. This measures the current source build rather than the older pinned CDN release.
+
 Run after building the public distribution:
 
 ```sh

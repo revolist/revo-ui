@@ -3,7 +3,6 @@ import { h, type ComponentChildren, type JSX } from 'preact';
 import { controlClassName } from '../control-presentation';
 import { ButtonControl } from '../native-control';
 import { SvgIcon } from '../icons';
-import { useControlTooltip } from '../core/tooltip';
 
 export interface SvgButtonProps extends Omit<
   JSX.IntrinsicElements['button'],
@@ -43,56 +42,13 @@ export function SvgButton({
   title,
   ...attributes
 }: SvgButtonProps) {
-  const tooltip = useControlTooltip(
-    typeof title === 'string' ? title : label,
-    true,
-    {
-      className: 'rv-control-tooltip',
-      placement: 'above',
-    },
-  );
   return (
     <ButtonControl
       type="button"
       aria-label={badge !== undefined ? `${label} ${badge}` : label}
       {...attributes}
       disabled={disabled}
-      {...tooltip.triggerProps}
-      aria-describedby={[attributes['aria-describedby'], tooltip.id]
-        .filter(Boolean)
-        .join(' ')}
-      onFocus={(event) => {
-        tooltip.triggerProps.onFocus(event);
-        attributes.onFocus?.(event);
-      }}
-      onBlur={(event) => {
-        tooltip.triggerProps.onBlur();
-        attributes.onBlur?.(event);
-      }}
-      onMouseEnter={(event) => {
-        tooltip.triggerProps.onMouseEnter(event);
-        attributes.onMouseEnter?.(event);
-      }}
-      onMouseLeave={(event) => {
-        tooltip.triggerProps.onMouseLeave(event);
-        attributes.onMouseLeave?.(event);
-      }}
-      onPointerDown={(event) => {
-        tooltip.triggerProps.onPointerDown(event);
-        attributes.onPointerDown?.(event);
-      }}
-      onPointerCancel={(event) => {
-        tooltip.triggerProps.onPointerCancel();
-        attributes.onPointerCancel?.(event);
-      }}
-      onKeyDown={(event) => {
-        tooltip.triggerProps.onKeyDown(event);
-        attributes.onKeyDown?.(event);
-      }}
-      onClick={(event) => {
-        tooltip.hide();
-        attributes.onClick?.(event);
-      }}
+      title={title}
       class={controlClassName(
         className ?? (variant ? '' : 'rv-btn-ghost'),
         variant && `rv-btn-${variant}`,
@@ -109,7 +65,6 @@ export function SvgButton({
         </span>
       )}
       {children}
-      {tooltip.tooltip}
     </ButtonControl>
   );
 }

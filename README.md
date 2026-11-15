@@ -1,3 +1,10 @@
+<a href="https://ui.rv-grid.com/">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="public/logo-dark.svg" />
+    <img src="public/logo.svg" alt="Revo UI" width="320" />
+  </picture>
+</a>
+
 # Revo UI — Open-source components for data-rich applications
 
 [![npm version](https://img.shields.io/npm/v/%40revolist%2Fui?style=flat&color=2563eb)](https://www.npmjs.com/package/@revolist/ui)
@@ -5,13 +12,11 @@
 [![Build status](https://img.shields.io/github/actions/workflow/status/revolist/revo-ui/pages.yml?branch=main&style=flat&label=build)](https://github.com/revolist/revo-ui/actions/workflows/pages.yml)
 [![0 runtime dependencies](https://img.shields.io/badge/dependencies-0-16a34a?style=flat)](https://www.npmjs.com/package/@revolist/ui?activeTab=dependencies)
 [![Tree-shakeable ESM](https://img.shields.io/badge/tree%20shaking-supported-16a34a?style=flat)](https://github.com/revolist/revo-ui/blob/main/package.json)
-[![Component + styles (4.0.12): 25.4 KiB gzip](https://img.shields.io/badge/Component%20%2B%20styles%20(4.0.12)-25.4%20KiB%20gzip-16a34a?style=flat)](docs/bundle-size.md)
+[![Component + styles: 15.4 KiB gzip](https://img.shields.io/badge/Component%20%2B%20styles-15.4%20KiB%20gzip-16a34a?style=flat)](docs/bundle-size.md)
 
 **Build data-rich applications with charts, AI chat, a PDF viewer, editable timelines, date controls, and more.**
 
 Revo UI brings these components to React, Vue, Angular, Svelte, Preact, and vanilla TypeScript, alongside the controls and layouts needed to compose complete workflows.
-
-Lightweight and tree-shakeable: import only the controls you use. The bundle-size badge measures the published 4.0.12 React `SvgButton` import, including automatic styles and bundled Preact; React is excluded as a peer dependency.
 
 [Live components](https://ui.rv-grid.com/components/buttons/) · [Interactive overview](https://ui.rv-grid.com/) · [Framework guides](https://ui.rv-grid.com/frameworks/) · [RevoGrid](https://rv-grid.com/) · [Pro documentation](https://pro.rv-grid.com/)
 

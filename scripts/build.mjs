@@ -44,7 +44,7 @@ try {
   await writeFile(resolve(root, 'dist-gallery/sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${routes.map(route => `  <url><loc>${origin}${base === './' ? '/' : base}${route}</loc></url>`).join('\n')}\n</urlset>\n`);
 
   // Code-native brand artwork: no remote fonts, images or network dependencies.
-  const logo = await readFile(resolve(root, 'public/favicon.svg'));
+  const logo = await readFile(resolve(root, 'public/logo-mark.svg'));
   const image = `data:image/svg+xml;base64,${logo.toString('base64')}`;
   await page.setViewportSize({ width: 1200, height: 630 });
   await page.setContent(`<html><body style="margin:0;background:#fff;font-family:Arial,sans-serif;color:#171717"><main style="padding:72px 80px;border:1px solid #e5e7eb;height:630px;box-sizing:border-box;background:linear-gradient(135deg,#fff 40%,#eff6ff)"><div style="display:flex;align-items:center;gap:20px;font-size:42px;font-weight:700"><img src="${image}" width="56" height="56"/>Revo UI</div><h1 style="font-size:65px;line-height:1.12;letter-spacing:-2px;margin:54px 0 24px">Components for finance,<br/>reporting, and projects.</h1><p style="font-size:24px;color:#52525b">React · Vue · Angular · Svelte · Preact · TypeScript</p><p style="font-size:21px;color:#2563eb;margin-top:42px">ui.rv-grid.com</p></main></body></html>`);
