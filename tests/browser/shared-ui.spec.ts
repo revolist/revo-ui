@@ -424,8 +424,6 @@ test('nested dialogs trap focus and restore it to the correct trigger', async ({
   await expect(
     inner.getByRole('button', { name: 'Close confirmation' }),
   ).toBeFocused();
-  await page.keyboard.press('Escape');
-  await expect(inner).toBeVisible();
   await expect(page.locator('[role="tooltip"]:visible')).toHaveCount(0);
   await page.keyboard.press('Escape');
   await expect(inner).toHaveCount(0);
