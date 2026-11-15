@@ -210,15 +210,9 @@ test('compact header keeps settings behind an overflow button', async ({
   await expect(
     page.getByRole('button', { name: 'Theme', exact: true }),
   ).toHaveAttribute('aria-pressed', 'true');
-  // Escape dismisses the innermost layer before the containing menu.
-  const tooltip = page.getByRole('tooltip');
-  await expect(tooltip).toBeVisible();
-  await page.keyboard.press('Escape');
-  await expect(tooltip).toBeHidden();
-  await expect(more).toHaveAttribute('aria-expanded', 'true');
-  await expect(
-    page.getByRole('button', { name: 'Theme', exact: true }),
-  ).toBeVisible();
+  // An explicit native title does not add a custom tooltip layer.
+  await expect(page.getByRole('button', { name: 'Theme', exact: true })).toHaveAttribute('title', 'Switch to light theme');
+  await expect(page.getByRole('tooltip')).toHaveCount(0);
   await page.keyboard.press('Escape');
   await expect(more).toHaveAttribute('aria-expanded', 'false');
   await expect(more).toBeFocused();

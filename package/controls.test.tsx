@@ -221,7 +221,7 @@ it('uses shared menu navigation and restores the popup trigger on Escape', () =>
   expect(popup.parentElement).toBe(host);
 });
 
-it('keeps icon commands named, counted and disabled with decorative SVG and tooltip', () => {
+it('keeps icon commands named, counted and disabled without implicit tooltips', () => {
   const action = vi.fn();
   const host = mount(
     <IconButton
@@ -235,7 +235,9 @@ it('keeps icon commands named, counted and disabled with decorative SVG and tool
   expect(button.getAttribute('aria-label')).toBe('Undo 4');
   expect(button.hasAttribute('aria-description')).toBe(false);
   expect(button.querySelector('.rv-badge')?.textContent).toBe('4');
-  expect(button.querySelector('.rv-control-tooltip')?.textContent).toBe('Undo');
+  expect(button.querySelector('[role="tooltip"]')).toBeNull();
+  expect(button.hasAttribute('title')).toBe(false);
+  expect(button.hasAttribute('aria-describedby')).toBe(false);
   button.click();
   expect(action).toHaveBeenCalledTimes(1);
   act(() =>
