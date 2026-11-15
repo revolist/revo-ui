@@ -38,6 +38,7 @@ details[open] > .rv-disclosure-summary--compact::before {
   :where(
     .rv-ui details,
     .rv-disclosure,
+    .rv-collapsible-section,
     .rv-format-inspector-section,
     .rv-configurator-available-fields
   ) {

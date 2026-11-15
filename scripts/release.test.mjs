@@ -146,13 +146,14 @@ test("rejects registry errors, version conflicts and mismatched publication targ
     /must publish/,
   );
 });
-test("workflow separates trusted automation from released source and gates publication behind validation", () => {
+test("workflow separates trusted automation from released source without repeating tests during publication", () => {
   const workflow = readFileSync(
     new URL("../.github/workflows/publish.yml", import.meta.url),
     "utf8",
   );
   assert.match(workflow, /types: \[published\]/);
-  assert.match(workflow, /needs: validate/);
+  assert.match(workflow, /validate:\n    if: github.event_name == 'pull_request'/);
+  assert.doesNotMatch(workflow, /needs: validate|pnpm test|pnpm --dir source test:public/);
   assert.match(workflow, /merge-base --is-ancestor "\$SHA" origin\/main/);
   assert.match(workflow, /ref: \$\{\{ steps.source.outputs.sha \}\}/);
   assert.match(
