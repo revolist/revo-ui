@@ -1,4 +1,6 @@
 {
   "extends": "$app/tsconfig",
-  "compilerOptions": { "strict": true, "moduleResolution": "bundler" }
+  "compilerOptions": { "strict": true, "moduleResolution": "bundler" },
+  "include": ["src/**/*.ts", "src/**/*.svelte", "vite.config.ts"],
+  "exclude": ["node_modules", ".svelte-kit", "build"]
 }
