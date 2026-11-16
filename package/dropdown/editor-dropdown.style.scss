@@ -218,6 +218,7 @@ revo-grid,
   max-width: var(--rv-dropdown-menu-max-width, 300px);
   max-height: var(--rv-dropdown-menu-max-height);
   background-color: var(--rv-dropdown-menu-background);
+  color: var(--rv-dropdown-menu-option-color);
   border: 1px solid var(--rv-dropdown-menu-border);
   border-radius: 12px;
   box-shadow: var(--rv-dropdown-menu-box-shadow);
@@ -328,10 +329,11 @@ revo-grid,
         margin-block: 2px 0;
       }
     }
-    .no-results {
-      padding: 12px;
-      text-align: center;
-    }
+  }
+
+  .no-results {
+    padding: 12px;
+    text-align: center;
   }
 }
 
