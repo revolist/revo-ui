@@ -23,6 +23,7 @@ export class Dropdown extends AngularComponentAdapter<AngularCallbackValue<Angul
   @NgInput() declare "name"?: AngularInput<'Dropdown', "name">;
   @NgInput() declare "onChange"?: AngularInput<'Dropdown', "onChange">;
   @NgInput() declare "onClose"?: AngularInput<'Dropdown', "onClose">;
+  @NgInput() declare "onCreateOption"?: AngularInput<'Dropdown', "onCreateOption">;
   @NgInput() declare "placeholder"?: AngularInput<'Dropdown', "placeholder">;
   @NgInput() declare "remoteText"?: AngularInput<'Dropdown', "remoteText">;
   @NgInput() declare "renderContent"?: AngularInput<'Dropdown', "renderContent">;
@@ -36,5 +37,6 @@ export class Dropdown extends AngularComponentAdapter<AngularCallbackValue<Angul
   @NgInput() declare "triggerAttributes"?: AngularInput<'Dropdown', "triggerAttributes">;
   @NgInput() declare "value"?: AngularInput<'Dropdown', "value">;
   @Output() get closeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'Dropdown', 'onClose'>>>('onClose'); }
+  @Output() get createOption() { return this.rvOutput<AngularCallbackValue<AngularInput<'Dropdown', 'onCreateOption'>>>('onCreateOption'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

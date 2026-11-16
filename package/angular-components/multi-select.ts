@@ -23,6 +23,7 @@ export class MultiSelect extends AngularComponentAdapter<AngularCallbackValue<An
   @NgInput() declare "name"?: AngularInput<'MultiSelect', "name">;
   @NgInput() declare "onChange"?: AngularInput<'MultiSelect', "onChange">;
   @NgInput() declare "onClose"?: AngularInput<'MultiSelect', "onClose">;
+  @NgInput() declare "onCreateOption"?: AngularInput<'MultiSelect', "onCreateOption">;
   @NgInput() declare "placeholder"?: AngularInput<'MultiSelect', "placeholder">;
   @NgInput() declare "remoteText"?: AngularInput<'MultiSelect', "remoteText">;
   @NgInput() declare "renderContent"?: AngularInput<'MultiSelect', "renderContent">;
@@ -36,5 +37,6 @@ export class MultiSelect extends AngularComponentAdapter<AngularCallbackValue<An
   @NgInput() declare "triggerAttributes"?: AngularInput<'MultiSelect', "triggerAttributes">;
   @NgInput() declare "value"?: AngularInput<'MultiSelect', "value">;
   @Output() get closeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MultiSelect', 'onClose'>>>('onClose'); }
+  @Output() get createOption() { return this.rvOutput<AngularCallbackValue<AngularInput<'MultiSelect', 'onCreateOption'>>>('onCreateOption'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

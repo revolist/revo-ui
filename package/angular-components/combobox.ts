@@ -23,6 +23,7 @@ export class Combobox extends AngularComponentAdapter<AngularCallbackValue<Angul
   @NgInput() declare "name"?: AngularInput<'Combobox', "name">;
   @NgInput() declare "onChange"?: AngularInput<'Combobox', "onChange">;
   @NgInput() declare "onClose"?: AngularInput<'Combobox', "onClose">;
+  @NgInput() declare "onCreateOption"?: AngularInput<'Combobox', "onCreateOption">;
   @NgInput() declare "placeholder"?: AngularInput<'Combobox', "placeholder">;
   @NgInput() declare "remoteText"?: AngularInput<'Combobox', "remoteText">;
   @NgInput() declare "renderContent"?: AngularInput<'Combobox', "renderContent">;
@@ -36,5 +37,6 @@ export class Combobox extends AngularComponentAdapter<AngularCallbackValue<Angul
   @NgInput() declare "triggerAttributes"?: AngularInput<'Combobox', "triggerAttributes">;
   @NgInput() declare "value"?: AngularInput<'Combobox', "value">;
   @Output() get closeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'Combobox', 'onClose'>>>('onClose'); }
+  @Output() get createOption() { return this.rvOutput<AngularCallbackValue<AngularInput<'Combobox', 'onCreateOption'>>>('onCreateOption'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }
