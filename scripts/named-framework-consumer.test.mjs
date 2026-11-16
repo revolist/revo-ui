@@ -91,8 +91,18 @@ function angularCompile(template) {
     import { Component } from '@angular/core';
     import { SvgButton } from '@revolist/ui/angular/svg-button';
     import { SearchInput } from '@revolist/ui/angular/search-input';
-    @Component({ selector: 'named-test', imports: [SvgButton, SearchInput], template: ${JSON.stringify(template)} })
-    export class App { count = 0; query = ''; }
+    import { Input as NativeInput } from '@revolist/ui/angular/input';
+    import { Checkbox } from '@revolist/ui/angular/checkbox';
+    import { CalendarPicker } from '@revolist/ui/angular/calendar-picker';
+    @Component({ selector: 'named-test', imports: [SvgButton, SearchInput, NativeInput, Checkbox, CalendarPicker], template: ${JSON.stringify(template)} })
+    export class App {
+      count = 0;
+      query = '';
+      checked = false;
+      buttonTarget(event: { currentTarget: HTMLButtonElement }) {}
+      inputTarget(event: { currentTarget: HTMLInputElement }) {}
+      numberEvent(value: number) {}
+    }
   `,
   );
   writeFileSync(
@@ -214,14 +224,43 @@ test('named Svelte server components render hosts without a DOM or browser-only 
   assert.match(output, /server hosts verified/);
 });
 
-test('selective Svelte server entry supports matching default and named imports', () => {
+test('every selective Svelte server entry preserves named/default exports, models and handles in both style modes', () => {
+  const controls = names.map((name) => ({
+    name,
+    slug: name
+      .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+      .replace(/([A-Z])([A-Z][a-z])/g, '$1-$2')
+      .toLowerCase(),
+  }));
   run(`
     import assert from 'node:assert/strict';
     import { render } from 'svelte/server';
-    for (const entry of ['svelte/svg-button', 'svelte/svg-button/unstyled']) {
-      const module = await import('@revolist/ui/' + entry);
-      assert.equal(module.default, module.SvgButton);
-      assert.match(render(module.SvgButton, { props: { label: 'Save' } }).body, /data-rv-svelte-host/);
+    assert.equal(typeof document, 'undefined');
+    for (const { name, slug } of ${JSON.stringify(controls)}) {
+      for (const mode of ['', '/unstyled']) {
+        const entry = '@revolist/ui/svelte/' + slug + mode;
+        const module = await import(entry);
+        assert.equal(module.default, module[name], entry);
+        let handle;
+        const selection = ['a'];
+        const props = {
+          label: 'Save', value: 'draft', checked: true, selected: selection,
+          selectedResourceIds: selection,
+          children: () => { throw new Error('Adapter snippets are browser mounted'); },
+        };
+        Object.defineProperty(props, 'getElement', {
+          get: () => handle,
+          set: (value) => { handle = value; },
+        });
+        const html = render(module.default, { props }).body;
+        assert(html.includes('data-rv-svelte-host="' + name + '"'), entry);
+        assert(!html.includes('<button') && !html.includes('<input'), entry);
+        assert.equal(handle(), null, entry + ' server handle');
+        assert.equal(props.value, 'draft');
+        assert.equal(props.checked, true);
+        assert.equal(props.selected, selection);
+        assert.equal(props.selectedResourceIds, selection);
+      }
     }
   `);
 });
@@ -260,34 +299,35 @@ test('Svelte browser fallback exports named components without requiring the sve
   }
 });
 
-test('Angular named components compile direct typed inputs and enforce required labels', () => {
+test('Angular inherited native inputs, event targets and model outputs retain their exact AOT types', () => {
   angularCompile(
-    '<rv-svg-button [label]="\'Save \' + count" visibleLabel="Save" (click)="count = count + 1" /><rv-search-input [value]="query" [aria-label]="\'Search reports\'" [placeholder]="\'Find reports\'" (valueChange)="query = $event" />',
+    `<rv-svg-button label="Save" visibleLabel="Save" [tabIndex]="0" [aria-hidden]="false" (clickEvent)="buttonTarget($event)" />
+     <rv-input (clickEvent)="inputTarget($event)" />
+     <rv-search-input [value]="query" [aria-label]="'Search reports'" [placeholder]="'Find reports'" (valueChange)="query = $event" />
+     <rv-checkbox [(checked)]="checked" />
+     <rv-calendar-picker mode="single" />`,
   );
   assert.match(
     readFileSync(join(fixture, 'angular-out/angular.js'), 'utf8'),
     /ɵɵdefineComponent/,
   );
-  assert.throws(
-    () => angularCompile('<rv-svg-button />'),
-    (error) => {
-      assert.match(
-        String(error.stdout) + String(error.stderr),
-        /Required input.*label|label.*required/i,
-      );
-      return true;
-    },
-  );
-  assert.throws(
-    () => angularCompile('<rv-svg-button [label]="123" />'),
-    (error) => {
-      assert.match(
-        String(error.stdout) + String(error.stderr),
-        /number.*string|not assignable/i,
-      );
-      return true;
-    },
-  );
+  for (const [template, diagnostic] of [
+    ['<rv-svg-button />', /Required input.*label|label.*required/i],
+    ['<rv-svg-button [label]="123" />', /number.*string|not assignable/i],
+    [`<rv-svg-button label="Save" [tabIndex]="'bad'" />`, /not assignable/i],
+    ['<rv-svg-button label="Save" (clickEvent)="numberEvent($event)" />', /not assignable/i],
+    ['<rv-input (clickEvent)="buttonTarget($event)" />', /not assignable/i],
+    ['<rv-search-input (valueChange)="count = $event" />', /string.*number|not assignable/i],
+  ]) {
+    assert.throws(
+      () => angularCompile(template),
+      (error) => {
+        assert.match(String(error.stdout) + String(error.stderr), diagnostic);
+        return true;
+      },
+      template,
+    );
+  }
 });
 
 test('Svelte named public declarations enforce component props without consumer Preact', () => {

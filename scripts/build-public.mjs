@@ -15,6 +15,7 @@ import ts from 'typescript';
 import { styleEntrypoints } from './style-entrypoints.mjs';
 import { compileAsync } from 'sass-embedded';
 import { compile as compileSvelte } from 'svelte/compiler';
+import { transform as compactJavaScript } from 'esbuild';
 import {
   forwardPublicDeclaration,
   sharePdfWorker,
@@ -188,9 +189,22 @@ for (const svelteOutput of [output, resolve(output, 'unstyled')]) {
       (_, quote, path) =>
         `from ${quote}${path.endsWith('.svelte') ? path.replace(/\.svelte$/, '.server.js') : /\.[cm]?js$/.test(path) ? path : `${path}.js`}${quote}`,
     );
+    // Keep compiler output semantics and names; discard only formatting bytes.
+    // esbuild discards pure-call annotations even in whitespace-only mode.
+    // Preserve annotated compiler output verbatim for downstream tree shaking.
+    const compactServer = /[@#]__PURE__/.test(code)
+      ? { code }
+      : await compactJavaScript(code, {
+          loader: 'js',
+          minifyWhitespace: true,
+          minifySyntax: false,
+          minifyIdentifiers: false,
+          treeShaking: false,
+          legalComments: 'inline',
+        });
     writeFileSync(
       resolve(svelteOutput, 'svelte', name.replace(/\.svelte$/, '.server.js')),
-      code,
+      compactServer.code,
     );
   }
   mkdirSync(resolve(svelteOutput, 'svelte-entries'), { recursive: true });

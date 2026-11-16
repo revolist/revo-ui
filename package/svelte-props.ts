@@ -158,3 +158,13 @@ export type SvelteComponentProps<N extends UiComponentName> = ModelProps<
       RenderSlots<UiComponentProps<N>, N>;
     onUiEvent?: SvelteUiProps['onUiEvent'];
   };
+
+/** Shared named-component signature; preserves each control's bindable keys. */
+export type SvelteNamedComponent<
+  N extends UiComponentName,
+  Bindings extends keyof SvelteComponentProps<N> | '' = '',
+> = import('svelte').Component<
+  SvelteComponentProps<N>,
+  SvelteUiHandle,
+  Bindings
+>;

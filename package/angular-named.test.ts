@@ -40,6 +40,8 @@ class ProjectedChild implements OnDestroy {
       [label]="'Save ' + count"
       [visibleLabel]="'Save ' + count"
       [disabled]="disabled"
+      [tabIndex]="count + 3"
+      [aria-describedby]="'report-help'"
       (click)="count = count + 1"
       (clickEvent)="callbackCount = callbackCount + 1"
     />
@@ -112,11 +114,14 @@ describe("named Angular components", () => {
           .getElement()
           ?.querySelector("button"),
       ).toBe(button);
+      expect(button.tabIndex).toBe(3);
+      expect(button.getAttribute("aria-describedby")).toBe("report-help");
       button.click();
       app.tick();
       await settle();
       expect(app.components[0].instance.count).toBe(1);
       expect(app.components[0].instance.callbackCount).toBe(1);
+      expect(button.tabIndex).toBe(4);
       expect(button.getAttribute("aria-label")).toBe("Save 1");
       host.querySelector<HTMLButtonElement>("[data-disable]")!.click();
       app.tick();

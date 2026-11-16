@@ -77,8 +77,15 @@ test('public package stays below the unpacked footprint budget with named APIs',
   const packed = statSync(
     resolve(project, `artifacts/revolist-ui-${version}.tgz`),
   ).size;
-  assert(packed < 3_500_000, `packed public package is ${packed} bytes`);
-  assert(bytes < 20_000_000, `unpacked public package is ${bytes} bytes`);
+  const declarations = output
+    .filter((file) => file.endsWith('.d.ts'))
+    .reduce((total, file) => total + statSync(file).size, 0);
+  assert(packed < 2_500_000, `packed public package is ${packed} bytes`);
+  assert(bytes < 12_000_000, `unpacked public package is ${bytes} bytes`);
+  assert(
+    declarations < 1_600_000,
+    `public declarations are ${declarations} bytes`,
+  );
   const manifest = JSON.parse(
     readFileSync(resolve(root, 'package.json'), 'utf8'),
   );
