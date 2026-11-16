@@ -1,3 +1,4 @@
+import defaultWorkerSrc from 'pdfjs-dist/build/pdf.worker.min.mjs?worker&url';
 import type {
   PDFDocumentLoadingTask,
   PDFDocumentProxy,
@@ -24,6 +25,9 @@ import type {
   PdfViewerState,
   PdfZoom,
 } from './types';
+
+// Capture the asset URL while classic bundles still have document.currentScript.
+const defaultWorker = Object.freeze({ url: defaultWorkerSrc });
 
 /** Framework-neutral document lifecycle and commands. Attach to an absolutely positioned div. */
 export class PdfViewerController {
@@ -332,9 +336,9 @@ export class PdfViewerController {
       const parameters = await wait(pdfSourceParameters(source));
       await wait(this.initializing);
       if (this.disposed || generation !== this.generation) return;
-      if (!this.options.workerSrc)
-        throw new Error('PDF viewer requires a matching PDF.js workerSrc');
-      this.port = new Worker(this.options.workerSrc, { type: 'module' });
+      this.port = new Worker(this.options.workerSrc || defaultWorker.url, {
+        type: 'module',
+      });
       const workerFailed = (event: Event) => {
         event.preventDefault();
         this.failLoad(

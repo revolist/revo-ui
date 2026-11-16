@@ -207,6 +207,71 @@ function rewriteDeclarations(directory) {
 rewriteDeclarations(output);
 mkdirSync(preactTypes, { recursive: true });
 cpSync(resolve(preactRoot, 'LICENSE'), resolve(preactTypes, 'LICENSE'));
+// Upstream Preact declarations use CommonJS export assignments. Preserve that
+// package scope when vendoring them inside this ESM package.
+writeFileSync(resolve(preactTypes, 'package.json'), '{"type":"commonjs"}\n');
+
+// Normalize after every declaration emitter, including bundled utilities and
+// vendored Preact. Resolve directory imports to their actual index declaration.
+function normalizeDeclarationImports(directory) {
+  for (const entry of readdirSync(directory, { withFileTypes: true })) {
+    const file = resolve(directory, entry.name);
+    if (entry.isDirectory()) {
+      normalizeDeclarationImports(file);
+      continue;
+    }
+    if (!entry.name.endsWith('.d.ts')) continue;
+    const content = readFileSync(file, 'utf8');
+    const sourceFile = ts.createSourceFile(
+      file,
+      content,
+      ts.ScriptTarget.Latest,
+    );
+    const edits = [];
+    function visit(node) {
+      const specifier =
+        ts.isImportDeclaration(node) || ts.isExportDeclaration(node)
+          ? node.moduleSpecifier
+          : ts.isImportTypeNode(node) && ts.isLiteralTypeNode(node.argument)
+            ? node.argument.literal
+            : ts.isExternalModuleReference(node)
+              ? node.expression
+              : undefined;
+      if (
+        specifier &&
+        ts.isStringLiteral(specifier) &&
+        specifier.text.startsWith('.')
+      ) {
+        const target = ts.resolveModuleName(
+          specifier.text,
+          file,
+          { moduleResolution: ts.ModuleResolutionKind.Bundler },
+          ts.sys,
+        ).resolvedModule?.resolvedFileName;
+        if (!target || !target.endsWith('.d.ts'))
+          throw new Error(
+            `Cannot resolve declaration: ${specifier.text} from ${file}`,
+          );
+        let path = relative(dirname(file), target)
+          .replaceAll('\\', '/')
+          .replace(/\.d\.ts$/, '.js');
+        if (!path.startsWith('.')) path = './' + path;
+        edits.push({
+          start: specifier.getStart(sourceFile) + 1,
+          end: specifier.end - 1,
+          path,
+        });
+      }
+      ts.forEachChild(node, visit);
+    }
+    visit(sourceFile);
+    let rewritten = content;
+    for (const { start, end, path } of edits.sort((a, b) => b.start - a.start))
+      rewritten = rewritten.slice(0, start) + path + rewritten.slice(end);
+    writeFileSync(file, rewritten);
+  }
+}
+normalizeDeclarationImports(output);
 
 const exports = Object.fromEntries(
   Object.entries(source.exports)

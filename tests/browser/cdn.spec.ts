@@ -93,11 +93,13 @@ for (const format of ['module', 'classic'] as const) {
     expect(errors).toEqual([]);
   });
 
-  test(`packed ${format} browser bundle starts the PDF engine and matching worker`, async ({
+  test(`packed ${format} browser bundle starts the PDF engine and default worker`, async ({
     page,
     baseURL,
   }) => {
     const errors: string[] = [];
+    const workers: string[] = [];
+    page.on('worker', (worker) => workers.push(worker.url()));
     page.on('pageerror', (error) => errors.push(error.message));
     await page.goto('/');
     await page.addStyleTag({ url: '/styles.css' });
@@ -105,7 +107,7 @@ for (const format of ['module', 'classic'] as const) {
     if (format === 'classic')
       await page.addScriptTag({ url: '/browser/revo-ui.global.js' });
     await page.evaluate(
-      async ({ format, source, baseURL }) => {
+      async ({ format, baseURL }) => {
         const ui =
           format === 'module'
             ? await import(/* @vite-ignore */ `${baseURL}/browser/revo-ui.js`)
@@ -114,17 +116,30 @@ for (const format of ['module', 'classic'] as const) {
         host.className = 'rv-ui';
         document.body.append(host);
         const mount = ui.createFrameworkMount(host, () => {});
+        mount.render(ui.uiComponents.PdfViewer, { height: 500 });
+        (window as any).cdnPdf = { mount, ui };
+      },
+      { format, baseURL },
+    );
+    await expect(
+      page.getByText('Open a PDF to get started', { exact: true }),
+    ).toBeVisible();
+    expect(workers).toEqual([]);
+    await page.evaluate(
+      (source) => {
+        const { mount, ui } = (window as any).cdnPdf;
         mount.render(ui.uiComponents.PdfViewer, {
           source: new Uint8Array(source),
-          workerSrc: `${baseURL}/browser/pdf.worker.min.mjs`,
           height: 500,
         });
       },
-      { format, source: [...createSamplePdf()], baseURL },
+      [...createSamplePdf()],
     );
     await expect(
       page.locator('.page[data-page-number="1"] canvas'),
     ).toBeVisible({ timeout: 20000 });
+    expect(workers).toHaveLength(1);
+    expect(workers[0]).toContain('/browser/assets/pdf.worker');
     expect(errors).toEqual([]);
   });
 }

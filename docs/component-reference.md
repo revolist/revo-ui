@@ -277,7 +277,7 @@ import { Select } from '@revolist/ui/select';
 | Overlays | Use the shared popup lifecycle. Dropdowns inside top-layer dialogs/calendars can opt into `config.topLayer`. Standalone selects dismiss and advance focus on Tab/Shift+Tab. |
 | Lifecycle | Framework adapters clean up their mounts. Manual framework mounts and native controllers must be destroyed when their view is removed. |
 | AI components | These render chat, prompt, task and result UI. Your application provides model access, data, authorization and tool execution. |
-| PDF viewer | Supply a PDF source and compatible PDF.js worker configuration. Remote files require appropriate CORS access. Tool groups, text and toolbar/status rendering are configurable. See the [PDF viewer examples](https://ui.rv-grid.com/components/pdf-viewer/). |
+| PDF viewer | Supply a PDF source; a matching PDF.js worker is bundled by default. Set workerSrc only to override it. Remote files require appropriate CORS access. Tool groups, text and toolbar/status rendering are configurable. See the [PDF viewer examples](https://ui.rv-grid.com/components/pdf-viewer/). |
 | Charts | Revo UI includes compact bar/line/area primitives and a range brush. The separate [RevoGrid Charts product](https://rv-grid.com/charts/) provides the larger charting surface. |
 
 The following snippets use the direct Preact APIs; the framework guides show their equivalent integration patterns. Values and callbacks such as `saved` / `setSaved` are application-owned state inside your component; the linked live examples include the complete surrounding setup.

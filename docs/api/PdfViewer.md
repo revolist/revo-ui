@@ -26,13 +26,13 @@ The table lists library-declared props. Standard inherited HTML attributes are o
 | `onReady` | `((controller: PdfViewerController) => void) \| undefined` | No |  |
 | `renderToolbar` | `((controller: PdfViewerController, state: Readonly<PdfViewerState>, toolbarProps: PdfViewerToolbarProps) => ComponentChildren) \| undefined` | No |  |
 | `renderStatus` | `((state: Readonly<PdfViewerState>) => ComponentChildren) \| undefined` | No |  |
-| `workerSrc` | `string` | Yes | URL of the matching pdfjs-dist/build/pdf.worker.min.mjs, served by your app. |
+| `workerSrc` | `string \| undefined` | No | Override the bundled matching PDF.js worker with a module worker URL. |
 | `l10n` | `L10n \| undefined` | No | PDF.js localization service for page accessibility and annotation content. |
 | `source` | `PdfSource \| null \| undefined` | No |  |
 | `fileName` | `string \| undefined` | No |  |
 | `initialPage` | `number \| undefined` | No |  |
 | `initialZoom` | `PdfZoom \| undefined` | No |  |
-| `documentOptions` | `Omit<DocumentInitParameters, "data" \| "url" \| "worker"> \| undefined` | No | Asset URLs, authentication, password and other PDF.js loading options. |
+| `documentOptions` | `Omit<DocumentInitParameters, "url" \| "data" \| "worker"> \| undefined` | No | Asset URLs, authentication, password and other PDF.js loading options. |
 | `onLoad` | `((details: { pageCount: number; fileName: string; }) => void) \| undefined` | No |  |
 | `onPageChange` | `((page: number) => void) \| undefined` | No |  |
 | `onZoomChange` | `((zoom: PdfZoom, scale: number) => void) \| undefined` | No |  |
