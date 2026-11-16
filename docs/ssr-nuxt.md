@@ -18,56 +18,42 @@ pnpm start
 
 Open `http://localhost:3000`. The starter pins Nuxt 4.6.4 and `@revolist/ui` 4.0.23. For development, use `pnpm dev`.
 
-## Three small files
+## Two small files
 
-| File                            | Responsibility                           |
-| ------------------------------- | ---------------------------------------- |
-| `nuxt.config.ts`                | Include the control's CSS in the page.   |
-| `app/app.vue`                   | Render the heading and place the button. |
-| `app/components/SaveButton.vue` | Own the click counter.                   |
+| File             | Responsibility                             |
+| ---------------- | ------------------------------------------ |
+| `nuxt.config.ts` | Include the control's CSS in the page.     |
+| `app/app.vue`    | Render the page and own the click counter. |
 
 Load extracted CSS globally:
 
 ```ts
 // nuxt.config.ts
 export default defineNuxtConfig({
-  css: ["@revolist/ui/styles/base.css"],
+  css: ['@revolist/ui/styles/base.css'],
 });
 ```
 
-Keep the interaction in one component:
-
-```vue
-<!-- app/components/SaveButton.vue -->
-<script setup lang="ts">
-import { ref } from "vue";
-import { SvgButton } from "@revolist/ui/vue/unstyled";
-
-const count = ref(0);
-</script>
-
-<template>
-  <SvgButton
-    :label="`Save ${count}`"
-    :visible-label="`Save ${count}`"
-    @click="count++"
-  />
-</template>
-```
-
-Use it directly in the server-rendered page:
+Use the control directly in the page:
 
 ```vue
 <!-- app/app.vue -->
 <script setup lang="ts">
-import SaveButton from "./components/SaveButton.vue";
+import { ref } from 'vue';
+import { SvgButton } from '@revolist/ui/vue/unstyled';
+
+const count = ref(0);
 </script>
 
 <template>
   <main>
     <h1>Nuxt report</h1>
     <p>This page content is rendered on the server.</p>
-    <SaveButton />
+    <SvgButton
+      :label="`Save ${count}`"
+      :visible-label="`Save ${count}`"
+      @click="count++"
+    />
   </main>
 </template>
 ```
@@ -84,6 +70,6 @@ The `/unstyled` entry avoids automatic stylesheet insertion. The global CSS entr
 
 After `pnpm start`, inspect the document response for `Nuxt report` and its stylesheet link. In the browser, click **Save 0** and confirm it becomes **Save 1**. Reload to confirm the local counter resets. The console should contain no hydration errors.
 
-For your own app, preserve Nuxt's normal SSR configuration and import `SaveButton` into an existing page. If you opt into `ClientOnly`, keep CSS global so it remains in the server build.
+For your own app, preserve Nuxt's normal SSR configuration and import `SvgButton` into your existing page. If you opt into `ClientOnly`, keep CSS global so it remains in the server build.
 
 Read the [SSR overview](ssr.md), [Nuxt rendering modes](https://nuxt.com/docs/4.x/guide/concepts/rendering), and [Nuxt CSS configuration](https://nuxt.com/docs/4.x/getting-started/styling).

@@ -18,28 +18,37 @@ Open `http://localhost:4173`. The page renders in the browser. Click **Save 0** 
 
 ## Files to read
 
-| File                                                                                                            | Responsibility                                             |
-| --------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| [`package.json`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/lovable/package.json)               | Identifies the generated framework and installed versions. |
-| [`src/main.tsx`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/lovable/src/main.tsx)               | Loads the stylesheet and starts the legacy React/Vite app. |
-| [`src/save-button.tsx`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/lovable/src/save-button.tsx) | Contains the small Revo UI component.                      |
+| File                                                                                              | Responsibility                                             |
+| ------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| [`package.json`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/lovable/package.json) | Identifies the generated framework and installed versions. |
+| [`src/main.tsx`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/lovable/src/main.tsx) | Loads CSS and renders the page with its button count.      |
 
-## The small component
+## Use the button directly in the page
+
+The legacy React/Vite starter keeps the count and `SvgButton` in its existing `App` component:
 
 ```tsx
 import { useState } from 'react';
+import { createRoot } from 'react-dom/client';
 import { SvgButton } from '@revolist/ui/react/unstyled';
+import '@revolist/ui/styles/base.css';
 
-export function SaveButton() {
+function App() {
   const [count, setCount] = useState(0);
   return (
-    <SvgButton
-      label={`Save ${count}`}
-      visibleLabel={`Save ${count}`}
-      onClick={() => setCount((value) => value + 1)}
-    />
+    <main>
+      <h1>React/Vite report</h1>
+      <p>This legacy Lovable-style example renders in the browser.</p>
+      <SvgButton
+        label={`Save ${count}`}
+        visibleLabel={`Save ${count}`}
+        onClick={() => setCount((value) => value + 1)}
+      />
+    </main>
   );
 }
+
+createRoot(document.getElementById('root')!).render(<App />);
 ```
 
 ## Choose the matching setup
@@ -47,7 +56,7 @@ export function SaveButton() {
 | Generated project                                   | Guide to follow                                                                   |
 | --------------------------------------------------- | --------------------------------------------------------------------------------- |
 | `@tanstack/react-start` in `package.json`           | [TanStack Start](ssr-tanstack-start.md): keep its root route and stylesheet link. |
-| `vite` with `react-dom/client` and no SSR framework | The React/Vite example below: load CSS from `src/main.tsx`.                       |
+| `vite` with `react-dom/client` and no SSR framework | The React/Vite starter: load CSS from `src/main.tsx`.                             |
 
 Use the actual dependencies and entry files as the decision point. Do not infer the stack from a project's age alone. Keep Lovable's generated plugins, authentication, routes and backend integration.
 
@@ -55,8 +64,9 @@ Use the actual dependencies and entry files as the decision point. Do not infer 
 
 ```text
 Install @revolist/ui@4.0.23 using this project's package manager.
-Add a separate SaveButton.tsx using SvgButton from
-@revolist/ui/react/unstyled. Give it local count state, starting at 0.
+In the existing page or route, use the named import { SvgButton } from
+@revolist/ui/react/unstyled. Add local count state there, starting at 0.
+Render SvgButton directly in that page.
 Use matching label and visibleLabel values: Save 0, Save 1, etc.
 Load @revolist/ui/styles/base.css globally through this project's
 existing framework stylesheet entry. Preserve the current routes,

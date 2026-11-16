@@ -1,6 +1,6 @@
 # Next.js App Router and Revo UI
 
-The page remains a Server Component. Only the button needs a Client Component.
+Use SvgButton directly in the page. The server layout enables request-time rendering; the Client Component page owns the counter.
 
 ```sh
 pnpm install --frozen-lockfile

@@ -16,44 +16,60 @@ pnpm start
 
 Open `http://localhost:3000`. The heading is present in the initial server HTML. Click **Save 0** and it becomes **Save 1**. Reloading resets local state. For development, use `pnpm dev`.
 
-The starter explicitly uses Next.js's supported Webpack build (`next build --webpack`). With UI 4.0.23, the default Turbopack resolver also resolves the barrel's unused optional PDF dependency. Webpack builds this button-only example without installing PDF.js. The `force-dynamic` page setting makes this a request-time SSR example.
+The starter explicitly uses Next.js's supported Webpack build (`next build --webpack`). With UI 4.0.23, the default Turbopack resolver also resolves the barrel's unused optional PDF dependency. Webpack builds this small form example without installing PDF.js. The `force-dynamic` setting in the server layout makes this a request-time SSR example.
 
 ## Files to read
 
-| File                                                                                                                               | Responsibility                                          |
-| ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
-| [`app/layout.tsx`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/refine/app/layout.tsx)                               | Loads global UI CSS.                                    |
-| [`app/page.tsx`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/refine/app/page.tsx)                                   | Renders the heading and explanatory text on the server. |
-| [`app/report-editor.tsx`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/refine/app/report-editor.tsx)                 | Provides Refine context in a Client Component.          |
-| [`app/report-form.tsx`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/refine/app/report-form.tsx)                     | Owns a native text field and Revo UI submit button.     |
-| [`app/api/reports/[id]/route.ts`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/refine/app/api/reports/[id]/route.ts) | Validates a PATCH request and echoes the report.        |
+| File | Responsibility |
+| --- | --- |
+| [`app/layout.tsx`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/refine/app/layout.tsx) | Loads global CSS and enables request-time server rendering. |
+| [`app/page.tsx`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/refine/app/page.tsx) | Provides Refine context and renders the editable form with `SvgButton` directly. |
+| [`app/api/reports/[id]/route.ts`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/refine/app/api/reports/[id]/route.ts) | Validates a PATCH request and echoes the report. |
 
-## The small component
+## Use the component directly
+
+The page imports `SvgButton` directly. Its two functions share one file: `Page` supplies Refine context and `ReportForm` calls `useUpdate` inside that context. The hook must run in a descendant of the provider. No separate button or provider wrapper file is needed.
 
 ```tsx
+// app/page.tsx
 'use client';
 
 import { useState } from 'react';
-import { useUpdate } from '@refinedev/core';
+import { Refine, useUpdate } from '@refinedev/core';
+import dataProvider from '@refinedev/simple-rest';
 import { SvgButton } from '@revolist/ui/react/unstyled';
 
-export function ReportForm() {
+const provider = dataProvider('/api');
+
+export default function Page() {
+  return (
+    <Refine
+      dataProvider={provider}
+      resources={[{ name: 'reports' }]}
+      options={{ disableTelemetry: true }}
+    >
+      <main>
+        <h1>Refine report</h1>
+        <p>Edit one report with Refine and Revo UI.</p>
+        <ReportForm />
+      </main>
+    </Refine>
+  );
+}
+
+function ReportForm() {
   const [title, setTitle] = useState('Quarterly report');
   const [count, setCount] = useState(0);
   const { mutate, mutation } = useUpdate();
-
-  function save() {
-    mutate(
-      { resource: 'reports', id: 1, values: { title } },
-      { onSuccess: () => setCount((value) => value + 1) },
-    );
-  }
 
   return (
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        save();
+        mutate(
+          { resource: 'reports', id: 1, values: { title } },
+          { onSuccess: () => setCount((value) => value + 1) },
+        );
       }}
     >
       <label>
@@ -79,35 +95,11 @@ export function ReportForm() {
 }
 ```
 
-## Keep the provider separate
-
-```tsx
-'use client';
-
-import { Refine } from '@refinedev/core';
-import dataProvider from '@refinedev/simple-rest';
-import { ReportForm } from './report-form';
-
-const provider = dataProvider('/api');
-
-export function ReportEditor() {
-  return (
-    <Refine
-      dataProvider={provider}
-      resources={[{ name: 'reports' }]}
-      options={{ disableTelemetry: true }}
-    >
-      <ReportForm />
-    </Refine>
-  );
-}
-```
-
 The submit button uses `type="submit"`, so clicking it and pressing Enter in the input follow the same form handler. The count advances only when Refine's update succeeds. An error leaves the form available to retry.
 
 The local PATCH route validates and returns the submitted title. **It does not persist changes.** Reloading resets the example. Replace that route with your authenticated API to store real reports; keep credentials and authorization on the server.
 
-The server renders the title and native input. The Revo UI submit button mounts in the browser. Refine's provider and hooks belong in the Client Component subtree; adding Refine does not server-render the underlying UI control.
+The server renders the title and native input. The Revo UI submit button mounts in the browser. Next.js still prerenders this Client Component page on the server. The client boundary enables its state and event handlers; it does not disable SSR. Adding Refine does not server-render the underlying UI control.
 
 ## Styles and rendering
 

@@ -1,6 +1,6 @@
 # Astro and Revo UI
 
-Render the page with Astro and hydrate one small Vue island for the interactive Revo UI control. This example uses Astro's Node adapter for request-time server rendering.
+Render the page with Astro and hydrate one small Vue island for the interactive Revo UI control. The island file owns reactive state and the click handler; Astro pages cannot serialize an event-handler function into an island. This example uses Astro's Node adapter for request-time server rendering.
 
 [Open the complete starter](https://github.com/revolist/revo-ui/tree/main/examples/ssr/astro).
 

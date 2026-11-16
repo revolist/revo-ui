@@ -23,26 +23,31 @@ Open `http://localhost:3000`. The heading is present in the initial server HTML.
 | [`vite.config.ts`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/react-router/vite.config.ts)           | Enables the framework build.                              |
 | [`app/routes.ts`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/react-router/app/routes.ts)             | Registers the index route.                                |
 | [`app/root.tsx`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/react-router/app/root.tsx)               | Loads UI CSS and includes the framework document helpers. |
-| [`app/routes/home.tsx`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/react-router/app/routes/home.tsx) | Loads data and renders the page.                          |
-| [`app/save-button.tsx`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/react-router/app/save-button.tsx) | Owns the interactive control.                             |
+| [`app/routes/home.tsx`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/react-router/app/routes/home.tsx) | Loads data, renders the page and owns the button count.   |
 
-## The small component
+## Use the button directly in the route
 
 ```tsx
+import { useState } from 'react';
 import { useLoaderData } from 'react-router';
-import { SaveButton } from '../save-button';
+import { SvgButton } from '@revolist/ui/react/unstyled';
 
 export function loader() {
   return { title: 'React Router report' };
 }
 
 export default function Home() {
+  const [count, setCount] = useState(0);
   const { title } = useLoaderData<typeof loader>();
   return (
     <main>
       <h1>{title}</h1>
       <p>This title comes from the server loader.</p>
-      <SaveButton />
+      <SvgButton
+        label={`Save ${count}`}
+        visibleLabel={`Save ${count}`}
+        onClick={() => setCount((value) => value + 1)}
+      />
     </main>
   );
 }
@@ -50,7 +55,7 @@ export default function Home() {
 
 ## Keep page content server rendered
 
-The loader runs on the server. On a direct request, its title is already in the HTML response. `SaveButton` uses local React state, without a `'use client'` directive: this example uses ordinary framework SSR rather than React Server Components.
+The loader runs on the server. On a direct request, its title is already in the HTML response. The route uses local React state, without a `'use client'` directive: this example uses ordinary framework SSR rather than React Server Components.
 
 Keep `<Links />`, `<Scripts />` and `<ScrollRestoration />` in the document. The framework uses them for styles, hydration and navigation.
 

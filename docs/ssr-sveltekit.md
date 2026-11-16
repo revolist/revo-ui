@@ -1,6 +1,6 @@
 # SvelteKit and Revo UI
 
-Load page data on the server and keep the interactive control in a small Svelte component. SvelteKit SSR stays enabled; Revo UI's adapter handles browser mounting.
+Load page data on the server and render the interactive control directly in the page. SvelteKit SSR stays enabled; Revo UI's adapter handles browser mounting.
 
 [Open the complete starter](https://github.com/revolist/revo-ui/tree/main/examples/ssr/sveltekit).
 
@@ -22,19 +22,18 @@ Open `http://localhost:3000`. The starter pins SvelteKit 3.2.0, Svelte 5.57.3 an
 
 ## Keep each file focused
 
-| File                         | Responsibility                          |
-| ---------------------------- | --------------------------------------- |
-| `src/routes/+page.server.ts` | Supply the page title from the server.  |
-| `src/routes/+layout.svelte`  | Load global CSS and render child pages. |
-| `src/routes/+page.svelte`    | Display the server data and the button. |
-| `src/lib/SaveButton.svelte`  | Own the local click counter.            |
+| File                         | Responsibility                                     |
+| ---------------------------- | -------------------------------------------------- |
+| `src/routes/+page.server.ts` | Supply the page title from the server.             |
+| `src/routes/+layout.svelte`  | Load global CSS and render child pages.            |
+| `src/routes/+page.svelte`    | Display the server data and own the local counter. |
 
 The server loader returns a plain serializable value:
 
 ```ts
 // src/routes/+page.server.ts
 export function load() {
-  return { title: "SvelteKit report" };
+  return { title: 'SvelteKit report' };
 }
 ```
 
@@ -50,35 +49,24 @@ Include CSS once in the root layout:
 {@render children()}
 ```
 
-Keep the counter local to the component:
-
-```svelte
-<!-- src/lib/SaveButton.svelte -->
-<script lang="ts">
-  import { SvgButton } from '@revolist/ui/svelte/svg-button/unstyled';
-  let count = $state(0);
-</script>
-
-<SvgButton
-  label={`Save ${count}`}
-  visibleLabel={`Save ${count}`}
-  onClick={() => { count += 1; }}
-/>
-```
-
-Place it beside the server-rendered content:
+Use the control directly beside the server-rendered content:
 
 ```svelte
 <!-- src/routes/+page.svelte -->
 <script lang="ts">
-  import SaveButton from '../lib/SaveButton.svelte';
+  import { SvgButton } from '@revolist/ui/svelte/svg-button/unstyled';
   let { data } = $props();
+  let count = $state(0);
 </script>
 
 <main>
   <h1>{data.title}</h1>
   <p>This title comes from a server load function.</p>
-  <SaveButton />
+  <SvgButton
+    label={`Save ${count}`}
+    visibleLabel={`Save ${count}`}
+    onClick={() => { count += 1; }}
+  />
 </main>
 ```
 

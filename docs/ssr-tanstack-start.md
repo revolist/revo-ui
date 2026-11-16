@@ -18,15 +18,54 @@ Open `http://localhost:3000`. The heading is present in the initial server HTML.
 
 ## Files to read
 
-| File                                                                                                                       | Responsibility                                                  |
-| -------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
-| [`vite.config.ts`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/tanstack-start/vite.config.ts)               | Enables Start, a Node server build through Nitro, and React.    |
-| [`src/router.tsx`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/tanstack-start/src/router.tsx)               | Creates a fresh router.                                         |
-| [`src/routes/__root.tsx`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/tanstack-start/src/routes/__root.tsx) | Renders the document and links the extracted UI stylesheet.     |
-| [`src/routes/index.tsx`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/tanstack-start/src/routes/index.tsx)   | Loads the title through a server function and renders the page. |
-| [`src/save-button.tsx`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/tanstack-start/src/save-button.tsx)     | Owns the interactive control.                                   |
+| File                                                                                                                       | Responsibility                                               |
+| -------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| [`vite.config.ts`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/tanstack-start/vite.config.ts)               | Enables Start, a Node server build through Nitro, and React. |
+| [`src/router.tsx`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/tanstack-start/src/router.tsx)               | Creates a fresh router.                                      |
+| [`src/routes/__root.tsx`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/tanstack-start/src/routes/__root.tsx) | Renders the document and links the extracted UI stylesheet.  |
+| [`src/routes/index.tsx`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/tanstack-start/src/routes/index.tsx)   | Loads the title and renders the page with its button count.  |
 
-## The small component
+## Use the button directly in the route
+
+`createServerFn` keeps the report function on the server. The route loader calls it for the initial request and framework navigation. The same route component owns the button's local count:
+
+```tsx
+import { useState } from 'react';
+import { createFileRoute } from '@tanstack/react-router';
+import { createServerFn } from '@tanstack/react-start';
+import { SvgButton } from '@revolist/ui/react/unstyled';
+
+const getReport = createServerFn().handler(() => ({
+  title: 'TanStack Start report',
+}));
+
+export const Route = createFileRoute('/')({
+  loader: () => getReport(),
+  component: Home,
+});
+
+function Home() {
+  const [count, setCount] = useState(0);
+  const report = Route.useLoaderData();
+  return (
+    <main>
+      <h1>{report.title}</h1>
+      <p>This title comes from a server function.</p>
+      <SvgButton
+        label={`Save ${count}`}
+        visibleLabel={`Save ${count}`}
+        onClick={() => setCount((value) => value + 1)}
+      />
+    </main>
+  );
+}
+```
+
+The example returns one fixed title. Replace the server function body with your server data access when needed.
+
+## Load CSS in the root route
+
+The `?url` import gives the root route an emitted CSS URL. `HeadContent` writes its stylesheet link into the server response:
 
 ```tsx
 import {
@@ -59,41 +98,7 @@ function Root() {
 }
 ```
 
-## Load data through a server function
-
-`createServerFn` keeps the report function on the server. The route loader calls it for the initial request and for framework navigation. This sample returns one fixed title; replace that function body with your server data access when needed.
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router';
-import { createServerFn } from '@tanstack/react-start';
-import { SaveButton } from '../save-button';
-
-const getReport = createServerFn().handler(() => ({
-  title: 'TanStack Start report',
-}));
-
-export const Route = createFileRoute('/')({
-  loader: () => getReport(),
-  component: Home,
-});
-
-function Home() {
-  const report = Route.useLoaderData();
-  return (
-    <main>
-      <h1>{report.title}</h1>
-      <p>This title comes from a server function.</p>
-      <SaveButton />
-    </main>
-  );
-}
-```
-
-## Use the framework stylesheet link
-
-The `?url` import gives the root route an emitted CSS URL. `HeadContent` writes its stylesheet link into the server response. The Start plugin generates `src/routeTree.gen.ts`; do not edit that file.
-
-The example uses Nitro's Node server output. Its start command runs `.output/server/index.mjs`; a different hosting platform needs its own deployment adapter. There is no database or server mutation in the button example.
+Start generates `src/routeTree.gen.ts`; do not edit that file. The example uses Nitro's Node server output. Its start command runs `.output/server/index.mjs`; a different hosting platform needs its own deployment adapter. The button changes local state and does not save data remotely.
 
 ## Styles and rendering
 

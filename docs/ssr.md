@@ -6,7 +6,7 @@ Keep your page content on the server and use Revo UI for small interactive contr
 
 | Framework or integration                | What you will build                                               |
 | --------------------------------------- | ----------------------------------------------------------------- |
-| [Next.js App Router](ssr-nextjs.md)     | A Server Component page and a small interactive Client Component. |
+| [Next.js App Router](ssr-nextjs.md)     | A server-rendered page using the button directly. |
 | [Nuxt](ssr-nuxt.md)                     | A server-rendered page with a Vue control.                        |
 | [SvelteKit](ssr-sveltekit.md)           | A server-rendered page and a Svelte control.                      |
 | [Astro](ssr-astro.md)                   | Server-rendered content with an interactive island.               |

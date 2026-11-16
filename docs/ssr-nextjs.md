@@ -1,6 +1,6 @@
 # Next.js App Router and Revo UI
 
-The page remains a Server Component. Only the button needs a Client Component.
+Import `SvgButton` directly in the page and keep its count state there. The server layout loads CSS and enables request-time rendering.
 
 ## Run the example
 
@@ -16,17 +16,18 @@ pnpm start
 
 Open `http://localhost:3000`. The heading is present in the initial server HTML. Click **Save 0** and it becomes **Save 1**. Reloading resets local state. For development, use `pnpm dev`.
 
-The starter explicitly uses Next.js's supported Webpack build (`next build --webpack`). With UI 4.0.23, the default Turbopack resolver also resolves the barrel's unused optional PDF dependency. Webpack builds this button-only example without installing PDF.js. The `force-dynamic` page setting makes this a request-time SSR example.
+The starter explicitly uses Next.js's supported Webpack build (`next build --webpack`). With UI 4.0.23, the default Turbopack resolver also resolves the barrel's unused optional PDF dependency. Webpack builds this button-only example without installing PDF.js. The server layout's `force-dynamic` setting makes this a request-time SSR example.
 
 ## Files to read
 
-| File                                                                                                           | Responsibility                                         |
-| -------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
-| [`app/layout.tsx`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/nextjs/app/layout.tsx)           | Loads the global UI CSS and renders the HTML document. |
-| [`app/page.tsx`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/nextjs/app/page.tsx)               | Renders the heading and text on the server.            |
-| [`app/save-button.tsx`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/nextjs/app/save-button.tsx) | Owns the button and browser state.                     |
+| File                                                                                                 | Responsibility                                                       |
+| ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| [`app/layout.tsx`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/nextjs/app/layout.tsx) | Loads global CSS, enables request-time SSR and renders the document. |
+| [`app/page.tsx`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/nextjs/app/page.tsx)     | Renders the page and owns the button count.                          |
 
-## The small component
+## Use the button directly in the page
+
+`app/page.tsx` contains the page, count state and button:
 
 ```tsx
 'use client';
@@ -34,37 +35,42 @@ The starter explicitly uses Next.js's supported Webpack build (`next build --web
 import { useState } from 'react';
 import { SvgButton } from '@revolist/ui/react/unstyled';
 
-export function SaveButton() {
-  const [count, setCount] = useState(0);
-  return (
-    <SvgButton
-      label={`Save ${count}`}
-      visibleLabel={`Save ${count}`}
-      onClick={() => setCount((value) => value + 1)}
-    />
-  );
-}
-```
-
-## Keep the server page small
-
-```tsx
-import { SaveButton } from './save-button';
-
-export const dynamic = 'force-dynamic';
-
 export default function Page() {
+  const [count, setCount] = useState(0);
   return (
     <main>
       <h1>Next.js report</h1>
       <p>This text is rendered on the server.</p>
-      <SaveButton />
+      <SvgButton
+        label={`Save ${count}`}
+        visibleLabel={`Save ${count}`}
+        onClick={() => setCount((value) => value + 1)}
+      />
     </main>
   );
 }
 ```
 
-The `'use client'` directive belongs at the top of `save-button.tsx`. Keep event handlers there and pass serializable data from the server page. You do not need `dynamic(..., { ssr: false })`, a mounted flag, or an application effect.
+## Keep the layout on the server
+
+`app/layout.tsx` loads the stylesheet once and enables request-time rendering:
+
+```tsx
+import type { ReactNode } from 'react';
+import '@revolist/ui/styles/base.css';
+
+export const dynamic = 'force-dynamic';
+
+export default function Layout({ children }: { children: ReactNode }) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+`'use client'` enables the page's state and click handler. Next.js still renders its initial heading and text on the server. The server layout owns the rendering configuration; no mounted flag or application effect is needed.
 
 ## Styles and rendering
 
