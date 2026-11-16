@@ -2205,6 +2205,7 @@ body {
 
 @media (max-width: 760px) {
   .catalog-framework-sidebar { display: block; position: static; height: auto; border-inline-end: 0; }
+  .catalog-framework-sidebar nav { display: grid; gap: 24px; }
   .catalog-framework-sidebar .catalog-nav-group { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 0; }
   .catalog-framework-sidebar .catalog-nav-group > p { width: 100%; }
 }

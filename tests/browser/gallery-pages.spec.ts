@@ -618,6 +618,102 @@ test('framework guide covers supported adapters and works on mobile', async ({
   await expect(page.locator('#svelte pre')).toBeHidden();
 });
 
+for (const width of [1280, 390]) {
+  for (const theme of ['light', 'dark']) {
+    test(`documentation categories keep every guide accessible at ${width}px in ${theme}`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.addInitScript(
+        (value) => localStorage.setItem('revo-ui-theme', value),
+        theme,
+      );
+      await page.goto('/frameworks/');
+      const navigation = page.getByRole('navigation', {
+        name: 'Documentation navigation',
+      });
+      const categories = {
+        Essentials: [
+          'Getting started',
+          'JavaScript / CDN',
+          'Bundle size',
+          'Accessibility',
+        ],
+        'Framework adapters': [
+          'React',
+          'Vue',
+          'Angular',
+          'Svelte',
+          'Preact',
+          'Vanilla TypeScript',
+        ],
+        'Server rendering': [
+          'SSR',
+          'Next.js SSR',
+          'Nuxt SSR',
+          'SvelteKit SSR',
+          'Astro SSR',
+          'Angular SSR',
+          'React Router SSR',
+          'TanStack Start SSR',
+          'NestJS',
+        ],
+        Integrations: ['Refine', 'Lovable'],
+      };
+      await expect(navigation.getByRole('group')).toHaveCount(4);
+      for (const [category, links] of Object.entries(categories)) {
+        await expect(
+          navigation
+            .getByRole('group', { name: category, exact: true })
+            .getByRole('link'),
+        ).toHaveText(links);
+      }
+      await expect(navigation.getByRole('link')).toHaveCount(21);
+      await navigation
+        .getByRole('link', { name: 'Next.js SSR', exact: true })
+        .click();
+      await expect(
+        navigation.getByRole('link', { name: 'Next.js SSR', exact: true }),
+      ).toHaveAttribute('aria-current', 'page');
+      await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+        'Next.js App Router and Revo UI',
+      );
+      await navigation
+        .getByRole('link', { name: 'Refine', exact: true })
+        .click();
+      await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+        'Refine and Revo UI',
+      );
+      await expect(navigation.locator('[aria-current="page"]')).toHaveText(
+        'Refine',
+      );
+      if (width === 390) {
+        const groups = await navigation
+          .getByRole('group')
+          .evaluateAll((elements) =>
+            elements.map((element) => {
+              const bounds = element.getBoundingClientRect();
+              return { top: bounds.top, bottom: bounds.bottom };
+            }),
+          );
+        for (let index = 1; index < groups.length; index++) {
+          expect(
+            groups[index].top - groups[index - 1].bottom,
+          ).toBeGreaterThanOrEqual(20);
+        }
+        await page.getByRole('button', { name: 'More gallery options' }).click();
+        await page
+          .getByRole('switch', { name: 'Right to left', exact: true })
+          .click();
+        await expect(page.locator('main')).toHaveAttribute('dir', 'rtl');
+      }
+      expect(
+        await page.evaluate(() => document.documentElement.scrollWidth),
+      ).toBeLessThanOrEqual(width);
+    });
+  }
+}
+
 test('overview introduces frameworks and links to adapter pages', async ({
   page,
 }) => {
