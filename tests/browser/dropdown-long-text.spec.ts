@@ -89,6 +89,20 @@ for (const width of [280, 320, 390, 1280]) {
       const triggerBounds = (await trigger.boundingBox())!;
       expect(triggerBounds.width).toBeLessThanOrEqual(width - 32);
       expect(triggerBounds.height).toBeLessThanOrEqual(70);
+      if (mode === 'single') {
+        const label = page.locator('.selected-value > span');
+        await expect(label).toHaveCount(1);
+        await expect(label).toHaveText(token);
+        await expect(label).toHaveCSS('text-overflow', 'ellipsis');
+        expect(
+          await label.evaluate(
+            (element) => element.scrollWidth - element.clientWidth,
+          ),
+        ).toBeGreaterThan(0);
+        expect((await label.boundingBox())!.width).toBeLessThan(
+          triggerBounds.width,
+        );
+      }
       if (mode !== 'single') {
         const remove = page.getByRole('button', {
           name: `Remove ${token}`,
