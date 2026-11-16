@@ -41,11 +41,13 @@ export function getPopupCoordinates(
     offsetParent === document.body ||
     offsetParent === document.documentElement
   ) {
+    const zoom = popup.currentCSSZoom;
+    const scale = Number.isFinite(zoom) && zoom > 0 ? zoom : 1;
     return {
-      top: viewportTop + ownerWindow.scrollY,
-      left: viewportLeft + ownerWindow.scrollX,
-      scaleX: 1,
-      scaleY: 1,
+      top: (viewportTop + ownerWindow.scrollY) / scale,
+      left: (viewportLeft + ownerWindow.scrollX) / scale,
+      scaleX: scale,
+      scaleY: scale,
     };
   }
 

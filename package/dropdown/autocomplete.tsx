@@ -43,7 +43,7 @@ export function AutocompleteDropdown<T>(props: DropdownProps<T>) {
   );
   const input = useRef<HTMLInputElement>(null);
   const list = useRef<HTMLUListElement>(null);
-  const revealActive = useRef(false);
+  const revealActive = useRef(true);
   const tooltips = useSelectionListTooltips();
   const [generatedId] = useState(
     () => `dropdown-${Math.random().toString(36).slice(2, 9)}`,
@@ -139,6 +139,7 @@ export function AutocompleteDropdown<T>(props: DropdownProps<T>) {
   const selectedLabel = service.selectedOptions[0]?.label ?? '';
   const openInput = (query = multiSelect ? '' : selectedLabel) => {
     if (disabled || openRef.current) return;
+    revealActive.current = true;
     initialQuery.current = query;
     service.setSearchQuery(query);
     openRef.current = true;
@@ -154,7 +155,7 @@ export function AutocompleteDropdown<T>(props: DropdownProps<T>) {
     if (open && !disabled) input.current?.focus({ preventScroll: true });
   }, [open, disabled]);
   useLayoutEffect(() => {
-    if (!revealActive.current) return;
+    if (!revealActive.current || !open || !activeId) return;
     revealActive.current = false;
     revealDropdownOption(list.current, activeId);
   });

@@ -113,7 +113,9 @@ revo-grid,
     justify-content: flex-start;
     align-items: center;
     min-width: 0;
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
     padding-inline-start: 5px;
     padding-inline-end: var(--rv-dropdown-value-right-space);
   }
@@ -150,9 +152,19 @@ revo-grid,
     padding: 2px 6px;
     padding-inline-end: 0;
     font-size: 14px;
+    min-width: min(100%, 80px);
+    max-width: 100%;
+
+    > .selected-tag-label {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
 
     // Custom tag palettes also own the remove glyph's foreground.
     > button.rv-remove-button {
+      flex: 0 0 auto;
       color: inherit;
     }
   }
@@ -172,6 +184,7 @@ revo-grid,
 }
 
 .revo-dropdown-menu {
+  box-sizing: border-box;
   --rv-dropdown-menu-background: var(--rv-ui-surface-elevated);
   --rv-dropdown-menu-border: var(--rv-ui-border);
   --rv-dropdown-menu-box-shadow: 0 12px 32px var(--rv-ui-shadow);
@@ -181,9 +194,8 @@ revo-grid,
 
   --rv-dropdown-menu-search-border: var(--rv-ui-border);
   --rv-dropdown-menu-min-width: 184px;
-  --rv-dropdown-menu-max-width: 300px;
-  --rv-dropdown-menu-max-height: 300px;
-  --rv-dropdown-menu-options-max-height: 250px;
+  --rv-dropdown-menu-max-height: min(70dvh, 640px);
+  --rv-dropdown-menu-options-max-height: none;
 
   [data-theme='dark'] &,
   &[data-theme^='dark'],
@@ -203,7 +215,7 @@ revo-grid,
   display: none;
   z-index: 1000;
   min-width: var(--rv-dropdown-menu-min-width);
-  max-width: var(--rv-dropdown-menu-max-width);
+  max-width: var(--rv-dropdown-menu-max-width, 300px);
   max-height: var(--rv-dropdown-menu-max-height);
   background-color: var(--rv-dropdown-menu-background);
   border: 1px solid var(--rv-dropdown-menu-border);
@@ -215,6 +227,10 @@ revo-grid,
   transform-origin: top left;
   animation: revoDropdownMenuIn var(--rv-ui-motion-enter, 180ms)
     var(--rv-ui-motion-ease, ease-out);
+
+  &[data-rv-match-trigger-width] {
+    max-width: var(--rv-dropdown-menu-max-width, none);
+  }
 
   .dropdown-listbox {
     display: flex;
@@ -257,6 +273,8 @@ revo-grid,
       box-sizing: border-box;
       display: flex;
       min-height: 38px;
+      min-width: 0;
+      overflow-wrap: anywhere;
       align-items: center;
       border-radius: 8px;
       color: var(--rv-dropdown-menu-option-color);
@@ -295,9 +313,20 @@ revo-grid,
 
     .option-content {
       @include flex-center;
+      align-items: flex-start;
       gap: 8px;
       width: 100%;
       min-width: 0;
+
+      > span {
+        min-width: 0;
+        overflow-wrap: anywhere;
+      }
+
+      > input[type='checkbox'] {
+        flex: 0 0 auto;
+        margin-block: 2px 0;
+      }
     }
     .no-results {
       padding: 12px;

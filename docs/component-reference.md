@@ -354,6 +354,13 @@ field automatically and preserves the option's value type. Return `null` or
 The editable input displays a selected option's plain text label. Custom
 `renderOption` content and multi-select `renderValue` chips remain supported.
 
+Long option labels wrap inside the scrollable menu; selected chip labels truncate
+while their remove buttons and editable input remain usable. Menus can grow to
+70% of the device viewport, up to 640px, and shrink to the visible space above
+the keyboard. Use `config.maxHeight` for a smaller pixel cap, or override
+`--rv-dropdown-menu-max-height` and `--rv-dropdown-menu-options-max-height` for
+a themed limit.
+
 
 ## Advanced slider
 

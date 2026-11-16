@@ -59,3 +59,17 @@ it('falls back to the layout viewport when visualViewport is unavailable', () =>
     bottom: window.innerHeight,
   });
 });
+
+it('converts document portal coordinates under inherited CSS zoom', () => {
+  const popup = document.body.appendChild(document.createElement('div'));
+  popup.style.position = 'absolute';
+  Object.defineProperty(popup, 'currentCSSZoom', { value: 2 });
+  vi.spyOn(window, 'scrollY', 'get').mockReturnValue(500);
+  vi.spyOn(window, 'scrollX', 'get').mockReturnValue(120);
+  expect(applyPopupPosition(popup, { top: 240, left: 80 })).toMatchObject({
+    top: 370,
+    left: 100,
+    scaleX: 2,
+    scaleY: 2,
+  });
+});

@@ -29,7 +29,9 @@ export const MultiselectValue = ({
     <div className={`selected-values ${className}`}>
       {options.map((option, index) => (
         <span key={index} className="selected-tag">
-          {renderValue ? renderValue(h, option) : option.label}
+          <span className="selected-tag-label">
+            {renderValue ? renderValue(h, option) : option.label}
+          </span>
           {!disabled && !option.disabled && (
             <RemoveButton
               compact

@@ -138,7 +138,7 @@ export function useDropdownService<T = any>(
     setSearchValue(initialSearch);
   }, [initialSearch]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!filteredOptions.length) {
       setFocusedIndex(-1);
       return;
