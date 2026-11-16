@@ -1,31 +1,8 @@
 name: SSR examples
 
 on:
-  pull_request:
-    paths:
-      - "examples/ssr/**"
-      - "package/**"
-      - "package.json"
-      - "pnpm-lock.yaml"
-      - "vite.config.ts"
-      - "scripts/build-public.mjs"
-      - "scripts/generate-*.mjs"
-      - "docs/ssr*.md"
-      - "docs/integration-*.md"
-      - "scripts/verify-ssr-example.mjs"
-      - ".github/workflows/ssr-examples.yml"
-  push:
-    branches: [main]
-    paths:
-      - "examples/ssr/**"
-      - "package/**"
-      - "package.json"
-      - "pnpm-lock.yaml"
-      - "vite.config.ts"
-      - "scripts/build-public.mjs"
-      - "scripts/generate-*.mjs"
-      - "scripts/verify-ssr-example.mjs"
-      - ".github/workflows/ssr-examples.yml"
+  schedule:
+    - cron: "0 3 * * *"
   workflow_dispatch:
 
 permissions:

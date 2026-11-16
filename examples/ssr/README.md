@@ -30,7 +30,7 @@ Follow the folder README for its address and any framework-specific commands. SS
 
 ## Verification
 
-The `SSR examples` workflow installs and builds every starter independently, checks its types, starts the production server, and verifies the server heading and browser interaction. The legacy Lovable starter's build includes its TypeScript check and skips the server-heading assertion.
+The `SSR examples` workflow runs once daily at 03:00 UTC (or manually), rather than on pull requests or merges. It installs and builds every starter independently, checks its types, starts the production server, and verifies the server heading and browser interaction. The legacy Lovable starter's build includes its TypeScript check and skips the server-heading assertion.
 
 To run the same browser check locally, install the gallery's dependencies and Chromium, start one starter's production server, then run from the repository root:
 
