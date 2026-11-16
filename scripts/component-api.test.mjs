@@ -235,3 +235,20 @@ test('registered Select preserves documented value and selection contracts', () 
     ),
   );
 });
+
+test('date/time APIs use their field family as canonical and also expose time pickers', () => {
+  for (const name of ['DateTimeField', 'TemporalPicker', 'TemporalDraft']) {
+    assert.deepEqual(component(name).families, [
+      'Date and time fields',
+      'Time pickers',
+    ]);
+    const reference = readFileSync(
+      resolve(gallery, `docs/api/${name}.md`),
+      'utf8',
+    );
+    assert.match(
+      reference,
+      /\[Live examples and formatted usage\]\(https:\/\/ui\.rv-grid\.com\/components\/date-and-time-fields\/\)/,
+    );
+  }
+});

@@ -1,7 +1,7 @@
 import { chooseOption } from './choose-option';
 import { expect, test } from './gallery-test';
 
-test.use({ gallerySections: ['calendar-and-dates'] });
+test.use({ gallerySections: ['time-pickers'] });
 
 for (const width of [1280, 390])
   for (const theme of ['light', 'dark']) {

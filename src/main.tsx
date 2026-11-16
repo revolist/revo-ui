@@ -560,7 +560,6 @@ function App() {
         </Example>
 
         <CalendarExamples />
-        <SharedEditorExamples />
         <Example title="Date pickers">
           <DatePicker
             label="Due date"
@@ -589,15 +588,22 @@ function App() {
             onChange={setDateRange}
           />
         </Example>
+      </Section>
+      <Section title="Time pickers">
+        <Example title="Time field">
+          <DateTimeField aria-label="Time field" kind="time" value={fieldTime} onValueChange={setFieldTime}
+            picker={{ timeFormat: '24h', text: { chooseTime: 'Choose field time' } }} />
+        </Example>
+        <TimePickerExamples />
+      </Section>
+      <Section title="Date and time fields">
         <Example title="Date and time fields">
           <DateTimeField aria-label="Date field" value={fieldDate} onValueChange={setFieldDate}
             picker={{ text: { chooseDate: 'Choose field date' } }} />
-          <DateTimeField aria-label="Time field" kind="time" value={fieldTime} onValueChange={setFieldTime}
-            picker={{ timeFormat: '24h', text: { chooseTime: 'Choose field time' } }} />
           <DateTimeField aria-label="Date and time field" kind="datetime" value={fieldDateTime} onValueChange={setFieldDateTime}
             picker={{ timeFormat: '24h', text: { chooseDate: 'Choose field date and time' } }} />
         </Example>
-        <TimePickerExamples />
+        <SharedEditorExamples />
       </Section>
       <Section title="Duration and effort">
         <DurationEffortExample />

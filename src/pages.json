@@ -69,8 +69,20 @@
     {
       "title": "Calendar and dates",
       "group": "Pickers",
-      "description": "Independent calendars, date inputs, date ranges and time pickers.",
-      "keywords": "date time datetime calendar picker range"
+      "description": "Calendar views, date selection and date ranges.",
+      "keywords": "date calendar picker range multiple presets week month year"
+    },
+    {
+      "title": "Time pickers",
+      "group": "Pickers",
+      "description": "Time-only fields, business hours, seconds and 12/24-hour pickers.",
+      "keywords": "time picker hours minutes seconds am pm clock confirmation"
+    },
+    {
+      "title": "Date and time fields",
+      "group": "Pickers",
+      "description": "DateTimeField inputs and configurable date/time editor compositions.",
+      "keywords": "date datetime field temporal editor input format calendar time range multiple"
     },
     {
       "title": "Duration and effort",

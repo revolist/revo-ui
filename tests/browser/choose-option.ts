@@ -8,20 +8,25 @@ export async function chooseOption(
   const options = control
     .page()
     .getByRole('button', { name: 'More gallery options', exact: true });
-  if (await options.isVisible()) {
-    // The media-query state follows the viewport change on the next render.
-    await expect(options).toHaveAttribute('aria-expanded', /^(true|false)$/);
-    if ((await options.getAttribute('aria-expanded')) === 'false') {
-      // Closing disclosure motion briefly leaves its controls visible.
-      await expect(
-        control.page().locator('.gallery-settings-content'),
-      ).toBeHidden();
-      if (!(await control.isVisible())) {
-        await options.click();
-        await expect(options).toHaveAttribute('aria-expanded', 'true');
+  // A prerendered header can be replaced while its mobile disclosure mounts.
+  // Retry opening the disclosure rather than waiting forever on a hidden role.
+  await expect(async () => {
+    if (await options.isVisible()) {
+      // The media-query state follows the viewport change on the next render.
+      await expect(options).toHaveAttribute('aria-expanded', /^(true|false)$/);
+      if ((await options.getAttribute('aria-expanded')) === 'false') {
+        // Closing disclosure motion briefly leaves its controls visible.
+        await expect(
+          control.page().locator('.gallery-settings-content'),
+        ).toBeHidden();
+        if (!(await control.isVisible())) {
+          await options.click();
+          await expect(options).toHaveAttribute('aria-expanded', 'true');
+        }
       }
     }
-  }
+    expect(await control.isVisible()).toBe(true);
+  }).toPass({ timeout: 5000 });
   if (
     (await control.getAttribute('aria-label')) === 'Theme' &&
     (await control.getAttribute('aria-pressed')) !== null

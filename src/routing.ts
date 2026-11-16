@@ -37,19 +37,28 @@ export function redirectLegacyRoute() {
     let target: string | undefined;
     const [kind, component] = pathParts();
     const alias = kind === 'components' ? component : !kind ? hash : '';
+    const movedExample =
+      kind === 'components' && hash.startsWith('example-')
+        ? examples.find((example) => example.id === hash.slice(8))
+        : undefined;
     const legacy = Object.hasOwn(componentAliases, alias)
       ? (componentAliases as Record<string, string>)[alias]
       : undefined;
     if (legacy) {
       const [route, defaultAnchor] = legacy.split('#');
       const anchor = kind === 'components' ? hash : '';
-      const movedExample = anchor.startsWith('example-')
-        ? examples.find((example) => example.id === anchor.slice(8))
-        : undefined;
       target = componentHref(
         movedExample?.family ? slug(movedExample.family) : route,
       );
       if (anchor || defaultAnchor) target += `#${anchor || defaultAnchor}`;
+    }
+    if (
+      !legacy &&
+      movedExample?.family &&
+      pages.components.some((page) => slug(page.title) === component) &&
+      slug(movedExample.family) !== component
+    ) {
+      target = `${componentHref(slug(movedExample.family))}#${hash}`;
     }
     const overview =
       (pathParts()[0] === 'frameworks' && !pathParts()[1]) ||
