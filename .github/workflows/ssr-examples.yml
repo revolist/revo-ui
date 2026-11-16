@@ -1,0 +1,84 @@
+name: SSR examples
+
+on:
+  pull_request:
+    paths:
+      - "examples/ssr/**"
+      - "docs/ssr*.md"
+      - "docs/integration-*.md"
+      - "scripts/verify-ssr-example.mjs"
+      - ".github/workflows/ssr-examples.yml"
+  push:
+    branches: [main]
+    paths:
+      - "examples/ssr/**"
+      - "scripts/verify-ssr-example.mjs"
+      - ".github/workflows/ssr-examples.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  example:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        starter:
+          [
+            nextjs,
+            nuxt,
+            sveltekit,
+            astro,
+            angular,
+            react-router,
+            tanstack-start,
+            nestjs,
+            refine,
+            lovable,
+          ]
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.25.0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24.22.1
+          package-manager-cache: false
+      - name: Install verification tools
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm exec playwright install --with-deps chromium
+      - name: Install and build the independent starter
+        working-directory: examples/ssr/${{ matrix.starter }}
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm build
+      - name: Check types
+        if: matrix.starter != 'lovable'
+        working-directory: examples/ssr/${{ matrix.starter }}
+        run: pnpm check
+      - name: Verify production server and browser interaction
+        env:
+          STARTER: ${{ matrix.starter }}
+          PORT: "3000"
+          HOST: "127.0.0.1"
+          ORIGIN: "http://127.0.0.1:3000"
+        run: |
+          pnpm --dir "examples/ssr/$STARTER" start > /tmp/starter.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true; cat /tmp/starter.log' EXIT
+          url=http://127.0.0.1:3000
+          mode=
+          if [ "$STARTER" = lovable ]; then
+            url=http://127.0.0.1:4173
+            mode=--client-only
+          fi
+          for attempt in $(seq 1 60); do
+            if curl --fail --silent "$url" > /dev/null; then break; fi
+            sleep 1
+          done
+          node scripts/verify-ssr-example.mjs "$url" $mode

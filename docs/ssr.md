@@ -1,232 +1,90 @@
 # Server rendering and hydration
 
-Revo UI can be used inside server-rendered applications. Its React, Vue, Angular `UiComponent` and Svelte adapters mount the interactive shared UI **in the browser**. They do not render the complete controls into the server response.
+Keep your page content on the server and use Revo UI for small interactive controls. Start with the guide for your framework; each includes a runnable example with a heading and a Save button.
 
-Use the host framework to render your page content. The adapters handle their own browser mounting; application-level mounted flags and fallbacks are not required. Load static UI CSS through the application's stylesheet pipeline, then let the adapter mount inside its own host after browser initialization.
+## Choose your guide
+
+| Framework or integration                | What you will build                                               |
+| --------------------------------------- | ----------------------------------------------------------------- |
+| [Next.js App Router](ssr-nextjs.md)     | A Server Component page and a small interactive Client Component. |
+| [Nuxt](ssr-nuxt.md)                     | A server-rendered page with a Vue control.                        |
+| [SvelteKit](ssr-sveltekit.md)           | A server-rendered page and a Svelte control.                      |
+| [Astro](ssr-astro.md)                   | Server-rendered content with an interactive island.               |
+| [Angular SSR](ssr-angular.md)           | A hydrated page with an isolated control region.                  |
+| [React Router](ssr-react-router.md)     | A framework-mode page with server data.                           |
+| [TanStack Start](ssr-tanstack-start.md) | A server-rendered route with a React control.                     |
+| [NestJS](ssr-nestjs.md)                 | A server template and a browser-mounted control.                  |
+| [Refine](integration-refine.md)         | A small resource page using Next.js.                              |
+| [Lovable](integration-lovable.md)       | Revo UI in a TanStack Start or legacy React/Vite project.         |
+
+Browse the [complete starter sources](https://github.com/revolist/revo-ui/tree/main/examples/ssr). Each starter has its own dependencies and commands. Run it independently so it behaves like an ordinary application using the published package.
 
 ## What the server renders
 
-| Entry                        | Server behavior                                                                               | Browser behavior                                                         |
-| ---------------------------- | --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| `@revolist/ui/react`         | React renders the adapter's host elements; effects do not mount the underlying control.       | The adapter prepares styles and mounts the control during client commit. |
-| `@revolist/ui/vue`           | Vue renders the adapter host without the mounted shared control.                              | The adapter mounts after its host exists.                                |
-| `@revolist/ui/angular`       | `UiComponent` skips its shared mount outside the browser platform.                            | Angular creates the shared mount after the view initializes.             |
-| `@revolist/ui/svelte`        | The server component renders its host; `onMount` does not run.                                | The client component mounts the shared UI.                               |
-| Matching `/unstyled` entries | Same host/component behavior, with no embedded static UI CSS or runtime stylesheet insertion. | The application must supply CSS.                                         |
+React, Vue, Angular `UiComponent` and Svelte adapters render their **host elements** on the server. They mount the interactive controls in the browser. A successful server import does not mean that the response contains the complete control HTML.
 
-“SSR-compatible imports” does not mean complete control HTML, server-side interactivity, or automatic collection of CSS into the response. Importing static CSS does not change what an adapter renders. The application remains responsible for meaningful initial text, SEO content and any no-JavaScript experience.
+Render headings, descriptions and important initial data through your host framework. Those remain available before JavaScript loads. A fallback for a control is optional; keep its server and first browser render consistent. Reserve space if the control's appearance would move surrounding content.
 
-Angular's `UiControlDirective` is a separate native-element path: Angular owns the actual `<button>`, `<input>` and other native markup. For server-rendered native controls, supply global CSS through Angular's build configuration. Do not infer `rv-ui` catalog rendering behavior from native elements decorated with `rvControl`.
+Angular's native `UiControlDirective` is a separate path: Angular owns the actual native button or input markup. Do not infer catalog adapter behavior from native controls decorated with `rvControl`.
 
-## Recommended production setup
+## Load CSS globally
 
-1. Keep SSR enabled for the application and its page content.
-2. Use the matching `/unstyled` adapter for extracted CSS.
-3. Import the aggregate stylesheet or base plus the required families from a global entry/layout included by the SSR framework.
-4. Use the framework boundary shown below and render the adapter directly.
-
-A fallback is optional: add one only when the application needs visible content before JavaScript initializes. If you choose a fallback, keep its server and first-client render consistent.
-
-For example, an extracted button needs:
+For predictable initial CSS delivery, use the matching `/unstyled` adapter and import static CSS from the framework's global entry or root layout:
 
 ```ts
-import { SvgButton } from '@revolist/ui/react/unstyled';
-// Import CSS in the application's global stylesheet/layout entry.
-import '@revolist/ui/styles/base.css';
+import "@revolist/ui/styles/base.css";
+import { SvgButton } from "@revolist/ui/react/unstyled";
 ```
 
-The equivalent entries are `vue/unstyled`, `angular/unstyled`, `angular-control/unstyled` and `svelte/unstyled`. Base includes common controls and tooltips. Add `styles/calendar.css`, `styles/dialogs.css` and other [style families](bundle-size.md#stylesheet-families) for the components you render, or use `@revolist/ui/styles.css` for the complete collection.
+This example shows React imports; the individual guides use the matching adapter and stylesheet location. Base covers the button example. Add the required [style families](bundle-size.md#stylesheet-families) when using calendars, dialogs or other controls, or import `@revolist/ui/styles.css` for all families.
 
-The SSR framework's bundler handles CSS extraction and stylesheet references in the response. Do not add a raw CSS import to an unbundled Node.js script: Node does not provide a CSS loader. Keep server and client package versions aligned and use one style mode consistently in the application.
+The framework's bundler extracts and serves CSS. A raw Node.js script cannot import a CSS file without a loader. Keep server and browser package versions aligned.
 
-## React and Next.js App Router
+Automatic adapters also work, but their CSS arrives with browser JavaScript and is installed when controls mount. They do not collect CSS into the server response.
 
-Use a Client Component for the adapter, event handlers and React hooks. In Next.js, `'use client'` establishes that module boundary; it does **not** mean the component is excluded from server prerendering. Keep server data fetching and static page content in Server Components.
+## Keep browser work in the browser
 
-Load CSS in the root layout:
+The framework adapters handle mounting; application mounted flags are unnecessary. Keep event handlers with the interactive component and pass serializable values across server/client boundaries.
 
-```tsx
-// app/layout.tsx
-import type { ReactNode } from 'react';
-import '@revolist/ui/styles/base.css';
+For vanilla integration, call `createFrameworkMount` after the browser host exists and destroy the mount when its view is removed. Never call it at server module scope. The [NestJS guide](ssr-nestjs.md) demonstrates this boundary.
 
-export default function RootLayout({ children }: { children: ReactNode }) {
-  return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
-  );
-}
-```
+## Content Security Policy
 
-Render the component directly:
+Prefer `/unstyled` with external CSS when your policy forbids injected stylesheet elements. Your application still needs to authorize its CSS origin and any dynamic inline style attributes used by the chosen controls.
 
-```tsx
-// app/report-action.tsx
-'use client';
-
-import { useState } from 'react';
-import { SvgButton } from '@revolist/ui/react/unstyled';
-
-export default function ReportAction() {
-  const [count, setCount] = useState(0);
-
-  return (
-    <SvgButton
-      label="Save"
-      visibleLabel={`Save ${count}`}
-      onClick={() => setCount((value) => value + 1)}
-    />
-  );
-}
-```
-
-Import `ReportAction` into a Server Component page as usual. The adapter handles its client mount; no `useEffect` or mounted-state flag is needed. Do not pass event-handler functions across a Server Component boundary: define them in the Client Component. Pass only values your framework can serialize.
-
-For other React SSR systems, load CSS from their global entry, render the same initial tree on server/client and use their normal hydration entry. Do not render raw Preact control HTML and try to hydrate it as a React adapter host.
-
-## Vue and Nuxt
-
-In Nuxt, load CSS globally:
+With automatic styles and a nonce policy, configure the response's nonce **before** controls mount:
 
 ```ts
-// nuxt.config.ts
-export default defineNuxtConfig({
-  css: ['@revolist/ui/styles/base.css'],
-});
+import { configureUiStyles } from "@revolist/ui/style-config";
+
+// Browser bootstrap: the server must supply this escaped meta value
+// and authorize the same nonce in this response's CSP header.
+const nonce = document.querySelector<HTMLMetaElement>(
+  'meta[name="ui-style-nonce"]',
+)?.content;
+if (nonce) configureUiStyles({ nonce });
 ```
 
-```vue
-<!-- app/components/ReportAction.vue -->
-<script setup lang="ts">
-import { ref } from 'vue';
-import { SvgButton } from '@revolist/ui/vue/unstyled';
-const count = ref(0);
-</script>
+Use a client bootstrap or framework client plugin that runs before child controls mount. Do not delay this to a child effect. Calling `configureUiStyles` without a browser document is a no-op; it does not collect CSS or transfer configuration to the browser. Keep nonces per response rather than in process-global state.
 
-<template>
-  <SvgButton label="Save" :visible-label="`Save ${count}`" @click="count++" />
-</template>
+## Troubleshooting
+
+| Symptom                             | Check                                                                                                |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| Empty adapter host in server HTML   | Expected. Render meaningful initial content through the host framework.                              |
+| `window` or `document` is undefined | Move application DOM work out of server module scope.                                                |
+| Unstyled controls                   | Import base plus required style families globally, or check automatic-style CSP configuration.       |
+| Hydration errors                    | Keep server/first-client data consistent and follow the framework-specific boundary in the guide.    |
+| TypeScript cannot resolve exports   | Check the installed package and its declarations with your resolver. Avoid hiding errors with `any`. |
+
+## Verify your application
+
+Use each starter's production build and start commands. Inspect the HTTP response for your heading, then open the browser and click Save. The counter should change from Save 0 to Save 1 and reset after a reload. Check the console for runtime or hydration errors and the network panel for missing CSS.
+
+The repository also provides a browser smoke check. Start the example's production server first, then run this from the Revo UI repository with the appropriate address:
+
+```sh
+node scripts/verify-ssr-example.mjs http://127.0.0.1:3000
 ```
 
-Use `<ReportAction />` in the page. No `ClientOnly`, mounted flag or `onMounted` wrapper is needed for the adapter's host-only server output. Plain Vue SSR uses the same component and Vue's normal hydration process.
-
-If the application chooses Nuxt's optional `ClientOnly` boundary, keep CSS global: dependencies inside its default slot can be excluded from the server build.
-
-## Angular SSR and hydration
-
-Keep Angular's SSR/hydration configuration. Load static styles through the CLI's global styles list. Append these entries to the existing `build.options.styles` configuration rather than replacing application styles:
-
-```json
-{
-  "styles": ["src/styles.scss", "node_modules/@revolist/ui/styles/base.css"]
-}
-```
-
-Use `@revolist/ui/styles.css` instead of base for all component families. Add the needed family files when using base alone. The files are resolved from the installed package; keep normal Angular build and production linking enabled.
-
-Render the host directly. `ngSkipHydration` limits Angular's hydration boundary to the component that owns the imperative UI:
-
-```ts
-// report-action.component.ts
-import { Component, signal } from '@angular/core';
-import { UiComponent } from '@revolist/ui/angular/unstyled';
-
-@Component({
-  selector: 'app-report-action',
-  standalone: true,
-  imports: [UiComponent],
-  template: `<rv-ui
-    ngSkipHydration
-    component="SvgButton"
-    [props]="{ label: 'Save', visibleLabel: 'Save ' + count(), onClick: save }"
-  />`,
-})
-export class ReportAction {
-  readonly count = signal(0);
-  readonly save = () => this.count.update((value) => value + 1);
-}
-```
-
-`UiComponent` already checks the Angular platform before creating its shared mount. Apply `ngSkipHydration` to the `rv-ui` component host, not an ordinary wrapper element; Angular recreates that small region on the client while the rest of the page can hydrate normally. No application `afterNextRender` callback or mounted-state flag is needed. The catalog control is still client-mounted, not prerendered as complete HTML.
-
-## SvelteKit and Svelte 5
-
-Import CSS from the root layout so the SSR build sees it:
-
-```svelte
-<!-- src/routes/+layout.svelte -->
-<script lang="ts">
-  import '@revolist/ui/styles/base.css';
-  let { children } = $props();
-</script>
-
-{@render children()}
-```
-
-Keep page SSR enabled and render the component directly:
-
-```svelte
-<!-- src/routes/+page.svelte -->
-<script lang="ts">
-  import { UiComponent } from '@revolist/ui/svelte/unstyled';
-  let count = $state(0);
-</script>
-
-<UiComponent component="SvgButton" props={{
-  label: 'Save',
-  visibleLabel: `Save ${count}`,
-  onClick: () => { count += 1; },
-}} />
-```
-
-The adapter handles its own `onMount`; application mount flags are unnecessary. Let the normal SvelteKit resolver choose the package's server/client entry. Disabling SSR for the whole application is not required.
-
-## Automatic styles and CSP
-
-Automatic adapters can also be used in SSR applications: use the normal framework entry instead of `/unstyled` and omit the explicit UI CSS imports. In that mode, CSS arrives with client JavaScript and is installed when controls mount. It is not collected into the initial response by `configureUiStyles`.
-
-For a nonce-based policy, generate the nonce per response, authorize it in that response's CSP header and safely deliver the corresponding value to the browser. Configure it **before** hydrating/bootstrapping the UI, in the client entry or a framework client plugin that runs before child components mount:
-
-```ts
-import { configureUiStyles } from '@revolist/ui/style-config';
-
-// Client bootstrap: application/server integration must supply this meta tag
-// with an HTML-escaped nonce that matches this response's style-src policy.
-if (typeof document !== 'undefined') {
-  const nonce = document.querySelector<HTMLMetaElement>(
-    'meta[name="ui-style-nonce"]',
-  )?.content;
-  if (nonce) configureUiStyles({ nonce });
-}
-```
-
-Do not postpone nonce configuration to `useEffect`, `onMounted` or a child component mount: automatic styles may already have been inserted. For frameworks without an application-controlled pre-hydration entry, prefer `/unstyled` and let the framework deliver CSS and manage its own CSP. For example, a Nuxt client plugin or Angular browser `main.ts` can configure the nonce before components mount; a Next.js application can use extracted CSS from its root layout.
-
-Calling `configureUiStyles` without a browser document is a **no-op**: it returns without inserting styles, collecting CSS or retaining configuration for the later browser session. A server-side call does not transfer a nonce to the client. Explicitly targeting a server-owned document configures only that document; it is not a CSS extraction or serialization API.
-
-Do not keep request nonces in a process-global variable or cache rendered responses across different nonces without updating the associated CSP/HTML. The host framework remains responsible for its own script/style nonces and hydration serialization. Revo UI configuration applies to Revo UI's styles and tooltips.
-
-Use `/unstyled` plus external CSS for a policy that forbids injected stylesheet elements. No nonce configuration is needed for Revo UI stylesheet insertion in that mode because it does not insert those tags. Your application must still authorize its CSS origin and the components' existing dynamic layout styles. The tested policies permit inline style attributes while restricting stylesheet elements; do not assume that every stricter application policy works unchanged.
-
-## Vanilla mounts and future adapters
-
-Call `createFrameworkMount` only in a browser lifecycle after the host element exists; call `destroy()` when the owning view is disposed. Do not call it at server module scope. Future adapters should use the shared mount API and public shared components so they inherit style preparation, then leave the host region empty or show a host-framework-owned fallback until mounting.
-
-Direct Preact rendering and low-level native helpers have their own rendering contracts. The framework adapter's empty-host SSR behavior is not a promise that every imperative/native helper can execute against a server document. Import their required CSS explicitly and keep DOM operations in the browser unless that helper explicitly documents server rendering.
-
-## Troubleshooting and verification
-
-| Symptom                                            | Check                                                                                                                                                                          |
-| -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `/unstyled` is not exported                        | Verify the installed package version includes these entrypoints, and use the same version for server and client builds.                                                        |
-| Server reports `document` or `window` is undefined | Move application DOM work and imperative mounts out of server module scope. Importing a CSS file in raw Node also needs a bundler/CSS loader.                                  |
-| Server HTML contains an empty adapter host         | Expected for these adapters. Render important static content in the host framework; add a fallback only if needed.                                                             |
-| CSS is absent from the first response              | Put extracted CSS in a global entry/layout; automatic styling and client-only component imports do not collect server CSS.                                                     |
-| Controls are unstyled after mount                  | Verify the `/unstyled` build has base plus required families, or that automatic mode has a valid CSP nonce. Inspect CSP violations.                                            |
-| Hydration warnings                                 | Keep server/initial-client data and placeholders identical. Avoid generating browser-only values during the server render, and do not mix raw control HTML with adapter hosts. |
-| The page jumps when controls appear                | Reserve appropriate space around the client region and load CSS globally. Choose dimensions suitable for your component and responsive layout.                                 |
-
-The library verifies DOM-free React import/server rendering, public package consumers, Svelte server entry resolution, framework browser behavior and automatic/extracted CSP modes, including an Angular AOT production-linked browser fixture. These checks do not constitute end-to-end builds of every Next.js, Nuxt, Angular SSR or SvelteKit application. Verify your application's production server response, hydration, fallback, CSP and browser console with its chosen framework version.
-
-Framework references: [Next.js Client Components](https://nextjs.org/docs/app/getting-started/server-and-client-components), [Next.js CSS](https://nextjs.org/docs/app/getting-started/css), [Nuxt ClientOnly](https://nuxt.com/docs/4.x/api/components/client-only), [Angular SSR](https://angular.dev/guide/ssr), [Angular hydration](https://angular.dev/guide/hydration), [Svelte lifecycle](https://svelte.dev/docs/svelte/lifecycle-hooks).
+The legacy Lovable React/Vite example uses `--client-only` because that starter renders in the browser. These examples establish a small integration baseline; validate additional controls, data and deployment settings in your own application.

@@ -1,0 +1,23 @@
+{
+  "name": "revo-ui-nuxt-starter",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.15.0"
+  },
+  "dependencies": {
+    "@revolist/ui": "4.0.23",
+    "nuxt": "4.6.4",
+    "vue": "3.5.45"
+  },
+  "devDependencies": {
+    "typescript": "6.0.3",
+    "vue-tsc": "3.3.14"
+  },
+  "scripts": {
+    "dev": "nuxt dev --host 127.0.0.1",
+    "check": "nuxt typecheck",
+    "build": "nuxt build",
+    "start": "node .output/server/index.mjs"
+  }
+}

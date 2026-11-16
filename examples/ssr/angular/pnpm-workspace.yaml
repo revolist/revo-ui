@@ -1,0 +1,10 @@
+packages: []
+allowBuilds:
+  esbuild: true
+  '@parcel/watcher': true
+  lmdb: true
+  msgpackr-extract: true
+minimumReleaseAgeExclude:
+  - '@revolist/ui@4.0.23'
+
+verifyDepsBeforeRun: false
