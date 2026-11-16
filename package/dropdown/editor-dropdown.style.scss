@@ -344,3 +344,38 @@ revo-grid,
     padding-inline: 0;
   }
 }
+
+.dropdown-trigger--editable {
+  gap: 4px;
+
+  > .dropdown-autocomplete-input {
+    flex: 1 1 40px;
+    min-width: 40px;
+    width: 0;
+    height: 100%;
+    border: 0;
+    outline: 0;
+    padding: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+
+    &::placeholder {
+      color: var(--rv-dropdown-placeholder-color);
+    }
+  }
+
+  .selected-values {
+    flex: 0 1 auto;
+    max-width: 70%;
+    padding-inline-end: 0;
+  }
+
+  &:has(> .dropdown-autocomplete-input:focus-visible) {
+    outline: 2px solid var(--rv-ui-accent);
+    outline-offset: 1px;
+  }
+}
+.dropdown-create-marker {
+  margin-inline-end: 8px;
+}

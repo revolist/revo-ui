@@ -46,7 +46,7 @@
       "title": "Selects, chips and resources",
       "group": "Controls",
       "description": "Find options, manage selections and choose people.",
-      "keywords": "combobox multiselect dropdown avatar picker tag"
+      "keywords": "combobox autocomplete editable multiselect dropdown avatar picker tags create"
     },
     {
       "title": "Sliders",

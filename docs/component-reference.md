@@ -325,6 +325,42 @@ const personContent = (_h: unknown, person: { label: string; photo?: string }) =
 
 Use `Combobox` for search and `MultiSelect` for multiple values. See [user images, search and resource examples](https://ui.rv-grid.com/components/selects-chips-and-resources/).
 
+For search directly in the field, enable `config.autocomplete`. The field remains
+focused while suggestions are filtered; Enter or clicking a suggestion commits
+its value. Escape and Tab discard an unselected query.
+
+```tsx
+<Combobox
+  source={options}
+  value={value}
+  onChange={setValue}
+  config={{ ariaLabel: 'View', autocomplete: true }}
+/>
+```
+
+Tags are optional. Supply a pure `config.tags` factory to offer a new option for
+non-empty text that does not already match an option. It enables the editable
+field automatically and preserves the option's value type. Return `null` or
+`undefined` to reject creation. The candidate is only committed when selected;
+`onCreateOption` is the place to persist it in your application's option source.
+
+```tsx
+<MultiSelect
+  source={skills}
+  value={selectedSkills}
+  onChange={setSelectedSkills}
+  onCreateOption={option => setSkills(current => [...current, option])}
+  config={{
+    ariaLabel: 'Skills',
+    tags: label => ({ value: label, label }),
+  }}
+/>
+```
+
+The editable input displays a selected option's plain text label. Custom
+`renderOption` content and multi-select `renderValue` chips remain supported.
+
+
 ## Advanced slider
 
 ```tsx

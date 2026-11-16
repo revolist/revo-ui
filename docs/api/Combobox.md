@@ -34,6 +34,7 @@ The table lists library-declared props. Standard inherited HTML attributes are o
 | `config` | `DropdownConfig<T> \| undefined` | No |  |
 | `onChange` | `((value: T \| T[]) => void) \| undefined` | No |  |
 | `onClose` | `((focusNext?: boolean) => void) \| undefined` | No |  |
+| `onCreateOption` | `((option: DropdownOption<T>) => void) \| undefined` | No | Persist a newly committed tag in the application's option source, if needed. |
 | `beforeOutsideClose` | `(() => boolean \| void) \| undefined` | No | Validate or save a draft before outside-pointer dismissal. False keeps it open. Escape, selection and programmatic closure never invoke this callback. |
 | `renderContent` | `((props: { id: string; close: (focusNext?: boolean) => void; }) => DropdownRenderable) \| undefined` | No | Replace the popup body while retaining the shared trigger, tags and positioning. Custom content owns its keyboard navigation and renders a dialog with &#96;id&#96;. |
 | `renderOption` | `((h: HyperFunc<DropdownVNode>, option: DropdownOption<T>, isSelected: boolean) => DropdownRenderable) \| undefined` | No |  |

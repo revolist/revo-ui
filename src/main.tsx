@@ -1,3 +1,4 @@
+import { AutocompleteExamples } from './autocomplete';
 import { TooltipPlacementExamples, TooltipTimingExamples, TooltipStateExamples, TooltipContentExamples, TooltipBoundaryExample, TooltipControllerExample } from './tooltips';
 import { CollapsibleSection } from '@revolist/ui/preact';
 import { AccessibilityPage } from './accessibility';
@@ -447,6 +448,7 @@ function App() {
             config={{ ariaLabel: 'Searchable view' }}
           />
         </Example>
+        <AutocompleteExamples />
         <Example title="Multiple selection">
           <MultiSelect
             source={options}
