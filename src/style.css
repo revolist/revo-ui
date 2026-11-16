@@ -102,6 +102,24 @@ body {
   background: var(--rv-ui-surface);
   border-inline-end: 1px solid var(--rv-ui-border);
 }
+.catalog-navigation-tools {
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--rv-ui-surface);
+  box-shadow: 0 -16px 0 16px var(--rv-ui-surface), 0 10px 0 var(--rv-ui-surface);
+}
+.catalog-navigation-tools > .rv-search-input {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  max-width: none;
+}
+.catalog-navigation-close {
+  display: none;
+}
 .catalog-sidebar > .rv-search-input {
   width: 100%;
   font-size: 12px;
@@ -1404,7 +1422,9 @@ body {
     flex-shrink: 0;
   }
   .catalog-sidebar[data-open='true'] {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
     flex: 1;
     min-height: 0;
     max-height: none;
@@ -1413,9 +1433,25 @@ body {
     padding-bottom: max(20px, env(safe-area-inset-bottom));
     overscroll-behavior: contain;
   }
-  .catalog-sidebar[data-open='true'] > .rv-search-input {
-    top: 18px;
-    max-width: none;
+  .catalog-sidebar[data-open='true'] .catalog-navigation-tools {
+    position: static;
+    flex: 0 0 auto;
+    gap: 12px;
+    box-shadow: none;
+  }
+  .catalog-sidebar[data-open='true'] > nav {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-top: 12px;
+    overscroll-behavior: contain;
+  }
+  .catalog-sidebar[data-open='true'] .catalog-navigation-close {
+    display: inline-flex;
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
   }
   .catalog-sidebar[data-open='true'] .rv-search-input input {
     width: 100%;
