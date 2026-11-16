@@ -1,4 +1,5 @@
 import { ApiContents } from './api-contents';
+import { usePublishedVersion } from './published-version';
 import { h } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { Button, SearchInput } from '@revolist/ui/preact';
@@ -6,6 +7,7 @@ import { ComponentReference, type ComponentApi } from './component-api';
 import { apiHref, componentHref, currentRoute } from './routing';
 
 export function ApiPage() {
+  const version = usePublishedVersion();
   const [api, setApi] = useState<ComponentApi[]>();
   const [error, setError] = useState(false);
   const [attempt, setAttempt] = useState(0);
@@ -93,7 +95,7 @@ export function ApiPage() {
         aria-label="API navigation"
       >
         <a class="api-sidebar-title" href={apiHref()}>
-          API reference <span>v{__UI_VERSION__}</span>
+          API reference {version && <span>v{version}</span>}
         </a>
         <SearchInput
           aria-label="Find an API component"
@@ -122,7 +124,7 @@ export function ApiPage() {
       <article class="api-document">
         <header class="api-document-heading">
           <span class="api-eyebrow">
-            DEVELOPER REFERENCE · v{__UI_VERSION__}
+            DEVELOPER REFERENCE{version && ` · v${version}`}
           </span>
           <h1>{title}</h1>
           <p>

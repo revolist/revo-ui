@@ -4,7 +4,7 @@ import { accessibilityArticle } from './accessibility';
 import { GallerySettings } from './gallery-settings';
 import { ComponentContents } from './component-contents';
 import { GalleryHome } from './home';
-import { PublishedVersion } from './published-version';
+import { PublishedVersion, PublishedVersionProvider } from './published-version';
 import { ApiReference } from './component-api';
 import { ExampleCode, examples, slug } from './example-source';
 import { SvgIcon } from '@revolist/ui/icons/icon';
@@ -268,6 +268,7 @@ export function CatalogShell({
 
   }, [active, home, page, component?.title]);
   return (
+    <PublishedVersionProvider>
     <div class="rv-ui catalog" dir={rtl ? 'rtl' : 'ltr'}>
       <a
         class="catalog-skip"
@@ -565,5 +566,6 @@ export function CatalogShell({
         </div>
       </main>
     </div>
+    </PublishedVersionProvider>
   );
 }

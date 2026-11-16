@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'preact/hooks';
+import { createContext, type ComponentChildren } from 'preact';
+import { useContext, useEffect, useState } from 'preact/hooks';
 
 const latestUrl = 'https://registry.npmjs.org/@revolist%2Fui/latest';
 
-/** Display the published release, independently of the gallery build version. */
-export function PublishedVersion() {
+const PublishedVersionContext = createContext<string | undefined>(undefined);
+
+function useRegistryVersion() {
   const [version, setVersion] = useState<string>();
   useEffect(() => {
     let request: AbortController | undefined;
@@ -46,6 +48,30 @@ export function PublishedVersion() {
       document.removeEventListener('visibilitychange', onVisibility);
     };
   }, []);
+  return version;
+}
+
+/** One registry request and refresh lifecycle for every gallery version label. */
+export function PublishedVersionProvider({
+  children,
+}: {
+  children: ComponentChildren;
+}) {
+  const version = useRegistryVersion();
+  return (
+    <PublishedVersionContext.Provider value={version}>
+      {children}
+    </PublishedVersionContext.Provider>
+  );
+}
+
+export function usePublishedVersion() {
+  return useContext(PublishedVersionContext);
+}
+
+/** Display the published release, independently of the gallery build version. */
+export function PublishedVersion() {
+  const version = usePublishedVersion();
   return version ? (
     <small class="catalog-version" aria-label="UI library version">
       v{version}
