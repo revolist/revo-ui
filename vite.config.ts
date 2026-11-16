@@ -13,6 +13,7 @@ export default defineConfig(({ mode }) => {
   if (mode === 'browser') {
     return {
       root: import.meta.dirname,
+      base: './',
       oxc: { jsx: { runtime: 'automatic', importSource: 'preact' } },
       build: {
         outDir: 'dist/browser',
@@ -59,6 +60,7 @@ export default defineConfig(({ mode }) => {
 
     return {
       root,
+      base: './',
       // Shared UI never injects a product watermark, including during trial builds.
       plugins: [
         {
@@ -109,9 +111,11 @@ export default defineConfig(({ mode }) => {
         outDir: mode === 'library-unstyled' ? 'dist/unstyled' : 'dist',
         lib: { entry: entries, formats: ['es'] },
         rolldownOptions: {
-          external: [
-            /^(?:pdfjs-dist|react|react-dom|svelte|vue|@angular\/core)(?:\/|$)/,
-          ],
+          external: (id) =>
+            !id.endsWith('?worker&url') &&
+            /^(?:pdfjs-dist|react|react-dom|svelte|vue|@angular\/core)(?:\/|$)/.test(
+              id,
+            ),
           output: {
             entryFileNames: '[name].js',
             chunkFileNames: '_chunks/[name]-[hash].js',

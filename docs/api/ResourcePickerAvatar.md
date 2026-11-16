@@ -1,6 +1,6 @@
 # ResourcePickerAvatar
 
-Search and select people or other resources.
+Select people or other resources, with avatars and person selectors.
 
 [Live examples and formatted usage](https://ui.rv-grid.com/components/resource-selection/) · [Component index](../../README.md#complete-component-reference)
 

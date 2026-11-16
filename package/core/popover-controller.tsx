@@ -1,3 +1,4 @@
+import { applyPopupPosition } from './popup-position';
 import { h } from 'preact';
 import type {
   TooltipAnchor,
@@ -71,10 +72,7 @@ export class PopoverController {
         width: document.documentElement.clientWidth || view?.innerWidth || 0,
         height: document.documentElement.clientHeight || view?.innerHeight || 0,
       });
-      Object.assign(content.style, {
-        left: `${point.left}px`,
-        top: `${point.top}px`,
-      });
+      applyPopupPosition(content, point);
     };
     let mode: TopLayerPopupMode | undefined;
     let disposed = false;

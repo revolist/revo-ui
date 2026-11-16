@@ -18,7 +18,7 @@ import {
   type ComponentChildren,
 } from 'preact';
 import { useContext, useEffect, useRef, useState } from 'preact/hooks';
-import { Button, SearchInput, Switch, Toolbar } from '@revolist/ui/preact';
+import { Button, DialogCloseButton, SearchInput, Switch, Toolbar } from '@revolist/ui/preact';
 
 import pages from './pages.json';
 import { currentRoute, componentHref, frameworkHref, siteHref } from './routing';
@@ -131,6 +131,7 @@ export function CatalogShell({
   onRtlChange: (value: boolean) => void;
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const mobileNavButton = useRef<HTMLButtonElement>(null);
   const [motion, setMotion] = useState('system');
   const content = useRef<HTMLDivElement>(null);
   const [query, setQuery] = useState('');
@@ -206,7 +207,7 @@ export function CatalogShell({
 
   }, [active, home, page, component?.title]);
   return (
-    <div class="rv-ui catalog" data-theme={theme} dir={rtl ? 'rtl' : 'ltr'}>
+    <div class="rv-ui catalog" dir={rtl ? 'rtl' : 'ltr'}>
       <a
         class="catalog-skip"
         onClick={(event) => {
@@ -273,6 +274,11 @@ export function CatalogShell({
                 const next = theme === 'dark' ? 'light' : 'dark';
                 onThemeChange(next);
                 document.documentElement.dataset.theme = next;
+                try {
+                  localStorage.setItem('revo-ui-theme', next);
+                } catch {
+                  // Keep theme changes usable when storage is blocked or full.
+                }
               }}
             >
               <svg
@@ -324,14 +330,15 @@ export function CatalogShell({
         dir={rtl ? 'rtl' : 'ltr'}
         tabIndex={-1}
       >
-        {page === 'components' && !home && (
+        {page === 'components' && !home && !mobileOpen && (
           <Button
+            ref={mobileNavButton}
             className="catalog-mobile-nav"
             aria-expanded={mobileOpen}
             aria-controls="component-navigation"
             onClick={() => setMobileOpen(!mobileOpen)}
           >
-            {mobileOpen ? 'Close navigation' : 'Browse components'}
+            Browse components
           </Button>
         )}
         {page === 'components' && !home && (
@@ -340,12 +347,22 @@ export function CatalogShell({
             class="catalog-sidebar"
             data-open={mobileOpen}
           >
-            <SearchInput
-              aria-label="Find a component"
-              placeholder="Find a component…"
-              value={query}
-              onInput={(event) => setQuery(event.currentTarget.value)}
-            />
+            <div class="catalog-navigation-tools">
+              <SearchInput
+                aria-label="Find a component"
+                placeholder="Find a component…"
+                value={query}
+                onInput={(event) => setQuery(event.currentTarget.value)}
+              />
+              <DialogCloseButton
+                class="catalog-navigation-close"
+                aria-label="Close navigation"
+                onClick={() => {
+                  setMobileOpen(false);
+                  requestAnimationFrame(() => mobileNavButton.current?.focus());
+                }}
+              />
+            </div>
             <nav aria-label="Component sections">
               <a class="catalog-overview-link" href={siteHref()}>
                 Overview

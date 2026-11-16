@@ -1,3 +1,4 @@
+import { applyPopupPosition } from './popup-position';
 /** @jsxRuntime automatic */
 /** @jsxImportSource preact */
 import { ownsPopupTarget } from './popup-ownership';
@@ -154,9 +155,8 @@ export function mountEditorPopup(
       { width: view.innerWidth, height: view.innerHeight },
       { fitViewport: options.fitViewport },
     );
-    panel.style.maxHeight = `${position.maxHeight}px`;
-    panel.style.left = `${position.left}px`;
-    panel.style.top = `${position.top}px`;
+    const coordinates = applyPopupPosition(panel, position);
+    panel.style.maxHeight = `${position.maxHeight / coordinates.scaleY}px`;
     panel.dataset.placement = position.placementY;
   };
   positionPanel();

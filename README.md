@@ -85,7 +85,7 @@ For a classic script, load `https://cdn.jsdelivr.net/npm/@revolist/ui@4.0.12/bro
 
 You can replace the CDN prefix with `https://unpkg.com/@revolist/ui@4.0.12`, or self-host the package files. The `unpkg` and `jsdelivr` package defaults point to the classic script. The `@revolist/ui/browser` export points to the standalone ES module. Existing npm/framework ESM entries remain available for tree-shaking; host-framework adapters still require their respective frameworks.
 
-The complete browser bundles include the component catalog and PDF engine. PDF viewers also need `browser/pdf-viewer.css` and the matching `browser/pdf.worker.min.mjs` served from **your own origin**, with its URL supplied as `workerSrc`. Direct cross-origin CDN Worker URLs are not supported by the browser Worker constructor. Configure PDF document/asset access for your application.
+The complete browser bundles include the component catalog and PDF engine. PDF viewers also need `browser/pdf-viewer.css`. A matching PDF.js worker is included and starts only when a document is loaded. Serve the bundle and its worker assets from **your own origin**, or override `workerSrc` with your own matching module worker URL. Direct cross-origin CDN Worker URLs are not supported by the browser Worker constructor. Configure PDF document/asset access for your application.
 
 See the [CDN examples in Docs](https://ui.rv-grid.com/frameworks/javascript-cdn/) for complete module and classic-script HTML and lifecycle guidance.
 
@@ -108,12 +108,15 @@ Explore live previews, variants, and expandable code examples on the website.
 
 - [Buttons](https://ui.rv-grid.com/components/buttons/) — Actions, icon buttons, toggles, and button groups.
 - [Inputs and forms](https://ui.rv-grid.com/components/inputs-and-forms/) — Text, search, numbers, validation, and field layouts.
-- [Selects and pickers](https://ui.rv-grid.com/components/selects-chips-and-resources/) — Searchable dropdowns, multiple selections, user images, and assignees.
+- [Multi/selects, autocomplete](https://ui.rv-grid.com/components/multi-selects-autocomplete/) — Single/multi-select, input autocomplete, optional tags and remote lookup.
+- [Resource selection](https://ui.rv-grid.com/components/resource-selection/) — People and resource pickers, user images and avatars.
 - [Selection controls](https://ui.rv-grid.com/components/selection-controls/) — Checkboxes, switches, radio buttons, and choice chips.
 - [Tabs and lists](https://ui.rv-grid.com/components/tabs-and-lists/) — Tabs, segmented controls, and selectable lists.
 - [Sliders](https://ui.rv-grid.com/components/sliders/) — Single values and ranges with labels and value badges.
 - [Timeline](https://ui.rv-grid.com/components/timeline-track/) — Draggable, resizable events with colors and tooltips.
-- [Calendars and dates](https://ui.rv-grid.com/components/calendar-and-dates/) — Date and time pickers, ranges, and weekly planning.
+- [Calendars and dates](https://ui.rv-grid.com/components/calendar-and-dates/) — Calendars, date selection, ranges, and weekly planning.
+- [Time pickers](https://ui.rv-grid.com/components/time-pickers/) — Time-only fields, business hours, seconds, and clock formats.
+- [Date and time fields](https://ui.rv-grid.com/components/date-and-time-fields/) — DateTimeField inputs and configurable date/time editors.
 - [Charts](https://ui.rv-grid.com/components/charts-and-range-selection/) — Bar, line, and area charts with tooltips and range selection.
 - [Tooltip API and behavior](docs/tooltip.md) — Placement, timing groups, controlled state, rich/async content, delegation, events, and imperative methods.
 - [Dialogs and tooltips](https://ui.rv-grid.com/components/dialogs-and-floating-surfaces/) — Dialogs, confirmations, popovers, and tooltips.

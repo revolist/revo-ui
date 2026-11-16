@@ -1,4 +1,5 @@
 import pages from './pages.json';
+import componentAliases from './component-aliases.json';
 import { examples } from './example-source';
 
 const slug = (title: string) => title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
@@ -34,36 +35,70 @@ export function redirectLegacyRoute() {
     const query = new URLSearchParams(location.search);
     const hash = location.hash.slice(1);
     let target: string | undefined;
+    const [kind, component] = pathParts();
+    const alias = kind === 'components' ? component : !kind ? hash : '';
+    const movedExample =
+      kind === 'components' && hash.startsWith('example-')
+        ? examples.find((example) => example.id === hash.slice(8))
+        : undefined;
+    const legacy = Object.hasOwn(componentAliases, alias)
+      ? (componentAliases as Record<string, string>)[alias]
+      : undefined;
+    if (legacy) {
+      const [route, defaultAnchor] = legacy.split('#');
+      const anchor = kind === 'components' ? hash : '';
+      target = componentHref(
+        movedExample?.family ? slug(movedExample.family) : route,
+      );
+      if (anchor || defaultAnchor) target += `#${anchor || defaultAnchor}`;
+    }
+    if (
+      !legacy &&
+      movedExample?.family &&
+      pages.components.some((page) => slug(page.title) === component) &&
+      slug(movedExample.family) !== component
+    ) {
+      target = `${componentHref(slug(movedExample.family))}#${hash}`;
+    }
     const overview =
       (pathParts()[0] === 'frameworks' && !pathParts()[1]) ||
       query.get('page') === 'frameworks';
-    if (overview && (hash === 'browser-cdn' || hash === 'server-rendering'))
-      target = frameworkHref(hash === 'browser-cdn' ? 'javascript-cdn' : 'ssr');
-    else if (
-      (pathParts()[0] === 'components' && pathParts()[1] === 'editors') ||
-      hash === 'editors'
-    )
-      target = componentHref('html-editor');
-    else if (query.get('page') === 'colors') target = siteHref('colors/');
-    else if (query.get('page') === 'frameworks')
-      target = pages.frameworks.some((name) => slug(name) === hash)
-        ? frameworkHref(hash)
-        : siteHref('frameworks/');
-    else if (hash === 'components') target = siteHref('components/');
-    else if (pages.components.some((page) => slug(page.title) === hash))
-      target = componentHref(hash);
-    else if (hash.startsWith('component/')) {
-      const example = examples.find((example) => example.id === hash.slice(10));
-      if (example?.family)
-        target = `${componentHref(slug(example.family))}#example-${example.id}`;
+    if (!target) {
+      if (overview && (hash === 'browser-cdn' || hash === 'server-rendering'))
+        target = frameworkHref(
+          hash === 'browser-cdn' ? 'javascript-cdn' : 'ssr',
+        );
+      else if (
+        (pathParts()[0] === 'components' && pathParts()[1] === 'editors') ||
+        hash === 'editors'
+      )
+        target = componentHref('html-editor');
+      else if (query.get('page') === 'colors') target = siteHref('colors/');
+      else if (query.get('page') === 'frameworks')
+        target = pages.frameworks.some((name) => slug(name) === hash)
+          ? frameworkHref(hash)
+          : siteHref('frameworks/');
+      else if (hash === 'components') target = siteHref('components/');
+      else if (pages.components.some((page) => slug(page.title) === hash))
+        target = componentHref(hash);
+      else if (hash.startsWith('component/')) {
+        const example = examples.find(
+          (example) => example.id === hash.slice(10),
+        );
+        if (example?.family)
+          target = `${componentHref(slug(example.family))}#example-${example.id}`;
+      }
     }
     if (target) {
       query.delete('page');
       const url = new URL(target, location.origin);
       url.search = query.toString();
       location.replace(url.href);
+      return true;
     }
+    return false;
   };
-  redirect();
+  const redirected = redirect();
   window.addEventListener('hashchange', redirect);
+  return redirected;
 }

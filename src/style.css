@@ -102,6 +102,24 @@ body {
   background: var(--rv-ui-surface);
   border-inline-end: 1px solid var(--rv-ui-border);
 }
+.catalog-navigation-tools {
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--rv-ui-surface);
+  box-shadow: 0 -16px 0 16px var(--rv-ui-surface), 0 10px 0 var(--rv-ui-surface);
+}
+.catalog-navigation-tools > .rv-search-input {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  max-width: none;
+}
+.catalog-navigation-close {
+  display: none;
+}
 .catalog-sidebar > .rv-search-input {
   width: 100%;
   font-size: 12px;
@@ -1381,8 +1399,81 @@ body {
   .catalog-sidebar {
     display: none;
   }
+  .catalog:has(#component-navigation[data-open='true']) {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+  }
+  .catalog:has(#component-navigation[data-open='true']) .catalog-topbar {
+    flex-shrink: 0;
+  }
+  .catalog-workspace:has(> #component-navigation[data-open='true']) {
+    display: flex;
+    align-items: stretch;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
+    width: 100%;
+  }
+  .catalog .catalog-mobile-nav {
+    align-self: flex-start;
+    flex-shrink: 0;
+  }
   .catalog-sidebar[data-open='true'] {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    flex: 1;
+    min-height: 0;
+    max-height: none;
+    height: auto;
+    border: 0;
+    padding-bottom: max(20px, env(safe-area-inset-bottom));
+    overscroll-behavior: contain;
+  }
+  .catalog-sidebar[data-open='true'] .catalog-navigation-tools {
+    position: static;
+    flex: 0 0 auto;
+    gap: 12px;
+    box-shadow: none;
+  }
+  .catalog-sidebar[data-open='true'] > nav {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-top: 12px;
+    overscroll-behavior: contain;
+  }
+  .catalog-sidebar[data-open='true'] .catalog-navigation-close {
+    display: inline-flex;
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+  }
+  .catalog-sidebar[data-open='true'] .rv-search-input input {
+    width: 100%;
+  }
+  .catalog-sidebar .catalog-nav-group > a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 8px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .catalog-sidebar .catalog-nav-group > a[aria-current] {
+    color: var(--rv-ui-accent);
+    font-weight: 600;
+  }
+  .catalog:has(#component-navigation[data-open='true'])
+    :is(.catalog-content, .catalog-footer) {
+    display: none;
   }
 }
 /* Financial compositions use the same chart and control primitives as the docs. */
@@ -2346,7 +2437,7 @@ body {
 .catalog:has(.gallery-home) {
   --home-hero-background: #fff;
 }
-.catalog[data-theme='dark']:has(.gallery-home) {
+:root[data-theme='dark'] .catalog:has(.gallery-home) {
   --home-hero-background: #000;
 }
 .catalog:has(.gallery-home) .catalog-topbar {
