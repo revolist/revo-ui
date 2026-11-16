@@ -85,7 +85,7 @@ For a classic script, load `https://cdn.jsdelivr.net/npm/@revolist/ui@4.0.12/bro
 
 You can replace the CDN prefix with `https://unpkg.com/@revolist/ui@4.0.12`, or self-host the package files. The `unpkg` and `jsdelivr` package defaults point to the classic script. The `@revolist/ui/browser` export points to the standalone ES module. Existing npm/framework ESM entries remain available for tree-shaking; host-framework adapters still require their respective frameworks.
 
-The complete browser bundles include the component catalog and PDF engine. PDF viewers also need `browser/pdf-viewer.css` and the matching `browser/pdf.worker.min.mjs` served from **your own origin**, with its URL supplied as `workerSrc`. Direct cross-origin CDN Worker URLs are not supported by the browser Worker constructor. Configure PDF document/asset access for your application.
+The complete browser bundles include the component catalog and PDF engine. PDF viewers also need `browser/pdf-viewer.css`. A matching PDF.js worker is included and starts only when a document is loaded. Serve the bundle and its worker assets from **your own origin**, or override `workerSrc` with your own matching module worker URL. Direct cross-origin CDN Worker URLs are not supported by the browser Worker constructor. Configure PDF document/asset access for your application.
 
 See the [CDN examples in Docs](https://ui.rv-grid.com/frameworks/javascript-cdn/) for complete module and classic-script HTML and lifecycle guidance.
 

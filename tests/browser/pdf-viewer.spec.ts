@@ -378,7 +378,7 @@ test('keeps mobile tools in the viewer direction and scoped theme', async ({
 test('reports a failed worker script instead of keeping the document in loading', async ({
   page,
 }) => {
-  await page.route('**/pdf.worker.min-*.mjs', (route) => route.abort('failed'));
+  await page.route('**/pdf.worker.min-*.*js', (route) => route.abort('failed'));
   await page.goto('/?section=pdf-viewer#pdf-viewer');
   const viewer = primary(page);
   await expect(viewer.getByRole('alert')).toContainText(
@@ -394,7 +394,7 @@ test('reports a failed worker script instead of keeping the document in loading'
   await expect(
     viewer.getByRole('button', { name: 'Download PDF', exact: true }),
   ).toBeDisabled();
-  await page.unroute('**/pdf.worker.min-*.mjs');
+  await page.unroute('**/pdf.worker.min-*.*js');
   await viewer.getByRole('button', { name: 'Retry', exact: true }).click();
   await expect(
     viewer.locator('.page[data-page-number="1"] canvas').first(),
