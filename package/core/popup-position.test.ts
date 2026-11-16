@@ -1,8 +1,13 @@
 import { afterEach, expect, it, vi } from 'vitest';
-import { applyPopupPosition, VIEWPORT_POPUP_STYLE } from './popup-position';
+import {
+  applyPopupPosition,
+  getPopupViewport,
+  VIEWPORT_POPUP_STYLE,
+} from './popup-position';
 
 afterEach(() => {
   vi.restoreAllMocks();
+  vi.unstubAllGlobals();
   document.body.replaceChildren();
 });
 
@@ -29,4 +34,28 @@ it('retains document offsets for ordinary absolute body portals', () => {
   applyPopupPosition(popup, { top: 240, left: 80 });
   expect(popup.style.top).toBe('740px');
   expect(popup.style.left).toBe('200px');
+});
+
+it('uses the keyboard and pan bounds of the visual viewport', () => {
+  vi.stubGlobal('visualViewport', {
+    offsetLeft: 20,
+    offsetTop: 100,
+    width: 350,
+    height: 300,
+  });
+  expect(getPopupViewport(window)).toEqual({
+    left: 20,
+    top: 100,
+    right: 370,
+    bottom: 400,
+  });
+});
+it('falls back to the layout viewport when visualViewport is unavailable', () => {
+  vi.stubGlobal('visualViewport', undefined);
+  expect(getPopupViewport(window)).toEqual({
+    left: 0,
+    top: 0,
+    right: window.innerWidth,
+    bottom: window.innerHeight,
+  });
 });

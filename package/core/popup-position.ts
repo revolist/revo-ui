@@ -81,3 +81,16 @@ export function applyPopupPosition(
   popup.style.left = `${position.left}px`;
   return position;
 }
+
+/** Visible viewport in the same layout coordinates as getBoundingClientRect. */
+export function getPopupViewport(view: Window) {
+  const viewport = view.visualViewport;
+  const left = viewport?.offsetLeft ?? 0;
+  const top = viewport?.offsetTop ?? 0;
+  return {
+    left,
+    top,
+    right: left + (viewport?.width ?? view.innerWidth),
+    bottom: top + (viewport?.height ?? view.innerHeight),
+  };
+}

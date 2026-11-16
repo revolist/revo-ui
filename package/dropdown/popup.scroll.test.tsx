@@ -9,6 +9,7 @@ afterEach(() => {
   mounts.length = 0;
   document.body.replaceChildren();
   vi.restoreAllMocks();
+  vi.unstubAllGlobals();
 });
 async function mount(trigger: HTMLDivElement, content: ComponentChildren) {
   const host = document.body.appendChild(document.createElement('div'));
@@ -87,4 +88,28 @@ it('still moves a nested popup when its anchor scrolls inside the parent popup b
   expect(outerMeasure).not.toHaveBeenCalled();
   expect(nestedMeasure).toHaveBeenCalled();
   await vi.waitFor(() => expect(nested.style.top).toBe('84px'));
+});
+
+it('follows visual viewport panning and removes listeners when closed', async () => {
+  const viewport = new EventTarget();
+  Object.assign(viewport, {
+    offsetTop: 0,
+    offsetLeft: 0,
+    width: 390,
+    height: 500,
+  });
+  vi.stubGlobal('visualViewport', viewport);
+  const trigger = document.body.appendChild(document.createElement('div'));
+  let top = 100;
+  vi.spyOn(trigger, 'getBoundingClientRect').mockImplementation(
+    () => new DOMRect(20, top, 160, 40),
+  );
+  const popup = await mount(trigger, <button>Choice</button>);
+  top = 180;
+  act(() => viewport.dispatchEvent(new Event('scroll')));
+  await vi.waitFor(() => expect(popup.style.top).toBe('224px'));
+  const remove = vi.spyOn(viewport, 'removeEventListener');
+  act(() => render(null, mounts[mounts.length - 1]));
+  expect(remove).toHaveBeenCalledWith('scroll', expect.any(Function));
+  expect(remove).toHaveBeenCalledWith('resize', expect.any(Function));
 });
