@@ -28,9 +28,6 @@ export function CalendarExamples() {
   );
   const [preset, setPreset] = useState<ISODateString | undefined>(reference);
   const [presetError, setPresetError] = useState('');
-  const [timed, setTimed] = useState<ISODateString | undefined>(reference);
-  const [start, setStart] = useState('09:00'),
-    [end, setEnd] = useState('17:00');
   const [booked, setBooked] = useState<ISODateString | undefined>();
   const [weeks, setWeeks] = useState<ISODateString | undefined>(reference);
   const [persian, setPersian] = useState<ISODateString | undefined>(
@@ -105,28 +102,6 @@ export function CalendarExamples() {
           ]}
         />
         {presetError ? <p role="status">{presetError}</p> : null}
-      </Example>
-      <Example title="Date and time calendar">
-        <CalendarPicker
-          selected={timed}
-          onSelectionChange={setTimed}
-          defaultMonth="2026-10-01"
-          referenceDate={reference}
-          footer={
-            <div class="rv-form-grid">
-              <label class="rv-field">
-                <span class="rv-field__label">Start time</span>
-                <DateTimeField kind="time" value={start} onValueChange={setStart}
-                  picker={{ timeFormat: '24h', text: { chooseTime: 'Choose start time' } }} />
-              </label>
-              <label class="rv-field">
-                <span class="rv-field__label">End time</span>
-                <DateTimeField kind="time" value={end} onValueChange={setEnd}
-                  picker={{ timeFormat: '24h', text: { chooseTime: 'Choose end time' } }} />
-              </label>
-            </div>
-          }
-        />
       </Example>
       <Example title="Booked dates and custom cells">
         <CalendarPicker
@@ -225,5 +200,35 @@ export function CalendarExamples() {
         />
       </Example>
     </>
+  );
+}
+
+export function DateTimeCalendarExample() {
+  const [timed, setTimed] = useState<ISODateString | undefined>(reference);
+  const [start, setStart] = useState('09:00'),
+    [end, setEnd] = useState('17:00');
+  return (
+    <Example title="Date and time calendar">
+      <CalendarPicker
+        selected={timed}
+        onSelectionChange={setTimed}
+        defaultMonth="2026-10-01"
+        referenceDate={reference}
+        footer={
+          <div class="rv-form-grid">
+            <label class="rv-field">
+              <span class="rv-field__label">Start time</span>
+              <DateTimeField kind="time" value={start} onValueChange={setStart}
+                picker={{ timeFormat: '24h', text: { chooseTime: 'Choose start time' } }} />
+            </label>
+            <label class="rv-field">
+              <span class="rv-field__label">End time</span>
+              <DateTimeField kind="time" value={end} onValueChange={setEnd}
+                picker={{ timeFormat: '24h', text: { chooseTime: 'Choose end time' } }} />
+            </label>
+          </div>
+        }
+      />
+    </Example>
   );
 }

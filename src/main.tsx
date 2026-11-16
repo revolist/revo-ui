@@ -25,7 +25,7 @@ import alertCheckIcon from '@fortawesome/fontawesome-free/svgs/solid/circle-chec
 import alertWarningIcon from '@fortawesome/fontawesome-free/svgs/solid/circle-exclamation.svg?raw';
 import plusIcon from '@fortawesome/fontawesome-free/svgs/solid/plus.svg?raw';
 import { SliderLayoutExamples, TimelineTrackExample } from './sliders';
-import { CalendarExamples } from './calendars';
+import { CalendarExamples, DateTimeCalendarExample } from './calendars';
 import { Legend } from '@revolist/ui/legend';
 import { FormattingExamples } from './formatting';
 import {PaginationExamples} from './pagination';
@@ -604,6 +604,7 @@ function App() {
             picker={{ timeFormat: '24h', text: { chooseDate: 'Choose field date and time' } }} />
         </Example>
         <SharedEditorExamples />
+        <DateTimeCalendarExample />
       </Section>
       <Section title="Duration and effort">
         <DurationEffortExample />
