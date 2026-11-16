@@ -256,3 +256,94 @@ test('shared dialog stays centered when opened after page scroll and after scrol
   await page.getByRole('button', { name: 'Close', exact: true }).click();
   await expect(dialog).toHaveCount(0);
 });
+
+for (const [topLayer, motion] of [
+  [true, false],
+  [false, false],
+  [true, true],
+  [false, true],
+] as const) {
+  test(`dropdown first visible frame already has its settled position (top layer: ${topLayer}, motion: ${motion})`, async ({
+    page,
+  }) => {
+    await scrolledDialog(
+      page,
+      `
+      import { h, render } from 'preact';
+      import { MultiSelect } from './package/pickers.tsx';
+      render(h(MultiSelect, {
+        source: Array.from({length: 12}, (_, index) => ({ value: index, label: 'Resource ' + index })),
+        value: [],
+        config: { ariaLabel: 'Resources', topLayer: ${topLayer}, maxHeight: 360, portalTarget: document.querySelector('dialog') },
+        onChange: () => {}
+      }), document.getElementById('field'));
+      document.getElementById('field').style.marginTop = '420px';
+    `,
+    );
+    if (motion) {
+      await page.emulateMedia({ reducedMotion: 'no-preference' });
+      await page
+        .locator('style')
+        .first()
+        .evaluate((style) => {
+          style.textContent = style.textContent!.replace(
+            '*, *::before, *::after { animation: none !important; transition: none !important; }',
+            '',
+          );
+        });
+    }
+    const trigger = page.getByRole('combobox', { name: 'Resources' });
+    await trigger.evaluate((element) => {
+      element.addEventListener(
+        'click',
+        () => {
+          (window as any).openingFrames = new Promise((resolve) => {
+            const visible: { left: number; top: number; opacity: number }[] =
+              [];
+            let frames = 0;
+            const sample = () => {
+              const popup = document.querySelector<HTMLElement>(
+                '.revo-dropdown-menu',
+              );
+              if (popup) {
+                const style = getComputedStyle(popup);
+                if (
+                  style.display !== 'none' &&
+                  style.visibility === 'visible' &&
+                  Number(style.opacity) > 0
+                ) {
+                  const rect = popup.getBoundingClientRect();
+                  visible.push({
+                    left: rect.left,
+                    top: rect.top,
+                    opacity: Number(style.opacity),
+                  });
+                }
+              }
+              if (++frames < 20) requestAnimationFrame(sample);
+              else resolve(visible);
+            };
+            requestAnimationFrame(sample);
+          });
+        },
+        { capture: true, once: true },
+      );
+    });
+    await trigger.click();
+    const frames = (await page.evaluate(
+      () => (window as any).openingFrames,
+    )) as { left: number; top: number; opacity: number }[];
+    expect(frames.length).toBeGreaterThan(2);
+    if (motion) expect(frames.some((frame) => frame.opacity < 0.99)).toBe(true);
+    const settled = frames.at(-1)!;
+    expect(settled.top).toBeGreaterThan(100);
+    expect(
+      Math.max(...frames.map((frame) => Math.abs(frame.top - settled.top))),
+    ).toBeLessThanOrEqual(1);
+    expect(
+      Math.max(...frames.map((frame) => Math.abs(frame.left - settled.left))),
+    ).toBeLessThanOrEqual(1);
+    await page.keyboard.press('Escape');
+    await expect(page.locator('.revo-dropdown-menu')).toHaveCount(0);
+  });
+}

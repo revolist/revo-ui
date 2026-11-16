@@ -3,13 +3,7 @@ import { getPopupCoordinates } from '../core/popup-position';
 import { ownsPopupTarget } from '../core/popup-ownership';
 import { h, type ComponentChildren, type RefObject, render } from 'preact';
 import { inheritUiMotion } from '../core/motion';
-import {
-  createPortal,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'preact/compat';
+import { createPortal, useLayoutEffect, useRef, useState } from 'preact/compat';
 import { hideTopLayerPopup, showTopLayerPopup } from '../core/top-layer-popup';
 
 // DropdownPopup component - Handles positioning and portal rendering
@@ -81,31 +75,12 @@ export function DropdownPopup({
     return inheritUiMotion(trigger, popup);
   }, [portalTarget, triggerRef]);
 
-  // Update dropdown position when opened
-  useEffect(() => {
+  // Measure and position before the first visible paint, including top-layer promotion.
+  useLayoutEffect(() => {
     const trigger = triggerRef.current;
-    if (!trigger) return;
+    const popup = dropdownRef.current;
+    if (!trigger || !popup) return;
     const ownerWindow = trigger.ownerDocument.defaultView ?? window;
-
-    const showForMeasurement = () => {
-      const popup = dropdownRef.current;
-      if (!popup) return;
-      const triggerRect = trigger.getBoundingClientRect();
-      const position = getPopupCoordinates(
-        popup,
-        triggerRect.bottom + POPUP_GAP,
-        triggerRect.left,
-      );
-
-      setDropdownPosition({
-        top: position.top,
-        left: position.left,
-        display: 'flex',
-        ...(matchTriggerWidth
-          ? { width: triggerRect.width / position.scaleX }
-          : {}),
-      });
-    };
 
     const updatePosition = () => {
       const popup = dropdownRef.current;
@@ -186,8 +161,17 @@ export function DropdownPopup({
       updatePosition();
     };
 
-    showForMeasurement();
-    const timer = ownerWindow.setTimeout(updatePosition, 0);
+    // The initial render is visibility:hidden so native promotion can make the
+    // panel measurable without exposing its placeholder coordinates. Width must
+    // be applied before measuring wrapping and the above/below placement.
+    const mode = topLayer ? showTopLayerPopup(popup) : undefined;
+    popup.style.display = 'flex';
+    if (matchTriggerWidth) {
+      const triggerRect = trigger.getBoundingClientRect();
+      const coordinateSpace = getPopupCoordinates(popup, 0, 0);
+      popup.style.width = `${triggerRect.width / coordinateSpace.scaleX}px`;
+    }
+    updatePosition();
     ownerWindow.addEventListener('resize', updatePosition);
     ownerWindow.addEventListener('scroll', handleScroll, true);
     const ResizeObserverCtor = ownerWindow.ResizeObserver;
@@ -202,10 +186,10 @@ export function DropdownPopup({
       resizeObserver?.observe(dropdownRef.current);
     }
     return () => {
-      ownerWindow.clearTimeout(timer);
       ownerWindow.removeEventListener('resize', updatePosition);
       ownerWindow.removeEventListener('scroll', handleScroll, true);
       resizeObserver?.disconnect();
+      if (mode) hideTopLayerPopup(popup, mode);
     };
   }, [
     align,
@@ -213,17 +197,9 @@ export function DropdownPopup({
     maxHeight,
     observePopupResize,
     portalTarget,
+    topLayer,
     triggerRef,
   ]);
-
-  useLayoutEffect(() => {
-    const popup = dropdownRef.current;
-    if (!topLayer || !popup) return;
-    const mode = showTopLayerPopup(popup);
-    return () => {
-      hideTopLayerPopup(popup, mode);
-    };
-  }, [portalTarget, topLayer]);
 
   useLayoutEffect(() => {
     if (!closeOnClickOutside || !onClose) return;
@@ -281,6 +257,7 @@ export function DropdownPopup({
         left: `${dropdownPosition.left}px`,
         ...(topLayer ? { right: 'auto', bottom: 'auto', margin: '0' } : {}),
         display: dropdownPosition.display,
+        visibility: dropdownPosition.display === 'none' ? 'hidden' : undefined,
         maxHeight:
           dropdownPosition.maxHeight === undefined
             ? undefined
