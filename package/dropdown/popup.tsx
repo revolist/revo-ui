@@ -86,19 +86,55 @@ export function DropdownPopup({
       const popup = dropdownRef.current;
       if (!popup) return;
       const triggerRect = trigger.getBoundingClientRect();
+      const optionList = popup.querySelector<HTMLElement>('.dropdown-options');
+      const optionScrollTop = optionList?.scrollTop ?? 0;
+      const optionScrollLeft = optionList?.scrollLeft ?? 0;
+      const viewport = getPopupViewport(ownerWindow);
+      const coordinateSpace = getPopupCoordinates(popup, 0, 0);
+      // Preserve authored width limits while allowing a narrow or zoomed
+      // visible viewport to take precedence over the menu's minimum width.
+      popup.style.maxWidth = '';
+      popup.style.minWidth = '';
+      popup.style.direction = ownerWindow.getComputedStyle(trigger).direction;
+      const authored = ownerWindow.getComputedStyle(popup);
+      const chrome =
+        authored.boxSizing === 'border-box'
+          ? 0
+          : [
+              authored.paddingLeft,
+              authored.paddingRight,
+              authored.borderLeftWidth,
+              authored.borderRightWidth,
+            ].reduce((sum, value) => sum + (Number.parseFloat(value) || 0), 0);
+      const availableWidth = Math.max(
+        0,
+        (viewport.right - viewport.left - 2 * VIEWPORT_GUTTER) /
+          coordinateSpace.scaleX -
+          chrome,
+      );
+      popup.style.maxWidth =
+        !authored.maxWidth || authored.maxWidth === 'none'
+          ? `${availableWidth}px`
+          : `min(${authored.maxWidth}, ${availableWidth}px)`;
+      popup.style.minWidth = `min(${!authored.minWidth || authored.minWidth === 'auto' ? '0px' : authored.minWidth}, ${availableWidth}px)`;
       // Measure against the authored CSS cap, not the inline viewport cap from
       // a previous positioning pass. Otherwise ResizeObserver can turn a
       // temporary constraint into the popup's permanent desired height.
       const constrainedMaxHeight = popup.style.maxHeight;
       popup.style.maxHeight = '';
       const menuRect = popup.getBoundingClientRect();
-      const coordinateSpace = getPopupCoordinates(popup, 0, 0);
+      // Overflowing custom content does not override the authored CSS height cap.
       const measuredHeight = Math.max(
         menuRect.height,
         popup.offsetHeight * coordinateSpace.scaleY,
-        popup.scrollHeight * coordinateSpace.scaleY,
       );
       popup.style.maxHeight = constrainedMaxHeight;
+      // WebKit clamps native scroll when the temporary natural-height measure
+      // expands the list. Restore its offset under the original constraint.
+      if (optionList) {
+        optionList.scrollTop = optionScrollTop;
+        optionList.scrollLeft = optionScrollLeft;
+      }
       // Entry animation may shrink the rectangle; clamp the settled box too.
       const menuWidth = Math.max(
         menuRect.width,
@@ -110,7 +146,6 @@ export function DropdownPopup({
           ? Math.max(0, maxHeight * coordinateSpace.scaleY)
           : Number.POSITIVE_INFINITY,
       );
-      const viewport = getPopupViewport(ownerWindow);
       const availableAbove = Math.max(
         0,
         triggerRect.top - viewport.top - POPUP_GAP - VIEWPORT_GUTTER,
@@ -181,18 +216,35 @@ export function DropdownPopup({
       ? new ResizeObserverCtor(updatePosition)
       : undefined;
     resizeObserver?.observe(trigger);
-    // Validation and selection content can move a trigger without resizing it.
-    const dialogSurface = trigger.closest('.rv-dialog__surface, dialog');
-    if (dialogSurface) resizeObserver?.observe(dialogSurface);
+    // Surrounding content can move the field without changing its own size.
+    // Observe its layout ancestors only while open, using the same observer.
+    for (
+      let parent = trigger.parentElement;
+      parent;
+      parent = parent.parentElement
+    )
+      resizeObserver?.observe(parent);
     if (observePopupResize && dropdownRef.current) {
       resizeObserver?.observe(dropdownRef.current);
     }
+    // Filtered or remote results can grow inside an unchanged clipped box.
+    // Content mutations must refresh the natural height even without a resize.
+    const mutationObserver =
+      observePopupResize && ownerWindow.MutationObserver
+        ? new ownerWindow.MutationObserver(updatePosition)
+        : undefined;
+    mutationObserver?.observe(popup, {
+      childList: true,
+      characterData: true,
+      subtree: true,
+    });
     return () => {
       visualViewport?.removeEventListener('scroll', updatePosition);
       visualViewport?.removeEventListener('resize', updatePosition);
       ownerWindow.removeEventListener('resize', updatePosition);
       ownerWindow.removeEventListener('scroll', handleScroll, true);
       resizeObserver?.disconnect();
+      mutationObserver?.disconnect();
       if (mode) hideTopLayerPopup(popup, mode);
     };
   }, [
@@ -254,6 +306,7 @@ export function DropdownPopup({
       id={dropdownMenuId}
       className={`revo-dropdown-menu ${popupClassName || ''}`}
       data-theme={theme ?? 'default'}
+      data-rv-match-trigger-width={matchTriggerWidth ? '' : undefined}
       onMouseUp={onPointerRelease}
       onTouchEnd={onPointerRelease}
       style={{

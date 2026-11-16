@@ -85,7 +85,9 @@ Explore live previews, variants, and expandable code examples on the website.
 - [Tabs and lists](https://ui.rv-grid.com/components/tabs-and-lists/) — Tabs, segmented controls, and selectable lists.
 - [Sliders](https://ui.rv-grid.com/components/sliders/) — Single values and ranges with labels and value badges.
 - [Timeline](https://ui.rv-grid.com/components/timeline-track/) — Draggable, resizable events with colors and tooltips.
-- [Calendars and dates](https://ui.rv-grid.com/components/calendar-and-dates/) — Date and time pickers, ranges, and weekly planning.
+- [Calendars and dates](https://ui.rv-grid.com/components/calendar-and-dates/) — Calendars, date selection, ranges, and weekly planning.
+- [Time pickers](https://ui.rv-grid.com/components/time-pickers/) — Time-only fields, business hours, seconds, and clock formats.
+- [Date and time fields](https://ui.rv-grid.com/components/date-and-time-fields/) — DateTimeField inputs and configurable date/time editors.
 - [Charts](https://ui.rv-grid.com/components/charts-and-range-selection/) — Bar, line, and area charts with tooltips and range selection.
 - [Tooltip API and behavior](docs/tooltip.md) — Placement, timing groups, controlled state, rich/async content, delegation, events, and imperative methods.
 - [Dialogs and tooltips](https://ui.rv-grid.com/components/dialogs-and-floating-surfaces/) — Dialogs, confirmations, popovers, and tooltips.
@@ -133,6 +135,33 @@ pnpm --filter @revolist/ui pack:public
 pnpm --filter @revolist/ui test:public
 pnpm build:demo
 ```
+
+Framework-independent date helpers are available from `@revolist/ui/dates`:
+
+```ts
+import {
+  addDays, diffInCalendarDays, formatCalendarDateDisplay,
+  isValidIsoDate, startOfMonth,
+} from '@revolist/ui/dates';
+
+const to = '2026-11-16';
+if (isValidIsoDate(to)) {
+  const from = addDays(to, -6);
+  const inclusiveDays = diffInCalendarDays(from, to) + 1; // 7
+  const monthStart = startOfMonth(to); // 2026-11-01
+  const label = formatCalendarDateDisplay(from, 'en-GB'); // 10 Nov 2026
+}
+```
+
+Validate untrusted strings with `isValidIsoDate` before date arithmetic. It accepts
+strict `YYYY-MM-DD` calendar dates and rejects impossible dates and timestamps.
+`addDays` uses UTC arithmetic and preserves date-only versus datetime output;
+`diffInCalendarDays` returns the signed day difference, so inclusive ranges add one.
+`formatCalendarDateDisplay` accepts a locale and optional timezone; date-only
+strings retain their civil date regardless of timezone. It returns `undefined`
+for invalid values. The entry point also exports ISO types, parsing and
+serialization helpers, `subtractDays`, `endOfMonth`, and `compareIsoDates`.
+These utilities do not require a framework, DOM, or stylesheet.
 
 Library source lives directly in `package/`; the root manifest owns its public exports. The internal workspace packages in `internal/` provide date and chart utilities that are bundled into the public distribution. Gallery source lives in `src/`.
 

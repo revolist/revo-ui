@@ -113,3 +113,34 @@ it('follows visual viewport panning and removes listeners when closed', async ()
   expect(remove).toHaveBeenCalledWith('scroll', expect.any(Function));
   expect(remove).toHaveBeenCalledWith('resize', expect.any(Function));
 });
+
+it('observes layout ancestors and follows a field moved without resizing', async () => {
+  const observe = vi.fn();
+  const disconnect = vi.fn();
+  let resize: ResizeObserverCallback;
+  vi.stubGlobal(
+    'ResizeObserver',
+    class {
+      constructor(callback: ResizeObserverCallback) {
+        resize = callback;
+      }
+      observe = observe;
+      disconnect = disconnect;
+    },
+  );
+  const card = document.body.appendChild(document.createElement('section'));
+  const row = card.appendChild(document.createElement('div'));
+  const trigger = row.appendChild(document.createElement('div'));
+  let top = 160;
+  vi.spyOn(trigger, 'getBoundingClientRect').mockImplementation(
+    () => new DOMRect(20, top, 160, 40),
+  );
+  const popup = await mount(trigger, <button>Choice</button>);
+  expect(observe).toHaveBeenCalledWith(row);
+  expect(observe).toHaveBeenCalledWith(card);
+  top -= 36;
+  act(() => resize([], {} as ResizeObserver));
+  await vi.waitFor(() => expect(popup.style.top).toBe('168px'));
+  act(() => render(null, mounts[mounts.length - 1]));
+  expect(disconnect).toHaveBeenCalledOnce();
+});

@@ -36,7 +36,11 @@ const SingleSelectValue = ({
 }) => {
   return (
     <span className={`selected-value ${className}`}>
-      {renderValue ? renderValue(h, options[0]) : options[0].label}
+      {renderValue ? (
+        renderValue(h, options[0])
+      ) : (
+        <span>{options[0].label}</span>
+      )}
     </span>
   );
 };

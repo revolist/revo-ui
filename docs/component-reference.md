@@ -124,9 +124,21 @@ Controlled timeline events with move/resize interactions, event colors, weighted
 
 ### Calendar and dates
 
-Calendar views and date/time fields, ranges.
+Calendar views, date selection and date ranges.
 
-[Calendar](api/Calendar.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarHeader](api/CalendarHeader.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarWeekdays](api/CalendarWeekdays.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarDay](api/CalendarDay.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarMonthGrid](api/CalendarMonthGrid.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarYearGrid](api/CalendarYearGrid.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarPicker](api/CalendarPicker.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [DatePicker](api/DatePicker.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [DateRangePicker](api/DateRangePicker.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [TemporalPicker](api/TemporalPicker.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [TemporalDraft](api/TemporalDraft.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [DateTimeField](api/DateTimeField.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/))
+[Calendar](api/Calendar.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarHeader](api/CalendarHeader.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarWeekdays](api/CalendarWeekdays.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarDay](api/CalendarDay.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarMonthGrid](api/CalendarMonthGrid.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarYearGrid](api/CalendarYearGrid.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarPicker](api/CalendarPicker.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [DatePicker](api/DatePicker.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [DateRangePicker](api/DateRangePicker.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/))
+
+### Date and time fields
+
+DateTimeField inputs and configurable date/time editor compositions.
+
+[DateTimeField](api/DateTimeField.md) ([examples](https://ui.rv-grid.com/components/date-and-time-fields/)) | [TemporalPicker](api/TemporalPicker.md) ([examples](https://ui.rv-grid.com/components/date-and-time-fields/)) | [TemporalDraft](api/TemporalDraft.md) ([examples](https://ui.rv-grid.com/components/date-and-time-fields/))
+
+### Time pickers
+
+Time-only fields, business hours, seconds and 12/24-hour pickers.
+
+[DateTimeField](api/DateTimeField.md) ([examples](https://ui.rv-grid.com/components/time-pickers/)) | [TemporalPicker](api/TemporalPicker.md) ([examples](https://ui.rv-grid.com/components/time-pickers/)) | [TemporalDraft](api/TemporalDraft.md) ([examples](https://ui.rv-grid.com/components/time-pickers/))
 
 ### Duration and effort
 
@@ -357,6 +369,13 @@ field automatically and preserves the option's value type. Return `null` or
 
 The editable input displays a selected option's plain text label. Custom
 `renderOption` content and multi-select `renderValue` chips remain supported.
+
+Long option labels wrap inside the scrollable menu; selected chip labels truncate
+while their remove buttons and editable input remain usable. Menus can grow to
+70% of the device viewport, up to 640px, and shrink to the visible space above
+the keyboard. Use `config.maxHeight` for a smaller pixel cap, or override
+`--rv-dropdown-menu-max-height` and `--rv-dropdown-menu-options-max-height` for
+a themed limit.
 
 
 ## Advanced slider

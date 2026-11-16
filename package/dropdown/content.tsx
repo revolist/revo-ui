@@ -51,7 +51,8 @@ export function revealDropdownOption(
   if (!option) return;
   const bounds = list.getBoundingClientRect();
   const { top, bottom } = option.getBoundingClientRect();
-  if (top < bounds.top) list.scrollTop += top - bounds.top;
+  if (top < bounds.top || bottom - top > bounds.height)
+    list.scrollTop += top - bounds.top;
   else if (bottom > bounds.bottom) list.scrollTop += bottom - bounds.bottom;
 }
 
@@ -122,7 +123,7 @@ export function DropdownPopupContent<T = any>({
   const searchInputRef = useRef<HTMLInputElement>(null);
   const listboxRef = useRef<HTMLDivElement>(null);
   const dropdownListRef = useRef<HTMLUListElement>(null);
-  const revealActiveOption = useRef(false);
+  const revealActiveOption = useRef(true);
 
   // Use the dropdown service
   const {

@@ -48,18 +48,55 @@ for (const width of [320, 390, 760]) {
         name: 'Find a component',
       });
       const searchBounds = (await search.boundingBox())!;
-      expect(Math.abs(searchBounds.width - (width - 40))).toBeLessThanOrEqual(
+      const close = page.getByRole('button', {
+        name: 'Close navigation',
+        exact: true,
+      });
+      const closeBounds = (await close.boundingBox())!;
+      expect(
+        Math.abs(
+          searchBounds.y +
+            searchBounds.height / 2 -
+            closeBounds.y -
+            closeBounds.height / 2,
+        ),
+      ).toBeLessThanOrEqual(1);
+      await expect(close).toHaveText('');
+      expect(closeBounds.width).toBeGreaterThanOrEqual(40);
+      expect(Math.abs(searchBounds.width - (width - 96))).toBeLessThanOrEqual(
         1,
       );
       const searchTop = searchBounds.y;
-      await sidebar.hover();
+      const navigation = sidebar.getByRole('navigation', {
+        name: 'Component sections',
+      });
+      await navigation.hover();
       await page.mouse.wheel(0, 900);
       await expect
-        .poll(() => sidebar.evaluate((element) => element.scrollTop))
+        .poll(() => navigation.evaluate((element) => element.scrollTop))
         .toBeGreaterThan(0);
       expect(
         Math.abs((await search.boundingBox())!.y - searchTop),
       ).toBeLessThanOrEqual(1);
+      const header = sidebar.locator('.catalog-navigation-tools');
+      const headerBounds = (await header.boundingBox())!;
+      expect((await navigation.boundingBox())!.y).toBeGreaterThanOrEqual(
+        headerBounds.y + headerBounds.height,
+      );
+      expect(
+        await header.evaluate((element) => {
+          const bounds = element.getBoundingClientRect();
+          return !!document
+            .elementFromPoint(bounds.x + 2, bounds.y + 2)
+            ?.closest('nav');
+        }),
+      ).toBe(false);
+      if (width === 390)
+        await page.screenshot({
+          path: info.outputPath(
+            `mobile-navigation-scrolled-${theme.toLowerCase()}.png`,
+          ),
+        });
       await search.fill('tabs');
       await expect(links).toHaveCount(1);
       await sidebar
@@ -84,6 +121,9 @@ test('closing mobile navigation and resizing to desktop restores the article', a
   await page
     .getByRole('button', { name: 'Close navigation', exact: true })
     .click();
+  await expect(
+    page.getByRole('button', { name: 'Browse components', exact: true }),
+  ).toBeFocused();
   await expect(page.locator('#component-navigation')).toBeHidden();
   await expect(page.locator('.catalog-content')).toBeVisible();
   await page

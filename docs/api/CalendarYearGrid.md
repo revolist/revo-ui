@@ -1,6 +1,6 @@
 # CalendarYearGrid
 
-Calendar views and date/time fields, ranges, duration drafts, weekly availability and descriptive legends.
+Calendar views, date selection and date ranges.
 
 [Live examples and formatted usage](https://ui.rv-grid.com/components/calendar-and-dates/) · [Component index](../../README.md#complete-component-reference)
 

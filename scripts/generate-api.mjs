@@ -14,7 +14,13 @@ const program = ts.createProgram([catalogPath, selectPath], {
 });
 const checker = program.getTypeChecker();
 const groups = JSON.parse(readFileSync(resolve(gallery, 'docs/component-groups.json'), 'utf8'));
-const routes = new Map(groups.flatMap(([title, route, description, names]) => names.split(' ').map(name => [name, {title, route, description}])));
+// The first family is canonical, matching the API index and live reference.
+const routes = new Map();
+for (const [title, route, description, names] of groups) {
+  for (const name of names.split(' ')) {
+    if (!routes.has(name)) routes.set(name, {title, route, description});
+  }
+}
 routes.set('Select', {title:'Multi/selects, autocomplete', route:'multi-selects-autocomplete', description:'JSX option descriptors for the shared dropdown.'});
 const source = program.getSourceFile(catalogPath);
 let initializer;

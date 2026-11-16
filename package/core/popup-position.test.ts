@@ -59,3 +59,54 @@ it('falls back to the layout viewport when visualViewport is unavailable', () =>
     bottom: window.innerHeight,
   });
 });
+
+it('converts document portal coordinates under inherited CSS zoom', () => {
+  const popup = document.body.appendChild(document.createElement('div'));
+  popup.style.position = 'absolute';
+  Object.defineProperty(popup, 'currentCSSZoom', { value: 2 });
+  vi.spyOn(window, 'scrollY', 'get').mockReturnValue(500);
+  vi.spyOn(window, 'scrollX', 'get').mockReturnValue(120);
+  expect(applyPopupPosition(popup, { top: 240, left: 80 })).toMatchObject({
+    top: 370,
+    left: 100,
+    scaleX: 2,
+    scaleY: 2,
+  });
+});
+
+it.each(['fixed', 'absolute'])(
+  'handles inherited CSS zoom without currentCSSZoom for %s portals',
+  (position) => {
+    const parent = document.body.appendChild(document.createElement('div'));
+    parent.style.zoom = '1.25';
+    const popup = parent.appendChild(document.createElement('div'));
+    popup.style.position = position;
+    popup.style.zoom = '2';
+    Object.defineProperty(popup, 'currentCSSZoom', { value: undefined });
+    vi.spyOn(window, 'scrollY', 'get').mockReturnValue(500);
+    vi.spyOn(window, 'scrollX', 'get').mockReturnValue(120);
+    expect(applyPopupPosition(popup, { top: 240, left: 80 })).toMatchObject({
+      top: position === 'fixed' ? 96 : 296,
+      left: position === 'fixed' ? 32 : 80,
+      scaleX: 2.5,
+      scaleY: 2.5,
+    });
+  },
+);
+
+it('includes a shadow host in the fallback zoom chain', () => {
+  const host = document.body.appendChild(document.createElement('div'));
+  host.style.zoom = '2';
+  const popup = host
+    .attachShadow({ mode: 'open' })
+    .appendChild(document.createElement('div'));
+  popup.style.position = 'fixed';
+  popup.style.zoom = '1.25';
+  Object.defineProperty(popup, 'currentCSSZoom', { value: undefined });
+  expect(applyPopupPosition(popup, { top: 240, left: 80 })).toMatchObject({
+    top: 96,
+    left: 32,
+    scaleX: 2.5,
+    scaleY: 2.5,
+  });
+});

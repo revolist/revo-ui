@@ -378,7 +378,7 @@ for (const framework of ['react', 'vue', 'angular', 'svelte']) {
         bundle: true,
         write: false,
         outdir: 'out',
-        format: 'iife',
+        format: 'esm',
         platform: 'browser',
         define: {
           'process.env.NODE_ENV': '"production"',
@@ -389,15 +389,20 @@ for (const framework of ['react', 'vue', 'angular', 'svelte']) {
         external: ['pdfjs-dist'],
         logLevel: 'silent',
       });
-      const js = result.outputFiles
-        .find((file) => file.path.endsWith('.js'))!
-        .text.replace(/<\/script/gi, '<\\/script');
+      const js = result.outputFiles.find((file) =>
+        file.path.endsWith('.js'),
+      )!.text;
       const cssOutput = result.outputFiles.find((file) =>
         file.path.endsWith('.css'),
       )?.text;
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(error.message));
       await page.route('http://ui-style.test/**', async (route) => {
+        if (route.request().url().endsWith('/app.js'))
+          return route.fulfill({
+            contentType: 'application/javascript',
+            body: js,
+          });
         if (route.request().url().endsWith('/app.css'))
           return route.fulfill({
             contentType: 'text/css',
@@ -408,7 +413,7 @@ for (const framework of ['react', 'vue', 'angular', 'svelte']) {
           headers: {
             'Content-Security-Policy': `default-src 'none'; script-src 'nonce-ui-script-test'; style-src ${extracted ? "'self'" : "'nonce-ui-style-test'"}; style-src-attr 'unsafe-inline'`,
           },
-          body: `<!doctype html><html><head>${extracted ? '<link rel="stylesheet" href="/app.css">' : ''}</head><body><test-app></test-app><div id="app"></div><script nonce="ui-script-test">window.styleViolations=[];document.addEventListener('securitypolicyviolation',e=>window.styleViolations.push(e.violatedDirective));${js}</script></body></html>`,
+          body: `<!doctype html><html><head>${extracted ? '<link rel="stylesheet" href="/app.css">' : ''}</head><body><test-app></test-app><div id="app"></div><script nonce="ui-script-test">window.styleViolations=[];document.addEventListener('securitypolicyviolation',e=>window.styleViolations.push(e.violatedDirective));</script><script type="module" nonce="ui-script-test" src="/app.js"></script></body></html>`,
         });
       });
       await page.goto('http://ui-style.test/');

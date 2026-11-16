@@ -696,10 +696,10 @@ test('standalone dropdown has balanced text and caret insets', async ({
   }
 });
 
-test('selects page includes user photos in selected value and options', async ({
+test('resource selection page includes user photos in selected value and options', async ({
   page,
 }) => {
-  await page.goto('/#multi-selects-autocomplete');
+  await page.goto('/components/resource-selection/');
   const select = page.getByRole('combobox', {
     name: 'Choose a team member',
     exact: true,

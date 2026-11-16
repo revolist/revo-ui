@@ -1,8 +1,8 @@
 # TemporalDraft
 
-Calendar views and date/time fields, ranges, duration drafts, weekly availability and descriptive legends.
+DateTimeField inputs and configurable date/time editor compositions.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/components/calendar-and-dates/) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/date-and-time-fields/) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { TemporalDraft } from '@revolist/ui/date-time'`
 
