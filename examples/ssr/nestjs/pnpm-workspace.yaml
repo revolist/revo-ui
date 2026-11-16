@@ -2,6 +2,6 @@ packages: []
 allowBuilds:
   esbuild: true
 minimumReleaseAgeExclude:
-  - '@revolist/ui@4.0.23'
+  - '@revolist/ui@4.0.25'
 
 verifyDepsBeforeRun: false

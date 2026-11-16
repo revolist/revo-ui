@@ -6,7 +6,7 @@
     "node": ">=24.15.0"
   },
   "dependencies": {
-    "@revolist/ui": "4.0.23",
+    "@revolist/ui": "4.0.25",
     "nuxt": "4.6.4",
     "vue": "3.5.45"
   },

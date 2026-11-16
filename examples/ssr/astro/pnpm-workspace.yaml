@@ -6,4 +6,4 @@ allowBuilds:
   "@parcel/watcher": true
 
 minimumReleaseAgeExclude:
-  - "@revolist/ui@4.0.23"
+  - "@revolist/ui@4.0.25"

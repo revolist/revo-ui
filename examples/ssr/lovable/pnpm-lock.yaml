@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@revolist/ui':
-        specifier: 4.0.23
-        version: 4.0.23(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+        specifier: 4.0.25
+        version: 4.0.25(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       react:
         specifier: 19.2.5
         version: 19.2.5
@@ -58,8 +58,8 @@ packages:
   '@oxc-project/types@0.156.0':
     resolution: {integrity: sha512-1Duyg48TdJNdyhEB8Xn1L36bT9Pv6GUtlKjHxOys8xkaF/rQq3XJE+bAurSK/AgIz5mGFsb77cn9Pb20+WCScw==}
 
-  '@revolist/ui@4.0.23':
-    resolution: {integrity: sha512-i0Cu3Y3v60hND+EQcwzV0TO1EB0pwwn21BX/sMMpIRcay5Q5RMq29dIs+V5blCflf+jJfLwK17YFVkcgXB4tJg==}
+  '@revolist/ui@4.0.25':
+    resolution: {integrity: sha512-p0ndMber6cBvlc3uldSy6BCc+rhxJbvj7jKZtna83jVrErVFmA53iDfSHG84yCdNt9XYpBw1puBrKdgl8QzhyA==}
     peerDependencies:
       '@angular/core': '>=20'
       pdfjs-dist: ^6.4.299
@@ -432,7 +432,7 @@ snapshots:
 
   '@oxc-project/types@0.156.0': {}
 
-  '@revolist/ui@4.0.23(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
+  '@revolist/ui@4.0.25(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
     optionalDependencies:
       react: 19.2.5
       react-dom: 19.2.5(react@19.2.5)

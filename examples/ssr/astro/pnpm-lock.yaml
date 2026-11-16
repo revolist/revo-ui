@@ -14,8 +14,8 @@ importers:
         specifier: 7.1.6
         version: 7.1.6(astro@7.4.12(yaml@2.9.1))(vue@3.5.45(typescript@6.0.3))(yaml@2.9.1)
       "@revolist/ui":
-        specifier: 4.0.23
-        version: 4.0.23(vue@3.5.45(typescript@6.0.3))
+        specifier: 4.0.25
+        version: 4.0.25(vue@3.5.45(typescript@6.0.3))
       astro:
         specifier: 7.4.12
         version: 7.4.12(yaml@2.9.1)
@@ -1002,10 +1002,10 @@ packages:
         integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==,
       }
 
-  "@revolist/ui@4.0.23":
+  "@revolist/ui@4.0.25":
     resolution:
       {
-        integrity: sha512-i0Cu3Y3v60hND+EQcwzV0TO1EB0pwwn21BX/sMMpIRcay5Q5RMq29dIs+V5blCflf+jJfLwK17YFVkcgXB4tJg==,
+        integrity: sha512-p0ndMber6cBvlc3uldSy6BCc+rhxJbvj7jKZtna83jVrErVFmA53iDfSHG84yCdNt9XYpBw1puBrKdgl8QzhyA==,
       }
     peerDependencies:
       "@angular/core": ">=20"
@@ -4203,7 +4203,7 @@ snapshots:
 
   "@polka/url@1.0.0-next.29": {}
 
-  "@revolist/ui@4.0.23(vue@3.5.45(typescript@6.0.3))":
+  "@revolist/ui@4.0.25(vue@3.5.45(typescript@6.0.3))":
     optionalDependencies:
       vue: 3.5.45(typescript@6.0.3)
 

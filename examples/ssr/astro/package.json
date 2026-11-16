@@ -6,7 +6,7 @@
     "node": ">=24.15.0"
   },
   "dependencies": {
-    "@revolist/ui": "4.0.23",
+    "@revolist/ui": "4.0.25",
     "@astrojs/node": "11.1.13",
     "@astrojs/vue": "7.1.6",
     "astro": "7.4.12",
