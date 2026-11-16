@@ -184,6 +184,25 @@ test('archive excludes commercial scheduling and conditional-format rules', () =
   }
 });
 
+test('date utilities execute in Node without a DOM or private workspace packages', () => {
+  const script = `
+    import assert from 'node:assert/strict';
+    import { addDays, diffInCalendarDays, startOfMonth, isValidIsoDate,
+      formatCalendarDateDisplay } from '@revolist/ui/dates';
+    assert.equal(typeof document, 'undefined');
+    assert.equal(isValidIsoDate('2026-02-29'), false);
+    assert.equal(addDays('2024-03-01', -1), '2024-02-29');
+    assert.equal(diffInCalendarDays('2026-03-28', '2026-03-30'), 2);
+    assert.equal(startOfMonth('2026-11-16'), '2026-11-01');
+    assert.equal(formatCalendarDateDisplay('2026-11-16', 'fr-FR', 'America/Los_Angeles'), '16 nov. 2026');
+  `;
+  writeFileSync(join(fixture, 'dates-consumer.mjs'), script);
+  execFileSync(process.execPath, [join(fixture, 'dates-consumer.mjs')], {
+    cwd: fixture,
+    stdio: 'pipe',
+  });
+});
+
 test('an isolated consumer executes native, React, Vue and Svelte adapters from the archive', () => {
   const script = `
     import assert from 'node:assert/strict';
@@ -229,6 +248,13 @@ test('an isolated TypeScript consumer resolves published declarations without wo
     join(fixture, 'consumer.mts'),
     allPublicTypes +
       `
+    import { addDays, diffInCalendarDays, isValidIsoDate, formatCalendarDateDisplay, type ISODateString } from '@revolist/ui/dates';
+    const date: ISODateString = addDays('2026-11-16', -6);
+    const count: number = diffInCalendarDays(date, '2026-11-16');
+    const caption: string | undefined = formatCalendarDateDisplay(date, 'fr-FR');
+    const candidate: string = '2026-11-16';
+    if (isValidIsoDate(candidate)) { const valid: ISODateString = candidate; void valid; }
+    void [count, caption];
     import { createControl, mountAiAssistant, type ControlTag } from '@revolist/ui';
     import { createFrameworkMount, uiComponents } from '@revolist/ui/framework';
     import { Button } from '@revolist/ui/react';
