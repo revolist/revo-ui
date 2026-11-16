@@ -1,4 +1,5 @@
 /** @jsxImportSource preact */
+import { getPopupCoordinates } from '../core/popup-position';
 import { ownsPopupTarget } from '../core/popup-ownership';
 import { h, type ComponentChildren, type RefObject, render } from 'preact';
 import { inheritUiMotion } from '../core/motion';
@@ -40,71 +41,6 @@ type DropdownPosition = {
 
 const VIEWPORT_GUTTER = 5;
 const POPUP_GAP = 4;
-
-/**
- * Converts viewport coordinates into the coordinate space used by the popup's
- * actual CSS containing block. A custom portal is only a DOM mount point: when
- * it is statically positioned, an ancestor (or the initial containing block)
- * still owns `top` and `left` for the absolutely positioned popup.
- */
-function toPopupCoordinates(
-  popup: HTMLElement,
-  viewportTop: number,
-  viewportLeft: number,
-) {
-  const ownerWindow = popup.ownerDocument.defaultView;
-  if (!ownerWindow) {
-    return { top: viewportTop, left: viewportLeft, scaleX: 1, scaleY: 1 };
-  }
-  if (ownerWindow.getComputedStyle(popup).position === 'fixed') {
-    // Painted viewport rectangles include inherited CSS zoom. Fixed-position
-    // offsets and dimensions still use the popup's unzoomed CSS coordinates.
-    const zoom = popup.currentCSSZoom;
-    const scale = Number.isFinite(zoom) && zoom > 0 ? zoom : 1;
-    return {
-      top: viewportTop / scale,
-      left: viewportLeft / scale,
-      scaleX: scale,
-      scaleY: scale,
-    };
-  }
-
-  const offsetParent = popup.offsetParent;
-  const document = popup.ownerDocument;
-  if (
-    !offsetParent ||
-    offsetParent === document.body ||
-    offsetParent === document.documentElement
-  ) {
-    return {
-      top: viewportTop + ownerWindow.scrollY,
-      left: viewportLeft + ownerWindow.scrollX,
-      scaleX: 1,
-      scaleY: 1,
-    };
-  }
-
-  const parentRect = offsetParent.getBoundingClientRect();
-  const parent = offsetParent as HTMLElement;
-  const scaleX =
-    parent.offsetWidth > 0 ? parentRect.width / parent.offsetWidth : 1;
-  const scaleY =
-    parent.offsetHeight > 0 ? parentRect.height / parent.offsetHeight : 1;
-  const safeScaleX = Number.isFinite(scaleX) && scaleX > 0 ? scaleX : 1;
-  const safeScaleY = Number.isFinite(scaleY) && scaleY > 0 ? scaleY : 1;
-  return {
-    top:
-      (viewportTop - parentRect.top) / safeScaleY -
-      parent.clientTop +
-      parent.scrollTop,
-    left:
-      (viewportLeft - parentRect.left) / safeScaleX -
-      parent.clientLeft +
-      parent.scrollLeft,
-    scaleX: safeScaleX,
-    scaleY: safeScaleY,
-  };
-}
 
 /**
  * Dropdown popup component
@@ -155,7 +91,7 @@ export function DropdownPopup({
       const popup = dropdownRef.current;
       if (!popup) return;
       const triggerRect = trigger.getBoundingClientRect();
-      const position = toPopupCoordinates(
+      const position = getPopupCoordinates(
         popup,
         triggerRect.bottom + POPUP_GAP,
         triggerRect.left,
@@ -181,7 +117,7 @@ export function DropdownPopup({
       const constrainedMaxHeight = popup.style.maxHeight;
       popup.style.maxHeight = '';
       const menuRect = popup.getBoundingClientRect();
-      const coordinateSpace = toPopupCoordinates(popup, 0, 0);
+      const coordinateSpace = getPopupCoordinates(popup, 0, 0);
       const measuredHeight = Math.max(
         menuRect.height,
         popup.offsetHeight * coordinateSpace.scaleY,
@@ -227,7 +163,7 @@ export function DropdownPopup({
         VIEWPORT_GUTTER,
         Math.min(viewportLeft, viewportWidth - menuWidth - VIEWPORT_GUTTER),
       );
-      const position = toPopupCoordinates(popup, viewportTop, viewportLeft);
+      const position = getPopupCoordinates(popup, viewportTop, viewportLeft);
       setDropdownPosition({
         top: position.top,
         left: position.left,

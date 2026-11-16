@@ -1,3 +1,4 @@
+import { applyPopupPosition } from '../../../core/popup-position';
 import {
   prepareTooltipSurface,
   showTopLayerPopup,
@@ -136,12 +137,13 @@ export function updateTooltip(
   const tooltipRect = tooltip.getBoundingClientRect();
 
   if (parentRect && tooltipRect) {
-    tooltip.style.left = `${
-      parentRect.left +
-      getTooltipCenterPosition(percent, parentRect.width, tooltipRect.width) -
-      tooltipRect.width / 2
-    }px`;
-    tooltip.style.top = `${Math.max(8, parentRect.top - tooltipRect.height - 8)}px`;
+    applyPopupPosition(tooltip, {
+      left:
+        parentRect.left +
+        getTooltipCenterPosition(percent, parentRect.width, tooltipRect.width) -
+        tooltipRect.width / 2,
+      top: Math.max(8, parentRect.top - tooltipRect.height - 8),
+    });
   } else {
     tooltip.style.left = `${percent}%`;
   }

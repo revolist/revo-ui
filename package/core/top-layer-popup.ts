@@ -1,3 +1,4 @@
+import { VIEWPORT_POPUP_STYLE } from './popup-position';
 export {
   ensureTooltipStyles,
   prepareTooltipSurface,
@@ -26,6 +27,9 @@ export function showTopLayerPopup(
       element.getAttribute('data-rv-ui-surface'),
     );
   element.setAttribute('data-rv-ui-surface', '');
+  // Absolute top-layer scroll origins differ across browsers. All promoted
+  // surfaces share fixed viewport coordinates, including the fallback path.
+  Object.assign(element.style, VIEWPORT_POPUP_STYLE);
   // Popover promotion can be rejected while author styles resolve to
   // `display: none`. Make the element renderable before calling the native API.
   element.style.display = visibleDisplay;

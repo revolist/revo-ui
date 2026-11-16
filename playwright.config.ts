@@ -10,6 +10,7 @@ export default defineConfig({
     'tooltip.spec.ts',
     'cdn.spec.ts',
     'fields-styles.spec.ts',
+    'overlay-scroll.spec.ts',
   ],
   outputDir: './test-results/gallery',
   fullyParallel: true,
