@@ -272,7 +272,8 @@
     "./styles/ai.scss": "./package/styles/ai.scss",
     "./styles/ai.css": "./package/styles/ai.css",
     "./styles/pdf-viewer.scss": "./package/styles/pdf-viewer.scss",
-    "./styles/pdf-viewer.css": "./package/styles/pdf-viewer.css"
+    "./styles/pdf-viewer.css": "./package/styles/pdf-viewer.css",
+    "./dates": "./package/dates.ts"
   },
   "scripts": {
     "generate:palettes": "node scripts/generate-palettes.mjs",
