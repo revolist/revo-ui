@@ -12,66 +12,9 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class OptionButton extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'OptionButton';
   protected rvResolveComponent() { return Control; }
-  @NgInput() declare "translate"?: AngularInput<'OptionButton', "translate">;
-  @NgInput() declare "value"?: AngularInput<'OptionButton', "value">;
-  @NgInput() declare "disabled"?: AngularInput<'OptionButton', "disabled">;
-  @NgInput() declare "form"?: AngularInput<'OptionButton', "form">;
-  @NgInput() declare "name"?: AngularInput<'OptionButton', "name">;
-  @NgInput() declare "accesskey"?: AngularInput<'OptionButton', "accesskey">;
-  @NgInput() declare "accessKey"?: AngularInput<'OptionButton', "accessKey">;
-  @NgInput() declare "autocapitalize"?: AngularInput<'OptionButton', "autocapitalize">;
-  @NgInput() declare "autoCapitalize"?: AngularInput<'OptionButton', "autoCapitalize">;
-  @NgInput() declare "autocorrect"?: AngularInput<'OptionButton', "autocorrect">;
-  @NgInput() declare "autoCorrect"?: AngularInput<'OptionButton', "autoCorrect">;
-  @NgInput() declare "autofocus"?: AngularInput<'OptionButton', "autofocus">;
-  @NgInput() declare "autoFocus"?: AngularInput<'OptionButton', "autoFocus">;
-  @NgInput() declare "class"?: AngularInput<'OptionButton', "class">;
-  @NgInput() declare "contenteditable"?: AngularInput<'OptionButton', "contenteditable">;
-  @NgInput() declare "contentEditable"?: AngularInput<'OptionButton', "contentEditable">;
-  @NgInput() declare "dir"?: AngularInput<'OptionButton', "dir">;
-  @NgInput() declare "draggable"?: AngularInput<'OptionButton', "draggable">;
-  @NgInput() declare "enterkeyhint"?: AngularInput<'OptionButton', "enterkeyhint">;
-  @NgInput() declare "exportparts"?: AngularInput<'OptionButton', "exportparts">;
-  @NgInput() declare "hidden"?: AngularInput<'OptionButton', "hidden">;
-  @NgInput() declare "id"?: AngularInput<'OptionButton', "id">;
-  @NgInput() declare "inert"?: AngularInput<'OptionButton', "inert">;
-  @NgInput() declare "inputmode"?: AngularInput<'OptionButton', "inputmode">;
-  @NgInput() declare "inputMode"?: AngularInput<'OptionButton', "inputMode">;
-  @NgInput() declare "is"?: AngularInput<'OptionButton', "is">;
-  @NgInput() declare "lang"?: AngularInput<'OptionButton', "lang">;
-  @NgInput() declare "nonce"?: AngularInput<'OptionButton', "nonce">;
-  @NgInput() declare "part"?: AngularInput<'OptionButton', "part">;
-  @NgInput() declare "popover"?: AngularInput<'OptionButton', "popover">;
-  @NgInput() declare "slot"?: AngularInput<'OptionButton', "slot">;
-  @NgInput() declare "spellcheck"?: AngularInput<'OptionButton', "spellcheck">;
-  @NgInput() declare "style"?: AngularInput<'OptionButton', "style">;
-  @NgInput() declare "tabindex"?: AngularInput<'OptionButton', "tabindex">;
-  @NgInput() declare "tabIndex"?: AngularInput<'OptionButton', "tabIndex">;
-  @NgInput() declare "title"?: AngularInput<'OptionButton', "title">;
-  @NgInput() declare "role"?: AngularInput<'OptionButton', "role">;
-  @NgInput() declare "disablePictureInPicture"?: AngularInput<'OptionButton', "disablePictureInPicture">;
-  @NgInput() declare "elementtiming"?: AngularInput<'OptionButton', "elementtiming">;
-  @NgInput() declare "elementTiming"?: AngularInput<'OptionButton', "elementTiming">;
-  @NgInput() declare "results"?: AngularInput<'OptionButton', "results">;
   @NgInput() declare "about"?: AngularInput<'OptionButton', "about">;
-  @NgInput() declare "datatype"?: AngularInput<'OptionButton', "datatype">;
-  @NgInput() declare "inlist"?: AngularInput<'OptionButton', "inlist">;
-  @NgInput() declare "prefix"?: AngularInput<'OptionButton', "prefix">;
-  @NgInput() declare "property"?: AngularInput<'OptionButton', "property">;
-  @NgInput() declare "resource"?: AngularInput<'OptionButton', "resource">;
-  @NgInput() declare "typeof"?: AngularInput<'OptionButton', "typeof">;
-  @NgInput() declare "vocab"?: AngularInput<'OptionButton', "vocab">;
-  @NgInput() declare "itemid"?: AngularInput<'OptionButton', "itemid">;
-  @NgInput() declare "itemID"?: AngularInput<'OptionButton', "itemID">;
-  @NgInput() declare "itemprop"?: AngularInput<'OptionButton', "itemprop">;
-  @NgInput() declare "itemProp"?: AngularInput<'OptionButton', "itemProp">;
-  @NgInput() declare "itemref"?: AngularInput<'OptionButton', "itemref">;
-  @NgInput() declare "itemRef"?: AngularInput<'OptionButton', "itemRef">;
-  @NgInput() declare "itemscope"?: AngularInput<'OptionButton', "itemscope">;
-  @NgInput() declare "itemScope"?: AngularInput<'OptionButton', "itemScope">;
-  @NgInput() declare "itemtype"?: AngularInput<'OptionButton', "itemtype">;
-  @NgInput() declare "itemType"?: AngularInput<'OptionButton', "itemType">;
-  @NgInput() declare "dangerouslySetInnerHTML"?: AngularInput<'OptionButton', "dangerouslySetInnerHTML">;
+  @NgInput() declare "accessKey"?: AngularInput<'OptionButton', "accessKey">;
+  @NgInput() declare "accesskey"?: AngularInput<'OptionButton', "accesskey">;
   @NgInput() declare "aria-activedescendant"?: AngularInput<'OptionButton', "aria-activedescendant">;
   @NgInput() declare "aria-atomic"?: AngularInput<'OptionButton', "aria-atomic">;
   @NgInput() declare "aria-autocomplete"?: AngularInput<'OptionButton', "aria-autocomplete">;
@@ -125,127 +68,101 @@ export class OptionButton extends AngularComponentAdapter<never> {
   @NgInput() declare "aria-valuemin"?: AngularInput<'OptionButton', "aria-valuemin">;
   @NgInput() declare "aria-valuenow"?: AngularInput<'OptionButton', "aria-valuenow">;
   @NgInput() declare "aria-valuetext"?: AngularInput<'OptionButton', "aria-valuetext">;
-  @NgInput() declare "formaction"?: AngularInput<'OptionButton', "formaction">;
-  @NgInput() declare "formAction"?: AngularInput<'OptionButton', "formAction">;
-  @NgInput() declare "formenctype"?: AngularInput<'OptionButton', "formenctype">;
-  @NgInput() declare "formEncType"?: AngularInput<'OptionButton', "formEncType">;
-  @NgInput() declare "formmethod"?: AngularInput<'OptionButton', "formmethod">;
-  @NgInput() declare "formMethod"?: AngularInput<'OptionButton', "formMethod">;
-  @NgInput() declare "formnovalidate"?: AngularInput<'OptionButton', "formnovalidate">;
-  @NgInput() declare "formNoValidate"?: AngularInput<'OptionButton', "formNoValidate">;
-  @NgInput() declare "formtarget"?: AngularInput<'OptionButton', "formtarget">;
-  @NgInput() declare "formTarget"?: AngularInput<'OptionButton', "formTarget">;
-  @NgInput() declare "type"?: AngularInput<'OptionButton', "type">;
-  @NgInput() declare "command"?: AngularInput<'OptionButton', "command">;
-  @NgInput() declare "commandfor"?: AngularInput<'OptionButton', "commandfor">;
-  @NgInput() declare "commandFor"?: AngularInput<'OptionButton', "commandFor">;
-  @NgInput() declare "popovertarget"?: AngularInput<'OptionButton', "popovertarget">;
-  @NgInput() declare "popoverTarget"?: AngularInput<'OptionButton', "popoverTarget">;
-  @NgInput() declare "popovertargetaction"?: AngularInput<'OptionButton', "popovertargetaction">;
-  @NgInput() declare "popoverTargetAction"?: AngularInput<'OptionButton', "popoverTargetAction">;
-  @NgInput() declare "label"?: AngularInput<'OptionButton', "label">;
-  @NgInput() declare "detail"?: AngularInput<'OptionButton', "detail">;
-  @NgInput() declare "selected"?: AngularInput<'OptionButton', "selected">;
+  @NgInput() declare "autoCapitalize"?: AngularInput<'OptionButton', "autoCapitalize">;
+  @NgInput() declare "autoCorrect"?: AngularInput<'OptionButton', "autoCorrect">;
+  @NgInput() declare "autoFocus"?: AngularInput<'OptionButton', "autoFocus">;
+  @NgInput() declare "autocapitalize"?: AngularInput<'OptionButton', "autocapitalize">;
+  @NgInput() declare "autocorrect"?: AngularInput<'OptionButton', "autocorrect">;
+  @NgInput() declare "autofocus"?: AngularInput<'OptionButton', "autofocus">;
+  @NgInput() declare "class"?: AngularInput<'OptionButton', "class">;
   @NgInput() declare "className"?: AngularInput<'OptionButton', "className">;
+  @NgInput() declare "command"?: AngularInput<'OptionButton', "command">;
+  @NgInput() declare "commandFor"?: AngularInput<'OptionButton', "commandFor">;
+  @NgInput() declare "commandfor"?: AngularInput<'OptionButton', "commandfor">;
+  @NgInput() declare "contentEditable"?: AngularInput<'OptionButton', "contentEditable">;
+  @NgInput() declare "contenteditable"?: AngularInput<'OptionButton', "contenteditable">;
+  @NgInput() declare "dangerouslySetInnerHTML"?: AngularInput<'OptionButton', "dangerouslySetInnerHTML">;
+  @NgInput() declare "datatype"?: AngularInput<'OptionButton', "datatype">;
+  @NgInput() declare "detail"?: AngularInput<'OptionButton', "detail">;
   @NgInput() declare "detailClassName"?: AngularInput<'OptionButton', "detailClassName">;
+  @NgInput() declare "dir"?: AngularInput<'OptionButton', "dir">;
+  @NgInput() declare "disablePictureInPicture"?: AngularInput<'OptionButton', "disablePictureInPicture">;
+  @NgInput() declare "disabled"?: AngularInput<'OptionButton', "disabled">;
+  @NgInput() declare "draggable"?: AngularInput<'OptionButton', "draggable">;
+  @NgInput() declare "elementTiming"?: AngularInput<'OptionButton', "elementTiming">;
+  @NgInput() declare "elementtiming"?: AngularInput<'OptionButton', "elementtiming">;
+  @NgInput() declare "enterkeyhint"?: AngularInput<'OptionButton', "enterkeyhint">;
+  @NgInput() declare "exportparts"?: AngularInput<'OptionButton', "exportparts">;
+  @NgInput() declare "form"?: AngularInput<'OptionButton', "form">;
+  @NgInput() declare "formAction"?: AngularInput<'OptionButton', "formAction">;
+  @NgInput() declare "formEncType"?: AngularInput<'OptionButton', "formEncType">;
+  @NgInput() declare "formMethod"?: AngularInput<'OptionButton', "formMethod">;
+  @NgInput() declare "formNoValidate"?: AngularInput<'OptionButton', "formNoValidate">;
+  @NgInput() declare "formTarget"?: AngularInput<'OptionButton', "formTarget">;
+  @NgInput() declare "formaction"?: AngularInput<'OptionButton', "formaction">;
+  @NgInput() declare "formenctype"?: AngularInput<'OptionButton', "formenctype">;
+  @NgInput() declare "formmethod"?: AngularInput<'OptionButton', "formmethod">;
+  @NgInput() declare "formnovalidate"?: AngularInput<'OptionButton', "formnovalidate">;
+  @NgInput() declare "formtarget"?: AngularInput<'OptionButton', "formtarget">;
+  @NgInput() declare "hidden"?: AngularInput<'OptionButton', "hidden">;
+  @NgInput() declare "id"?: AngularInput<'OptionButton', "id">;
+  @NgInput() declare "inert"?: AngularInput<'OptionButton', "inert">;
+  @NgInput() declare "inlist"?: AngularInput<'OptionButton', "inlist">;
+  @NgInput() declare "inputMode"?: AngularInput<'OptionButton', "inputMode">;
+  @NgInput() declare "inputmode"?: AngularInput<'OptionButton', "inputmode">;
+  @NgInput() declare "is"?: AngularInput<'OptionButton', "is">;
+  @NgInput() declare "itemID"?: AngularInput<'OptionButton', "itemID">;
+  @NgInput() declare "itemProp"?: AngularInput<'OptionButton', "itemProp">;
+  @NgInput() declare "itemRef"?: AngularInput<'OptionButton', "itemRef">;
+  @NgInput() declare "itemScope"?: AngularInput<'OptionButton', "itemScope">;
+  @NgInput() declare "itemType"?: AngularInput<'OptionButton', "itemType">;
+  @NgInput() declare "itemid"?: AngularInput<'OptionButton', "itemid">;
+  @NgInput() declare "itemprop"?: AngularInput<'OptionButton', "itemprop">;
+  @NgInput() declare "itemref"?: AngularInput<'OptionButton', "itemref">;
+  @NgInput() declare "itemscope"?: AngularInput<'OptionButton', "itemscope">;
+  @NgInput() declare "itemtype"?: AngularInput<'OptionButton', "itemtype">;
+  @NgInput() declare "label"?: AngularInput<'OptionButton', "label">;
+  @NgInput() declare "lang"?: AngularInput<'OptionButton', "lang">;
+  @NgInput() declare "name"?: AngularInput<'OptionButton', "name">;
+  @NgInput() declare "nonce"?: AngularInput<'OptionButton', "nonce">;
+  @NgInput() declare "onAbort"?: AngularInput<'OptionButton', "onAbort">;
+  @NgInput() declare "onAbortCapture"?: AngularInput<'OptionButton', "onAbortCapture">;
+  @NgInput() declare "onAnimationEnd"?: AngularInput<'OptionButton', "onAnimationEnd">;
+  @NgInput() declare "onAnimationEndCapture"?: AngularInput<'OptionButton', "onAnimationEndCapture">;
+  @NgInput() declare "onAnimationIteration"?: AngularInput<'OptionButton', "onAnimationIteration">;
+  @NgInput() declare "onAnimationIterationCapture"?: AngularInput<'OptionButton', "onAnimationIterationCapture">;
+  @NgInput() declare "onAnimationStart"?: AngularInput<'OptionButton', "onAnimationStart">;
+  @NgInput() declare "onAnimationStartCapture"?: AngularInput<'OptionButton', "onAnimationStartCapture">;
+  @NgInput() declare "onAuxClick"?: AngularInput<'OptionButton', "onAuxClick">;
+  @NgInput() declare "onAuxClickCapture"?: AngularInput<'OptionButton', "onAuxClickCapture">;
+  @NgInput() declare "onBeforeInput"?: AngularInput<'OptionButton', "onBeforeInput">;
+  @NgInput() declare "onBeforeInputCapture"?: AngularInput<'OptionButton', "onBeforeInputCapture">;
+  @NgInput() declare "onBeforeToggle"?: AngularInput<'OptionButton', "onBeforeToggle">;
+  @NgInput() declare "onBlur"?: AngularInput<'OptionButton', "onBlur">;
+  @NgInput() declare "onBlurCapture"?: AngularInput<'OptionButton', "onBlurCapture">;
+  @NgInput() declare "onCanPlay"?: AngularInput<'OptionButton', "onCanPlay">;
+  @NgInput() declare "onCanPlayCapture"?: AngularInput<'OptionButton', "onCanPlayCapture">;
+  @NgInput() declare "onCanPlayThrough"?: AngularInput<'OptionButton', "onCanPlayThrough">;
+  @NgInput() declare "onCanPlayThroughCapture"?: AngularInput<'OptionButton', "onCanPlayThroughCapture">;
+  @NgInput() declare "onCancel"?: AngularInput<'OptionButton', "onCancel">;
   @NgInput() declare "onChange"?: AngularInput<'OptionButton', "onChange">;
-  @NgInput() declare "onLoad"?: AngularInput<'OptionButton', "onLoad">;
-  @NgInput() declare "onLoadCapture"?: AngularInput<'OptionButton', "onLoadCapture">;
-  @NgInput() declare "onError"?: AngularInput<'OptionButton', "onError">;
-  @NgInput() declare "onErrorCapture"?: AngularInput<'OptionButton', "onErrorCapture">;
-  @NgInput() declare "onCopy"?: AngularInput<'OptionButton', "onCopy">;
-  @NgInput() declare "onCopyCapture"?: AngularInput<'OptionButton', "onCopyCapture">;
-  @NgInput() declare "onCut"?: AngularInput<'OptionButton', "onCut">;
-  @NgInput() declare "onCutCapture"?: AngularInput<'OptionButton', "onCutCapture">;
-  @NgInput() declare "onPaste"?: AngularInput<'OptionButton', "onPaste">;
-  @NgInput() declare "onPasteCapture"?: AngularInput<'OptionButton', "onPasteCapture">;
+  @NgInput() declare "onChangeCapture"?: AngularInput<'OptionButton', "onChangeCapture">;
+  @NgInput() declare "onClick"?: AngularInput<'OptionButton', "onClick">;
+  @NgInput() declare "onClickCapture"?: AngularInput<'OptionButton', "onClickCapture">;
+  @NgInput() declare "onClose"?: AngularInput<'OptionButton', "onClose">;
+  @NgInput() declare "onCommand"?: AngularInput<'OptionButton', "onCommand">;
   @NgInput() declare "onCompositionEnd"?: AngularInput<'OptionButton', "onCompositionEnd">;
   @NgInput() declare "onCompositionEndCapture"?: AngularInput<'OptionButton', "onCompositionEndCapture">;
   @NgInput() declare "onCompositionStart"?: AngularInput<'OptionButton', "onCompositionStart">;
   @NgInput() declare "onCompositionStartCapture"?: AngularInput<'OptionButton', "onCompositionStartCapture">;
   @NgInput() declare "onCompositionUpdate"?: AngularInput<'OptionButton', "onCompositionUpdate">;
   @NgInput() declare "onCompositionUpdateCapture"?: AngularInput<'OptionButton', "onCompositionUpdateCapture">;
-  @NgInput() declare "onBeforeToggle"?: AngularInput<'OptionButton', "onBeforeToggle">;
-  @NgInput() declare "onToggle"?: AngularInput<'OptionButton', "onToggle">;
-  @NgInput() declare "onClose"?: AngularInput<'OptionButton', "onClose">;
-  @NgInput() declare "onCancel"?: AngularInput<'OptionButton', "onCancel">;
-  @NgInput() declare "onFocus"?: AngularInput<'OptionButton', "onFocus">;
-  @NgInput() declare "onFocusCapture"?: AngularInput<'OptionButton', "onFocusCapture">;
-  @NgInput() declare "onFocusIn"?: AngularInput<'OptionButton', "onFocusIn">;
-  @NgInput() declare "onFocusInCapture"?: AngularInput<'OptionButton', "onFocusInCapture">;
-  @NgInput() declare "onFocusOut"?: AngularInput<'OptionButton', "onFocusOut">;
-  @NgInput() declare "onFocusOutCapture"?: AngularInput<'OptionButton', "onFocusOutCapture">;
-  @NgInput() declare "onBlur"?: AngularInput<'OptionButton', "onBlur">;
-  @NgInput() declare "onBlurCapture"?: AngularInput<'OptionButton', "onBlurCapture">;
-  @NgInput() declare "onChangeCapture"?: AngularInput<'OptionButton', "onChangeCapture">;
-  @NgInput() declare "onInput"?: AngularInput<'OptionButton', "onInput">;
-  @NgInput() declare "onInputCapture"?: AngularInput<'OptionButton', "onInputCapture">;
-  @NgInput() declare "onBeforeInput"?: AngularInput<'OptionButton', "onBeforeInput">;
-  @NgInput() declare "onBeforeInputCapture"?: AngularInput<'OptionButton', "onBeforeInputCapture">;
-  @NgInput() declare "onSearch"?: AngularInput<'OptionButton', "onSearch">;
-  @NgInput() declare "onSearchCapture"?: AngularInput<'OptionButton', "onSearchCapture">;
-  @NgInput() declare "onSubmit"?: AngularInput<'OptionButton', "onSubmit">;
-  @NgInput() declare "onSubmitCapture"?: AngularInput<'OptionButton', "onSubmitCapture">;
-  @NgInput() declare "onInvalid"?: AngularInput<'OptionButton', "onInvalid">;
-  @NgInput() declare "onInvalidCapture"?: AngularInput<'OptionButton', "onInvalidCapture">;
-  @NgInput() declare "onReset"?: AngularInput<'OptionButton', "onReset">;
-  @NgInput() declare "onResetCapture"?: AngularInput<'OptionButton', "onResetCapture">;
-  @NgInput() declare "onFormData"?: AngularInput<'OptionButton', "onFormData">;
-  @NgInput() declare "onFormDataCapture"?: AngularInput<'OptionButton', "onFormDataCapture">;
-  @NgInput() declare "onKeyDown"?: AngularInput<'OptionButton', "onKeyDown">;
-  @NgInput() declare "onKeyDownCapture"?: AngularInput<'OptionButton', "onKeyDownCapture">;
-  @NgInput() declare "onKeyPress"?: AngularInput<'OptionButton', "onKeyPress">;
-  @NgInput() declare "onKeyPressCapture"?: AngularInput<'OptionButton', "onKeyPressCapture">;
-  @NgInput() declare "onKeyUp"?: AngularInput<'OptionButton', "onKeyUp">;
-  @NgInput() declare "onKeyUpCapture"?: AngularInput<'OptionButton', "onKeyUpCapture">;
-  @NgInput() declare "onAbort"?: AngularInput<'OptionButton', "onAbort">;
-  @NgInput() declare "onAbortCapture"?: AngularInput<'OptionButton', "onAbortCapture">;
-  @NgInput() declare "onCanPlay"?: AngularInput<'OptionButton', "onCanPlay">;
-  @NgInput() declare "onCanPlayCapture"?: AngularInput<'OptionButton', "onCanPlayCapture">;
-  @NgInput() declare "onCanPlayThrough"?: AngularInput<'OptionButton', "onCanPlayThrough">;
-  @NgInput() declare "onCanPlayThroughCapture"?: AngularInput<'OptionButton', "onCanPlayThroughCapture">;
-  @NgInput() declare "onDurationChange"?: AngularInput<'OptionButton', "onDurationChange">;
-  @NgInput() declare "onDurationChangeCapture"?: AngularInput<'OptionButton', "onDurationChangeCapture">;
-  @NgInput() declare "onEmptied"?: AngularInput<'OptionButton', "onEmptied">;
-  @NgInput() declare "onEmptiedCapture"?: AngularInput<'OptionButton', "onEmptiedCapture">;
-  @NgInput() declare "onEncrypted"?: AngularInput<'OptionButton', "onEncrypted">;
-  @NgInput() declare "onEncryptedCapture"?: AngularInput<'OptionButton', "onEncryptedCapture">;
-  @NgInput() declare "onEnded"?: AngularInput<'OptionButton', "onEnded">;
-  @NgInput() declare "onEndedCapture"?: AngularInput<'OptionButton', "onEndedCapture">;
-  @NgInput() declare "onLoadedData"?: AngularInput<'OptionButton', "onLoadedData">;
-  @NgInput() declare "onLoadedDataCapture"?: AngularInput<'OptionButton', "onLoadedDataCapture">;
-  @NgInput() declare "onLoadedMetadata"?: AngularInput<'OptionButton', "onLoadedMetadata">;
-  @NgInput() declare "onLoadedMetadataCapture"?: AngularInput<'OptionButton', "onLoadedMetadataCapture">;
-  @NgInput() declare "onLoadStart"?: AngularInput<'OptionButton', "onLoadStart">;
-  @NgInput() declare "onLoadStartCapture"?: AngularInput<'OptionButton', "onLoadStartCapture">;
-  @NgInput() declare "onPause"?: AngularInput<'OptionButton', "onPause">;
-  @NgInput() declare "onPauseCapture"?: AngularInput<'OptionButton', "onPauseCapture">;
-  @NgInput() declare "onPlay"?: AngularInput<'OptionButton', "onPlay">;
-  @NgInput() declare "onPlayCapture"?: AngularInput<'OptionButton', "onPlayCapture">;
-  @NgInput() declare "onPlaying"?: AngularInput<'OptionButton', "onPlaying">;
-  @NgInput() declare "onPlayingCapture"?: AngularInput<'OptionButton', "onPlayingCapture">;
-  @NgInput() declare "onProgress"?: AngularInput<'OptionButton', "onProgress">;
-  @NgInput() declare "onProgressCapture"?: AngularInput<'OptionButton', "onProgressCapture">;
-  @NgInput() declare "onRateChange"?: AngularInput<'OptionButton', "onRateChange">;
-  @NgInput() declare "onRateChangeCapture"?: AngularInput<'OptionButton', "onRateChangeCapture">;
-  @NgInput() declare "onSeeked"?: AngularInput<'OptionButton', "onSeeked">;
-  @NgInput() declare "onSeekedCapture"?: AngularInput<'OptionButton', "onSeekedCapture">;
-  @NgInput() declare "onSeeking"?: AngularInput<'OptionButton', "onSeeking">;
-  @NgInput() declare "onSeekingCapture"?: AngularInput<'OptionButton', "onSeekingCapture">;
-  @NgInput() declare "onStalled"?: AngularInput<'OptionButton', "onStalled">;
-  @NgInput() declare "onStalledCapture"?: AngularInput<'OptionButton', "onStalledCapture">;
-  @NgInput() declare "onSuspend"?: AngularInput<'OptionButton', "onSuspend">;
-  @NgInput() declare "onSuspendCapture"?: AngularInput<'OptionButton', "onSuspendCapture">;
-  @NgInput() declare "onTimeUpdate"?: AngularInput<'OptionButton', "onTimeUpdate">;
-  @NgInput() declare "onTimeUpdateCapture"?: AngularInput<'OptionButton', "onTimeUpdateCapture">;
-  @NgInput() declare "onVolumeChange"?: AngularInput<'OptionButton', "onVolumeChange">;
-  @NgInput() declare "onVolumeChangeCapture"?: AngularInput<'OptionButton', "onVolumeChangeCapture">;
-  @NgInput() declare "onWaiting"?: AngularInput<'OptionButton', "onWaiting">;
-  @NgInput() declare "onWaitingCapture"?: AngularInput<'OptionButton', "onWaitingCapture">;
-  @NgInput() declare "onClick"?: AngularInput<'OptionButton', "onClick">;
-  @NgInput() declare "onClickCapture"?: AngularInput<'OptionButton', "onClickCapture">;
   @NgInput() declare "onContextMenu"?: AngularInput<'OptionButton', "onContextMenu">;
   @NgInput() declare "onContextMenuCapture"?: AngularInput<'OptionButton', "onContextMenuCapture">;
+  @NgInput() declare "onCopy"?: AngularInput<'OptionButton', "onCopy">;
+  @NgInput() declare "onCopyCapture"?: AngularInput<'OptionButton', "onCopyCapture">;
+  @NgInput() declare "onCut"?: AngularInput<'OptionButton', "onCut">;
+  @NgInput() declare "onCutCapture"?: AngularInput<'OptionButton', "onCutCapture">;
   @NgInput() declare "onDblClick"?: AngularInput<'OptionButton', "onDblClick">;
   @NgInput() declare "onDblClickCapture"?: AngularInput<'OptionButton', "onDblClickCapture">;
   @NgInput() declare "onDrag"?: AngularInput<'OptionButton', "onDrag">;
@@ -264,6 +181,50 @@ export class OptionButton extends AngularComponentAdapter<never> {
   @NgInput() declare "onDragStartCapture"?: AngularInput<'OptionButton', "onDragStartCapture">;
   @NgInput() declare "onDrop"?: AngularInput<'OptionButton', "onDrop">;
   @NgInput() declare "onDropCapture"?: AngularInput<'OptionButton', "onDropCapture">;
+  @NgInput() declare "onDurationChange"?: AngularInput<'OptionButton', "onDurationChange">;
+  @NgInput() declare "onDurationChangeCapture"?: AngularInput<'OptionButton', "onDurationChangeCapture">;
+  @NgInput() declare "onEmptied"?: AngularInput<'OptionButton', "onEmptied">;
+  @NgInput() declare "onEmptiedCapture"?: AngularInput<'OptionButton', "onEmptiedCapture">;
+  @NgInput() declare "onEncrypted"?: AngularInput<'OptionButton', "onEncrypted">;
+  @NgInput() declare "onEncryptedCapture"?: AngularInput<'OptionButton', "onEncryptedCapture">;
+  @NgInput() declare "onEnded"?: AngularInput<'OptionButton', "onEnded">;
+  @NgInput() declare "onEndedCapture"?: AngularInput<'OptionButton', "onEndedCapture">;
+  @NgInput() declare "onEnterPictureInPicture"?: AngularInput<'OptionButton', "onEnterPictureInPicture">;
+  @NgInput() declare "onEnterPictureInPictureCapture"?: AngularInput<'OptionButton', "onEnterPictureInPictureCapture">;
+  @NgInput() declare "onError"?: AngularInput<'OptionButton', "onError">;
+  @NgInput() declare "onErrorCapture"?: AngularInput<'OptionButton', "onErrorCapture">;
+  @NgInput() declare "onFocus"?: AngularInput<'OptionButton', "onFocus">;
+  @NgInput() declare "onFocusCapture"?: AngularInput<'OptionButton', "onFocusCapture">;
+  @NgInput() declare "onFocusIn"?: AngularInput<'OptionButton', "onFocusIn">;
+  @NgInput() declare "onFocusInCapture"?: AngularInput<'OptionButton', "onFocusInCapture">;
+  @NgInput() declare "onFocusOut"?: AngularInput<'OptionButton', "onFocusOut">;
+  @NgInput() declare "onFocusOutCapture"?: AngularInput<'OptionButton', "onFocusOutCapture">;
+  @NgInput() declare "onFormData"?: AngularInput<'OptionButton', "onFormData">;
+  @NgInput() declare "onFormDataCapture"?: AngularInput<'OptionButton', "onFormDataCapture">;
+  @NgInput() declare "onGotPointerCapture"?: AngularInput<'OptionButton', "onGotPointerCapture">;
+  @NgInput() declare "onGotPointerCaptureCapture"?: AngularInput<'OptionButton', "onGotPointerCaptureCapture">;
+  @NgInput() declare "onInput"?: AngularInput<'OptionButton', "onInput">;
+  @NgInput() declare "onInputCapture"?: AngularInput<'OptionButton', "onInputCapture">;
+  @NgInput() declare "onInvalid"?: AngularInput<'OptionButton', "onInvalid">;
+  @NgInput() declare "onInvalidCapture"?: AngularInput<'OptionButton', "onInvalidCapture">;
+  @NgInput() declare "onKeyDown"?: AngularInput<'OptionButton', "onKeyDown">;
+  @NgInput() declare "onKeyDownCapture"?: AngularInput<'OptionButton', "onKeyDownCapture">;
+  @NgInput() declare "onKeyPress"?: AngularInput<'OptionButton', "onKeyPress">;
+  @NgInput() declare "onKeyPressCapture"?: AngularInput<'OptionButton', "onKeyPressCapture">;
+  @NgInput() declare "onKeyUp"?: AngularInput<'OptionButton', "onKeyUp">;
+  @NgInput() declare "onKeyUpCapture"?: AngularInput<'OptionButton', "onKeyUpCapture">;
+  @NgInput() declare "onLeavePictureInPicture"?: AngularInput<'OptionButton', "onLeavePictureInPicture">;
+  @NgInput() declare "onLeavePictureInPictureCapture"?: AngularInput<'OptionButton', "onLeavePictureInPictureCapture">;
+  @NgInput() declare "onLoad"?: AngularInput<'OptionButton', "onLoad">;
+  @NgInput() declare "onLoadCapture"?: AngularInput<'OptionButton', "onLoadCapture">;
+  @NgInput() declare "onLoadStart"?: AngularInput<'OptionButton', "onLoadStart">;
+  @NgInput() declare "onLoadStartCapture"?: AngularInput<'OptionButton', "onLoadStartCapture">;
+  @NgInput() declare "onLoadedData"?: AngularInput<'OptionButton', "onLoadedData">;
+  @NgInput() declare "onLoadedDataCapture"?: AngularInput<'OptionButton', "onLoadedDataCapture">;
+  @NgInput() declare "onLoadedMetadata"?: AngularInput<'OptionButton', "onLoadedMetadata">;
+  @NgInput() declare "onLoadedMetadataCapture"?: AngularInput<'OptionButton', "onLoadedMetadataCapture">;
+  @NgInput() declare "onLostPointerCapture"?: AngularInput<'OptionButton', "onLostPointerCapture">;
+  @NgInput() declare "onLostPointerCaptureCapture"?: AngularInput<'OptionButton', "onLostPointerCaptureCapture">;
   @NgInput() declare "onMouseDown"?: AngularInput<'OptionButton', "onMouseDown">;
   @NgInput() declare "onMouseDownCapture"?: AngularInput<'OptionButton', "onMouseDownCapture">;
   @NgInput() declare "onMouseEnter"?: AngularInput<'OptionButton', "onMouseEnter">;
@@ -278,38 +239,38 @@ export class OptionButton extends AngularComponentAdapter<never> {
   @NgInput() declare "onMouseOverCapture"?: AngularInput<'OptionButton', "onMouseOverCapture">;
   @NgInput() declare "onMouseUp"?: AngularInput<'OptionButton', "onMouseUp">;
   @NgInput() declare "onMouseUpCapture"?: AngularInput<'OptionButton', "onMouseUpCapture">;
-  @NgInput() declare "onAuxClick"?: AngularInput<'OptionButton', "onAuxClick">;
-  @NgInput() declare "onAuxClickCapture"?: AngularInput<'OptionButton', "onAuxClickCapture">;
-  @NgInput() declare "onSelect"?: AngularInput<'OptionButton', "onSelect">;
-  @NgInput() declare "onSelectCapture"?: AngularInput<'OptionButton', "onSelectCapture">;
-  @NgInput() declare "onTouchCancel"?: AngularInput<'OptionButton', "onTouchCancel">;
-  @NgInput() declare "onTouchCancelCapture"?: AngularInput<'OptionButton', "onTouchCancelCapture">;
-  @NgInput() declare "onTouchEnd"?: AngularInput<'OptionButton', "onTouchEnd">;
-  @NgInput() declare "onTouchEndCapture"?: AngularInput<'OptionButton', "onTouchEndCapture">;
-  @NgInput() declare "onTouchMove"?: AngularInput<'OptionButton', "onTouchMove">;
-  @NgInput() declare "onTouchMoveCapture"?: AngularInput<'OptionButton', "onTouchMoveCapture">;
-  @NgInput() declare "onTouchStart"?: AngularInput<'OptionButton', "onTouchStart">;
-  @NgInput() declare "onTouchStartCapture"?: AngularInput<'OptionButton', "onTouchStartCapture">;
-  @NgInput() declare "onPointerOver"?: AngularInput<'OptionButton', "onPointerOver">;
-  @NgInput() declare "onPointerOverCapture"?: AngularInput<'OptionButton', "onPointerOverCapture">;
-  @NgInput() declare "onPointerEnter"?: AngularInput<'OptionButton', "onPointerEnter">;
-  @NgInput() declare "onPointerEnterCapture"?: AngularInput<'OptionButton', "onPointerEnterCapture">;
-  @NgInput() declare "onPointerDown"?: AngularInput<'OptionButton', "onPointerDown">;
-  @NgInput() declare "onPointerDownCapture"?: AngularInput<'OptionButton', "onPointerDownCapture">;
-  @NgInput() declare "onPointerMove"?: AngularInput<'OptionButton', "onPointerMove">;
-  @NgInput() declare "onPointerMoveCapture"?: AngularInput<'OptionButton', "onPointerMoveCapture">;
-  @NgInput() declare "onPointerUp"?: AngularInput<'OptionButton', "onPointerUp">;
-  @NgInput() declare "onPointerUpCapture"?: AngularInput<'OptionButton', "onPointerUpCapture">;
+  @NgInput() declare "onPaste"?: AngularInput<'OptionButton', "onPaste">;
+  @NgInput() declare "onPasteCapture"?: AngularInput<'OptionButton', "onPasteCapture">;
+  @NgInput() declare "onPause"?: AngularInput<'OptionButton', "onPause">;
+  @NgInput() declare "onPauseCapture"?: AngularInput<'OptionButton', "onPauseCapture">;
+  @NgInput() declare "onPlay"?: AngularInput<'OptionButton', "onPlay">;
+  @NgInput() declare "onPlayCapture"?: AngularInput<'OptionButton', "onPlayCapture">;
+  @NgInput() declare "onPlaying"?: AngularInput<'OptionButton', "onPlaying">;
+  @NgInput() declare "onPlayingCapture"?: AngularInput<'OptionButton', "onPlayingCapture">;
   @NgInput() declare "onPointerCancel"?: AngularInput<'OptionButton', "onPointerCancel">;
   @NgInput() declare "onPointerCancelCapture"?: AngularInput<'OptionButton', "onPointerCancelCapture">;
-  @NgInput() declare "onPointerOut"?: AngularInput<'OptionButton', "onPointerOut">;
-  @NgInput() declare "onPointerOutCapture"?: AngularInput<'OptionButton', "onPointerOutCapture">;
+  @NgInput() declare "onPointerDown"?: AngularInput<'OptionButton', "onPointerDown">;
+  @NgInput() declare "onPointerDownCapture"?: AngularInput<'OptionButton', "onPointerDownCapture">;
+  @NgInput() declare "onPointerEnter"?: AngularInput<'OptionButton', "onPointerEnter">;
+  @NgInput() declare "onPointerEnterCapture"?: AngularInput<'OptionButton', "onPointerEnterCapture">;
   @NgInput() declare "onPointerLeave"?: AngularInput<'OptionButton', "onPointerLeave">;
   @NgInput() declare "onPointerLeaveCapture"?: AngularInput<'OptionButton', "onPointerLeaveCapture">;
-  @NgInput() declare "onGotPointerCapture"?: AngularInput<'OptionButton', "onGotPointerCapture">;
-  @NgInput() declare "onGotPointerCaptureCapture"?: AngularInput<'OptionButton', "onGotPointerCaptureCapture">;
-  @NgInput() declare "onLostPointerCapture"?: AngularInput<'OptionButton', "onLostPointerCapture">;
-  @NgInput() declare "onLostPointerCaptureCapture"?: AngularInput<'OptionButton', "onLostPointerCaptureCapture">;
+  @NgInput() declare "onPointerMove"?: AngularInput<'OptionButton', "onPointerMove">;
+  @NgInput() declare "onPointerMoveCapture"?: AngularInput<'OptionButton', "onPointerMoveCapture">;
+  @NgInput() declare "onPointerOut"?: AngularInput<'OptionButton', "onPointerOut">;
+  @NgInput() declare "onPointerOutCapture"?: AngularInput<'OptionButton', "onPointerOutCapture">;
+  @NgInput() declare "onPointerOver"?: AngularInput<'OptionButton', "onPointerOver">;
+  @NgInput() declare "onPointerOverCapture"?: AngularInput<'OptionButton', "onPointerOverCapture">;
+  @NgInput() declare "onPointerUp"?: AngularInput<'OptionButton', "onPointerUp">;
+  @NgInput() declare "onPointerUpCapture"?: AngularInput<'OptionButton', "onPointerUpCapture">;
+  @NgInput() declare "onProgress"?: AngularInput<'OptionButton', "onProgress">;
+  @NgInput() declare "onProgressCapture"?: AngularInput<'OptionButton', "onProgressCapture">;
+  @NgInput() declare "onRateChange"?: AngularInput<'OptionButton', "onRateChange">;
+  @NgInput() declare "onRateChangeCapture"?: AngularInput<'OptionButton', "onRateChangeCapture">;
+  @NgInput() declare "onReset"?: AngularInput<'OptionButton', "onReset">;
+  @NgInput() declare "onResetCapture"?: AngularInput<'OptionButton', "onResetCapture">;
+  @NgInput() declare "onResize"?: AngularInput<'OptionButton', "onResize">;
+  @NgInput() declare "onResizeCapture"?: AngularInput<'OptionButton', "onResizeCapture">;
   @NgInput() declare "onScroll"?: AngularInput<'OptionButton', "onScroll">;
   @NgInput() declare "onScrollCapture"?: AngularInput<'OptionButton', "onScrollCapture">;
   @NgInput() declare "onScrollEnd"?: AngularInput<'OptionButton', "onScrollEnd">;
@@ -318,14 +279,31 @@ export class OptionButton extends AngularComponentAdapter<never> {
   @NgInput() declare "onScrollSnapChangeCapture"?: AngularInput<'OptionButton', "onScrollSnapChangeCapture">;
   @NgInput() declare "onScrollSnapChanging"?: AngularInput<'OptionButton', "onScrollSnapChanging">;
   @NgInput() declare "onScrollSnapChangingCapture"?: AngularInput<'OptionButton', "onScrollSnapChangingCapture">;
-  @NgInput() declare "onWheel"?: AngularInput<'OptionButton', "onWheel">;
-  @NgInput() declare "onWheelCapture"?: AngularInput<'OptionButton', "onWheelCapture">;
-  @NgInput() declare "onAnimationStart"?: AngularInput<'OptionButton', "onAnimationStart">;
-  @NgInput() declare "onAnimationStartCapture"?: AngularInput<'OptionButton', "onAnimationStartCapture">;
-  @NgInput() declare "onAnimationEnd"?: AngularInput<'OptionButton', "onAnimationEnd">;
-  @NgInput() declare "onAnimationEndCapture"?: AngularInput<'OptionButton', "onAnimationEndCapture">;
-  @NgInput() declare "onAnimationIteration"?: AngularInput<'OptionButton', "onAnimationIteration">;
-  @NgInput() declare "onAnimationIterationCapture"?: AngularInput<'OptionButton', "onAnimationIterationCapture">;
+  @NgInput() declare "onSearch"?: AngularInput<'OptionButton', "onSearch">;
+  @NgInput() declare "onSearchCapture"?: AngularInput<'OptionButton', "onSearchCapture">;
+  @NgInput() declare "onSeeked"?: AngularInput<'OptionButton', "onSeeked">;
+  @NgInput() declare "onSeekedCapture"?: AngularInput<'OptionButton', "onSeekedCapture">;
+  @NgInput() declare "onSeeking"?: AngularInput<'OptionButton', "onSeeking">;
+  @NgInput() declare "onSeekingCapture"?: AngularInput<'OptionButton', "onSeekingCapture">;
+  @NgInput() declare "onSelect"?: AngularInput<'OptionButton', "onSelect">;
+  @NgInput() declare "onSelectCapture"?: AngularInput<'OptionButton', "onSelectCapture">;
+  @NgInput() declare "onStalled"?: AngularInput<'OptionButton', "onStalled">;
+  @NgInput() declare "onStalledCapture"?: AngularInput<'OptionButton', "onStalledCapture">;
+  @NgInput() declare "onSubmit"?: AngularInput<'OptionButton', "onSubmit">;
+  @NgInput() declare "onSubmitCapture"?: AngularInput<'OptionButton', "onSubmitCapture">;
+  @NgInput() declare "onSuspend"?: AngularInput<'OptionButton', "onSuspend">;
+  @NgInput() declare "onSuspendCapture"?: AngularInput<'OptionButton', "onSuspendCapture">;
+  @NgInput() declare "onTimeUpdate"?: AngularInput<'OptionButton', "onTimeUpdate">;
+  @NgInput() declare "onTimeUpdateCapture"?: AngularInput<'OptionButton', "onTimeUpdateCapture">;
+  @NgInput() declare "onToggle"?: AngularInput<'OptionButton', "onToggle">;
+  @NgInput() declare "onTouchCancel"?: AngularInput<'OptionButton', "onTouchCancel">;
+  @NgInput() declare "onTouchCancelCapture"?: AngularInput<'OptionButton', "onTouchCancelCapture">;
+  @NgInput() declare "onTouchEnd"?: AngularInput<'OptionButton', "onTouchEnd">;
+  @NgInput() declare "onTouchEndCapture"?: AngularInput<'OptionButton', "onTouchEndCapture">;
+  @NgInput() declare "onTouchMove"?: AngularInput<'OptionButton', "onTouchMove">;
+  @NgInput() declare "onTouchMoveCapture"?: AngularInput<'OptionButton', "onTouchMoveCapture">;
+  @NgInput() declare "onTouchStart"?: AngularInput<'OptionButton', "onTouchStart">;
+  @NgInput() declare "onTouchStartCapture"?: AngularInput<'OptionButton', "onTouchStartCapture">;
   @NgInput() declare "onTransitionCancel"?: AngularInput<'OptionButton', "onTransitionCancel">;
   @NgInput() declare "onTransitionCancelCapture"?: AngularInput<'OptionButton', "onTransitionCancelCapture">;
   @NgInput() declare "onTransitionEnd"?: AngularInput<'OptionButton', "onTransitionEnd">;
@@ -334,111 +312,73 @@ export class OptionButton extends AngularComponentAdapter<never> {
   @NgInput() declare "onTransitionRunCapture"?: AngularInput<'OptionButton', "onTransitionRunCapture">;
   @NgInput() declare "onTransitionStart"?: AngularInput<'OptionButton', "onTransitionStart">;
   @NgInput() declare "onTransitionStartCapture"?: AngularInput<'OptionButton', "onTransitionStartCapture">;
-  @NgInput() declare "onEnterPictureInPicture"?: AngularInput<'OptionButton', "onEnterPictureInPicture">;
-  @NgInput() declare "onEnterPictureInPictureCapture"?: AngularInput<'OptionButton', "onEnterPictureInPictureCapture">;
-  @NgInput() declare "onLeavePictureInPicture"?: AngularInput<'OptionButton', "onLeavePictureInPicture">;
-  @NgInput() declare "onLeavePictureInPictureCapture"?: AngularInput<'OptionButton', "onLeavePictureInPictureCapture">;
-  @NgInput() declare "onResize"?: AngularInput<'OptionButton', "onResize">;
-  @NgInput() declare "onResizeCapture"?: AngularInput<'OptionButton', "onResizeCapture">;
-  @NgInput() declare "onCommand"?: AngularInput<'OptionButton', "onCommand">;
+  @NgInput() declare "onVolumeChange"?: AngularInput<'OptionButton', "onVolumeChange">;
+  @NgInput() declare "onVolumeChangeCapture"?: AngularInput<'OptionButton', "onVolumeChangeCapture">;
+  @NgInput() declare "onWaiting"?: AngularInput<'OptionButton', "onWaiting">;
+  @NgInput() declare "onWaitingCapture"?: AngularInput<'OptionButton', "onWaitingCapture">;
+  @NgInput() declare "onWheel"?: AngularInput<'OptionButton', "onWheel">;
+  @NgInput() declare "onWheelCapture"?: AngularInput<'OptionButton', "onWheelCapture">;
+  @NgInput() declare "part"?: AngularInput<'OptionButton', "part">;
+  @NgInput() declare "popover"?: AngularInput<'OptionButton', "popover">;
+  @NgInput() declare "popoverTarget"?: AngularInput<'OptionButton', "popoverTarget">;
+  @NgInput() declare "popoverTargetAction"?: AngularInput<'OptionButton', "popoverTargetAction">;
+  @NgInput() declare "popovertarget"?: AngularInput<'OptionButton', "popovertarget">;
+  @NgInput() declare "popovertargetaction"?: AngularInput<'OptionButton', "popovertargetaction">;
+  @NgInput() declare "prefix"?: AngularInput<'OptionButton', "prefix">;
+  @NgInput() declare "property"?: AngularInput<'OptionButton', "property">;
+  @NgInput() declare "resource"?: AngularInput<'OptionButton', "resource">;
+  @NgInput() declare "results"?: AngularInput<'OptionButton', "results">;
+  @NgInput() declare "role"?: AngularInput<'OptionButton', "role">;
+  @NgInput() declare "selected"?: AngularInput<'OptionButton', "selected">;
+  @NgInput() declare "slot"?: AngularInput<'OptionButton', "slot">;
+  @NgInput() declare "spellcheck"?: AngularInput<'OptionButton', "spellcheck">;
+  @NgInput() declare "style"?: AngularInput<'OptionButton', "style">;
+  @NgInput() declare "tabIndex"?: AngularInput<'OptionButton', "tabIndex">;
+  @NgInput() declare "tabindex"?: AngularInput<'OptionButton', "tabindex">;
+  @NgInput() declare "title"?: AngularInput<'OptionButton', "title">;
+  @NgInput() declare "translate"?: AngularInput<'OptionButton', "translate">;
+  @NgInput() declare "type"?: AngularInput<'OptionButton', "type">;
+  @NgInput() declare "typeof"?: AngularInput<'OptionButton', "typeof">;
+  @NgInput() declare "value"?: AngularInput<'OptionButton', "value">;
+  @NgInput() declare "vocab"?: AngularInput<'OptionButton', "vocab">;
+  @Output() get abortEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onAbort'>>>('onAbort'); }
+  @Output() get abortCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onAbortCapture'>>>('onAbortCapture'); }
+  @Output() get animationEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onAnimationEnd'>>>('onAnimationEnd'); }
+  @Output() get animationEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onAnimationEndCapture'>>>('onAnimationEndCapture'); }
+  @Output() get animationIterationEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onAnimationIteration'>>>('onAnimationIteration'); }
+  @Output() get animationIterationCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onAnimationIterationCapture'>>>('onAnimationIterationCapture'); }
+  @Output() get animationStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onAnimationStart'>>>('onAnimationStart'); }
+  @Output() get animationStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onAnimationStartCapture'>>>('onAnimationStartCapture'); }
+  @Output() get auxClickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onAuxClick'>>>('onAuxClick'); }
+  @Output() get auxClickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onAuxClickCapture'>>>('onAuxClickCapture'); }
+  @Output() get beforeInputEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onBeforeInput'>>>('onBeforeInput'); }
+  @Output() get beforeInputCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onBeforeInputCapture'>>>('onBeforeInputCapture'); }
+  @Output() get beforeToggleEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onBeforeToggle'>>>('onBeforeToggle'); }
+  @Output() get blurEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onBlur'>>>('onBlur'); }
+  @Output() get blurCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onBlurCapture'>>>('onBlurCapture'); }
+  @Output() get canPlayEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onCanPlay'>>>('onCanPlay'); }
+  @Output() get canPlayCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onCanPlayCapture'>>>('onCanPlayCapture'); }
+  @Output() get canPlayThroughEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onCanPlayThrough'>>>('onCanPlayThrough'); }
+  @Output() get canPlayThroughCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onCanPlayThroughCapture'>>>('onCanPlayThroughCapture'); }
+  @Output() get cancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onCancel'>>>('onCancel'); }
   @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onChange'>>>('onChange'); }
-  @Output() get loadEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onLoad'>>>('onLoad'); }
-  @Output() get loadCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onLoadCapture'>>>('onLoadCapture'); }
-  @Output() get errorEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onError'>>>('onError'); }
-  @Output() get errorCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onErrorCapture'>>>('onErrorCapture'); }
-  @Output() get copyEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onCopy'>>>('onCopy'); }
-  @Output() get copyCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onCopyCapture'>>>('onCopyCapture'); }
-  @Output() get cutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onCut'>>>('onCut'); }
-  @Output() get cutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onCutCapture'>>>('onCutCapture'); }
-  @Output() get pasteEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPaste'>>>('onPaste'); }
-  @Output() get pasteCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPasteCapture'>>>('onPasteCapture'); }
+  @Output() get changeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onChangeCapture'>>>('onChangeCapture'); }
+  @Output() get clickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onClick'>>>('onClick'); }
+  @Output() get clickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onClickCapture'>>>('onClickCapture'); }
+  @Output() get closeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onClose'>>>('onClose'); }
+  @Output() get commandEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onCommand'>>>('onCommand'); }
   @Output() get compositionEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onCompositionEnd'>>>('onCompositionEnd'); }
   @Output() get compositionEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onCompositionEndCapture'>>>('onCompositionEndCapture'); }
   @Output() get compositionStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onCompositionStart'>>>('onCompositionStart'); }
   @Output() get compositionStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onCompositionStartCapture'>>>('onCompositionStartCapture'); }
   @Output() get compositionUpdateEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onCompositionUpdate'>>>('onCompositionUpdate'); }
   @Output() get compositionUpdateCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onCompositionUpdateCapture'>>>('onCompositionUpdateCapture'); }
-  @Output() get beforeToggleEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onBeforeToggle'>>>('onBeforeToggle'); }
-  @Output() get toggleEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onToggle'>>>('onToggle'); }
-  @Output() get closeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onClose'>>>('onClose'); }
-  @Output() get cancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onCancel'>>>('onCancel'); }
-  @Output() get focusEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onFocus'>>>('onFocus'); }
-  @Output() get focusCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onFocusCapture'>>>('onFocusCapture'); }
-  @Output() get focusInEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onFocusIn'>>>('onFocusIn'); }
-  @Output() get focusInCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onFocusInCapture'>>>('onFocusInCapture'); }
-  @Output() get focusOutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onFocusOut'>>>('onFocusOut'); }
-  @Output() get focusOutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onFocusOutCapture'>>>('onFocusOutCapture'); }
-  @Output() get blurEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onBlur'>>>('onBlur'); }
-  @Output() get blurCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onBlurCapture'>>>('onBlurCapture'); }
-  @Output() get changeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onChangeCapture'>>>('onChangeCapture'); }
-  @Output() get inputEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onInput'>>>('onInput'); }
-  @Output() get inputCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onInputCapture'>>>('onInputCapture'); }
-  @Output() get beforeInputEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onBeforeInput'>>>('onBeforeInput'); }
-  @Output() get beforeInputCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onBeforeInputCapture'>>>('onBeforeInputCapture'); }
-  @Output() get searchEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onSearch'>>>('onSearch'); }
-  @Output() get searchCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onSearchCapture'>>>('onSearchCapture'); }
-  @Output() get submitEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onSubmit'>>>('onSubmit'); }
-  @Output() get submitCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onSubmitCapture'>>>('onSubmitCapture'); }
-  @Output() get invalidEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onInvalid'>>>('onInvalid'); }
-  @Output() get invalidCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onInvalidCapture'>>>('onInvalidCapture'); }
-  @Output() get resetEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onReset'>>>('onReset'); }
-  @Output() get resetCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onResetCapture'>>>('onResetCapture'); }
-  @Output() get formDataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onFormData'>>>('onFormData'); }
-  @Output() get formDataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onFormDataCapture'>>>('onFormDataCapture'); }
-  @Output() get keyDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onKeyDown'>>>('onKeyDown'); }
-  @Output() get keyDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onKeyDownCapture'>>>('onKeyDownCapture'); }
-  @Output() get keyPressEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onKeyPress'>>>('onKeyPress'); }
-  @Output() get keyPressCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onKeyPressCapture'>>>('onKeyPressCapture'); }
-  @Output() get keyUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onKeyUp'>>>('onKeyUp'); }
-  @Output() get keyUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onKeyUpCapture'>>>('onKeyUpCapture'); }
-  @Output() get abortEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onAbort'>>>('onAbort'); }
-  @Output() get abortCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onAbortCapture'>>>('onAbortCapture'); }
-  @Output() get canPlayEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onCanPlay'>>>('onCanPlay'); }
-  @Output() get canPlayCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onCanPlayCapture'>>>('onCanPlayCapture'); }
-  @Output() get canPlayThroughEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onCanPlayThrough'>>>('onCanPlayThrough'); }
-  @Output() get canPlayThroughCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onCanPlayThroughCapture'>>>('onCanPlayThroughCapture'); }
-  @Output() get durationChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onDurationChange'>>>('onDurationChange'); }
-  @Output() get durationChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onDurationChangeCapture'>>>('onDurationChangeCapture'); }
-  @Output() get emptiedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onEmptied'>>>('onEmptied'); }
-  @Output() get emptiedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onEmptiedCapture'>>>('onEmptiedCapture'); }
-  @Output() get encryptedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onEncrypted'>>>('onEncrypted'); }
-  @Output() get encryptedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onEncryptedCapture'>>>('onEncryptedCapture'); }
-  @Output() get endedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onEnded'>>>('onEnded'); }
-  @Output() get endedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onEndedCapture'>>>('onEndedCapture'); }
-  @Output() get loadedDataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onLoadedData'>>>('onLoadedData'); }
-  @Output() get loadedDataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onLoadedDataCapture'>>>('onLoadedDataCapture'); }
-  @Output() get loadedMetadataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onLoadedMetadata'>>>('onLoadedMetadata'); }
-  @Output() get loadedMetadataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onLoadedMetadataCapture'>>>('onLoadedMetadataCapture'); }
-  @Output() get loadStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onLoadStart'>>>('onLoadStart'); }
-  @Output() get loadStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onLoadStartCapture'>>>('onLoadStartCapture'); }
-  @Output() get pauseEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPause'>>>('onPause'); }
-  @Output() get pauseCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPauseCapture'>>>('onPauseCapture'); }
-  @Output() get playEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPlay'>>>('onPlay'); }
-  @Output() get playCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPlayCapture'>>>('onPlayCapture'); }
-  @Output() get playingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPlaying'>>>('onPlaying'); }
-  @Output() get playingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPlayingCapture'>>>('onPlayingCapture'); }
-  @Output() get progressEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onProgress'>>>('onProgress'); }
-  @Output() get progressCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onProgressCapture'>>>('onProgressCapture'); }
-  @Output() get rateChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onRateChange'>>>('onRateChange'); }
-  @Output() get rateChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onRateChangeCapture'>>>('onRateChangeCapture'); }
-  @Output() get seekedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onSeeked'>>>('onSeeked'); }
-  @Output() get seekedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onSeekedCapture'>>>('onSeekedCapture'); }
-  @Output() get seekingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onSeeking'>>>('onSeeking'); }
-  @Output() get seekingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onSeekingCapture'>>>('onSeekingCapture'); }
-  @Output() get stalledEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onStalled'>>>('onStalled'); }
-  @Output() get stalledCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onStalledCapture'>>>('onStalledCapture'); }
-  @Output() get suspendEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onSuspend'>>>('onSuspend'); }
-  @Output() get suspendCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onSuspendCapture'>>>('onSuspendCapture'); }
-  @Output() get timeUpdateEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onTimeUpdate'>>>('onTimeUpdate'); }
-  @Output() get timeUpdateCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onTimeUpdateCapture'>>>('onTimeUpdateCapture'); }
-  @Output() get volumeChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onVolumeChange'>>>('onVolumeChange'); }
-  @Output() get volumeChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onVolumeChangeCapture'>>>('onVolumeChangeCapture'); }
-  @Output() get waitingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onWaiting'>>>('onWaiting'); }
-  @Output() get waitingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onWaitingCapture'>>>('onWaitingCapture'); }
-  @Output() get clickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onClick'>>>('onClick'); }
-  @Output() get clickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onClickCapture'>>>('onClickCapture'); }
   @Output() get contextMenuEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onContextMenu'>>>('onContextMenu'); }
   @Output() get contextMenuCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onContextMenuCapture'>>>('onContextMenuCapture'); }
+  @Output() get copyEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onCopy'>>>('onCopy'); }
+  @Output() get copyCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onCopyCapture'>>>('onCopyCapture'); }
+  @Output() get cutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onCut'>>>('onCut'); }
+  @Output() get cutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onCutCapture'>>>('onCutCapture'); }
   @Output() get dblClickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onDblClick'>>>('onDblClick'); }
   @Output() get dblClickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onDblClickCapture'>>>('onDblClickCapture'); }
   @Output() get dragEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onDrag'>>>('onDrag'); }
@@ -457,6 +397,50 @@ export class OptionButton extends AngularComponentAdapter<never> {
   @Output() get dragStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onDragStartCapture'>>>('onDragStartCapture'); }
   @Output() get dropEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onDrop'>>>('onDrop'); }
   @Output() get dropCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onDropCapture'>>>('onDropCapture'); }
+  @Output() get durationChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onDurationChange'>>>('onDurationChange'); }
+  @Output() get durationChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onDurationChangeCapture'>>>('onDurationChangeCapture'); }
+  @Output() get emptiedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onEmptied'>>>('onEmptied'); }
+  @Output() get emptiedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onEmptiedCapture'>>>('onEmptiedCapture'); }
+  @Output() get encryptedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onEncrypted'>>>('onEncrypted'); }
+  @Output() get encryptedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onEncryptedCapture'>>>('onEncryptedCapture'); }
+  @Output() get endedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onEnded'>>>('onEnded'); }
+  @Output() get endedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onEndedCapture'>>>('onEndedCapture'); }
+  @Output() get enterPictureInPictureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onEnterPictureInPicture'>>>('onEnterPictureInPicture'); }
+  @Output() get enterPictureInPictureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onEnterPictureInPictureCapture'>>>('onEnterPictureInPictureCapture'); }
+  @Output() get errorEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onError'>>>('onError'); }
+  @Output() get errorCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onErrorCapture'>>>('onErrorCapture'); }
+  @Output() get focusEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onFocus'>>>('onFocus'); }
+  @Output() get focusCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onFocusCapture'>>>('onFocusCapture'); }
+  @Output() get focusInEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onFocusIn'>>>('onFocusIn'); }
+  @Output() get focusInCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onFocusInCapture'>>>('onFocusInCapture'); }
+  @Output() get focusOutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onFocusOut'>>>('onFocusOut'); }
+  @Output() get focusOutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onFocusOutCapture'>>>('onFocusOutCapture'); }
+  @Output() get formDataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onFormData'>>>('onFormData'); }
+  @Output() get formDataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onFormDataCapture'>>>('onFormDataCapture'); }
+  @Output() get gotPointerCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onGotPointerCapture'>>>('onGotPointerCapture'); }
+  @Output() get gotPointerCaptureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onGotPointerCaptureCapture'>>>('onGotPointerCaptureCapture'); }
+  @Output() get inputEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onInput'>>>('onInput'); }
+  @Output() get inputCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onInputCapture'>>>('onInputCapture'); }
+  @Output() get invalidEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onInvalid'>>>('onInvalid'); }
+  @Output() get invalidCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onInvalidCapture'>>>('onInvalidCapture'); }
+  @Output() get keyDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onKeyDown'>>>('onKeyDown'); }
+  @Output() get keyDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onKeyDownCapture'>>>('onKeyDownCapture'); }
+  @Output() get keyPressEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onKeyPress'>>>('onKeyPress'); }
+  @Output() get keyPressCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onKeyPressCapture'>>>('onKeyPressCapture'); }
+  @Output() get keyUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onKeyUp'>>>('onKeyUp'); }
+  @Output() get keyUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onKeyUpCapture'>>>('onKeyUpCapture'); }
+  @Output() get leavePictureInPictureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onLeavePictureInPicture'>>>('onLeavePictureInPicture'); }
+  @Output() get leavePictureInPictureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onLeavePictureInPictureCapture'>>>('onLeavePictureInPictureCapture'); }
+  @Output() get loadEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onLoad'>>>('onLoad'); }
+  @Output() get loadCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onLoadCapture'>>>('onLoadCapture'); }
+  @Output() get loadStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onLoadStart'>>>('onLoadStart'); }
+  @Output() get loadStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onLoadStartCapture'>>>('onLoadStartCapture'); }
+  @Output() get loadedDataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onLoadedData'>>>('onLoadedData'); }
+  @Output() get loadedDataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onLoadedDataCapture'>>>('onLoadedDataCapture'); }
+  @Output() get loadedMetadataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onLoadedMetadata'>>>('onLoadedMetadata'); }
+  @Output() get loadedMetadataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onLoadedMetadataCapture'>>>('onLoadedMetadataCapture'); }
+  @Output() get lostPointerCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onLostPointerCapture'>>>('onLostPointerCapture'); }
+  @Output() get lostPointerCaptureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onLostPointerCaptureCapture'>>>('onLostPointerCaptureCapture'); }
   @Output() get mouseDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onMouseDown'>>>('onMouseDown'); }
   @Output() get mouseDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onMouseDownCapture'>>>('onMouseDownCapture'); }
   @Output() get mouseEnterEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onMouseEnter'>>>('onMouseEnter'); }
@@ -471,38 +455,38 @@ export class OptionButton extends AngularComponentAdapter<never> {
   @Output() get mouseOverCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onMouseOverCapture'>>>('onMouseOverCapture'); }
   @Output() get mouseUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onMouseUp'>>>('onMouseUp'); }
   @Output() get mouseUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onMouseUpCapture'>>>('onMouseUpCapture'); }
-  @Output() get auxClickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onAuxClick'>>>('onAuxClick'); }
-  @Output() get auxClickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onAuxClickCapture'>>>('onAuxClickCapture'); }
-  @Output() get selectEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onSelect'>>>('onSelect'); }
-  @Output() get selectCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onSelectCapture'>>>('onSelectCapture'); }
-  @Output() get touchCancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onTouchCancel'>>>('onTouchCancel'); }
-  @Output() get touchCancelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onTouchCancelCapture'>>>('onTouchCancelCapture'); }
-  @Output() get touchEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onTouchEnd'>>>('onTouchEnd'); }
-  @Output() get touchEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onTouchEndCapture'>>>('onTouchEndCapture'); }
-  @Output() get touchMoveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onTouchMove'>>>('onTouchMove'); }
-  @Output() get touchMoveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onTouchMoveCapture'>>>('onTouchMoveCapture'); }
-  @Output() get touchStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onTouchStart'>>>('onTouchStart'); }
-  @Output() get touchStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onTouchStartCapture'>>>('onTouchStartCapture'); }
-  @Output() get pointerOverEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPointerOver'>>>('onPointerOver'); }
-  @Output() get pointerOverCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPointerOverCapture'>>>('onPointerOverCapture'); }
-  @Output() get pointerEnterEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPointerEnter'>>>('onPointerEnter'); }
-  @Output() get pointerEnterCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPointerEnterCapture'>>>('onPointerEnterCapture'); }
-  @Output() get pointerDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPointerDown'>>>('onPointerDown'); }
-  @Output() get pointerDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPointerDownCapture'>>>('onPointerDownCapture'); }
-  @Output() get pointerMoveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPointerMove'>>>('onPointerMove'); }
-  @Output() get pointerMoveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPointerMoveCapture'>>>('onPointerMoveCapture'); }
-  @Output() get pointerUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPointerUp'>>>('onPointerUp'); }
-  @Output() get pointerUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPointerUpCapture'>>>('onPointerUpCapture'); }
+  @Output() get pasteEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPaste'>>>('onPaste'); }
+  @Output() get pasteCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPasteCapture'>>>('onPasteCapture'); }
+  @Output() get pauseEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPause'>>>('onPause'); }
+  @Output() get pauseCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPauseCapture'>>>('onPauseCapture'); }
+  @Output() get playEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPlay'>>>('onPlay'); }
+  @Output() get playCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPlayCapture'>>>('onPlayCapture'); }
+  @Output() get playingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPlaying'>>>('onPlaying'); }
+  @Output() get playingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPlayingCapture'>>>('onPlayingCapture'); }
   @Output() get pointerCancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPointerCancel'>>>('onPointerCancel'); }
   @Output() get pointerCancelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPointerCancelCapture'>>>('onPointerCancelCapture'); }
-  @Output() get pointerOutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPointerOut'>>>('onPointerOut'); }
-  @Output() get pointerOutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPointerOutCapture'>>>('onPointerOutCapture'); }
+  @Output() get pointerDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPointerDown'>>>('onPointerDown'); }
+  @Output() get pointerDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPointerDownCapture'>>>('onPointerDownCapture'); }
+  @Output() get pointerEnterEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPointerEnter'>>>('onPointerEnter'); }
+  @Output() get pointerEnterCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPointerEnterCapture'>>>('onPointerEnterCapture'); }
   @Output() get pointerLeaveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPointerLeave'>>>('onPointerLeave'); }
   @Output() get pointerLeaveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPointerLeaveCapture'>>>('onPointerLeaveCapture'); }
-  @Output() get gotPointerCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onGotPointerCapture'>>>('onGotPointerCapture'); }
-  @Output() get gotPointerCaptureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onGotPointerCaptureCapture'>>>('onGotPointerCaptureCapture'); }
-  @Output() get lostPointerCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onLostPointerCapture'>>>('onLostPointerCapture'); }
-  @Output() get lostPointerCaptureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onLostPointerCaptureCapture'>>>('onLostPointerCaptureCapture'); }
+  @Output() get pointerMoveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPointerMove'>>>('onPointerMove'); }
+  @Output() get pointerMoveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPointerMoveCapture'>>>('onPointerMoveCapture'); }
+  @Output() get pointerOutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPointerOut'>>>('onPointerOut'); }
+  @Output() get pointerOutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPointerOutCapture'>>>('onPointerOutCapture'); }
+  @Output() get pointerOverEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPointerOver'>>>('onPointerOver'); }
+  @Output() get pointerOverCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPointerOverCapture'>>>('onPointerOverCapture'); }
+  @Output() get pointerUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPointerUp'>>>('onPointerUp'); }
+  @Output() get pointerUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onPointerUpCapture'>>>('onPointerUpCapture'); }
+  @Output() get progressEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onProgress'>>>('onProgress'); }
+  @Output() get progressCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onProgressCapture'>>>('onProgressCapture'); }
+  @Output() get rateChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onRateChange'>>>('onRateChange'); }
+  @Output() get rateChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onRateChangeCapture'>>>('onRateChangeCapture'); }
+  @Output() get resetEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onReset'>>>('onReset'); }
+  @Output() get resetCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onResetCapture'>>>('onResetCapture'); }
+  @Output() get resizeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onResize'>>>('onResize'); }
+  @Output() get resizeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onResizeCapture'>>>('onResizeCapture'); }
   @Output() get scrollEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onScroll'>>>('onScroll'); }
   @Output() get scrollCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onScrollCapture'>>>('onScrollCapture'); }
   @Output() get scrollEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onScrollEnd'>>>('onScrollEnd'); }
@@ -511,14 +495,31 @@ export class OptionButton extends AngularComponentAdapter<never> {
   @Output() get scrollSnapChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onScrollSnapChangeCapture'>>>('onScrollSnapChangeCapture'); }
   @Output() get scrollSnapChangingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onScrollSnapChanging'>>>('onScrollSnapChanging'); }
   @Output() get scrollSnapChangingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onScrollSnapChangingCapture'>>>('onScrollSnapChangingCapture'); }
-  @Output() get wheelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onWheel'>>>('onWheel'); }
-  @Output() get wheelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onWheelCapture'>>>('onWheelCapture'); }
-  @Output() get animationStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onAnimationStart'>>>('onAnimationStart'); }
-  @Output() get animationStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onAnimationStartCapture'>>>('onAnimationStartCapture'); }
-  @Output() get animationEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onAnimationEnd'>>>('onAnimationEnd'); }
-  @Output() get animationEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onAnimationEndCapture'>>>('onAnimationEndCapture'); }
-  @Output() get animationIterationEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onAnimationIteration'>>>('onAnimationIteration'); }
-  @Output() get animationIterationCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onAnimationIterationCapture'>>>('onAnimationIterationCapture'); }
+  @Output() get searchEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onSearch'>>>('onSearch'); }
+  @Output() get searchCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onSearchCapture'>>>('onSearchCapture'); }
+  @Output() get seekedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onSeeked'>>>('onSeeked'); }
+  @Output() get seekedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onSeekedCapture'>>>('onSeekedCapture'); }
+  @Output() get seekingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onSeeking'>>>('onSeeking'); }
+  @Output() get seekingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onSeekingCapture'>>>('onSeekingCapture'); }
+  @Output() get selectEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onSelect'>>>('onSelect'); }
+  @Output() get selectCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onSelectCapture'>>>('onSelectCapture'); }
+  @Output() get stalledEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onStalled'>>>('onStalled'); }
+  @Output() get stalledCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onStalledCapture'>>>('onStalledCapture'); }
+  @Output() get submitEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onSubmit'>>>('onSubmit'); }
+  @Output() get submitCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onSubmitCapture'>>>('onSubmitCapture'); }
+  @Output() get suspendEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onSuspend'>>>('onSuspend'); }
+  @Output() get suspendCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onSuspendCapture'>>>('onSuspendCapture'); }
+  @Output() get timeUpdateEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onTimeUpdate'>>>('onTimeUpdate'); }
+  @Output() get timeUpdateCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onTimeUpdateCapture'>>>('onTimeUpdateCapture'); }
+  @Output() get toggleEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onToggle'>>>('onToggle'); }
+  @Output() get touchCancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onTouchCancel'>>>('onTouchCancel'); }
+  @Output() get touchCancelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onTouchCancelCapture'>>>('onTouchCancelCapture'); }
+  @Output() get touchEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onTouchEnd'>>>('onTouchEnd'); }
+  @Output() get touchEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onTouchEndCapture'>>>('onTouchEndCapture'); }
+  @Output() get touchMoveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onTouchMove'>>>('onTouchMove'); }
+  @Output() get touchMoveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onTouchMoveCapture'>>>('onTouchMoveCapture'); }
+  @Output() get touchStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onTouchStart'>>>('onTouchStart'); }
+  @Output() get touchStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onTouchStartCapture'>>>('onTouchStartCapture'); }
   @Output() get transitionCancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onTransitionCancel'>>>('onTransitionCancel'); }
   @Output() get transitionCancelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onTransitionCancelCapture'>>>('onTransitionCancelCapture'); }
   @Output() get transitionEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onTransitionEnd'>>>('onTransitionEnd'); }
@@ -527,12 +528,11 @@ export class OptionButton extends AngularComponentAdapter<never> {
   @Output() get transitionRunCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onTransitionRunCapture'>>>('onTransitionRunCapture'); }
   @Output() get transitionStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onTransitionStart'>>>('onTransitionStart'); }
   @Output() get transitionStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onTransitionStartCapture'>>>('onTransitionStartCapture'); }
-  @Output() get enterPictureInPictureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onEnterPictureInPicture'>>>('onEnterPictureInPicture'); }
-  @Output() get enterPictureInPictureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onEnterPictureInPictureCapture'>>>('onEnterPictureInPictureCapture'); }
-  @Output() get leavePictureInPictureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onLeavePictureInPicture'>>>('onLeavePictureInPicture'); }
-  @Output() get leavePictureInPictureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onLeavePictureInPictureCapture'>>>('onLeavePictureInPictureCapture'); }
-  @Output() get resizeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onResize'>>>('onResize'); }
-  @Output() get resizeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onResizeCapture'>>>('onResizeCapture'); }
-  @Output() get commandEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onCommand'>>>('onCommand'); }
+  @Output() get volumeChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onVolumeChange'>>>('onVolumeChange'); }
+  @Output() get volumeChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onVolumeChangeCapture'>>>('onVolumeChangeCapture'); }
+  @Output() get waitingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onWaiting'>>>('onWaiting'); }
+  @Output() get waitingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onWaitingCapture'>>>('onWaitingCapture'); }
+  @Output() get wheelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onWheel'>>>('onWheel'); }
+  @Output() get wheelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onWheelCapture'>>>('onWheelCapture'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

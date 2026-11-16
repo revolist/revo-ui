@@ -13,10 +13,10 @@ export class IconChoiceGroup extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'IconChoiceGroup';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onChange"];
-  @NgInput({ required: true }) declare "value": AngularInput<'IconChoiceGroup', "value">;
-  @NgInput({ required: true }) declare "options": AngularInput<'IconChoiceGroup', "options">;
   @NgInput({ required: true }) declare "ariaLabel": AngularInput<'IconChoiceGroup', "ariaLabel">;
   @NgInput() declare "onChange"?: AngularInput<'IconChoiceGroup', "onChange">;
+  @NgInput({ required: true }) declare "options": AngularInput<'IconChoiceGroup', "options">;
+  @NgInput({ required: true }) declare "value": AngularInput<'IconChoiceGroup', "value">;
   @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'IconChoiceGroup', 'onChange'>>>('onChange'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

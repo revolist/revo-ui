@@ -13,21 +13,21 @@ export class SegmentedControl extends AngularComponentAdapter<AngularCallbackVal
   protected readonly rvComponentName = 'SegmentedControl';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onChange"];
-  @NgInput({ required: true }) declare "value": AngularInput<'SegmentedControl', "value">;
-  @NgInput({ required: true }) declare "options": AngularInput<'SegmentedControl', "options">;
+  @NgInput() declare "activeClassName"?: AngularInput<'SegmentedControl', "activeClassName">;
   @NgInput() declare "ariaLabel"?: AngularInput<'SegmentedControl', "ariaLabel">;
   @NgInput() declare "className"?: AngularInput<'SegmentedControl', "className">;
-  @NgInput() declare "itemClassName"?: AngularInput<'SegmentedControl', "itemClassName">;
   @NgInput() declare "countClassName"?: AngularInput<'SegmentedControl', "countClassName">;
-  @NgInput() declare "activeClassName"?: AngularInput<'SegmentedControl', "activeClassName">;
   @NgInput() declare "disabled"?: AngularInput<'SegmentedControl', "disabled">;
   @NgInput() declare "iconOnly"?: AngularInput<'SegmentedControl', "iconOnly">;
-  @NgInput() declare "title"?: AngularInput<'SegmentedControl', "title">;
+  @NgInput() declare "itemClassName"?: AngularInput<'SegmentedControl', "itemClassName">;
+  @NgInput() declare "onChange"?: AngularInput<'SegmentedControl', "onChange">;
+  @NgInput({ required: true }) declare "options": AngularInput<'SegmentedControl', "options">;
+  @NgInput() declare "renderCount"?: AngularInput<'SegmentedControl', "renderCount">;
+  @NgInput() declare "renderOption"?: AngularInput<'SegmentedControl', "renderOption">;
   @NgInput() declare "role"?: AngularInput<'SegmentedControl', "role">;
   @NgInput() declare "testId"?: AngularInput<'SegmentedControl', "testId">;
-  @NgInput() declare "renderOption"?: AngularInput<'SegmentedControl', "renderOption">;
-  @NgInput() declare "renderCount"?: AngularInput<'SegmentedControl', "renderCount">;
-  @NgInput() declare "onChange"?: AngularInput<'SegmentedControl', "onChange">;
+  @NgInput() declare "title"?: AngularInput<'SegmentedControl', "title">;
+  @NgInput({ required: true }) declare "value": AngularInput<'SegmentedControl', "value">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

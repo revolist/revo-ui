@@ -12,78 +12,11 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class TextInput extends AngularComponentAdapter<AngularCallbackValue<AngularInput<'TextInput', 'onValueChange'>>> {
   protected readonly rvComponentName = 'TextInput';
   protected rvResolveComponent() { return Control; }
-  @NgInput() declare "height"?: AngularInput<'TextInput', "height">;
-  @NgInput() declare "translate"?: AngularInput<'TextInput', "translate">;
-  @NgInput() declare "width"?: AngularInput<'TextInput', "width">;
-  @NgInput() declare "value"?: AngularInput<'TextInput', "value">;
-  @NgInput() declare "autocomplete"?: AngularInput<'TextInput', "autocomplete">;
-  @NgInput() declare "autoComplete"?: AngularInput<'TextInput', "autoComplete">;
-  @NgInput() declare "defaultValue"?: AngularInput<'TextInput', "defaultValue">;
-  @NgInput() declare "disabled"?: AngularInput<'TextInput', "disabled">;
-  @NgInput() declare "form"?: AngularInput<'TextInput', "form">;
-  @NgInput() declare "maxlength"?: AngularInput<'TextInput', "maxlength">;
-  @NgInput() declare "maxLength"?: AngularInput<'TextInput', "maxLength">;
-  @NgInput() declare "minlength"?: AngularInput<'TextInput', "minlength">;
-  @NgInput() declare "minLength"?: AngularInput<'TextInput', "minLength">;
-  @NgInput() declare "name"?: AngularInput<'TextInput', "name">;
-  @NgInput() declare "placeholder"?: AngularInput<'TextInput', "placeholder">;
-  @NgInput() declare "readOnly"?: AngularInput<'TextInput', "readOnly">;
-  @NgInput() declare "required"?: AngularInput<'TextInput', "required">;
-  @NgInput() declare "accesskey"?: AngularInput<'TextInput', "accesskey">;
-  @NgInput() declare "accessKey"?: AngularInput<'TextInput', "accessKey">;
-  @NgInput() declare "autocapitalize"?: AngularInput<'TextInput', "autocapitalize">;
-  @NgInput() declare "autoCapitalize"?: AngularInput<'TextInput', "autoCapitalize">;
-  @NgInput() declare "autocorrect"?: AngularInput<'TextInput', "autocorrect">;
-  @NgInput() declare "autoCorrect"?: AngularInput<'TextInput', "autoCorrect">;
-  @NgInput() declare "autofocus"?: AngularInput<'TextInput', "autofocus">;
-  @NgInput() declare "autoFocus"?: AngularInput<'TextInput', "autoFocus">;
-  @NgInput() declare "class"?: AngularInput<'TextInput', "class">;
-  @NgInput() declare "contenteditable"?: AngularInput<'TextInput', "contenteditable">;
-  @NgInput() declare "contentEditable"?: AngularInput<'TextInput', "contentEditable">;
-  @NgInput() declare "dir"?: AngularInput<'TextInput', "dir">;
-  @NgInput() declare "draggable"?: AngularInput<'TextInput', "draggable">;
-  @NgInput() declare "enterkeyhint"?: AngularInput<'TextInput', "enterkeyhint">;
-  @NgInput() declare "exportparts"?: AngularInput<'TextInput', "exportparts">;
-  @NgInput() declare "hidden"?: AngularInput<'TextInput', "hidden">;
-  @NgInput() declare "id"?: AngularInput<'TextInput', "id">;
-  @NgInput() declare "inert"?: AngularInput<'TextInput', "inert">;
-  @NgInput() declare "inputmode"?: AngularInput<'TextInput', "inputmode">;
-  @NgInput() declare "inputMode"?: AngularInput<'TextInput', "inputMode">;
-  @NgInput() declare "is"?: AngularInput<'TextInput', "is">;
-  @NgInput() declare "lang"?: AngularInput<'TextInput', "lang">;
-  @NgInput() declare "nonce"?: AngularInput<'TextInput', "nonce">;
-  @NgInput() declare "part"?: AngularInput<'TextInput', "part">;
-  @NgInput() declare "popover"?: AngularInput<'TextInput', "popover">;
-  @NgInput() declare "slot"?: AngularInput<'TextInput', "slot">;
-  @NgInput() declare "spellcheck"?: AngularInput<'TextInput', "spellcheck">;
-  @NgInput() declare "style"?: AngularInput<'TextInput', "style">;
-  @NgInput() declare "tabindex"?: AngularInput<'TextInput', "tabindex">;
-  @NgInput() declare "tabIndex"?: AngularInput<'TextInput', "tabIndex">;
-  @NgInput() declare "title"?: AngularInput<'TextInput', "title">;
-  @NgInput() declare "role"?: AngularInput<'TextInput', "role">;
-  @NgInput() declare "disablePictureInPicture"?: AngularInput<'TextInput', "disablePictureInPicture">;
-  @NgInput() declare "elementtiming"?: AngularInput<'TextInput', "elementtiming">;
-  @NgInput() declare "elementTiming"?: AngularInput<'TextInput', "elementTiming">;
-  @NgInput() declare "results"?: AngularInput<'TextInput', "results">;
   @NgInput() declare "about"?: AngularInput<'TextInput', "about">;
-  @NgInput() declare "datatype"?: AngularInput<'TextInput', "datatype">;
-  @NgInput() declare "inlist"?: AngularInput<'TextInput', "inlist">;
-  @NgInput() declare "prefix"?: AngularInput<'TextInput', "prefix">;
-  @NgInput() declare "property"?: AngularInput<'TextInput', "property">;
-  @NgInput() declare "resource"?: AngularInput<'TextInput', "resource">;
-  @NgInput() declare "typeof"?: AngularInput<'TextInput', "typeof">;
-  @NgInput() declare "vocab"?: AngularInput<'TextInput', "vocab">;
-  @NgInput() declare "itemid"?: AngularInput<'TextInput', "itemid">;
-  @NgInput() declare "itemID"?: AngularInput<'TextInput', "itemID">;
-  @NgInput() declare "itemprop"?: AngularInput<'TextInput', "itemprop">;
-  @NgInput() declare "itemProp"?: AngularInput<'TextInput', "itemProp">;
-  @NgInput() declare "itemref"?: AngularInput<'TextInput', "itemref">;
-  @NgInput() declare "itemRef"?: AngularInput<'TextInput', "itemRef">;
-  @NgInput() declare "itemscope"?: AngularInput<'TextInput', "itemscope">;
-  @NgInput() declare "itemScope"?: AngularInput<'TextInput', "itemScope">;
-  @NgInput() declare "itemtype"?: AngularInput<'TextInput', "itemtype">;
-  @NgInput() declare "itemType"?: AngularInput<'TextInput', "itemType">;
-  @NgInput() declare "dangerouslySetInnerHTML"?: AngularInput<'TextInput', "dangerouslySetInnerHTML">;
+  @NgInput() declare "accept"?: AngularInput<'TextInput', "accept">;
+  @NgInput() declare "accessKey"?: AngularInput<'TextInput', "accessKey">;
+  @NgInput() declare "accesskey"?: AngularInput<'TextInput', "accesskey">;
+  @NgInput() declare "alt"?: AngularInput<'TextInput', "alt">;
   @NgInput() declare "aria-activedescendant"?: AngularInput<'TextInput', "aria-activedescendant">;
   @NgInput() declare "aria-atomic"?: AngularInput<'TextInput', "aria-atomic">;
   @NgInput() declare "aria-autocomplete"?: AngularInput<'TextInput', "aria-autocomplete">;
@@ -137,132 +70,112 @@ export class TextInput extends AngularComponentAdapter<AngularCallbackValue<Angu
   @NgInput() declare "aria-valuemin"?: AngularInput<'TextInput', "aria-valuemin">;
   @NgInput() declare "aria-valuenow"?: AngularInput<'TextInput', "aria-valuenow">;
   @NgInput() declare "aria-valuetext"?: AngularInput<'TextInput', "aria-valuetext">;
-  @NgInput() declare "accept"?: AngularInput<'TextInput', "accept">;
-  @NgInput() declare "alt"?: AngularInput<'TextInput', "alt">;
+  @NgInput() declare "autoCapitalize"?: AngularInput<'TextInput', "autoCapitalize">;
+  @NgInput() declare "autoComplete"?: AngularInput<'TextInput', "autoComplete">;
+  @NgInput() declare "autoCorrect"?: AngularInput<'TextInput', "autoCorrect">;
+  @NgInput() declare "autoFocus"?: AngularInput<'TextInput', "autoFocus">;
+  @NgInput() declare "autocapitalize"?: AngularInput<'TextInput', "autocapitalize">;
+  @NgInput() declare "autocomplete"?: AngularInput<'TextInput', "autocomplete">;
+  @NgInput() declare "autocorrect"?: AngularInput<'TextInput', "autocorrect">;
+  @NgInput() declare "autofocus"?: AngularInput<'TextInput', "autofocus">;
   @NgInput() declare "capture"?: AngularInput<'TextInput', "capture">;
   @NgInput() declare "checked"?: AngularInput<'TextInput', "checked">;
+  @NgInput() declare "class"?: AngularInput<'TextInput', "class">;
+  @NgInput() declare "className"?: AngularInput<'TextInput', "className">;
+  @NgInput() declare "contentEditable"?: AngularInput<'TextInput', "contentEditable">;
+  @NgInput() declare "contenteditable"?: AngularInput<'TextInput', "contenteditable">;
+  @NgInput() declare "dangerouslySetInnerHTML"?: AngularInput<'TextInput', "dangerouslySetInnerHTML">;
+  @NgInput() declare "datatype"?: AngularInput<'TextInput', "datatype">;
   @NgInput() declare "defaultChecked"?: AngularInput<'TextInput', "defaultChecked">;
+  @NgInput() declare "defaultValue"?: AngularInput<'TextInput', "defaultValue">;
+  @NgInput() declare "dir"?: AngularInput<'TextInput', "dir">;
+  @NgInput() declare "disablePictureInPicture"?: AngularInput<'TextInput', "disablePictureInPicture">;
+  @NgInput() declare "disabled"?: AngularInput<'TextInput', "disabled">;
+  @NgInput() declare "draggable"?: AngularInput<'TextInput', "draggable">;
+  @NgInput() declare "elementTiming"?: AngularInput<'TextInput', "elementTiming">;
+  @NgInput() declare "elementtiming"?: AngularInput<'TextInput', "elementtiming">;
   @NgInput() declare "enterKeyHint"?: AngularInput<'TextInput', "enterKeyHint">;
-  @NgInput() declare "formaction"?: AngularInput<'TextInput', "formaction">;
+  @NgInput() declare "enterkeyhint"?: AngularInput<'TextInput', "enterkeyhint">;
+  @NgInput() declare "exportparts"?: AngularInput<'TextInput', "exportparts">;
+  @NgInput() declare "form"?: AngularInput<'TextInput', "form">;
   @NgInput() declare "formAction"?: AngularInput<'TextInput', "formAction">;
-  @NgInput() declare "formenctype"?: AngularInput<'TextInput', "formenctype">;
   @NgInput() declare "formEncType"?: AngularInput<'TextInput', "formEncType">;
-  @NgInput() declare "formmethod"?: AngularInput<'TextInput', "formmethod">;
   @NgInput() declare "formMethod"?: AngularInput<'TextInput', "formMethod">;
-  @NgInput() declare "formnovalidate"?: AngularInput<'TextInput', "formnovalidate">;
   @NgInput() declare "formNoValidate"?: AngularInput<'TextInput', "formNoValidate">;
-  @NgInput() declare "formtarget"?: AngularInput<'TextInput', "formtarget">;
   @NgInput() declare "formTarget"?: AngularInput<'TextInput', "formTarget">;
+  @NgInput() declare "formaction"?: AngularInput<'TextInput', "formaction">;
+  @NgInput() declare "formenctype"?: AngularInput<'TextInput', "formenctype">;
+  @NgInput() declare "formmethod"?: AngularInput<'TextInput', "formmethod">;
+  @NgInput() declare "formnovalidate"?: AngularInput<'TextInput', "formnovalidate">;
+  @NgInput() declare "formtarget"?: AngularInput<'TextInput', "formtarget">;
+  @NgInput() declare "height"?: AngularInput<'TextInput', "height">;
+  @NgInput() declare "hidden"?: AngularInput<'TextInput', "hidden">;
+  @NgInput() declare "id"?: AngularInput<'TextInput', "id">;
   @NgInput() declare "indeterminate"?: AngularInput<'TextInput', "indeterminate">;
+  @NgInput() declare "inert"?: AngularInput<'TextInput', "inert">;
+  @NgInput() declare "inlist"?: AngularInput<'TextInput', "inlist">;
+  @NgInput() declare "inputMode"?: AngularInput<'TextInput', "inputMode">;
+  @NgInput() declare "inputmode"?: AngularInput<'TextInput', "inputmode">;
+  @NgInput() declare "is"?: AngularInput<'TextInput', "is">;
+  @NgInput() declare "itemID"?: AngularInput<'TextInput', "itemID">;
+  @NgInput() declare "itemProp"?: AngularInput<'TextInput', "itemProp">;
+  @NgInput() declare "itemRef"?: AngularInput<'TextInput', "itemRef">;
+  @NgInput() declare "itemScope"?: AngularInput<'TextInput', "itemScope">;
+  @NgInput() declare "itemType"?: AngularInput<'TextInput', "itemType">;
+  @NgInput() declare "itemid"?: AngularInput<'TextInput', "itemid">;
+  @NgInput() declare "itemprop"?: AngularInput<'TextInput', "itemprop">;
+  @NgInput() declare "itemref"?: AngularInput<'TextInput', "itemref">;
+  @NgInput() declare "itemscope"?: AngularInput<'TextInput', "itemscope">;
+  @NgInput() declare "itemtype"?: AngularInput<'TextInput', "itemtype">;
+  @NgInput() declare "lang"?: AngularInput<'TextInput', "lang">;
   @NgInput() declare "list"?: AngularInput<'TextInput', "list">;
   @NgInput() declare "max"?: AngularInput<'TextInput', "max">;
+  @NgInput() declare "maxLength"?: AngularInput<'TextInput', "maxLength">;
+  @NgInput() declare "maxlength"?: AngularInput<'TextInput', "maxlength">;
   @NgInput() declare "min"?: AngularInput<'TextInput', "min">;
+  @NgInput() declare "minLength"?: AngularInput<'TextInput', "minLength">;
+  @NgInput() declare "minlength"?: AngularInput<'TextInput', "minlength">;
   @NgInput() declare "multiple"?: AngularInput<'TextInput', "multiple">;
-  @NgInput() declare "pattern"?: AngularInput<'TextInput', "pattern">;
-  @NgInput() declare "readonly"?: AngularInput<'TextInput', "readonly">;
-  @NgInput() declare "size"?: AngularInput<'TextInput', "size">;
-  @NgInput() declare "src"?: AngularInput<'TextInput', "src">;
-  @NgInput() declare "step"?: AngularInput<'TextInput', "step">;
-  @NgInput() declare "type"?: AngularInput<'TextInput', "type">;
-  @NgInput() declare "className"?: AngularInput<'TextInput', "className">;
+  @NgInput() declare "name"?: AngularInput<'TextInput', "name">;
+  @NgInput() declare "nonce"?: AngularInput<'TextInput', "nonce">;
+  @NgInput() declare "onAbort"?: AngularInput<'TextInput', "onAbort">;
+  @NgInput() declare "onAbortCapture"?: AngularInput<'TextInput', "onAbortCapture">;
+  @NgInput() declare "onAnimationEnd"?: AngularInput<'TextInput', "onAnimationEnd">;
+  @NgInput() declare "onAnimationEndCapture"?: AngularInput<'TextInput', "onAnimationEndCapture">;
+  @NgInput() declare "onAnimationIteration"?: AngularInput<'TextInput', "onAnimationIteration">;
+  @NgInput() declare "onAnimationIterationCapture"?: AngularInput<'TextInput', "onAnimationIterationCapture">;
+  @NgInput() declare "onAnimationStart"?: AngularInput<'TextInput', "onAnimationStart">;
+  @NgInput() declare "onAnimationStartCapture"?: AngularInput<'TextInput', "onAnimationStartCapture">;
+  @NgInput() declare "onAuxClick"?: AngularInput<'TextInput', "onAuxClick">;
+  @NgInput() declare "onAuxClickCapture"?: AngularInput<'TextInput', "onAuxClickCapture">;
+  @NgInput() declare "onBeforeInput"?: AngularInput<'TextInput', "onBeforeInput">;
+  @NgInput() declare "onBeforeInputCapture"?: AngularInput<'TextInput', "onBeforeInputCapture">;
+  @NgInput() declare "onBeforeToggle"?: AngularInput<'TextInput', "onBeforeToggle">;
+  @NgInput() declare "onBlur"?: AngularInput<'TextInput', "onBlur">;
+  @NgInput() declare "onBlurCapture"?: AngularInput<'TextInput', "onBlurCapture">;
+  @NgInput() declare "onCanPlay"?: AngularInput<'TextInput', "onCanPlay">;
+  @NgInput() declare "onCanPlayCapture"?: AngularInput<'TextInput', "onCanPlayCapture">;
+  @NgInput() declare "onCanPlayThrough"?: AngularInput<'TextInput', "onCanPlayThrough">;
+  @NgInput() declare "onCanPlayThroughCapture"?: AngularInput<'TextInput', "onCanPlayThroughCapture">;
+  @NgInput() declare "onCancel"?: AngularInput<'TextInput', "onCancel">;
   @NgInput() declare "onChange"?: AngularInput<'TextInput', "onChange">;
-  @NgInput() declare "onLoad"?: AngularInput<'TextInput', "onLoad">;
-  @NgInput() declare "onLoadCapture"?: AngularInput<'TextInput', "onLoadCapture">;
-  @NgInput() declare "onError"?: AngularInput<'TextInput', "onError">;
-  @NgInput() declare "onErrorCapture"?: AngularInput<'TextInput', "onErrorCapture">;
-  @NgInput() declare "onCopy"?: AngularInput<'TextInput', "onCopy">;
-  @NgInput() declare "onCopyCapture"?: AngularInput<'TextInput', "onCopyCapture">;
-  @NgInput() declare "onCut"?: AngularInput<'TextInput', "onCut">;
-  @NgInput() declare "onCutCapture"?: AngularInput<'TextInput', "onCutCapture">;
-  @NgInput() declare "onPaste"?: AngularInput<'TextInput', "onPaste">;
-  @NgInput() declare "onPasteCapture"?: AngularInput<'TextInput', "onPasteCapture">;
+  @NgInput() declare "onChangeCapture"?: AngularInput<'TextInput', "onChangeCapture">;
+  @NgInput() declare "onClick"?: AngularInput<'TextInput', "onClick">;
+  @NgInput() declare "onClickCapture"?: AngularInput<'TextInput', "onClickCapture">;
+  @NgInput() declare "onClose"?: AngularInput<'TextInput', "onClose">;
+  @NgInput() declare "onCommand"?: AngularInput<'TextInput', "onCommand">;
   @NgInput() declare "onCompositionEnd"?: AngularInput<'TextInput', "onCompositionEnd">;
   @NgInput() declare "onCompositionEndCapture"?: AngularInput<'TextInput', "onCompositionEndCapture">;
   @NgInput() declare "onCompositionStart"?: AngularInput<'TextInput', "onCompositionStart">;
   @NgInput() declare "onCompositionStartCapture"?: AngularInput<'TextInput', "onCompositionStartCapture">;
   @NgInput() declare "onCompositionUpdate"?: AngularInput<'TextInput', "onCompositionUpdate">;
   @NgInput() declare "onCompositionUpdateCapture"?: AngularInput<'TextInput', "onCompositionUpdateCapture">;
-  @NgInput() declare "onBeforeToggle"?: AngularInput<'TextInput', "onBeforeToggle">;
-  @NgInput() declare "onToggle"?: AngularInput<'TextInput', "onToggle">;
-  @NgInput() declare "onClose"?: AngularInput<'TextInput', "onClose">;
-  @NgInput() declare "onCancel"?: AngularInput<'TextInput', "onCancel">;
-  @NgInput() declare "onFocus"?: AngularInput<'TextInput', "onFocus">;
-  @NgInput() declare "onFocusCapture"?: AngularInput<'TextInput', "onFocusCapture">;
-  @NgInput() declare "onFocusIn"?: AngularInput<'TextInput', "onFocusIn">;
-  @NgInput() declare "onFocusInCapture"?: AngularInput<'TextInput', "onFocusInCapture">;
-  @NgInput() declare "onFocusOut"?: AngularInput<'TextInput', "onFocusOut">;
-  @NgInput() declare "onFocusOutCapture"?: AngularInput<'TextInput', "onFocusOutCapture">;
-  @NgInput() declare "onBlur"?: AngularInput<'TextInput', "onBlur">;
-  @NgInput() declare "onBlurCapture"?: AngularInput<'TextInput', "onBlurCapture">;
-  @NgInput() declare "onChangeCapture"?: AngularInput<'TextInput', "onChangeCapture">;
-  @NgInput() declare "onInput"?: AngularInput<'TextInput', "onInput">;
-  @NgInput() declare "onInputCapture"?: AngularInput<'TextInput', "onInputCapture">;
-  @NgInput() declare "onBeforeInput"?: AngularInput<'TextInput', "onBeforeInput">;
-  @NgInput() declare "onBeforeInputCapture"?: AngularInput<'TextInput', "onBeforeInputCapture">;
-  @NgInput() declare "onSearch"?: AngularInput<'TextInput', "onSearch">;
-  @NgInput() declare "onSearchCapture"?: AngularInput<'TextInput', "onSearchCapture">;
-  @NgInput() declare "onSubmit"?: AngularInput<'TextInput', "onSubmit">;
-  @NgInput() declare "onSubmitCapture"?: AngularInput<'TextInput', "onSubmitCapture">;
-  @NgInput() declare "onInvalid"?: AngularInput<'TextInput', "onInvalid">;
-  @NgInput() declare "onInvalidCapture"?: AngularInput<'TextInput', "onInvalidCapture">;
-  @NgInput() declare "onReset"?: AngularInput<'TextInput', "onReset">;
-  @NgInput() declare "onResetCapture"?: AngularInput<'TextInput', "onResetCapture">;
-  @NgInput() declare "onFormData"?: AngularInput<'TextInput', "onFormData">;
-  @NgInput() declare "onFormDataCapture"?: AngularInput<'TextInput', "onFormDataCapture">;
-  @NgInput() declare "onKeyDown"?: AngularInput<'TextInput', "onKeyDown">;
-  @NgInput() declare "onKeyDownCapture"?: AngularInput<'TextInput', "onKeyDownCapture">;
-  @NgInput() declare "onKeyPress"?: AngularInput<'TextInput', "onKeyPress">;
-  @NgInput() declare "onKeyPressCapture"?: AngularInput<'TextInput', "onKeyPressCapture">;
-  @NgInput() declare "onKeyUp"?: AngularInput<'TextInput', "onKeyUp">;
-  @NgInput() declare "onKeyUpCapture"?: AngularInput<'TextInput', "onKeyUpCapture">;
-  @NgInput() declare "onAbort"?: AngularInput<'TextInput', "onAbort">;
-  @NgInput() declare "onAbortCapture"?: AngularInput<'TextInput', "onAbortCapture">;
-  @NgInput() declare "onCanPlay"?: AngularInput<'TextInput', "onCanPlay">;
-  @NgInput() declare "onCanPlayCapture"?: AngularInput<'TextInput', "onCanPlayCapture">;
-  @NgInput() declare "onCanPlayThrough"?: AngularInput<'TextInput', "onCanPlayThrough">;
-  @NgInput() declare "onCanPlayThroughCapture"?: AngularInput<'TextInput', "onCanPlayThroughCapture">;
-  @NgInput() declare "onDurationChange"?: AngularInput<'TextInput', "onDurationChange">;
-  @NgInput() declare "onDurationChangeCapture"?: AngularInput<'TextInput', "onDurationChangeCapture">;
-  @NgInput() declare "onEmptied"?: AngularInput<'TextInput', "onEmptied">;
-  @NgInput() declare "onEmptiedCapture"?: AngularInput<'TextInput', "onEmptiedCapture">;
-  @NgInput() declare "onEncrypted"?: AngularInput<'TextInput', "onEncrypted">;
-  @NgInput() declare "onEncryptedCapture"?: AngularInput<'TextInput', "onEncryptedCapture">;
-  @NgInput() declare "onEnded"?: AngularInput<'TextInput', "onEnded">;
-  @NgInput() declare "onEndedCapture"?: AngularInput<'TextInput', "onEndedCapture">;
-  @NgInput() declare "onLoadedData"?: AngularInput<'TextInput', "onLoadedData">;
-  @NgInput() declare "onLoadedDataCapture"?: AngularInput<'TextInput', "onLoadedDataCapture">;
-  @NgInput() declare "onLoadedMetadata"?: AngularInput<'TextInput', "onLoadedMetadata">;
-  @NgInput() declare "onLoadedMetadataCapture"?: AngularInput<'TextInput', "onLoadedMetadataCapture">;
-  @NgInput() declare "onLoadStart"?: AngularInput<'TextInput', "onLoadStart">;
-  @NgInput() declare "onLoadStartCapture"?: AngularInput<'TextInput', "onLoadStartCapture">;
-  @NgInput() declare "onPause"?: AngularInput<'TextInput', "onPause">;
-  @NgInput() declare "onPauseCapture"?: AngularInput<'TextInput', "onPauseCapture">;
-  @NgInput() declare "onPlay"?: AngularInput<'TextInput', "onPlay">;
-  @NgInput() declare "onPlayCapture"?: AngularInput<'TextInput', "onPlayCapture">;
-  @NgInput() declare "onPlaying"?: AngularInput<'TextInput', "onPlaying">;
-  @NgInput() declare "onPlayingCapture"?: AngularInput<'TextInput', "onPlayingCapture">;
-  @NgInput() declare "onProgress"?: AngularInput<'TextInput', "onProgress">;
-  @NgInput() declare "onProgressCapture"?: AngularInput<'TextInput', "onProgressCapture">;
-  @NgInput() declare "onRateChange"?: AngularInput<'TextInput', "onRateChange">;
-  @NgInput() declare "onRateChangeCapture"?: AngularInput<'TextInput', "onRateChangeCapture">;
-  @NgInput() declare "onSeeked"?: AngularInput<'TextInput', "onSeeked">;
-  @NgInput() declare "onSeekedCapture"?: AngularInput<'TextInput', "onSeekedCapture">;
-  @NgInput() declare "onSeeking"?: AngularInput<'TextInput', "onSeeking">;
-  @NgInput() declare "onSeekingCapture"?: AngularInput<'TextInput', "onSeekingCapture">;
-  @NgInput() declare "onStalled"?: AngularInput<'TextInput', "onStalled">;
-  @NgInput() declare "onStalledCapture"?: AngularInput<'TextInput', "onStalledCapture">;
-  @NgInput() declare "onSuspend"?: AngularInput<'TextInput', "onSuspend">;
-  @NgInput() declare "onSuspendCapture"?: AngularInput<'TextInput', "onSuspendCapture">;
-  @NgInput() declare "onTimeUpdate"?: AngularInput<'TextInput', "onTimeUpdate">;
-  @NgInput() declare "onTimeUpdateCapture"?: AngularInput<'TextInput', "onTimeUpdateCapture">;
-  @NgInput() declare "onVolumeChange"?: AngularInput<'TextInput', "onVolumeChange">;
-  @NgInput() declare "onVolumeChangeCapture"?: AngularInput<'TextInput', "onVolumeChangeCapture">;
-  @NgInput() declare "onWaiting"?: AngularInput<'TextInput', "onWaiting">;
-  @NgInput() declare "onWaitingCapture"?: AngularInput<'TextInput', "onWaitingCapture">;
-  @NgInput() declare "onClick"?: AngularInput<'TextInput', "onClick">;
-  @NgInput() declare "onClickCapture"?: AngularInput<'TextInput', "onClickCapture">;
   @NgInput() declare "onContextMenu"?: AngularInput<'TextInput', "onContextMenu">;
   @NgInput() declare "onContextMenuCapture"?: AngularInput<'TextInput', "onContextMenuCapture">;
+  @NgInput() declare "onCopy"?: AngularInput<'TextInput', "onCopy">;
+  @NgInput() declare "onCopyCapture"?: AngularInput<'TextInput', "onCopyCapture">;
+  @NgInput() declare "onCut"?: AngularInput<'TextInput', "onCut">;
+  @NgInput() declare "onCutCapture"?: AngularInput<'TextInput', "onCutCapture">;
   @NgInput() declare "onDblClick"?: AngularInput<'TextInput', "onDblClick">;
   @NgInput() declare "onDblClickCapture"?: AngularInput<'TextInput', "onDblClickCapture">;
   @NgInput() declare "onDrag"?: AngularInput<'TextInput', "onDrag">;
@@ -281,6 +194,50 @@ export class TextInput extends AngularComponentAdapter<AngularCallbackValue<Angu
   @NgInput() declare "onDragStartCapture"?: AngularInput<'TextInput', "onDragStartCapture">;
   @NgInput() declare "onDrop"?: AngularInput<'TextInput', "onDrop">;
   @NgInput() declare "onDropCapture"?: AngularInput<'TextInput', "onDropCapture">;
+  @NgInput() declare "onDurationChange"?: AngularInput<'TextInput', "onDurationChange">;
+  @NgInput() declare "onDurationChangeCapture"?: AngularInput<'TextInput', "onDurationChangeCapture">;
+  @NgInput() declare "onEmptied"?: AngularInput<'TextInput', "onEmptied">;
+  @NgInput() declare "onEmptiedCapture"?: AngularInput<'TextInput', "onEmptiedCapture">;
+  @NgInput() declare "onEncrypted"?: AngularInput<'TextInput', "onEncrypted">;
+  @NgInput() declare "onEncryptedCapture"?: AngularInput<'TextInput', "onEncryptedCapture">;
+  @NgInput() declare "onEnded"?: AngularInput<'TextInput', "onEnded">;
+  @NgInput() declare "onEndedCapture"?: AngularInput<'TextInput', "onEndedCapture">;
+  @NgInput() declare "onEnterPictureInPicture"?: AngularInput<'TextInput', "onEnterPictureInPicture">;
+  @NgInput() declare "onEnterPictureInPictureCapture"?: AngularInput<'TextInput', "onEnterPictureInPictureCapture">;
+  @NgInput() declare "onError"?: AngularInput<'TextInput', "onError">;
+  @NgInput() declare "onErrorCapture"?: AngularInput<'TextInput', "onErrorCapture">;
+  @NgInput() declare "onFocus"?: AngularInput<'TextInput', "onFocus">;
+  @NgInput() declare "onFocusCapture"?: AngularInput<'TextInput', "onFocusCapture">;
+  @NgInput() declare "onFocusIn"?: AngularInput<'TextInput', "onFocusIn">;
+  @NgInput() declare "onFocusInCapture"?: AngularInput<'TextInput', "onFocusInCapture">;
+  @NgInput() declare "onFocusOut"?: AngularInput<'TextInput', "onFocusOut">;
+  @NgInput() declare "onFocusOutCapture"?: AngularInput<'TextInput', "onFocusOutCapture">;
+  @NgInput() declare "onFormData"?: AngularInput<'TextInput', "onFormData">;
+  @NgInput() declare "onFormDataCapture"?: AngularInput<'TextInput', "onFormDataCapture">;
+  @NgInput() declare "onGotPointerCapture"?: AngularInput<'TextInput', "onGotPointerCapture">;
+  @NgInput() declare "onGotPointerCaptureCapture"?: AngularInput<'TextInput', "onGotPointerCaptureCapture">;
+  @NgInput() declare "onInput"?: AngularInput<'TextInput', "onInput">;
+  @NgInput() declare "onInputCapture"?: AngularInput<'TextInput', "onInputCapture">;
+  @NgInput() declare "onInvalid"?: AngularInput<'TextInput', "onInvalid">;
+  @NgInput() declare "onInvalidCapture"?: AngularInput<'TextInput', "onInvalidCapture">;
+  @NgInput() declare "onKeyDown"?: AngularInput<'TextInput', "onKeyDown">;
+  @NgInput() declare "onKeyDownCapture"?: AngularInput<'TextInput', "onKeyDownCapture">;
+  @NgInput() declare "onKeyPress"?: AngularInput<'TextInput', "onKeyPress">;
+  @NgInput() declare "onKeyPressCapture"?: AngularInput<'TextInput', "onKeyPressCapture">;
+  @NgInput() declare "onKeyUp"?: AngularInput<'TextInput', "onKeyUp">;
+  @NgInput() declare "onKeyUpCapture"?: AngularInput<'TextInput', "onKeyUpCapture">;
+  @NgInput() declare "onLeavePictureInPicture"?: AngularInput<'TextInput', "onLeavePictureInPicture">;
+  @NgInput() declare "onLeavePictureInPictureCapture"?: AngularInput<'TextInput', "onLeavePictureInPictureCapture">;
+  @NgInput() declare "onLoad"?: AngularInput<'TextInput', "onLoad">;
+  @NgInput() declare "onLoadCapture"?: AngularInput<'TextInput', "onLoadCapture">;
+  @NgInput() declare "onLoadStart"?: AngularInput<'TextInput', "onLoadStart">;
+  @NgInput() declare "onLoadStartCapture"?: AngularInput<'TextInput', "onLoadStartCapture">;
+  @NgInput() declare "onLoadedData"?: AngularInput<'TextInput', "onLoadedData">;
+  @NgInput() declare "onLoadedDataCapture"?: AngularInput<'TextInput', "onLoadedDataCapture">;
+  @NgInput() declare "onLoadedMetadata"?: AngularInput<'TextInput', "onLoadedMetadata">;
+  @NgInput() declare "onLoadedMetadataCapture"?: AngularInput<'TextInput', "onLoadedMetadataCapture">;
+  @NgInput() declare "onLostPointerCapture"?: AngularInput<'TextInput', "onLostPointerCapture">;
+  @NgInput() declare "onLostPointerCaptureCapture"?: AngularInput<'TextInput', "onLostPointerCaptureCapture">;
   @NgInput() declare "onMouseDown"?: AngularInput<'TextInput', "onMouseDown">;
   @NgInput() declare "onMouseDownCapture"?: AngularInput<'TextInput', "onMouseDownCapture">;
   @NgInput() declare "onMouseEnter"?: AngularInput<'TextInput', "onMouseEnter">;
@@ -295,38 +252,38 @@ export class TextInput extends AngularComponentAdapter<AngularCallbackValue<Angu
   @NgInput() declare "onMouseOverCapture"?: AngularInput<'TextInput', "onMouseOverCapture">;
   @NgInput() declare "onMouseUp"?: AngularInput<'TextInput', "onMouseUp">;
   @NgInput() declare "onMouseUpCapture"?: AngularInput<'TextInput', "onMouseUpCapture">;
-  @NgInput() declare "onAuxClick"?: AngularInput<'TextInput', "onAuxClick">;
-  @NgInput() declare "onAuxClickCapture"?: AngularInput<'TextInput', "onAuxClickCapture">;
-  @NgInput() declare "onSelect"?: AngularInput<'TextInput', "onSelect">;
-  @NgInput() declare "onSelectCapture"?: AngularInput<'TextInput', "onSelectCapture">;
-  @NgInput() declare "onTouchCancel"?: AngularInput<'TextInput', "onTouchCancel">;
-  @NgInput() declare "onTouchCancelCapture"?: AngularInput<'TextInput', "onTouchCancelCapture">;
-  @NgInput() declare "onTouchEnd"?: AngularInput<'TextInput', "onTouchEnd">;
-  @NgInput() declare "onTouchEndCapture"?: AngularInput<'TextInput', "onTouchEndCapture">;
-  @NgInput() declare "onTouchMove"?: AngularInput<'TextInput', "onTouchMove">;
-  @NgInput() declare "onTouchMoveCapture"?: AngularInput<'TextInput', "onTouchMoveCapture">;
-  @NgInput() declare "onTouchStart"?: AngularInput<'TextInput', "onTouchStart">;
-  @NgInput() declare "onTouchStartCapture"?: AngularInput<'TextInput', "onTouchStartCapture">;
-  @NgInput() declare "onPointerOver"?: AngularInput<'TextInput', "onPointerOver">;
-  @NgInput() declare "onPointerOverCapture"?: AngularInput<'TextInput', "onPointerOverCapture">;
-  @NgInput() declare "onPointerEnter"?: AngularInput<'TextInput', "onPointerEnter">;
-  @NgInput() declare "onPointerEnterCapture"?: AngularInput<'TextInput', "onPointerEnterCapture">;
-  @NgInput() declare "onPointerDown"?: AngularInput<'TextInput', "onPointerDown">;
-  @NgInput() declare "onPointerDownCapture"?: AngularInput<'TextInput', "onPointerDownCapture">;
-  @NgInput() declare "onPointerMove"?: AngularInput<'TextInput', "onPointerMove">;
-  @NgInput() declare "onPointerMoveCapture"?: AngularInput<'TextInput', "onPointerMoveCapture">;
-  @NgInput() declare "onPointerUp"?: AngularInput<'TextInput', "onPointerUp">;
-  @NgInput() declare "onPointerUpCapture"?: AngularInput<'TextInput', "onPointerUpCapture">;
+  @NgInput() declare "onPaste"?: AngularInput<'TextInput', "onPaste">;
+  @NgInput() declare "onPasteCapture"?: AngularInput<'TextInput', "onPasteCapture">;
+  @NgInput() declare "onPause"?: AngularInput<'TextInput', "onPause">;
+  @NgInput() declare "onPauseCapture"?: AngularInput<'TextInput', "onPauseCapture">;
+  @NgInput() declare "onPlay"?: AngularInput<'TextInput', "onPlay">;
+  @NgInput() declare "onPlayCapture"?: AngularInput<'TextInput', "onPlayCapture">;
+  @NgInput() declare "onPlaying"?: AngularInput<'TextInput', "onPlaying">;
+  @NgInput() declare "onPlayingCapture"?: AngularInput<'TextInput', "onPlayingCapture">;
   @NgInput() declare "onPointerCancel"?: AngularInput<'TextInput', "onPointerCancel">;
   @NgInput() declare "onPointerCancelCapture"?: AngularInput<'TextInput', "onPointerCancelCapture">;
-  @NgInput() declare "onPointerOut"?: AngularInput<'TextInput', "onPointerOut">;
-  @NgInput() declare "onPointerOutCapture"?: AngularInput<'TextInput', "onPointerOutCapture">;
+  @NgInput() declare "onPointerDown"?: AngularInput<'TextInput', "onPointerDown">;
+  @NgInput() declare "onPointerDownCapture"?: AngularInput<'TextInput', "onPointerDownCapture">;
+  @NgInput() declare "onPointerEnter"?: AngularInput<'TextInput', "onPointerEnter">;
+  @NgInput() declare "onPointerEnterCapture"?: AngularInput<'TextInput', "onPointerEnterCapture">;
   @NgInput() declare "onPointerLeave"?: AngularInput<'TextInput', "onPointerLeave">;
   @NgInput() declare "onPointerLeaveCapture"?: AngularInput<'TextInput', "onPointerLeaveCapture">;
-  @NgInput() declare "onGotPointerCapture"?: AngularInput<'TextInput', "onGotPointerCapture">;
-  @NgInput() declare "onGotPointerCaptureCapture"?: AngularInput<'TextInput', "onGotPointerCaptureCapture">;
-  @NgInput() declare "onLostPointerCapture"?: AngularInput<'TextInput', "onLostPointerCapture">;
-  @NgInput() declare "onLostPointerCaptureCapture"?: AngularInput<'TextInput', "onLostPointerCaptureCapture">;
+  @NgInput() declare "onPointerMove"?: AngularInput<'TextInput', "onPointerMove">;
+  @NgInput() declare "onPointerMoveCapture"?: AngularInput<'TextInput', "onPointerMoveCapture">;
+  @NgInput() declare "onPointerOut"?: AngularInput<'TextInput', "onPointerOut">;
+  @NgInput() declare "onPointerOutCapture"?: AngularInput<'TextInput', "onPointerOutCapture">;
+  @NgInput() declare "onPointerOver"?: AngularInput<'TextInput', "onPointerOver">;
+  @NgInput() declare "onPointerOverCapture"?: AngularInput<'TextInput', "onPointerOverCapture">;
+  @NgInput() declare "onPointerUp"?: AngularInput<'TextInput', "onPointerUp">;
+  @NgInput() declare "onPointerUpCapture"?: AngularInput<'TextInput', "onPointerUpCapture">;
+  @NgInput() declare "onProgress"?: AngularInput<'TextInput', "onProgress">;
+  @NgInput() declare "onProgressCapture"?: AngularInput<'TextInput', "onProgressCapture">;
+  @NgInput() declare "onRateChange"?: AngularInput<'TextInput', "onRateChange">;
+  @NgInput() declare "onRateChangeCapture"?: AngularInput<'TextInput', "onRateChangeCapture">;
+  @NgInput() declare "onReset"?: AngularInput<'TextInput', "onReset">;
+  @NgInput() declare "onResetCapture"?: AngularInput<'TextInput', "onResetCapture">;
+  @NgInput() declare "onResize"?: AngularInput<'TextInput', "onResize">;
+  @NgInput() declare "onResizeCapture"?: AngularInput<'TextInput', "onResizeCapture">;
   @NgInput() declare "onScroll"?: AngularInput<'TextInput', "onScroll">;
   @NgInput() declare "onScrollCapture"?: AngularInput<'TextInput', "onScrollCapture">;
   @NgInput() declare "onScrollEnd"?: AngularInput<'TextInput', "onScrollEnd">;
@@ -335,14 +292,31 @@ export class TextInput extends AngularComponentAdapter<AngularCallbackValue<Angu
   @NgInput() declare "onScrollSnapChangeCapture"?: AngularInput<'TextInput', "onScrollSnapChangeCapture">;
   @NgInput() declare "onScrollSnapChanging"?: AngularInput<'TextInput', "onScrollSnapChanging">;
   @NgInput() declare "onScrollSnapChangingCapture"?: AngularInput<'TextInput', "onScrollSnapChangingCapture">;
-  @NgInput() declare "onWheel"?: AngularInput<'TextInput', "onWheel">;
-  @NgInput() declare "onWheelCapture"?: AngularInput<'TextInput', "onWheelCapture">;
-  @NgInput() declare "onAnimationStart"?: AngularInput<'TextInput', "onAnimationStart">;
-  @NgInput() declare "onAnimationStartCapture"?: AngularInput<'TextInput', "onAnimationStartCapture">;
-  @NgInput() declare "onAnimationEnd"?: AngularInput<'TextInput', "onAnimationEnd">;
-  @NgInput() declare "onAnimationEndCapture"?: AngularInput<'TextInput', "onAnimationEndCapture">;
-  @NgInput() declare "onAnimationIteration"?: AngularInput<'TextInput', "onAnimationIteration">;
-  @NgInput() declare "onAnimationIterationCapture"?: AngularInput<'TextInput', "onAnimationIterationCapture">;
+  @NgInput() declare "onSearch"?: AngularInput<'TextInput', "onSearch">;
+  @NgInput() declare "onSearchCapture"?: AngularInput<'TextInput', "onSearchCapture">;
+  @NgInput() declare "onSeeked"?: AngularInput<'TextInput', "onSeeked">;
+  @NgInput() declare "onSeekedCapture"?: AngularInput<'TextInput', "onSeekedCapture">;
+  @NgInput() declare "onSeeking"?: AngularInput<'TextInput', "onSeeking">;
+  @NgInput() declare "onSeekingCapture"?: AngularInput<'TextInput', "onSeekingCapture">;
+  @NgInput() declare "onSelect"?: AngularInput<'TextInput', "onSelect">;
+  @NgInput() declare "onSelectCapture"?: AngularInput<'TextInput', "onSelectCapture">;
+  @NgInput() declare "onStalled"?: AngularInput<'TextInput', "onStalled">;
+  @NgInput() declare "onStalledCapture"?: AngularInput<'TextInput', "onStalledCapture">;
+  @NgInput() declare "onSubmit"?: AngularInput<'TextInput', "onSubmit">;
+  @NgInput() declare "onSubmitCapture"?: AngularInput<'TextInput', "onSubmitCapture">;
+  @NgInput() declare "onSuspend"?: AngularInput<'TextInput', "onSuspend">;
+  @NgInput() declare "onSuspendCapture"?: AngularInput<'TextInput', "onSuspendCapture">;
+  @NgInput() declare "onTimeUpdate"?: AngularInput<'TextInput', "onTimeUpdate">;
+  @NgInput() declare "onTimeUpdateCapture"?: AngularInput<'TextInput', "onTimeUpdateCapture">;
+  @NgInput() declare "onToggle"?: AngularInput<'TextInput', "onToggle">;
+  @NgInput() declare "onTouchCancel"?: AngularInput<'TextInput', "onTouchCancel">;
+  @NgInput() declare "onTouchCancelCapture"?: AngularInput<'TextInput', "onTouchCancelCapture">;
+  @NgInput() declare "onTouchEnd"?: AngularInput<'TextInput', "onTouchEnd">;
+  @NgInput() declare "onTouchEndCapture"?: AngularInput<'TextInput', "onTouchEndCapture">;
+  @NgInput() declare "onTouchMove"?: AngularInput<'TextInput', "onTouchMove">;
+  @NgInput() declare "onTouchMoveCapture"?: AngularInput<'TextInput', "onTouchMoveCapture">;
+  @NgInput() declare "onTouchStart"?: AngularInput<'TextInput', "onTouchStart">;
+  @NgInput() declare "onTouchStartCapture"?: AngularInput<'TextInput', "onTouchStartCapture">;
   @NgInput() declare "onTransitionCancel"?: AngularInput<'TextInput', "onTransitionCancel">;
   @NgInput() declare "onTransitionCancelCapture"?: AngularInput<'TextInput', "onTransitionCancelCapture">;
   @NgInput() declare "onTransitionEnd"?: AngularInput<'TextInput', "onTransitionEnd">;
@@ -351,112 +325,78 @@ export class TextInput extends AngularComponentAdapter<AngularCallbackValue<Angu
   @NgInput() declare "onTransitionRunCapture"?: AngularInput<'TextInput', "onTransitionRunCapture">;
   @NgInput() declare "onTransitionStart"?: AngularInput<'TextInput', "onTransitionStart">;
   @NgInput() declare "onTransitionStartCapture"?: AngularInput<'TextInput', "onTransitionStartCapture">;
-  @NgInput() declare "onEnterPictureInPicture"?: AngularInput<'TextInput', "onEnterPictureInPicture">;
-  @NgInput() declare "onEnterPictureInPictureCapture"?: AngularInput<'TextInput', "onEnterPictureInPictureCapture">;
-  @NgInput() declare "onLeavePictureInPicture"?: AngularInput<'TextInput', "onLeavePictureInPicture">;
-  @NgInput() declare "onLeavePictureInPictureCapture"?: AngularInput<'TextInput', "onLeavePictureInPictureCapture">;
-  @NgInput() declare "onResize"?: AngularInput<'TextInput', "onResize">;
-  @NgInput() declare "onResizeCapture"?: AngularInput<'TextInput', "onResizeCapture">;
-  @NgInput() declare "onCommand"?: AngularInput<'TextInput', "onCommand">;
   @NgInput() declare "onValueChange"?: AngularInput<'TextInput', "onValueChange">;
+  @NgInput() declare "onVolumeChange"?: AngularInput<'TextInput', "onVolumeChange">;
+  @NgInput() declare "onVolumeChangeCapture"?: AngularInput<'TextInput', "onVolumeChangeCapture">;
+  @NgInput() declare "onWaiting"?: AngularInput<'TextInput', "onWaiting">;
+  @NgInput() declare "onWaitingCapture"?: AngularInput<'TextInput', "onWaitingCapture">;
+  @NgInput() declare "onWheel"?: AngularInput<'TextInput', "onWheel">;
+  @NgInput() declare "onWheelCapture"?: AngularInput<'TextInput', "onWheelCapture">;
+  @NgInput() declare "part"?: AngularInput<'TextInput', "part">;
+  @NgInput() declare "pattern"?: AngularInput<'TextInput', "pattern">;
+  @NgInput() declare "placeholder"?: AngularInput<'TextInput', "placeholder">;
+  @NgInput() declare "popover"?: AngularInput<'TextInput', "popover">;
+  @NgInput() declare "prefix"?: AngularInput<'TextInput', "prefix">;
+  @NgInput() declare "property"?: AngularInput<'TextInput', "property">;
+  @NgInput() declare "readOnly"?: AngularInput<'TextInput', "readOnly">;
+  @NgInput() declare "readonly"?: AngularInput<'TextInput', "readonly">;
+  @NgInput() declare "required"?: AngularInput<'TextInput', "required">;
+  @NgInput() declare "resource"?: AngularInput<'TextInput', "resource">;
+  @NgInput() declare "results"?: AngularInput<'TextInput', "results">;
+  @NgInput() declare "role"?: AngularInput<'TextInput', "role">;
+  @NgInput() declare "size"?: AngularInput<'TextInput', "size">;
+  @NgInput() declare "slot"?: AngularInput<'TextInput', "slot">;
+  @NgInput() declare "spellcheck"?: AngularInput<'TextInput', "spellcheck">;
+  @NgInput() declare "src"?: AngularInput<'TextInput', "src">;
+  @NgInput() declare "step"?: AngularInput<'TextInput', "step">;
+  @NgInput() declare "style"?: AngularInput<'TextInput', "style">;
+  @NgInput() declare "tabIndex"?: AngularInput<'TextInput', "tabIndex">;
+  @NgInput() declare "tabindex"?: AngularInput<'TextInput', "tabindex">;
+  @NgInput() declare "title"?: AngularInput<'TextInput', "title">;
+  @NgInput() declare "translate"?: AngularInput<'TextInput', "translate">;
+  @NgInput() declare "type"?: AngularInput<'TextInput', "type">;
+  @NgInput() declare "typeof"?: AngularInput<'TextInput', "typeof">;
+  @NgInput() declare "value"?: AngularInput<'TextInput', "value">;
+  @NgInput() declare "vocab"?: AngularInput<'TextInput', "vocab">;
+  @NgInput() declare "width"?: AngularInput<'TextInput', "width">;
+  @Output() get abortEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onAbort'>>>('onAbort'); }
+  @Output() get abortCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onAbortCapture'>>>('onAbortCapture'); }
+  @Output() get animationEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onAnimationEnd'>>>('onAnimationEnd'); }
+  @Output() get animationEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onAnimationEndCapture'>>>('onAnimationEndCapture'); }
+  @Output() get animationIterationEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onAnimationIteration'>>>('onAnimationIteration'); }
+  @Output() get animationIterationCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onAnimationIterationCapture'>>>('onAnimationIterationCapture'); }
+  @Output() get animationStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onAnimationStart'>>>('onAnimationStart'); }
+  @Output() get animationStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onAnimationStartCapture'>>>('onAnimationStartCapture'); }
+  @Output() get auxClickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onAuxClick'>>>('onAuxClick'); }
+  @Output() get auxClickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onAuxClickCapture'>>>('onAuxClickCapture'); }
+  @Output() get beforeInputEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onBeforeInput'>>>('onBeforeInput'); }
+  @Output() get beforeInputCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onBeforeInputCapture'>>>('onBeforeInputCapture'); }
+  @Output() get beforeToggleEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onBeforeToggle'>>>('onBeforeToggle'); }
+  @Output() get blurEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onBlur'>>>('onBlur'); }
+  @Output() get blurCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onBlurCapture'>>>('onBlurCapture'); }
+  @Output() get canPlayEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onCanPlay'>>>('onCanPlay'); }
+  @Output() get canPlayCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onCanPlayCapture'>>>('onCanPlayCapture'); }
+  @Output() get canPlayThroughEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onCanPlayThrough'>>>('onCanPlayThrough'); }
+  @Output() get canPlayThroughCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onCanPlayThroughCapture'>>>('onCanPlayThroughCapture'); }
+  @Output() get cancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onCancel'>>>('onCancel'); }
   @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onChange'>>>('onChange'); }
-  @Output() get loadEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onLoad'>>>('onLoad'); }
-  @Output() get loadCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onLoadCapture'>>>('onLoadCapture'); }
-  @Output() get errorEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onError'>>>('onError'); }
-  @Output() get errorCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onErrorCapture'>>>('onErrorCapture'); }
-  @Output() get copyEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onCopy'>>>('onCopy'); }
-  @Output() get copyCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onCopyCapture'>>>('onCopyCapture'); }
-  @Output() get cutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onCut'>>>('onCut'); }
-  @Output() get cutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onCutCapture'>>>('onCutCapture'); }
-  @Output() get pasteEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPaste'>>>('onPaste'); }
-  @Output() get pasteCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPasteCapture'>>>('onPasteCapture'); }
+  @Output() get changeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onChangeCapture'>>>('onChangeCapture'); }
+  @Output() get clickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onClick'>>>('onClick'); }
+  @Output() get clickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onClickCapture'>>>('onClickCapture'); }
+  @Output() get closeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onClose'>>>('onClose'); }
+  @Output() get commandEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onCommand'>>>('onCommand'); }
   @Output() get compositionEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onCompositionEnd'>>>('onCompositionEnd'); }
   @Output() get compositionEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onCompositionEndCapture'>>>('onCompositionEndCapture'); }
   @Output() get compositionStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onCompositionStart'>>>('onCompositionStart'); }
   @Output() get compositionStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onCompositionStartCapture'>>>('onCompositionStartCapture'); }
   @Output() get compositionUpdateEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onCompositionUpdate'>>>('onCompositionUpdate'); }
   @Output() get compositionUpdateCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onCompositionUpdateCapture'>>>('onCompositionUpdateCapture'); }
-  @Output() get beforeToggleEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onBeforeToggle'>>>('onBeforeToggle'); }
-  @Output() get toggleEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onToggle'>>>('onToggle'); }
-  @Output() get closeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onClose'>>>('onClose'); }
-  @Output() get cancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onCancel'>>>('onCancel'); }
-  @Output() get focusEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onFocus'>>>('onFocus'); }
-  @Output() get focusCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onFocusCapture'>>>('onFocusCapture'); }
-  @Output() get focusInEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onFocusIn'>>>('onFocusIn'); }
-  @Output() get focusInCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onFocusInCapture'>>>('onFocusInCapture'); }
-  @Output() get focusOutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onFocusOut'>>>('onFocusOut'); }
-  @Output() get focusOutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onFocusOutCapture'>>>('onFocusOutCapture'); }
-  @Output() get blurEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onBlur'>>>('onBlur'); }
-  @Output() get blurCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onBlurCapture'>>>('onBlurCapture'); }
-  @Output() get changeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onChangeCapture'>>>('onChangeCapture'); }
-  @Output() get inputEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onInput'>>>('onInput'); }
-  @Output() get inputCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onInputCapture'>>>('onInputCapture'); }
-  @Output() get beforeInputEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onBeforeInput'>>>('onBeforeInput'); }
-  @Output() get beforeInputCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onBeforeInputCapture'>>>('onBeforeInputCapture'); }
-  @Output() get searchEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onSearch'>>>('onSearch'); }
-  @Output() get searchCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onSearchCapture'>>>('onSearchCapture'); }
-  @Output() get submitEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onSubmit'>>>('onSubmit'); }
-  @Output() get submitCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onSubmitCapture'>>>('onSubmitCapture'); }
-  @Output() get invalidEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onInvalid'>>>('onInvalid'); }
-  @Output() get invalidCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onInvalidCapture'>>>('onInvalidCapture'); }
-  @Output() get resetEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onReset'>>>('onReset'); }
-  @Output() get resetCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onResetCapture'>>>('onResetCapture'); }
-  @Output() get formDataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onFormData'>>>('onFormData'); }
-  @Output() get formDataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onFormDataCapture'>>>('onFormDataCapture'); }
-  @Output() get keyDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onKeyDown'>>>('onKeyDown'); }
-  @Output() get keyDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onKeyDownCapture'>>>('onKeyDownCapture'); }
-  @Output() get keyPressEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onKeyPress'>>>('onKeyPress'); }
-  @Output() get keyPressCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onKeyPressCapture'>>>('onKeyPressCapture'); }
-  @Output() get keyUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onKeyUp'>>>('onKeyUp'); }
-  @Output() get keyUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onKeyUpCapture'>>>('onKeyUpCapture'); }
-  @Output() get abortEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onAbort'>>>('onAbort'); }
-  @Output() get abortCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onAbortCapture'>>>('onAbortCapture'); }
-  @Output() get canPlayEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onCanPlay'>>>('onCanPlay'); }
-  @Output() get canPlayCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onCanPlayCapture'>>>('onCanPlayCapture'); }
-  @Output() get canPlayThroughEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onCanPlayThrough'>>>('onCanPlayThrough'); }
-  @Output() get canPlayThroughCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onCanPlayThroughCapture'>>>('onCanPlayThroughCapture'); }
-  @Output() get durationChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onDurationChange'>>>('onDurationChange'); }
-  @Output() get durationChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onDurationChangeCapture'>>>('onDurationChangeCapture'); }
-  @Output() get emptiedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onEmptied'>>>('onEmptied'); }
-  @Output() get emptiedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onEmptiedCapture'>>>('onEmptiedCapture'); }
-  @Output() get encryptedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onEncrypted'>>>('onEncrypted'); }
-  @Output() get encryptedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onEncryptedCapture'>>>('onEncryptedCapture'); }
-  @Output() get endedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onEnded'>>>('onEnded'); }
-  @Output() get endedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onEndedCapture'>>>('onEndedCapture'); }
-  @Output() get loadedDataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onLoadedData'>>>('onLoadedData'); }
-  @Output() get loadedDataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onLoadedDataCapture'>>>('onLoadedDataCapture'); }
-  @Output() get loadedMetadataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onLoadedMetadata'>>>('onLoadedMetadata'); }
-  @Output() get loadedMetadataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onLoadedMetadataCapture'>>>('onLoadedMetadataCapture'); }
-  @Output() get loadStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onLoadStart'>>>('onLoadStart'); }
-  @Output() get loadStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onLoadStartCapture'>>>('onLoadStartCapture'); }
-  @Output() get pauseEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPause'>>>('onPause'); }
-  @Output() get pauseCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPauseCapture'>>>('onPauseCapture'); }
-  @Output() get playEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPlay'>>>('onPlay'); }
-  @Output() get playCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPlayCapture'>>>('onPlayCapture'); }
-  @Output() get playingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPlaying'>>>('onPlaying'); }
-  @Output() get playingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPlayingCapture'>>>('onPlayingCapture'); }
-  @Output() get progressEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onProgress'>>>('onProgress'); }
-  @Output() get progressCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onProgressCapture'>>>('onProgressCapture'); }
-  @Output() get rateChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onRateChange'>>>('onRateChange'); }
-  @Output() get rateChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onRateChangeCapture'>>>('onRateChangeCapture'); }
-  @Output() get seekedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onSeeked'>>>('onSeeked'); }
-  @Output() get seekedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onSeekedCapture'>>>('onSeekedCapture'); }
-  @Output() get seekingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onSeeking'>>>('onSeeking'); }
-  @Output() get seekingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onSeekingCapture'>>>('onSeekingCapture'); }
-  @Output() get stalledEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onStalled'>>>('onStalled'); }
-  @Output() get stalledCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onStalledCapture'>>>('onStalledCapture'); }
-  @Output() get suspendEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onSuspend'>>>('onSuspend'); }
-  @Output() get suspendCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onSuspendCapture'>>>('onSuspendCapture'); }
-  @Output() get timeUpdateEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onTimeUpdate'>>>('onTimeUpdate'); }
-  @Output() get timeUpdateCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onTimeUpdateCapture'>>>('onTimeUpdateCapture'); }
-  @Output() get volumeChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onVolumeChange'>>>('onVolumeChange'); }
-  @Output() get volumeChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onVolumeChangeCapture'>>>('onVolumeChangeCapture'); }
-  @Output() get waitingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onWaiting'>>>('onWaiting'); }
-  @Output() get waitingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onWaitingCapture'>>>('onWaitingCapture'); }
-  @Output() get clickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onClick'>>>('onClick'); }
-  @Output() get clickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onClickCapture'>>>('onClickCapture'); }
   @Output() get contextMenuEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onContextMenu'>>>('onContextMenu'); }
   @Output() get contextMenuCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onContextMenuCapture'>>>('onContextMenuCapture'); }
+  @Output() get copyEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onCopy'>>>('onCopy'); }
+  @Output() get copyCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onCopyCapture'>>>('onCopyCapture'); }
+  @Output() get cutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onCut'>>>('onCut'); }
+  @Output() get cutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onCutCapture'>>>('onCutCapture'); }
   @Output() get dblClickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onDblClick'>>>('onDblClick'); }
   @Output() get dblClickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onDblClickCapture'>>>('onDblClickCapture'); }
   @Output() get dragEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onDrag'>>>('onDrag'); }
@@ -475,6 +415,50 @@ export class TextInput extends AngularComponentAdapter<AngularCallbackValue<Angu
   @Output() get dragStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onDragStartCapture'>>>('onDragStartCapture'); }
   @Output() get dropEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onDrop'>>>('onDrop'); }
   @Output() get dropCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onDropCapture'>>>('onDropCapture'); }
+  @Output() get durationChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onDurationChange'>>>('onDurationChange'); }
+  @Output() get durationChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onDurationChangeCapture'>>>('onDurationChangeCapture'); }
+  @Output() get emptiedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onEmptied'>>>('onEmptied'); }
+  @Output() get emptiedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onEmptiedCapture'>>>('onEmptiedCapture'); }
+  @Output() get encryptedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onEncrypted'>>>('onEncrypted'); }
+  @Output() get encryptedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onEncryptedCapture'>>>('onEncryptedCapture'); }
+  @Output() get endedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onEnded'>>>('onEnded'); }
+  @Output() get endedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onEndedCapture'>>>('onEndedCapture'); }
+  @Output() get enterPictureInPictureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onEnterPictureInPicture'>>>('onEnterPictureInPicture'); }
+  @Output() get enterPictureInPictureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onEnterPictureInPictureCapture'>>>('onEnterPictureInPictureCapture'); }
+  @Output() get errorEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onError'>>>('onError'); }
+  @Output() get errorCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onErrorCapture'>>>('onErrorCapture'); }
+  @Output() get focusEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onFocus'>>>('onFocus'); }
+  @Output() get focusCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onFocusCapture'>>>('onFocusCapture'); }
+  @Output() get focusInEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onFocusIn'>>>('onFocusIn'); }
+  @Output() get focusInCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onFocusInCapture'>>>('onFocusInCapture'); }
+  @Output() get focusOutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onFocusOut'>>>('onFocusOut'); }
+  @Output() get focusOutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onFocusOutCapture'>>>('onFocusOutCapture'); }
+  @Output() get formDataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onFormData'>>>('onFormData'); }
+  @Output() get formDataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onFormDataCapture'>>>('onFormDataCapture'); }
+  @Output() get gotPointerCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onGotPointerCapture'>>>('onGotPointerCapture'); }
+  @Output() get gotPointerCaptureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onGotPointerCaptureCapture'>>>('onGotPointerCaptureCapture'); }
+  @Output() get inputEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onInput'>>>('onInput'); }
+  @Output() get inputCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onInputCapture'>>>('onInputCapture'); }
+  @Output() get invalidEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onInvalid'>>>('onInvalid'); }
+  @Output() get invalidCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onInvalidCapture'>>>('onInvalidCapture'); }
+  @Output() get keyDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onKeyDown'>>>('onKeyDown'); }
+  @Output() get keyDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onKeyDownCapture'>>>('onKeyDownCapture'); }
+  @Output() get keyPressEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onKeyPress'>>>('onKeyPress'); }
+  @Output() get keyPressCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onKeyPressCapture'>>>('onKeyPressCapture'); }
+  @Output() get keyUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onKeyUp'>>>('onKeyUp'); }
+  @Output() get keyUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onKeyUpCapture'>>>('onKeyUpCapture'); }
+  @Output() get leavePictureInPictureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onLeavePictureInPicture'>>>('onLeavePictureInPicture'); }
+  @Output() get leavePictureInPictureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onLeavePictureInPictureCapture'>>>('onLeavePictureInPictureCapture'); }
+  @Output() get loadEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onLoad'>>>('onLoad'); }
+  @Output() get loadCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onLoadCapture'>>>('onLoadCapture'); }
+  @Output() get loadStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onLoadStart'>>>('onLoadStart'); }
+  @Output() get loadStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onLoadStartCapture'>>>('onLoadStartCapture'); }
+  @Output() get loadedDataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onLoadedData'>>>('onLoadedData'); }
+  @Output() get loadedDataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onLoadedDataCapture'>>>('onLoadedDataCapture'); }
+  @Output() get loadedMetadataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onLoadedMetadata'>>>('onLoadedMetadata'); }
+  @Output() get loadedMetadataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onLoadedMetadataCapture'>>>('onLoadedMetadataCapture'); }
+  @Output() get lostPointerCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onLostPointerCapture'>>>('onLostPointerCapture'); }
+  @Output() get lostPointerCaptureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onLostPointerCaptureCapture'>>>('onLostPointerCaptureCapture'); }
   @Output() get mouseDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onMouseDown'>>>('onMouseDown'); }
   @Output() get mouseDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onMouseDownCapture'>>>('onMouseDownCapture'); }
   @Output() get mouseEnterEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onMouseEnter'>>>('onMouseEnter'); }
@@ -489,38 +473,38 @@ export class TextInput extends AngularComponentAdapter<AngularCallbackValue<Angu
   @Output() get mouseOverCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onMouseOverCapture'>>>('onMouseOverCapture'); }
   @Output() get mouseUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onMouseUp'>>>('onMouseUp'); }
   @Output() get mouseUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onMouseUpCapture'>>>('onMouseUpCapture'); }
-  @Output() get auxClickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onAuxClick'>>>('onAuxClick'); }
-  @Output() get auxClickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onAuxClickCapture'>>>('onAuxClickCapture'); }
-  @Output() get selectEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onSelect'>>>('onSelect'); }
-  @Output() get selectCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onSelectCapture'>>>('onSelectCapture'); }
-  @Output() get touchCancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onTouchCancel'>>>('onTouchCancel'); }
-  @Output() get touchCancelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onTouchCancelCapture'>>>('onTouchCancelCapture'); }
-  @Output() get touchEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onTouchEnd'>>>('onTouchEnd'); }
-  @Output() get touchEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onTouchEndCapture'>>>('onTouchEndCapture'); }
-  @Output() get touchMoveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onTouchMove'>>>('onTouchMove'); }
-  @Output() get touchMoveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onTouchMoveCapture'>>>('onTouchMoveCapture'); }
-  @Output() get touchStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onTouchStart'>>>('onTouchStart'); }
-  @Output() get touchStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onTouchStartCapture'>>>('onTouchStartCapture'); }
-  @Output() get pointerOverEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPointerOver'>>>('onPointerOver'); }
-  @Output() get pointerOverCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPointerOverCapture'>>>('onPointerOverCapture'); }
-  @Output() get pointerEnterEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPointerEnter'>>>('onPointerEnter'); }
-  @Output() get pointerEnterCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPointerEnterCapture'>>>('onPointerEnterCapture'); }
-  @Output() get pointerDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPointerDown'>>>('onPointerDown'); }
-  @Output() get pointerDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPointerDownCapture'>>>('onPointerDownCapture'); }
-  @Output() get pointerMoveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPointerMove'>>>('onPointerMove'); }
-  @Output() get pointerMoveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPointerMoveCapture'>>>('onPointerMoveCapture'); }
-  @Output() get pointerUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPointerUp'>>>('onPointerUp'); }
-  @Output() get pointerUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPointerUpCapture'>>>('onPointerUpCapture'); }
+  @Output() get pasteEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPaste'>>>('onPaste'); }
+  @Output() get pasteCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPasteCapture'>>>('onPasteCapture'); }
+  @Output() get pauseEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPause'>>>('onPause'); }
+  @Output() get pauseCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPauseCapture'>>>('onPauseCapture'); }
+  @Output() get playEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPlay'>>>('onPlay'); }
+  @Output() get playCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPlayCapture'>>>('onPlayCapture'); }
+  @Output() get playingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPlaying'>>>('onPlaying'); }
+  @Output() get playingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPlayingCapture'>>>('onPlayingCapture'); }
   @Output() get pointerCancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPointerCancel'>>>('onPointerCancel'); }
   @Output() get pointerCancelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPointerCancelCapture'>>>('onPointerCancelCapture'); }
-  @Output() get pointerOutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPointerOut'>>>('onPointerOut'); }
-  @Output() get pointerOutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPointerOutCapture'>>>('onPointerOutCapture'); }
+  @Output() get pointerDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPointerDown'>>>('onPointerDown'); }
+  @Output() get pointerDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPointerDownCapture'>>>('onPointerDownCapture'); }
+  @Output() get pointerEnterEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPointerEnter'>>>('onPointerEnter'); }
+  @Output() get pointerEnterCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPointerEnterCapture'>>>('onPointerEnterCapture'); }
   @Output() get pointerLeaveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPointerLeave'>>>('onPointerLeave'); }
   @Output() get pointerLeaveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPointerLeaveCapture'>>>('onPointerLeaveCapture'); }
-  @Output() get gotPointerCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onGotPointerCapture'>>>('onGotPointerCapture'); }
-  @Output() get gotPointerCaptureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onGotPointerCaptureCapture'>>>('onGotPointerCaptureCapture'); }
-  @Output() get lostPointerCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onLostPointerCapture'>>>('onLostPointerCapture'); }
-  @Output() get lostPointerCaptureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onLostPointerCaptureCapture'>>>('onLostPointerCaptureCapture'); }
+  @Output() get pointerMoveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPointerMove'>>>('onPointerMove'); }
+  @Output() get pointerMoveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPointerMoveCapture'>>>('onPointerMoveCapture'); }
+  @Output() get pointerOutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPointerOut'>>>('onPointerOut'); }
+  @Output() get pointerOutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPointerOutCapture'>>>('onPointerOutCapture'); }
+  @Output() get pointerOverEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPointerOver'>>>('onPointerOver'); }
+  @Output() get pointerOverCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPointerOverCapture'>>>('onPointerOverCapture'); }
+  @Output() get pointerUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPointerUp'>>>('onPointerUp'); }
+  @Output() get pointerUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onPointerUpCapture'>>>('onPointerUpCapture'); }
+  @Output() get progressEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onProgress'>>>('onProgress'); }
+  @Output() get progressCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onProgressCapture'>>>('onProgressCapture'); }
+  @Output() get rateChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onRateChange'>>>('onRateChange'); }
+  @Output() get rateChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onRateChangeCapture'>>>('onRateChangeCapture'); }
+  @Output() get resetEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onReset'>>>('onReset'); }
+  @Output() get resetCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onResetCapture'>>>('onResetCapture'); }
+  @Output() get resizeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onResize'>>>('onResize'); }
+  @Output() get resizeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onResizeCapture'>>>('onResizeCapture'); }
   @Output() get scrollEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onScroll'>>>('onScroll'); }
   @Output() get scrollCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onScrollCapture'>>>('onScrollCapture'); }
   @Output() get scrollEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onScrollEnd'>>>('onScrollEnd'); }
@@ -529,14 +513,31 @@ export class TextInput extends AngularComponentAdapter<AngularCallbackValue<Angu
   @Output() get scrollSnapChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onScrollSnapChangeCapture'>>>('onScrollSnapChangeCapture'); }
   @Output() get scrollSnapChangingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onScrollSnapChanging'>>>('onScrollSnapChanging'); }
   @Output() get scrollSnapChangingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onScrollSnapChangingCapture'>>>('onScrollSnapChangingCapture'); }
-  @Output() get wheelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onWheel'>>>('onWheel'); }
-  @Output() get wheelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onWheelCapture'>>>('onWheelCapture'); }
-  @Output() get animationStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onAnimationStart'>>>('onAnimationStart'); }
-  @Output() get animationStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onAnimationStartCapture'>>>('onAnimationStartCapture'); }
-  @Output() get animationEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onAnimationEnd'>>>('onAnimationEnd'); }
-  @Output() get animationEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onAnimationEndCapture'>>>('onAnimationEndCapture'); }
-  @Output() get animationIterationEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onAnimationIteration'>>>('onAnimationIteration'); }
-  @Output() get animationIterationCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onAnimationIterationCapture'>>>('onAnimationIterationCapture'); }
+  @Output() get searchEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onSearch'>>>('onSearch'); }
+  @Output() get searchCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onSearchCapture'>>>('onSearchCapture'); }
+  @Output() get seekedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onSeeked'>>>('onSeeked'); }
+  @Output() get seekedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onSeekedCapture'>>>('onSeekedCapture'); }
+  @Output() get seekingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onSeeking'>>>('onSeeking'); }
+  @Output() get seekingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onSeekingCapture'>>>('onSeekingCapture'); }
+  @Output() get selectEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onSelect'>>>('onSelect'); }
+  @Output() get selectCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onSelectCapture'>>>('onSelectCapture'); }
+  @Output() get stalledEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onStalled'>>>('onStalled'); }
+  @Output() get stalledCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onStalledCapture'>>>('onStalledCapture'); }
+  @Output() get submitEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onSubmit'>>>('onSubmit'); }
+  @Output() get submitCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onSubmitCapture'>>>('onSubmitCapture'); }
+  @Output() get suspendEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onSuspend'>>>('onSuspend'); }
+  @Output() get suspendCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onSuspendCapture'>>>('onSuspendCapture'); }
+  @Output() get timeUpdateEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onTimeUpdate'>>>('onTimeUpdate'); }
+  @Output() get timeUpdateCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onTimeUpdateCapture'>>>('onTimeUpdateCapture'); }
+  @Output() get toggleEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onToggle'>>>('onToggle'); }
+  @Output() get touchCancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onTouchCancel'>>>('onTouchCancel'); }
+  @Output() get touchCancelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onTouchCancelCapture'>>>('onTouchCancelCapture'); }
+  @Output() get touchEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onTouchEnd'>>>('onTouchEnd'); }
+  @Output() get touchEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onTouchEndCapture'>>>('onTouchEndCapture'); }
+  @Output() get touchMoveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onTouchMove'>>>('onTouchMove'); }
+  @Output() get touchMoveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onTouchMoveCapture'>>>('onTouchMoveCapture'); }
+  @Output() get touchStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onTouchStart'>>>('onTouchStart'); }
+  @Output() get touchStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onTouchStartCapture'>>>('onTouchStartCapture'); }
   @Output() get transitionCancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onTransitionCancel'>>>('onTransitionCancel'); }
   @Output() get transitionCancelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onTransitionCancelCapture'>>>('onTransitionCancelCapture'); }
   @Output() get transitionEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onTransitionEnd'>>>('onTransitionEnd'); }
@@ -545,12 +546,11 @@ export class TextInput extends AngularComponentAdapter<AngularCallbackValue<Angu
   @Output() get transitionRunCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onTransitionRunCapture'>>>('onTransitionRunCapture'); }
   @Output() get transitionStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onTransitionStart'>>>('onTransitionStart'); }
   @Output() get transitionStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onTransitionStartCapture'>>>('onTransitionStartCapture'); }
-  @Output() get enterPictureInPictureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onEnterPictureInPicture'>>>('onEnterPictureInPicture'); }
-  @Output() get enterPictureInPictureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onEnterPictureInPictureCapture'>>>('onEnterPictureInPictureCapture'); }
-  @Output() get leavePictureInPictureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onLeavePictureInPicture'>>>('onLeavePictureInPicture'); }
-  @Output() get leavePictureInPictureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onLeavePictureInPictureCapture'>>>('onLeavePictureInPictureCapture'); }
-  @Output() get resizeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onResize'>>>('onResize'); }
-  @Output() get resizeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onResizeCapture'>>>('onResizeCapture'); }
-  @Output() get commandEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onCommand'>>>('onCommand'); }
+  @Output() get volumeChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onVolumeChange'>>>('onVolumeChange'); }
+  @Output() get volumeChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onVolumeChangeCapture'>>>('onVolumeChangeCapture'); }
+  @Output() get waitingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onWaiting'>>>('onWaiting'); }
+  @Output() get waitingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onWaitingCapture'>>>('onWaitingCapture'); }
+  @Output() get wheelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onWheel'>>>('onWheel'); }
+  @Output() get wheelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TextInput', 'onWheelCapture'>>>('onWheelCapture'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

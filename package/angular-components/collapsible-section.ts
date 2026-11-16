@@ -12,14 +12,14 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class CollapsibleSection extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'CollapsibleSection';
   protected rvResolveComponent() { return Control; }
-  @NgInput() declare "title"?: AngularInput<'CollapsibleSection', "title">;
-  @NgInput() declare "description"?: AngularInput<'CollapsibleSection', "description">;
-  @NgInput() declare "defaultOpen"?: AngularInput<'CollapsibleSection', "defaultOpen">;
   @NgInput() declare "className"?: AngularInput<'CollapsibleSection', "className">;
-  @NgInput() declare "summaryClassName"?: AngularInput<'CollapsibleSection', "summaryClassName">;
   @NgInput() declare "contentClassName"?: AngularInput<'CollapsibleSection', "contentClassName">;
+  @NgInput() declare "defaultOpen"?: AngularInput<'CollapsibleSection', "defaultOpen">;
+  @NgInput() declare "description"?: AngularInput<'CollapsibleSection', "description">;
   @NgInput() declare "descriptionClassName"?: AngularInput<'CollapsibleSection', "descriptionClassName">;
   @NgInput() declare "renderRoot"?: AngularInput<'CollapsibleSection', "renderRoot">;
+  @NgInput() declare "summaryClassName"?: AngularInput<'CollapsibleSection', "summaryClassName">;
+  @NgInput() declare "title"?: AngularInput<'CollapsibleSection', "title">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

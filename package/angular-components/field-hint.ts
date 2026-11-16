@@ -13,8 +13,8 @@ export class FieldHint extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'FieldHint';
   protected rvResolveComponent() { return Control; }
   @NgInput() declare "className"?: AngularInput<'FieldHint', "className">;
-  @NgInput() declare "label"?: AngularInput<'FieldHint', "label">;
   @NgInput() declare "id"?: AngularInput<'FieldHint', "id">;
+  @NgInput() declare "label"?: AngularInput<'FieldHint', "label">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

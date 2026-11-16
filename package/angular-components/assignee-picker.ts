@@ -12,18 +12,18 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class AssigneePicker extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'AssigneePicker';
   protected rvResolveComponent() { return Control; }
+  @NgInput({ required: true }) declare "apply": AngularInput<'AssigneePicker', "apply">;
+  @NgInput() declare "autoApply"?: AngularInput<'AssigneePicker', "autoApply">;
+  @NgInput({ required: true }) declare "cancel": AngularInput<'AssigneePicker', "cancel">;
+  @NgInput({ required: true }) declare "change": AngularInput<'AssigneePicker', "change">;
+  @NgInput({ required: true }) declare "defaultUnits": AngularInput<'AssigneePicker', "defaultUnits">;
   @NgInput({ required: true }) declare "id": AngularInput<'AssigneePicker', "id">;
   @NgInput({ required: true }) declare "options": AngularInput<'AssigneePicker', "options">;
-  @NgInput({ required: true }) declare "value": AngularInput<'AssigneePicker', "value">;
-  @NgInput({ required: true }) declare "change": AngularInput<'AssigneePicker', "change">;
-  @NgInput({ required: true }) declare "apply": AngularInput<'AssigneePicker', "apply">;
-  @NgInput({ required: true }) declare "cancel": AngularInput<'AssigneePicker', "cancel">;
-  @NgInput() declare "theme"?: AngularInput<'AssigneePicker', "theme">;
-  @NgInput({ required: true }) declare "defaultUnits": AngularInput<'AssigneePicker', "defaultUnits">;
+  @NgInput() declare "showActions"?: AngularInput<'AssigneePicker', "showActions">;
   @NgInput() declare "showAvatars"?: AngularInput<'AssigneePicker', "showAvatars">;
   @NgInput() declare "text"?: AngularInput<'AssigneePicker', "text">;
-  @NgInput() declare "autoApply"?: AngularInput<'AssigneePicker', "autoApply">;
-  @NgInput() declare "showActions"?: AngularInput<'AssigneePicker', "showActions">;
+  @NgInput() declare "theme"?: AngularInput<'AssigneePicker', "theme">;
+  @NgInput({ required: true }) declare "value": AngularInput<'AssigneePicker', "value">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

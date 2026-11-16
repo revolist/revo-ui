@@ -12,22 +12,22 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class DistributionChart extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'DistributionChart';
   protected rvResolveComponent() { return Control; }
-  @NgInput({ required: true }) declare "data": AngularInput<'DistributionChart', "data">;
+  @NgInput() declare "areaFill"?: AngularInput<'DistributionChart', "areaFill">;
   @NgInput({ required: true }) declare "ariaLabel": AngularInput<'DistributionChart', "ariaLabel">;
-  @NgInput() declare "type"?: AngularInput<'DistributionChart', "type">;
-  @NgInput() declare "height"?: AngularInput<'DistributionChart', "height">;
-  @NgInput() declare "showPoints"?: AngularInput<'DistributionChart', "showPoints">;
-  @NgInput() declare "showLabels"?: AngularInput<'DistributionChart', "showLabels">;
-  @NgInput() declare "showValues"?: AngularInput<'DistributionChart', "showValues">;
-  @NgInput() declare "showGrid"?: AngularInput<'DistributionChart', "showGrid">;
-  @NgInput() declare "legend"?: AngularInput<'DistributionChart', "legend">;
+  @NgInput() declare "className"?: AngularInput<'DistributionChart', "className">;
+  @NgInput({ required: true }) declare "data": AngularInput<'DistributionChart', "data">;
   @NgInput() declare "formatValue"?: AngularInput<'DistributionChart', "formatValue">;
+  @NgInput() declare "height"?: AngularInput<'DistributionChart', "height">;
+  @NgInput() declare "interpolation"?: AngularInput<'DistributionChart', "interpolation">;
+  @NgInput() declare "legend"?: AngularInput<'DistributionChart', "legend">;
+  @NgInput() declare "renderTooltip"?: AngularInput<'DistributionChart', "renderTooltip">;
+  @NgInput() declare "showGrid"?: AngularInput<'DistributionChart', "showGrid">;
+  @NgInput() declare "showLabels"?: AngularInput<'DistributionChart', "showLabels">;
+  @NgInput() declare "showPoints"?: AngularInput<'DistributionChart', "showPoints">;
+  @NgInput() declare "showValues"?: AngularInput<'DistributionChart', "showValues">;
   @NgInput() declare "tooltip"?: AngularInput<'DistributionChart', "tooltip">;
   @NgInput() declare "tooltipIndicator"?: AngularInput<'DistributionChart', "tooltipIndicator">;
-  @NgInput() declare "interpolation"?: AngularInput<'DistributionChart', "interpolation">;
-  @NgInput() declare "areaFill"?: AngularInput<'DistributionChart', "areaFill">;
-  @NgInput() declare "className"?: AngularInput<'DistributionChart', "className">;
-  @NgInput() declare "renderTooltip"?: AngularInput<'DistributionChart', "renderTooltip">;
+  @NgInput() declare "type"?: AngularInput<'DistributionChart', "type">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

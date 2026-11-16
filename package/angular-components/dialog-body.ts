@@ -12,63 +12,9 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class DialogBody extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'DialogBody';
   protected rvResolveComponent() { return Control; }
-  @NgInput() declare "translate"?: AngularInput<'DialogBody', "translate">;
-  @NgInput() declare "className"?: AngularInput<'DialogBody', "className">;
-  @NgInput() declare "accesskey"?: AngularInput<'DialogBody', "accesskey">;
-  @NgInput() declare "accessKey"?: AngularInput<'DialogBody', "accessKey">;
-  @NgInput() declare "autocapitalize"?: AngularInput<'DialogBody', "autocapitalize">;
-  @NgInput() declare "autoCapitalize"?: AngularInput<'DialogBody', "autoCapitalize">;
-  @NgInput() declare "autocorrect"?: AngularInput<'DialogBody', "autocorrect">;
-  @NgInput() declare "autoCorrect"?: AngularInput<'DialogBody', "autoCorrect">;
-  @NgInput() declare "autofocus"?: AngularInput<'DialogBody', "autofocus">;
-  @NgInput() declare "autoFocus"?: AngularInput<'DialogBody', "autoFocus">;
-  @NgInput() declare "class"?: AngularInput<'DialogBody', "class">;
-  @NgInput() declare "contenteditable"?: AngularInput<'DialogBody', "contenteditable">;
-  @NgInput() declare "contentEditable"?: AngularInput<'DialogBody', "contentEditable">;
-  @NgInput() declare "dir"?: AngularInput<'DialogBody', "dir">;
-  @NgInput() declare "draggable"?: AngularInput<'DialogBody', "draggable">;
-  @NgInput() declare "enterkeyhint"?: AngularInput<'DialogBody', "enterkeyhint">;
-  @NgInput() declare "exportparts"?: AngularInput<'DialogBody', "exportparts">;
-  @NgInput() declare "hidden"?: AngularInput<'DialogBody', "hidden">;
-  @NgInput() declare "id"?: AngularInput<'DialogBody', "id">;
-  @NgInput() declare "inert"?: AngularInput<'DialogBody', "inert">;
-  @NgInput() declare "inputmode"?: AngularInput<'DialogBody', "inputmode">;
-  @NgInput() declare "inputMode"?: AngularInput<'DialogBody', "inputMode">;
-  @NgInput() declare "is"?: AngularInput<'DialogBody', "is">;
-  @NgInput() declare "lang"?: AngularInput<'DialogBody', "lang">;
-  @NgInput() declare "nonce"?: AngularInput<'DialogBody', "nonce">;
-  @NgInput() declare "part"?: AngularInput<'DialogBody', "part">;
-  @NgInput() declare "popover"?: AngularInput<'DialogBody', "popover">;
-  @NgInput() declare "slot"?: AngularInput<'DialogBody', "slot">;
-  @NgInput() declare "spellcheck"?: AngularInput<'DialogBody', "spellcheck">;
-  @NgInput() declare "style"?: AngularInput<'DialogBody', "style">;
-  @NgInput() declare "tabindex"?: AngularInput<'DialogBody', "tabindex">;
-  @NgInput() declare "tabIndex"?: AngularInput<'DialogBody', "tabIndex">;
-  @NgInput() declare "title"?: AngularInput<'DialogBody', "title">;
-  @NgInput() declare "role"?: AngularInput<'DialogBody', "role">;
-  @NgInput() declare "disablePictureInPicture"?: AngularInput<'DialogBody', "disablePictureInPicture">;
-  @NgInput() declare "elementtiming"?: AngularInput<'DialogBody', "elementtiming">;
-  @NgInput() declare "elementTiming"?: AngularInput<'DialogBody', "elementTiming">;
-  @NgInput() declare "results"?: AngularInput<'DialogBody', "results">;
   @NgInput() declare "about"?: AngularInput<'DialogBody', "about">;
-  @NgInput() declare "datatype"?: AngularInput<'DialogBody', "datatype">;
-  @NgInput() declare "inlist"?: AngularInput<'DialogBody', "inlist">;
-  @NgInput() declare "prefix"?: AngularInput<'DialogBody', "prefix">;
-  @NgInput() declare "property"?: AngularInput<'DialogBody', "property">;
-  @NgInput() declare "resource"?: AngularInput<'DialogBody', "resource">;
-  @NgInput() declare "typeof"?: AngularInput<'DialogBody', "typeof">;
-  @NgInput() declare "vocab"?: AngularInput<'DialogBody', "vocab">;
-  @NgInput() declare "itemid"?: AngularInput<'DialogBody', "itemid">;
-  @NgInput() declare "itemID"?: AngularInput<'DialogBody', "itemID">;
-  @NgInput() declare "itemprop"?: AngularInput<'DialogBody', "itemprop">;
-  @NgInput() declare "itemProp"?: AngularInput<'DialogBody', "itemProp">;
-  @NgInput() declare "itemref"?: AngularInput<'DialogBody', "itemref">;
-  @NgInput() declare "itemRef"?: AngularInput<'DialogBody', "itemRef">;
-  @NgInput() declare "itemscope"?: AngularInput<'DialogBody', "itemscope">;
-  @NgInput() declare "itemScope"?: AngularInput<'DialogBody', "itemScope">;
-  @NgInput() declare "itemtype"?: AngularInput<'DialogBody', "itemtype">;
-  @NgInput() declare "itemType"?: AngularInput<'DialogBody', "itemType">;
-  @NgInput() declare "dangerouslySetInnerHTML"?: AngularInput<'DialogBody', "dangerouslySetInnerHTML">;
+  @NgInput() declare "accessKey"?: AngularInput<'DialogBody', "accessKey">;
+  @NgInput() declare "accesskey"?: AngularInput<'DialogBody', "accesskey">;
   @NgInput() declare "aria-activedescendant"?: AngularInput<'DialogBody', "aria-activedescendant">;
   @NgInput() declare "aria-atomic"?: AngularInput<'DialogBody', "aria-atomic">;
   @NgInput() declare "aria-autocomplete"?: AngularInput<'DialogBody', "aria-autocomplete">;
@@ -122,104 +68,82 @@ export class DialogBody extends AngularComponentAdapter<never> {
   @NgInput() declare "aria-valuemin"?: AngularInput<'DialogBody', "aria-valuemin">;
   @NgInput() declare "aria-valuenow"?: AngularInput<'DialogBody', "aria-valuenow">;
   @NgInput() declare "aria-valuetext"?: AngularInput<'DialogBody', "aria-valuetext">;
+  @NgInput() declare "autoCapitalize"?: AngularInput<'DialogBody', "autoCapitalize">;
+  @NgInput() declare "autoCorrect"?: AngularInput<'DialogBody', "autoCorrect">;
+  @NgInput() declare "autoFocus"?: AngularInput<'DialogBody', "autoFocus">;
+  @NgInput() declare "autocapitalize"?: AngularInput<'DialogBody', "autocapitalize">;
+  @NgInput() declare "autocorrect"?: AngularInput<'DialogBody', "autocorrect">;
+  @NgInput() declare "autofocus"?: AngularInput<'DialogBody', "autofocus">;
+  @NgInput() declare "class"?: AngularInput<'DialogBody', "class">;
+  @NgInput() declare "className"?: AngularInput<'DialogBody', "className">;
+  @NgInput() declare "contentEditable"?: AngularInput<'DialogBody', "contentEditable">;
+  @NgInput() declare "contenteditable"?: AngularInput<'DialogBody', "contenteditable">;
+  @NgInput() declare "dangerouslySetInnerHTML"?: AngularInput<'DialogBody', "dangerouslySetInnerHTML">;
+  @NgInput() declare "datatype"?: AngularInput<'DialogBody', "datatype">;
+  @NgInput() declare "dir"?: AngularInput<'DialogBody', "dir">;
+  @NgInput() declare "disablePictureInPicture"?: AngularInput<'DialogBody', "disablePictureInPicture">;
+  @NgInput() declare "draggable"?: AngularInput<'DialogBody', "draggable">;
+  @NgInput() declare "elementTiming"?: AngularInput<'DialogBody', "elementTiming">;
+  @NgInput() declare "elementtiming"?: AngularInput<'DialogBody', "elementtiming">;
+  @NgInput() declare "enterkeyhint"?: AngularInput<'DialogBody', "enterkeyhint">;
+  @NgInput() declare "exportparts"?: AngularInput<'DialogBody', "exportparts">;
+  @NgInput() declare "hidden"?: AngularInput<'DialogBody', "hidden">;
+  @NgInput() declare "id"?: AngularInput<'DialogBody', "id">;
+  @NgInput() declare "inert"?: AngularInput<'DialogBody', "inert">;
+  @NgInput() declare "inlist"?: AngularInput<'DialogBody', "inlist">;
+  @NgInput() declare "inputMode"?: AngularInput<'DialogBody', "inputMode">;
+  @NgInput() declare "inputmode"?: AngularInput<'DialogBody', "inputmode">;
+  @NgInput() declare "is"?: AngularInput<'DialogBody', "is">;
+  @NgInput() declare "itemID"?: AngularInput<'DialogBody', "itemID">;
+  @NgInput() declare "itemProp"?: AngularInput<'DialogBody', "itemProp">;
+  @NgInput() declare "itemRef"?: AngularInput<'DialogBody', "itemRef">;
+  @NgInput() declare "itemScope"?: AngularInput<'DialogBody', "itemScope">;
+  @NgInput() declare "itemType"?: AngularInput<'DialogBody', "itemType">;
+  @NgInput() declare "itemid"?: AngularInput<'DialogBody', "itemid">;
+  @NgInput() declare "itemprop"?: AngularInput<'DialogBody', "itemprop">;
+  @NgInput() declare "itemref"?: AngularInput<'DialogBody', "itemref">;
+  @NgInput() declare "itemscope"?: AngularInput<'DialogBody', "itemscope">;
+  @NgInput() declare "itemtype"?: AngularInput<'DialogBody', "itemtype">;
+  @NgInput() declare "lang"?: AngularInput<'DialogBody', "lang">;
+  @NgInput() declare "nonce"?: AngularInput<'DialogBody', "nonce">;
+  @NgInput() declare "onAbort"?: AngularInput<'DialogBody', "onAbort">;
+  @NgInput() declare "onAbortCapture"?: AngularInput<'DialogBody', "onAbortCapture">;
+  @NgInput() declare "onAnimationEnd"?: AngularInput<'DialogBody', "onAnimationEnd">;
+  @NgInput() declare "onAnimationEndCapture"?: AngularInput<'DialogBody', "onAnimationEndCapture">;
+  @NgInput() declare "onAnimationIteration"?: AngularInput<'DialogBody', "onAnimationIteration">;
+  @NgInput() declare "onAnimationIterationCapture"?: AngularInput<'DialogBody', "onAnimationIterationCapture">;
+  @NgInput() declare "onAnimationStart"?: AngularInput<'DialogBody', "onAnimationStart">;
+  @NgInput() declare "onAnimationStartCapture"?: AngularInput<'DialogBody', "onAnimationStartCapture">;
+  @NgInput() declare "onAuxClick"?: AngularInput<'DialogBody', "onAuxClick">;
+  @NgInput() declare "onAuxClickCapture"?: AngularInput<'DialogBody', "onAuxClickCapture">;
+  @NgInput() declare "onBeforeInput"?: AngularInput<'DialogBody', "onBeforeInput">;
+  @NgInput() declare "onBeforeInputCapture"?: AngularInput<'DialogBody', "onBeforeInputCapture">;
+  @NgInput() declare "onBeforeToggle"?: AngularInput<'DialogBody', "onBeforeToggle">;
+  @NgInput() declare "onBlur"?: AngularInput<'DialogBody', "onBlur">;
+  @NgInput() declare "onBlurCapture"?: AngularInput<'DialogBody', "onBlurCapture">;
+  @NgInput() declare "onCanPlay"?: AngularInput<'DialogBody', "onCanPlay">;
+  @NgInput() declare "onCanPlayCapture"?: AngularInput<'DialogBody', "onCanPlayCapture">;
+  @NgInput() declare "onCanPlayThrough"?: AngularInput<'DialogBody', "onCanPlayThrough">;
+  @NgInput() declare "onCanPlayThroughCapture"?: AngularInput<'DialogBody', "onCanPlayThroughCapture">;
+  @NgInput() declare "onCancel"?: AngularInput<'DialogBody', "onCancel">;
   @NgInput() declare "onChange"?: AngularInput<'DialogBody', "onChange">;
-  @NgInput() declare "onLoad"?: AngularInput<'DialogBody', "onLoad">;
-  @NgInput() declare "onLoadCapture"?: AngularInput<'DialogBody', "onLoadCapture">;
-  @NgInput() declare "onError"?: AngularInput<'DialogBody', "onError">;
-  @NgInput() declare "onErrorCapture"?: AngularInput<'DialogBody', "onErrorCapture">;
-  @NgInput() declare "onCopy"?: AngularInput<'DialogBody', "onCopy">;
-  @NgInput() declare "onCopyCapture"?: AngularInput<'DialogBody', "onCopyCapture">;
-  @NgInput() declare "onCut"?: AngularInput<'DialogBody', "onCut">;
-  @NgInput() declare "onCutCapture"?: AngularInput<'DialogBody', "onCutCapture">;
-  @NgInput() declare "onPaste"?: AngularInput<'DialogBody', "onPaste">;
-  @NgInput() declare "onPasteCapture"?: AngularInput<'DialogBody', "onPasteCapture">;
+  @NgInput() declare "onChangeCapture"?: AngularInput<'DialogBody', "onChangeCapture">;
+  @NgInput() declare "onClick"?: AngularInput<'DialogBody', "onClick">;
+  @NgInput() declare "onClickCapture"?: AngularInput<'DialogBody', "onClickCapture">;
+  @NgInput() declare "onClose"?: AngularInput<'DialogBody', "onClose">;
+  @NgInput() declare "onCommand"?: AngularInput<'DialogBody', "onCommand">;
   @NgInput() declare "onCompositionEnd"?: AngularInput<'DialogBody', "onCompositionEnd">;
   @NgInput() declare "onCompositionEndCapture"?: AngularInput<'DialogBody', "onCompositionEndCapture">;
   @NgInput() declare "onCompositionStart"?: AngularInput<'DialogBody', "onCompositionStart">;
   @NgInput() declare "onCompositionStartCapture"?: AngularInput<'DialogBody', "onCompositionStartCapture">;
   @NgInput() declare "onCompositionUpdate"?: AngularInput<'DialogBody', "onCompositionUpdate">;
   @NgInput() declare "onCompositionUpdateCapture"?: AngularInput<'DialogBody', "onCompositionUpdateCapture">;
-  @NgInput() declare "onBeforeToggle"?: AngularInput<'DialogBody', "onBeforeToggle">;
-  @NgInput() declare "onToggle"?: AngularInput<'DialogBody', "onToggle">;
-  @NgInput() declare "onClose"?: AngularInput<'DialogBody', "onClose">;
-  @NgInput() declare "onCancel"?: AngularInput<'DialogBody', "onCancel">;
-  @NgInput() declare "onFocus"?: AngularInput<'DialogBody', "onFocus">;
-  @NgInput() declare "onFocusCapture"?: AngularInput<'DialogBody', "onFocusCapture">;
-  @NgInput() declare "onFocusIn"?: AngularInput<'DialogBody', "onFocusIn">;
-  @NgInput() declare "onFocusInCapture"?: AngularInput<'DialogBody', "onFocusInCapture">;
-  @NgInput() declare "onFocusOut"?: AngularInput<'DialogBody', "onFocusOut">;
-  @NgInput() declare "onFocusOutCapture"?: AngularInput<'DialogBody', "onFocusOutCapture">;
-  @NgInput() declare "onBlur"?: AngularInput<'DialogBody', "onBlur">;
-  @NgInput() declare "onBlurCapture"?: AngularInput<'DialogBody', "onBlurCapture">;
-  @NgInput() declare "onChangeCapture"?: AngularInput<'DialogBody', "onChangeCapture">;
-  @NgInput() declare "onInput"?: AngularInput<'DialogBody', "onInput">;
-  @NgInput() declare "onInputCapture"?: AngularInput<'DialogBody', "onInputCapture">;
-  @NgInput() declare "onBeforeInput"?: AngularInput<'DialogBody', "onBeforeInput">;
-  @NgInput() declare "onBeforeInputCapture"?: AngularInput<'DialogBody', "onBeforeInputCapture">;
-  @NgInput() declare "onSearch"?: AngularInput<'DialogBody', "onSearch">;
-  @NgInput() declare "onSearchCapture"?: AngularInput<'DialogBody', "onSearchCapture">;
-  @NgInput() declare "onSubmit"?: AngularInput<'DialogBody', "onSubmit">;
-  @NgInput() declare "onSubmitCapture"?: AngularInput<'DialogBody', "onSubmitCapture">;
-  @NgInput() declare "onInvalid"?: AngularInput<'DialogBody', "onInvalid">;
-  @NgInput() declare "onInvalidCapture"?: AngularInput<'DialogBody', "onInvalidCapture">;
-  @NgInput() declare "onReset"?: AngularInput<'DialogBody', "onReset">;
-  @NgInput() declare "onResetCapture"?: AngularInput<'DialogBody', "onResetCapture">;
-  @NgInput() declare "onFormData"?: AngularInput<'DialogBody', "onFormData">;
-  @NgInput() declare "onFormDataCapture"?: AngularInput<'DialogBody', "onFormDataCapture">;
-  @NgInput() declare "onKeyDown"?: AngularInput<'DialogBody', "onKeyDown">;
-  @NgInput() declare "onKeyDownCapture"?: AngularInput<'DialogBody', "onKeyDownCapture">;
-  @NgInput() declare "onKeyPress"?: AngularInput<'DialogBody', "onKeyPress">;
-  @NgInput() declare "onKeyPressCapture"?: AngularInput<'DialogBody', "onKeyPressCapture">;
-  @NgInput() declare "onKeyUp"?: AngularInput<'DialogBody', "onKeyUp">;
-  @NgInput() declare "onKeyUpCapture"?: AngularInput<'DialogBody', "onKeyUpCapture">;
-  @NgInput() declare "onAbort"?: AngularInput<'DialogBody', "onAbort">;
-  @NgInput() declare "onAbortCapture"?: AngularInput<'DialogBody', "onAbortCapture">;
-  @NgInput() declare "onCanPlay"?: AngularInput<'DialogBody', "onCanPlay">;
-  @NgInput() declare "onCanPlayCapture"?: AngularInput<'DialogBody', "onCanPlayCapture">;
-  @NgInput() declare "onCanPlayThrough"?: AngularInput<'DialogBody', "onCanPlayThrough">;
-  @NgInput() declare "onCanPlayThroughCapture"?: AngularInput<'DialogBody', "onCanPlayThroughCapture">;
-  @NgInput() declare "onDurationChange"?: AngularInput<'DialogBody', "onDurationChange">;
-  @NgInput() declare "onDurationChangeCapture"?: AngularInput<'DialogBody', "onDurationChangeCapture">;
-  @NgInput() declare "onEmptied"?: AngularInput<'DialogBody', "onEmptied">;
-  @NgInput() declare "onEmptiedCapture"?: AngularInput<'DialogBody', "onEmptiedCapture">;
-  @NgInput() declare "onEncrypted"?: AngularInput<'DialogBody', "onEncrypted">;
-  @NgInput() declare "onEncryptedCapture"?: AngularInput<'DialogBody', "onEncryptedCapture">;
-  @NgInput() declare "onEnded"?: AngularInput<'DialogBody', "onEnded">;
-  @NgInput() declare "onEndedCapture"?: AngularInput<'DialogBody', "onEndedCapture">;
-  @NgInput() declare "onLoadedData"?: AngularInput<'DialogBody', "onLoadedData">;
-  @NgInput() declare "onLoadedDataCapture"?: AngularInput<'DialogBody', "onLoadedDataCapture">;
-  @NgInput() declare "onLoadedMetadata"?: AngularInput<'DialogBody', "onLoadedMetadata">;
-  @NgInput() declare "onLoadedMetadataCapture"?: AngularInput<'DialogBody', "onLoadedMetadataCapture">;
-  @NgInput() declare "onLoadStart"?: AngularInput<'DialogBody', "onLoadStart">;
-  @NgInput() declare "onLoadStartCapture"?: AngularInput<'DialogBody', "onLoadStartCapture">;
-  @NgInput() declare "onPause"?: AngularInput<'DialogBody', "onPause">;
-  @NgInput() declare "onPauseCapture"?: AngularInput<'DialogBody', "onPauseCapture">;
-  @NgInput() declare "onPlay"?: AngularInput<'DialogBody', "onPlay">;
-  @NgInput() declare "onPlayCapture"?: AngularInput<'DialogBody', "onPlayCapture">;
-  @NgInput() declare "onPlaying"?: AngularInput<'DialogBody', "onPlaying">;
-  @NgInput() declare "onPlayingCapture"?: AngularInput<'DialogBody', "onPlayingCapture">;
-  @NgInput() declare "onProgress"?: AngularInput<'DialogBody', "onProgress">;
-  @NgInput() declare "onProgressCapture"?: AngularInput<'DialogBody', "onProgressCapture">;
-  @NgInput() declare "onRateChange"?: AngularInput<'DialogBody', "onRateChange">;
-  @NgInput() declare "onRateChangeCapture"?: AngularInput<'DialogBody', "onRateChangeCapture">;
-  @NgInput() declare "onSeeked"?: AngularInput<'DialogBody', "onSeeked">;
-  @NgInput() declare "onSeekedCapture"?: AngularInput<'DialogBody', "onSeekedCapture">;
-  @NgInput() declare "onSeeking"?: AngularInput<'DialogBody', "onSeeking">;
-  @NgInput() declare "onSeekingCapture"?: AngularInput<'DialogBody', "onSeekingCapture">;
-  @NgInput() declare "onStalled"?: AngularInput<'DialogBody', "onStalled">;
-  @NgInput() declare "onStalledCapture"?: AngularInput<'DialogBody', "onStalledCapture">;
-  @NgInput() declare "onSuspend"?: AngularInput<'DialogBody', "onSuspend">;
-  @NgInput() declare "onSuspendCapture"?: AngularInput<'DialogBody', "onSuspendCapture">;
-  @NgInput() declare "onTimeUpdate"?: AngularInput<'DialogBody', "onTimeUpdate">;
-  @NgInput() declare "onTimeUpdateCapture"?: AngularInput<'DialogBody', "onTimeUpdateCapture">;
-  @NgInput() declare "onVolumeChange"?: AngularInput<'DialogBody', "onVolumeChange">;
-  @NgInput() declare "onVolumeChangeCapture"?: AngularInput<'DialogBody', "onVolumeChangeCapture">;
-  @NgInput() declare "onWaiting"?: AngularInput<'DialogBody', "onWaiting">;
-  @NgInput() declare "onWaitingCapture"?: AngularInput<'DialogBody', "onWaitingCapture">;
-  @NgInput() declare "onClick"?: AngularInput<'DialogBody', "onClick">;
-  @NgInput() declare "onClickCapture"?: AngularInput<'DialogBody', "onClickCapture">;
   @NgInput() declare "onContextMenu"?: AngularInput<'DialogBody', "onContextMenu">;
   @NgInput() declare "onContextMenuCapture"?: AngularInput<'DialogBody', "onContextMenuCapture">;
+  @NgInput() declare "onCopy"?: AngularInput<'DialogBody', "onCopy">;
+  @NgInput() declare "onCopyCapture"?: AngularInput<'DialogBody', "onCopyCapture">;
+  @NgInput() declare "onCut"?: AngularInput<'DialogBody', "onCut">;
+  @NgInput() declare "onCutCapture"?: AngularInput<'DialogBody', "onCutCapture">;
   @NgInput() declare "onDblClick"?: AngularInput<'DialogBody', "onDblClick">;
   @NgInput() declare "onDblClickCapture"?: AngularInput<'DialogBody', "onDblClickCapture">;
   @NgInput() declare "onDrag"?: AngularInput<'DialogBody', "onDrag">;
@@ -238,6 +162,50 @@ export class DialogBody extends AngularComponentAdapter<never> {
   @NgInput() declare "onDragStartCapture"?: AngularInput<'DialogBody', "onDragStartCapture">;
   @NgInput() declare "onDrop"?: AngularInput<'DialogBody', "onDrop">;
   @NgInput() declare "onDropCapture"?: AngularInput<'DialogBody', "onDropCapture">;
+  @NgInput() declare "onDurationChange"?: AngularInput<'DialogBody', "onDurationChange">;
+  @NgInput() declare "onDurationChangeCapture"?: AngularInput<'DialogBody', "onDurationChangeCapture">;
+  @NgInput() declare "onEmptied"?: AngularInput<'DialogBody', "onEmptied">;
+  @NgInput() declare "onEmptiedCapture"?: AngularInput<'DialogBody', "onEmptiedCapture">;
+  @NgInput() declare "onEncrypted"?: AngularInput<'DialogBody', "onEncrypted">;
+  @NgInput() declare "onEncryptedCapture"?: AngularInput<'DialogBody', "onEncryptedCapture">;
+  @NgInput() declare "onEnded"?: AngularInput<'DialogBody', "onEnded">;
+  @NgInput() declare "onEndedCapture"?: AngularInput<'DialogBody', "onEndedCapture">;
+  @NgInput() declare "onEnterPictureInPicture"?: AngularInput<'DialogBody', "onEnterPictureInPicture">;
+  @NgInput() declare "onEnterPictureInPictureCapture"?: AngularInput<'DialogBody', "onEnterPictureInPictureCapture">;
+  @NgInput() declare "onError"?: AngularInput<'DialogBody', "onError">;
+  @NgInput() declare "onErrorCapture"?: AngularInput<'DialogBody', "onErrorCapture">;
+  @NgInput() declare "onFocus"?: AngularInput<'DialogBody', "onFocus">;
+  @NgInput() declare "onFocusCapture"?: AngularInput<'DialogBody', "onFocusCapture">;
+  @NgInput() declare "onFocusIn"?: AngularInput<'DialogBody', "onFocusIn">;
+  @NgInput() declare "onFocusInCapture"?: AngularInput<'DialogBody', "onFocusInCapture">;
+  @NgInput() declare "onFocusOut"?: AngularInput<'DialogBody', "onFocusOut">;
+  @NgInput() declare "onFocusOutCapture"?: AngularInput<'DialogBody', "onFocusOutCapture">;
+  @NgInput() declare "onFormData"?: AngularInput<'DialogBody', "onFormData">;
+  @NgInput() declare "onFormDataCapture"?: AngularInput<'DialogBody', "onFormDataCapture">;
+  @NgInput() declare "onGotPointerCapture"?: AngularInput<'DialogBody', "onGotPointerCapture">;
+  @NgInput() declare "onGotPointerCaptureCapture"?: AngularInput<'DialogBody', "onGotPointerCaptureCapture">;
+  @NgInput() declare "onInput"?: AngularInput<'DialogBody', "onInput">;
+  @NgInput() declare "onInputCapture"?: AngularInput<'DialogBody', "onInputCapture">;
+  @NgInput() declare "onInvalid"?: AngularInput<'DialogBody', "onInvalid">;
+  @NgInput() declare "onInvalidCapture"?: AngularInput<'DialogBody', "onInvalidCapture">;
+  @NgInput() declare "onKeyDown"?: AngularInput<'DialogBody', "onKeyDown">;
+  @NgInput() declare "onKeyDownCapture"?: AngularInput<'DialogBody', "onKeyDownCapture">;
+  @NgInput() declare "onKeyPress"?: AngularInput<'DialogBody', "onKeyPress">;
+  @NgInput() declare "onKeyPressCapture"?: AngularInput<'DialogBody', "onKeyPressCapture">;
+  @NgInput() declare "onKeyUp"?: AngularInput<'DialogBody', "onKeyUp">;
+  @NgInput() declare "onKeyUpCapture"?: AngularInput<'DialogBody', "onKeyUpCapture">;
+  @NgInput() declare "onLeavePictureInPicture"?: AngularInput<'DialogBody', "onLeavePictureInPicture">;
+  @NgInput() declare "onLeavePictureInPictureCapture"?: AngularInput<'DialogBody', "onLeavePictureInPictureCapture">;
+  @NgInput() declare "onLoad"?: AngularInput<'DialogBody', "onLoad">;
+  @NgInput() declare "onLoadCapture"?: AngularInput<'DialogBody', "onLoadCapture">;
+  @NgInput() declare "onLoadStart"?: AngularInput<'DialogBody', "onLoadStart">;
+  @NgInput() declare "onLoadStartCapture"?: AngularInput<'DialogBody', "onLoadStartCapture">;
+  @NgInput() declare "onLoadedData"?: AngularInput<'DialogBody', "onLoadedData">;
+  @NgInput() declare "onLoadedDataCapture"?: AngularInput<'DialogBody', "onLoadedDataCapture">;
+  @NgInput() declare "onLoadedMetadata"?: AngularInput<'DialogBody', "onLoadedMetadata">;
+  @NgInput() declare "onLoadedMetadataCapture"?: AngularInput<'DialogBody', "onLoadedMetadataCapture">;
+  @NgInput() declare "onLostPointerCapture"?: AngularInput<'DialogBody', "onLostPointerCapture">;
+  @NgInput() declare "onLostPointerCaptureCapture"?: AngularInput<'DialogBody', "onLostPointerCaptureCapture">;
   @NgInput() declare "onMouseDown"?: AngularInput<'DialogBody', "onMouseDown">;
   @NgInput() declare "onMouseDownCapture"?: AngularInput<'DialogBody', "onMouseDownCapture">;
   @NgInput() declare "onMouseEnter"?: AngularInput<'DialogBody', "onMouseEnter">;
@@ -252,38 +220,38 @@ export class DialogBody extends AngularComponentAdapter<never> {
   @NgInput() declare "onMouseOverCapture"?: AngularInput<'DialogBody', "onMouseOverCapture">;
   @NgInput() declare "onMouseUp"?: AngularInput<'DialogBody', "onMouseUp">;
   @NgInput() declare "onMouseUpCapture"?: AngularInput<'DialogBody', "onMouseUpCapture">;
-  @NgInput() declare "onAuxClick"?: AngularInput<'DialogBody', "onAuxClick">;
-  @NgInput() declare "onAuxClickCapture"?: AngularInput<'DialogBody', "onAuxClickCapture">;
-  @NgInput() declare "onSelect"?: AngularInput<'DialogBody', "onSelect">;
-  @NgInput() declare "onSelectCapture"?: AngularInput<'DialogBody', "onSelectCapture">;
-  @NgInput() declare "onTouchCancel"?: AngularInput<'DialogBody', "onTouchCancel">;
-  @NgInput() declare "onTouchCancelCapture"?: AngularInput<'DialogBody', "onTouchCancelCapture">;
-  @NgInput() declare "onTouchEnd"?: AngularInput<'DialogBody', "onTouchEnd">;
-  @NgInput() declare "onTouchEndCapture"?: AngularInput<'DialogBody', "onTouchEndCapture">;
-  @NgInput() declare "onTouchMove"?: AngularInput<'DialogBody', "onTouchMove">;
-  @NgInput() declare "onTouchMoveCapture"?: AngularInput<'DialogBody', "onTouchMoveCapture">;
-  @NgInput() declare "onTouchStart"?: AngularInput<'DialogBody', "onTouchStart">;
-  @NgInput() declare "onTouchStartCapture"?: AngularInput<'DialogBody', "onTouchStartCapture">;
-  @NgInput() declare "onPointerOver"?: AngularInput<'DialogBody', "onPointerOver">;
-  @NgInput() declare "onPointerOverCapture"?: AngularInput<'DialogBody', "onPointerOverCapture">;
-  @NgInput() declare "onPointerEnter"?: AngularInput<'DialogBody', "onPointerEnter">;
-  @NgInput() declare "onPointerEnterCapture"?: AngularInput<'DialogBody', "onPointerEnterCapture">;
-  @NgInput() declare "onPointerDown"?: AngularInput<'DialogBody', "onPointerDown">;
-  @NgInput() declare "onPointerDownCapture"?: AngularInput<'DialogBody', "onPointerDownCapture">;
-  @NgInput() declare "onPointerMove"?: AngularInput<'DialogBody', "onPointerMove">;
-  @NgInput() declare "onPointerMoveCapture"?: AngularInput<'DialogBody', "onPointerMoveCapture">;
-  @NgInput() declare "onPointerUp"?: AngularInput<'DialogBody', "onPointerUp">;
-  @NgInput() declare "onPointerUpCapture"?: AngularInput<'DialogBody', "onPointerUpCapture">;
+  @NgInput() declare "onPaste"?: AngularInput<'DialogBody', "onPaste">;
+  @NgInput() declare "onPasteCapture"?: AngularInput<'DialogBody', "onPasteCapture">;
+  @NgInput() declare "onPause"?: AngularInput<'DialogBody', "onPause">;
+  @NgInput() declare "onPauseCapture"?: AngularInput<'DialogBody', "onPauseCapture">;
+  @NgInput() declare "onPlay"?: AngularInput<'DialogBody', "onPlay">;
+  @NgInput() declare "onPlayCapture"?: AngularInput<'DialogBody', "onPlayCapture">;
+  @NgInput() declare "onPlaying"?: AngularInput<'DialogBody', "onPlaying">;
+  @NgInput() declare "onPlayingCapture"?: AngularInput<'DialogBody', "onPlayingCapture">;
   @NgInput() declare "onPointerCancel"?: AngularInput<'DialogBody', "onPointerCancel">;
   @NgInput() declare "onPointerCancelCapture"?: AngularInput<'DialogBody', "onPointerCancelCapture">;
-  @NgInput() declare "onPointerOut"?: AngularInput<'DialogBody', "onPointerOut">;
-  @NgInput() declare "onPointerOutCapture"?: AngularInput<'DialogBody', "onPointerOutCapture">;
+  @NgInput() declare "onPointerDown"?: AngularInput<'DialogBody', "onPointerDown">;
+  @NgInput() declare "onPointerDownCapture"?: AngularInput<'DialogBody', "onPointerDownCapture">;
+  @NgInput() declare "onPointerEnter"?: AngularInput<'DialogBody', "onPointerEnter">;
+  @NgInput() declare "onPointerEnterCapture"?: AngularInput<'DialogBody', "onPointerEnterCapture">;
   @NgInput() declare "onPointerLeave"?: AngularInput<'DialogBody', "onPointerLeave">;
   @NgInput() declare "onPointerLeaveCapture"?: AngularInput<'DialogBody', "onPointerLeaveCapture">;
-  @NgInput() declare "onGotPointerCapture"?: AngularInput<'DialogBody', "onGotPointerCapture">;
-  @NgInput() declare "onGotPointerCaptureCapture"?: AngularInput<'DialogBody', "onGotPointerCaptureCapture">;
-  @NgInput() declare "onLostPointerCapture"?: AngularInput<'DialogBody', "onLostPointerCapture">;
-  @NgInput() declare "onLostPointerCaptureCapture"?: AngularInput<'DialogBody', "onLostPointerCaptureCapture">;
+  @NgInput() declare "onPointerMove"?: AngularInput<'DialogBody', "onPointerMove">;
+  @NgInput() declare "onPointerMoveCapture"?: AngularInput<'DialogBody', "onPointerMoveCapture">;
+  @NgInput() declare "onPointerOut"?: AngularInput<'DialogBody', "onPointerOut">;
+  @NgInput() declare "onPointerOutCapture"?: AngularInput<'DialogBody', "onPointerOutCapture">;
+  @NgInput() declare "onPointerOver"?: AngularInput<'DialogBody', "onPointerOver">;
+  @NgInput() declare "onPointerOverCapture"?: AngularInput<'DialogBody', "onPointerOverCapture">;
+  @NgInput() declare "onPointerUp"?: AngularInput<'DialogBody', "onPointerUp">;
+  @NgInput() declare "onPointerUpCapture"?: AngularInput<'DialogBody', "onPointerUpCapture">;
+  @NgInput() declare "onProgress"?: AngularInput<'DialogBody', "onProgress">;
+  @NgInput() declare "onProgressCapture"?: AngularInput<'DialogBody', "onProgressCapture">;
+  @NgInput() declare "onRateChange"?: AngularInput<'DialogBody', "onRateChange">;
+  @NgInput() declare "onRateChangeCapture"?: AngularInput<'DialogBody', "onRateChangeCapture">;
+  @NgInput() declare "onReset"?: AngularInput<'DialogBody', "onReset">;
+  @NgInput() declare "onResetCapture"?: AngularInput<'DialogBody', "onResetCapture">;
+  @NgInput() declare "onResize"?: AngularInput<'DialogBody', "onResize">;
+  @NgInput() declare "onResizeCapture"?: AngularInput<'DialogBody', "onResizeCapture">;
   @NgInput() declare "onScroll"?: AngularInput<'DialogBody', "onScroll">;
   @NgInput() declare "onScrollCapture"?: AngularInput<'DialogBody', "onScrollCapture">;
   @NgInput() declare "onScrollEnd"?: AngularInput<'DialogBody', "onScrollEnd">;
@@ -292,14 +260,31 @@ export class DialogBody extends AngularComponentAdapter<never> {
   @NgInput() declare "onScrollSnapChangeCapture"?: AngularInput<'DialogBody', "onScrollSnapChangeCapture">;
   @NgInput() declare "onScrollSnapChanging"?: AngularInput<'DialogBody', "onScrollSnapChanging">;
   @NgInput() declare "onScrollSnapChangingCapture"?: AngularInput<'DialogBody', "onScrollSnapChangingCapture">;
-  @NgInput() declare "onWheel"?: AngularInput<'DialogBody', "onWheel">;
-  @NgInput() declare "onWheelCapture"?: AngularInput<'DialogBody', "onWheelCapture">;
-  @NgInput() declare "onAnimationStart"?: AngularInput<'DialogBody', "onAnimationStart">;
-  @NgInput() declare "onAnimationStartCapture"?: AngularInput<'DialogBody', "onAnimationStartCapture">;
-  @NgInput() declare "onAnimationEnd"?: AngularInput<'DialogBody', "onAnimationEnd">;
-  @NgInput() declare "onAnimationEndCapture"?: AngularInput<'DialogBody', "onAnimationEndCapture">;
-  @NgInput() declare "onAnimationIteration"?: AngularInput<'DialogBody', "onAnimationIteration">;
-  @NgInput() declare "onAnimationIterationCapture"?: AngularInput<'DialogBody', "onAnimationIterationCapture">;
+  @NgInput() declare "onSearch"?: AngularInput<'DialogBody', "onSearch">;
+  @NgInput() declare "onSearchCapture"?: AngularInput<'DialogBody', "onSearchCapture">;
+  @NgInput() declare "onSeeked"?: AngularInput<'DialogBody', "onSeeked">;
+  @NgInput() declare "onSeekedCapture"?: AngularInput<'DialogBody', "onSeekedCapture">;
+  @NgInput() declare "onSeeking"?: AngularInput<'DialogBody', "onSeeking">;
+  @NgInput() declare "onSeekingCapture"?: AngularInput<'DialogBody', "onSeekingCapture">;
+  @NgInput() declare "onSelect"?: AngularInput<'DialogBody', "onSelect">;
+  @NgInput() declare "onSelectCapture"?: AngularInput<'DialogBody', "onSelectCapture">;
+  @NgInput() declare "onStalled"?: AngularInput<'DialogBody', "onStalled">;
+  @NgInput() declare "onStalledCapture"?: AngularInput<'DialogBody', "onStalledCapture">;
+  @NgInput() declare "onSubmit"?: AngularInput<'DialogBody', "onSubmit">;
+  @NgInput() declare "onSubmitCapture"?: AngularInput<'DialogBody', "onSubmitCapture">;
+  @NgInput() declare "onSuspend"?: AngularInput<'DialogBody', "onSuspend">;
+  @NgInput() declare "onSuspendCapture"?: AngularInput<'DialogBody', "onSuspendCapture">;
+  @NgInput() declare "onTimeUpdate"?: AngularInput<'DialogBody', "onTimeUpdate">;
+  @NgInput() declare "onTimeUpdateCapture"?: AngularInput<'DialogBody', "onTimeUpdateCapture">;
+  @NgInput() declare "onToggle"?: AngularInput<'DialogBody', "onToggle">;
+  @NgInput() declare "onTouchCancel"?: AngularInput<'DialogBody', "onTouchCancel">;
+  @NgInput() declare "onTouchCancelCapture"?: AngularInput<'DialogBody', "onTouchCancelCapture">;
+  @NgInput() declare "onTouchEnd"?: AngularInput<'DialogBody', "onTouchEnd">;
+  @NgInput() declare "onTouchEndCapture"?: AngularInput<'DialogBody', "onTouchEndCapture">;
+  @NgInput() declare "onTouchMove"?: AngularInput<'DialogBody', "onTouchMove">;
+  @NgInput() declare "onTouchMoveCapture"?: AngularInput<'DialogBody', "onTouchMoveCapture">;
+  @NgInput() declare "onTouchStart"?: AngularInput<'DialogBody', "onTouchStart">;
+  @NgInput() declare "onTouchStartCapture"?: AngularInput<'DialogBody', "onTouchStartCapture">;
   @NgInput() declare "onTransitionCancel"?: AngularInput<'DialogBody', "onTransitionCancel">;
   @NgInput() declare "onTransitionCancelCapture"?: AngularInput<'DialogBody', "onTransitionCancelCapture">;
   @NgInput() declare "onTransitionEnd"?: AngularInput<'DialogBody', "onTransitionEnd">;
@@ -308,111 +293,66 @@ export class DialogBody extends AngularComponentAdapter<never> {
   @NgInput() declare "onTransitionRunCapture"?: AngularInput<'DialogBody', "onTransitionRunCapture">;
   @NgInput() declare "onTransitionStart"?: AngularInput<'DialogBody', "onTransitionStart">;
   @NgInput() declare "onTransitionStartCapture"?: AngularInput<'DialogBody', "onTransitionStartCapture">;
-  @NgInput() declare "onEnterPictureInPicture"?: AngularInput<'DialogBody', "onEnterPictureInPicture">;
-  @NgInput() declare "onEnterPictureInPictureCapture"?: AngularInput<'DialogBody', "onEnterPictureInPictureCapture">;
-  @NgInput() declare "onLeavePictureInPicture"?: AngularInput<'DialogBody', "onLeavePictureInPicture">;
-  @NgInput() declare "onLeavePictureInPictureCapture"?: AngularInput<'DialogBody', "onLeavePictureInPictureCapture">;
-  @NgInput() declare "onResize"?: AngularInput<'DialogBody', "onResize">;
-  @NgInput() declare "onResizeCapture"?: AngularInput<'DialogBody', "onResizeCapture">;
-  @NgInput() declare "onCommand"?: AngularInput<'DialogBody', "onCommand">;
+  @NgInput() declare "onVolumeChange"?: AngularInput<'DialogBody', "onVolumeChange">;
+  @NgInput() declare "onVolumeChangeCapture"?: AngularInput<'DialogBody', "onVolumeChangeCapture">;
+  @NgInput() declare "onWaiting"?: AngularInput<'DialogBody', "onWaiting">;
+  @NgInput() declare "onWaitingCapture"?: AngularInput<'DialogBody', "onWaitingCapture">;
+  @NgInput() declare "onWheel"?: AngularInput<'DialogBody', "onWheel">;
+  @NgInput() declare "onWheelCapture"?: AngularInput<'DialogBody', "onWheelCapture">;
+  @NgInput() declare "part"?: AngularInput<'DialogBody', "part">;
+  @NgInput() declare "popover"?: AngularInput<'DialogBody', "popover">;
+  @NgInput() declare "prefix"?: AngularInput<'DialogBody', "prefix">;
+  @NgInput() declare "property"?: AngularInput<'DialogBody', "property">;
+  @NgInput() declare "resource"?: AngularInput<'DialogBody', "resource">;
+  @NgInput() declare "results"?: AngularInput<'DialogBody', "results">;
+  @NgInput() declare "role"?: AngularInput<'DialogBody', "role">;
+  @NgInput() declare "slot"?: AngularInput<'DialogBody', "slot">;
+  @NgInput() declare "spellcheck"?: AngularInput<'DialogBody', "spellcheck">;
+  @NgInput() declare "style"?: AngularInput<'DialogBody', "style">;
+  @NgInput() declare "tabIndex"?: AngularInput<'DialogBody', "tabIndex">;
+  @NgInput() declare "tabindex"?: AngularInput<'DialogBody', "tabindex">;
+  @NgInput() declare "title"?: AngularInput<'DialogBody', "title">;
+  @NgInput() declare "translate"?: AngularInput<'DialogBody', "translate">;
+  @NgInput() declare "typeof"?: AngularInput<'DialogBody', "typeof">;
+  @NgInput() declare "vocab"?: AngularInput<'DialogBody', "vocab">;
+  @Output() get abortEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onAbort'>>>('onAbort'); }
+  @Output() get abortCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onAbortCapture'>>>('onAbortCapture'); }
+  @Output() get animationEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onAnimationEnd'>>>('onAnimationEnd'); }
+  @Output() get animationEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onAnimationEndCapture'>>>('onAnimationEndCapture'); }
+  @Output() get animationIterationEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onAnimationIteration'>>>('onAnimationIteration'); }
+  @Output() get animationIterationCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onAnimationIterationCapture'>>>('onAnimationIterationCapture'); }
+  @Output() get animationStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onAnimationStart'>>>('onAnimationStart'); }
+  @Output() get animationStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onAnimationStartCapture'>>>('onAnimationStartCapture'); }
+  @Output() get auxClickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onAuxClick'>>>('onAuxClick'); }
+  @Output() get auxClickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onAuxClickCapture'>>>('onAuxClickCapture'); }
+  @Output() get beforeInputEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onBeforeInput'>>>('onBeforeInput'); }
+  @Output() get beforeInputCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onBeforeInputCapture'>>>('onBeforeInputCapture'); }
+  @Output() get beforeToggleEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onBeforeToggle'>>>('onBeforeToggle'); }
+  @Output() get blurEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onBlur'>>>('onBlur'); }
+  @Output() get blurCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onBlurCapture'>>>('onBlurCapture'); }
+  @Output() get canPlayEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onCanPlay'>>>('onCanPlay'); }
+  @Output() get canPlayCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onCanPlayCapture'>>>('onCanPlayCapture'); }
+  @Output() get canPlayThroughEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onCanPlayThrough'>>>('onCanPlayThrough'); }
+  @Output() get canPlayThroughCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onCanPlayThroughCapture'>>>('onCanPlayThroughCapture'); }
+  @Output() get cancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onCancel'>>>('onCancel'); }
   @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onChange'>>>('onChange'); }
-  @Output() get loadEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onLoad'>>>('onLoad'); }
-  @Output() get loadCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onLoadCapture'>>>('onLoadCapture'); }
-  @Output() get errorEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onError'>>>('onError'); }
-  @Output() get errorCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onErrorCapture'>>>('onErrorCapture'); }
-  @Output() get copyEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onCopy'>>>('onCopy'); }
-  @Output() get copyCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onCopyCapture'>>>('onCopyCapture'); }
-  @Output() get cutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onCut'>>>('onCut'); }
-  @Output() get cutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onCutCapture'>>>('onCutCapture'); }
-  @Output() get pasteEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPaste'>>>('onPaste'); }
-  @Output() get pasteCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPasteCapture'>>>('onPasteCapture'); }
+  @Output() get changeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onChangeCapture'>>>('onChangeCapture'); }
+  @Output() get clickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onClick'>>>('onClick'); }
+  @Output() get clickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onClickCapture'>>>('onClickCapture'); }
+  @Output() get closeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onClose'>>>('onClose'); }
+  @Output() get commandEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onCommand'>>>('onCommand'); }
   @Output() get compositionEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onCompositionEnd'>>>('onCompositionEnd'); }
   @Output() get compositionEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onCompositionEndCapture'>>>('onCompositionEndCapture'); }
   @Output() get compositionStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onCompositionStart'>>>('onCompositionStart'); }
   @Output() get compositionStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onCompositionStartCapture'>>>('onCompositionStartCapture'); }
   @Output() get compositionUpdateEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onCompositionUpdate'>>>('onCompositionUpdate'); }
   @Output() get compositionUpdateCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onCompositionUpdateCapture'>>>('onCompositionUpdateCapture'); }
-  @Output() get beforeToggleEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onBeforeToggle'>>>('onBeforeToggle'); }
-  @Output() get toggleEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onToggle'>>>('onToggle'); }
-  @Output() get closeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onClose'>>>('onClose'); }
-  @Output() get cancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onCancel'>>>('onCancel'); }
-  @Output() get focusEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onFocus'>>>('onFocus'); }
-  @Output() get focusCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onFocusCapture'>>>('onFocusCapture'); }
-  @Output() get focusInEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onFocusIn'>>>('onFocusIn'); }
-  @Output() get focusInCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onFocusInCapture'>>>('onFocusInCapture'); }
-  @Output() get focusOutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onFocusOut'>>>('onFocusOut'); }
-  @Output() get focusOutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onFocusOutCapture'>>>('onFocusOutCapture'); }
-  @Output() get blurEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onBlur'>>>('onBlur'); }
-  @Output() get blurCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onBlurCapture'>>>('onBlurCapture'); }
-  @Output() get changeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onChangeCapture'>>>('onChangeCapture'); }
-  @Output() get inputEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onInput'>>>('onInput'); }
-  @Output() get inputCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onInputCapture'>>>('onInputCapture'); }
-  @Output() get beforeInputEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onBeforeInput'>>>('onBeforeInput'); }
-  @Output() get beforeInputCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onBeforeInputCapture'>>>('onBeforeInputCapture'); }
-  @Output() get searchEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onSearch'>>>('onSearch'); }
-  @Output() get searchCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onSearchCapture'>>>('onSearchCapture'); }
-  @Output() get submitEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onSubmit'>>>('onSubmit'); }
-  @Output() get submitCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onSubmitCapture'>>>('onSubmitCapture'); }
-  @Output() get invalidEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onInvalid'>>>('onInvalid'); }
-  @Output() get invalidCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onInvalidCapture'>>>('onInvalidCapture'); }
-  @Output() get resetEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onReset'>>>('onReset'); }
-  @Output() get resetCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onResetCapture'>>>('onResetCapture'); }
-  @Output() get formDataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onFormData'>>>('onFormData'); }
-  @Output() get formDataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onFormDataCapture'>>>('onFormDataCapture'); }
-  @Output() get keyDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onKeyDown'>>>('onKeyDown'); }
-  @Output() get keyDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onKeyDownCapture'>>>('onKeyDownCapture'); }
-  @Output() get keyPressEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onKeyPress'>>>('onKeyPress'); }
-  @Output() get keyPressCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onKeyPressCapture'>>>('onKeyPressCapture'); }
-  @Output() get keyUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onKeyUp'>>>('onKeyUp'); }
-  @Output() get keyUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onKeyUpCapture'>>>('onKeyUpCapture'); }
-  @Output() get abortEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onAbort'>>>('onAbort'); }
-  @Output() get abortCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onAbortCapture'>>>('onAbortCapture'); }
-  @Output() get canPlayEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onCanPlay'>>>('onCanPlay'); }
-  @Output() get canPlayCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onCanPlayCapture'>>>('onCanPlayCapture'); }
-  @Output() get canPlayThroughEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onCanPlayThrough'>>>('onCanPlayThrough'); }
-  @Output() get canPlayThroughCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onCanPlayThroughCapture'>>>('onCanPlayThroughCapture'); }
-  @Output() get durationChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onDurationChange'>>>('onDurationChange'); }
-  @Output() get durationChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onDurationChangeCapture'>>>('onDurationChangeCapture'); }
-  @Output() get emptiedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onEmptied'>>>('onEmptied'); }
-  @Output() get emptiedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onEmptiedCapture'>>>('onEmptiedCapture'); }
-  @Output() get encryptedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onEncrypted'>>>('onEncrypted'); }
-  @Output() get encryptedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onEncryptedCapture'>>>('onEncryptedCapture'); }
-  @Output() get endedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onEnded'>>>('onEnded'); }
-  @Output() get endedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onEndedCapture'>>>('onEndedCapture'); }
-  @Output() get loadedDataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onLoadedData'>>>('onLoadedData'); }
-  @Output() get loadedDataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onLoadedDataCapture'>>>('onLoadedDataCapture'); }
-  @Output() get loadedMetadataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onLoadedMetadata'>>>('onLoadedMetadata'); }
-  @Output() get loadedMetadataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onLoadedMetadataCapture'>>>('onLoadedMetadataCapture'); }
-  @Output() get loadStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onLoadStart'>>>('onLoadStart'); }
-  @Output() get loadStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onLoadStartCapture'>>>('onLoadStartCapture'); }
-  @Output() get pauseEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPause'>>>('onPause'); }
-  @Output() get pauseCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPauseCapture'>>>('onPauseCapture'); }
-  @Output() get playEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPlay'>>>('onPlay'); }
-  @Output() get playCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPlayCapture'>>>('onPlayCapture'); }
-  @Output() get playingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPlaying'>>>('onPlaying'); }
-  @Output() get playingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPlayingCapture'>>>('onPlayingCapture'); }
-  @Output() get progressEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onProgress'>>>('onProgress'); }
-  @Output() get progressCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onProgressCapture'>>>('onProgressCapture'); }
-  @Output() get rateChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onRateChange'>>>('onRateChange'); }
-  @Output() get rateChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onRateChangeCapture'>>>('onRateChangeCapture'); }
-  @Output() get seekedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onSeeked'>>>('onSeeked'); }
-  @Output() get seekedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onSeekedCapture'>>>('onSeekedCapture'); }
-  @Output() get seekingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onSeeking'>>>('onSeeking'); }
-  @Output() get seekingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onSeekingCapture'>>>('onSeekingCapture'); }
-  @Output() get stalledEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onStalled'>>>('onStalled'); }
-  @Output() get stalledCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onStalledCapture'>>>('onStalledCapture'); }
-  @Output() get suspendEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onSuspend'>>>('onSuspend'); }
-  @Output() get suspendCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onSuspendCapture'>>>('onSuspendCapture'); }
-  @Output() get timeUpdateEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onTimeUpdate'>>>('onTimeUpdate'); }
-  @Output() get timeUpdateCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onTimeUpdateCapture'>>>('onTimeUpdateCapture'); }
-  @Output() get volumeChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onVolumeChange'>>>('onVolumeChange'); }
-  @Output() get volumeChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onVolumeChangeCapture'>>>('onVolumeChangeCapture'); }
-  @Output() get waitingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onWaiting'>>>('onWaiting'); }
-  @Output() get waitingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onWaitingCapture'>>>('onWaitingCapture'); }
-  @Output() get clickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onClick'>>>('onClick'); }
-  @Output() get clickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onClickCapture'>>>('onClickCapture'); }
   @Output() get contextMenuEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onContextMenu'>>>('onContextMenu'); }
   @Output() get contextMenuCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onContextMenuCapture'>>>('onContextMenuCapture'); }
+  @Output() get copyEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onCopy'>>>('onCopy'); }
+  @Output() get copyCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onCopyCapture'>>>('onCopyCapture'); }
+  @Output() get cutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onCut'>>>('onCut'); }
+  @Output() get cutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onCutCapture'>>>('onCutCapture'); }
   @Output() get dblClickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onDblClick'>>>('onDblClick'); }
   @Output() get dblClickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onDblClickCapture'>>>('onDblClickCapture'); }
   @Output() get dragEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onDrag'>>>('onDrag'); }
@@ -431,6 +371,50 @@ export class DialogBody extends AngularComponentAdapter<never> {
   @Output() get dragStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onDragStartCapture'>>>('onDragStartCapture'); }
   @Output() get dropEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onDrop'>>>('onDrop'); }
   @Output() get dropCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onDropCapture'>>>('onDropCapture'); }
+  @Output() get durationChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onDurationChange'>>>('onDurationChange'); }
+  @Output() get durationChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onDurationChangeCapture'>>>('onDurationChangeCapture'); }
+  @Output() get emptiedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onEmptied'>>>('onEmptied'); }
+  @Output() get emptiedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onEmptiedCapture'>>>('onEmptiedCapture'); }
+  @Output() get encryptedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onEncrypted'>>>('onEncrypted'); }
+  @Output() get encryptedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onEncryptedCapture'>>>('onEncryptedCapture'); }
+  @Output() get endedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onEnded'>>>('onEnded'); }
+  @Output() get endedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onEndedCapture'>>>('onEndedCapture'); }
+  @Output() get enterPictureInPictureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onEnterPictureInPicture'>>>('onEnterPictureInPicture'); }
+  @Output() get enterPictureInPictureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onEnterPictureInPictureCapture'>>>('onEnterPictureInPictureCapture'); }
+  @Output() get errorEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onError'>>>('onError'); }
+  @Output() get errorCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onErrorCapture'>>>('onErrorCapture'); }
+  @Output() get focusEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onFocus'>>>('onFocus'); }
+  @Output() get focusCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onFocusCapture'>>>('onFocusCapture'); }
+  @Output() get focusInEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onFocusIn'>>>('onFocusIn'); }
+  @Output() get focusInCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onFocusInCapture'>>>('onFocusInCapture'); }
+  @Output() get focusOutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onFocusOut'>>>('onFocusOut'); }
+  @Output() get focusOutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onFocusOutCapture'>>>('onFocusOutCapture'); }
+  @Output() get formDataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onFormData'>>>('onFormData'); }
+  @Output() get formDataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onFormDataCapture'>>>('onFormDataCapture'); }
+  @Output() get gotPointerCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onGotPointerCapture'>>>('onGotPointerCapture'); }
+  @Output() get gotPointerCaptureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onGotPointerCaptureCapture'>>>('onGotPointerCaptureCapture'); }
+  @Output() get inputEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onInput'>>>('onInput'); }
+  @Output() get inputCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onInputCapture'>>>('onInputCapture'); }
+  @Output() get invalidEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onInvalid'>>>('onInvalid'); }
+  @Output() get invalidCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onInvalidCapture'>>>('onInvalidCapture'); }
+  @Output() get keyDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onKeyDown'>>>('onKeyDown'); }
+  @Output() get keyDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onKeyDownCapture'>>>('onKeyDownCapture'); }
+  @Output() get keyPressEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onKeyPress'>>>('onKeyPress'); }
+  @Output() get keyPressCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onKeyPressCapture'>>>('onKeyPressCapture'); }
+  @Output() get keyUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onKeyUp'>>>('onKeyUp'); }
+  @Output() get keyUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onKeyUpCapture'>>>('onKeyUpCapture'); }
+  @Output() get leavePictureInPictureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onLeavePictureInPicture'>>>('onLeavePictureInPicture'); }
+  @Output() get leavePictureInPictureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onLeavePictureInPictureCapture'>>>('onLeavePictureInPictureCapture'); }
+  @Output() get loadEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onLoad'>>>('onLoad'); }
+  @Output() get loadCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onLoadCapture'>>>('onLoadCapture'); }
+  @Output() get loadStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onLoadStart'>>>('onLoadStart'); }
+  @Output() get loadStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onLoadStartCapture'>>>('onLoadStartCapture'); }
+  @Output() get loadedDataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onLoadedData'>>>('onLoadedData'); }
+  @Output() get loadedDataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onLoadedDataCapture'>>>('onLoadedDataCapture'); }
+  @Output() get loadedMetadataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onLoadedMetadata'>>>('onLoadedMetadata'); }
+  @Output() get loadedMetadataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onLoadedMetadataCapture'>>>('onLoadedMetadataCapture'); }
+  @Output() get lostPointerCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onLostPointerCapture'>>>('onLostPointerCapture'); }
+  @Output() get lostPointerCaptureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onLostPointerCaptureCapture'>>>('onLostPointerCaptureCapture'); }
   @Output() get mouseDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onMouseDown'>>>('onMouseDown'); }
   @Output() get mouseDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onMouseDownCapture'>>>('onMouseDownCapture'); }
   @Output() get mouseEnterEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onMouseEnter'>>>('onMouseEnter'); }
@@ -445,38 +429,38 @@ export class DialogBody extends AngularComponentAdapter<never> {
   @Output() get mouseOverCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onMouseOverCapture'>>>('onMouseOverCapture'); }
   @Output() get mouseUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onMouseUp'>>>('onMouseUp'); }
   @Output() get mouseUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onMouseUpCapture'>>>('onMouseUpCapture'); }
-  @Output() get auxClickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onAuxClick'>>>('onAuxClick'); }
-  @Output() get auxClickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onAuxClickCapture'>>>('onAuxClickCapture'); }
-  @Output() get selectEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onSelect'>>>('onSelect'); }
-  @Output() get selectCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onSelectCapture'>>>('onSelectCapture'); }
-  @Output() get touchCancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onTouchCancel'>>>('onTouchCancel'); }
-  @Output() get touchCancelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onTouchCancelCapture'>>>('onTouchCancelCapture'); }
-  @Output() get touchEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onTouchEnd'>>>('onTouchEnd'); }
-  @Output() get touchEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onTouchEndCapture'>>>('onTouchEndCapture'); }
-  @Output() get touchMoveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onTouchMove'>>>('onTouchMove'); }
-  @Output() get touchMoveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onTouchMoveCapture'>>>('onTouchMoveCapture'); }
-  @Output() get touchStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onTouchStart'>>>('onTouchStart'); }
-  @Output() get touchStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onTouchStartCapture'>>>('onTouchStartCapture'); }
-  @Output() get pointerOverEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPointerOver'>>>('onPointerOver'); }
-  @Output() get pointerOverCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPointerOverCapture'>>>('onPointerOverCapture'); }
-  @Output() get pointerEnterEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPointerEnter'>>>('onPointerEnter'); }
-  @Output() get pointerEnterCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPointerEnterCapture'>>>('onPointerEnterCapture'); }
-  @Output() get pointerDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPointerDown'>>>('onPointerDown'); }
-  @Output() get pointerDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPointerDownCapture'>>>('onPointerDownCapture'); }
-  @Output() get pointerMoveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPointerMove'>>>('onPointerMove'); }
-  @Output() get pointerMoveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPointerMoveCapture'>>>('onPointerMoveCapture'); }
-  @Output() get pointerUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPointerUp'>>>('onPointerUp'); }
-  @Output() get pointerUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPointerUpCapture'>>>('onPointerUpCapture'); }
+  @Output() get pasteEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPaste'>>>('onPaste'); }
+  @Output() get pasteCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPasteCapture'>>>('onPasteCapture'); }
+  @Output() get pauseEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPause'>>>('onPause'); }
+  @Output() get pauseCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPauseCapture'>>>('onPauseCapture'); }
+  @Output() get playEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPlay'>>>('onPlay'); }
+  @Output() get playCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPlayCapture'>>>('onPlayCapture'); }
+  @Output() get playingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPlaying'>>>('onPlaying'); }
+  @Output() get playingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPlayingCapture'>>>('onPlayingCapture'); }
   @Output() get pointerCancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPointerCancel'>>>('onPointerCancel'); }
   @Output() get pointerCancelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPointerCancelCapture'>>>('onPointerCancelCapture'); }
-  @Output() get pointerOutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPointerOut'>>>('onPointerOut'); }
-  @Output() get pointerOutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPointerOutCapture'>>>('onPointerOutCapture'); }
+  @Output() get pointerDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPointerDown'>>>('onPointerDown'); }
+  @Output() get pointerDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPointerDownCapture'>>>('onPointerDownCapture'); }
+  @Output() get pointerEnterEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPointerEnter'>>>('onPointerEnter'); }
+  @Output() get pointerEnterCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPointerEnterCapture'>>>('onPointerEnterCapture'); }
   @Output() get pointerLeaveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPointerLeave'>>>('onPointerLeave'); }
   @Output() get pointerLeaveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPointerLeaveCapture'>>>('onPointerLeaveCapture'); }
-  @Output() get gotPointerCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onGotPointerCapture'>>>('onGotPointerCapture'); }
-  @Output() get gotPointerCaptureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onGotPointerCaptureCapture'>>>('onGotPointerCaptureCapture'); }
-  @Output() get lostPointerCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onLostPointerCapture'>>>('onLostPointerCapture'); }
-  @Output() get lostPointerCaptureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onLostPointerCaptureCapture'>>>('onLostPointerCaptureCapture'); }
+  @Output() get pointerMoveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPointerMove'>>>('onPointerMove'); }
+  @Output() get pointerMoveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPointerMoveCapture'>>>('onPointerMoveCapture'); }
+  @Output() get pointerOutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPointerOut'>>>('onPointerOut'); }
+  @Output() get pointerOutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPointerOutCapture'>>>('onPointerOutCapture'); }
+  @Output() get pointerOverEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPointerOver'>>>('onPointerOver'); }
+  @Output() get pointerOverCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPointerOverCapture'>>>('onPointerOverCapture'); }
+  @Output() get pointerUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPointerUp'>>>('onPointerUp'); }
+  @Output() get pointerUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onPointerUpCapture'>>>('onPointerUpCapture'); }
+  @Output() get progressEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onProgress'>>>('onProgress'); }
+  @Output() get progressCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onProgressCapture'>>>('onProgressCapture'); }
+  @Output() get rateChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onRateChange'>>>('onRateChange'); }
+  @Output() get rateChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onRateChangeCapture'>>>('onRateChangeCapture'); }
+  @Output() get resetEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onReset'>>>('onReset'); }
+  @Output() get resetCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onResetCapture'>>>('onResetCapture'); }
+  @Output() get resizeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onResize'>>>('onResize'); }
+  @Output() get resizeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onResizeCapture'>>>('onResizeCapture'); }
   @Output() get scrollEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onScroll'>>>('onScroll'); }
   @Output() get scrollCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onScrollCapture'>>>('onScrollCapture'); }
   @Output() get scrollEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onScrollEnd'>>>('onScrollEnd'); }
@@ -485,14 +469,31 @@ export class DialogBody extends AngularComponentAdapter<never> {
   @Output() get scrollSnapChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onScrollSnapChangeCapture'>>>('onScrollSnapChangeCapture'); }
   @Output() get scrollSnapChangingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onScrollSnapChanging'>>>('onScrollSnapChanging'); }
   @Output() get scrollSnapChangingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onScrollSnapChangingCapture'>>>('onScrollSnapChangingCapture'); }
-  @Output() get wheelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onWheel'>>>('onWheel'); }
-  @Output() get wheelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onWheelCapture'>>>('onWheelCapture'); }
-  @Output() get animationStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onAnimationStart'>>>('onAnimationStart'); }
-  @Output() get animationStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onAnimationStartCapture'>>>('onAnimationStartCapture'); }
-  @Output() get animationEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onAnimationEnd'>>>('onAnimationEnd'); }
-  @Output() get animationEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onAnimationEndCapture'>>>('onAnimationEndCapture'); }
-  @Output() get animationIterationEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onAnimationIteration'>>>('onAnimationIteration'); }
-  @Output() get animationIterationCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onAnimationIterationCapture'>>>('onAnimationIterationCapture'); }
+  @Output() get searchEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onSearch'>>>('onSearch'); }
+  @Output() get searchCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onSearchCapture'>>>('onSearchCapture'); }
+  @Output() get seekedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onSeeked'>>>('onSeeked'); }
+  @Output() get seekedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onSeekedCapture'>>>('onSeekedCapture'); }
+  @Output() get seekingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onSeeking'>>>('onSeeking'); }
+  @Output() get seekingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onSeekingCapture'>>>('onSeekingCapture'); }
+  @Output() get selectEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onSelect'>>>('onSelect'); }
+  @Output() get selectCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onSelectCapture'>>>('onSelectCapture'); }
+  @Output() get stalledEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onStalled'>>>('onStalled'); }
+  @Output() get stalledCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onStalledCapture'>>>('onStalledCapture'); }
+  @Output() get submitEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onSubmit'>>>('onSubmit'); }
+  @Output() get submitCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onSubmitCapture'>>>('onSubmitCapture'); }
+  @Output() get suspendEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onSuspend'>>>('onSuspend'); }
+  @Output() get suspendCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onSuspendCapture'>>>('onSuspendCapture'); }
+  @Output() get timeUpdateEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onTimeUpdate'>>>('onTimeUpdate'); }
+  @Output() get timeUpdateCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onTimeUpdateCapture'>>>('onTimeUpdateCapture'); }
+  @Output() get toggleEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onToggle'>>>('onToggle'); }
+  @Output() get touchCancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onTouchCancel'>>>('onTouchCancel'); }
+  @Output() get touchCancelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onTouchCancelCapture'>>>('onTouchCancelCapture'); }
+  @Output() get touchEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onTouchEnd'>>>('onTouchEnd'); }
+  @Output() get touchEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onTouchEndCapture'>>>('onTouchEndCapture'); }
+  @Output() get touchMoveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onTouchMove'>>>('onTouchMove'); }
+  @Output() get touchMoveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onTouchMoveCapture'>>>('onTouchMoveCapture'); }
+  @Output() get touchStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onTouchStart'>>>('onTouchStart'); }
+  @Output() get touchStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onTouchStartCapture'>>>('onTouchStartCapture'); }
   @Output() get transitionCancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onTransitionCancel'>>>('onTransitionCancel'); }
   @Output() get transitionCancelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onTransitionCancelCapture'>>>('onTransitionCancelCapture'); }
   @Output() get transitionEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onTransitionEnd'>>>('onTransitionEnd'); }
@@ -501,12 +502,11 @@ export class DialogBody extends AngularComponentAdapter<never> {
   @Output() get transitionRunCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onTransitionRunCapture'>>>('onTransitionRunCapture'); }
   @Output() get transitionStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onTransitionStart'>>>('onTransitionStart'); }
   @Output() get transitionStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onTransitionStartCapture'>>>('onTransitionStartCapture'); }
-  @Output() get enterPictureInPictureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onEnterPictureInPicture'>>>('onEnterPictureInPicture'); }
-  @Output() get enterPictureInPictureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onEnterPictureInPictureCapture'>>>('onEnterPictureInPictureCapture'); }
-  @Output() get leavePictureInPictureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onLeavePictureInPicture'>>>('onLeavePictureInPicture'); }
-  @Output() get leavePictureInPictureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onLeavePictureInPictureCapture'>>>('onLeavePictureInPictureCapture'); }
-  @Output() get resizeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onResize'>>>('onResize'); }
-  @Output() get resizeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onResizeCapture'>>>('onResizeCapture'); }
-  @Output() get commandEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onCommand'>>>('onCommand'); }
+  @Output() get volumeChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onVolumeChange'>>>('onVolumeChange'); }
+  @Output() get volumeChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onVolumeChangeCapture'>>>('onVolumeChangeCapture'); }
+  @Output() get waitingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onWaiting'>>>('onWaiting'); }
+  @Output() get waitingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onWaitingCapture'>>>('onWaitingCapture'); }
+  @Output() get wheelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onWheel'>>>('onWheel'); }
+  @Output() get wheelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onWheelCapture'>>>('onWheelCapture'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

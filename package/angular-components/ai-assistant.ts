@@ -12,11 +12,11 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class AiAssistant extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'AiAssistant';
   protected rvResolveComponent() { return Control; }
+  @NgInput() declare "busy"?: AngularInput<'AiAssistant', "busy">;
+  @NgInput() declare "footer"?: AngularInput<'AiAssistant', "footer">;
+  @NgInput() declare "label"?: AngularInput<'AiAssistant', "label">;
   @NgInput() declare "layout"?: AngularInput<'AiAssistant', "layout">;
   @NgInput() declare "translations"?: AngularInput<'AiAssistant', "translations">;
-  @NgInput() declare "label"?: AngularInput<'AiAssistant', "label">;
-  @NgInput() declare "footer"?: AngularInput<'AiAssistant', "footer">;
-  @NgInput() declare "busy"?: AngularInput<'AiAssistant', "busy">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

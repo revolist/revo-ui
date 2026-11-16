@@ -13,15 +13,15 @@ export class Popover extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'Popover';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onClose"];
-  @NgInput({ required: true }) declare "open": AngularInput<'Popover', "open">;
   @NgInput({ required: true }) declare "anchor": AngularInput<'Popover', "anchor">;
   @NgInput() declare "appendTo"?: AngularInput<'Popover', "appendTo">;
-  @NgInput() declare "closeOnOutside"?: AngularInput<'Popover', "closeOnOutside">;
-  @NgInput() declare "closeOnEscape"?: AngularInput<'Popover', "closeOnEscape">;
-  @NgInput() declare "label"?: AngularInput<'Popover', "label">;
   @NgInput() declare "className"?: AngularInput<'Popover', "className">;
-  @NgInput() declare "role"?: AngularInput<'Popover', "role">;
+  @NgInput() declare "closeOnEscape"?: AngularInput<'Popover', "closeOnEscape">;
+  @NgInput() declare "closeOnOutside"?: AngularInput<'Popover', "closeOnOutside">;
+  @NgInput() declare "label"?: AngularInput<'Popover', "label">;
   @NgInput() declare "onClose"?: AngularInput<'Popover', "onClose">;
+  @NgInput({ required: true }) declare "open": AngularInput<'Popover', "open">;
+  @NgInput() declare "role"?: AngularInput<'Popover', "role">;
   @Output() get closeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'Popover', 'onClose'>>>('onClose'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

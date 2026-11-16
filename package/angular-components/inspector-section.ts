@@ -12,11 +12,11 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class InspectorSection extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'InspectorSection';
   protected rvResolveComponent() { return Control; }
-  @NgInput({ required: true }) declare "title": AngularInput<'InspectorSection', "title">;
-  @NgInput({ required: true }) declare "icon": AngularInput<'InspectorSection', "icon">;
-  @NgInput({ required: true }) declare "expandLabel": AngularInput<'InspectorSection', "expandLabel">;
   @NgInput({ required: true }) declare "collapseLabel": AngularInput<'InspectorSection', "collapseLabel">;
+  @NgInput({ required: true }) declare "expandLabel": AngularInput<'InspectorSection', "expandLabel">;
+  @NgInput({ required: true }) declare "icon": AngularInput<'InspectorSection', "icon">;
   @NgInput() declare "open"?: AngularInput<'InspectorSection', "open">;
+  @NgInput({ required: true }) declare "title": AngularInput<'InspectorSection', "title">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

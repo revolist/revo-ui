@@ -12,13 +12,13 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class AssigneeField extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'AssigneeField';
   protected rvResolveComponent() { return Control; }
-  @NgInput({ required: true }) declare "value": AngularInput<'AssigneeField', "value">;
+  @NgInput({ required: true }) declare "cancel": AngularInput<'AssigneeField', "cancel">;
   @NgInput({ required: true }) declare "options": AngularInput<'AssigneeField', "options">;
-  @NgInput() declare "theme"?: AngularInput<'AssigneeField', "theme">;
   @NgInput() declare "renderPicker"?: AngularInput<'AssigneeField', "renderPicker">;
   @NgInput() declare "renderValue"?: AngularInput<'AssigneeField', "renderValue">;
   @NgInput({ required: true }) declare "save": AngularInput<'AssigneeField', "save">;
-  @NgInput({ required: true }) declare "cancel": AngularInput<'AssigneeField', "cancel">;
+  @NgInput() declare "theme"?: AngularInput<'AssigneeField', "theme">;
+  @NgInput({ required: true }) declare "value": AngularInput<'AssigneeField', "value">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

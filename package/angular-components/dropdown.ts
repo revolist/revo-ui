@@ -12,29 +12,29 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class Dropdown extends AngularComponentAdapter<AngularCallbackValue<AngularInput<'Dropdown', 'onChange'>>> {
   protected readonly rvComponentName = 'Dropdown';
   protected rvResolveComponent() { return Control; }
-  @NgInput() declare "environment"?: AngularInput<'Dropdown', "environment">;
-  @NgInput() declare "triggerAttributes"?: AngularInput<'Dropdown', "triggerAttributes">;
-  @NgInput({ required: true }) declare "source": AngularInput<'Dropdown', "source">;
-  @NgInput() declare "dataSource"?: AngularInput<'Dropdown', "dataSource">;
-  @NgInput() declare "dataContext"?: AngularInput<'Dropdown', "dataContext">;
-  @NgInput() declare "remoteText"?: AngularInput<'Dropdown', "remoteText">;
-  @NgInput() declare "value"?: AngularInput<'Dropdown', "value">;
-  @NgInput() declare "placeholder"?: AngularInput<'Dropdown', "placeholder">;
-  @NgInput() declare "disabled"?: AngularInput<'Dropdown', "disabled">;
-  @NgInput() declare "name"?: AngularInput<'Dropdown', "name">;
-  @NgInput() declare "id"?: AngularInput<'Dropdown', "id">;
-  @NgInput() declare "className"?: AngularInput<'Dropdown', "className">;
-  @NgInput() declare "style"?: AngularInput<'Dropdown', "style">;
-  @NgInput() declare "config"?: AngularInput<'Dropdown', "config">;
   @NgInput() declare "beforeOutsideClose"?: AngularInput<'Dropdown', "beforeOutsideClose">;
-  @NgInput() declare "renderContent"?: AngularInput<'Dropdown', "renderContent">;
-  @NgInput() declare "renderOption"?: AngularInput<'Dropdown', "renderOption">;
-  @NgInput() declare "renderValue"?: AngularInput<'Dropdown', "renderValue">;
-  @NgInput() declare "renderPlaceholder"?: AngularInput<'Dropdown', "renderPlaceholder">;
-  @NgInput() declare "renderSelectedValue"?: AngularInput<'Dropdown', "renderSelectedValue">;
-  @NgInput() declare "renderNoResults"?: AngularInput<'Dropdown', "renderNoResults">;
+  @NgInput() declare "className"?: AngularInput<'Dropdown', "className">;
+  @NgInput() declare "config"?: AngularInput<'Dropdown', "config">;
+  @NgInput() declare "dataContext"?: AngularInput<'Dropdown', "dataContext">;
+  @NgInput() declare "dataSource"?: AngularInput<'Dropdown', "dataSource">;
+  @NgInput() declare "disabled"?: AngularInput<'Dropdown', "disabled">;
+  @NgInput() declare "environment"?: AngularInput<'Dropdown', "environment">;
+  @NgInput() declare "id"?: AngularInput<'Dropdown', "id">;
+  @NgInput() declare "name"?: AngularInput<'Dropdown', "name">;
   @NgInput() declare "onChange"?: AngularInput<'Dropdown', "onChange">;
   @NgInput() declare "onClose"?: AngularInput<'Dropdown', "onClose">;
+  @NgInput() declare "placeholder"?: AngularInput<'Dropdown', "placeholder">;
+  @NgInput() declare "remoteText"?: AngularInput<'Dropdown', "remoteText">;
+  @NgInput() declare "renderContent"?: AngularInput<'Dropdown', "renderContent">;
+  @NgInput() declare "renderNoResults"?: AngularInput<'Dropdown', "renderNoResults">;
+  @NgInput() declare "renderOption"?: AngularInput<'Dropdown', "renderOption">;
+  @NgInput() declare "renderPlaceholder"?: AngularInput<'Dropdown', "renderPlaceholder">;
+  @NgInput() declare "renderSelectedValue"?: AngularInput<'Dropdown', "renderSelectedValue">;
+  @NgInput() declare "renderValue"?: AngularInput<'Dropdown', "renderValue">;
+  @NgInput({ required: true }) declare "source": AngularInput<'Dropdown', "source">;
+  @NgInput() declare "style"?: AngularInput<'Dropdown', "style">;
+  @NgInput() declare "triggerAttributes"?: AngularInput<'Dropdown', "triggerAttributes">;
+  @NgInput() declare "value"?: AngularInput<'Dropdown', "value">;
   @Output() get closeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'Dropdown', 'onClose'>>>('onClose'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

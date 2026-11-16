@@ -12,8 +12,8 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class FieldContent extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'FieldContent';
   protected rvResolveComponent() { return Control; }
-  @NgInput() declare "icon"?: AngularInput<'FieldContent', "icon">;
   @NgInput() declare "className"?: AngularInput<'FieldContent', "className">;
+  @NgInput() declare "icon"?: AngularInput<'FieldContent', "icon">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

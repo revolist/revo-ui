@@ -13,29 +13,29 @@ export class PreactRangeSlider extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'PreactRangeSlider';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onRangeChange"];
-  @NgInput({ required: true }) declare "min": AngularInput<'PreactRangeSlider', "min">;
-  @NgInput({ required: true }) declare "max": AngularInput<'PreactRangeSlider', "max">;
-  @NgInput({ required: true }) declare "fromValue": AngularInput<'PreactRangeSlider', "fromValue">;
-  @NgInput({ required: true }) declare "toValue": AngularInput<'PreactRangeSlider', "toValue">;
-  @NgInput() declare "step"?: AngularInput<'PreactRangeSlider', "step">;
-  @NgInput() declare "showTooltips"?: AngularInput<'PreactRangeSlider', "showTooltips">;
-  @NgInput() declare "showRangeDisplay"?: AngularInput<'PreactRangeSlider', "showRangeDisplay">;
-  @NgInput() declare "showRangeInputs"?: AngularInput<'PreactRangeSlider', "showRangeInputs">;
-  @NgInput() declare "disabled"?: AngularInput<'PreactRangeSlider', "disabled">;
-  @NgInput() declare "scaleFactor"?: AngularInput<'PreactRangeSlider', "scaleFactor">;
   @NgInput() declare "className"?: AngularInput<'PreactRangeSlider', "className">;
   @NgInput() declare "controlClassName"?: AngularInput<'PreactRangeSlider', "controlClassName">;
-  @NgInput() declare "fromClassName"?: AngularInput<'PreactRangeSlider', "fromClassName">;
-  @NgInput() declare "toClassName"?: AngularInput<'PreactRangeSlider', "toClassName">;
-  @NgInput() declare "fromAriaLabel"?: AngularInput<'PreactRangeSlider', "fromAriaLabel">;
-  @NgInput() declare "toAriaLabel"?: AngularInput<'PreactRangeSlider', "toAriaLabel">;
-  @NgInput() declare "formatInputValue"?: AngularInput<'PreactRangeSlider', "formatInputValue">;
-  @NgInput() declare "parseInputValue"?: AngularInput<'PreactRangeSlider', "parseInputValue">;
-  @NgInput() declare "formatValue"?: AngularInput<'PreactRangeSlider', "formatValue">;
+  @NgInput() declare "disabled"?: AngularInput<'PreactRangeSlider', "disabled">;
   @NgInput() declare "formatFromValue"?: AngularInput<'PreactRangeSlider', "formatFromValue">;
+  @NgInput() declare "formatInputValue"?: AngularInput<'PreactRangeSlider', "formatInputValue">;
   @NgInput() declare "formatToValue"?: AngularInput<'PreactRangeSlider', "formatToValue">;
+  @NgInput() declare "formatValue"?: AngularInput<'PreactRangeSlider', "formatValue">;
+  @NgInput() declare "fromAriaLabel"?: AngularInput<'PreactRangeSlider', "fromAriaLabel">;
+  @NgInput() declare "fromClassName"?: AngularInput<'PreactRangeSlider', "fromClassName">;
+  @NgInput({ required: true }) declare "fromValue": AngularInput<'PreactRangeSlider', "fromValue">;
+  @NgInput({ required: true }) declare "max": AngularInput<'PreactRangeSlider', "max">;
+  @NgInput({ required: true }) declare "min": AngularInput<'PreactRangeSlider', "min">;
   @NgInput() declare "onRangeChange"?: AngularInput<'PreactRangeSlider', "onRangeChange">;
   @NgInput() declare "onRangeCommit"?: AngularInput<'PreactRangeSlider', "onRangeCommit">;
+  @NgInput() declare "parseInputValue"?: AngularInput<'PreactRangeSlider', "parseInputValue">;
+  @NgInput() declare "scaleFactor"?: AngularInput<'PreactRangeSlider', "scaleFactor">;
+  @NgInput() declare "showRangeDisplay"?: AngularInput<'PreactRangeSlider', "showRangeDisplay">;
+  @NgInput() declare "showRangeInputs"?: AngularInput<'PreactRangeSlider', "showRangeInputs">;
+  @NgInput() declare "showTooltips"?: AngularInput<'PreactRangeSlider', "showTooltips">;
+  @NgInput() declare "step"?: AngularInput<'PreactRangeSlider', "step">;
+  @NgInput() declare "toAriaLabel"?: AngularInput<'PreactRangeSlider', "toAriaLabel">;
+  @NgInput() declare "toClassName"?: AngularInput<'PreactRangeSlider', "toClassName">;
+  @NgInput({ required: true }) declare "toValue": AngularInput<'PreactRangeSlider', "toValue">;
   @Output() get rangeChange() { return this.rvOutput<AngularCallbackValue<AngularInput<'PreactRangeSlider', 'onRangeChange'>>>('onRangeChange'); }
   @Output() get rangeCommit() { return this.rvOutput<AngularCallbackValue<AngularInput<'PreactRangeSlider', 'onRangeCommit'>>>('onRangeCommit'); }
   protected rvResolveProps() { return this.rvInputValues; }

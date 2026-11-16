@@ -12,13 +12,13 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class AiTask extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'AiTask';
   protected rvResolveComponent() { return Control; }
-  @NgInput({ required: true }) declare "title": AngularInput<'AiTask', "title">;
-  @NgInput() declare "status"?: AngularInput<'AiTask', "status">;
-  @NgInput() declare "open"?: AngularInput<'AiTask', "open">;
-  @NgInput() declare "defaultOpen"?: AngularInput<'AiTask', "defaultOpen">;
   @NgInput() declare "className"?: AngularInput<'AiTask', "className">;
-  @NgInput() declare "translations"?: AngularInput<'AiTask', "translations">;
+  @NgInput() declare "defaultOpen"?: AngularInput<'AiTask', "defaultOpen">;
   @NgInput() declare "onOpenChange"?: AngularInput<'AiTask', "onOpenChange">;
+  @NgInput() declare "open"?: AngularInput<'AiTask', "open">;
+  @NgInput() declare "status"?: AngularInput<'AiTask', "status">;
+  @NgInput({ required: true }) declare "title": AngularInput<'AiTask', "title">;
+  @NgInput() declare "translations"?: AngularInput<'AiTask', "translations">;
   @Output() get openChange() { return this.rvOutput<AngularCallbackValue<AngularInput<'AiTask', 'onOpenChange'>>>('onOpenChange'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

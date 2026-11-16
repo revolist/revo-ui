@@ -12,85 +12,9 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class ReorderHandle extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'ReorderHandle';
   protected rvResolveComponent() { return Control; }
-  @NgInput() declare "command"?: AngularInput<'ReorderHandle', "command">;
-  @NgInput() declare "commandfor"?: AngularInput<'ReorderHandle', "commandfor">;
-  @NgInput() declare "commandFor"?: AngularInput<'ReorderHandle', "commandFor">;
-  @NgInput() declare "disabled"?: AngularInput<'ReorderHandle', "disabled">;
-  @NgInput() declare "form"?: AngularInput<'ReorderHandle', "form">;
-  @NgInput() declare "formaction"?: AngularInput<'ReorderHandle', "formaction">;
-  @NgInput() declare "formAction"?: AngularInput<'ReorderHandle', "formAction">;
-  @NgInput() declare "formenctype"?: AngularInput<'ReorderHandle', "formenctype">;
-  @NgInput() declare "formEncType"?: AngularInput<'ReorderHandle', "formEncType">;
-  @NgInput() declare "formmethod"?: AngularInput<'ReorderHandle', "formmethod">;
-  @NgInput() declare "formMethod"?: AngularInput<'ReorderHandle', "formMethod">;
-  @NgInput() declare "formnovalidate"?: AngularInput<'ReorderHandle', "formnovalidate">;
-  @NgInput() declare "formNoValidate"?: AngularInput<'ReorderHandle', "formNoValidate">;
-  @NgInput() declare "formtarget"?: AngularInput<'ReorderHandle', "formtarget">;
-  @NgInput() declare "formTarget"?: AngularInput<'ReorderHandle', "formTarget">;
-  @NgInput() declare "name"?: AngularInput<'ReorderHandle', "name">;
-  @NgInput() declare "popovertarget"?: AngularInput<'ReorderHandle', "popovertarget">;
-  @NgInput() declare "popoverTarget"?: AngularInput<'ReorderHandle', "popoverTarget">;
-  @NgInput() declare "popovertargetaction"?: AngularInput<'ReorderHandle', "popovertargetaction">;
-  @NgInput() declare "popoverTargetAction"?: AngularInput<'ReorderHandle', "popoverTargetAction">;
-  @NgInput() declare "type"?: AngularInput<'ReorderHandle', "type">;
-  @NgInput() declare "value"?: AngularInput<'ReorderHandle', "value">;
-  @NgInput() declare "accesskey"?: AngularInput<'ReorderHandle', "accesskey">;
-  @NgInput() declare "accessKey"?: AngularInput<'ReorderHandle', "accessKey">;
-  @NgInput() declare "autocapitalize"?: AngularInput<'ReorderHandle', "autocapitalize">;
-  @NgInput() declare "autoCapitalize"?: AngularInput<'ReorderHandle', "autoCapitalize">;
-  @NgInput() declare "autocorrect"?: AngularInput<'ReorderHandle', "autocorrect">;
-  @NgInput() declare "autoCorrect"?: AngularInput<'ReorderHandle', "autoCorrect">;
-  @NgInput() declare "autofocus"?: AngularInput<'ReorderHandle', "autofocus">;
-  @NgInput() declare "autoFocus"?: AngularInput<'ReorderHandle', "autoFocus">;
-  @NgInput() declare "class"?: AngularInput<'ReorderHandle', "class">;
-  @NgInput() declare "className"?: AngularInput<'ReorderHandle', "className">;
-  @NgInput() declare "contenteditable"?: AngularInput<'ReorderHandle', "contenteditable">;
-  @NgInput() declare "contentEditable"?: AngularInput<'ReorderHandle', "contentEditable">;
-  @NgInput() declare "dir"?: AngularInput<'ReorderHandle', "dir">;
-  @NgInput() declare "draggable"?: AngularInput<'ReorderHandle', "draggable">;
-  @NgInput() declare "enterkeyhint"?: AngularInput<'ReorderHandle', "enterkeyhint">;
-  @NgInput() declare "exportparts"?: AngularInput<'ReorderHandle', "exportparts">;
-  @NgInput() declare "hidden"?: AngularInput<'ReorderHandle', "hidden">;
-  @NgInput() declare "id"?: AngularInput<'ReorderHandle', "id">;
-  @NgInput() declare "inert"?: AngularInput<'ReorderHandle', "inert">;
-  @NgInput() declare "inputmode"?: AngularInput<'ReorderHandle', "inputmode">;
-  @NgInput() declare "inputMode"?: AngularInput<'ReorderHandle', "inputMode">;
-  @NgInput() declare "is"?: AngularInput<'ReorderHandle', "is">;
-  @NgInput() declare "lang"?: AngularInput<'ReorderHandle', "lang">;
-  @NgInput() declare "nonce"?: AngularInput<'ReorderHandle', "nonce">;
-  @NgInput() declare "part"?: AngularInput<'ReorderHandle', "part">;
-  @NgInput() declare "popover"?: AngularInput<'ReorderHandle', "popover">;
-  @NgInput() declare "slot"?: AngularInput<'ReorderHandle', "slot">;
-  @NgInput() declare "spellcheck"?: AngularInput<'ReorderHandle', "spellcheck">;
-  @NgInput() declare "style"?: AngularInput<'ReorderHandle', "style">;
-  @NgInput() declare "tabindex"?: AngularInput<'ReorderHandle', "tabindex">;
-  @NgInput() declare "tabIndex"?: AngularInput<'ReorderHandle', "tabIndex">;
-  @NgInput() declare "title"?: AngularInput<'ReorderHandle', "title">;
-  @NgInput() declare "translate"?: AngularInput<'ReorderHandle', "translate">;
-  @NgInput() declare "role"?: AngularInput<'ReorderHandle', "role">;
-  @NgInput() declare "disablePictureInPicture"?: AngularInput<'ReorderHandle', "disablePictureInPicture">;
-  @NgInput() declare "elementtiming"?: AngularInput<'ReorderHandle', "elementtiming">;
-  @NgInput() declare "elementTiming"?: AngularInput<'ReorderHandle', "elementTiming">;
-  @NgInput() declare "results"?: AngularInput<'ReorderHandle', "results">;
   @NgInput() declare "about"?: AngularInput<'ReorderHandle', "about">;
-  @NgInput() declare "datatype"?: AngularInput<'ReorderHandle', "datatype">;
-  @NgInput() declare "inlist"?: AngularInput<'ReorderHandle', "inlist">;
-  @NgInput() declare "prefix"?: AngularInput<'ReorderHandle', "prefix">;
-  @NgInput() declare "property"?: AngularInput<'ReorderHandle', "property">;
-  @NgInput() declare "resource"?: AngularInput<'ReorderHandle', "resource">;
-  @NgInput() declare "typeof"?: AngularInput<'ReorderHandle', "typeof">;
-  @NgInput() declare "vocab"?: AngularInput<'ReorderHandle', "vocab">;
-  @NgInput() declare "itemid"?: AngularInput<'ReorderHandle', "itemid">;
-  @NgInput() declare "itemID"?: AngularInput<'ReorderHandle', "itemID">;
-  @NgInput() declare "itemprop"?: AngularInput<'ReorderHandle', "itemprop">;
-  @NgInput() declare "itemProp"?: AngularInput<'ReorderHandle', "itemProp">;
-  @NgInput() declare "itemref"?: AngularInput<'ReorderHandle', "itemref">;
-  @NgInput() declare "itemRef"?: AngularInput<'ReorderHandle', "itemRef">;
-  @NgInput() declare "itemscope"?: AngularInput<'ReorderHandle', "itemscope">;
-  @NgInput() declare "itemScope"?: AngularInput<'ReorderHandle', "itemScope">;
-  @NgInput() declare "itemtype"?: AngularInput<'ReorderHandle', "itemtype">;
-  @NgInput() declare "itemType"?: AngularInput<'ReorderHandle', "itemType">;
-  @NgInput() declare "dangerouslySetInnerHTML"?: AngularInput<'ReorderHandle', "dangerouslySetInnerHTML">;
+  @NgInput() declare "accessKey"?: AngularInput<'ReorderHandle', "accessKey">;
+  @NgInput() declare "accesskey"?: AngularInput<'ReorderHandle', "accesskey">;
   @NgInput() declare "aria-activedescendant"?: AngularInput<'ReorderHandle', "aria-activedescendant">;
   @NgInput() declare "aria-atomic"?: AngularInput<'ReorderHandle', "aria-atomic">;
   @NgInput() declare "aria-autocomplete"?: AngularInput<'ReorderHandle', "aria-autocomplete">;
@@ -144,104 +68,98 @@ export class ReorderHandle extends AngularComponentAdapter<never> {
   @NgInput() declare "aria-valuemin"?: AngularInput<'ReorderHandle', "aria-valuemin">;
   @NgInput() declare "aria-valuenow"?: AngularInput<'ReorderHandle', "aria-valuenow">;
   @NgInput() declare "aria-valuetext"?: AngularInput<'ReorderHandle', "aria-valuetext">;
-  @NgInput() declare "onLoad"?: AngularInput<'ReorderHandle', "onLoad">;
-  @NgInput() declare "onLoadCapture"?: AngularInput<'ReorderHandle', "onLoadCapture">;
-  @NgInput() declare "onError"?: AngularInput<'ReorderHandle', "onError">;
-  @NgInput() declare "onErrorCapture"?: AngularInput<'ReorderHandle', "onErrorCapture">;
-  @NgInput() declare "onCopy"?: AngularInput<'ReorderHandle', "onCopy">;
-  @NgInput() declare "onCopyCapture"?: AngularInput<'ReorderHandle', "onCopyCapture">;
-  @NgInput() declare "onCut"?: AngularInput<'ReorderHandle', "onCut">;
-  @NgInput() declare "onCutCapture"?: AngularInput<'ReorderHandle', "onCutCapture">;
-  @NgInput() declare "onPaste"?: AngularInput<'ReorderHandle', "onPaste">;
-  @NgInput() declare "onPasteCapture"?: AngularInput<'ReorderHandle', "onPasteCapture">;
+  @NgInput() declare "autoCapitalize"?: AngularInput<'ReorderHandle', "autoCapitalize">;
+  @NgInput() declare "autoCorrect"?: AngularInput<'ReorderHandle', "autoCorrect">;
+  @NgInput() declare "autoFocus"?: AngularInput<'ReorderHandle', "autoFocus">;
+  @NgInput() declare "autocapitalize"?: AngularInput<'ReorderHandle', "autocapitalize">;
+  @NgInput() declare "autocorrect"?: AngularInput<'ReorderHandle', "autocorrect">;
+  @NgInput() declare "autofocus"?: AngularInput<'ReorderHandle', "autofocus">;
+  @NgInput() declare "class"?: AngularInput<'ReorderHandle', "class">;
+  @NgInput() declare "className"?: AngularInput<'ReorderHandle', "className">;
+  @NgInput() declare "command"?: AngularInput<'ReorderHandle', "command">;
+  @NgInput() declare "commandFor"?: AngularInput<'ReorderHandle', "commandFor">;
+  @NgInput() declare "commandfor"?: AngularInput<'ReorderHandle', "commandfor">;
+  @NgInput() declare "contentEditable"?: AngularInput<'ReorderHandle', "contentEditable">;
+  @NgInput() declare "contenteditable"?: AngularInput<'ReorderHandle', "contenteditable">;
+  @NgInput() declare "dangerouslySetInnerHTML"?: AngularInput<'ReorderHandle', "dangerouslySetInnerHTML">;
+  @NgInput() declare "datatype"?: AngularInput<'ReorderHandle', "datatype">;
+  @NgInput() declare "dir"?: AngularInput<'ReorderHandle', "dir">;
+  @NgInput() declare "disablePictureInPicture"?: AngularInput<'ReorderHandle', "disablePictureInPicture">;
+  @NgInput() declare "disabled"?: AngularInput<'ReorderHandle', "disabled">;
+  @NgInput() declare "draggable"?: AngularInput<'ReorderHandle', "draggable">;
+  @NgInput() declare "elementTiming"?: AngularInput<'ReorderHandle', "elementTiming">;
+  @NgInput() declare "elementtiming"?: AngularInput<'ReorderHandle', "elementtiming">;
+  @NgInput() declare "enterkeyhint"?: AngularInput<'ReorderHandle', "enterkeyhint">;
+  @NgInput() declare "exportparts"?: AngularInput<'ReorderHandle', "exportparts">;
+  @NgInput() declare "form"?: AngularInput<'ReorderHandle', "form">;
+  @NgInput() declare "formAction"?: AngularInput<'ReorderHandle', "formAction">;
+  @NgInput() declare "formEncType"?: AngularInput<'ReorderHandle', "formEncType">;
+  @NgInput() declare "formMethod"?: AngularInput<'ReorderHandle', "formMethod">;
+  @NgInput() declare "formNoValidate"?: AngularInput<'ReorderHandle', "formNoValidate">;
+  @NgInput() declare "formTarget"?: AngularInput<'ReorderHandle', "formTarget">;
+  @NgInput() declare "formaction"?: AngularInput<'ReorderHandle', "formaction">;
+  @NgInput() declare "formenctype"?: AngularInput<'ReorderHandle', "formenctype">;
+  @NgInput() declare "formmethod"?: AngularInput<'ReorderHandle', "formmethod">;
+  @NgInput() declare "formnovalidate"?: AngularInput<'ReorderHandle', "formnovalidate">;
+  @NgInput() declare "formtarget"?: AngularInput<'ReorderHandle', "formtarget">;
+  @NgInput() declare "hidden"?: AngularInput<'ReorderHandle', "hidden">;
+  @NgInput() declare "id"?: AngularInput<'ReorderHandle', "id">;
+  @NgInput() declare "inert"?: AngularInput<'ReorderHandle', "inert">;
+  @NgInput() declare "inlist"?: AngularInput<'ReorderHandle', "inlist">;
+  @NgInput() declare "inputMode"?: AngularInput<'ReorderHandle', "inputMode">;
+  @NgInput() declare "inputmode"?: AngularInput<'ReorderHandle', "inputmode">;
+  @NgInput() declare "is"?: AngularInput<'ReorderHandle', "is">;
+  @NgInput() declare "itemID"?: AngularInput<'ReorderHandle', "itemID">;
+  @NgInput() declare "itemProp"?: AngularInput<'ReorderHandle', "itemProp">;
+  @NgInput() declare "itemRef"?: AngularInput<'ReorderHandle', "itemRef">;
+  @NgInput() declare "itemScope"?: AngularInput<'ReorderHandle', "itemScope">;
+  @NgInput() declare "itemType"?: AngularInput<'ReorderHandle', "itemType">;
+  @NgInput() declare "itemid"?: AngularInput<'ReorderHandle', "itemid">;
+  @NgInput() declare "itemprop"?: AngularInput<'ReorderHandle', "itemprop">;
+  @NgInput() declare "itemref"?: AngularInput<'ReorderHandle', "itemref">;
+  @NgInput() declare "itemscope"?: AngularInput<'ReorderHandle', "itemscope">;
+  @NgInput() declare "itemtype"?: AngularInput<'ReorderHandle', "itemtype">;
+  @NgInput() declare "lang"?: AngularInput<'ReorderHandle', "lang">;
+  @NgInput() declare "name"?: AngularInput<'ReorderHandle', "name">;
+  @NgInput() declare "nonce"?: AngularInput<'ReorderHandle', "nonce">;
+  @NgInput() declare "onAbort"?: AngularInput<'ReorderHandle', "onAbort">;
+  @NgInput() declare "onAbortCapture"?: AngularInput<'ReorderHandle', "onAbortCapture">;
+  @NgInput() declare "onAnimationEnd"?: AngularInput<'ReorderHandle', "onAnimationEnd">;
+  @NgInput() declare "onAnimationEndCapture"?: AngularInput<'ReorderHandle', "onAnimationEndCapture">;
+  @NgInput() declare "onAnimationIteration"?: AngularInput<'ReorderHandle', "onAnimationIteration">;
+  @NgInput() declare "onAnimationIterationCapture"?: AngularInput<'ReorderHandle', "onAnimationIterationCapture">;
+  @NgInput() declare "onAnimationStart"?: AngularInput<'ReorderHandle', "onAnimationStart">;
+  @NgInput() declare "onAnimationStartCapture"?: AngularInput<'ReorderHandle', "onAnimationStartCapture">;
+  @NgInput() declare "onAuxClick"?: AngularInput<'ReorderHandle', "onAuxClick">;
+  @NgInput() declare "onAuxClickCapture"?: AngularInput<'ReorderHandle', "onAuxClickCapture">;
+  @NgInput() declare "onBeforeInput"?: AngularInput<'ReorderHandle', "onBeforeInput">;
+  @NgInput() declare "onBeforeInputCapture"?: AngularInput<'ReorderHandle', "onBeforeInputCapture">;
+  @NgInput() declare "onBeforeToggle"?: AngularInput<'ReorderHandle', "onBeforeToggle">;
+  @NgInput() declare "onBlur"?: AngularInput<'ReorderHandle', "onBlur">;
+  @NgInput() declare "onBlurCapture"?: AngularInput<'ReorderHandle', "onBlurCapture">;
+  @NgInput() declare "onCanPlay"?: AngularInput<'ReorderHandle', "onCanPlay">;
+  @NgInput() declare "onCanPlayCapture"?: AngularInput<'ReorderHandle', "onCanPlayCapture">;
+  @NgInput() declare "onCanPlayThrough"?: AngularInput<'ReorderHandle', "onCanPlayThrough">;
+  @NgInput() declare "onCanPlayThroughCapture"?: AngularInput<'ReorderHandle', "onCanPlayThroughCapture">;
+  @NgInput() declare "onCancel"?: AngularInput<'ReorderHandle', "onCancel">;
+  @NgInput() declare "onChange"?: AngularInput<'ReorderHandle', "onChange">;
+  @NgInput() declare "onChangeCapture"?: AngularInput<'ReorderHandle', "onChangeCapture">;
+  @NgInput() declare "onClick"?: AngularInput<'ReorderHandle', "onClick">;
+  @NgInput() declare "onClickCapture"?: AngularInput<'ReorderHandle', "onClickCapture">;
+  @NgInput() declare "onClose"?: AngularInput<'ReorderHandle', "onClose">;
+  @NgInput() declare "onCommand"?: AngularInput<'ReorderHandle', "onCommand">;
   @NgInput() declare "onCompositionEnd"?: AngularInput<'ReorderHandle', "onCompositionEnd">;
   @NgInput() declare "onCompositionEndCapture"?: AngularInput<'ReorderHandle', "onCompositionEndCapture">;
   @NgInput() declare "onCompositionStart"?: AngularInput<'ReorderHandle', "onCompositionStart">;
   @NgInput() declare "onCompositionStartCapture"?: AngularInput<'ReorderHandle', "onCompositionStartCapture">;
   @NgInput() declare "onCompositionUpdate"?: AngularInput<'ReorderHandle', "onCompositionUpdate">;
   @NgInput() declare "onCompositionUpdateCapture"?: AngularInput<'ReorderHandle', "onCompositionUpdateCapture">;
-  @NgInput() declare "onBeforeToggle"?: AngularInput<'ReorderHandle', "onBeforeToggle">;
-  @NgInput() declare "onToggle"?: AngularInput<'ReorderHandle', "onToggle">;
-  @NgInput() declare "onClose"?: AngularInput<'ReorderHandle', "onClose">;
-  @NgInput() declare "onCancel"?: AngularInput<'ReorderHandle', "onCancel">;
-  @NgInput() declare "onFocus"?: AngularInput<'ReorderHandle', "onFocus">;
-  @NgInput() declare "onFocusCapture"?: AngularInput<'ReorderHandle', "onFocusCapture">;
-  @NgInput() declare "onFocusIn"?: AngularInput<'ReorderHandle', "onFocusIn">;
-  @NgInput() declare "onFocusInCapture"?: AngularInput<'ReorderHandle', "onFocusInCapture">;
-  @NgInput() declare "onFocusOut"?: AngularInput<'ReorderHandle', "onFocusOut">;
-  @NgInput() declare "onFocusOutCapture"?: AngularInput<'ReorderHandle', "onFocusOutCapture">;
-  @NgInput() declare "onBlur"?: AngularInput<'ReorderHandle', "onBlur">;
-  @NgInput() declare "onBlurCapture"?: AngularInput<'ReorderHandle', "onBlurCapture">;
-  @NgInput() declare "onChange"?: AngularInput<'ReorderHandle', "onChange">;
-  @NgInput() declare "onChangeCapture"?: AngularInput<'ReorderHandle', "onChangeCapture">;
-  @NgInput() declare "onInput"?: AngularInput<'ReorderHandle', "onInput">;
-  @NgInput() declare "onInputCapture"?: AngularInput<'ReorderHandle', "onInputCapture">;
-  @NgInput() declare "onBeforeInput"?: AngularInput<'ReorderHandle', "onBeforeInput">;
-  @NgInput() declare "onBeforeInputCapture"?: AngularInput<'ReorderHandle', "onBeforeInputCapture">;
-  @NgInput() declare "onSearch"?: AngularInput<'ReorderHandle', "onSearch">;
-  @NgInput() declare "onSearchCapture"?: AngularInput<'ReorderHandle', "onSearchCapture">;
-  @NgInput() declare "onSubmit"?: AngularInput<'ReorderHandle', "onSubmit">;
-  @NgInput() declare "onSubmitCapture"?: AngularInput<'ReorderHandle', "onSubmitCapture">;
-  @NgInput() declare "onInvalid"?: AngularInput<'ReorderHandle', "onInvalid">;
-  @NgInput() declare "onInvalidCapture"?: AngularInput<'ReorderHandle', "onInvalidCapture">;
-  @NgInput() declare "onReset"?: AngularInput<'ReorderHandle', "onReset">;
-  @NgInput() declare "onResetCapture"?: AngularInput<'ReorderHandle', "onResetCapture">;
-  @NgInput() declare "onFormData"?: AngularInput<'ReorderHandle', "onFormData">;
-  @NgInput() declare "onFormDataCapture"?: AngularInput<'ReorderHandle', "onFormDataCapture">;
-  @NgInput() declare "onKeyDown"?: AngularInput<'ReorderHandle', "onKeyDown">;
-  @NgInput() declare "onKeyDownCapture"?: AngularInput<'ReorderHandle', "onKeyDownCapture">;
-  @NgInput() declare "onKeyPress"?: AngularInput<'ReorderHandle', "onKeyPress">;
-  @NgInput() declare "onKeyPressCapture"?: AngularInput<'ReorderHandle', "onKeyPressCapture">;
-  @NgInput() declare "onKeyUp"?: AngularInput<'ReorderHandle', "onKeyUp">;
-  @NgInput() declare "onKeyUpCapture"?: AngularInput<'ReorderHandle', "onKeyUpCapture">;
-  @NgInput() declare "onAbort"?: AngularInput<'ReorderHandle', "onAbort">;
-  @NgInput() declare "onAbortCapture"?: AngularInput<'ReorderHandle', "onAbortCapture">;
-  @NgInput() declare "onCanPlay"?: AngularInput<'ReorderHandle', "onCanPlay">;
-  @NgInput() declare "onCanPlayCapture"?: AngularInput<'ReorderHandle', "onCanPlayCapture">;
-  @NgInput() declare "onCanPlayThrough"?: AngularInput<'ReorderHandle', "onCanPlayThrough">;
-  @NgInput() declare "onCanPlayThroughCapture"?: AngularInput<'ReorderHandle', "onCanPlayThroughCapture">;
-  @NgInput() declare "onDurationChange"?: AngularInput<'ReorderHandle', "onDurationChange">;
-  @NgInput() declare "onDurationChangeCapture"?: AngularInput<'ReorderHandle', "onDurationChangeCapture">;
-  @NgInput() declare "onEmptied"?: AngularInput<'ReorderHandle', "onEmptied">;
-  @NgInput() declare "onEmptiedCapture"?: AngularInput<'ReorderHandle', "onEmptiedCapture">;
-  @NgInput() declare "onEncrypted"?: AngularInput<'ReorderHandle', "onEncrypted">;
-  @NgInput() declare "onEncryptedCapture"?: AngularInput<'ReorderHandle', "onEncryptedCapture">;
-  @NgInput() declare "onEnded"?: AngularInput<'ReorderHandle', "onEnded">;
-  @NgInput() declare "onEndedCapture"?: AngularInput<'ReorderHandle', "onEndedCapture">;
-  @NgInput() declare "onLoadedData"?: AngularInput<'ReorderHandle', "onLoadedData">;
-  @NgInput() declare "onLoadedDataCapture"?: AngularInput<'ReorderHandle', "onLoadedDataCapture">;
-  @NgInput() declare "onLoadedMetadata"?: AngularInput<'ReorderHandle', "onLoadedMetadata">;
-  @NgInput() declare "onLoadedMetadataCapture"?: AngularInput<'ReorderHandle', "onLoadedMetadataCapture">;
-  @NgInput() declare "onLoadStart"?: AngularInput<'ReorderHandle', "onLoadStart">;
-  @NgInput() declare "onLoadStartCapture"?: AngularInput<'ReorderHandle', "onLoadStartCapture">;
-  @NgInput() declare "onPause"?: AngularInput<'ReorderHandle', "onPause">;
-  @NgInput() declare "onPauseCapture"?: AngularInput<'ReorderHandle', "onPauseCapture">;
-  @NgInput() declare "onPlay"?: AngularInput<'ReorderHandle', "onPlay">;
-  @NgInput() declare "onPlayCapture"?: AngularInput<'ReorderHandle', "onPlayCapture">;
-  @NgInput() declare "onPlaying"?: AngularInput<'ReorderHandle', "onPlaying">;
-  @NgInput() declare "onPlayingCapture"?: AngularInput<'ReorderHandle', "onPlayingCapture">;
-  @NgInput() declare "onProgress"?: AngularInput<'ReorderHandle', "onProgress">;
-  @NgInput() declare "onProgressCapture"?: AngularInput<'ReorderHandle', "onProgressCapture">;
-  @NgInput() declare "onRateChange"?: AngularInput<'ReorderHandle', "onRateChange">;
-  @NgInput() declare "onRateChangeCapture"?: AngularInput<'ReorderHandle', "onRateChangeCapture">;
-  @NgInput() declare "onSeeked"?: AngularInput<'ReorderHandle', "onSeeked">;
-  @NgInput() declare "onSeekedCapture"?: AngularInput<'ReorderHandle', "onSeekedCapture">;
-  @NgInput() declare "onSeeking"?: AngularInput<'ReorderHandle', "onSeeking">;
-  @NgInput() declare "onSeekingCapture"?: AngularInput<'ReorderHandle', "onSeekingCapture">;
-  @NgInput() declare "onStalled"?: AngularInput<'ReorderHandle', "onStalled">;
-  @NgInput() declare "onStalledCapture"?: AngularInput<'ReorderHandle', "onStalledCapture">;
-  @NgInput() declare "onSuspend"?: AngularInput<'ReorderHandle', "onSuspend">;
-  @NgInput() declare "onSuspendCapture"?: AngularInput<'ReorderHandle', "onSuspendCapture">;
-  @NgInput() declare "onTimeUpdate"?: AngularInput<'ReorderHandle', "onTimeUpdate">;
-  @NgInput() declare "onTimeUpdateCapture"?: AngularInput<'ReorderHandle', "onTimeUpdateCapture">;
-  @NgInput() declare "onVolumeChange"?: AngularInput<'ReorderHandle', "onVolumeChange">;
-  @NgInput() declare "onVolumeChangeCapture"?: AngularInput<'ReorderHandle', "onVolumeChangeCapture">;
-  @NgInput() declare "onWaiting"?: AngularInput<'ReorderHandle', "onWaiting">;
-  @NgInput() declare "onWaitingCapture"?: AngularInput<'ReorderHandle', "onWaitingCapture">;
-  @NgInput() declare "onClick"?: AngularInput<'ReorderHandle', "onClick">;
-  @NgInput() declare "onClickCapture"?: AngularInput<'ReorderHandle', "onClickCapture">;
   @NgInput() declare "onContextMenu"?: AngularInput<'ReorderHandle', "onContextMenu">;
   @NgInput() declare "onContextMenuCapture"?: AngularInput<'ReorderHandle', "onContextMenuCapture">;
+  @NgInput() declare "onCopy"?: AngularInput<'ReorderHandle', "onCopy">;
+  @NgInput() declare "onCopyCapture"?: AngularInput<'ReorderHandle', "onCopyCapture">;
+  @NgInput() declare "onCut"?: AngularInput<'ReorderHandle', "onCut">;
+  @NgInput() declare "onCutCapture"?: AngularInput<'ReorderHandle', "onCutCapture">;
   @NgInput() declare "onDblClick"?: AngularInput<'ReorderHandle', "onDblClick">;
   @NgInput() declare "onDblClickCapture"?: AngularInput<'ReorderHandle', "onDblClickCapture">;
   @NgInput() declare "onDrag"?: AngularInput<'ReorderHandle', "onDrag">;
@@ -260,6 +178,50 @@ export class ReorderHandle extends AngularComponentAdapter<never> {
   @NgInput() declare "onDragStartCapture"?: AngularInput<'ReorderHandle', "onDragStartCapture">;
   @NgInput() declare "onDrop"?: AngularInput<'ReorderHandle', "onDrop">;
   @NgInput() declare "onDropCapture"?: AngularInput<'ReorderHandle', "onDropCapture">;
+  @NgInput() declare "onDurationChange"?: AngularInput<'ReorderHandle', "onDurationChange">;
+  @NgInput() declare "onDurationChangeCapture"?: AngularInput<'ReorderHandle', "onDurationChangeCapture">;
+  @NgInput() declare "onEmptied"?: AngularInput<'ReorderHandle', "onEmptied">;
+  @NgInput() declare "onEmptiedCapture"?: AngularInput<'ReorderHandle', "onEmptiedCapture">;
+  @NgInput() declare "onEncrypted"?: AngularInput<'ReorderHandle', "onEncrypted">;
+  @NgInput() declare "onEncryptedCapture"?: AngularInput<'ReorderHandle', "onEncryptedCapture">;
+  @NgInput() declare "onEnded"?: AngularInput<'ReorderHandle', "onEnded">;
+  @NgInput() declare "onEndedCapture"?: AngularInput<'ReorderHandle', "onEndedCapture">;
+  @NgInput() declare "onEnterPictureInPicture"?: AngularInput<'ReorderHandle', "onEnterPictureInPicture">;
+  @NgInput() declare "onEnterPictureInPictureCapture"?: AngularInput<'ReorderHandle', "onEnterPictureInPictureCapture">;
+  @NgInput() declare "onError"?: AngularInput<'ReorderHandle', "onError">;
+  @NgInput() declare "onErrorCapture"?: AngularInput<'ReorderHandle', "onErrorCapture">;
+  @NgInput() declare "onFocus"?: AngularInput<'ReorderHandle', "onFocus">;
+  @NgInput() declare "onFocusCapture"?: AngularInput<'ReorderHandle', "onFocusCapture">;
+  @NgInput() declare "onFocusIn"?: AngularInput<'ReorderHandle', "onFocusIn">;
+  @NgInput() declare "onFocusInCapture"?: AngularInput<'ReorderHandle', "onFocusInCapture">;
+  @NgInput() declare "onFocusOut"?: AngularInput<'ReorderHandle', "onFocusOut">;
+  @NgInput() declare "onFocusOutCapture"?: AngularInput<'ReorderHandle', "onFocusOutCapture">;
+  @NgInput() declare "onFormData"?: AngularInput<'ReorderHandle', "onFormData">;
+  @NgInput() declare "onFormDataCapture"?: AngularInput<'ReorderHandle', "onFormDataCapture">;
+  @NgInput() declare "onGotPointerCapture"?: AngularInput<'ReorderHandle', "onGotPointerCapture">;
+  @NgInput() declare "onGotPointerCaptureCapture"?: AngularInput<'ReorderHandle', "onGotPointerCaptureCapture">;
+  @NgInput() declare "onInput"?: AngularInput<'ReorderHandle', "onInput">;
+  @NgInput() declare "onInputCapture"?: AngularInput<'ReorderHandle', "onInputCapture">;
+  @NgInput() declare "onInvalid"?: AngularInput<'ReorderHandle', "onInvalid">;
+  @NgInput() declare "onInvalidCapture"?: AngularInput<'ReorderHandle', "onInvalidCapture">;
+  @NgInput() declare "onKeyDown"?: AngularInput<'ReorderHandle', "onKeyDown">;
+  @NgInput() declare "onKeyDownCapture"?: AngularInput<'ReorderHandle', "onKeyDownCapture">;
+  @NgInput() declare "onKeyPress"?: AngularInput<'ReorderHandle', "onKeyPress">;
+  @NgInput() declare "onKeyPressCapture"?: AngularInput<'ReorderHandle', "onKeyPressCapture">;
+  @NgInput() declare "onKeyUp"?: AngularInput<'ReorderHandle', "onKeyUp">;
+  @NgInput() declare "onKeyUpCapture"?: AngularInput<'ReorderHandle', "onKeyUpCapture">;
+  @NgInput() declare "onLeavePictureInPicture"?: AngularInput<'ReorderHandle', "onLeavePictureInPicture">;
+  @NgInput() declare "onLeavePictureInPictureCapture"?: AngularInput<'ReorderHandle', "onLeavePictureInPictureCapture">;
+  @NgInput() declare "onLoad"?: AngularInput<'ReorderHandle', "onLoad">;
+  @NgInput() declare "onLoadCapture"?: AngularInput<'ReorderHandle', "onLoadCapture">;
+  @NgInput() declare "onLoadStart"?: AngularInput<'ReorderHandle', "onLoadStart">;
+  @NgInput() declare "onLoadStartCapture"?: AngularInput<'ReorderHandle', "onLoadStartCapture">;
+  @NgInput() declare "onLoadedData"?: AngularInput<'ReorderHandle', "onLoadedData">;
+  @NgInput() declare "onLoadedDataCapture"?: AngularInput<'ReorderHandle', "onLoadedDataCapture">;
+  @NgInput() declare "onLoadedMetadata"?: AngularInput<'ReorderHandle', "onLoadedMetadata">;
+  @NgInput() declare "onLoadedMetadataCapture"?: AngularInput<'ReorderHandle', "onLoadedMetadataCapture">;
+  @NgInput() declare "onLostPointerCapture"?: AngularInput<'ReorderHandle', "onLostPointerCapture">;
+  @NgInput() declare "onLostPointerCaptureCapture"?: AngularInput<'ReorderHandle', "onLostPointerCaptureCapture">;
   @NgInput() declare "onMouseDown"?: AngularInput<'ReorderHandle', "onMouseDown">;
   @NgInput() declare "onMouseDownCapture"?: AngularInput<'ReorderHandle', "onMouseDownCapture">;
   @NgInput() declare "onMouseEnter"?: AngularInput<'ReorderHandle', "onMouseEnter">;
@@ -274,38 +236,38 @@ export class ReorderHandle extends AngularComponentAdapter<never> {
   @NgInput() declare "onMouseOverCapture"?: AngularInput<'ReorderHandle', "onMouseOverCapture">;
   @NgInput() declare "onMouseUp"?: AngularInput<'ReorderHandle', "onMouseUp">;
   @NgInput() declare "onMouseUpCapture"?: AngularInput<'ReorderHandle', "onMouseUpCapture">;
-  @NgInput() declare "onAuxClick"?: AngularInput<'ReorderHandle', "onAuxClick">;
-  @NgInput() declare "onAuxClickCapture"?: AngularInput<'ReorderHandle', "onAuxClickCapture">;
-  @NgInput() declare "onSelect"?: AngularInput<'ReorderHandle', "onSelect">;
-  @NgInput() declare "onSelectCapture"?: AngularInput<'ReorderHandle', "onSelectCapture">;
-  @NgInput() declare "onTouchCancel"?: AngularInput<'ReorderHandle', "onTouchCancel">;
-  @NgInput() declare "onTouchCancelCapture"?: AngularInput<'ReorderHandle', "onTouchCancelCapture">;
-  @NgInput() declare "onTouchEnd"?: AngularInput<'ReorderHandle', "onTouchEnd">;
-  @NgInput() declare "onTouchEndCapture"?: AngularInput<'ReorderHandle', "onTouchEndCapture">;
-  @NgInput() declare "onTouchMove"?: AngularInput<'ReorderHandle', "onTouchMove">;
-  @NgInput() declare "onTouchMoveCapture"?: AngularInput<'ReorderHandle', "onTouchMoveCapture">;
-  @NgInput() declare "onTouchStart"?: AngularInput<'ReorderHandle', "onTouchStart">;
-  @NgInput() declare "onTouchStartCapture"?: AngularInput<'ReorderHandle', "onTouchStartCapture">;
-  @NgInput() declare "onPointerOver"?: AngularInput<'ReorderHandle', "onPointerOver">;
-  @NgInput() declare "onPointerOverCapture"?: AngularInput<'ReorderHandle', "onPointerOverCapture">;
-  @NgInput() declare "onPointerEnter"?: AngularInput<'ReorderHandle', "onPointerEnter">;
-  @NgInput() declare "onPointerEnterCapture"?: AngularInput<'ReorderHandle', "onPointerEnterCapture">;
-  @NgInput() declare "onPointerDown"?: AngularInput<'ReorderHandle', "onPointerDown">;
-  @NgInput() declare "onPointerDownCapture"?: AngularInput<'ReorderHandle', "onPointerDownCapture">;
-  @NgInput() declare "onPointerMove"?: AngularInput<'ReorderHandle', "onPointerMove">;
-  @NgInput() declare "onPointerMoveCapture"?: AngularInput<'ReorderHandle', "onPointerMoveCapture">;
-  @NgInput() declare "onPointerUp"?: AngularInput<'ReorderHandle', "onPointerUp">;
-  @NgInput() declare "onPointerUpCapture"?: AngularInput<'ReorderHandle', "onPointerUpCapture">;
+  @NgInput() declare "onPaste"?: AngularInput<'ReorderHandle', "onPaste">;
+  @NgInput() declare "onPasteCapture"?: AngularInput<'ReorderHandle', "onPasteCapture">;
+  @NgInput() declare "onPause"?: AngularInput<'ReorderHandle', "onPause">;
+  @NgInput() declare "onPauseCapture"?: AngularInput<'ReorderHandle', "onPauseCapture">;
+  @NgInput() declare "onPlay"?: AngularInput<'ReorderHandle', "onPlay">;
+  @NgInput() declare "onPlayCapture"?: AngularInput<'ReorderHandle', "onPlayCapture">;
+  @NgInput() declare "onPlaying"?: AngularInput<'ReorderHandle', "onPlaying">;
+  @NgInput() declare "onPlayingCapture"?: AngularInput<'ReorderHandle', "onPlayingCapture">;
   @NgInput() declare "onPointerCancel"?: AngularInput<'ReorderHandle', "onPointerCancel">;
   @NgInput() declare "onPointerCancelCapture"?: AngularInput<'ReorderHandle', "onPointerCancelCapture">;
-  @NgInput() declare "onPointerOut"?: AngularInput<'ReorderHandle', "onPointerOut">;
-  @NgInput() declare "onPointerOutCapture"?: AngularInput<'ReorderHandle', "onPointerOutCapture">;
+  @NgInput() declare "onPointerDown"?: AngularInput<'ReorderHandle', "onPointerDown">;
+  @NgInput() declare "onPointerDownCapture"?: AngularInput<'ReorderHandle', "onPointerDownCapture">;
+  @NgInput() declare "onPointerEnter"?: AngularInput<'ReorderHandle', "onPointerEnter">;
+  @NgInput() declare "onPointerEnterCapture"?: AngularInput<'ReorderHandle', "onPointerEnterCapture">;
   @NgInput() declare "onPointerLeave"?: AngularInput<'ReorderHandle', "onPointerLeave">;
   @NgInput() declare "onPointerLeaveCapture"?: AngularInput<'ReorderHandle', "onPointerLeaveCapture">;
-  @NgInput() declare "onGotPointerCapture"?: AngularInput<'ReorderHandle', "onGotPointerCapture">;
-  @NgInput() declare "onGotPointerCaptureCapture"?: AngularInput<'ReorderHandle', "onGotPointerCaptureCapture">;
-  @NgInput() declare "onLostPointerCapture"?: AngularInput<'ReorderHandle', "onLostPointerCapture">;
-  @NgInput() declare "onLostPointerCaptureCapture"?: AngularInput<'ReorderHandle', "onLostPointerCaptureCapture">;
+  @NgInput() declare "onPointerMove"?: AngularInput<'ReorderHandle', "onPointerMove">;
+  @NgInput() declare "onPointerMoveCapture"?: AngularInput<'ReorderHandle', "onPointerMoveCapture">;
+  @NgInput() declare "onPointerOut"?: AngularInput<'ReorderHandle', "onPointerOut">;
+  @NgInput() declare "onPointerOutCapture"?: AngularInput<'ReorderHandle', "onPointerOutCapture">;
+  @NgInput() declare "onPointerOver"?: AngularInput<'ReorderHandle', "onPointerOver">;
+  @NgInput() declare "onPointerOverCapture"?: AngularInput<'ReorderHandle', "onPointerOverCapture">;
+  @NgInput() declare "onPointerUp"?: AngularInput<'ReorderHandle', "onPointerUp">;
+  @NgInput() declare "onPointerUpCapture"?: AngularInput<'ReorderHandle', "onPointerUpCapture">;
+  @NgInput() declare "onProgress"?: AngularInput<'ReorderHandle', "onProgress">;
+  @NgInput() declare "onProgressCapture"?: AngularInput<'ReorderHandle', "onProgressCapture">;
+  @NgInput() declare "onRateChange"?: AngularInput<'ReorderHandle', "onRateChange">;
+  @NgInput() declare "onRateChangeCapture"?: AngularInput<'ReorderHandle', "onRateChangeCapture">;
+  @NgInput() declare "onReset"?: AngularInput<'ReorderHandle', "onReset">;
+  @NgInput() declare "onResetCapture"?: AngularInput<'ReorderHandle', "onResetCapture">;
+  @NgInput() declare "onResize"?: AngularInput<'ReorderHandle', "onResize">;
+  @NgInput() declare "onResizeCapture"?: AngularInput<'ReorderHandle', "onResizeCapture">;
   @NgInput() declare "onScroll"?: AngularInput<'ReorderHandle', "onScroll">;
   @NgInput() declare "onScrollCapture"?: AngularInput<'ReorderHandle', "onScrollCapture">;
   @NgInput() declare "onScrollEnd"?: AngularInput<'ReorderHandle', "onScrollEnd">;
@@ -314,14 +276,31 @@ export class ReorderHandle extends AngularComponentAdapter<never> {
   @NgInput() declare "onScrollSnapChangeCapture"?: AngularInput<'ReorderHandle', "onScrollSnapChangeCapture">;
   @NgInput() declare "onScrollSnapChanging"?: AngularInput<'ReorderHandle', "onScrollSnapChanging">;
   @NgInput() declare "onScrollSnapChangingCapture"?: AngularInput<'ReorderHandle', "onScrollSnapChangingCapture">;
-  @NgInput() declare "onWheel"?: AngularInput<'ReorderHandle', "onWheel">;
-  @NgInput() declare "onWheelCapture"?: AngularInput<'ReorderHandle', "onWheelCapture">;
-  @NgInput() declare "onAnimationStart"?: AngularInput<'ReorderHandle', "onAnimationStart">;
-  @NgInput() declare "onAnimationStartCapture"?: AngularInput<'ReorderHandle', "onAnimationStartCapture">;
-  @NgInput() declare "onAnimationEnd"?: AngularInput<'ReorderHandle', "onAnimationEnd">;
-  @NgInput() declare "onAnimationEndCapture"?: AngularInput<'ReorderHandle', "onAnimationEndCapture">;
-  @NgInput() declare "onAnimationIteration"?: AngularInput<'ReorderHandle', "onAnimationIteration">;
-  @NgInput() declare "onAnimationIterationCapture"?: AngularInput<'ReorderHandle', "onAnimationIterationCapture">;
+  @NgInput() declare "onSearch"?: AngularInput<'ReorderHandle', "onSearch">;
+  @NgInput() declare "onSearchCapture"?: AngularInput<'ReorderHandle', "onSearchCapture">;
+  @NgInput() declare "onSeeked"?: AngularInput<'ReorderHandle', "onSeeked">;
+  @NgInput() declare "onSeekedCapture"?: AngularInput<'ReorderHandle', "onSeekedCapture">;
+  @NgInput() declare "onSeeking"?: AngularInput<'ReorderHandle', "onSeeking">;
+  @NgInput() declare "onSeekingCapture"?: AngularInput<'ReorderHandle', "onSeekingCapture">;
+  @NgInput() declare "onSelect"?: AngularInput<'ReorderHandle', "onSelect">;
+  @NgInput() declare "onSelectCapture"?: AngularInput<'ReorderHandle', "onSelectCapture">;
+  @NgInput() declare "onStalled"?: AngularInput<'ReorderHandle', "onStalled">;
+  @NgInput() declare "onStalledCapture"?: AngularInput<'ReorderHandle', "onStalledCapture">;
+  @NgInput() declare "onSubmit"?: AngularInput<'ReorderHandle', "onSubmit">;
+  @NgInput() declare "onSubmitCapture"?: AngularInput<'ReorderHandle', "onSubmitCapture">;
+  @NgInput() declare "onSuspend"?: AngularInput<'ReorderHandle', "onSuspend">;
+  @NgInput() declare "onSuspendCapture"?: AngularInput<'ReorderHandle', "onSuspendCapture">;
+  @NgInput() declare "onTimeUpdate"?: AngularInput<'ReorderHandle', "onTimeUpdate">;
+  @NgInput() declare "onTimeUpdateCapture"?: AngularInput<'ReorderHandle', "onTimeUpdateCapture">;
+  @NgInput() declare "onToggle"?: AngularInput<'ReorderHandle', "onToggle">;
+  @NgInput() declare "onTouchCancel"?: AngularInput<'ReorderHandle', "onTouchCancel">;
+  @NgInput() declare "onTouchCancelCapture"?: AngularInput<'ReorderHandle', "onTouchCancelCapture">;
+  @NgInput() declare "onTouchEnd"?: AngularInput<'ReorderHandle', "onTouchEnd">;
+  @NgInput() declare "onTouchEndCapture"?: AngularInput<'ReorderHandle', "onTouchEndCapture">;
+  @NgInput() declare "onTouchMove"?: AngularInput<'ReorderHandle', "onTouchMove">;
+  @NgInput() declare "onTouchMoveCapture"?: AngularInput<'ReorderHandle', "onTouchMoveCapture">;
+  @NgInput() declare "onTouchStart"?: AngularInput<'ReorderHandle', "onTouchStart">;
+  @NgInput() declare "onTouchStartCapture"?: AngularInput<'ReorderHandle', "onTouchStartCapture">;
   @NgInput() declare "onTransitionCancel"?: AngularInput<'ReorderHandle', "onTransitionCancel">;
   @NgInput() declare "onTransitionCancelCapture"?: AngularInput<'ReorderHandle', "onTransitionCancelCapture">;
   @NgInput() declare "onTransitionEnd"?: AngularInput<'ReorderHandle', "onTransitionEnd">;
@@ -330,111 +309,72 @@ export class ReorderHandle extends AngularComponentAdapter<never> {
   @NgInput() declare "onTransitionRunCapture"?: AngularInput<'ReorderHandle', "onTransitionRunCapture">;
   @NgInput() declare "onTransitionStart"?: AngularInput<'ReorderHandle', "onTransitionStart">;
   @NgInput() declare "onTransitionStartCapture"?: AngularInput<'ReorderHandle', "onTransitionStartCapture">;
-  @NgInput() declare "onEnterPictureInPicture"?: AngularInput<'ReorderHandle', "onEnterPictureInPicture">;
-  @NgInput() declare "onEnterPictureInPictureCapture"?: AngularInput<'ReorderHandle', "onEnterPictureInPictureCapture">;
-  @NgInput() declare "onLeavePictureInPicture"?: AngularInput<'ReorderHandle', "onLeavePictureInPicture">;
-  @NgInput() declare "onLeavePictureInPictureCapture"?: AngularInput<'ReorderHandle', "onLeavePictureInPictureCapture">;
-  @NgInput() declare "onResize"?: AngularInput<'ReorderHandle', "onResize">;
-  @NgInput() declare "onResizeCapture"?: AngularInput<'ReorderHandle', "onResizeCapture">;
-  @NgInput() declare "onCommand"?: AngularInput<'ReorderHandle', "onCommand">;
-  @Output() get loadEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onLoad'>>>('onLoad'); }
-  @Output() get loadCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onLoadCapture'>>>('onLoadCapture'); }
-  @Output() get errorEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onError'>>>('onError'); }
-  @Output() get errorCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onErrorCapture'>>>('onErrorCapture'); }
-  @Output() get copyEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onCopy'>>>('onCopy'); }
-  @Output() get copyCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onCopyCapture'>>>('onCopyCapture'); }
-  @Output() get cutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onCut'>>>('onCut'); }
-  @Output() get cutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onCutCapture'>>>('onCutCapture'); }
-  @Output() get pasteEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPaste'>>>('onPaste'); }
-  @Output() get pasteCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPasteCapture'>>>('onPasteCapture'); }
+  @NgInput() declare "onVolumeChange"?: AngularInput<'ReorderHandle', "onVolumeChange">;
+  @NgInput() declare "onVolumeChangeCapture"?: AngularInput<'ReorderHandle', "onVolumeChangeCapture">;
+  @NgInput() declare "onWaiting"?: AngularInput<'ReorderHandle', "onWaiting">;
+  @NgInput() declare "onWaitingCapture"?: AngularInput<'ReorderHandle', "onWaitingCapture">;
+  @NgInput() declare "onWheel"?: AngularInput<'ReorderHandle', "onWheel">;
+  @NgInput() declare "onWheelCapture"?: AngularInput<'ReorderHandle', "onWheelCapture">;
+  @NgInput() declare "part"?: AngularInput<'ReorderHandle', "part">;
+  @NgInput() declare "popover"?: AngularInput<'ReorderHandle', "popover">;
+  @NgInput() declare "popoverTarget"?: AngularInput<'ReorderHandle', "popoverTarget">;
+  @NgInput() declare "popoverTargetAction"?: AngularInput<'ReorderHandle', "popoverTargetAction">;
+  @NgInput() declare "popovertarget"?: AngularInput<'ReorderHandle', "popovertarget">;
+  @NgInput() declare "popovertargetaction"?: AngularInput<'ReorderHandle', "popovertargetaction">;
+  @NgInput() declare "prefix"?: AngularInput<'ReorderHandle', "prefix">;
+  @NgInput() declare "property"?: AngularInput<'ReorderHandle', "property">;
+  @NgInput() declare "resource"?: AngularInput<'ReorderHandle', "resource">;
+  @NgInput() declare "results"?: AngularInput<'ReorderHandle', "results">;
+  @NgInput() declare "role"?: AngularInput<'ReorderHandle', "role">;
+  @NgInput() declare "slot"?: AngularInput<'ReorderHandle', "slot">;
+  @NgInput() declare "spellcheck"?: AngularInput<'ReorderHandle', "spellcheck">;
+  @NgInput() declare "style"?: AngularInput<'ReorderHandle', "style">;
+  @NgInput() declare "tabIndex"?: AngularInput<'ReorderHandle', "tabIndex">;
+  @NgInput() declare "tabindex"?: AngularInput<'ReorderHandle', "tabindex">;
+  @NgInput() declare "title"?: AngularInput<'ReorderHandle', "title">;
+  @NgInput() declare "translate"?: AngularInput<'ReorderHandle', "translate">;
+  @NgInput() declare "type"?: AngularInput<'ReorderHandle', "type">;
+  @NgInput() declare "typeof"?: AngularInput<'ReorderHandle', "typeof">;
+  @NgInput() declare "value"?: AngularInput<'ReorderHandle', "value">;
+  @NgInput() declare "vocab"?: AngularInput<'ReorderHandle', "vocab">;
+  @Output() get abortEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onAbort'>>>('onAbort'); }
+  @Output() get abortCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onAbortCapture'>>>('onAbortCapture'); }
+  @Output() get animationEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onAnimationEnd'>>>('onAnimationEnd'); }
+  @Output() get animationEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onAnimationEndCapture'>>>('onAnimationEndCapture'); }
+  @Output() get animationIterationEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onAnimationIteration'>>>('onAnimationIteration'); }
+  @Output() get animationIterationCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onAnimationIterationCapture'>>>('onAnimationIterationCapture'); }
+  @Output() get animationStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onAnimationStart'>>>('onAnimationStart'); }
+  @Output() get animationStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onAnimationStartCapture'>>>('onAnimationStartCapture'); }
+  @Output() get auxClickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onAuxClick'>>>('onAuxClick'); }
+  @Output() get auxClickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onAuxClickCapture'>>>('onAuxClickCapture'); }
+  @Output() get beforeInputEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onBeforeInput'>>>('onBeforeInput'); }
+  @Output() get beforeInputCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onBeforeInputCapture'>>>('onBeforeInputCapture'); }
+  @Output() get beforeToggleEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onBeforeToggle'>>>('onBeforeToggle'); }
+  @Output() get blurEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onBlur'>>>('onBlur'); }
+  @Output() get blurCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onBlurCapture'>>>('onBlurCapture'); }
+  @Output() get canPlayEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onCanPlay'>>>('onCanPlay'); }
+  @Output() get canPlayCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onCanPlayCapture'>>>('onCanPlayCapture'); }
+  @Output() get canPlayThroughEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onCanPlayThrough'>>>('onCanPlayThrough'); }
+  @Output() get canPlayThroughCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onCanPlayThroughCapture'>>>('onCanPlayThroughCapture'); }
+  @Output() get cancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onCancel'>>>('onCancel'); }
+  @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onChange'>>>('onChange'); }
+  @Output() get changeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onChangeCapture'>>>('onChangeCapture'); }
+  @Output() get clickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onClick'>>>('onClick'); }
+  @Output() get clickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onClickCapture'>>>('onClickCapture'); }
+  @Output() get closeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onClose'>>>('onClose'); }
+  @Output() get commandEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onCommand'>>>('onCommand'); }
   @Output() get compositionEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onCompositionEnd'>>>('onCompositionEnd'); }
   @Output() get compositionEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onCompositionEndCapture'>>>('onCompositionEndCapture'); }
   @Output() get compositionStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onCompositionStart'>>>('onCompositionStart'); }
   @Output() get compositionStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onCompositionStartCapture'>>>('onCompositionStartCapture'); }
   @Output() get compositionUpdateEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onCompositionUpdate'>>>('onCompositionUpdate'); }
   @Output() get compositionUpdateCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onCompositionUpdateCapture'>>>('onCompositionUpdateCapture'); }
-  @Output() get beforeToggleEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onBeforeToggle'>>>('onBeforeToggle'); }
-  @Output() get toggleEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onToggle'>>>('onToggle'); }
-  @Output() get closeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onClose'>>>('onClose'); }
-  @Output() get cancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onCancel'>>>('onCancel'); }
-  @Output() get focusEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onFocus'>>>('onFocus'); }
-  @Output() get focusCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onFocusCapture'>>>('onFocusCapture'); }
-  @Output() get focusInEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onFocusIn'>>>('onFocusIn'); }
-  @Output() get focusInCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onFocusInCapture'>>>('onFocusInCapture'); }
-  @Output() get focusOutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onFocusOut'>>>('onFocusOut'); }
-  @Output() get focusOutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onFocusOutCapture'>>>('onFocusOutCapture'); }
-  @Output() get blurEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onBlur'>>>('onBlur'); }
-  @Output() get blurCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onBlurCapture'>>>('onBlurCapture'); }
-  @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onChange'>>>('onChange'); }
-  @Output() get changeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onChangeCapture'>>>('onChangeCapture'); }
-  @Output() get inputEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onInput'>>>('onInput'); }
-  @Output() get inputCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onInputCapture'>>>('onInputCapture'); }
-  @Output() get beforeInputEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onBeforeInput'>>>('onBeforeInput'); }
-  @Output() get beforeInputCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onBeforeInputCapture'>>>('onBeforeInputCapture'); }
-  @Output() get searchEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onSearch'>>>('onSearch'); }
-  @Output() get searchCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onSearchCapture'>>>('onSearchCapture'); }
-  @Output() get submitEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onSubmit'>>>('onSubmit'); }
-  @Output() get submitCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onSubmitCapture'>>>('onSubmitCapture'); }
-  @Output() get invalidEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onInvalid'>>>('onInvalid'); }
-  @Output() get invalidCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onInvalidCapture'>>>('onInvalidCapture'); }
-  @Output() get resetEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onReset'>>>('onReset'); }
-  @Output() get resetCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onResetCapture'>>>('onResetCapture'); }
-  @Output() get formDataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onFormData'>>>('onFormData'); }
-  @Output() get formDataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onFormDataCapture'>>>('onFormDataCapture'); }
-  @Output() get keyDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onKeyDown'>>>('onKeyDown'); }
-  @Output() get keyDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onKeyDownCapture'>>>('onKeyDownCapture'); }
-  @Output() get keyPressEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onKeyPress'>>>('onKeyPress'); }
-  @Output() get keyPressCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onKeyPressCapture'>>>('onKeyPressCapture'); }
-  @Output() get keyUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onKeyUp'>>>('onKeyUp'); }
-  @Output() get keyUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onKeyUpCapture'>>>('onKeyUpCapture'); }
-  @Output() get abortEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onAbort'>>>('onAbort'); }
-  @Output() get abortCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onAbortCapture'>>>('onAbortCapture'); }
-  @Output() get canPlayEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onCanPlay'>>>('onCanPlay'); }
-  @Output() get canPlayCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onCanPlayCapture'>>>('onCanPlayCapture'); }
-  @Output() get canPlayThroughEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onCanPlayThrough'>>>('onCanPlayThrough'); }
-  @Output() get canPlayThroughCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onCanPlayThroughCapture'>>>('onCanPlayThroughCapture'); }
-  @Output() get durationChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onDurationChange'>>>('onDurationChange'); }
-  @Output() get durationChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onDurationChangeCapture'>>>('onDurationChangeCapture'); }
-  @Output() get emptiedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onEmptied'>>>('onEmptied'); }
-  @Output() get emptiedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onEmptiedCapture'>>>('onEmptiedCapture'); }
-  @Output() get encryptedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onEncrypted'>>>('onEncrypted'); }
-  @Output() get encryptedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onEncryptedCapture'>>>('onEncryptedCapture'); }
-  @Output() get endedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onEnded'>>>('onEnded'); }
-  @Output() get endedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onEndedCapture'>>>('onEndedCapture'); }
-  @Output() get loadedDataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onLoadedData'>>>('onLoadedData'); }
-  @Output() get loadedDataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onLoadedDataCapture'>>>('onLoadedDataCapture'); }
-  @Output() get loadedMetadataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onLoadedMetadata'>>>('onLoadedMetadata'); }
-  @Output() get loadedMetadataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onLoadedMetadataCapture'>>>('onLoadedMetadataCapture'); }
-  @Output() get loadStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onLoadStart'>>>('onLoadStart'); }
-  @Output() get loadStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onLoadStartCapture'>>>('onLoadStartCapture'); }
-  @Output() get pauseEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPause'>>>('onPause'); }
-  @Output() get pauseCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPauseCapture'>>>('onPauseCapture'); }
-  @Output() get playEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPlay'>>>('onPlay'); }
-  @Output() get playCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPlayCapture'>>>('onPlayCapture'); }
-  @Output() get playingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPlaying'>>>('onPlaying'); }
-  @Output() get playingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPlayingCapture'>>>('onPlayingCapture'); }
-  @Output() get progressEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onProgress'>>>('onProgress'); }
-  @Output() get progressCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onProgressCapture'>>>('onProgressCapture'); }
-  @Output() get rateChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onRateChange'>>>('onRateChange'); }
-  @Output() get rateChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onRateChangeCapture'>>>('onRateChangeCapture'); }
-  @Output() get seekedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onSeeked'>>>('onSeeked'); }
-  @Output() get seekedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onSeekedCapture'>>>('onSeekedCapture'); }
-  @Output() get seekingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onSeeking'>>>('onSeeking'); }
-  @Output() get seekingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onSeekingCapture'>>>('onSeekingCapture'); }
-  @Output() get stalledEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onStalled'>>>('onStalled'); }
-  @Output() get stalledCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onStalledCapture'>>>('onStalledCapture'); }
-  @Output() get suspendEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onSuspend'>>>('onSuspend'); }
-  @Output() get suspendCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onSuspendCapture'>>>('onSuspendCapture'); }
-  @Output() get timeUpdateEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onTimeUpdate'>>>('onTimeUpdate'); }
-  @Output() get timeUpdateCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onTimeUpdateCapture'>>>('onTimeUpdateCapture'); }
-  @Output() get volumeChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onVolumeChange'>>>('onVolumeChange'); }
-  @Output() get volumeChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onVolumeChangeCapture'>>>('onVolumeChangeCapture'); }
-  @Output() get waitingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onWaiting'>>>('onWaiting'); }
-  @Output() get waitingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onWaitingCapture'>>>('onWaitingCapture'); }
-  @Output() get clickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onClick'>>>('onClick'); }
-  @Output() get clickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onClickCapture'>>>('onClickCapture'); }
   @Output() get contextMenuEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onContextMenu'>>>('onContextMenu'); }
   @Output() get contextMenuCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onContextMenuCapture'>>>('onContextMenuCapture'); }
+  @Output() get copyEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onCopy'>>>('onCopy'); }
+  @Output() get copyCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onCopyCapture'>>>('onCopyCapture'); }
+  @Output() get cutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onCut'>>>('onCut'); }
+  @Output() get cutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onCutCapture'>>>('onCutCapture'); }
   @Output() get dblClickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onDblClick'>>>('onDblClick'); }
   @Output() get dblClickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onDblClickCapture'>>>('onDblClickCapture'); }
   @Output() get dragEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onDrag'>>>('onDrag'); }
@@ -453,6 +393,50 @@ export class ReorderHandle extends AngularComponentAdapter<never> {
   @Output() get dragStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onDragStartCapture'>>>('onDragStartCapture'); }
   @Output() get dropEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onDrop'>>>('onDrop'); }
   @Output() get dropCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onDropCapture'>>>('onDropCapture'); }
+  @Output() get durationChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onDurationChange'>>>('onDurationChange'); }
+  @Output() get durationChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onDurationChangeCapture'>>>('onDurationChangeCapture'); }
+  @Output() get emptiedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onEmptied'>>>('onEmptied'); }
+  @Output() get emptiedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onEmptiedCapture'>>>('onEmptiedCapture'); }
+  @Output() get encryptedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onEncrypted'>>>('onEncrypted'); }
+  @Output() get encryptedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onEncryptedCapture'>>>('onEncryptedCapture'); }
+  @Output() get endedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onEnded'>>>('onEnded'); }
+  @Output() get endedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onEndedCapture'>>>('onEndedCapture'); }
+  @Output() get enterPictureInPictureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onEnterPictureInPicture'>>>('onEnterPictureInPicture'); }
+  @Output() get enterPictureInPictureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onEnterPictureInPictureCapture'>>>('onEnterPictureInPictureCapture'); }
+  @Output() get errorEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onError'>>>('onError'); }
+  @Output() get errorCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onErrorCapture'>>>('onErrorCapture'); }
+  @Output() get focusEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onFocus'>>>('onFocus'); }
+  @Output() get focusCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onFocusCapture'>>>('onFocusCapture'); }
+  @Output() get focusInEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onFocusIn'>>>('onFocusIn'); }
+  @Output() get focusInCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onFocusInCapture'>>>('onFocusInCapture'); }
+  @Output() get focusOutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onFocusOut'>>>('onFocusOut'); }
+  @Output() get focusOutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onFocusOutCapture'>>>('onFocusOutCapture'); }
+  @Output() get formDataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onFormData'>>>('onFormData'); }
+  @Output() get formDataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onFormDataCapture'>>>('onFormDataCapture'); }
+  @Output() get gotPointerCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onGotPointerCapture'>>>('onGotPointerCapture'); }
+  @Output() get gotPointerCaptureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onGotPointerCaptureCapture'>>>('onGotPointerCaptureCapture'); }
+  @Output() get inputEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onInput'>>>('onInput'); }
+  @Output() get inputCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onInputCapture'>>>('onInputCapture'); }
+  @Output() get invalidEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onInvalid'>>>('onInvalid'); }
+  @Output() get invalidCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onInvalidCapture'>>>('onInvalidCapture'); }
+  @Output() get keyDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onKeyDown'>>>('onKeyDown'); }
+  @Output() get keyDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onKeyDownCapture'>>>('onKeyDownCapture'); }
+  @Output() get keyPressEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onKeyPress'>>>('onKeyPress'); }
+  @Output() get keyPressCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onKeyPressCapture'>>>('onKeyPressCapture'); }
+  @Output() get keyUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onKeyUp'>>>('onKeyUp'); }
+  @Output() get keyUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onKeyUpCapture'>>>('onKeyUpCapture'); }
+  @Output() get leavePictureInPictureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onLeavePictureInPicture'>>>('onLeavePictureInPicture'); }
+  @Output() get leavePictureInPictureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onLeavePictureInPictureCapture'>>>('onLeavePictureInPictureCapture'); }
+  @Output() get loadEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onLoad'>>>('onLoad'); }
+  @Output() get loadCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onLoadCapture'>>>('onLoadCapture'); }
+  @Output() get loadStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onLoadStart'>>>('onLoadStart'); }
+  @Output() get loadStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onLoadStartCapture'>>>('onLoadStartCapture'); }
+  @Output() get loadedDataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onLoadedData'>>>('onLoadedData'); }
+  @Output() get loadedDataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onLoadedDataCapture'>>>('onLoadedDataCapture'); }
+  @Output() get loadedMetadataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onLoadedMetadata'>>>('onLoadedMetadata'); }
+  @Output() get loadedMetadataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onLoadedMetadataCapture'>>>('onLoadedMetadataCapture'); }
+  @Output() get lostPointerCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onLostPointerCapture'>>>('onLostPointerCapture'); }
+  @Output() get lostPointerCaptureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onLostPointerCaptureCapture'>>>('onLostPointerCaptureCapture'); }
   @Output() get mouseDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onMouseDown'>>>('onMouseDown'); }
   @Output() get mouseDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onMouseDownCapture'>>>('onMouseDownCapture'); }
   @Output() get mouseEnterEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onMouseEnter'>>>('onMouseEnter'); }
@@ -467,38 +451,38 @@ export class ReorderHandle extends AngularComponentAdapter<never> {
   @Output() get mouseOverCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onMouseOverCapture'>>>('onMouseOverCapture'); }
   @Output() get mouseUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onMouseUp'>>>('onMouseUp'); }
   @Output() get mouseUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onMouseUpCapture'>>>('onMouseUpCapture'); }
-  @Output() get auxClickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onAuxClick'>>>('onAuxClick'); }
-  @Output() get auxClickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onAuxClickCapture'>>>('onAuxClickCapture'); }
-  @Output() get selectEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onSelect'>>>('onSelect'); }
-  @Output() get selectCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onSelectCapture'>>>('onSelectCapture'); }
-  @Output() get touchCancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onTouchCancel'>>>('onTouchCancel'); }
-  @Output() get touchCancelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onTouchCancelCapture'>>>('onTouchCancelCapture'); }
-  @Output() get touchEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onTouchEnd'>>>('onTouchEnd'); }
-  @Output() get touchEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onTouchEndCapture'>>>('onTouchEndCapture'); }
-  @Output() get touchMoveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onTouchMove'>>>('onTouchMove'); }
-  @Output() get touchMoveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onTouchMoveCapture'>>>('onTouchMoveCapture'); }
-  @Output() get touchStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onTouchStart'>>>('onTouchStart'); }
-  @Output() get touchStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onTouchStartCapture'>>>('onTouchStartCapture'); }
-  @Output() get pointerOverEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPointerOver'>>>('onPointerOver'); }
-  @Output() get pointerOverCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPointerOverCapture'>>>('onPointerOverCapture'); }
-  @Output() get pointerEnterEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPointerEnter'>>>('onPointerEnter'); }
-  @Output() get pointerEnterCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPointerEnterCapture'>>>('onPointerEnterCapture'); }
-  @Output() get pointerDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPointerDown'>>>('onPointerDown'); }
-  @Output() get pointerDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPointerDownCapture'>>>('onPointerDownCapture'); }
-  @Output() get pointerMoveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPointerMove'>>>('onPointerMove'); }
-  @Output() get pointerMoveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPointerMoveCapture'>>>('onPointerMoveCapture'); }
-  @Output() get pointerUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPointerUp'>>>('onPointerUp'); }
-  @Output() get pointerUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPointerUpCapture'>>>('onPointerUpCapture'); }
+  @Output() get pasteEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPaste'>>>('onPaste'); }
+  @Output() get pasteCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPasteCapture'>>>('onPasteCapture'); }
+  @Output() get pauseEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPause'>>>('onPause'); }
+  @Output() get pauseCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPauseCapture'>>>('onPauseCapture'); }
+  @Output() get playEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPlay'>>>('onPlay'); }
+  @Output() get playCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPlayCapture'>>>('onPlayCapture'); }
+  @Output() get playingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPlaying'>>>('onPlaying'); }
+  @Output() get playingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPlayingCapture'>>>('onPlayingCapture'); }
   @Output() get pointerCancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPointerCancel'>>>('onPointerCancel'); }
   @Output() get pointerCancelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPointerCancelCapture'>>>('onPointerCancelCapture'); }
-  @Output() get pointerOutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPointerOut'>>>('onPointerOut'); }
-  @Output() get pointerOutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPointerOutCapture'>>>('onPointerOutCapture'); }
+  @Output() get pointerDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPointerDown'>>>('onPointerDown'); }
+  @Output() get pointerDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPointerDownCapture'>>>('onPointerDownCapture'); }
+  @Output() get pointerEnterEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPointerEnter'>>>('onPointerEnter'); }
+  @Output() get pointerEnterCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPointerEnterCapture'>>>('onPointerEnterCapture'); }
   @Output() get pointerLeaveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPointerLeave'>>>('onPointerLeave'); }
   @Output() get pointerLeaveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPointerLeaveCapture'>>>('onPointerLeaveCapture'); }
-  @Output() get gotPointerCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onGotPointerCapture'>>>('onGotPointerCapture'); }
-  @Output() get gotPointerCaptureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onGotPointerCaptureCapture'>>>('onGotPointerCaptureCapture'); }
-  @Output() get lostPointerCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onLostPointerCapture'>>>('onLostPointerCapture'); }
-  @Output() get lostPointerCaptureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onLostPointerCaptureCapture'>>>('onLostPointerCaptureCapture'); }
+  @Output() get pointerMoveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPointerMove'>>>('onPointerMove'); }
+  @Output() get pointerMoveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPointerMoveCapture'>>>('onPointerMoveCapture'); }
+  @Output() get pointerOutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPointerOut'>>>('onPointerOut'); }
+  @Output() get pointerOutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPointerOutCapture'>>>('onPointerOutCapture'); }
+  @Output() get pointerOverEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPointerOver'>>>('onPointerOver'); }
+  @Output() get pointerOverCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPointerOverCapture'>>>('onPointerOverCapture'); }
+  @Output() get pointerUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPointerUp'>>>('onPointerUp'); }
+  @Output() get pointerUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onPointerUpCapture'>>>('onPointerUpCapture'); }
+  @Output() get progressEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onProgress'>>>('onProgress'); }
+  @Output() get progressCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onProgressCapture'>>>('onProgressCapture'); }
+  @Output() get rateChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onRateChange'>>>('onRateChange'); }
+  @Output() get rateChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onRateChangeCapture'>>>('onRateChangeCapture'); }
+  @Output() get resetEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onReset'>>>('onReset'); }
+  @Output() get resetCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onResetCapture'>>>('onResetCapture'); }
+  @Output() get resizeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onResize'>>>('onResize'); }
+  @Output() get resizeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onResizeCapture'>>>('onResizeCapture'); }
   @Output() get scrollEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onScroll'>>>('onScroll'); }
   @Output() get scrollCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onScrollCapture'>>>('onScrollCapture'); }
   @Output() get scrollEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onScrollEnd'>>>('onScrollEnd'); }
@@ -507,14 +491,31 @@ export class ReorderHandle extends AngularComponentAdapter<never> {
   @Output() get scrollSnapChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onScrollSnapChangeCapture'>>>('onScrollSnapChangeCapture'); }
   @Output() get scrollSnapChangingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onScrollSnapChanging'>>>('onScrollSnapChanging'); }
   @Output() get scrollSnapChangingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onScrollSnapChangingCapture'>>>('onScrollSnapChangingCapture'); }
-  @Output() get wheelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onWheel'>>>('onWheel'); }
-  @Output() get wheelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onWheelCapture'>>>('onWheelCapture'); }
-  @Output() get animationStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onAnimationStart'>>>('onAnimationStart'); }
-  @Output() get animationStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onAnimationStartCapture'>>>('onAnimationStartCapture'); }
-  @Output() get animationEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onAnimationEnd'>>>('onAnimationEnd'); }
-  @Output() get animationEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onAnimationEndCapture'>>>('onAnimationEndCapture'); }
-  @Output() get animationIterationEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onAnimationIteration'>>>('onAnimationIteration'); }
-  @Output() get animationIterationCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onAnimationIterationCapture'>>>('onAnimationIterationCapture'); }
+  @Output() get searchEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onSearch'>>>('onSearch'); }
+  @Output() get searchCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onSearchCapture'>>>('onSearchCapture'); }
+  @Output() get seekedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onSeeked'>>>('onSeeked'); }
+  @Output() get seekedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onSeekedCapture'>>>('onSeekedCapture'); }
+  @Output() get seekingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onSeeking'>>>('onSeeking'); }
+  @Output() get seekingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onSeekingCapture'>>>('onSeekingCapture'); }
+  @Output() get selectEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onSelect'>>>('onSelect'); }
+  @Output() get selectCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onSelectCapture'>>>('onSelectCapture'); }
+  @Output() get stalledEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onStalled'>>>('onStalled'); }
+  @Output() get stalledCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onStalledCapture'>>>('onStalledCapture'); }
+  @Output() get submitEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onSubmit'>>>('onSubmit'); }
+  @Output() get submitCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onSubmitCapture'>>>('onSubmitCapture'); }
+  @Output() get suspendEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onSuspend'>>>('onSuspend'); }
+  @Output() get suspendCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onSuspendCapture'>>>('onSuspendCapture'); }
+  @Output() get timeUpdateEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onTimeUpdate'>>>('onTimeUpdate'); }
+  @Output() get timeUpdateCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onTimeUpdateCapture'>>>('onTimeUpdateCapture'); }
+  @Output() get toggleEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onToggle'>>>('onToggle'); }
+  @Output() get touchCancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onTouchCancel'>>>('onTouchCancel'); }
+  @Output() get touchCancelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onTouchCancelCapture'>>>('onTouchCancelCapture'); }
+  @Output() get touchEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onTouchEnd'>>>('onTouchEnd'); }
+  @Output() get touchEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onTouchEndCapture'>>>('onTouchEndCapture'); }
+  @Output() get touchMoveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onTouchMove'>>>('onTouchMove'); }
+  @Output() get touchMoveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onTouchMoveCapture'>>>('onTouchMoveCapture'); }
+  @Output() get touchStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onTouchStart'>>>('onTouchStart'); }
+  @Output() get touchStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onTouchStartCapture'>>>('onTouchStartCapture'); }
   @Output() get transitionCancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onTransitionCancel'>>>('onTransitionCancel'); }
   @Output() get transitionCancelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onTransitionCancelCapture'>>>('onTransitionCancelCapture'); }
   @Output() get transitionEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onTransitionEnd'>>>('onTransitionEnd'); }
@@ -523,12 +524,11 @@ export class ReorderHandle extends AngularComponentAdapter<never> {
   @Output() get transitionRunCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onTransitionRunCapture'>>>('onTransitionRunCapture'); }
   @Output() get transitionStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onTransitionStart'>>>('onTransitionStart'); }
   @Output() get transitionStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onTransitionStartCapture'>>>('onTransitionStartCapture'); }
-  @Output() get enterPictureInPictureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onEnterPictureInPicture'>>>('onEnterPictureInPicture'); }
-  @Output() get enterPictureInPictureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onEnterPictureInPictureCapture'>>>('onEnterPictureInPictureCapture'); }
-  @Output() get leavePictureInPictureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onLeavePictureInPicture'>>>('onLeavePictureInPicture'); }
-  @Output() get leavePictureInPictureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onLeavePictureInPictureCapture'>>>('onLeavePictureInPictureCapture'); }
-  @Output() get resizeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onResize'>>>('onResize'); }
-  @Output() get resizeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onResizeCapture'>>>('onResizeCapture'); }
-  @Output() get commandEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onCommand'>>>('onCommand'); }
+  @Output() get volumeChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onVolumeChange'>>>('onVolumeChange'); }
+  @Output() get volumeChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onVolumeChangeCapture'>>>('onVolumeChangeCapture'); }
+  @Output() get waitingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onWaiting'>>>('onWaiting'); }
+  @Output() get waitingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onWaitingCapture'>>>('onWaitingCapture'); }
+  @Output() get wheelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onWheel'>>>('onWheel'); }
+  @Output() get wheelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onWheelCapture'>>>('onWheelCapture'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

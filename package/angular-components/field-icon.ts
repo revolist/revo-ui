@@ -12,8 +12,8 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class FieldIcon extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'FieldIcon';
   protected rvResolveComponent() { return Control; }
-  @NgInput({ required: true }) declare "svg": AngularInput<'FieldIcon', "svg">;
   @NgInput() declare "className"?: AngularInput<'FieldIcon', "className">;
+  @NgInput({ required: true }) declare "svg": AngularInput<'FieldIcon', "svg">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

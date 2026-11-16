@@ -12,62 +12,9 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class DisclosureSummary extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'DisclosureSummary';
   protected rvResolveComponent() { return Control; }
-  @NgInput() declare "translate"?: AngularInput<'DisclosureSummary', "translate">;
-  @NgInput() declare "accesskey"?: AngularInput<'DisclosureSummary', "accesskey">;
-  @NgInput() declare "accessKey"?: AngularInput<'DisclosureSummary', "accessKey">;
-  @NgInput() declare "autocapitalize"?: AngularInput<'DisclosureSummary', "autocapitalize">;
-  @NgInput() declare "autoCapitalize"?: AngularInput<'DisclosureSummary', "autoCapitalize">;
-  @NgInput() declare "autocorrect"?: AngularInput<'DisclosureSummary', "autocorrect">;
-  @NgInput() declare "autoCorrect"?: AngularInput<'DisclosureSummary', "autoCorrect">;
-  @NgInput() declare "autofocus"?: AngularInput<'DisclosureSummary', "autofocus">;
-  @NgInput() declare "autoFocus"?: AngularInput<'DisclosureSummary', "autoFocus">;
-  @NgInput() declare "class"?: AngularInput<'DisclosureSummary', "class">;
-  @NgInput() declare "contenteditable"?: AngularInput<'DisclosureSummary', "contenteditable">;
-  @NgInput() declare "contentEditable"?: AngularInput<'DisclosureSummary', "contentEditable">;
-  @NgInput() declare "dir"?: AngularInput<'DisclosureSummary', "dir">;
-  @NgInput() declare "draggable"?: AngularInput<'DisclosureSummary', "draggable">;
-  @NgInput() declare "enterkeyhint"?: AngularInput<'DisclosureSummary', "enterkeyhint">;
-  @NgInput() declare "exportparts"?: AngularInput<'DisclosureSummary', "exportparts">;
-  @NgInput() declare "hidden"?: AngularInput<'DisclosureSummary', "hidden">;
-  @NgInput() declare "id"?: AngularInput<'DisclosureSummary', "id">;
-  @NgInput() declare "inert"?: AngularInput<'DisclosureSummary', "inert">;
-  @NgInput() declare "inputmode"?: AngularInput<'DisclosureSummary', "inputmode">;
-  @NgInput() declare "inputMode"?: AngularInput<'DisclosureSummary', "inputMode">;
-  @NgInput() declare "is"?: AngularInput<'DisclosureSummary', "is">;
-  @NgInput() declare "lang"?: AngularInput<'DisclosureSummary', "lang">;
-  @NgInput() declare "nonce"?: AngularInput<'DisclosureSummary', "nonce">;
-  @NgInput() declare "part"?: AngularInput<'DisclosureSummary', "part">;
-  @NgInput() declare "popover"?: AngularInput<'DisclosureSummary', "popover">;
-  @NgInput() declare "slot"?: AngularInput<'DisclosureSummary', "slot">;
-  @NgInput() declare "spellcheck"?: AngularInput<'DisclosureSummary', "spellcheck">;
-  @NgInput() declare "style"?: AngularInput<'DisclosureSummary', "style">;
-  @NgInput() declare "tabindex"?: AngularInput<'DisclosureSummary', "tabindex">;
-  @NgInput() declare "tabIndex"?: AngularInput<'DisclosureSummary', "tabIndex">;
-  @NgInput() declare "title"?: AngularInput<'DisclosureSummary', "title">;
-  @NgInput() declare "role"?: AngularInput<'DisclosureSummary', "role">;
-  @NgInput() declare "disablePictureInPicture"?: AngularInput<'DisclosureSummary', "disablePictureInPicture">;
-  @NgInput() declare "elementtiming"?: AngularInput<'DisclosureSummary', "elementtiming">;
-  @NgInput() declare "elementTiming"?: AngularInput<'DisclosureSummary', "elementTiming">;
-  @NgInput() declare "results"?: AngularInput<'DisclosureSummary', "results">;
   @NgInput() declare "about"?: AngularInput<'DisclosureSummary', "about">;
-  @NgInput() declare "datatype"?: AngularInput<'DisclosureSummary', "datatype">;
-  @NgInput() declare "inlist"?: AngularInput<'DisclosureSummary', "inlist">;
-  @NgInput() declare "prefix"?: AngularInput<'DisclosureSummary', "prefix">;
-  @NgInput() declare "property"?: AngularInput<'DisclosureSummary', "property">;
-  @NgInput() declare "resource"?: AngularInput<'DisclosureSummary', "resource">;
-  @NgInput() declare "typeof"?: AngularInput<'DisclosureSummary', "typeof">;
-  @NgInput() declare "vocab"?: AngularInput<'DisclosureSummary', "vocab">;
-  @NgInput() declare "itemid"?: AngularInput<'DisclosureSummary', "itemid">;
-  @NgInput() declare "itemID"?: AngularInput<'DisclosureSummary', "itemID">;
-  @NgInput() declare "itemprop"?: AngularInput<'DisclosureSummary', "itemprop">;
-  @NgInput() declare "itemProp"?: AngularInput<'DisclosureSummary', "itemProp">;
-  @NgInput() declare "itemref"?: AngularInput<'DisclosureSummary', "itemref">;
-  @NgInput() declare "itemRef"?: AngularInput<'DisclosureSummary', "itemRef">;
-  @NgInput() declare "itemscope"?: AngularInput<'DisclosureSummary', "itemscope">;
-  @NgInput() declare "itemScope"?: AngularInput<'DisclosureSummary', "itemScope">;
-  @NgInput() declare "itemtype"?: AngularInput<'DisclosureSummary', "itemtype">;
-  @NgInput() declare "itemType"?: AngularInput<'DisclosureSummary', "itemType">;
-  @NgInput() declare "dangerouslySetInnerHTML"?: AngularInput<'DisclosureSummary', "dangerouslySetInnerHTML">;
+  @NgInput() declare "accessKey"?: AngularInput<'DisclosureSummary', "accessKey">;
+  @NgInput() declare "accesskey"?: AngularInput<'DisclosureSummary', "accesskey">;
   @NgInput() declare "aria-activedescendant"?: AngularInput<'DisclosureSummary', "aria-activedescendant">;
   @NgInput() declare "aria-atomic"?: AngularInput<'DisclosureSummary', "aria-atomic">;
   @NgInput() declare "aria-autocomplete"?: AngularInput<'DisclosureSummary', "aria-autocomplete">;
@@ -121,108 +68,85 @@ export class DisclosureSummary extends AngularComponentAdapter<never> {
   @NgInput() declare "aria-valuemin"?: AngularInput<'DisclosureSummary', "aria-valuemin">;
   @NgInput() declare "aria-valuenow"?: AngularInput<'DisclosureSummary', "aria-valuenow">;
   @NgInput() declare "aria-valuetext"?: AngularInput<'DisclosureSummary', "aria-valuetext">;
+  @NgInput() declare "autoCapitalize"?: AngularInput<'DisclosureSummary', "autoCapitalize">;
+  @NgInput() declare "autoCorrect"?: AngularInput<'DisclosureSummary', "autoCorrect">;
+  @NgInput() declare "autoFocus"?: AngularInput<'DisclosureSummary', "autoFocus">;
+  @NgInput() declare "autocapitalize"?: AngularInput<'DisclosureSummary', "autocapitalize">;
+  @NgInput() declare "autocorrect"?: AngularInput<'DisclosureSummary', "autocorrect">;
+  @NgInput() declare "autofocus"?: AngularInput<'DisclosureSummary', "autofocus">;
+  @NgInput() declare "class"?: AngularInput<'DisclosureSummary', "class">;
   @NgInput() declare "className"?: AngularInput<'DisclosureSummary', "className">;
+  @NgInput() declare "contentEditable"?: AngularInput<'DisclosureSummary', "contentEditable">;
+  @NgInput() declare "contenteditable"?: AngularInput<'DisclosureSummary', "contenteditable">;
+  @NgInput() declare "dangerouslySetInnerHTML"?: AngularInput<'DisclosureSummary', "dangerouslySetInnerHTML">;
+  @NgInput() declare "datatype"?: AngularInput<'DisclosureSummary', "datatype">;
+  @NgInput() declare "dir"?: AngularInput<'DisclosureSummary', "dir">;
+  @NgInput() declare "disablePictureInPicture"?: AngularInput<'DisclosureSummary', "disablePictureInPicture">;
+  @NgInput() declare "draggable"?: AngularInput<'DisclosureSummary', "draggable">;
+  @NgInput() declare "elementTiming"?: AngularInput<'DisclosureSummary', "elementTiming">;
+  @NgInput() declare "elementtiming"?: AngularInput<'DisclosureSummary', "elementtiming">;
+  @NgInput() declare "enterkeyhint"?: AngularInput<'DisclosureSummary', "enterkeyhint">;
+  @NgInput() declare "exportparts"?: AngularInput<'DisclosureSummary', "exportparts">;
+  @NgInput() declare "hidden"?: AngularInput<'DisclosureSummary', "hidden">;
   @NgInput() declare "icon"?: AngularInput<'DisclosureSummary', "icon">;
   @NgInput() declare "iconClassName"?: AngularInput<'DisclosureSummary', "iconClassName">;
   @NgInput() declare "iconPosition"?: AngularInput<'DisclosureSummary', "iconPosition">;
+  @NgInput() declare "id"?: AngularInput<'DisclosureSummary', "id">;
+  @NgInput() declare "inert"?: AngularInput<'DisclosureSummary', "inert">;
+  @NgInput() declare "inlist"?: AngularInput<'DisclosureSummary', "inlist">;
+  @NgInput() declare "inputMode"?: AngularInput<'DisclosureSummary', "inputMode">;
+  @NgInput() declare "inputmode"?: AngularInput<'DisclosureSummary', "inputmode">;
+  @NgInput() declare "is"?: AngularInput<'DisclosureSummary', "is">;
+  @NgInput() declare "itemID"?: AngularInput<'DisclosureSummary', "itemID">;
+  @NgInput() declare "itemProp"?: AngularInput<'DisclosureSummary', "itemProp">;
+  @NgInput() declare "itemRef"?: AngularInput<'DisclosureSummary', "itemRef">;
+  @NgInput() declare "itemScope"?: AngularInput<'DisclosureSummary', "itemScope">;
+  @NgInput() declare "itemType"?: AngularInput<'DisclosureSummary', "itemType">;
+  @NgInput() declare "itemid"?: AngularInput<'DisclosureSummary', "itemid">;
+  @NgInput() declare "itemprop"?: AngularInput<'DisclosureSummary', "itemprop">;
+  @NgInput() declare "itemref"?: AngularInput<'DisclosureSummary', "itemref">;
+  @NgInput() declare "itemscope"?: AngularInput<'DisclosureSummary', "itemscope">;
+  @NgInput() declare "itemtype"?: AngularInput<'DisclosureSummary', "itemtype">;
+  @NgInput() declare "lang"?: AngularInput<'DisclosureSummary', "lang">;
+  @NgInput() declare "nonce"?: AngularInput<'DisclosureSummary', "nonce">;
+  @NgInput() declare "onAbort"?: AngularInput<'DisclosureSummary', "onAbort">;
+  @NgInput() declare "onAbortCapture"?: AngularInput<'DisclosureSummary', "onAbortCapture">;
+  @NgInput() declare "onAnimationEnd"?: AngularInput<'DisclosureSummary', "onAnimationEnd">;
+  @NgInput() declare "onAnimationEndCapture"?: AngularInput<'DisclosureSummary', "onAnimationEndCapture">;
+  @NgInput() declare "onAnimationIteration"?: AngularInput<'DisclosureSummary', "onAnimationIteration">;
+  @NgInput() declare "onAnimationIterationCapture"?: AngularInput<'DisclosureSummary', "onAnimationIterationCapture">;
+  @NgInput() declare "onAnimationStart"?: AngularInput<'DisclosureSummary', "onAnimationStart">;
+  @NgInput() declare "onAnimationStartCapture"?: AngularInput<'DisclosureSummary', "onAnimationStartCapture">;
+  @NgInput() declare "onAuxClick"?: AngularInput<'DisclosureSummary', "onAuxClick">;
+  @NgInput() declare "onAuxClickCapture"?: AngularInput<'DisclosureSummary', "onAuxClickCapture">;
+  @NgInput() declare "onBeforeInput"?: AngularInput<'DisclosureSummary', "onBeforeInput">;
+  @NgInput() declare "onBeforeInputCapture"?: AngularInput<'DisclosureSummary', "onBeforeInputCapture">;
+  @NgInput() declare "onBeforeToggle"?: AngularInput<'DisclosureSummary', "onBeforeToggle">;
+  @NgInput() declare "onBlur"?: AngularInput<'DisclosureSummary', "onBlur">;
+  @NgInput() declare "onBlurCapture"?: AngularInput<'DisclosureSummary', "onBlurCapture">;
+  @NgInput() declare "onCanPlay"?: AngularInput<'DisclosureSummary', "onCanPlay">;
+  @NgInput() declare "onCanPlayCapture"?: AngularInput<'DisclosureSummary', "onCanPlayCapture">;
+  @NgInput() declare "onCanPlayThrough"?: AngularInput<'DisclosureSummary', "onCanPlayThrough">;
+  @NgInput() declare "onCanPlayThroughCapture"?: AngularInput<'DisclosureSummary', "onCanPlayThroughCapture">;
+  @NgInput() declare "onCancel"?: AngularInput<'DisclosureSummary', "onCancel">;
   @NgInput() declare "onChange"?: AngularInput<'DisclosureSummary', "onChange">;
-  @NgInput() declare "onLoad"?: AngularInput<'DisclosureSummary', "onLoad">;
-  @NgInput() declare "onLoadCapture"?: AngularInput<'DisclosureSummary', "onLoadCapture">;
-  @NgInput() declare "onError"?: AngularInput<'DisclosureSummary', "onError">;
-  @NgInput() declare "onErrorCapture"?: AngularInput<'DisclosureSummary', "onErrorCapture">;
-  @NgInput() declare "onCopy"?: AngularInput<'DisclosureSummary', "onCopy">;
-  @NgInput() declare "onCopyCapture"?: AngularInput<'DisclosureSummary', "onCopyCapture">;
-  @NgInput() declare "onCut"?: AngularInput<'DisclosureSummary', "onCut">;
-  @NgInput() declare "onCutCapture"?: AngularInput<'DisclosureSummary', "onCutCapture">;
-  @NgInput() declare "onPaste"?: AngularInput<'DisclosureSummary', "onPaste">;
-  @NgInput() declare "onPasteCapture"?: AngularInput<'DisclosureSummary', "onPasteCapture">;
+  @NgInput() declare "onChangeCapture"?: AngularInput<'DisclosureSummary', "onChangeCapture">;
+  @NgInput() declare "onClick"?: AngularInput<'DisclosureSummary', "onClick">;
+  @NgInput() declare "onClickCapture"?: AngularInput<'DisclosureSummary', "onClickCapture">;
+  @NgInput() declare "onClose"?: AngularInput<'DisclosureSummary', "onClose">;
+  @NgInput() declare "onCommand"?: AngularInput<'DisclosureSummary', "onCommand">;
   @NgInput() declare "onCompositionEnd"?: AngularInput<'DisclosureSummary', "onCompositionEnd">;
   @NgInput() declare "onCompositionEndCapture"?: AngularInput<'DisclosureSummary', "onCompositionEndCapture">;
   @NgInput() declare "onCompositionStart"?: AngularInput<'DisclosureSummary', "onCompositionStart">;
   @NgInput() declare "onCompositionStartCapture"?: AngularInput<'DisclosureSummary', "onCompositionStartCapture">;
   @NgInput() declare "onCompositionUpdate"?: AngularInput<'DisclosureSummary', "onCompositionUpdate">;
   @NgInput() declare "onCompositionUpdateCapture"?: AngularInput<'DisclosureSummary', "onCompositionUpdateCapture">;
-  @NgInput() declare "onBeforeToggle"?: AngularInput<'DisclosureSummary', "onBeforeToggle">;
-  @NgInput() declare "onToggle"?: AngularInput<'DisclosureSummary', "onToggle">;
-  @NgInput() declare "onClose"?: AngularInput<'DisclosureSummary', "onClose">;
-  @NgInput() declare "onCancel"?: AngularInput<'DisclosureSummary', "onCancel">;
-  @NgInput() declare "onFocus"?: AngularInput<'DisclosureSummary', "onFocus">;
-  @NgInput() declare "onFocusCapture"?: AngularInput<'DisclosureSummary', "onFocusCapture">;
-  @NgInput() declare "onFocusIn"?: AngularInput<'DisclosureSummary', "onFocusIn">;
-  @NgInput() declare "onFocusInCapture"?: AngularInput<'DisclosureSummary', "onFocusInCapture">;
-  @NgInput() declare "onFocusOut"?: AngularInput<'DisclosureSummary', "onFocusOut">;
-  @NgInput() declare "onFocusOutCapture"?: AngularInput<'DisclosureSummary', "onFocusOutCapture">;
-  @NgInput() declare "onBlur"?: AngularInput<'DisclosureSummary', "onBlur">;
-  @NgInput() declare "onBlurCapture"?: AngularInput<'DisclosureSummary', "onBlurCapture">;
-  @NgInput() declare "onChangeCapture"?: AngularInput<'DisclosureSummary', "onChangeCapture">;
-  @NgInput() declare "onInput"?: AngularInput<'DisclosureSummary', "onInput">;
-  @NgInput() declare "onInputCapture"?: AngularInput<'DisclosureSummary', "onInputCapture">;
-  @NgInput() declare "onBeforeInput"?: AngularInput<'DisclosureSummary', "onBeforeInput">;
-  @NgInput() declare "onBeforeInputCapture"?: AngularInput<'DisclosureSummary', "onBeforeInputCapture">;
-  @NgInput() declare "onSearch"?: AngularInput<'DisclosureSummary', "onSearch">;
-  @NgInput() declare "onSearchCapture"?: AngularInput<'DisclosureSummary', "onSearchCapture">;
-  @NgInput() declare "onSubmit"?: AngularInput<'DisclosureSummary', "onSubmit">;
-  @NgInput() declare "onSubmitCapture"?: AngularInput<'DisclosureSummary', "onSubmitCapture">;
-  @NgInput() declare "onInvalid"?: AngularInput<'DisclosureSummary', "onInvalid">;
-  @NgInput() declare "onInvalidCapture"?: AngularInput<'DisclosureSummary', "onInvalidCapture">;
-  @NgInput() declare "onReset"?: AngularInput<'DisclosureSummary', "onReset">;
-  @NgInput() declare "onResetCapture"?: AngularInput<'DisclosureSummary', "onResetCapture">;
-  @NgInput() declare "onFormData"?: AngularInput<'DisclosureSummary', "onFormData">;
-  @NgInput() declare "onFormDataCapture"?: AngularInput<'DisclosureSummary', "onFormDataCapture">;
-  @NgInput() declare "onKeyDown"?: AngularInput<'DisclosureSummary', "onKeyDown">;
-  @NgInput() declare "onKeyDownCapture"?: AngularInput<'DisclosureSummary', "onKeyDownCapture">;
-  @NgInput() declare "onKeyPress"?: AngularInput<'DisclosureSummary', "onKeyPress">;
-  @NgInput() declare "onKeyPressCapture"?: AngularInput<'DisclosureSummary', "onKeyPressCapture">;
-  @NgInput() declare "onKeyUp"?: AngularInput<'DisclosureSummary', "onKeyUp">;
-  @NgInput() declare "onKeyUpCapture"?: AngularInput<'DisclosureSummary', "onKeyUpCapture">;
-  @NgInput() declare "onAbort"?: AngularInput<'DisclosureSummary', "onAbort">;
-  @NgInput() declare "onAbortCapture"?: AngularInput<'DisclosureSummary', "onAbortCapture">;
-  @NgInput() declare "onCanPlay"?: AngularInput<'DisclosureSummary', "onCanPlay">;
-  @NgInput() declare "onCanPlayCapture"?: AngularInput<'DisclosureSummary', "onCanPlayCapture">;
-  @NgInput() declare "onCanPlayThrough"?: AngularInput<'DisclosureSummary', "onCanPlayThrough">;
-  @NgInput() declare "onCanPlayThroughCapture"?: AngularInput<'DisclosureSummary', "onCanPlayThroughCapture">;
-  @NgInput() declare "onDurationChange"?: AngularInput<'DisclosureSummary', "onDurationChange">;
-  @NgInput() declare "onDurationChangeCapture"?: AngularInput<'DisclosureSummary', "onDurationChangeCapture">;
-  @NgInput() declare "onEmptied"?: AngularInput<'DisclosureSummary', "onEmptied">;
-  @NgInput() declare "onEmptiedCapture"?: AngularInput<'DisclosureSummary', "onEmptiedCapture">;
-  @NgInput() declare "onEncrypted"?: AngularInput<'DisclosureSummary', "onEncrypted">;
-  @NgInput() declare "onEncryptedCapture"?: AngularInput<'DisclosureSummary', "onEncryptedCapture">;
-  @NgInput() declare "onEnded"?: AngularInput<'DisclosureSummary', "onEnded">;
-  @NgInput() declare "onEndedCapture"?: AngularInput<'DisclosureSummary', "onEndedCapture">;
-  @NgInput() declare "onLoadedData"?: AngularInput<'DisclosureSummary', "onLoadedData">;
-  @NgInput() declare "onLoadedDataCapture"?: AngularInput<'DisclosureSummary', "onLoadedDataCapture">;
-  @NgInput() declare "onLoadedMetadata"?: AngularInput<'DisclosureSummary', "onLoadedMetadata">;
-  @NgInput() declare "onLoadedMetadataCapture"?: AngularInput<'DisclosureSummary', "onLoadedMetadataCapture">;
-  @NgInput() declare "onLoadStart"?: AngularInput<'DisclosureSummary', "onLoadStart">;
-  @NgInput() declare "onLoadStartCapture"?: AngularInput<'DisclosureSummary', "onLoadStartCapture">;
-  @NgInput() declare "onPause"?: AngularInput<'DisclosureSummary', "onPause">;
-  @NgInput() declare "onPauseCapture"?: AngularInput<'DisclosureSummary', "onPauseCapture">;
-  @NgInput() declare "onPlay"?: AngularInput<'DisclosureSummary', "onPlay">;
-  @NgInput() declare "onPlayCapture"?: AngularInput<'DisclosureSummary', "onPlayCapture">;
-  @NgInput() declare "onPlaying"?: AngularInput<'DisclosureSummary', "onPlaying">;
-  @NgInput() declare "onPlayingCapture"?: AngularInput<'DisclosureSummary', "onPlayingCapture">;
-  @NgInput() declare "onProgress"?: AngularInput<'DisclosureSummary', "onProgress">;
-  @NgInput() declare "onProgressCapture"?: AngularInput<'DisclosureSummary', "onProgressCapture">;
-  @NgInput() declare "onRateChange"?: AngularInput<'DisclosureSummary', "onRateChange">;
-  @NgInput() declare "onRateChangeCapture"?: AngularInput<'DisclosureSummary', "onRateChangeCapture">;
-  @NgInput() declare "onSeeked"?: AngularInput<'DisclosureSummary', "onSeeked">;
-  @NgInput() declare "onSeekedCapture"?: AngularInput<'DisclosureSummary', "onSeekedCapture">;
-  @NgInput() declare "onSeeking"?: AngularInput<'DisclosureSummary', "onSeeking">;
-  @NgInput() declare "onSeekingCapture"?: AngularInput<'DisclosureSummary', "onSeekingCapture">;
-  @NgInput() declare "onStalled"?: AngularInput<'DisclosureSummary', "onStalled">;
-  @NgInput() declare "onStalledCapture"?: AngularInput<'DisclosureSummary', "onStalledCapture">;
-  @NgInput() declare "onSuspend"?: AngularInput<'DisclosureSummary', "onSuspend">;
-  @NgInput() declare "onSuspendCapture"?: AngularInput<'DisclosureSummary', "onSuspendCapture">;
-  @NgInput() declare "onTimeUpdate"?: AngularInput<'DisclosureSummary', "onTimeUpdate">;
-  @NgInput() declare "onTimeUpdateCapture"?: AngularInput<'DisclosureSummary', "onTimeUpdateCapture">;
-  @NgInput() declare "onVolumeChange"?: AngularInput<'DisclosureSummary', "onVolumeChange">;
-  @NgInput() declare "onVolumeChangeCapture"?: AngularInput<'DisclosureSummary', "onVolumeChangeCapture">;
-  @NgInput() declare "onWaiting"?: AngularInput<'DisclosureSummary', "onWaiting">;
-  @NgInput() declare "onWaitingCapture"?: AngularInput<'DisclosureSummary', "onWaitingCapture">;
-  @NgInput() declare "onClick"?: AngularInput<'DisclosureSummary', "onClick">;
-  @NgInput() declare "onClickCapture"?: AngularInput<'DisclosureSummary', "onClickCapture">;
   @NgInput() declare "onContextMenu"?: AngularInput<'DisclosureSummary', "onContextMenu">;
   @NgInput() declare "onContextMenuCapture"?: AngularInput<'DisclosureSummary', "onContextMenuCapture">;
+  @NgInput() declare "onCopy"?: AngularInput<'DisclosureSummary', "onCopy">;
+  @NgInput() declare "onCopyCapture"?: AngularInput<'DisclosureSummary', "onCopyCapture">;
+  @NgInput() declare "onCut"?: AngularInput<'DisclosureSummary', "onCut">;
+  @NgInput() declare "onCutCapture"?: AngularInput<'DisclosureSummary', "onCutCapture">;
   @NgInput() declare "onDblClick"?: AngularInput<'DisclosureSummary', "onDblClick">;
   @NgInput() declare "onDblClickCapture"?: AngularInput<'DisclosureSummary', "onDblClickCapture">;
   @NgInput() declare "onDrag"?: AngularInput<'DisclosureSummary', "onDrag">;
@@ -241,6 +165,50 @@ export class DisclosureSummary extends AngularComponentAdapter<never> {
   @NgInput() declare "onDragStartCapture"?: AngularInput<'DisclosureSummary', "onDragStartCapture">;
   @NgInput() declare "onDrop"?: AngularInput<'DisclosureSummary', "onDrop">;
   @NgInput() declare "onDropCapture"?: AngularInput<'DisclosureSummary', "onDropCapture">;
+  @NgInput() declare "onDurationChange"?: AngularInput<'DisclosureSummary', "onDurationChange">;
+  @NgInput() declare "onDurationChangeCapture"?: AngularInput<'DisclosureSummary', "onDurationChangeCapture">;
+  @NgInput() declare "onEmptied"?: AngularInput<'DisclosureSummary', "onEmptied">;
+  @NgInput() declare "onEmptiedCapture"?: AngularInput<'DisclosureSummary', "onEmptiedCapture">;
+  @NgInput() declare "onEncrypted"?: AngularInput<'DisclosureSummary', "onEncrypted">;
+  @NgInput() declare "onEncryptedCapture"?: AngularInput<'DisclosureSummary', "onEncryptedCapture">;
+  @NgInput() declare "onEnded"?: AngularInput<'DisclosureSummary', "onEnded">;
+  @NgInput() declare "onEndedCapture"?: AngularInput<'DisclosureSummary', "onEndedCapture">;
+  @NgInput() declare "onEnterPictureInPicture"?: AngularInput<'DisclosureSummary', "onEnterPictureInPicture">;
+  @NgInput() declare "onEnterPictureInPictureCapture"?: AngularInput<'DisclosureSummary', "onEnterPictureInPictureCapture">;
+  @NgInput() declare "onError"?: AngularInput<'DisclosureSummary', "onError">;
+  @NgInput() declare "onErrorCapture"?: AngularInput<'DisclosureSummary', "onErrorCapture">;
+  @NgInput() declare "onFocus"?: AngularInput<'DisclosureSummary', "onFocus">;
+  @NgInput() declare "onFocusCapture"?: AngularInput<'DisclosureSummary', "onFocusCapture">;
+  @NgInput() declare "onFocusIn"?: AngularInput<'DisclosureSummary', "onFocusIn">;
+  @NgInput() declare "onFocusInCapture"?: AngularInput<'DisclosureSummary', "onFocusInCapture">;
+  @NgInput() declare "onFocusOut"?: AngularInput<'DisclosureSummary', "onFocusOut">;
+  @NgInput() declare "onFocusOutCapture"?: AngularInput<'DisclosureSummary', "onFocusOutCapture">;
+  @NgInput() declare "onFormData"?: AngularInput<'DisclosureSummary', "onFormData">;
+  @NgInput() declare "onFormDataCapture"?: AngularInput<'DisclosureSummary', "onFormDataCapture">;
+  @NgInput() declare "onGotPointerCapture"?: AngularInput<'DisclosureSummary', "onGotPointerCapture">;
+  @NgInput() declare "onGotPointerCaptureCapture"?: AngularInput<'DisclosureSummary', "onGotPointerCaptureCapture">;
+  @NgInput() declare "onInput"?: AngularInput<'DisclosureSummary', "onInput">;
+  @NgInput() declare "onInputCapture"?: AngularInput<'DisclosureSummary', "onInputCapture">;
+  @NgInput() declare "onInvalid"?: AngularInput<'DisclosureSummary', "onInvalid">;
+  @NgInput() declare "onInvalidCapture"?: AngularInput<'DisclosureSummary', "onInvalidCapture">;
+  @NgInput() declare "onKeyDown"?: AngularInput<'DisclosureSummary', "onKeyDown">;
+  @NgInput() declare "onKeyDownCapture"?: AngularInput<'DisclosureSummary', "onKeyDownCapture">;
+  @NgInput() declare "onKeyPress"?: AngularInput<'DisclosureSummary', "onKeyPress">;
+  @NgInput() declare "onKeyPressCapture"?: AngularInput<'DisclosureSummary', "onKeyPressCapture">;
+  @NgInput() declare "onKeyUp"?: AngularInput<'DisclosureSummary', "onKeyUp">;
+  @NgInput() declare "onKeyUpCapture"?: AngularInput<'DisclosureSummary', "onKeyUpCapture">;
+  @NgInput() declare "onLeavePictureInPicture"?: AngularInput<'DisclosureSummary', "onLeavePictureInPicture">;
+  @NgInput() declare "onLeavePictureInPictureCapture"?: AngularInput<'DisclosureSummary', "onLeavePictureInPictureCapture">;
+  @NgInput() declare "onLoad"?: AngularInput<'DisclosureSummary', "onLoad">;
+  @NgInput() declare "onLoadCapture"?: AngularInput<'DisclosureSummary', "onLoadCapture">;
+  @NgInput() declare "onLoadStart"?: AngularInput<'DisclosureSummary', "onLoadStart">;
+  @NgInput() declare "onLoadStartCapture"?: AngularInput<'DisclosureSummary', "onLoadStartCapture">;
+  @NgInput() declare "onLoadedData"?: AngularInput<'DisclosureSummary', "onLoadedData">;
+  @NgInput() declare "onLoadedDataCapture"?: AngularInput<'DisclosureSummary', "onLoadedDataCapture">;
+  @NgInput() declare "onLoadedMetadata"?: AngularInput<'DisclosureSummary', "onLoadedMetadata">;
+  @NgInput() declare "onLoadedMetadataCapture"?: AngularInput<'DisclosureSummary', "onLoadedMetadataCapture">;
+  @NgInput() declare "onLostPointerCapture"?: AngularInput<'DisclosureSummary', "onLostPointerCapture">;
+  @NgInput() declare "onLostPointerCaptureCapture"?: AngularInput<'DisclosureSummary', "onLostPointerCaptureCapture">;
   @NgInput() declare "onMouseDown"?: AngularInput<'DisclosureSummary', "onMouseDown">;
   @NgInput() declare "onMouseDownCapture"?: AngularInput<'DisclosureSummary', "onMouseDownCapture">;
   @NgInput() declare "onMouseEnter"?: AngularInput<'DisclosureSummary', "onMouseEnter">;
@@ -255,38 +223,38 @@ export class DisclosureSummary extends AngularComponentAdapter<never> {
   @NgInput() declare "onMouseOverCapture"?: AngularInput<'DisclosureSummary', "onMouseOverCapture">;
   @NgInput() declare "onMouseUp"?: AngularInput<'DisclosureSummary', "onMouseUp">;
   @NgInput() declare "onMouseUpCapture"?: AngularInput<'DisclosureSummary', "onMouseUpCapture">;
-  @NgInput() declare "onAuxClick"?: AngularInput<'DisclosureSummary', "onAuxClick">;
-  @NgInput() declare "onAuxClickCapture"?: AngularInput<'DisclosureSummary', "onAuxClickCapture">;
-  @NgInput() declare "onSelect"?: AngularInput<'DisclosureSummary', "onSelect">;
-  @NgInput() declare "onSelectCapture"?: AngularInput<'DisclosureSummary', "onSelectCapture">;
-  @NgInput() declare "onTouchCancel"?: AngularInput<'DisclosureSummary', "onTouchCancel">;
-  @NgInput() declare "onTouchCancelCapture"?: AngularInput<'DisclosureSummary', "onTouchCancelCapture">;
-  @NgInput() declare "onTouchEnd"?: AngularInput<'DisclosureSummary', "onTouchEnd">;
-  @NgInput() declare "onTouchEndCapture"?: AngularInput<'DisclosureSummary', "onTouchEndCapture">;
-  @NgInput() declare "onTouchMove"?: AngularInput<'DisclosureSummary', "onTouchMove">;
-  @NgInput() declare "onTouchMoveCapture"?: AngularInput<'DisclosureSummary', "onTouchMoveCapture">;
-  @NgInput() declare "onTouchStart"?: AngularInput<'DisclosureSummary', "onTouchStart">;
-  @NgInput() declare "onTouchStartCapture"?: AngularInput<'DisclosureSummary', "onTouchStartCapture">;
-  @NgInput() declare "onPointerOver"?: AngularInput<'DisclosureSummary', "onPointerOver">;
-  @NgInput() declare "onPointerOverCapture"?: AngularInput<'DisclosureSummary', "onPointerOverCapture">;
-  @NgInput() declare "onPointerEnter"?: AngularInput<'DisclosureSummary', "onPointerEnter">;
-  @NgInput() declare "onPointerEnterCapture"?: AngularInput<'DisclosureSummary', "onPointerEnterCapture">;
-  @NgInput() declare "onPointerDown"?: AngularInput<'DisclosureSummary', "onPointerDown">;
-  @NgInput() declare "onPointerDownCapture"?: AngularInput<'DisclosureSummary', "onPointerDownCapture">;
-  @NgInput() declare "onPointerMove"?: AngularInput<'DisclosureSummary', "onPointerMove">;
-  @NgInput() declare "onPointerMoveCapture"?: AngularInput<'DisclosureSummary', "onPointerMoveCapture">;
-  @NgInput() declare "onPointerUp"?: AngularInput<'DisclosureSummary', "onPointerUp">;
-  @NgInput() declare "onPointerUpCapture"?: AngularInput<'DisclosureSummary', "onPointerUpCapture">;
+  @NgInput() declare "onPaste"?: AngularInput<'DisclosureSummary', "onPaste">;
+  @NgInput() declare "onPasteCapture"?: AngularInput<'DisclosureSummary', "onPasteCapture">;
+  @NgInput() declare "onPause"?: AngularInput<'DisclosureSummary', "onPause">;
+  @NgInput() declare "onPauseCapture"?: AngularInput<'DisclosureSummary', "onPauseCapture">;
+  @NgInput() declare "onPlay"?: AngularInput<'DisclosureSummary', "onPlay">;
+  @NgInput() declare "onPlayCapture"?: AngularInput<'DisclosureSummary', "onPlayCapture">;
+  @NgInput() declare "onPlaying"?: AngularInput<'DisclosureSummary', "onPlaying">;
+  @NgInput() declare "onPlayingCapture"?: AngularInput<'DisclosureSummary', "onPlayingCapture">;
   @NgInput() declare "onPointerCancel"?: AngularInput<'DisclosureSummary', "onPointerCancel">;
   @NgInput() declare "onPointerCancelCapture"?: AngularInput<'DisclosureSummary', "onPointerCancelCapture">;
-  @NgInput() declare "onPointerOut"?: AngularInput<'DisclosureSummary', "onPointerOut">;
-  @NgInput() declare "onPointerOutCapture"?: AngularInput<'DisclosureSummary', "onPointerOutCapture">;
+  @NgInput() declare "onPointerDown"?: AngularInput<'DisclosureSummary', "onPointerDown">;
+  @NgInput() declare "onPointerDownCapture"?: AngularInput<'DisclosureSummary', "onPointerDownCapture">;
+  @NgInput() declare "onPointerEnter"?: AngularInput<'DisclosureSummary', "onPointerEnter">;
+  @NgInput() declare "onPointerEnterCapture"?: AngularInput<'DisclosureSummary', "onPointerEnterCapture">;
   @NgInput() declare "onPointerLeave"?: AngularInput<'DisclosureSummary', "onPointerLeave">;
   @NgInput() declare "onPointerLeaveCapture"?: AngularInput<'DisclosureSummary', "onPointerLeaveCapture">;
-  @NgInput() declare "onGotPointerCapture"?: AngularInput<'DisclosureSummary', "onGotPointerCapture">;
-  @NgInput() declare "onGotPointerCaptureCapture"?: AngularInput<'DisclosureSummary', "onGotPointerCaptureCapture">;
-  @NgInput() declare "onLostPointerCapture"?: AngularInput<'DisclosureSummary', "onLostPointerCapture">;
-  @NgInput() declare "onLostPointerCaptureCapture"?: AngularInput<'DisclosureSummary', "onLostPointerCaptureCapture">;
+  @NgInput() declare "onPointerMove"?: AngularInput<'DisclosureSummary', "onPointerMove">;
+  @NgInput() declare "onPointerMoveCapture"?: AngularInput<'DisclosureSummary', "onPointerMoveCapture">;
+  @NgInput() declare "onPointerOut"?: AngularInput<'DisclosureSummary', "onPointerOut">;
+  @NgInput() declare "onPointerOutCapture"?: AngularInput<'DisclosureSummary', "onPointerOutCapture">;
+  @NgInput() declare "onPointerOver"?: AngularInput<'DisclosureSummary', "onPointerOver">;
+  @NgInput() declare "onPointerOverCapture"?: AngularInput<'DisclosureSummary', "onPointerOverCapture">;
+  @NgInput() declare "onPointerUp"?: AngularInput<'DisclosureSummary', "onPointerUp">;
+  @NgInput() declare "onPointerUpCapture"?: AngularInput<'DisclosureSummary', "onPointerUpCapture">;
+  @NgInput() declare "onProgress"?: AngularInput<'DisclosureSummary', "onProgress">;
+  @NgInput() declare "onProgressCapture"?: AngularInput<'DisclosureSummary', "onProgressCapture">;
+  @NgInput() declare "onRateChange"?: AngularInput<'DisclosureSummary', "onRateChange">;
+  @NgInput() declare "onRateChangeCapture"?: AngularInput<'DisclosureSummary', "onRateChangeCapture">;
+  @NgInput() declare "onReset"?: AngularInput<'DisclosureSummary', "onReset">;
+  @NgInput() declare "onResetCapture"?: AngularInput<'DisclosureSummary', "onResetCapture">;
+  @NgInput() declare "onResize"?: AngularInput<'DisclosureSummary', "onResize">;
+  @NgInput() declare "onResizeCapture"?: AngularInput<'DisclosureSummary', "onResizeCapture">;
   @NgInput() declare "onScroll"?: AngularInput<'DisclosureSummary', "onScroll">;
   @NgInput() declare "onScrollCapture"?: AngularInput<'DisclosureSummary', "onScrollCapture">;
   @NgInput() declare "onScrollEnd"?: AngularInput<'DisclosureSummary', "onScrollEnd">;
@@ -295,14 +263,31 @@ export class DisclosureSummary extends AngularComponentAdapter<never> {
   @NgInput() declare "onScrollSnapChangeCapture"?: AngularInput<'DisclosureSummary', "onScrollSnapChangeCapture">;
   @NgInput() declare "onScrollSnapChanging"?: AngularInput<'DisclosureSummary', "onScrollSnapChanging">;
   @NgInput() declare "onScrollSnapChangingCapture"?: AngularInput<'DisclosureSummary', "onScrollSnapChangingCapture">;
-  @NgInput() declare "onWheel"?: AngularInput<'DisclosureSummary', "onWheel">;
-  @NgInput() declare "onWheelCapture"?: AngularInput<'DisclosureSummary', "onWheelCapture">;
-  @NgInput() declare "onAnimationStart"?: AngularInput<'DisclosureSummary', "onAnimationStart">;
-  @NgInput() declare "onAnimationStartCapture"?: AngularInput<'DisclosureSummary', "onAnimationStartCapture">;
-  @NgInput() declare "onAnimationEnd"?: AngularInput<'DisclosureSummary', "onAnimationEnd">;
-  @NgInput() declare "onAnimationEndCapture"?: AngularInput<'DisclosureSummary', "onAnimationEndCapture">;
-  @NgInput() declare "onAnimationIteration"?: AngularInput<'DisclosureSummary', "onAnimationIteration">;
-  @NgInput() declare "onAnimationIterationCapture"?: AngularInput<'DisclosureSummary', "onAnimationIterationCapture">;
+  @NgInput() declare "onSearch"?: AngularInput<'DisclosureSummary', "onSearch">;
+  @NgInput() declare "onSearchCapture"?: AngularInput<'DisclosureSummary', "onSearchCapture">;
+  @NgInput() declare "onSeeked"?: AngularInput<'DisclosureSummary', "onSeeked">;
+  @NgInput() declare "onSeekedCapture"?: AngularInput<'DisclosureSummary', "onSeekedCapture">;
+  @NgInput() declare "onSeeking"?: AngularInput<'DisclosureSummary', "onSeeking">;
+  @NgInput() declare "onSeekingCapture"?: AngularInput<'DisclosureSummary', "onSeekingCapture">;
+  @NgInput() declare "onSelect"?: AngularInput<'DisclosureSummary', "onSelect">;
+  @NgInput() declare "onSelectCapture"?: AngularInput<'DisclosureSummary', "onSelectCapture">;
+  @NgInput() declare "onStalled"?: AngularInput<'DisclosureSummary', "onStalled">;
+  @NgInput() declare "onStalledCapture"?: AngularInput<'DisclosureSummary', "onStalledCapture">;
+  @NgInput() declare "onSubmit"?: AngularInput<'DisclosureSummary', "onSubmit">;
+  @NgInput() declare "onSubmitCapture"?: AngularInput<'DisclosureSummary', "onSubmitCapture">;
+  @NgInput() declare "onSuspend"?: AngularInput<'DisclosureSummary', "onSuspend">;
+  @NgInput() declare "onSuspendCapture"?: AngularInput<'DisclosureSummary', "onSuspendCapture">;
+  @NgInput() declare "onTimeUpdate"?: AngularInput<'DisclosureSummary', "onTimeUpdate">;
+  @NgInput() declare "onTimeUpdateCapture"?: AngularInput<'DisclosureSummary', "onTimeUpdateCapture">;
+  @NgInput() declare "onToggle"?: AngularInput<'DisclosureSummary', "onToggle">;
+  @NgInput() declare "onTouchCancel"?: AngularInput<'DisclosureSummary', "onTouchCancel">;
+  @NgInput() declare "onTouchCancelCapture"?: AngularInput<'DisclosureSummary', "onTouchCancelCapture">;
+  @NgInput() declare "onTouchEnd"?: AngularInput<'DisclosureSummary', "onTouchEnd">;
+  @NgInput() declare "onTouchEndCapture"?: AngularInput<'DisclosureSummary', "onTouchEndCapture">;
+  @NgInput() declare "onTouchMove"?: AngularInput<'DisclosureSummary', "onTouchMove">;
+  @NgInput() declare "onTouchMoveCapture"?: AngularInput<'DisclosureSummary', "onTouchMoveCapture">;
+  @NgInput() declare "onTouchStart"?: AngularInput<'DisclosureSummary', "onTouchStart">;
+  @NgInput() declare "onTouchStartCapture"?: AngularInput<'DisclosureSummary', "onTouchStartCapture">;
   @NgInput() declare "onTransitionCancel"?: AngularInput<'DisclosureSummary', "onTransitionCancel">;
   @NgInput() declare "onTransitionCancelCapture"?: AngularInput<'DisclosureSummary', "onTransitionCancelCapture">;
   @NgInput() declare "onTransitionEnd"?: AngularInput<'DisclosureSummary', "onTransitionEnd">;
@@ -311,111 +296,66 @@ export class DisclosureSummary extends AngularComponentAdapter<never> {
   @NgInput() declare "onTransitionRunCapture"?: AngularInput<'DisclosureSummary', "onTransitionRunCapture">;
   @NgInput() declare "onTransitionStart"?: AngularInput<'DisclosureSummary', "onTransitionStart">;
   @NgInput() declare "onTransitionStartCapture"?: AngularInput<'DisclosureSummary', "onTransitionStartCapture">;
-  @NgInput() declare "onEnterPictureInPicture"?: AngularInput<'DisclosureSummary', "onEnterPictureInPicture">;
-  @NgInput() declare "onEnterPictureInPictureCapture"?: AngularInput<'DisclosureSummary', "onEnterPictureInPictureCapture">;
-  @NgInput() declare "onLeavePictureInPicture"?: AngularInput<'DisclosureSummary', "onLeavePictureInPicture">;
-  @NgInput() declare "onLeavePictureInPictureCapture"?: AngularInput<'DisclosureSummary', "onLeavePictureInPictureCapture">;
-  @NgInput() declare "onResize"?: AngularInput<'DisclosureSummary', "onResize">;
-  @NgInput() declare "onResizeCapture"?: AngularInput<'DisclosureSummary', "onResizeCapture">;
-  @NgInput() declare "onCommand"?: AngularInput<'DisclosureSummary', "onCommand">;
+  @NgInput() declare "onVolumeChange"?: AngularInput<'DisclosureSummary', "onVolumeChange">;
+  @NgInput() declare "onVolumeChangeCapture"?: AngularInput<'DisclosureSummary', "onVolumeChangeCapture">;
+  @NgInput() declare "onWaiting"?: AngularInput<'DisclosureSummary', "onWaiting">;
+  @NgInput() declare "onWaitingCapture"?: AngularInput<'DisclosureSummary', "onWaitingCapture">;
+  @NgInput() declare "onWheel"?: AngularInput<'DisclosureSummary', "onWheel">;
+  @NgInput() declare "onWheelCapture"?: AngularInput<'DisclosureSummary', "onWheelCapture">;
+  @NgInput() declare "part"?: AngularInput<'DisclosureSummary', "part">;
+  @NgInput() declare "popover"?: AngularInput<'DisclosureSummary', "popover">;
+  @NgInput() declare "prefix"?: AngularInput<'DisclosureSummary', "prefix">;
+  @NgInput() declare "property"?: AngularInput<'DisclosureSummary', "property">;
+  @NgInput() declare "resource"?: AngularInput<'DisclosureSummary', "resource">;
+  @NgInput() declare "results"?: AngularInput<'DisclosureSummary', "results">;
+  @NgInput() declare "role"?: AngularInput<'DisclosureSummary', "role">;
+  @NgInput() declare "slot"?: AngularInput<'DisclosureSummary', "slot">;
+  @NgInput() declare "spellcheck"?: AngularInput<'DisclosureSummary', "spellcheck">;
+  @NgInput() declare "style"?: AngularInput<'DisclosureSummary', "style">;
+  @NgInput() declare "tabIndex"?: AngularInput<'DisclosureSummary', "tabIndex">;
+  @NgInput() declare "tabindex"?: AngularInput<'DisclosureSummary', "tabindex">;
+  @NgInput() declare "title"?: AngularInput<'DisclosureSummary', "title">;
+  @NgInput() declare "translate"?: AngularInput<'DisclosureSummary', "translate">;
+  @NgInput() declare "typeof"?: AngularInput<'DisclosureSummary', "typeof">;
+  @NgInput() declare "vocab"?: AngularInput<'DisclosureSummary', "vocab">;
+  @Output() get abortEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onAbort'>>>('onAbort'); }
+  @Output() get abortCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onAbortCapture'>>>('onAbortCapture'); }
+  @Output() get animationEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onAnimationEnd'>>>('onAnimationEnd'); }
+  @Output() get animationEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onAnimationEndCapture'>>>('onAnimationEndCapture'); }
+  @Output() get animationIterationEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onAnimationIteration'>>>('onAnimationIteration'); }
+  @Output() get animationIterationCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onAnimationIterationCapture'>>>('onAnimationIterationCapture'); }
+  @Output() get animationStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onAnimationStart'>>>('onAnimationStart'); }
+  @Output() get animationStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onAnimationStartCapture'>>>('onAnimationStartCapture'); }
+  @Output() get auxClickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onAuxClick'>>>('onAuxClick'); }
+  @Output() get auxClickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onAuxClickCapture'>>>('onAuxClickCapture'); }
+  @Output() get beforeInputEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onBeforeInput'>>>('onBeforeInput'); }
+  @Output() get beforeInputCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onBeforeInputCapture'>>>('onBeforeInputCapture'); }
+  @Output() get beforeToggleEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onBeforeToggle'>>>('onBeforeToggle'); }
+  @Output() get blurEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onBlur'>>>('onBlur'); }
+  @Output() get blurCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onBlurCapture'>>>('onBlurCapture'); }
+  @Output() get canPlayEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onCanPlay'>>>('onCanPlay'); }
+  @Output() get canPlayCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onCanPlayCapture'>>>('onCanPlayCapture'); }
+  @Output() get canPlayThroughEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onCanPlayThrough'>>>('onCanPlayThrough'); }
+  @Output() get canPlayThroughCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onCanPlayThroughCapture'>>>('onCanPlayThroughCapture'); }
+  @Output() get cancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onCancel'>>>('onCancel'); }
   @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onChange'>>>('onChange'); }
-  @Output() get loadEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onLoad'>>>('onLoad'); }
-  @Output() get loadCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onLoadCapture'>>>('onLoadCapture'); }
-  @Output() get errorEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onError'>>>('onError'); }
-  @Output() get errorCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onErrorCapture'>>>('onErrorCapture'); }
-  @Output() get copyEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onCopy'>>>('onCopy'); }
-  @Output() get copyCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onCopyCapture'>>>('onCopyCapture'); }
-  @Output() get cutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onCut'>>>('onCut'); }
-  @Output() get cutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onCutCapture'>>>('onCutCapture'); }
-  @Output() get pasteEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPaste'>>>('onPaste'); }
-  @Output() get pasteCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPasteCapture'>>>('onPasteCapture'); }
+  @Output() get changeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onChangeCapture'>>>('onChangeCapture'); }
+  @Output() get clickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onClick'>>>('onClick'); }
+  @Output() get clickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onClickCapture'>>>('onClickCapture'); }
+  @Output() get closeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onClose'>>>('onClose'); }
+  @Output() get commandEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onCommand'>>>('onCommand'); }
   @Output() get compositionEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onCompositionEnd'>>>('onCompositionEnd'); }
   @Output() get compositionEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onCompositionEndCapture'>>>('onCompositionEndCapture'); }
   @Output() get compositionStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onCompositionStart'>>>('onCompositionStart'); }
   @Output() get compositionStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onCompositionStartCapture'>>>('onCompositionStartCapture'); }
   @Output() get compositionUpdateEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onCompositionUpdate'>>>('onCompositionUpdate'); }
   @Output() get compositionUpdateCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onCompositionUpdateCapture'>>>('onCompositionUpdateCapture'); }
-  @Output() get beforeToggleEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onBeforeToggle'>>>('onBeforeToggle'); }
-  @Output() get toggleEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onToggle'>>>('onToggle'); }
-  @Output() get closeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onClose'>>>('onClose'); }
-  @Output() get cancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onCancel'>>>('onCancel'); }
-  @Output() get focusEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onFocus'>>>('onFocus'); }
-  @Output() get focusCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onFocusCapture'>>>('onFocusCapture'); }
-  @Output() get focusInEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onFocusIn'>>>('onFocusIn'); }
-  @Output() get focusInCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onFocusInCapture'>>>('onFocusInCapture'); }
-  @Output() get focusOutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onFocusOut'>>>('onFocusOut'); }
-  @Output() get focusOutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onFocusOutCapture'>>>('onFocusOutCapture'); }
-  @Output() get blurEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onBlur'>>>('onBlur'); }
-  @Output() get blurCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onBlurCapture'>>>('onBlurCapture'); }
-  @Output() get changeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onChangeCapture'>>>('onChangeCapture'); }
-  @Output() get inputEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onInput'>>>('onInput'); }
-  @Output() get inputCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onInputCapture'>>>('onInputCapture'); }
-  @Output() get beforeInputEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onBeforeInput'>>>('onBeforeInput'); }
-  @Output() get beforeInputCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onBeforeInputCapture'>>>('onBeforeInputCapture'); }
-  @Output() get searchEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onSearch'>>>('onSearch'); }
-  @Output() get searchCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onSearchCapture'>>>('onSearchCapture'); }
-  @Output() get submitEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onSubmit'>>>('onSubmit'); }
-  @Output() get submitCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onSubmitCapture'>>>('onSubmitCapture'); }
-  @Output() get invalidEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onInvalid'>>>('onInvalid'); }
-  @Output() get invalidCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onInvalidCapture'>>>('onInvalidCapture'); }
-  @Output() get resetEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onReset'>>>('onReset'); }
-  @Output() get resetCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onResetCapture'>>>('onResetCapture'); }
-  @Output() get formDataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onFormData'>>>('onFormData'); }
-  @Output() get formDataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onFormDataCapture'>>>('onFormDataCapture'); }
-  @Output() get keyDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onKeyDown'>>>('onKeyDown'); }
-  @Output() get keyDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onKeyDownCapture'>>>('onKeyDownCapture'); }
-  @Output() get keyPressEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onKeyPress'>>>('onKeyPress'); }
-  @Output() get keyPressCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onKeyPressCapture'>>>('onKeyPressCapture'); }
-  @Output() get keyUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onKeyUp'>>>('onKeyUp'); }
-  @Output() get keyUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onKeyUpCapture'>>>('onKeyUpCapture'); }
-  @Output() get abortEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onAbort'>>>('onAbort'); }
-  @Output() get abortCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onAbortCapture'>>>('onAbortCapture'); }
-  @Output() get canPlayEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onCanPlay'>>>('onCanPlay'); }
-  @Output() get canPlayCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onCanPlayCapture'>>>('onCanPlayCapture'); }
-  @Output() get canPlayThroughEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onCanPlayThrough'>>>('onCanPlayThrough'); }
-  @Output() get canPlayThroughCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onCanPlayThroughCapture'>>>('onCanPlayThroughCapture'); }
-  @Output() get durationChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onDurationChange'>>>('onDurationChange'); }
-  @Output() get durationChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onDurationChangeCapture'>>>('onDurationChangeCapture'); }
-  @Output() get emptiedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onEmptied'>>>('onEmptied'); }
-  @Output() get emptiedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onEmptiedCapture'>>>('onEmptiedCapture'); }
-  @Output() get encryptedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onEncrypted'>>>('onEncrypted'); }
-  @Output() get encryptedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onEncryptedCapture'>>>('onEncryptedCapture'); }
-  @Output() get endedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onEnded'>>>('onEnded'); }
-  @Output() get endedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onEndedCapture'>>>('onEndedCapture'); }
-  @Output() get loadedDataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onLoadedData'>>>('onLoadedData'); }
-  @Output() get loadedDataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onLoadedDataCapture'>>>('onLoadedDataCapture'); }
-  @Output() get loadedMetadataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onLoadedMetadata'>>>('onLoadedMetadata'); }
-  @Output() get loadedMetadataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onLoadedMetadataCapture'>>>('onLoadedMetadataCapture'); }
-  @Output() get loadStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onLoadStart'>>>('onLoadStart'); }
-  @Output() get loadStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onLoadStartCapture'>>>('onLoadStartCapture'); }
-  @Output() get pauseEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPause'>>>('onPause'); }
-  @Output() get pauseCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPauseCapture'>>>('onPauseCapture'); }
-  @Output() get playEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPlay'>>>('onPlay'); }
-  @Output() get playCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPlayCapture'>>>('onPlayCapture'); }
-  @Output() get playingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPlaying'>>>('onPlaying'); }
-  @Output() get playingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPlayingCapture'>>>('onPlayingCapture'); }
-  @Output() get progressEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onProgress'>>>('onProgress'); }
-  @Output() get progressCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onProgressCapture'>>>('onProgressCapture'); }
-  @Output() get rateChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onRateChange'>>>('onRateChange'); }
-  @Output() get rateChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onRateChangeCapture'>>>('onRateChangeCapture'); }
-  @Output() get seekedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onSeeked'>>>('onSeeked'); }
-  @Output() get seekedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onSeekedCapture'>>>('onSeekedCapture'); }
-  @Output() get seekingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onSeeking'>>>('onSeeking'); }
-  @Output() get seekingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onSeekingCapture'>>>('onSeekingCapture'); }
-  @Output() get stalledEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onStalled'>>>('onStalled'); }
-  @Output() get stalledCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onStalledCapture'>>>('onStalledCapture'); }
-  @Output() get suspendEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onSuspend'>>>('onSuspend'); }
-  @Output() get suspendCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onSuspendCapture'>>>('onSuspendCapture'); }
-  @Output() get timeUpdateEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onTimeUpdate'>>>('onTimeUpdate'); }
-  @Output() get timeUpdateCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onTimeUpdateCapture'>>>('onTimeUpdateCapture'); }
-  @Output() get volumeChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onVolumeChange'>>>('onVolumeChange'); }
-  @Output() get volumeChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onVolumeChangeCapture'>>>('onVolumeChangeCapture'); }
-  @Output() get waitingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onWaiting'>>>('onWaiting'); }
-  @Output() get waitingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onWaitingCapture'>>>('onWaitingCapture'); }
-  @Output() get clickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onClick'>>>('onClick'); }
-  @Output() get clickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onClickCapture'>>>('onClickCapture'); }
   @Output() get contextMenuEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onContextMenu'>>>('onContextMenu'); }
   @Output() get contextMenuCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onContextMenuCapture'>>>('onContextMenuCapture'); }
+  @Output() get copyEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onCopy'>>>('onCopy'); }
+  @Output() get copyCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onCopyCapture'>>>('onCopyCapture'); }
+  @Output() get cutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onCut'>>>('onCut'); }
+  @Output() get cutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onCutCapture'>>>('onCutCapture'); }
   @Output() get dblClickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onDblClick'>>>('onDblClick'); }
   @Output() get dblClickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onDblClickCapture'>>>('onDblClickCapture'); }
   @Output() get dragEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onDrag'>>>('onDrag'); }
@@ -434,6 +374,50 @@ export class DisclosureSummary extends AngularComponentAdapter<never> {
   @Output() get dragStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onDragStartCapture'>>>('onDragStartCapture'); }
   @Output() get dropEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onDrop'>>>('onDrop'); }
   @Output() get dropCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onDropCapture'>>>('onDropCapture'); }
+  @Output() get durationChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onDurationChange'>>>('onDurationChange'); }
+  @Output() get durationChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onDurationChangeCapture'>>>('onDurationChangeCapture'); }
+  @Output() get emptiedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onEmptied'>>>('onEmptied'); }
+  @Output() get emptiedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onEmptiedCapture'>>>('onEmptiedCapture'); }
+  @Output() get encryptedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onEncrypted'>>>('onEncrypted'); }
+  @Output() get encryptedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onEncryptedCapture'>>>('onEncryptedCapture'); }
+  @Output() get endedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onEnded'>>>('onEnded'); }
+  @Output() get endedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onEndedCapture'>>>('onEndedCapture'); }
+  @Output() get enterPictureInPictureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onEnterPictureInPicture'>>>('onEnterPictureInPicture'); }
+  @Output() get enterPictureInPictureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onEnterPictureInPictureCapture'>>>('onEnterPictureInPictureCapture'); }
+  @Output() get errorEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onError'>>>('onError'); }
+  @Output() get errorCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onErrorCapture'>>>('onErrorCapture'); }
+  @Output() get focusEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onFocus'>>>('onFocus'); }
+  @Output() get focusCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onFocusCapture'>>>('onFocusCapture'); }
+  @Output() get focusInEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onFocusIn'>>>('onFocusIn'); }
+  @Output() get focusInCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onFocusInCapture'>>>('onFocusInCapture'); }
+  @Output() get focusOutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onFocusOut'>>>('onFocusOut'); }
+  @Output() get focusOutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onFocusOutCapture'>>>('onFocusOutCapture'); }
+  @Output() get formDataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onFormData'>>>('onFormData'); }
+  @Output() get formDataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onFormDataCapture'>>>('onFormDataCapture'); }
+  @Output() get gotPointerCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onGotPointerCapture'>>>('onGotPointerCapture'); }
+  @Output() get gotPointerCaptureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onGotPointerCaptureCapture'>>>('onGotPointerCaptureCapture'); }
+  @Output() get inputEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onInput'>>>('onInput'); }
+  @Output() get inputCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onInputCapture'>>>('onInputCapture'); }
+  @Output() get invalidEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onInvalid'>>>('onInvalid'); }
+  @Output() get invalidCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onInvalidCapture'>>>('onInvalidCapture'); }
+  @Output() get keyDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onKeyDown'>>>('onKeyDown'); }
+  @Output() get keyDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onKeyDownCapture'>>>('onKeyDownCapture'); }
+  @Output() get keyPressEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onKeyPress'>>>('onKeyPress'); }
+  @Output() get keyPressCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onKeyPressCapture'>>>('onKeyPressCapture'); }
+  @Output() get keyUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onKeyUp'>>>('onKeyUp'); }
+  @Output() get keyUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onKeyUpCapture'>>>('onKeyUpCapture'); }
+  @Output() get leavePictureInPictureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onLeavePictureInPicture'>>>('onLeavePictureInPicture'); }
+  @Output() get leavePictureInPictureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onLeavePictureInPictureCapture'>>>('onLeavePictureInPictureCapture'); }
+  @Output() get loadEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onLoad'>>>('onLoad'); }
+  @Output() get loadCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onLoadCapture'>>>('onLoadCapture'); }
+  @Output() get loadStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onLoadStart'>>>('onLoadStart'); }
+  @Output() get loadStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onLoadStartCapture'>>>('onLoadStartCapture'); }
+  @Output() get loadedDataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onLoadedData'>>>('onLoadedData'); }
+  @Output() get loadedDataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onLoadedDataCapture'>>>('onLoadedDataCapture'); }
+  @Output() get loadedMetadataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onLoadedMetadata'>>>('onLoadedMetadata'); }
+  @Output() get loadedMetadataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onLoadedMetadataCapture'>>>('onLoadedMetadataCapture'); }
+  @Output() get lostPointerCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onLostPointerCapture'>>>('onLostPointerCapture'); }
+  @Output() get lostPointerCaptureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onLostPointerCaptureCapture'>>>('onLostPointerCaptureCapture'); }
   @Output() get mouseDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onMouseDown'>>>('onMouseDown'); }
   @Output() get mouseDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onMouseDownCapture'>>>('onMouseDownCapture'); }
   @Output() get mouseEnterEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onMouseEnter'>>>('onMouseEnter'); }
@@ -448,38 +432,38 @@ export class DisclosureSummary extends AngularComponentAdapter<never> {
   @Output() get mouseOverCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onMouseOverCapture'>>>('onMouseOverCapture'); }
   @Output() get mouseUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onMouseUp'>>>('onMouseUp'); }
   @Output() get mouseUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onMouseUpCapture'>>>('onMouseUpCapture'); }
-  @Output() get auxClickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onAuxClick'>>>('onAuxClick'); }
-  @Output() get auxClickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onAuxClickCapture'>>>('onAuxClickCapture'); }
-  @Output() get selectEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onSelect'>>>('onSelect'); }
-  @Output() get selectCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onSelectCapture'>>>('onSelectCapture'); }
-  @Output() get touchCancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onTouchCancel'>>>('onTouchCancel'); }
-  @Output() get touchCancelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onTouchCancelCapture'>>>('onTouchCancelCapture'); }
-  @Output() get touchEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onTouchEnd'>>>('onTouchEnd'); }
-  @Output() get touchEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onTouchEndCapture'>>>('onTouchEndCapture'); }
-  @Output() get touchMoveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onTouchMove'>>>('onTouchMove'); }
-  @Output() get touchMoveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onTouchMoveCapture'>>>('onTouchMoveCapture'); }
-  @Output() get touchStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onTouchStart'>>>('onTouchStart'); }
-  @Output() get touchStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onTouchStartCapture'>>>('onTouchStartCapture'); }
-  @Output() get pointerOverEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPointerOver'>>>('onPointerOver'); }
-  @Output() get pointerOverCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPointerOverCapture'>>>('onPointerOverCapture'); }
-  @Output() get pointerEnterEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPointerEnter'>>>('onPointerEnter'); }
-  @Output() get pointerEnterCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPointerEnterCapture'>>>('onPointerEnterCapture'); }
-  @Output() get pointerDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPointerDown'>>>('onPointerDown'); }
-  @Output() get pointerDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPointerDownCapture'>>>('onPointerDownCapture'); }
-  @Output() get pointerMoveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPointerMove'>>>('onPointerMove'); }
-  @Output() get pointerMoveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPointerMoveCapture'>>>('onPointerMoveCapture'); }
-  @Output() get pointerUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPointerUp'>>>('onPointerUp'); }
-  @Output() get pointerUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPointerUpCapture'>>>('onPointerUpCapture'); }
+  @Output() get pasteEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPaste'>>>('onPaste'); }
+  @Output() get pasteCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPasteCapture'>>>('onPasteCapture'); }
+  @Output() get pauseEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPause'>>>('onPause'); }
+  @Output() get pauseCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPauseCapture'>>>('onPauseCapture'); }
+  @Output() get playEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPlay'>>>('onPlay'); }
+  @Output() get playCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPlayCapture'>>>('onPlayCapture'); }
+  @Output() get playingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPlaying'>>>('onPlaying'); }
+  @Output() get playingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPlayingCapture'>>>('onPlayingCapture'); }
   @Output() get pointerCancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPointerCancel'>>>('onPointerCancel'); }
   @Output() get pointerCancelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPointerCancelCapture'>>>('onPointerCancelCapture'); }
-  @Output() get pointerOutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPointerOut'>>>('onPointerOut'); }
-  @Output() get pointerOutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPointerOutCapture'>>>('onPointerOutCapture'); }
+  @Output() get pointerDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPointerDown'>>>('onPointerDown'); }
+  @Output() get pointerDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPointerDownCapture'>>>('onPointerDownCapture'); }
+  @Output() get pointerEnterEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPointerEnter'>>>('onPointerEnter'); }
+  @Output() get pointerEnterCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPointerEnterCapture'>>>('onPointerEnterCapture'); }
   @Output() get pointerLeaveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPointerLeave'>>>('onPointerLeave'); }
   @Output() get pointerLeaveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPointerLeaveCapture'>>>('onPointerLeaveCapture'); }
-  @Output() get gotPointerCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onGotPointerCapture'>>>('onGotPointerCapture'); }
-  @Output() get gotPointerCaptureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onGotPointerCaptureCapture'>>>('onGotPointerCaptureCapture'); }
-  @Output() get lostPointerCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onLostPointerCapture'>>>('onLostPointerCapture'); }
-  @Output() get lostPointerCaptureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onLostPointerCaptureCapture'>>>('onLostPointerCaptureCapture'); }
+  @Output() get pointerMoveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPointerMove'>>>('onPointerMove'); }
+  @Output() get pointerMoveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPointerMoveCapture'>>>('onPointerMoveCapture'); }
+  @Output() get pointerOutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPointerOut'>>>('onPointerOut'); }
+  @Output() get pointerOutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPointerOutCapture'>>>('onPointerOutCapture'); }
+  @Output() get pointerOverEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPointerOver'>>>('onPointerOver'); }
+  @Output() get pointerOverCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPointerOverCapture'>>>('onPointerOverCapture'); }
+  @Output() get pointerUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPointerUp'>>>('onPointerUp'); }
+  @Output() get pointerUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onPointerUpCapture'>>>('onPointerUpCapture'); }
+  @Output() get progressEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onProgress'>>>('onProgress'); }
+  @Output() get progressCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onProgressCapture'>>>('onProgressCapture'); }
+  @Output() get rateChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onRateChange'>>>('onRateChange'); }
+  @Output() get rateChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onRateChangeCapture'>>>('onRateChangeCapture'); }
+  @Output() get resetEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onReset'>>>('onReset'); }
+  @Output() get resetCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onResetCapture'>>>('onResetCapture'); }
+  @Output() get resizeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onResize'>>>('onResize'); }
+  @Output() get resizeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onResizeCapture'>>>('onResizeCapture'); }
   @Output() get scrollEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onScroll'>>>('onScroll'); }
   @Output() get scrollCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onScrollCapture'>>>('onScrollCapture'); }
   @Output() get scrollEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onScrollEnd'>>>('onScrollEnd'); }
@@ -488,14 +472,31 @@ export class DisclosureSummary extends AngularComponentAdapter<never> {
   @Output() get scrollSnapChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onScrollSnapChangeCapture'>>>('onScrollSnapChangeCapture'); }
   @Output() get scrollSnapChangingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onScrollSnapChanging'>>>('onScrollSnapChanging'); }
   @Output() get scrollSnapChangingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onScrollSnapChangingCapture'>>>('onScrollSnapChangingCapture'); }
-  @Output() get wheelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onWheel'>>>('onWheel'); }
-  @Output() get wheelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onWheelCapture'>>>('onWheelCapture'); }
-  @Output() get animationStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onAnimationStart'>>>('onAnimationStart'); }
-  @Output() get animationStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onAnimationStartCapture'>>>('onAnimationStartCapture'); }
-  @Output() get animationEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onAnimationEnd'>>>('onAnimationEnd'); }
-  @Output() get animationEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onAnimationEndCapture'>>>('onAnimationEndCapture'); }
-  @Output() get animationIterationEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onAnimationIteration'>>>('onAnimationIteration'); }
-  @Output() get animationIterationCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onAnimationIterationCapture'>>>('onAnimationIterationCapture'); }
+  @Output() get searchEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onSearch'>>>('onSearch'); }
+  @Output() get searchCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onSearchCapture'>>>('onSearchCapture'); }
+  @Output() get seekedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onSeeked'>>>('onSeeked'); }
+  @Output() get seekedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onSeekedCapture'>>>('onSeekedCapture'); }
+  @Output() get seekingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onSeeking'>>>('onSeeking'); }
+  @Output() get seekingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onSeekingCapture'>>>('onSeekingCapture'); }
+  @Output() get selectEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onSelect'>>>('onSelect'); }
+  @Output() get selectCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onSelectCapture'>>>('onSelectCapture'); }
+  @Output() get stalledEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onStalled'>>>('onStalled'); }
+  @Output() get stalledCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onStalledCapture'>>>('onStalledCapture'); }
+  @Output() get submitEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onSubmit'>>>('onSubmit'); }
+  @Output() get submitCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onSubmitCapture'>>>('onSubmitCapture'); }
+  @Output() get suspendEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onSuspend'>>>('onSuspend'); }
+  @Output() get suspendCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onSuspendCapture'>>>('onSuspendCapture'); }
+  @Output() get timeUpdateEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onTimeUpdate'>>>('onTimeUpdate'); }
+  @Output() get timeUpdateCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onTimeUpdateCapture'>>>('onTimeUpdateCapture'); }
+  @Output() get toggleEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onToggle'>>>('onToggle'); }
+  @Output() get touchCancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onTouchCancel'>>>('onTouchCancel'); }
+  @Output() get touchCancelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onTouchCancelCapture'>>>('onTouchCancelCapture'); }
+  @Output() get touchEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onTouchEnd'>>>('onTouchEnd'); }
+  @Output() get touchEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onTouchEndCapture'>>>('onTouchEndCapture'); }
+  @Output() get touchMoveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onTouchMove'>>>('onTouchMove'); }
+  @Output() get touchMoveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onTouchMoveCapture'>>>('onTouchMoveCapture'); }
+  @Output() get touchStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onTouchStart'>>>('onTouchStart'); }
+  @Output() get touchStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onTouchStartCapture'>>>('onTouchStartCapture'); }
   @Output() get transitionCancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onTransitionCancel'>>>('onTransitionCancel'); }
   @Output() get transitionCancelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onTransitionCancelCapture'>>>('onTransitionCancelCapture'); }
   @Output() get transitionEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onTransitionEnd'>>>('onTransitionEnd'); }
@@ -504,12 +505,11 @@ export class DisclosureSummary extends AngularComponentAdapter<never> {
   @Output() get transitionRunCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onTransitionRunCapture'>>>('onTransitionRunCapture'); }
   @Output() get transitionStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onTransitionStart'>>>('onTransitionStart'); }
   @Output() get transitionStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onTransitionStartCapture'>>>('onTransitionStartCapture'); }
-  @Output() get enterPictureInPictureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onEnterPictureInPicture'>>>('onEnterPictureInPicture'); }
-  @Output() get enterPictureInPictureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onEnterPictureInPictureCapture'>>>('onEnterPictureInPictureCapture'); }
-  @Output() get leavePictureInPictureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onLeavePictureInPicture'>>>('onLeavePictureInPicture'); }
-  @Output() get leavePictureInPictureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onLeavePictureInPictureCapture'>>>('onLeavePictureInPictureCapture'); }
-  @Output() get resizeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onResize'>>>('onResize'); }
-  @Output() get resizeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onResizeCapture'>>>('onResizeCapture'); }
-  @Output() get commandEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onCommand'>>>('onCommand'); }
+  @Output() get volumeChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onVolumeChange'>>>('onVolumeChange'); }
+  @Output() get volumeChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onVolumeChangeCapture'>>>('onVolumeChangeCapture'); }
+  @Output() get waitingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onWaiting'>>>('onWaiting'); }
+  @Output() get waitingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onWaitingCapture'>>>('onWaitingCapture'); }
+  @Output() get wheelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onWheel'>>>('onWheel'); }
+  @Output() get wheelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onWheelCapture'>>>('onWheelCapture'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

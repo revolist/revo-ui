@@ -12,66 +12,9 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class MenuItem extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'MenuItem';
   protected rvResolveComponent() { return Control; }
-  @NgInput() declare "translate"?: AngularInput<'MenuItem', "translate">;
-  @NgInput() declare "value"?: AngularInput<'MenuItem', "value">;
-  @NgInput() declare "disabled"?: AngularInput<'MenuItem', "disabled">;
-  @NgInput() declare "form"?: AngularInput<'MenuItem', "form">;
-  @NgInput() declare "name"?: AngularInput<'MenuItem', "name">;
-  @NgInput() declare "accesskey"?: AngularInput<'MenuItem', "accesskey">;
-  @NgInput() declare "accessKey"?: AngularInput<'MenuItem', "accessKey">;
-  @NgInput() declare "autocapitalize"?: AngularInput<'MenuItem', "autocapitalize">;
-  @NgInput() declare "autoCapitalize"?: AngularInput<'MenuItem', "autoCapitalize">;
-  @NgInput() declare "autocorrect"?: AngularInput<'MenuItem', "autocorrect">;
-  @NgInput() declare "autoCorrect"?: AngularInput<'MenuItem', "autoCorrect">;
-  @NgInput() declare "autofocus"?: AngularInput<'MenuItem', "autofocus">;
-  @NgInput() declare "autoFocus"?: AngularInput<'MenuItem', "autoFocus">;
-  @NgInput() declare "class"?: AngularInput<'MenuItem', "class">;
-  @NgInput() declare "contenteditable"?: AngularInput<'MenuItem', "contenteditable">;
-  @NgInput() declare "contentEditable"?: AngularInput<'MenuItem', "contentEditable">;
-  @NgInput() declare "dir"?: AngularInput<'MenuItem', "dir">;
-  @NgInput() declare "draggable"?: AngularInput<'MenuItem', "draggable">;
-  @NgInput() declare "enterkeyhint"?: AngularInput<'MenuItem', "enterkeyhint">;
-  @NgInput() declare "exportparts"?: AngularInput<'MenuItem', "exportparts">;
-  @NgInput() declare "hidden"?: AngularInput<'MenuItem', "hidden">;
-  @NgInput() declare "id"?: AngularInput<'MenuItem', "id">;
-  @NgInput() declare "inert"?: AngularInput<'MenuItem', "inert">;
-  @NgInput() declare "inputmode"?: AngularInput<'MenuItem', "inputmode">;
-  @NgInput() declare "inputMode"?: AngularInput<'MenuItem', "inputMode">;
-  @NgInput() declare "is"?: AngularInput<'MenuItem', "is">;
-  @NgInput() declare "lang"?: AngularInput<'MenuItem', "lang">;
-  @NgInput() declare "nonce"?: AngularInput<'MenuItem', "nonce">;
-  @NgInput() declare "part"?: AngularInput<'MenuItem', "part">;
-  @NgInput() declare "popover"?: AngularInput<'MenuItem', "popover">;
-  @NgInput() declare "slot"?: AngularInput<'MenuItem', "slot">;
-  @NgInput() declare "spellcheck"?: AngularInput<'MenuItem', "spellcheck">;
-  @NgInput() declare "style"?: AngularInput<'MenuItem', "style">;
-  @NgInput() declare "tabindex"?: AngularInput<'MenuItem', "tabindex">;
-  @NgInput() declare "tabIndex"?: AngularInput<'MenuItem', "tabIndex">;
-  @NgInput() declare "title"?: AngularInput<'MenuItem', "title">;
-  @NgInput() declare "role"?: AngularInput<'MenuItem', "role">;
-  @NgInput() declare "disablePictureInPicture"?: AngularInput<'MenuItem', "disablePictureInPicture">;
-  @NgInput() declare "elementtiming"?: AngularInput<'MenuItem', "elementtiming">;
-  @NgInput() declare "elementTiming"?: AngularInput<'MenuItem', "elementTiming">;
-  @NgInput() declare "results"?: AngularInput<'MenuItem', "results">;
   @NgInput() declare "about"?: AngularInput<'MenuItem', "about">;
-  @NgInput() declare "datatype"?: AngularInput<'MenuItem', "datatype">;
-  @NgInput() declare "inlist"?: AngularInput<'MenuItem', "inlist">;
-  @NgInput() declare "prefix"?: AngularInput<'MenuItem', "prefix">;
-  @NgInput() declare "property"?: AngularInput<'MenuItem', "property">;
-  @NgInput() declare "resource"?: AngularInput<'MenuItem', "resource">;
-  @NgInput() declare "typeof"?: AngularInput<'MenuItem', "typeof">;
-  @NgInput() declare "vocab"?: AngularInput<'MenuItem', "vocab">;
-  @NgInput() declare "itemid"?: AngularInput<'MenuItem', "itemid">;
-  @NgInput() declare "itemID"?: AngularInput<'MenuItem', "itemID">;
-  @NgInput() declare "itemprop"?: AngularInput<'MenuItem', "itemprop">;
-  @NgInput() declare "itemProp"?: AngularInput<'MenuItem', "itemProp">;
-  @NgInput() declare "itemref"?: AngularInput<'MenuItem', "itemref">;
-  @NgInput() declare "itemRef"?: AngularInput<'MenuItem', "itemRef">;
-  @NgInput() declare "itemscope"?: AngularInput<'MenuItem', "itemscope">;
-  @NgInput() declare "itemScope"?: AngularInput<'MenuItem', "itemScope">;
-  @NgInput() declare "itemtype"?: AngularInput<'MenuItem', "itemtype">;
-  @NgInput() declare "itemType"?: AngularInput<'MenuItem', "itemType">;
-  @NgInput() declare "dangerouslySetInnerHTML"?: AngularInput<'MenuItem', "dangerouslySetInnerHTML">;
+  @NgInput() declare "accessKey"?: AngularInput<'MenuItem', "accessKey">;
+  @NgInput() declare "accesskey"?: AngularInput<'MenuItem', "accesskey">;
   @NgInput() declare "aria-activedescendant"?: AngularInput<'MenuItem', "aria-activedescendant">;
   @NgInput() declare "aria-atomic"?: AngularInput<'MenuItem', "aria-atomic">;
   @NgInput() declare "aria-autocomplete"?: AngularInput<'MenuItem', "aria-autocomplete">;
@@ -125,130 +68,100 @@ export class MenuItem extends AngularComponentAdapter<never> {
   @NgInput() declare "aria-valuemin"?: AngularInput<'MenuItem', "aria-valuemin">;
   @NgInput() declare "aria-valuenow"?: AngularInput<'MenuItem', "aria-valuenow">;
   @NgInput() declare "aria-valuetext"?: AngularInput<'MenuItem', "aria-valuetext">;
-  @NgInput() declare "formaction"?: AngularInput<'MenuItem', "formaction">;
-  @NgInput() declare "formAction"?: AngularInput<'MenuItem', "formAction">;
-  @NgInput() declare "formenctype"?: AngularInput<'MenuItem', "formenctype">;
-  @NgInput() declare "formEncType"?: AngularInput<'MenuItem', "formEncType">;
-  @NgInput() declare "formmethod"?: AngularInput<'MenuItem', "formmethod">;
-  @NgInput() declare "formMethod"?: AngularInput<'MenuItem', "formMethod">;
-  @NgInput() declare "formnovalidate"?: AngularInput<'MenuItem', "formnovalidate">;
-  @NgInput() declare "formNoValidate"?: AngularInput<'MenuItem', "formNoValidate">;
-  @NgInput() declare "formtarget"?: AngularInput<'MenuItem', "formtarget">;
-  @NgInput() declare "formTarget"?: AngularInput<'MenuItem', "formTarget">;
-  @NgInput() declare "type"?: AngularInput<'MenuItem', "type">;
-  @NgInput() declare "command"?: AngularInput<'MenuItem', "command">;
-  @NgInput() declare "commandfor"?: AngularInput<'MenuItem', "commandfor">;
-  @NgInput() declare "commandFor"?: AngularInput<'MenuItem', "commandFor">;
-  @NgInput() declare "popovertarget"?: AngularInput<'MenuItem', "popovertarget">;
-  @NgInput() declare "popoverTarget"?: AngularInput<'MenuItem', "popoverTarget">;
-  @NgInput() declare "popovertargetaction"?: AngularInput<'MenuItem', "popovertargetaction">;
-  @NgInput() declare "popoverTargetAction"?: AngularInput<'MenuItem', "popoverTargetAction">;
-  @NgInput() declare "rounded"?: AngularInput<'MenuItem', "rounded">;
-  @NgInput() declare "href"?: AngularInput<'MenuItem', "href">;
-  @NgInput() declare "target"?: AngularInput<'MenuItem', "target">;
-  @NgInput() declare "rel"?: AngularInput<'MenuItem', "rel">;
+  @NgInput() declare "autoCapitalize"?: AngularInput<'MenuItem', "autoCapitalize">;
+  @NgInput() declare "autoCorrect"?: AngularInput<'MenuItem', "autoCorrect">;
+  @NgInput() declare "autoFocus"?: AngularInput<'MenuItem', "autoFocus">;
+  @NgInput() declare "autocapitalize"?: AngularInput<'MenuItem', "autocapitalize">;
+  @NgInput() declare "autocorrect"?: AngularInput<'MenuItem', "autocorrect">;
+  @NgInput() declare "autofocus"?: AngularInput<'MenuItem', "autofocus">;
   @NgInput() declare "busy"?: AngularInput<'MenuItem', "busy">;
+  @NgInput() declare "class"?: AngularInput<'MenuItem', "class">;
   @NgInput() declare "className"?: AngularInput<'MenuItem', "className">;
-  @NgInput() declare "variant"?: AngularInput<'MenuItem', "variant">;
-  @NgInput() declare "size"?: AngularInput<'MenuItem', "size">;
+  @NgInput() declare "command"?: AngularInput<'MenuItem', "command">;
+  @NgInput() declare "commandFor"?: AngularInput<'MenuItem', "commandFor">;
+  @NgInput() declare "commandfor"?: AngularInput<'MenuItem', "commandfor">;
+  @NgInput() declare "contentEditable"?: AngularInput<'MenuItem', "contentEditable">;
+  @NgInput() declare "contenteditable"?: AngularInput<'MenuItem', "contenteditable">;
+  @NgInput() declare "dangerouslySetInnerHTML"?: AngularInput<'MenuItem', "dangerouslySetInnerHTML">;
+  @NgInput() declare "datatype"?: AngularInput<'MenuItem', "datatype">;
+  @NgInput() declare "dir"?: AngularInput<'MenuItem', "dir">;
+  @NgInput() declare "disablePictureInPicture"?: AngularInput<'MenuItem', "disablePictureInPicture">;
+  @NgInput() declare "disabled"?: AngularInput<'MenuItem', "disabled">;
+  @NgInput() declare "draggable"?: AngularInput<'MenuItem', "draggable">;
+  @NgInput() declare "elementTiming"?: AngularInput<'MenuItem', "elementTiming">;
+  @NgInput() declare "elementtiming"?: AngularInput<'MenuItem', "elementtiming">;
+  @NgInput() declare "enterkeyhint"?: AngularInput<'MenuItem', "enterkeyhint">;
+  @NgInput() declare "exportparts"?: AngularInput<'MenuItem', "exportparts">;
+  @NgInput() declare "form"?: AngularInput<'MenuItem', "form">;
+  @NgInput() declare "formAction"?: AngularInput<'MenuItem', "formAction">;
+  @NgInput() declare "formEncType"?: AngularInput<'MenuItem', "formEncType">;
+  @NgInput() declare "formMethod"?: AngularInput<'MenuItem', "formMethod">;
+  @NgInput() declare "formNoValidate"?: AngularInput<'MenuItem', "formNoValidate">;
+  @NgInput() declare "formTarget"?: AngularInput<'MenuItem', "formTarget">;
+  @NgInput() declare "formaction"?: AngularInput<'MenuItem', "formaction">;
+  @NgInput() declare "formenctype"?: AngularInput<'MenuItem', "formenctype">;
+  @NgInput() declare "formmethod"?: AngularInput<'MenuItem', "formmethod">;
+  @NgInput() declare "formnovalidate"?: AngularInput<'MenuItem', "formnovalidate">;
+  @NgInput() declare "formtarget"?: AngularInput<'MenuItem', "formtarget">;
+  @NgInput() declare "hidden"?: AngularInput<'MenuItem', "hidden">;
+  @NgInput() declare "href"?: AngularInput<'MenuItem', "href">;
+  @NgInput() declare "id"?: AngularInput<'MenuItem', "id">;
+  @NgInput() declare "inert"?: AngularInput<'MenuItem', "inert">;
+  @NgInput() declare "inlist"?: AngularInput<'MenuItem', "inlist">;
+  @NgInput() declare "inputMode"?: AngularInput<'MenuItem', "inputMode">;
+  @NgInput() declare "inputmode"?: AngularInput<'MenuItem', "inputmode">;
+  @NgInput() declare "is"?: AngularInput<'MenuItem', "is">;
+  @NgInput() declare "itemID"?: AngularInput<'MenuItem', "itemID">;
+  @NgInput() declare "itemProp"?: AngularInput<'MenuItem', "itemProp">;
+  @NgInput() declare "itemRef"?: AngularInput<'MenuItem', "itemRef">;
+  @NgInput() declare "itemScope"?: AngularInput<'MenuItem', "itemScope">;
+  @NgInput() declare "itemType"?: AngularInput<'MenuItem', "itemType">;
+  @NgInput() declare "itemid"?: AngularInput<'MenuItem', "itemid">;
+  @NgInput() declare "itemprop"?: AngularInput<'MenuItem', "itemprop">;
+  @NgInput() declare "itemref"?: AngularInput<'MenuItem', "itemref">;
+  @NgInput() declare "itemscope"?: AngularInput<'MenuItem', "itemscope">;
+  @NgInput() declare "itemtype"?: AngularInput<'MenuItem', "itemtype">;
+  @NgInput() declare "lang"?: AngularInput<'MenuItem', "lang">;
+  @NgInput() declare "name"?: AngularInput<'MenuItem', "name">;
+  @NgInput() declare "nonce"?: AngularInput<'MenuItem', "nonce">;
+  @NgInput() declare "onAbort"?: AngularInput<'MenuItem', "onAbort">;
+  @NgInput() declare "onAbortCapture"?: AngularInput<'MenuItem', "onAbortCapture">;
+  @NgInput() declare "onAnimationEnd"?: AngularInput<'MenuItem', "onAnimationEnd">;
+  @NgInput() declare "onAnimationEndCapture"?: AngularInput<'MenuItem', "onAnimationEndCapture">;
+  @NgInput() declare "onAnimationIteration"?: AngularInput<'MenuItem', "onAnimationIteration">;
+  @NgInput() declare "onAnimationIterationCapture"?: AngularInput<'MenuItem', "onAnimationIterationCapture">;
+  @NgInput() declare "onAnimationStart"?: AngularInput<'MenuItem', "onAnimationStart">;
+  @NgInput() declare "onAnimationStartCapture"?: AngularInput<'MenuItem', "onAnimationStartCapture">;
+  @NgInput() declare "onAuxClick"?: AngularInput<'MenuItem', "onAuxClick">;
+  @NgInput() declare "onAuxClickCapture"?: AngularInput<'MenuItem', "onAuxClickCapture">;
+  @NgInput() declare "onBeforeInput"?: AngularInput<'MenuItem', "onBeforeInput">;
+  @NgInput() declare "onBeforeInputCapture"?: AngularInput<'MenuItem', "onBeforeInputCapture">;
+  @NgInput() declare "onBeforeToggle"?: AngularInput<'MenuItem', "onBeforeToggle">;
+  @NgInput() declare "onBlur"?: AngularInput<'MenuItem', "onBlur">;
+  @NgInput() declare "onBlurCapture"?: AngularInput<'MenuItem', "onBlurCapture">;
+  @NgInput() declare "onCanPlay"?: AngularInput<'MenuItem', "onCanPlay">;
+  @NgInput() declare "onCanPlayCapture"?: AngularInput<'MenuItem', "onCanPlayCapture">;
+  @NgInput() declare "onCanPlayThrough"?: AngularInput<'MenuItem', "onCanPlayThrough">;
+  @NgInput() declare "onCanPlayThroughCapture"?: AngularInput<'MenuItem', "onCanPlayThroughCapture">;
+  @NgInput() declare "onCancel"?: AngularInput<'MenuItem', "onCancel">;
   @NgInput() declare "onChange"?: AngularInput<'MenuItem', "onChange">;
-  @NgInput() declare "onLoad"?: AngularInput<'MenuItem', "onLoad">;
-  @NgInput() declare "onLoadCapture"?: AngularInput<'MenuItem', "onLoadCapture">;
-  @NgInput() declare "onError"?: AngularInput<'MenuItem', "onError">;
-  @NgInput() declare "onErrorCapture"?: AngularInput<'MenuItem', "onErrorCapture">;
-  @NgInput() declare "onCopy"?: AngularInput<'MenuItem', "onCopy">;
-  @NgInput() declare "onCopyCapture"?: AngularInput<'MenuItem', "onCopyCapture">;
-  @NgInput() declare "onCut"?: AngularInput<'MenuItem', "onCut">;
-  @NgInput() declare "onCutCapture"?: AngularInput<'MenuItem', "onCutCapture">;
-  @NgInput() declare "onPaste"?: AngularInput<'MenuItem', "onPaste">;
-  @NgInput() declare "onPasteCapture"?: AngularInput<'MenuItem', "onPasteCapture">;
+  @NgInput() declare "onChangeCapture"?: AngularInput<'MenuItem', "onChangeCapture">;
+  @NgInput() declare "onClick"?: AngularInput<'MenuItem', "onClick">;
+  @NgInput() declare "onClickCapture"?: AngularInput<'MenuItem', "onClickCapture">;
+  @NgInput() declare "onClose"?: AngularInput<'MenuItem', "onClose">;
+  @NgInput() declare "onCommand"?: AngularInput<'MenuItem', "onCommand">;
   @NgInput() declare "onCompositionEnd"?: AngularInput<'MenuItem', "onCompositionEnd">;
   @NgInput() declare "onCompositionEndCapture"?: AngularInput<'MenuItem', "onCompositionEndCapture">;
   @NgInput() declare "onCompositionStart"?: AngularInput<'MenuItem', "onCompositionStart">;
   @NgInput() declare "onCompositionStartCapture"?: AngularInput<'MenuItem', "onCompositionStartCapture">;
   @NgInput() declare "onCompositionUpdate"?: AngularInput<'MenuItem', "onCompositionUpdate">;
   @NgInput() declare "onCompositionUpdateCapture"?: AngularInput<'MenuItem', "onCompositionUpdateCapture">;
-  @NgInput() declare "onBeforeToggle"?: AngularInput<'MenuItem', "onBeforeToggle">;
-  @NgInput() declare "onToggle"?: AngularInput<'MenuItem', "onToggle">;
-  @NgInput() declare "onClose"?: AngularInput<'MenuItem', "onClose">;
-  @NgInput() declare "onCancel"?: AngularInput<'MenuItem', "onCancel">;
-  @NgInput() declare "onFocus"?: AngularInput<'MenuItem', "onFocus">;
-  @NgInput() declare "onFocusCapture"?: AngularInput<'MenuItem', "onFocusCapture">;
-  @NgInput() declare "onFocusIn"?: AngularInput<'MenuItem', "onFocusIn">;
-  @NgInput() declare "onFocusInCapture"?: AngularInput<'MenuItem', "onFocusInCapture">;
-  @NgInput() declare "onFocusOut"?: AngularInput<'MenuItem', "onFocusOut">;
-  @NgInput() declare "onFocusOutCapture"?: AngularInput<'MenuItem', "onFocusOutCapture">;
-  @NgInput() declare "onBlur"?: AngularInput<'MenuItem', "onBlur">;
-  @NgInput() declare "onBlurCapture"?: AngularInput<'MenuItem', "onBlurCapture">;
-  @NgInput() declare "onChangeCapture"?: AngularInput<'MenuItem', "onChangeCapture">;
-  @NgInput() declare "onInput"?: AngularInput<'MenuItem', "onInput">;
-  @NgInput() declare "onInputCapture"?: AngularInput<'MenuItem', "onInputCapture">;
-  @NgInput() declare "onBeforeInput"?: AngularInput<'MenuItem', "onBeforeInput">;
-  @NgInput() declare "onBeforeInputCapture"?: AngularInput<'MenuItem', "onBeforeInputCapture">;
-  @NgInput() declare "onSearch"?: AngularInput<'MenuItem', "onSearch">;
-  @NgInput() declare "onSearchCapture"?: AngularInput<'MenuItem', "onSearchCapture">;
-  @NgInput() declare "onSubmit"?: AngularInput<'MenuItem', "onSubmit">;
-  @NgInput() declare "onSubmitCapture"?: AngularInput<'MenuItem', "onSubmitCapture">;
-  @NgInput() declare "onInvalid"?: AngularInput<'MenuItem', "onInvalid">;
-  @NgInput() declare "onInvalidCapture"?: AngularInput<'MenuItem', "onInvalidCapture">;
-  @NgInput() declare "onReset"?: AngularInput<'MenuItem', "onReset">;
-  @NgInput() declare "onResetCapture"?: AngularInput<'MenuItem', "onResetCapture">;
-  @NgInput() declare "onFormData"?: AngularInput<'MenuItem', "onFormData">;
-  @NgInput() declare "onFormDataCapture"?: AngularInput<'MenuItem', "onFormDataCapture">;
-  @NgInput() declare "onKeyDown"?: AngularInput<'MenuItem', "onKeyDown">;
-  @NgInput() declare "onKeyDownCapture"?: AngularInput<'MenuItem', "onKeyDownCapture">;
-  @NgInput() declare "onKeyPress"?: AngularInput<'MenuItem', "onKeyPress">;
-  @NgInput() declare "onKeyPressCapture"?: AngularInput<'MenuItem', "onKeyPressCapture">;
-  @NgInput() declare "onKeyUp"?: AngularInput<'MenuItem', "onKeyUp">;
-  @NgInput() declare "onKeyUpCapture"?: AngularInput<'MenuItem', "onKeyUpCapture">;
-  @NgInput() declare "onAbort"?: AngularInput<'MenuItem', "onAbort">;
-  @NgInput() declare "onAbortCapture"?: AngularInput<'MenuItem', "onAbortCapture">;
-  @NgInput() declare "onCanPlay"?: AngularInput<'MenuItem', "onCanPlay">;
-  @NgInput() declare "onCanPlayCapture"?: AngularInput<'MenuItem', "onCanPlayCapture">;
-  @NgInput() declare "onCanPlayThrough"?: AngularInput<'MenuItem', "onCanPlayThrough">;
-  @NgInput() declare "onCanPlayThroughCapture"?: AngularInput<'MenuItem', "onCanPlayThroughCapture">;
-  @NgInput() declare "onDurationChange"?: AngularInput<'MenuItem', "onDurationChange">;
-  @NgInput() declare "onDurationChangeCapture"?: AngularInput<'MenuItem', "onDurationChangeCapture">;
-  @NgInput() declare "onEmptied"?: AngularInput<'MenuItem', "onEmptied">;
-  @NgInput() declare "onEmptiedCapture"?: AngularInput<'MenuItem', "onEmptiedCapture">;
-  @NgInput() declare "onEncrypted"?: AngularInput<'MenuItem', "onEncrypted">;
-  @NgInput() declare "onEncryptedCapture"?: AngularInput<'MenuItem', "onEncryptedCapture">;
-  @NgInput() declare "onEnded"?: AngularInput<'MenuItem', "onEnded">;
-  @NgInput() declare "onEndedCapture"?: AngularInput<'MenuItem', "onEndedCapture">;
-  @NgInput() declare "onLoadedData"?: AngularInput<'MenuItem', "onLoadedData">;
-  @NgInput() declare "onLoadedDataCapture"?: AngularInput<'MenuItem', "onLoadedDataCapture">;
-  @NgInput() declare "onLoadedMetadata"?: AngularInput<'MenuItem', "onLoadedMetadata">;
-  @NgInput() declare "onLoadedMetadataCapture"?: AngularInput<'MenuItem', "onLoadedMetadataCapture">;
-  @NgInput() declare "onLoadStart"?: AngularInput<'MenuItem', "onLoadStart">;
-  @NgInput() declare "onLoadStartCapture"?: AngularInput<'MenuItem', "onLoadStartCapture">;
-  @NgInput() declare "onPause"?: AngularInput<'MenuItem', "onPause">;
-  @NgInput() declare "onPauseCapture"?: AngularInput<'MenuItem', "onPauseCapture">;
-  @NgInput() declare "onPlay"?: AngularInput<'MenuItem', "onPlay">;
-  @NgInput() declare "onPlayCapture"?: AngularInput<'MenuItem', "onPlayCapture">;
-  @NgInput() declare "onPlaying"?: AngularInput<'MenuItem', "onPlaying">;
-  @NgInput() declare "onPlayingCapture"?: AngularInput<'MenuItem', "onPlayingCapture">;
-  @NgInput() declare "onProgress"?: AngularInput<'MenuItem', "onProgress">;
-  @NgInput() declare "onProgressCapture"?: AngularInput<'MenuItem', "onProgressCapture">;
-  @NgInput() declare "onRateChange"?: AngularInput<'MenuItem', "onRateChange">;
-  @NgInput() declare "onRateChangeCapture"?: AngularInput<'MenuItem', "onRateChangeCapture">;
-  @NgInput() declare "onSeeked"?: AngularInput<'MenuItem', "onSeeked">;
-  @NgInput() declare "onSeekedCapture"?: AngularInput<'MenuItem', "onSeekedCapture">;
-  @NgInput() declare "onSeeking"?: AngularInput<'MenuItem', "onSeeking">;
-  @NgInput() declare "onSeekingCapture"?: AngularInput<'MenuItem', "onSeekingCapture">;
-  @NgInput() declare "onStalled"?: AngularInput<'MenuItem', "onStalled">;
-  @NgInput() declare "onStalledCapture"?: AngularInput<'MenuItem', "onStalledCapture">;
-  @NgInput() declare "onSuspend"?: AngularInput<'MenuItem', "onSuspend">;
-  @NgInput() declare "onSuspendCapture"?: AngularInput<'MenuItem', "onSuspendCapture">;
-  @NgInput() declare "onTimeUpdate"?: AngularInput<'MenuItem', "onTimeUpdate">;
-  @NgInput() declare "onTimeUpdateCapture"?: AngularInput<'MenuItem', "onTimeUpdateCapture">;
-  @NgInput() declare "onVolumeChange"?: AngularInput<'MenuItem', "onVolumeChange">;
-  @NgInput() declare "onVolumeChangeCapture"?: AngularInput<'MenuItem', "onVolumeChangeCapture">;
-  @NgInput() declare "onWaiting"?: AngularInput<'MenuItem', "onWaiting">;
-  @NgInput() declare "onWaitingCapture"?: AngularInput<'MenuItem', "onWaitingCapture">;
-  @NgInput() declare "onClick"?: AngularInput<'MenuItem', "onClick">;
-  @NgInput() declare "onClickCapture"?: AngularInput<'MenuItem', "onClickCapture">;
   @NgInput() declare "onContextMenu"?: AngularInput<'MenuItem', "onContextMenu">;
   @NgInput() declare "onContextMenuCapture"?: AngularInput<'MenuItem', "onContextMenuCapture">;
+  @NgInput() declare "onCopy"?: AngularInput<'MenuItem', "onCopy">;
+  @NgInput() declare "onCopyCapture"?: AngularInput<'MenuItem', "onCopyCapture">;
+  @NgInput() declare "onCut"?: AngularInput<'MenuItem', "onCut">;
+  @NgInput() declare "onCutCapture"?: AngularInput<'MenuItem', "onCutCapture">;
   @NgInput() declare "onDblClick"?: AngularInput<'MenuItem', "onDblClick">;
   @NgInput() declare "onDblClickCapture"?: AngularInput<'MenuItem', "onDblClickCapture">;
   @NgInput() declare "onDrag"?: AngularInput<'MenuItem', "onDrag">;
@@ -267,6 +180,50 @@ export class MenuItem extends AngularComponentAdapter<never> {
   @NgInput() declare "onDragStartCapture"?: AngularInput<'MenuItem', "onDragStartCapture">;
   @NgInput() declare "onDrop"?: AngularInput<'MenuItem', "onDrop">;
   @NgInput() declare "onDropCapture"?: AngularInput<'MenuItem', "onDropCapture">;
+  @NgInput() declare "onDurationChange"?: AngularInput<'MenuItem', "onDurationChange">;
+  @NgInput() declare "onDurationChangeCapture"?: AngularInput<'MenuItem', "onDurationChangeCapture">;
+  @NgInput() declare "onEmptied"?: AngularInput<'MenuItem', "onEmptied">;
+  @NgInput() declare "onEmptiedCapture"?: AngularInput<'MenuItem', "onEmptiedCapture">;
+  @NgInput() declare "onEncrypted"?: AngularInput<'MenuItem', "onEncrypted">;
+  @NgInput() declare "onEncryptedCapture"?: AngularInput<'MenuItem', "onEncryptedCapture">;
+  @NgInput() declare "onEnded"?: AngularInput<'MenuItem', "onEnded">;
+  @NgInput() declare "onEndedCapture"?: AngularInput<'MenuItem', "onEndedCapture">;
+  @NgInput() declare "onEnterPictureInPicture"?: AngularInput<'MenuItem', "onEnterPictureInPicture">;
+  @NgInput() declare "onEnterPictureInPictureCapture"?: AngularInput<'MenuItem', "onEnterPictureInPictureCapture">;
+  @NgInput() declare "onError"?: AngularInput<'MenuItem', "onError">;
+  @NgInput() declare "onErrorCapture"?: AngularInput<'MenuItem', "onErrorCapture">;
+  @NgInput() declare "onFocus"?: AngularInput<'MenuItem', "onFocus">;
+  @NgInput() declare "onFocusCapture"?: AngularInput<'MenuItem', "onFocusCapture">;
+  @NgInput() declare "onFocusIn"?: AngularInput<'MenuItem', "onFocusIn">;
+  @NgInput() declare "onFocusInCapture"?: AngularInput<'MenuItem', "onFocusInCapture">;
+  @NgInput() declare "onFocusOut"?: AngularInput<'MenuItem', "onFocusOut">;
+  @NgInput() declare "onFocusOutCapture"?: AngularInput<'MenuItem', "onFocusOutCapture">;
+  @NgInput() declare "onFormData"?: AngularInput<'MenuItem', "onFormData">;
+  @NgInput() declare "onFormDataCapture"?: AngularInput<'MenuItem', "onFormDataCapture">;
+  @NgInput() declare "onGotPointerCapture"?: AngularInput<'MenuItem', "onGotPointerCapture">;
+  @NgInput() declare "onGotPointerCaptureCapture"?: AngularInput<'MenuItem', "onGotPointerCaptureCapture">;
+  @NgInput() declare "onInput"?: AngularInput<'MenuItem', "onInput">;
+  @NgInput() declare "onInputCapture"?: AngularInput<'MenuItem', "onInputCapture">;
+  @NgInput() declare "onInvalid"?: AngularInput<'MenuItem', "onInvalid">;
+  @NgInput() declare "onInvalidCapture"?: AngularInput<'MenuItem', "onInvalidCapture">;
+  @NgInput() declare "onKeyDown"?: AngularInput<'MenuItem', "onKeyDown">;
+  @NgInput() declare "onKeyDownCapture"?: AngularInput<'MenuItem', "onKeyDownCapture">;
+  @NgInput() declare "onKeyPress"?: AngularInput<'MenuItem', "onKeyPress">;
+  @NgInput() declare "onKeyPressCapture"?: AngularInput<'MenuItem', "onKeyPressCapture">;
+  @NgInput() declare "onKeyUp"?: AngularInput<'MenuItem', "onKeyUp">;
+  @NgInput() declare "onKeyUpCapture"?: AngularInput<'MenuItem', "onKeyUpCapture">;
+  @NgInput() declare "onLeavePictureInPicture"?: AngularInput<'MenuItem', "onLeavePictureInPicture">;
+  @NgInput() declare "onLeavePictureInPictureCapture"?: AngularInput<'MenuItem', "onLeavePictureInPictureCapture">;
+  @NgInput() declare "onLoad"?: AngularInput<'MenuItem', "onLoad">;
+  @NgInput() declare "onLoadCapture"?: AngularInput<'MenuItem', "onLoadCapture">;
+  @NgInput() declare "onLoadStart"?: AngularInput<'MenuItem', "onLoadStart">;
+  @NgInput() declare "onLoadStartCapture"?: AngularInput<'MenuItem', "onLoadStartCapture">;
+  @NgInput() declare "onLoadedData"?: AngularInput<'MenuItem', "onLoadedData">;
+  @NgInput() declare "onLoadedDataCapture"?: AngularInput<'MenuItem', "onLoadedDataCapture">;
+  @NgInput() declare "onLoadedMetadata"?: AngularInput<'MenuItem', "onLoadedMetadata">;
+  @NgInput() declare "onLoadedMetadataCapture"?: AngularInput<'MenuItem', "onLoadedMetadataCapture">;
+  @NgInput() declare "onLostPointerCapture"?: AngularInput<'MenuItem', "onLostPointerCapture">;
+  @NgInput() declare "onLostPointerCaptureCapture"?: AngularInput<'MenuItem', "onLostPointerCaptureCapture">;
   @NgInput() declare "onMouseDown"?: AngularInput<'MenuItem', "onMouseDown">;
   @NgInput() declare "onMouseDownCapture"?: AngularInput<'MenuItem', "onMouseDownCapture">;
   @NgInput() declare "onMouseEnter"?: AngularInput<'MenuItem', "onMouseEnter">;
@@ -281,38 +238,38 @@ export class MenuItem extends AngularComponentAdapter<never> {
   @NgInput() declare "onMouseOverCapture"?: AngularInput<'MenuItem', "onMouseOverCapture">;
   @NgInput() declare "onMouseUp"?: AngularInput<'MenuItem', "onMouseUp">;
   @NgInput() declare "onMouseUpCapture"?: AngularInput<'MenuItem', "onMouseUpCapture">;
-  @NgInput() declare "onAuxClick"?: AngularInput<'MenuItem', "onAuxClick">;
-  @NgInput() declare "onAuxClickCapture"?: AngularInput<'MenuItem', "onAuxClickCapture">;
-  @NgInput() declare "onSelect"?: AngularInput<'MenuItem', "onSelect">;
-  @NgInput() declare "onSelectCapture"?: AngularInput<'MenuItem', "onSelectCapture">;
-  @NgInput() declare "onTouchCancel"?: AngularInput<'MenuItem', "onTouchCancel">;
-  @NgInput() declare "onTouchCancelCapture"?: AngularInput<'MenuItem', "onTouchCancelCapture">;
-  @NgInput() declare "onTouchEnd"?: AngularInput<'MenuItem', "onTouchEnd">;
-  @NgInput() declare "onTouchEndCapture"?: AngularInput<'MenuItem', "onTouchEndCapture">;
-  @NgInput() declare "onTouchMove"?: AngularInput<'MenuItem', "onTouchMove">;
-  @NgInput() declare "onTouchMoveCapture"?: AngularInput<'MenuItem', "onTouchMoveCapture">;
-  @NgInput() declare "onTouchStart"?: AngularInput<'MenuItem', "onTouchStart">;
-  @NgInput() declare "onTouchStartCapture"?: AngularInput<'MenuItem', "onTouchStartCapture">;
-  @NgInput() declare "onPointerOver"?: AngularInput<'MenuItem', "onPointerOver">;
-  @NgInput() declare "onPointerOverCapture"?: AngularInput<'MenuItem', "onPointerOverCapture">;
-  @NgInput() declare "onPointerEnter"?: AngularInput<'MenuItem', "onPointerEnter">;
-  @NgInput() declare "onPointerEnterCapture"?: AngularInput<'MenuItem', "onPointerEnterCapture">;
-  @NgInput() declare "onPointerDown"?: AngularInput<'MenuItem', "onPointerDown">;
-  @NgInput() declare "onPointerDownCapture"?: AngularInput<'MenuItem', "onPointerDownCapture">;
-  @NgInput() declare "onPointerMove"?: AngularInput<'MenuItem', "onPointerMove">;
-  @NgInput() declare "onPointerMoveCapture"?: AngularInput<'MenuItem', "onPointerMoveCapture">;
-  @NgInput() declare "onPointerUp"?: AngularInput<'MenuItem', "onPointerUp">;
-  @NgInput() declare "onPointerUpCapture"?: AngularInput<'MenuItem', "onPointerUpCapture">;
+  @NgInput() declare "onPaste"?: AngularInput<'MenuItem', "onPaste">;
+  @NgInput() declare "onPasteCapture"?: AngularInput<'MenuItem', "onPasteCapture">;
+  @NgInput() declare "onPause"?: AngularInput<'MenuItem', "onPause">;
+  @NgInput() declare "onPauseCapture"?: AngularInput<'MenuItem', "onPauseCapture">;
+  @NgInput() declare "onPlay"?: AngularInput<'MenuItem', "onPlay">;
+  @NgInput() declare "onPlayCapture"?: AngularInput<'MenuItem', "onPlayCapture">;
+  @NgInput() declare "onPlaying"?: AngularInput<'MenuItem', "onPlaying">;
+  @NgInput() declare "onPlayingCapture"?: AngularInput<'MenuItem', "onPlayingCapture">;
   @NgInput() declare "onPointerCancel"?: AngularInput<'MenuItem', "onPointerCancel">;
   @NgInput() declare "onPointerCancelCapture"?: AngularInput<'MenuItem', "onPointerCancelCapture">;
-  @NgInput() declare "onPointerOut"?: AngularInput<'MenuItem', "onPointerOut">;
-  @NgInput() declare "onPointerOutCapture"?: AngularInput<'MenuItem', "onPointerOutCapture">;
+  @NgInput() declare "onPointerDown"?: AngularInput<'MenuItem', "onPointerDown">;
+  @NgInput() declare "onPointerDownCapture"?: AngularInput<'MenuItem', "onPointerDownCapture">;
+  @NgInput() declare "onPointerEnter"?: AngularInput<'MenuItem', "onPointerEnter">;
+  @NgInput() declare "onPointerEnterCapture"?: AngularInput<'MenuItem', "onPointerEnterCapture">;
   @NgInput() declare "onPointerLeave"?: AngularInput<'MenuItem', "onPointerLeave">;
   @NgInput() declare "onPointerLeaveCapture"?: AngularInput<'MenuItem', "onPointerLeaveCapture">;
-  @NgInput() declare "onGotPointerCapture"?: AngularInput<'MenuItem', "onGotPointerCapture">;
-  @NgInput() declare "onGotPointerCaptureCapture"?: AngularInput<'MenuItem', "onGotPointerCaptureCapture">;
-  @NgInput() declare "onLostPointerCapture"?: AngularInput<'MenuItem', "onLostPointerCapture">;
-  @NgInput() declare "onLostPointerCaptureCapture"?: AngularInput<'MenuItem', "onLostPointerCaptureCapture">;
+  @NgInput() declare "onPointerMove"?: AngularInput<'MenuItem', "onPointerMove">;
+  @NgInput() declare "onPointerMoveCapture"?: AngularInput<'MenuItem', "onPointerMoveCapture">;
+  @NgInput() declare "onPointerOut"?: AngularInput<'MenuItem', "onPointerOut">;
+  @NgInput() declare "onPointerOutCapture"?: AngularInput<'MenuItem', "onPointerOutCapture">;
+  @NgInput() declare "onPointerOver"?: AngularInput<'MenuItem', "onPointerOver">;
+  @NgInput() declare "onPointerOverCapture"?: AngularInput<'MenuItem', "onPointerOverCapture">;
+  @NgInput() declare "onPointerUp"?: AngularInput<'MenuItem', "onPointerUp">;
+  @NgInput() declare "onPointerUpCapture"?: AngularInput<'MenuItem', "onPointerUpCapture">;
+  @NgInput() declare "onProgress"?: AngularInput<'MenuItem', "onProgress">;
+  @NgInput() declare "onProgressCapture"?: AngularInput<'MenuItem', "onProgressCapture">;
+  @NgInput() declare "onRateChange"?: AngularInput<'MenuItem', "onRateChange">;
+  @NgInput() declare "onRateChangeCapture"?: AngularInput<'MenuItem', "onRateChangeCapture">;
+  @NgInput() declare "onReset"?: AngularInput<'MenuItem', "onReset">;
+  @NgInput() declare "onResetCapture"?: AngularInput<'MenuItem', "onResetCapture">;
+  @NgInput() declare "onResize"?: AngularInput<'MenuItem', "onResize">;
+  @NgInput() declare "onResizeCapture"?: AngularInput<'MenuItem', "onResizeCapture">;
   @NgInput() declare "onScroll"?: AngularInput<'MenuItem', "onScroll">;
   @NgInput() declare "onScrollCapture"?: AngularInput<'MenuItem', "onScrollCapture">;
   @NgInput() declare "onScrollEnd"?: AngularInput<'MenuItem', "onScrollEnd">;
@@ -321,14 +278,31 @@ export class MenuItem extends AngularComponentAdapter<never> {
   @NgInput() declare "onScrollSnapChangeCapture"?: AngularInput<'MenuItem', "onScrollSnapChangeCapture">;
   @NgInput() declare "onScrollSnapChanging"?: AngularInput<'MenuItem', "onScrollSnapChanging">;
   @NgInput() declare "onScrollSnapChangingCapture"?: AngularInput<'MenuItem', "onScrollSnapChangingCapture">;
-  @NgInput() declare "onWheel"?: AngularInput<'MenuItem', "onWheel">;
-  @NgInput() declare "onWheelCapture"?: AngularInput<'MenuItem', "onWheelCapture">;
-  @NgInput() declare "onAnimationStart"?: AngularInput<'MenuItem', "onAnimationStart">;
-  @NgInput() declare "onAnimationStartCapture"?: AngularInput<'MenuItem', "onAnimationStartCapture">;
-  @NgInput() declare "onAnimationEnd"?: AngularInput<'MenuItem', "onAnimationEnd">;
-  @NgInput() declare "onAnimationEndCapture"?: AngularInput<'MenuItem', "onAnimationEndCapture">;
-  @NgInput() declare "onAnimationIteration"?: AngularInput<'MenuItem', "onAnimationIteration">;
-  @NgInput() declare "onAnimationIterationCapture"?: AngularInput<'MenuItem', "onAnimationIterationCapture">;
+  @NgInput() declare "onSearch"?: AngularInput<'MenuItem', "onSearch">;
+  @NgInput() declare "onSearchCapture"?: AngularInput<'MenuItem', "onSearchCapture">;
+  @NgInput() declare "onSeeked"?: AngularInput<'MenuItem', "onSeeked">;
+  @NgInput() declare "onSeekedCapture"?: AngularInput<'MenuItem', "onSeekedCapture">;
+  @NgInput() declare "onSeeking"?: AngularInput<'MenuItem', "onSeeking">;
+  @NgInput() declare "onSeekingCapture"?: AngularInput<'MenuItem', "onSeekingCapture">;
+  @NgInput() declare "onSelect"?: AngularInput<'MenuItem', "onSelect">;
+  @NgInput() declare "onSelectCapture"?: AngularInput<'MenuItem', "onSelectCapture">;
+  @NgInput() declare "onStalled"?: AngularInput<'MenuItem', "onStalled">;
+  @NgInput() declare "onStalledCapture"?: AngularInput<'MenuItem', "onStalledCapture">;
+  @NgInput() declare "onSubmit"?: AngularInput<'MenuItem', "onSubmit">;
+  @NgInput() declare "onSubmitCapture"?: AngularInput<'MenuItem', "onSubmitCapture">;
+  @NgInput() declare "onSuspend"?: AngularInput<'MenuItem', "onSuspend">;
+  @NgInput() declare "onSuspendCapture"?: AngularInput<'MenuItem', "onSuspendCapture">;
+  @NgInput() declare "onTimeUpdate"?: AngularInput<'MenuItem', "onTimeUpdate">;
+  @NgInput() declare "onTimeUpdateCapture"?: AngularInput<'MenuItem', "onTimeUpdateCapture">;
+  @NgInput() declare "onToggle"?: AngularInput<'MenuItem', "onToggle">;
+  @NgInput() declare "onTouchCancel"?: AngularInput<'MenuItem', "onTouchCancel">;
+  @NgInput() declare "onTouchCancelCapture"?: AngularInput<'MenuItem', "onTouchCancelCapture">;
+  @NgInput() declare "onTouchEnd"?: AngularInput<'MenuItem', "onTouchEnd">;
+  @NgInput() declare "onTouchEndCapture"?: AngularInput<'MenuItem', "onTouchEndCapture">;
+  @NgInput() declare "onTouchMove"?: AngularInput<'MenuItem', "onTouchMove">;
+  @NgInput() declare "onTouchMoveCapture"?: AngularInput<'MenuItem', "onTouchMoveCapture">;
+  @NgInput() declare "onTouchStart"?: AngularInput<'MenuItem', "onTouchStart">;
+  @NgInput() declare "onTouchStartCapture"?: AngularInput<'MenuItem', "onTouchStartCapture">;
   @NgInput() declare "onTransitionCancel"?: AngularInput<'MenuItem', "onTransitionCancel">;
   @NgInput() declare "onTransitionCancelCapture"?: AngularInput<'MenuItem', "onTransitionCancelCapture">;
   @NgInput() declare "onTransitionEnd"?: AngularInput<'MenuItem', "onTransitionEnd">;
@@ -337,111 +311,77 @@ export class MenuItem extends AngularComponentAdapter<never> {
   @NgInput() declare "onTransitionRunCapture"?: AngularInput<'MenuItem', "onTransitionRunCapture">;
   @NgInput() declare "onTransitionStart"?: AngularInput<'MenuItem', "onTransitionStart">;
   @NgInput() declare "onTransitionStartCapture"?: AngularInput<'MenuItem', "onTransitionStartCapture">;
-  @NgInput() declare "onEnterPictureInPicture"?: AngularInput<'MenuItem', "onEnterPictureInPicture">;
-  @NgInput() declare "onEnterPictureInPictureCapture"?: AngularInput<'MenuItem', "onEnterPictureInPictureCapture">;
-  @NgInput() declare "onLeavePictureInPicture"?: AngularInput<'MenuItem', "onLeavePictureInPicture">;
-  @NgInput() declare "onLeavePictureInPictureCapture"?: AngularInput<'MenuItem', "onLeavePictureInPictureCapture">;
-  @NgInput() declare "onResize"?: AngularInput<'MenuItem', "onResize">;
-  @NgInput() declare "onResizeCapture"?: AngularInput<'MenuItem', "onResizeCapture">;
-  @NgInput() declare "onCommand"?: AngularInput<'MenuItem', "onCommand">;
+  @NgInput() declare "onVolumeChange"?: AngularInput<'MenuItem', "onVolumeChange">;
+  @NgInput() declare "onVolumeChangeCapture"?: AngularInput<'MenuItem', "onVolumeChangeCapture">;
+  @NgInput() declare "onWaiting"?: AngularInput<'MenuItem', "onWaiting">;
+  @NgInput() declare "onWaitingCapture"?: AngularInput<'MenuItem', "onWaitingCapture">;
+  @NgInput() declare "onWheel"?: AngularInput<'MenuItem', "onWheel">;
+  @NgInput() declare "onWheelCapture"?: AngularInput<'MenuItem', "onWheelCapture">;
+  @NgInput() declare "part"?: AngularInput<'MenuItem', "part">;
+  @NgInput() declare "popover"?: AngularInput<'MenuItem', "popover">;
+  @NgInput() declare "popoverTarget"?: AngularInput<'MenuItem', "popoverTarget">;
+  @NgInput() declare "popoverTargetAction"?: AngularInput<'MenuItem', "popoverTargetAction">;
+  @NgInput() declare "popovertarget"?: AngularInput<'MenuItem', "popovertarget">;
+  @NgInput() declare "popovertargetaction"?: AngularInput<'MenuItem', "popovertargetaction">;
+  @NgInput() declare "prefix"?: AngularInput<'MenuItem', "prefix">;
+  @NgInput() declare "property"?: AngularInput<'MenuItem', "property">;
+  @NgInput() declare "rel"?: AngularInput<'MenuItem', "rel">;
+  @NgInput() declare "resource"?: AngularInput<'MenuItem', "resource">;
+  @NgInput() declare "results"?: AngularInput<'MenuItem', "results">;
+  @NgInput() declare "role"?: AngularInput<'MenuItem', "role">;
+  @NgInput() declare "rounded"?: AngularInput<'MenuItem', "rounded">;
+  @NgInput() declare "size"?: AngularInput<'MenuItem', "size">;
+  @NgInput() declare "slot"?: AngularInput<'MenuItem', "slot">;
+  @NgInput() declare "spellcheck"?: AngularInput<'MenuItem', "spellcheck">;
+  @NgInput() declare "style"?: AngularInput<'MenuItem', "style">;
+  @NgInput() declare "tabIndex"?: AngularInput<'MenuItem', "tabIndex">;
+  @NgInput() declare "tabindex"?: AngularInput<'MenuItem', "tabindex">;
+  @NgInput() declare "target"?: AngularInput<'MenuItem', "target">;
+  @NgInput() declare "title"?: AngularInput<'MenuItem', "title">;
+  @NgInput() declare "translate"?: AngularInput<'MenuItem', "translate">;
+  @NgInput() declare "type"?: AngularInput<'MenuItem', "type">;
+  @NgInput() declare "typeof"?: AngularInput<'MenuItem', "typeof">;
+  @NgInput() declare "value"?: AngularInput<'MenuItem', "value">;
+  @NgInput() declare "variant"?: AngularInput<'MenuItem', "variant">;
+  @NgInput() declare "vocab"?: AngularInput<'MenuItem', "vocab">;
+  @Output() get abortEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onAbort'>>>('onAbort'); }
+  @Output() get abortCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onAbortCapture'>>>('onAbortCapture'); }
+  @Output() get animationEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onAnimationEnd'>>>('onAnimationEnd'); }
+  @Output() get animationEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onAnimationEndCapture'>>>('onAnimationEndCapture'); }
+  @Output() get animationIterationEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onAnimationIteration'>>>('onAnimationIteration'); }
+  @Output() get animationIterationCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onAnimationIterationCapture'>>>('onAnimationIterationCapture'); }
+  @Output() get animationStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onAnimationStart'>>>('onAnimationStart'); }
+  @Output() get animationStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onAnimationStartCapture'>>>('onAnimationStartCapture'); }
+  @Output() get auxClickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onAuxClick'>>>('onAuxClick'); }
+  @Output() get auxClickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onAuxClickCapture'>>>('onAuxClickCapture'); }
+  @Output() get beforeInputEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onBeforeInput'>>>('onBeforeInput'); }
+  @Output() get beforeInputCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onBeforeInputCapture'>>>('onBeforeInputCapture'); }
+  @Output() get beforeToggleEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onBeforeToggle'>>>('onBeforeToggle'); }
+  @Output() get blurEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onBlur'>>>('onBlur'); }
+  @Output() get blurCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onBlurCapture'>>>('onBlurCapture'); }
+  @Output() get canPlayEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onCanPlay'>>>('onCanPlay'); }
+  @Output() get canPlayCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onCanPlayCapture'>>>('onCanPlayCapture'); }
+  @Output() get canPlayThroughEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onCanPlayThrough'>>>('onCanPlayThrough'); }
+  @Output() get canPlayThroughCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onCanPlayThroughCapture'>>>('onCanPlayThroughCapture'); }
+  @Output() get cancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onCancel'>>>('onCancel'); }
   @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onChange'>>>('onChange'); }
-  @Output() get loadEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onLoad'>>>('onLoad'); }
-  @Output() get loadCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onLoadCapture'>>>('onLoadCapture'); }
-  @Output() get errorEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onError'>>>('onError'); }
-  @Output() get errorCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onErrorCapture'>>>('onErrorCapture'); }
-  @Output() get copyEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onCopy'>>>('onCopy'); }
-  @Output() get copyCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onCopyCapture'>>>('onCopyCapture'); }
-  @Output() get cutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onCut'>>>('onCut'); }
-  @Output() get cutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onCutCapture'>>>('onCutCapture'); }
-  @Output() get pasteEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPaste'>>>('onPaste'); }
-  @Output() get pasteCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPasteCapture'>>>('onPasteCapture'); }
+  @Output() get changeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onChangeCapture'>>>('onChangeCapture'); }
+  @Output() get clickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onClick'>>>('onClick'); }
+  @Output() get clickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onClickCapture'>>>('onClickCapture'); }
+  @Output() get closeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onClose'>>>('onClose'); }
+  @Output() get commandEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onCommand'>>>('onCommand'); }
   @Output() get compositionEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onCompositionEnd'>>>('onCompositionEnd'); }
   @Output() get compositionEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onCompositionEndCapture'>>>('onCompositionEndCapture'); }
   @Output() get compositionStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onCompositionStart'>>>('onCompositionStart'); }
   @Output() get compositionStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onCompositionStartCapture'>>>('onCompositionStartCapture'); }
   @Output() get compositionUpdateEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onCompositionUpdate'>>>('onCompositionUpdate'); }
   @Output() get compositionUpdateCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onCompositionUpdateCapture'>>>('onCompositionUpdateCapture'); }
-  @Output() get beforeToggleEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onBeforeToggle'>>>('onBeforeToggle'); }
-  @Output() get toggleEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onToggle'>>>('onToggle'); }
-  @Output() get closeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onClose'>>>('onClose'); }
-  @Output() get cancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onCancel'>>>('onCancel'); }
-  @Output() get focusEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onFocus'>>>('onFocus'); }
-  @Output() get focusCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onFocusCapture'>>>('onFocusCapture'); }
-  @Output() get focusInEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onFocusIn'>>>('onFocusIn'); }
-  @Output() get focusInCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onFocusInCapture'>>>('onFocusInCapture'); }
-  @Output() get focusOutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onFocusOut'>>>('onFocusOut'); }
-  @Output() get focusOutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onFocusOutCapture'>>>('onFocusOutCapture'); }
-  @Output() get blurEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onBlur'>>>('onBlur'); }
-  @Output() get blurCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onBlurCapture'>>>('onBlurCapture'); }
-  @Output() get changeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onChangeCapture'>>>('onChangeCapture'); }
-  @Output() get inputEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onInput'>>>('onInput'); }
-  @Output() get inputCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onInputCapture'>>>('onInputCapture'); }
-  @Output() get beforeInputEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onBeforeInput'>>>('onBeforeInput'); }
-  @Output() get beforeInputCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onBeforeInputCapture'>>>('onBeforeInputCapture'); }
-  @Output() get searchEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onSearch'>>>('onSearch'); }
-  @Output() get searchCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onSearchCapture'>>>('onSearchCapture'); }
-  @Output() get submitEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onSubmit'>>>('onSubmit'); }
-  @Output() get submitCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onSubmitCapture'>>>('onSubmitCapture'); }
-  @Output() get invalidEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onInvalid'>>>('onInvalid'); }
-  @Output() get invalidCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onInvalidCapture'>>>('onInvalidCapture'); }
-  @Output() get resetEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onReset'>>>('onReset'); }
-  @Output() get resetCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onResetCapture'>>>('onResetCapture'); }
-  @Output() get formDataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onFormData'>>>('onFormData'); }
-  @Output() get formDataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onFormDataCapture'>>>('onFormDataCapture'); }
-  @Output() get keyDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onKeyDown'>>>('onKeyDown'); }
-  @Output() get keyDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onKeyDownCapture'>>>('onKeyDownCapture'); }
-  @Output() get keyPressEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onKeyPress'>>>('onKeyPress'); }
-  @Output() get keyPressCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onKeyPressCapture'>>>('onKeyPressCapture'); }
-  @Output() get keyUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onKeyUp'>>>('onKeyUp'); }
-  @Output() get keyUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onKeyUpCapture'>>>('onKeyUpCapture'); }
-  @Output() get abortEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onAbort'>>>('onAbort'); }
-  @Output() get abortCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onAbortCapture'>>>('onAbortCapture'); }
-  @Output() get canPlayEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onCanPlay'>>>('onCanPlay'); }
-  @Output() get canPlayCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onCanPlayCapture'>>>('onCanPlayCapture'); }
-  @Output() get canPlayThroughEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onCanPlayThrough'>>>('onCanPlayThrough'); }
-  @Output() get canPlayThroughCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onCanPlayThroughCapture'>>>('onCanPlayThroughCapture'); }
-  @Output() get durationChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onDurationChange'>>>('onDurationChange'); }
-  @Output() get durationChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onDurationChangeCapture'>>>('onDurationChangeCapture'); }
-  @Output() get emptiedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onEmptied'>>>('onEmptied'); }
-  @Output() get emptiedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onEmptiedCapture'>>>('onEmptiedCapture'); }
-  @Output() get encryptedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onEncrypted'>>>('onEncrypted'); }
-  @Output() get encryptedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onEncryptedCapture'>>>('onEncryptedCapture'); }
-  @Output() get endedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onEnded'>>>('onEnded'); }
-  @Output() get endedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onEndedCapture'>>>('onEndedCapture'); }
-  @Output() get loadedDataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onLoadedData'>>>('onLoadedData'); }
-  @Output() get loadedDataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onLoadedDataCapture'>>>('onLoadedDataCapture'); }
-  @Output() get loadedMetadataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onLoadedMetadata'>>>('onLoadedMetadata'); }
-  @Output() get loadedMetadataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onLoadedMetadataCapture'>>>('onLoadedMetadataCapture'); }
-  @Output() get loadStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onLoadStart'>>>('onLoadStart'); }
-  @Output() get loadStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onLoadStartCapture'>>>('onLoadStartCapture'); }
-  @Output() get pauseEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPause'>>>('onPause'); }
-  @Output() get pauseCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPauseCapture'>>>('onPauseCapture'); }
-  @Output() get playEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPlay'>>>('onPlay'); }
-  @Output() get playCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPlayCapture'>>>('onPlayCapture'); }
-  @Output() get playingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPlaying'>>>('onPlaying'); }
-  @Output() get playingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPlayingCapture'>>>('onPlayingCapture'); }
-  @Output() get progressEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onProgress'>>>('onProgress'); }
-  @Output() get progressCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onProgressCapture'>>>('onProgressCapture'); }
-  @Output() get rateChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onRateChange'>>>('onRateChange'); }
-  @Output() get rateChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onRateChangeCapture'>>>('onRateChangeCapture'); }
-  @Output() get seekedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onSeeked'>>>('onSeeked'); }
-  @Output() get seekedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onSeekedCapture'>>>('onSeekedCapture'); }
-  @Output() get seekingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onSeeking'>>>('onSeeking'); }
-  @Output() get seekingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onSeekingCapture'>>>('onSeekingCapture'); }
-  @Output() get stalledEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onStalled'>>>('onStalled'); }
-  @Output() get stalledCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onStalledCapture'>>>('onStalledCapture'); }
-  @Output() get suspendEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onSuspend'>>>('onSuspend'); }
-  @Output() get suspendCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onSuspendCapture'>>>('onSuspendCapture'); }
-  @Output() get timeUpdateEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onTimeUpdate'>>>('onTimeUpdate'); }
-  @Output() get timeUpdateCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onTimeUpdateCapture'>>>('onTimeUpdateCapture'); }
-  @Output() get volumeChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onVolumeChange'>>>('onVolumeChange'); }
-  @Output() get volumeChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onVolumeChangeCapture'>>>('onVolumeChangeCapture'); }
-  @Output() get waitingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onWaiting'>>>('onWaiting'); }
-  @Output() get waitingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onWaitingCapture'>>>('onWaitingCapture'); }
-  @Output() get clickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onClick'>>>('onClick'); }
-  @Output() get clickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onClickCapture'>>>('onClickCapture'); }
   @Output() get contextMenuEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onContextMenu'>>>('onContextMenu'); }
   @Output() get contextMenuCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onContextMenuCapture'>>>('onContextMenuCapture'); }
+  @Output() get copyEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onCopy'>>>('onCopy'); }
+  @Output() get copyCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onCopyCapture'>>>('onCopyCapture'); }
+  @Output() get cutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onCut'>>>('onCut'); }
+  @Output() get cutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onCutCapture'>>>('onCutCapture'); }
   @Output() get dblClickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onDblClick'>>>('onDblClick'); }
   @Output() get dblClickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onDblClickCapture'>>>('onDblClickCapture'); }
   @Output() get dragEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onDrag'>>>('onDrag'); }
@@ -460,6 +400,50 @@ export class MenuItem extends AngularComponentAdapter<never> {
   @Output() get dragStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onDragStartCapture'>>>('onDragStartCapture'); }
   @Output() get dropEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onDrop'>>>('onDrop'); }
   @Output() get dropCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onDropCapture'>>>('onDropCapture'); }
+  @Output() get durationChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onDurationChange'>>>('onDurationChange'); }
+  @Output() get durationChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onDurationChangeCapture'>>>('onDurationChangeCapture'); }
+  @Output() get emptiedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onEmptied'>>>('onEmptied'); }
+  @Output() get emptiedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onEmptiedCapture'>>>('onEmptiedCapture'); }
+  @Output() get encryptedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onEncrypted'>>>('onEncrypted'); }
+  @Output() get encryptedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onEncryptedCapture'>>>('onEncryptedCapture'); }
+  @Output() get endedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onEnded'>>>('onEnded'); }
+  @Output() get endedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onEndedCapture'>>>('onEndedCapture'); }
+  @Output() get enterPictureInPictureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onEnterPictureInPicture'>>>('onEnterPictureInPicture'); }
+  @Output() get enterPictureInPictureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onEnterPictureInPictureCapture'>>>('onEnterPictureInPictureCapture'); }
+  @Output() get errorEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onError'>>>('onError'); }
+  @Output() get errorCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onErrorCapture'>>>('onErrorCapture'); }
+  @Output() get focusEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onFocus'>>>('onFocus'); }
+  @Output() get focusCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onFocusCapture'>>>('onFocusCapture'); }
+  @Output() get focusInEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onFocusIn'>>>('onFocusIn'); }
+  @Output() get focusInCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onFocusInCapture'>>>('onFocusInCapture'); }
+  @Output() get focusOutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onFocusOut'>>>('onFocusOut'); }
+  @Output() get focusOutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onFocusOutCapture'>>>('onFocusOutCapture'); }
+  @Output() get formDataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onFormData'>>>('onFormData'); }
+  @Output() get formDataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onFormDataCapture'>>>('onFormDataCapture'); }
+  @Output() get gotPointerCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onGotPointerCapture'>>>('onGotPointerCapture'); }
+  @Output() get gotPointerCaptureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onGotPointerCaptureCapture'>>>('onGotPointerCaptureCapture'); }
+  @Output() get inputEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onInput'>>>('onInput'); }
+  @Output() get inputCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onInputCapture'>>>('onInputCapture'); }
+  @Output() get invalidEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onInvalid'>>>('onInvalid'); }
+  @Output() get invalidCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onInvalidCapture'>>>('onInvalidCapture'); }
+  @Output() get keyDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onKeyDown'>>>('onKeyDown'); }
+  @Output() get keyDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onKeyDownCapture'>>>('onKeyDownCapture'); }
+  @Output() get keyPressEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onKeyPress'>>>('onKeyPress'); }
+  @Output() get keyPressCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onKeyPressCapture'>>>('onKeyPressCapture'); }
+  @Output() get keyUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onKeyUp'>>>('onKeyUp'); }
+  @Output() get keyUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onKeyUpCapture'>>>('onKeyUpCapture'); }
+  @Output() get leavePictureInPictureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onLeavePictureInPicture'>>>('onLeavePictureInPicture'); }
+  @Output() get leavePictureInPictureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onLeavePictureInPictureCapture'>>>('onLeavePictureInPictureCapture'); }
+  @Output() get loadEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onLoad'>>>('onLoad'); }
+  @Output() get loadCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onLoadCapture'>>>('onLoadCapture'); }
+  @Output() get loadStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onLoadStart'>>>('onLoadStart'); }
+  @Output() get loadStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onLoadStartCapture'>>>('onLoadStartCapture'); }
+  @Output() get loadedDataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onLoadedData'>>>('onLoadedData'); }
+  @Output() get loadedDataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onLoadedDataCapture'>>>('onLoadedDataCapture'); }
+  @Output() get loadedMetadataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onLoadedMetadata'>>>('onLoadedMetadata'); }
+  @Output() get loadedMetadataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onLoadedMetadataCapture'>>>('onLoadedMetadataCapture'); }
+  @Output() get lostPointerCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onLostPointerCapture'>>>('onLostPointerCapture'); }
+  @Output() get lostPointerCaptureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onLostPointerCaptureCapture'>>>('onLostPointerCaptureCapture'); }
   @Output() get mouseDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onMouseDown'>>>('onMouseDown'); }
   @Output() get mouseDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onMouseDownCapture'>>>('onMouseDownCapture'); }
   @Output() get mouseEnterEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onMouseEnter'>>>('onMouseEnter'); }
@@ -474,38 +458,38 @@ export class MenuItem extends AngularComponentAdapter<never> {
   @Output() get mouseOverCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onMouseOverCapture'>>>('onMouseOverCapture'); }
   @Output() get mouseUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onMouseUp'>>>('onMouseUp'); }
   @Output() get mouseUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onMouseUpCapture'>>>('onMouseUpCapture'); }
-  @Output() get auxClickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onAuxClick'>>>('onAuxClick'); }
-  @Output() get auxClickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onAuxClickCapture'>>>('onAuxClickCapture'); }
-  @Output() get selectEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onSelect'>>>('onSelect'); }
-  @Output() get selectCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onSelectCapture'>>>('onSelectCapture'); }
-  @Output() get touchCancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onTouchCancel'>>>('onTouchCancel'); }
-  @Output() get touchCancelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onTouchCancelCapture'>>>('onTouchCancelCapture'); }
-  @Output() get touchEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onTouchEnd'>>>('onTouchEnd'); }
-  @Output() get touchEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onTouchEndCapture'>>>('onTouchEndCapture'); }
-  @Output() get touchMoveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onTouchMove'>>>('onTouchMove'); }
-  @Output() get touchMoveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onTouchMoveCapture'>>>('onTouchMoveCapture'); }
-  @Output() get touchStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onTouchStart'>>>('onTouchStart'); }
-  @Output() get touchStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onTouchStartCapture'>>>('onTouchStartCapture'); }
-  @Output() get pointerOverEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPointerOver'>>>('onPointerOver'); }
-  @Output() get pointerOverCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPointerOverCapture'>>>('onPointerOverCapture'); }
-  @Output() get pointerEnterEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPointerEnter'>>>('onPointerEnter'); }
-  @Output() get pointerEnterCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPointerEnterCapture'>>>('onPointerEnterCapture'); }
-  @Output() get pointerDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPointerDown'>>>('onPointerDown'); }
-  @Output() get pointerDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPointerDownCapture'>>>('onPointerDownCapture'); }
-  @Output() get pointerMoveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPointerMove'>>>('onPointerMove'); }
-  @Output() get pointerMoveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPointerMoveCapture'>>>('onPointerMoveCapture'); }
-  @Output() get pointerUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPointerUp'>>>('onPointerUp'); }
-  @Output() get pointerUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPointerUpCapture'>>>('onPointerUpCapture'); }
+  @Output() get pasteEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPaste'>>>('onPaste'); }
+  @Output() get pasteCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPasteCapture'>>>('onPasteCapture'); }
+  @Output() get pauseEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPause'>>>('onPause'); }
+  @Output() get pauseCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPauseCapture'>>>('onPauseCapture'); }
+  @Output() get playEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPlay'>>>('onPlay'); }
+  @Output() get playCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPlayCapture'>>>('onPlayCapture'); }
+  @Output() get playingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPlaying'>>>('onPlaying'); }
+  @Output() get playingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPlayingCapture'>>>('onPlayingCapture'); }
   @Output() get pointerCancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPointerCancel'>>>('onPointerCancel'); }
   @Output() get pointerCancelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPointerCancelCapture'>>>('onPointerCancelCapture'); }
-  @Output() get pointerOutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPointerOut'>>>('onPointerOut'); }
-  @Output() get pointerOutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPointerOutCapture'>>>('onPointerOutCapture'); }
+  @Output() get pointerDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPointerDown'>>>('onPointerDown'); }
+  @Output() get pointerDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPointerDownCapture'>>>('onPointerDownCapture'); }
+  @Output() get pointerEnterEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPointerEnter'>>>('onPointerEnter'); }
+  @Output() get pointerEnterCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPointerEnterCapture'>>>('onPointerEnterCapture'); }
   @Output() get pointerLeaveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPointerLeave'>>>('onPointerLeave'); }
   @Output() get pointerLeaveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPointerLeaveCapture'>>>('onPointerLeaveCapture'); }
-  @Output() get gotPointerCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onGotPointerCapture'>>>('onGotPointerCapture'); }
-  @Output() get gotPointerCaptureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onGotPointerCaptureCapture'>>>('onGotPointerCaptureCapture'); }
-  @Output() get lostPointerCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onLostPointerCapture'>>>('onLostPointerCapture'); }
-  @Output() get lostPointerCaptureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onLostPointerCaptureCapture'>>>('onLostPointerCaptureCapture'); }
+  @Output() get pointerMoveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPointerMove'>>>('onPointerMove'); }
+  @Output() get pointerMoveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPointerMoveCapture'>>>('onPointerMoveCapture'); }
+  @Output() get pointerOutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPointerOut'>>>('onPointerOut'); }
+  @Output() get pointerOutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPointerOutCapture'>>>('onPointerOutCapture'); }
+  @Output() get pointerOverEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPointerOver'>>>('onPointerOver'); }
+  @Output() get pointerOverCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPointerOverCapture'>>>('onPointerOverCapture'); }
+  @Output() get pointerUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPointerUp'>>>('onPointerUp'); }
+  @Output() get pointerUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onPointerUpCapture'>>>('onPointerUpCapture'); }
+  @Output() get progressEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onProgress'>>>('onProgress'); }
+  @Output() get progressCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onProgressCapture'>>>('onProgressCapture'); }
+  @Output() get rateChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onRateChange'>>>('onRateChange'); }
+  @Output() get rateChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onRateChangeCapture'>>>('onRateChangeCapture'); }
+  @Output() get resetEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onReset'>>>('onReset'); }
+  @Output() get resetCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onResetCapture'>>>('onResetCapture'); }
+  @Output() get resizeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onResize'>>>('onResize'); }
+  @Output() get resizeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onResizeCapture'>>>('onResizeCapture'); }
   @Output() get scrollEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onScroll'>>>('onScroll'); }
   @Output() get scrollCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onScrollCapture'>>>('onScrollCapture'); }
   @Output() get scrollEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onScrollEnd'>>>('onScrollEnd'); }
@@ -514,14 +498,31 @@ export class MenuItem extends AngularComponentAdapter<never> {
   @Output() get scrollSnapChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onScrollSnapChangeCapture'>>>('onScrollSnapChangeCapture'); }
   @Output() get scrollSnapChangingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onScrollSnapChanging'>>>('onScrollSnapChanging'); }
   @Output() get scrollSnapChangingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onScrollSnapChangingCapture'>>>('onScrollSnapChangingCapture'); }
-  @Output() get wheelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onWheel'>>>('onWheel'); }
-  @Output() get wheelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onWheelCapture'>>>('onWheelCapture'); }
-  @Output() get animationStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onAnimationStart'>>>('onAnimationStart'); }
-  @Output() get animationStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onAnimationStartCapture'>>>('onAnimationStartCapture'); }
-  @Output() get animationEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onAnimationEnd'>>>('onAnimationEnd'); }
-  @Output() get animationEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onAnimationEndCapture'>>>('onAnimationEndCapture'); }
-  @Output() get animationIterationEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onAnimationIteration'>>>('onAnimationIteration'); }
-  @Output() get animationIterationCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onAnimationIterationCapture'>>>('onAnimationIterationCapture'); }
+  @Output() get searchEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onSearch'>>>('onSearch'); }
+  @Output() get searchCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onSearchCapture'>>>('onSearchCapture'); }
+  @Output() get seekedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onSeeked'>>>('onSeeked'); }
+  @Output() get seekedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onSeekedCapture'>>>('onSeekedCapture'); }
+  @Output() get seekingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onSeeking'>>>('onSeeking'); }
+  @Output() get seekingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onSeekingCapture'>>>('onSeekingCapture'); }
+  @Output() get selectEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onSelect'>>>('onSelect'); }
+  @Output() get selectCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onSelectCapture'>>>('onSelectCapture'); }
+  @Output() get stalledEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onStalled'>>>('onStalled'); }
+  @Output() get stalledCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onStalledCapture'>>>('onStalledCapture'); }
+  @Output() get submitEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onSubmit'>>>('onSubmit'); }
+  @Output() get submitCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onSubmitCapture'>>>('onSubmitCapture'); }
+  @Output() get suspendEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onSuspend'>>>('onSuspend'); }
+  @Output() get suspendCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onSuspendCapture'>>>('onSuspendCapture'); }
+  @Output() get timeUpdateEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onTimeUpdate'>>>('onTimeUpdate'); }
+  @Output() get timeUpdateCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onTimeUpdateCapture'>>>('onTimeUpdateCapture'); }
+  @Output() get toggleEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onToggle'>>>('onToggle'); }
+  @Output() get touchCancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onTouchCancel'>>>('onTouchCancel'); }
+  @Output() get touchCancelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onTouchCancelCapture'>>>('onTouchCancelCapture'); }
+  @Output() get touchEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onTouchEnd'>>>('onTouchEnd'); }
+  @Output() get touchEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onTouchEndCapture'>>>('onTouchEndCapture'); }
+  @Output() get touchMoveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onTouchMove'>>>('onTouchMove'); }
+  @Output() get touchMoveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onTouchMoveCapture'>>>('onTouchMoveCapture'); }
+  @Output() get touchStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onTouchStart'>>>('onTouchStart'); }
+  @Output() get touchStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onTouchStartCapture'>>>('onTouchStartCapture'); }
   @Output() get transitionCancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onTransitionCancel'>>>('onTransitionCancel'); }
   @Output() get transitionCancelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onTransitionCancelCapture'>>>('onTransitionCancelCapture'); }
   @Output() get transitionEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onTransitionEnd'>>>('onTransitionEnd'); }
@@ -530,12 +531,11 @@ export class MenuItem extends AngularComponentAdapter<never> {
   @Output() get transitionRunCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onTransitionRunCapture'>>>('onTransitionRunCapture'); }
   @Output() get transitionStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onTransitionStart'>>>('onTransitionStart'); }
   @Output() get transitionStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onTransitionStartCapture'>>>('onTransitionStartCapture'); }
-  @Output() get enterPictureInPictureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onEnterPictureInPicture'>>>('onEnterPictureInPicture'); }
-  @Output() get enterPictureInPictureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onEnterPictureInPictureCapture'>>>('onEnterPictureInPictureCapture'); }
-  @Output() get leavePictureInPictureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onLeavePictureInPicture'>>>('onLeavePictureInPicture'); }
-  @Output() get leavePictureInPictureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onLeavePictureInPictureCapture'>>>('onLeavePictureInPictureCapture'); }
-  @Output() get resizeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onResize'>>>('onResize'); }
-  @Output() get resizeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onResizeCapture'>>>('onResizeCapture'); }
-  @Output() get commandEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onCommand'>>>('onCommand'); }
+  @Output() get volumeChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onVolumeChange'>>>('onVolumeChange'); }
+  @Output() get volumeChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onVolumeChangeCapture'>>>('onVolumeChangeCapture'); }
+  @Output() get waitingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onWaiting'>>>('onWaiting'); }
+  @Output() get waitingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onWaitingCapture'>>>('onWaitingCapture'); }
+  @Output() get wheelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onWheel'>>>('onWheel'); }
+  @Output() get wheelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MenuItem', 'onWheelCapture'>>>('onWheelCapture'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

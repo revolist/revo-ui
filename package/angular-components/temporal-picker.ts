@@ -13,29 +13,29 @@ export class TemporalPicker extends AngularComponentAdapter<AngularCallbackValue
   protected readonly rvComponentName = 'TemporalPicker';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onChange"];
-  @NgInput({ required: true }) declare "value": AngularInput<'TemporalPicker', "value">;
-  @NgInput() declare "kind"?: AngularInput<'TemporalPicker', "kind">;
-  @NgInput() declare "dateInput"?: AngularInput<'TemporalPicker', "dateInput">;
-  @NgInput() declare "selection"?: AngularInput<'TemporalPicker', "selection">;
-  @NgInput() declare "calendar"?: AngularInput<'TemporalPicker', "calendar">;
-  @NgInput() declare "required"?: AngularInput<'TemporalPicker', "required">;
-  @NgInput() declare "minTime"?: AngularInput<'TemporalPicker', "minTime">;
-  @NgInput() declare "maxTime"?: AngularInput<'TemporalPicker', "maxTime">;
-  @NgInput() declare "timeStep"?: AngularInput<'TemporalPicker', "timeStep">;
-  @NgInput() declare "precision"?: AngularInput<'TemporalPicker', "precision">;
-  @NgInput() declare "timeFormat"?: AngularInput<'TemporalPicker', "timeFormat">;
-  @NgInput() declare "text"?: AngularInput<'TemporalPicker', "text">;
   @NgInput() declare "actions"?: AngularInput<'TemporalPicker', "actions">;
-  @NgInput() declare "classNames"?: AngularInput<'TemporalPicker', "classNames">;
-  @NgInput() declare "endpoint"?: AngularInput<'TemporalPicker', "endpoint">;
   @NgInput() declare "autoApply"?: AngularInput<'TemporalPicker', "autoApply">;
-  @NgInput() declare "showActions"?: AngularInput<'TemporalPicker', "showActions">;
+  @NgInput() declare "calendar"?: AngularInput<'TemporalPicker', "calendar">;
+  @NgInput() declare "classNames"?: AngularInput<'TemporalPicker', "classNames">;
+  @NgInput() declare "dateInput"?: AngularInput<'TemporalPicker', "dateInput">;
+  @NgInput() declare "endpoint"?: AngularInput<'TemporalPicker', "endpoint">;
+  @NgInput() declare "kind"?: AngularInput<'TemporalPicker', "kind">;
+  @NgInput() declare "maxTime"?: AngularInput<'TemporalPicker', "maxTime">;
+  @NgInput() declare "minTime"?: AngularInput<'TemporalPicker', "minTime">;
   @NgInput() declare "onChange"?: AngularInput<'TemporalPicker', "onChange">;
-  @NgInput() declare "onValidityChange"?: AngularInput<'TemporalPicker', "onValidityChange">;
-  @NgInput() declare "onValidChange"?: AngularInput<'TemporalPicker', "onValidChange">;
   @NgInput() declare "onSelectionComplete"?: AngularInput<'TemporalPicker', "onSelectionComplete">;
-  @Output() get validityChange() { return this.rvOutput<AngularCallbackValue<AngularInput<'TemporalPicker', 'onValidityChange'>>>('onValidityChange'); }
-  @Output() get validChange() { return this.rvOutput<AngularCallbackValue<AngularInput<'TemporalPicker', 'onValidChange'>>>('onValidChange'); }
+  @NgInput() declare "onValidChange"?: AngularInput<'TemporalPicker', "onValidChange">;
+  @NgInput() declare "onValidityChange"?: AngularInput<'TemporalPicker', "onValidityChange">;
+  @NgInput() declare "precision"?: AngularInput<'TemporalPicker', "precision">;
+  @NgInput() declare "required"?: AngularInput<'TemporalPicker', "required">;
+  @NgInput() declare "selection"?: AngularInput<'TemporalPicker', "selection">;
+  @NgInput() declare "showActions"?: AngularInput<'TemporalPicker', "showActions">;
+  @NgInput() declare "text"?: AngularInput<'TemporalPicker', "text">;
+  @NgInput() declare "timeFormat"?: AngularInput<'TemporalPicker', "timeFormat">;
+  @NgInput() declare "timeStep"?: AngularInput<'TemporalPicker', "timeStep">;
+  @NgInput({ required: true }) declare "value": AngularInput<'TemporalPicker', "value">;
   @Output() get selectionComplete() { return this.rvOutput<AngularCallbackValue<AngularInput<'TemporalPicker', 'onSelectionComplete'>>>('onSelectionComplete'); }
+  @Output() get validChange() { return this.rvOutput<AngularCallbackValue<AngularInput<'TemporalPicker', 'onValidChange'>>>('onValidChange'); }
+  @Output() get validityChange() { return this.rvOutput<AngularCallbackValue<AngularInput<'TemporalPicker', 'onValidityChange'>>>('onValidityChange'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

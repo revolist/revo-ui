@@ -12,10 +12,10 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class StatusBadge extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'StatusBadge';
   protected rvResolveComponent() { return Control; }
-  @NgInput({ required: true }) declare "label": AngularInput<'StatusBadge', "label">;
-  @NgInput() declare "tone"?: AngularInput<'StatusBadge', "tone">;
   @NgInput() declare "busy"?: AngularInput<'StatusBadge', "busy">;
   @NgInput() declare "className"?: AngularInput<'StatusBadge', "className">;
+  @NgInput({ required: true }) declare "label": AngularInput<'StatusBadge', "label">;
+  @NgInput() declare "tone"?: AngularInput<'StatusBadge', "tone">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

@@ -12,25 +12,25 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class TimeGrid extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'TimeGrid';
   protected rvResolveComponent() { return Control; }
-  protected override readonly rvRequiredCallbacks = ["onFocus","onKeyDown","onClick","onPointerDown","onPointerEnter"];
-  @NgInput() declare "disabled"?: AngularInput<'TimeGrid', "disabled">;
-  @NgInput({ required: true }) declare "days": AngularInput<'TimeGrid', "days">;
+  protected override readonly rvRequiredCallbacks = ["onClick","onFocus","onKeyDown","onPointerDown","onPointerEnter"];
+  @NgInput({ required: true }) declare "cellLabel": AngularInput<'TimeGrid', "cellLabel">;
   @NgInput({ required: true }) declare "cells": AngularInput<'TimeGrid', "cells">;
+  @NgInput({ required: true }) declare "days": AngularInput<'TimeGrid', "days">;
+  @NgInput() declare "disabled"?: AngularInput<'TimeGrid', "disabled">;
   @NgInput({ required: true }) declare "focused": AngularInput<'TimeGrid', "focused">;
-  @NgInput({ required: true }) declare "weekendDays": AngularInput<'TimeGrid', "weekendDays">;
-  @NgInput() declare "workingHours"?: AngularInput<'TimeGrid', "workingHours">;
   @NgInput({ required: true }) declare "gridLabel": AngularInput<'TimeGrid', "gridLabel">;
   @NgInput({ required: true }) declare "hourLabel": AngularInput<'TimeGrid', "hourLabel">;
-  @NgInput({ required: true }) declare "cellLabel": AngularInput<'TimeGrid', "cellLabel">;
   @NgInput({ required: true }) declare "matrixRef": AngularInput<'TimeGrid', "matrixRef">;
+  @NgInput() declare "onClick"?: AngularInput<'TimeGrid', "onClick">;
   @NgInput() declare "onFocus"?: AngularInput<'TimeGrid', "onFocus">;
   @NgInput() declare "onKeyDown"?: AngularInput<'TimeGrid', "onKeyDown">;
-  @NgInput() declare "onClick"?: AngularInput<'TimeGrid', "onClick">;
   @NgInput() declare "onPointerDown"?: AngularInput<'TimeGrid', "onPointerDown">;
   @NgInput() declare "onPointerEnter"?: AngularInput<'TimeGrid', "onPointerEnter">;
+  @NgInput({ required: true }) declare "weekendDays": AngularInput<'TimeGrid', "weekendDays">;
+  @NgInput() declare "workingHours"?: AngularInput<'TimeGrid', "workingHours">;
+  @Output() get clickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TimeGrid', 'onClick'>>>('onClick'); }
   @Output() get focusEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TimeGrid', 'onFocus'>>>('onFocus'); }
   @Output() get keyDown() { return this.rvOutput<AngularCallbackValue<AngularInput<'TimeGrid', 'onKeyDown'>>>('onKeyDown'); }
-  @Output() get clickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TimeGrid', 'onClick'>>>('onClick'); }
   @Output() get pointerDown() { return this.rvOutput<AngularCallbackValue<AngularInput<'TimeGrid', 'onPointerDown'>>>('onPointerDown'); }
   @Output() get pointerEnter() { return this.rvOutput<AngularCallbackValue<AngularInput<'TimeGrid', 'onPointerEnter'>>>('onPointerEnter'); }
   protected rvResolveProps() { return this.rvInputValues; }

@@ -12,32 +12,32 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class CalendarDay extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'CalendarDay';
   protected rvResolveComponent() { return Control; }
-  protected override readonly rvRequiredCallbacks = ["onFocus","onPreview","onKeyDown","onSelect"];
-  @NgInput({ required: true }) declare "date": AngularInput<'CalendarDay', "date">;
-  @NgInput({ required: true }) declare "label": AngularInput<'CalendarDay', "label">;
+  protected override readonly rvRequiredCallbacks = ["onFocus","onKeyDown","onPreview","onSelect"];
   @NgInput() declare "className"?: AngularInput<'CalendarDay', "className">;
-  @NgInput({ required: true }) declare "outside": AngularInput<'CalendarDay', "outside">;
-  @NgInput({ required: true }) declare "hidden": AngularInput<'CalendarDay', "hidden">;
+  @NgInput() declare "content"?: AngularInput<'CalendarDay', "content">;
+  @NgInput({ required: true }) declare "date": AngularInput<'CalendarDay', "date">;
   @NgInput({ required: true }) declare "disabled": AngularInput<'CalendarDay', "disabled">;
   @NgInput({ required: true }) declare "focused": AngularInput<'CalendarDay', "focused">;
-  @NgInput({ required: true }) declare "selected": AngularInput<'CalendarDay', "selected">;
-  @NgInput({ required: true }) declare "previewed": AngularInput<'CalendarDay', "previewed">;
-  @NgInput() declare "previewInvalid"?: AngularInput<'CalendarDay', "previewInvalid">;
-  @NgInput() declare "previewDescriptionId"?: AngularInput<'CalendarDay', "previewDescriptionId">;
-  @NgInput({ required: true }) declare "rangeStart": AngularInput<'CalendarDay', "rangeStart">;
-  @NgInput({ required: true }) declare "rangeEnd": AngularInput<'CalendarDay', "rangeEnd">;
-  @NgInput({ required: true }) declare "previewStart": AngularInput<'CalendarDay', "previewStart">;
-  @NgInput({ required: true }) declare "previewEnd": AngularInput<'CalendarDay', "previewEnd">;
-  @NgInput({ required: true }) declare "today": AngularInput<'CalendarDay', "today">;
-  @NgInput() declare "content"?: AngularInput<'CalendarDay', "content">;
-  @NgInput({ required: true }) declare "setRef": AngularInput<'CalendarDay', "setRef">;
+  @NgInput({ required: true }) declare "hidden": AngularInput<'CalendarDay', "hidden">;
+  @NgInput({ required: true }) declare "label": AngularInput<'CalendarDay', "label">;
   @NgInput() declare "onFocus"?: AngularInput<'CalendarDay', "onFocus">;
-  @NgInput() declare "onPreview"?: AngularInput<'CalendarDay', "onPreview">;
   @NgInput() declare "onKeyDown"?: AngularInput<'CalendarDay', "onKeyDown">;
+  @NgInput() declare "onPreview"?: AngularInput<'CalendarDay', "onPreview">;
   @NgInput() declare "onSelect"?: AngularInput<'CalendarDay', "onSelect">;
+  @NgInput({ required: true }) declare "outside": AngularInput<'CalendarDay', "outside">;
+  @NgInput() declare "previewDescriptionId"?: AngularInput<'CalendarDay', "previewDescriptionId">;
+  @NgInput({ required: true }) declare "previewEnd": AngularInput<'CalendarDay', "previewEnd">;
+  @NgInput() declare "previewInvalid"?: AngularInput<'CalendarDay', "previewInvalid">;
+  @NgInput({ required: true }) declare "previewStart": AngularInput<'CalendarDay', "previewStart">;
+  @NgInput({ required: true }) declare "previewed": AngularInput<'CalendarDay', "previewed">;
+  @NgInput({ required: true }) declare "rangeEnd": AngularInput<'CalendarDay', "rangeEnd">;
+  @NgInput({ required: true }) declare "rangeStart": AngularInput<'CalendarDay', "rangeStart">;
+  @NgInput({ required: true }) declare "selected": AngularInput<'CalendarDay', "selected">;
+  @NgInput({ required: true }) declare "setRef": AngularInput<'CalendarDay', "setRef">;
+  @NgInput({ required: true }) declare "today": AngularInput<'CalendarDay', "today">;
   @Output() get focusEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'CalendarDay', 'onFocus'>>>('onFocus'); }
-  @Output() get preview() { return this.rvOutput<AngularCallbackValue<AngularInput<'CalendarDay', 'onPreview'>>>('onPreview'); }
   @Output() get keyDown() { return this.rvOutput<AngularCallbackValue<AngularInput<'CalendarDay', 'onKeyDown'>>>('onKeyDown'); }
+  @Output() get preview() { return this.rvOutput<AngularCallbackValue<AngularInput<'CalendarDay', 'onPreview'>>>('onPreview'); }
   @Output() get selectEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'CalendarDay', 'onSelect'>>>('onSelect'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

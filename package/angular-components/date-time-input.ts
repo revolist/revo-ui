@@ -12,79 +12,11 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class DateTimeInput extends AngularComponentAdapter<AngularCallbackValue<AngularInput<'DateTimeInput', 'onValueChange'>>> {
   protected readonly rvComponentName = 'DateTimeInput';
   protected rvResolveComponent() { return Control; }
-  @NgInput() declare "height"?: AngularInput<'DateTimeInput', "height">;
-  @NgInput() declare "translate"?: AngularInput<'DateTimeInput', "translate">;
-  @NgInput() declare "width"?: AngularInput<'DateTimeInput', "width">;
-  @NgInput() declare "value"?: AngularInput<'DateTimeInput', "value">;
-  @NgInput() declare "className"?: AngularInput<'DateTimeInput', "className">;
-  @NgInput() declare "autocomplete"?: AngularInput<'DateTimeInput', "autocomplete">;
-  @NgInput() declare "autoComplete"?: AngularInput<'DateTimeInput', "autoComplete">;
-  @NgInput() declare "defaultValue"?: AngularInput<'DateTimeInput', "defaultValue">;
-  @NgInput() declare "disabled"?: AngularInput<'DateTimeInput', "disabled">;
-  @NgInput() declare "form"?: AngularInput<'DateTimeInput', "form">;
-  @NgInput() declare "maxlength"?: AngularInput<'DateTimeInput', "maxlength">;
-  @NgInput() declare "maxLength"?: AngularInput<'DateTimeInput', "maxLength">;
-  @NgInput() declare "minlength"?: AngularInput<'DateTimeInput', "minlength">;
-  @NgInput() declare "minLength"?: AngularInput<'DateTimeInput', "minLength">;
-  @NgInput() declare "name"?: AngularInput<'DateTimeInput', "name">;
-  @NgInput() declare "placeholder"?: AngularInput<'DateTimeInput', "placeholder">;
-  @NgInput() declare "readOnly"?: AngularInput<'DateTimeInput', "readOnly">;
-  @NgInput() declare "required"?: AngularInput<'DateTimeInput', "required">;
-  @NgInput() declare "accesskey"?: AngularInput<'DateTimeInput', "accesskey">;
-  @NgInput() declare "accessKey"?: AngularInput<'DateTimeInput', "accessKey">;
-  @NgInput() declare "autocapitalize"?: AngularInput<'DateTimeInput', "autocapitalize">;
-  @NgInput() declare "autoCapitalize"?: AngularInput<'DateTimeInput', "autoCapitalize">;
-  @NgInput() declare "autocorrect"?: AngularInput<'DateTimeInput', "autocorrect">;
-  @NgInput() declare "autoCorrect"?: AngularInput<'DateTimeInput', "autoCorrect">;
-  @NgInput() declare "autofocus"?: AngularInput<'DateTimeInput', "autofocus">;
-  @NgInput() declare "autoFocus"?: AngularInput<'DateTimeInput', "autoFocus">;
-  @NgInput() declare "class"?: AngularInput<'DateTimeInput', "class">;
-  @NgInput() declare "contenteditable"?: AngularInput<'DateTimeInput', "contenteditable">;
-  @NgInput() declare "contentEditable"?: AngularInput<'DateTimeInput', "contentEditable">;
-  @NgInput() declare "dir"?: AngularInput<'DateTimeInput', "dir">;
-  @NgInput() declare "draggable"?: AngularInput<'DateTimeInput', "draggable">;
-  @NgInput() declare "enterkeyhint"?: AngularInput<'DateTimeInput', "enterkeyhint">;
-  @NgInput() declare "exportparts"?: AngularInput<'DateTimeInput', "exportparts">;
-  @NgInput() declare "hidden"?: AngularInput<'DateTimeInput', "hidden">;
-  @NgInput() declare "id"?: AngularInput<'DateTimeInput', "id">;
-  @NgInput() declare "inert"?: AngularInput<'DateTimeInput', "inert">;
-  @NgInput() declare "inputmode"?: AngularInput<'DateTimeInput', "inputmode">;
-  @NgInput() declare "inputMode"?: AngularInput<'DateTimeInput', "inputMode">;
-  @NgInput() declare "is"?: AngularInput<'DateTimeInput', "is">;
-  @NgInput() declare "lang"?: AngularInput<'DateTimeInput', "lang">;
-  @NgInput() declare "nonce"?: AngularInput<'DateTimeInput', "nonce">;
-  @NgInput() declare "part"?: AngularInput<'DateTimeInput', "part">;
-  @NgInput() declare "popover"?: AngularInput<'DateTimeInput', "popover">;
-  @NgInput() declare "slot"?: AngularInput<'DateTimeInput', "slot">;
-  @NgInput() declare "spellcheck"?: AngularInput<'DateTimeInput', "spellcheck">;
-  @NgInput() declare "style"?: AngularInput<'DateTimeInput', "style">;
-  @NgInput() declare "tabindex"?: AngularInput<'DateTimeInput', "tabindex">;
-  @NgInput() declare "tabIndex"?: AngularInput<'DateTimeInput', "tabIndex">;
-  @NgInput() declare "title"?: AngularInput<'DateTimeInput', "title">;
-  @NgInput() declare "role"?: AngularInput<'DateTimeInput', "role">;
-  @NgInput() declare "disablePictureInPicture"?: AngularInput<'DateTimeInput', "disablePictureInPicture">;
-  @NgInput() declare "elementtiming"?: AngularInput<'DateTimeInput', "elementtiming">;
-  @NgInput() declare "elementTiming"?: AngularInput<'DateTimeInput', "elementTiming">;
-  @NgInput() declare "results"?: AngularInput<'DateTimeInput', "results">;
   @NgInput() declare "about"?: AngularInput<'DateTimeInput', "about">;
-  @NgInput() declare "datatype"?: AngularInput<'DateTimeInput', "datatype">;
-  @NgInput() declare "inlist"?: AngularInput<'DateTimeInput', "inlist">;
-  @NgInput() declare "prefix"?: AngularInput<'DateTimeInput', "prefix">;
-  @NgInput() declare "property"?: AngularInput<'DateTimeInput', "property">;
-  @NgInput() declare "resource"?: AngularInput<'DateTimeInput', "resource">;
-  @NgInput() declare "typeof"?: AngularInput<'DateTimeInput', "typeof">;
-  @NgInput() declare "vocab"?: AngularInput<'DateTimeInput', "vocab">;
-  @NgInput() declare "itemid"?: AngularInput<'DateTimeInput', "itemid">;
-  @NgInput() declare "itemID"?: AngularInput<'DateTimeInput', "itemID">;
-  @NgInput() declare "itemprop"?: AngularInput<'DateTimeInput', "itemprop">;
-  @NgInput() declare "itemProp"?: AngularInput<'DateTimeInput', "itemProp">;
-  @NgInput() declare "itemref"?: AngularInput<'DateTimeInput', "itemref">;
-  @NgInput() declare "itemRef"?: AngularInput<'DateTimeInput', "itemRef">;
-  @NgInput() declare "itemscope"?: AngularInput<'DateTimeInput', "itemscope">;
-  @NgInput() declare "itemScope"?: AngularInput<'DateTimeInput', "itemScope">;
-  @NgInput() declare "itemtype"?: AngularInput<'DateTimeInput', "itemtype">;
-  @NgInput() declare "itemType"?: AngularInput<'DateTimeInput', "itemType">;
-  @NgInput() declare "dangerouslySetInnerHTML"?: AngularInput<'DateTimeInput', "dangerouslySetInnerHTML">;
+  @NgInput() declare "accept"?: AngularInput<'DateTimeInput', "accept">;
+  @NgInput() declare "accessKey"?: AngularInput<'DateTimeInput', "accessKey">;
+  @NgInput() declare "accesskey"?: AngularInput<'DateTimeInput', "accesskey">;
+  @NgInput() declare "alt"?: AngularInput<'DateTimeInput', "alt">;
   @NgInput() declare "aria-activedescendant"?: AngularInput<'DateTimeInput', "aria-activedescendant">;
   @NgInput() declare "aria-atomic"?: AngularInput<'DateTimeInput', "aria-atomic">;
   @NgInput() declare "aria-autocomplete"?: AngularInput<'DateTimeInput', "aria-autocomplete">;
@@ -138,130 +70,112 @@ export class DateTimeInput extends AngularComponentAdapter<AngularCallbackValue<
   @NgInput() declare "aria-valuemin"?: AngularInput<'DateTimeInput', "aria-valuemin">;
   @NgInput() declare "aria-valuenow"?: AngularInput<'DateTimeInput', "aria-valuenow">;
   @NgInput() declare "aria-valuetext"?: AngularInput<'DateTimeInput', "aria-valuetext">;
-  @NgInput() declare "accept"?: AngularInput<'DateTimeInput', "accept">;
-  @NgInput() declare "alt"?: AngularInput<'DateTimeInput', "alt">;
+  @NgInput() declare "autoCapitalize"?: AngularInput<'DateTimeInput', "autoCapitalize">;
+  @NgInput() declare "autoComplete"?: AngularInput<'DateTimeInput', "autoComplete">;
+  @NgInput() declare "autoCorrect"?: AngularInput<'DateTimeInput', "autoCorrect">;
+  @NgInput() declare "autoFocus"?: AngularInput<'DateTimeInput', "autoFocus">;
+  @NgInput() declare "autocapitalize"?: AngularInput<'DateTimeInput', "autocapitalize">;
+  @NgInput() declare "autocomplete"?: AngularInput<'DateTimeInput', "autocomplete">;
+  @NgInput() declare "autocorrect"?: AngularInput<'DateTimeInput', "autocorrect">;
+  @NgInput() declare "autofocus"?: AngularInput<'DateTimeInput', "autofocus">;
   @NgInput() declare "capture"?: AngularInput<'DateTimeInput', "capture">;
   @NgInput() declare "checked"?: AngularInput<'DateTimeInput', "checked">;
+  @NgInput() declare "class"?: AngularInput<'DateTimeInput', "class">;
+  @NgInput() declare "className"?: AngularInput<'DateTimeInput', "className">;
+  @NgInput() declare "contentEditable"?: AngularInput<'DateTimeInput', "contentEditable">;
+  @NgInput() declare "contenteditable"?: AngularInput<'DateTimeInput', "contenteditable">;
+  @NgInput() declare "dangerouslySetInnerHTML"?: AngularInput<'DateTimeInput', "dangerouslySetInnerHTML">;
+  @NgInput() declare "datatype"?: AngularInput<'DateTimeInput', "datatype">;
   @NgInput() declare "defaultChecked"?: AngularInput<'DateTimeInput', "defaultChecked">;
+  @NgInput() declare "defaultValue"?: AngularInput<'DateTimeInput', "defaultValue">;
+  @NgInput() declare "dir"?: AngularInput<'DateTimeInput', "dir">;
+  @NgInput() declare "disablePictureInPicture"?: AngularInput<'DateTimeInput', "disablePictureInPicture">;
+  @NgInput() declare "disabled"?: AngularInput<'DateTimeInput', "disabled">;
+  @NgInput() declare "draggable"?: AngularInput<'DateTimeInput', "draggable">;
+  @NgInput() declare "elementTiming"?: AngularInput<'DateTimeInput', "elementTiming">;
+  @NgInput() declare "elementtiming"?: AngularInput<'DateTimeInput', "elementtiming">;
   @NgInput() declare "enterKeyHint"?: AngularInput<'DateTimeInput', "enterKeyHint">;
-  @NgInput() declare "formaction"?: AngularInput<'DateTimeInput', "formaction">;
+  @NgInput() declare "enterkeyhint"?: AngularInput<'DateTimeInput', "enterkeyhint">;
+  @NgInput() declare "exportparts"?: AngularInput<'DateTimeInput', "exportparts">;
+  @NgInput() declare "form"?: AngularInput<'DateTimeInput', "form">;
   @NgInput() declare "formAction"?: AngularInput<'DateTimeInput', "formAction">;
-  @NgInput() declare "formenctype"?: AngularInput<'DateTimeInput', "formenctype">;
   @NgInput() declare "formEncType"?: AngularInput<'DateTimeInput', "formEncType">;
-  @NgInput() declare "formmethod"?: AngularInput<'DateTimeInput', "formmethod">;
   @NgInput() declare "formMethod"?: AngularInput<'DateTimeInput', "formMethod">;
-  @NgInput() declare "formnovalidate"?: AngularInput<'DateTimeInput', "formnovalidate">;
   @NgInput() declare "formNoValidate"?: AngularInput<'DateTimeInput', "formNoValidate">;
-  @NgInput() declare "formtarget"?: AngularInput<'DateTimeInput', "formtarget">;
   @NgInput() declare "formTarget"?: AngularInput<'DateTimeInput', "formTarget">;
+  @NgInput() declare "formaction"?: AngularInput<'DateTimeInput', "formaction">;
+  @NgInput() declare "formenctype"?: AngularInput<'DateTimeInput', "formenctype">;
+  @NgInput() declare "formmethod"?: AngularInput<'DateTimeInput', "formmethod">;
+  @NgInput() declare "formnovalidate"?: AngularInput<'DateTimeInput', "formnovalidate">;
+  @NgInput() declare "formtarget"?: AngularInput<'DateTimeInput', "formtarget">;
+  @NgInput() declare "height"?: AngularInput<'DateTimeInput', "height">;
+  @NgInput() declare "hidden"?: AngularInput<'DateTimeInput', "hidden">;
+  @NgInput() declare "id"?: AngularInput<'DateTimeInput', "id">;
   @NgInput() declare "indeterminate"?: AngularInput<'DateTimeInput', "indeterminate">;
+  @NgInput() declare "inert"?: AngularInput<'DateTimeInput', "inert">;
+  @NgInput() declare "inlist"?: AngularInput<'DateTimeInput', "inlist">;
+  @NgInput() declare "inputMode"?: AngularInput<'DateTimeInput', "inputMode">;
+  @NgInput() declare "inputmode"?: AngularInput<'DateTimeInput', "inputmode">;
+  @NgInput() declare "is"?: AngularInput<'DateTimeInput', "is">;
+  @NgInput() declare "itemID"?: AngularInput<'DateTimeInput', "itemID">;
+  @NgInput() declare "itemProp"?: AngularInput<'DateTimeInput', "itemProp">;
+  @NgInput() declare "itemRef"?: AngularInput<'DateTimeInput', "itemRef">;
+  @NgInput() declare "itemScope"?: AngularInput<'DateTimeInput', "itemScope">;
+  @NgInput() declare "itemType"?: AngularInput<'DateTimeInput', "itemType">;
+  @NgInput() declare "itemid"?: AngularInput<'DateTimeInput', "itemid">;
+  @NgInput() declare "itemprop"?: AngularInput<'DateTimeInput', "itemprop">;
+  @NgInput() declare "itemref"?: AngularInput<'DateTimeInput', "itemref">;
+  @NgInput() declare "itemscope"?: AngularInput<'DateTimeInput', "itemscope">;
+  @NgInput() declare "itemtype"?: AngularInput<'DateTimeInput', "itemtype">;
+  @NgInput() declare "lang"?: AngularInput<'DateTimeInput', "lang">;
   @NgInput() declare "list"?: AngularInput<'DateTimeInput', "list">;
   @NgInput() declare "max"?: AngularInput<'DateTimeInput', "max">;
+  @NgInput() declare "maxLength"?: AngularInput<'DateTimeInput', "maxLength">;
+  @NgInput() declare "maxlength"?: AngularInput<'DateTimeInput', "maxlength">;
   @NgInput() declare "min"?: AngularInput<'DateTimeInput', "min">;
+  @NgInput() declare "minLength"?: AngularInput<'DateTimeInput', "minLength">;
+  @NgInput() declare "minlength"?: AngularInput<'DateTimeInput', "minlength">;
   @NgInput() declare "multiple"?: AngularInput<'DateTimeInput', "multiple">;
-  @NgInput() declare "pattern"?: AngularInput<'DateTimeInput', "pattern">;
-  @NgInput() declare "readonly"?: AngularInput<'DateTimeInput', "readonly">;
-  @NgInput() declare "size"?: AngularInput<'DateTimeInput', "size">;
-  @NgInput() declare "src"?: AngularInput<'DateTimeInput', "src">;
-  @NgInput() declare "step"?: AngularInput<'DateTimeInput', "step">;
+  @NgInput() declare "name"?: AngularInput<'DateTimeInput', "name">;
+  @NgInput() declare "nonce"?: AngularInput<'DateTimeInput', "nonce">;
+  @NgInput() declare "onAbort"?: AngularInput<'DateTimeInput', "onAbort">;
+  @NgInput() declare "onAbortCapture"?: AngularInput<'DateTimeInput', "onAbortCapture">;
+  @NgInput() declare "onAnimationEnd"?: AngularInput<'DateTimeInput', "onAnimationEnd">;
+  @NgInput() declare "onAnimationEndCapture"?: AngularInput<'DateTimeInput', "onAnimationEndCapture">;
+  @NgInput() declare "onAnimationIteration"?: AngularInput<'DateTimeInput', "onAnimationIteration">;
+  @NgInput() declare "onAnimationIterationCapture"?: AngularInput<'DateTimeInput', "onAnimationIterationCapture">;
+  @NgInput() declare "onAnimationStart"?: AngularInput<'DateTimeInput', "onAnimationStart">;
+  @NgInput() declare "onAnimationStartCapture"?: AngularInput<'DateTimeInput', "onAnimationStartCapture">;
+  @NgInput() declare "onAuxClick"?: AngularInput<'DateTimeInput', "onAuxClick">;
+  @NgInput() declare "onAuxClickCapture"?: AngularInput<'DateTimeInput', "onAuxClickCapture">;
+  @NgInput() declare "onBeforeInput"?: AngularInput<'DateTimeInput', "onBeforeInput">;
+  @NgInput() declare "onBeforeInputCapture"?: AngularInput<'DateTimeInput', "onBeforeInputCapture">;
+  @NgInput() declare "onBeforeToggle"?: AngularInput<'DateTimeInput', "onBeforeToggle">;
+  @NgInput() declare "onBlur"?: AngularInput<'DateTimeInput', "onBlur">;
+  @NgInput() declare "onBlurCapture"?: AngularInput<'DateTimeInput', "onBlurCapture">;
+  @NgInput() declare "onCanPlay"?: AngularInput<'DateTimeInput', "onCanPlay">;
+  @NgInput() declare "onCanPlayCapture"?: AngularInput<'DateTimeInput', "onCanPlayCapture">;
+  @NgInput() declare "onCanPlayThrough"?: AngularInput<'DateTimeInput', "onCanPlayThrough">;
+  @NgInput() declare "onCanPlayThroughCapture"?: AngularInput<'DateTimeInput', "onCanPlayThroughCapture">;
+  @NgInput() declare "onCancel"?: AngularInput<'DateTimeInput', "onCancel">;
   @NgInput() declare "onChange"?: AngularInput<'DateTimeInput', "onChange">;
-  @NgInput() declare "onLoad"?: AngularInput<'DateTimeInput', "onLoad">;
-  @NgInput() declare "onLoadCapture"?: AngularInput<'DateTimeInput', "onLoadCapture">;
-  @NgInput() declare "onError"?: AngularInput<'DateTimeInput', "onError">;
-  @NgInput() declare "onErrorCapture"?: AngularInput<'DateTimeInput', "onErrorCapture">;
-  @NgInput() declare "onCopy"?: AngularInput<'DateTimeInput', "onCopy">;
-  @NgInput() declare "onCopyCapture"?: AngularInput<'DateTimeInput', "onCopyCapture">;
-  @NgInput() declare "onCut"?: AngularInput<'DateTimeInput', "onCut">;
-  @NgInput() declare "onCutCapture"?: AngularInput<'DateTimeInput', "onCutCapture">;
-  @NgInput() declare "onPaste"?: AngularInput<'DateTimeInput', "onPaste">;
-  @NgInput() declare "onPasteCapture"?: AngularInput<'DateTimeInput', "onPasteCapture">;
+  @NgInput() declare "onChangeCapture"?: AngularInput<'DateTimeInput', "onChangeCapture">;
+  @NgInput() declare "onClick"?: AngularInput<'DateTimeInput', "onClick">;
+  @NgInput() declare "onClickCapture"?: AngularInput<'DateTimeInput', "onClickCapture">;
+  @NgInput() declare "onClose"?: AngularInput<'DateTimeInput', "onClose">;
+  @NgInput() declare "onCommand"?: AngularInput<'DateTimeInput', "onCommand">;
   @NgInput() declare "onCompositionEnd"?: AngularInput<'DateTimeInput', "onCompositionEnd">;
   @NgInput() declare "onCompositionEndCapture"?: AngularInput<'DateTimeInput', "onCompositionEndCapture">;
   @NgInput() declare "onCompositionStart"?: AngularInput<'DateTimeInput', "onCompositionStart">;
   @NgInput() declare "onCompositionStartCapture"?: AngularInput<'DateTimeInput', "onCompositionStartCapture">;
   @NgInput() declare "onCompositionUpdate"?: AngularInput<'DateTimeInput', "onCompositionUpdate">;
   @NgInput() declare "onCompositionUpdateCapture"?: AngularInput<'DateTimeInput', "onCompositionUpdateCapture">;
-  @NgInput() declare "onBeforeToggle"?: AngularInput<'DateTimeInput', "onBeforeToggle">;
-  @NgInput() declare "onToggle"?: AngularInput<'DateTimeInput', "onToggle">;
-  @NgInput() declare "onClose"?: AngularInput<'DateTimeInput', "onClose">;
-  @NgInput() declare "onCancel"?: AngularInput<'DateTimeInput', "onCancel">;
-  @NgInput() declare "onFocus"?: AngularInput<'DateTimeInput', "onFocus">;
-  @NgInput() declare "onFocusCapture"?: AngularInput<'DateTimeInput', "onFocusCapture">;
-  @NgInput() declare "onFocusIn"?: AngularInput<'DateTimeInput', "onFocusIn">;
-  @NgInput() declare "onFocusInCapture"?: AngularInput<'DateTimeInput', "onFocusInCapture">;
-  @NgInput() declare "onFocusOut"?: AngularInput<'DateTimeInput', "onFocusOut">;
-  @NgInput() declare "onFocusOutCapture"?: AngularInput<'DateTimeInput', "onFocusOutCapture">;
-  @NgInput() declare "onBlur"?: AngularInput<'DateTimeInput', "onBlur">;
-  @NgInput() declare "onBlurCapture"?: AngularInput<'DateTimeInput', "onBlurCapture">;
-  @NgInput() declare "onChangeCapture"?: AngularInput<'DateTimeInput', "onChangeCapture">;
-  @NgInput() declare "onInput"?: AngularInput<'DateTimeInput', "onInput">;
-  @NgInput() declare "onInputCapture"?: AngularInput<'DateTimeInput', "onInputCapture">;
-  @NgInput() declare "onBeforeInput"?: AngularInput<'DateTimeInput', "onBeforeInput">;
-  @NgInput() declare "onBeforeInputCapture"?: AngularInput<'DateTimeInput', "onBeforeInputCapture">;
-  @NgInput() declare "onSearch"?: AngularInput<'DateTimeInput', "onSearch">;
-  @NgInput() declare "onSearchCapture"?: AngularInput<'DateTimeInput', "onSearchCapture">;
-  @NgInput() declare "onSubmit"?: AngularInput<'DateTimeInput', "onSubmit">;
-  @NgInput() declare "onSubmitCapture"?: AngularInput<'DateTimeInput', "onSubmitCapture">;
-  @NgInput() declare "onInvalid"?: AngularInput<'DateTimeInput', "onInvalid">;
-  @NgInput() declare "onInvalidCapture"?: AngularInput<'DateTimeInput', "onInvalidCapture">;
-  @NgInput() declare "onReset"?: AngularInput<'DateTimeInput', "onReset">;
-  @NgInput() declare "onResetCapture"?: AngularInput<'DateTimeInput', "onResetCapture">;
-  @NgInput() declare "onFormData"?: AngularInput<'DateTimeInput', "onFormData">;
-  @NgInput() declare "onFormDataCapture"?: AngularInput<'DateTimeInput', "onFormDataCapture">;
-  @NgInput() declare "onKeyDown"?: AngularInput<'DateTimeInput', "onKeyDown">;
-  @NgInput() declare "onKeyDownCapture"?: AngularInput<'DateTimeInput', "onKeyDownCapture">;
-  @NgInput() declare "onKeyPress"?: AngularInput<'DateTimeInput', "onKeyPress">;
-  @NgInput() declare "onKeyPressCapture"?: AngularInput<'DateTimeInput', "onKeyPressCapture">;
-  @NgInput() declare "onKeyUp"?: AngularInput<'DateTimeInput', "onKeyUp">;
-  @NgInput() declare "onKeyUpCapture"?: AngularInput<'DateTimeInput', "onKeyUpCapture">;
-  @NgInput() declare "onAbort"?: AngularInput<'DateTimeInput', "onAbort">;
-  @NgInput() declare "onAbortCapture"?: AngularInput<'DateTimeInput', "onAbortCapture">;
-  @NgInput() declare "onCanPlay"?: AngularInput<'DateTimeInput', "onCanPlay">;
-  @NgInput() declare "onCanPlayCapture"?: AngularInput<'DateTimeInput', "onCanPlayCapture">;
-  @NgInput() declare "onCanPlayThrough"?: AngularInput<'DateTimeInput', "onCanPlayThrough">;
-  @NgInput() declare "onCanPlayThroughCapture"?: AngularInput<'DateTimeInput', "onCanPlayThroughCapture">;
-  @NgInput() declare "onDurationChange"?: AngularInput<'DateTimeInput', "onDurationChange">;
-  @NgInput() declare "onDurationChangeCapture"?: AngularInput<'DateTimeInput', "onDurationChangeCapture">;
-  @NgInput() declare "onEmptied"?: AngularInput<'DateTimeInput', "onEmptied">;
-  @NgInput() declare "onEmptiedCapture"?: AngularInput<'DateTimeInput', "onEmptiedCapture">;
-  @NgInput() declare "onEncrypted"?: AngularInput<'DateTimeInput', "onEncrypted">;
-  @NgInput() declare "onEncryptedCapture"?: AngularInput<'DateTimeInput', "onEncryptedCapture">;
-  @NgInput() declare "onEnded"?: AngularInput<'DateTimeInput', "onEnded">;
-  @NgInput() declare "onEndedCapture"?: AngularInput<'DateTimeInput', "onEndedCapture">;
-  @NgInput() declare "onLoadedData"?: AngularInput<'DateTimeInput', "onLoadedData">;
-  @NgInput() declare "onLoadedDataCapture"?: AngularInput<'DateTimeInput', "onLoadedDataCapture">;
-  @NgInput() declare "onLoadedMetadata"?: AngularInput<'DateTimeInput', "onLoadedMetadata">;
-  @NgInput() declare "onLoadedMetadataCapture"?: AngularInput<'DateTimeInput', "onLoadedMetadataCapture">;
-  @NgInput() declare "onLoadStart"?: AngularInput<'DateTimeInput', "onLoadStart">;
-  @NgInput() declare "onLoadStartCapture"?: AngularInput<'DateTimeInput', "onLoadStartCapture">;
-  @NgInput() declare "onPause"?: AngularInput<'DateTimeInput', "onPause">;
-  @NgInput() declare "onPauseCapture"?: AngularInput<'DateTimeInput', "onPauseCapture">;
-  @NgInput() declare "onPlay"?: AngularInput<'DateTimeInput', "onPlay">;
-  @NgInput() declare "onPlayCapture"?: AngularInput<'DateTimeInput', "onPlayCapture">;
-  @NgInput() declare "onPlaying"?: AngularInput<'DateTimeInput', "onPlaying">;
-  @NgInput() declare "onPlayingCapture"?: AngularInput<'DateTimeInput', "onPlayingCapture">;
-  @NgInput() declare "onProgress"?: AngularInput<'DateTimeInput', "onProgress">;
-  @NgInput() declare "onProgressCapture"?: AngularInput<'DateTimeInput', "onProgressCapture">;
-  @NgInput() declare "onRateChange"?: AngularInput<'DateTimeInput', "onRateChange">;
-  @NgInput() declare "onRateChangeCapture"?: AngularInput<'DateTimeInput', "onRateChangeCapture">;
-  @NgInput() declare "onSeeked"?: AngularInput<'DateTimeInput', "onSeeked">;
-  @NgInput() declare "onSeekedCapture"?: AngularInput<'DateTimeInput', "onSeekedCapture">;
-  @NgInput() declare "onSeeking"?: AngularInput<'DateTimeInput', "onSeeking">;
-  @NgInput() declare "onSeekingCapture"?: AngularInput<'DateTimeInput', "onSeekingCapture">;
-  @NgInput() declare "onStalled"?: AngularInput<'DateTimeInput', "onStalled">;
-  @NgInput() declare "onStalledCapture"?: AngularInput<'DateTimeInput', "onStalledCapture">;
-  @NgInput() declare "onSuspend"?: AngularInput<'DateTimeInput', "onSuspend">;
-  @NgInput() declare "onSuspendCapture"?: AngularInput<'DateTimeInput', "onSuspendCapture">;
-  @NgInput() declare "onTimeUpdate"?: AngularInput<'DateTimeInput', "onTimeUpdate">;
-  @NgInput() declare "onTimeUpdateCapture"?: AngularInput<'DateTimeInput', "onTimeUpdateCapture">;
-  @NgInput() declare "onVolumeChange"?: AngularInput<'DateTimeInput', "onVolumeChange">;
-  @NgInput() declare "onVolumeChangeCapture"?: AngularInput<'DateTimeInput', "onVolumeChangeCapture">;
-  @NgInput() declare "onWaiting"?: AngularInput<'DateTimeInput', "onWaiting">;
-  @NgInput() declare "onWaitingCapture"?: AngularInput<'DateTimeInput', "onWaitingCapture">;
-  @NgInput() declare "onClick"?: AngularInput<'DateTimeInput', "onClick">;
-  @NgInput() declare "onClickCapture"?: AngularInput<'DateTimeInput', "onClickCapture">;
   @NgInput() declare "onContextMenu"?: AngularInput<'DateTimeInput', "onContextMenu">;
   @NgInput() declare "onContextMenuCapture"?: AngularInput<'DateTimeInput', "onContextMenuCapture">;
+  @NgInput() declare "onCopy"?: AngularInput<'DateTimeInput', "onCopy">;
+  @NgInput() declare "onCopyCapture"?: AngularInput<'DateTimeInput', "onCopyCapture">;
+  @NgInput() declare "onCut"?: AngularInput<'DateTimeInput', "onCut">;
+  @NgInput() declare "onCutCapture"?: AngularInput<'DateTimeInput', "onCutCapture">;
   @NgInput() declare "onDblClick"?: AngularInput<'DateTimeInput', "onDblClick">;
   @NgInput() declare "onDblClickCapture"?: AngularInput<'DateTimeInput', "onDblClickCapture">;
   @NgInput() declare "onDrag"?: AngularInput<'DateTimeInput', "onDrag">;
@@ -280,6 +194,50 @@ export class DateTimeInput extends AngularComponentAdapter<AngularCallbackValue<
   @NgInput() declare "onDragStartCapture"?: AngularInput<'DateTimeInput', "onDragStartCapture">;
   @NgInput() declare "onDrop"?: AngularInput<'DateTimeInput', "onDrop">;
   @NgInput() declare "onDropCapture"?: AngularInput<'DateTimeInput', "onDropCapture">;
+  @NgInput() declare "onDurationChange"?: AngularInput<'DateTimeInput', "onDurationChange">;
+  @NgInput() declare "onDurationChangeCapture"?: AngularInput<'DateTimeInput', "onDurationChangeCapture">;
+  @NgInput() declare "onEmptied"?: AngularInput<'DateTimeInput', "onEmptied">;
+  @NgInput() declare "onEmptiedCapture"?: AngularInput<'DateTimeInput', "onEmptiedCapture">;
+  @NgInput() declare "onEncrypted"?: AngularInput<'DateTimeInput', "onEncrypted">;
+  @NgInput() declare "onEncryptedCapture"?: AngularInput<'DateTimeInput', "onEncryptedCapture">;
+  @NgInput() declare "onEnded"?: AngularInput<'DateTimeInput', "onEnded">;
+  @NgInput() declare "onEndedCapture"?: AngularInput<'DateTimeInput', "onEndedCapture">;
+  @NgInput() declare "onEnterPictureInPicture"?: AngularInput<'DateTimeInput', "onEnterPictureInPicture">;
+  @NgInput() declare "onEnterPictureInPictureCapture"?: AngularInput<'DateTimeInput', "onEnterPictureInPictureCapture">;
+  @NgInput() declare "onError"?: AngularInput<'DateTimeInput', "onError">;
+  @NgInput() declare "onErrorCapture"?: AngularInput<'DateTimeInput', "onErrorCapture">;
+  @NgInput() declare "onFocus"?: AngularInput<'DateTimeInput', "onFocus">;
+  @NgInput() declare "onFocusCapture"?: AngularInput<'DateTimeInput', "onFocusCapture">;
+  @NgInput() declare "onFocusIn"?: AngularInput<'DateTimeInput', "onFocusIn">;
+  @NgInput() declare "onFocusInCapture"?: AngularInput<'DateTimeInput', "onFocusInCapture">;
+  @NgInput() declare "onFocusOut"?: AngularInput<'DateTimeInput', "onFocusOut">;
+  @NgInput() declare "onFocusOutCapture"?: AngularInput<'DateTimeInput', "onFocusOutCapture">;
+  @NgInput() declare "onFormData"?: AngularInput<'DateTimeInput', "onFormData">;
+  @NgInput() declare "onFormDataCapture"?: AngularInput<'DateTimeInput', "onFormDataCapture">;
+  @NgInput() declare "onGotPointerCapture"?: AngularInput<'DateTimeInput', "onGotPointerCapture">;
+  @NgInput() declare "onGotPointerCaptureCapture"?: AngularInput<'DateTimeInput', "onGotPointerCaptureCapture">;
+  @NgInput() declare "onInput"?: AngularInput<'DateTimeInput', "onInput">;
+  @NgInput() declare "onInputCapture"?: AngularInput<'DateTimeInput', "onInputCapture">;
+  @NgInput() declare "onInvalid"?: AngularInput<'DateTimeInput', "onInvalid">;
+  @NgInput() declare "onInvalidCapture"?: AngularInput<'DateTimeInput', "onInvalidCapture">;
+  @NgInput() declare "onKeyDown"?: AngularInput<'DateTimeInput', "onKeyDown">;
+  @NgInput() declare "onKeyDownCapture"?: AngularInput<'DateTimeInput', "onKeyDownCapture">;
+  @NgInput() declare "onKeyPress"?: AngularInput<'DateTimeInput', "onKeyPress">;
+  @NgInput() declare "onKeyPressCapture"?: AngularInput<'DateTimeInput', "onKeyPressCapture">;
+  @NgInput() declare "onKeyUp"?: AngularInput<'DateTimeInput', "onKeyUp">;
+  @NgInput() declare "onKeyUpCapture"?: AngularInput<'DateTimeInput', "onKeyUpCapture">;
+  @NgInput() declare "onLeavePictureInPicture"?: AngularInput<'DateTimeInput', "onLeavePictureInPicture">;
+  @NgInput() declare "onLeavePictureInPictureCapture"?: AngularInput<'DateTimeInput', "onLeavePictureInPictureCapture">;
+  @NgInput() declare "onLoad"?: AngularInput<'DateTimeInput', "onLoad">;
+  @NgInput() declare "onLoadCapture"?: AngularInput<'DateTimeInput', "onLoadCapture">;
+  @NgInput() declare "onLoadStart"?: AngularInput<'DateTimeInput', "onLoadStart">;
+  @NgInput() declare "onLoadStartCapture"?: AngularInput<'DateTimeInput', "onLoadStartCapture">;
+  @NgInput() declare "onLoadedData"?: AngularInput<'DateTimeInput', "onLoadedData">;
+  @NgInput() declare "onLoadedDataCapture"?: AngularInput<'DateTimeInput', "onLoadedDataCapture">;
+  @NgInput() declare "onLoadedMetadata"?: AngularInput<'DateTimeInput', "onLoadedMetadata">;
+  @NgInput() declare "onLoadedMetadataCapture"?: AngularInput<'DateTimeInput', "onLoadedMetadataCapture">;
+  @NgInput() declare "onLostPointerCapture"?: AngularInput<'DateTimeInput', "onLostPointerCapture">;
+  @NgInput() declare "onLostPointerCaptureCapture"?: AngularInput<'DateTimeInput', "onLostPointerCaptureCapture">;
   @NgInput() declare "onMouseDown"?: AngularInput<'DateTimeInput', "onMouseDown">;
   @NgInput() declare "onMouseDownCapture"?: AngularInput<'DateTimeInput', "onMouseDownCapture">;
   @NgInput() declare "onMouseEnter"?: AngularInput<'DateTimeInput', "onMouseEnter">;
@@ -294,38 +252,38 @@ export class DateTimeInput extends AngularComponentAdapter<AngularCallbackValue<
   @NgInput() declare "onMouseOverCapture"?: AngularInput<'DateTimeInput', "onMouseOverCapture">;
   @NgInput() declare "onMouseUp"?: AngularInput<'DateTimeInput', "onMouseUp">;
   @NgInput() declare "onMouseUpCapture"?: AngularInput<'DateTimeInput', "onMouseUpCapture">;
-  @NgInput() declare "onAuxClick"?: AngularInput<'DateTimeInput', "onAuxClick">;
-  @NgInput() declare "onAuxClickCapture"?: AngularInput<'DateTimeInput', "onAuxClickCapture">;
-  @NgInput() declare "onSelect"?: AngularInput<'DateTimeInput', "onSelect">;
-  @NgInput() declare "onSelectCapture"?: AngularInput<'DateTimeInput', "onSelectCapture">;
-  @NgInput() declare "onTouchCancel"?: AngularInput<'DateTimeInput', "onTouchCancel">;
-  @NgInput() declare "onTouchCancelCapture"?: AngularInput<'DateTimeInput', "onTouchCancelCapture">;
-  @NgInput() declare "onTouchEnd"?: AngularInput<'DateTimeInput', "onTouchEnd">;
-  @NgInput() declare "onTouchEndCapture"?: AngularInput<'DateTimeInput', "onTouchEndCapture">;
-  @NgInput() declare "onTouchMove"?: AngularInput<'DateTimeInput', "onTouchMove">;
-  @NgInput() declare "onTouchMoveCapture"?: AngularInput<'DateTimeInput', "onTouchMoveCapture">;
-  @NgInput() declare "onTouchStart"?: AngularInput<'DateTimeInput', "onTouchStart">;
-  @NgInput() declare "onTouchStartCapture"?: AngularInput<'DateTimeInput', "onTouchStartCapture">;
-  @NgInput() declare "onPointerOver"?: AngularInput<'DateTimeInput', "onPointerOver">;
-  @NgInput() declare "onPointerOverCapture"?: AngularInput<'DateTimeInput', "onPointerOverCapture">;
-  @NgInput() declare "onPointerEnter"?: AngularInput<'DateTimeInput', "onPointerEnter">;
-  @NgInput() declare "onPointerEnterCapture"?: AngularInput<'DateTimeInput', "onPointerEnterCapture">;
-  @NgInput() declare "onPointerDown"?: AngularInput<'DateTimeInput', "onPointerDown">;
-  @NgInput() declare "onPointerDownCapture"?: AngularInput<'DateTimeInput', "onPointerDownCapture">;
-  @NgInput() declare "onPointerMove"?: AngularInput<'DateTimeInput', "onPointerMove">;
-  @NgInput() declare "onPointerMoveCapture"?: AngularInput<'DateTimeInput', "onPointerMoveCapture">;
-  @NgInput() declare "onPointerUp"?: AngularInput<'DateTimeInput', "onPointerUp">;
-  @NgInput() declare "onPointerUpCapture"?: AngularInput<'DateTimeInput', "onPointerUpCapture">;
+  @NgInput() declare "onPaste"?: AngularInput<'DateTimeInput', "onPaste">;
+  @NgInput() declare "onPasteCapture"?: AngularInput<'DateTimeInput', "onPasteCapture">;
+  @NgInput() declare "onPause"?: AngularInput<'DateTimeInput', "onPause">;
+  @NgInput() declare "onPauseCapture"?: AngularInput<'DateTimeInput', "onPauseCapture">;
+  @NgInput() declare "onPlay"?: AngularInput<'DateTimeInput', "onPlay">;
+  @NgInput() declare "onPlayCapture"?: AngularInput<'DateTimeInput', "onPlayCapture">;
+  @NgInput() declare "onPlaying"?: AngularInput<'DateTimeInput', "onPlaying">;
+  @NgInput() declare "onPlayingCapture"?: AngularInput<'DateTimeInput', "onPlayingCapture">;
   @NgInput() declare "onPointerCancel"?: AngularInput<'DateTimeInput', "onPointerCancel">;
   @NgInput() declare "onPointerCancelCapture"?: AngularInput<'DateTimeInput', "onPointerCancelCapture">;
-  @NgInput() declare "onPointerOut"?: AngularInput<'DateTimeInput', "onPointerOut">;
-  @NgInput() declare "onPointerOutCapture"?: AngularInput<'DateTimeInput', "onPointerOutCapture">;
+  @NgInput() declare "onPointerDown"?: AngularInput<'DateTimeInput', "onPointerDown">;
+  @NgInput() declare "onPointerDownCapture"?: AngularInput<'DateTimeInput', "onPointerDownCapture">;
+  @NgInput() declare "onPointerEnter"?: AngularInput<'DateTimeInput', "onPointerEnter">;
+  @NgInput() declare "onPointerEnterCapture"?: AngularInput<'DateTimeInput', "onPointerEnterCapture">;
   @NgInput() declare "onPointerLeave"?: AngularInput<'DateTimeInput', "onPointerLeave">;
   @NgInput() declare "onPointerLeaveCapture"?: AngularInput<'DateTimeInput', "onPointerLeaveCapture">;
-  @NgInput() declare "onGotPointerCapture"?: AngularInput<'DateTimeInput', "onGotPointerCapture">;
-  @NgInput() declare "onGotPointerCaptureCapture"?: AngularInput<'DateTimeInput', "onGotPointerCaptureCapture">;
-  @NgInput() declare "onLostPointerCapture"?: AngularInput<'DateTimeInput', "onLostPointerCapture">;
-  @NgInput() declare "onLostPointerCaptureCapture"?: AngularInput<'DateTimeInput', "onLostPointerCaptureCapture">;
+  @NgInput() declare "onPointerMove"?: AngularInput<'DateTimeInput', "onPointerMove">;
+  @NgInput() declare "onPointerMoveCapture"?: AngularInput<'DateTimeInput', "onPointerMoveCapture">;
+  @NgInput() declare "onPointerOut"?: AngularInput<'DateTimeInput', "onPointerOut">;
+  @NgInput() declare "onPointerOutCapture"?: AngularInput<'DateTimeInput', "onPointerOutCapture">;
+  @NgInput() declare "onPointerOver"?: AngularInput<'DateTimeInput', "onPointerOver">;
+  @NgInput() declare "onPointerOverCapture"?: AngularInput<'DateTimeInput', "onPointerOverCapture">;
+  @NgInput() declare "onPointerUp"?: AngularInput<'DateTimeInput', "onPointerUp">;
+  @NgInput() declare "onPointerUpCapture"?: AngularInput<'DateTimeInput', "onPointerUpCapture">;
+  @NgInput() declare "onProgress"?: AngularInput<'DateTimeInput', "onProgress">;
+  @NgInput() declare "onProgressCapture"?: AngularInput<'DateTimeInput', "onProgressCapture">;
+  @NgInput() declare "onRateChange"?: AngularInput<'DateTimeInput', "onRateChange">;
+  @NgInput() declare "onRateChangeCapture"?: AngularInput<'DateTimeInput', "onRateChangeCapture">;
+  @NgInput() declare "onReset"?: AngularInput<'DateTimeInput', "onReset">;
+  @NgInput() declare "onResetCapture"?: AngularInput<'DateTimeInput', "onResetCapture">;
+  @NgInput() declare "onResize"?: AngularInput<'DateTimeInput', "onResize">;
+  @NgInput() declare "onResizeCapture"?: AngularInput<'DateTimeInput', "onResizeCapture">;
   @NgInput() declare "onScroll"?: AngularInput<'DateTimeInput', "onScroll">;
   @NgInput() declare "onScrollCapture"?: AngularInput<'DateTimeInput', "onScrollCapture">;
   @NgInput() declare "onScrollEnd"?: AngularInput<'DateTimeInput', "onScrollEnd">;
@@ -334,14 +292,31 @@ export class DateTimeInput extends AngularComponentAdapter<AngularCallbackValue<
   @NgInput() declare "onScrollSnapChangeCapture"?: AngularInput<'DateTimeInput', "onScrollSnapChangeCapture">;
   @NgInput() declare "onScrollSnapChanging"?: AngularInput<'DateTimeInput', "onScrollSnapChanging">;
   @NgInput() declare "onScrollSnapChangingCapture"?: AngularInput<'DateTimeInput', "onScrollSnapChangingCapture">;
-  @NgInput() declare "onWheel"?: AngularInput<'DateTimeInput', "onWheel">;
-  @NgInput() declare "onWheelCapture"?: AngularInput<'DateTimeInput', "onWheelCapture">;
-  @NgInput() declare "onAnimationStart"?: AngularInput<'DateTimeInput', "onAnimationStart">;
-  @NgInput() declare "onAnimationStartCapture"?: AngularInput<'DateTimeInput', "onAnimationStartCapture">;
-  @NgInput() declare "onAnimationEnd"?: AngularInput<'DateTimeInput', "onAnimationEnd">;
-  @NgInput() declare "onAnimationEndCapture"?: AngularInput<'DateTimeInput', "onAnimationEndCapture">;
-  @NgInput() declare "onAnimationIteration"?: AngularInput<'DateTimeInput', "onAnimationIteration">;
-  @NgInput() declare "onAnimationIterationCapture"?: AngularInput<'DateTimeInput', "onAnimationIterationCapture">;
+  @NgInput() declare "onSearch"?: AngularInput<'DateTimeInput', "onSearch">;
+  @NgInput() declare "onSearchCapture"?: AngularInput<'DateTimeInput', "onSearchCapture">;
+  @NgInput() declare "onSeeked"?: AngularInput<'DateTimeInput', "onSeeked">;
+  @NgInput() declare "onSeekedCapture"?: AngularInput<'DateTimeInput', "onSeekedCapture">;
+  @NgInput() declare "onSeeking"?: AngularInput<'DateTimeInput', "onSeeking">;
+  @NgInput() declare "onSeekingCapture"?: AngularInput<'DateTimeInput', "onSeekingCapture">;
+  @NgInput() declare "onSelect"?: AngularInput<'DateTimeInput', "onSelect">;
+  @NgInput() declare "onSelectCapture"?: AngularInput<'DateTimeInput', "onSelectCapture">;
+  @NgInput() declare "onStalled"?: AngularInput<'DateTimeInput', "onStalled">;
+  @NgInput() declare "onStalledCapture"?: AngularInput<'DateTimeInput', "onStalledCapture">;
+  @NgInput() declare "onSubmit"?: AngularInput<'DateTimeInput', "onSubmit">;
+  @NgInput() declare "onSubmitCapture"?: AngularInput<'DateTimeInput', "onSubmitCapture">;
+  @NgInput() declare "onSuspend"?: AngularInput<'DateTimeInput', "onSuspend">;
+  @NgInput() declare "onSuspendCapture"?: AngularInput<'DateTimeInput', "onSuspendCapture">;
+  @NgInput() declare "onTimeUpdate"?: AngularInput<'DateTimeInput', "onTimeUpdate">;
+  @NgInput() declare "onTimeUpdateCapture"?: AngularInput<'DateTimeInput', "onTimeUpdateCapture">;
+  @NgInput() declare "onToggle"?: AngularInput<'DateTimeInput', "onToggle">;
+  @NgInput() declare "onTouchCancel"?: AngularInput<'DateTimeInput', "onTouchCancel">;
+  @NgInput() declare "onTouchCancelCapture"?: AngularInput<'DateTimeInput', "onTouchCancelCapture">;
+  @NgInput() declare "onTouchEnd"?: AngularInput<'DateTimeInput', "onTouchEnd">;
+  @NgInput() declare "onTouchEndCapture"?: AngularInput<'DateTimeInput', "onTouchEndCapture">;
+  @NgInput() declare "onTouchMove"?: AngularInput<'DateTimeInput', "onTouchMove">;
+  @NgInput() declare "onTouchMoveCapture"?: AngularInput<'DateTimeInput', "onTouchMoveCapture">;
+  @NgInput() declare "onTouchStart"?: AngularInput<'DateTimeInput', "onTouchStart">;
+  @NgInput() declare "onTouchStartCapture"?: AngularInput<'DateTimeInput', "onTouchStartCapture">;
   @NgInput() declare "onTransitionCancel"?: AngularInput<'DateTimeInput', "onTransitionCancel">;
   @NgInput() declare "onTransitionCancelCapture"?: AngularInput<'DateTimeInput', "onTransitionCancelCapture">;
   @NgInput() declare "onTransitionEnd"?: AngularInput<'DateTimeInput', "onTransitionEnd">;
@@ -350,112 +325,77 @@ export class DateTimeInput extends AngularComponentAdapter<AngularCallbackValue<
   @NgInput() declare "onTransitionRunCapture"?: AngularInput<'DateTimeInput', "onTransitionRunCapture">;
   @NgInput() declare "onTransitionStart"?: AngularInput<'DateTimeInput', "onTransitionStart">;
   @NgInput() declare "onTransitionStartCapture"?: AngularInput<'DateTimeInput', "onTransitionStartCapture">;
-  @NgInput() declare "onEnterPictureInPicture"?: AngularInput<'DateTimeInput', "onEnterPictureInPicture">;
-  @NgInput() declare "onEnterPictureInPictureCapture"?: AngularInput<'DateTimeInput', "onEnterPictureInPictureCapture">;
-  @NgInput() declare "onLeavePictureInPicture"?: AngularInput<'DateTimeInput', "onLeavePictureInPicture">;
-  @NgInput() declare "onLeavePictureInPictureCapture"?: AngularInput<'DateTimeInput', "onLeavePictureInPictureCapture">;
-  @NgInput() declare "onResize"?: AngularInput<'DateTimeInput', "onResize">;
-  @NgInput() declare "onResizeCapture"?: AngularInput<'DateTimeInput', "onResizeCapture">;
-  @NgInput() declare "onCommand"?: AngularInput<'DateTimeInput', "onCommand">;
   @NgInput() declare "onValueChange"?: AngularInput<'DateTimeInput', "onValueChange">;
+  @NgInput() declare "onVolumeChange"?: AngularInput<'DateTimeInput', "onVolumeChange">;
+  @NgInput() declare "onVolumeChangeCapture"?: AngularInput<'DateTimeInput', "onVolumeChangeCapture">;
+  @NgInput() declare "onWaiting"?: AngularInput<'DateTimeInput', "onWaiting">;
+  @NgInput() declare "onWaitingCapture"?: AngularInput<'DateTimeInput', "onWaitingCapture">;
+  @NgInput() declare "onWheel"?: AngularInput<'DateTimeInput', "onWheel">;
+  @NgInput() declare "onWheelCapture"?: AngularInput<'DateTimeInput', "onWheelCapture">;
+  @NgInput() declare "part"?: AngularInput<'DateTimeInput', "part">;
+  @NgInput() declare "pattern"?: AngularInput<'DateTimeInput', "pattern">;
+  @NgInput() declare "placeholder"?: AngularInput<'DateTimeInput', "placeholder">;
+  @NgInput() declare "popover"?: AngularInput<'DateTimeInput', "popover">;
+  @NgInput() declare "prefix"?: AngularInput<'DateTimeInput', "prefix">;
+  @NgInput() declare "property"?: AngularInput<'DateTimeInput', "property">;
+  @NgInput() declare "readOnly"?: AngularInput<'DateTimeInput', "readOnly">;
+  @NgInput() declare "readonly"?: AngularInput<'DateTimeInput', "readonly">;
+  @NgInput() declare "required"?: AngularInput<'DateTimeInput', "required">;
+  @NgInput() declare "resource"?: AngularInput<'DateTimeInput', "resource">;
+  @NgInput() declare "results"?: AngularInput<'DateTimeInput', "results">;
+  @NgInput() declare "role"?: AngularInput<'DateTimeInput', "role">;
+  @NgInput() declare "size"?: AngularInput<'DateTimeInput', "size">;
+  @NgInput() declare "slot"?: AngularInput<'DateTimeInput', "slot">;
+  @NgInput() declare "spellcheck"?: AngularInput<'DateTimeInput', "spellcheck">;
+  @NgInput() declare "src"?: AngularInput<'DateTimeInput', "src">;
+  @NgInput() declare "step"?: AngularInput<'DateTimeInput', "step">;
+  @NgInput() declare "style"?: AngularInput<'DateTimeInput', "style">;
+  @NgInput() declare "tabIndex"?: AngularInput<'DateTimeInput', "tabIndex">;
+  @NgInput() declare "tabindex"?: AngularInput<'DateTimeInput', "tabindex">;
+  @NgInput() declare "title"?: AngularInput<'DateTimeInput', "title">;
+  @NgInput() declare "translate"?: AngularInput<'DateTimeInput', "translate">;
+  @NgInput() declare "typeof"?: AngularInput<'DateTimeInput', "typeof">;
+  @NgInput() declare "value"?: AngularInput<'DateTimeInput', "value">;
+  @NgInput() declare "vocab"?: AngularInput<'DateTimeInput', "vocab">;
+  @NgInput() declare "width"?: AngularInput<'DateTimeInput', "width">;
+  @Output() get abortEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onAbort'>>>('onAbort'); }
+  @Output() get abortCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onAbortCapture'>>>('onAbortCapture'); }
+  @Output() get animationEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onAnimationEnd'>>>('onAnimationEnd'); }
+  @Output() get animationEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onAnimationEndCapture'>>>('onAnimationEndCapture'); }
+  @Output() get animationIterationEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onAnimationIteration'>>>('onAnimationIteration'); }
+  @Output() get animationIterationCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onAnimationIterationCapture'>>>('onAnimationIterationCapture'); }
+  @Output() get animationStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onAnimationStart'>>>('onAnimationStart'); }
+  @Output() get animationStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onAnimationStartCapture'>>>('onAnimationStartCapture'); }
+  @Output() get auxClickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onAuxClick'>>>('onAuxClick'); }
+  @Output() get auxClickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onAuxClickCapture'>>>('onAuxClickCapture'); }
+  @Output() get beforeInputEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onBeforeInput'>>>('onBeforeInput'); }
+  @Output() get beforeInputCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onBeforeInputCapture'>>>('onBeforeInputCapture'); }
+  @Output() get beforeToggleEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onBeforeToggle'>>>('onBeforeToggle'); }
+  @Output() get blurEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onBlur'>>>('onBlur'); }
+  @Output() get blurCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onBlurCapture'>>>('onBlurCapture'); }
+  @Output() get canPlayEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onCanPlay'>>>('onCanPlay'); }
+  @Output() get canPlayCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onCanPlayCapture'>>>('onCanPlayCapture'); }
+  @Output() get canPlayThroughEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onCanPlayThrough'>>>('onCanPlayThrough'); }
+  @Output() get canPlayThroughCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onCanPlayThroughCapture'>>>('onCanPlayThroughCapture'); }
+  @Output() get cancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onCancel'>>>('onCancel'); }
   @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onChange'>>>('onChange'); }
-  @Output() get loadEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onLoad'>>>('onLoad'); }
-  @Output() get loadCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onLoadCapture'>>>('onLoadCapture'); }
-  @Output() get errorEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onError'>>>('onError'); }
-  @Output() get errorCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onErrorCapture'>>>('onErrorCapture'); }
-  @Output() get copyEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onCopy'>>>('onCopy'); }
-  @Output() get copyCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onCopyCapture'>>>('onCopyCapture'); }
-  @Output() get cutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onCut'>>>('onCut'); }
-  @Output() get cutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onCutCapture'>>>('onCutCapture'); }
-  @Output() get pasteEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPaste'>>>('onPaste'); }
-  @Output() get pasteCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPasteCapture'>>>('onPasteCapture'); }
+  @Output() get changeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onChangeCapture'>>>('onChangeCapture'); }
+  @Output() get clickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onClick'>>>('onClick'); }
+  @Output() get clickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onClickCapture'>>>('onClickCapture'); }
+  @Output() get closeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onClose'>>>('onClose'); }
+  @Output() get commandEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onCommand'>>>('onCommand'); }
   @Output() get compositionEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onCompositionEnd'>>>('onCompositionEnd'); }
   @Output() get compositionEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onCompositionEndCapture'>>>('onCompositionEndCapture'); }
   @Output() get compositionStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onCompositionStart'>>>('onCompositionStart'); }
   @Output() get compositionStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onCompositionStartCapture'>>>('onCompositionStartCapture'); }
   @Output() get compositionUpdateEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onCompositionUpdate'>>>('onCompositionUpdate'); }
   @Output() get compositionUpdateCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onCompositionUpdateCapture'>>>('onCompositionUpdateCapture'); }
-  @Output() get beforeToggleEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onBeforeToggle'>>>('onBeforeToggle'); }
-  @Output() get toggleEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onToggle'>>>('onToggle'); }
-  @Output() get closeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onClose'>>>('onClose'); }
-  @Output() get cancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onCancel'>>>('onCancel'); }
-  @Output() get focusEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onFocus'>>>('onFocus'); }
-  @Output() get focusCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onFocusCapture'>>>('onFocusCapture'); }
-  @Output() get focusInEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onFocusIn'>>>('onFocusIn'); }
-  @Output() get focusInCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onFocusInCapture'>>>('onFocusInCapture'); }
-  @Output() get focusOutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onFocusOut'>>>('onFocusOut'); }
-  @Output() get focusOutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onFocusOutCapture'>>>('onFocusOutCapture'); }
-  @Output() get blurEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onBlur'>>>('onBlur'); }
-  @Output() get blurCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onBlurCapture'>>>('onBlurCapture'); }
-  @Output() get changeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onChangeCapture'>>>('onChangeCapture'); }
-  @Output() get inputEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onInput'>>>('onInput'); }
-  @Output() get inputCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onInputCapture'>>>('onInputCapture'); }
-  @Output() get beforeInputEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onBeforeInput'>>>('onBeforeInput'); }
-  @Output() get beforeInputCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onBeforeInputCapture'>>>('onBeforeInputCapture'); }
-  @Output() get searchEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onSearch'>>>('onSearch'); }
-  @Output() get searchCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onSearchCapture'>>>('onSearchCapture'); }
-  @Output() get submitEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onSubmit'>>>('onSubmit'); }
-  @Output() get submitCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onSubmitCapture'>>>('onSubmitCapture'); }
-  @Output() get invalidEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onInvalid'>>>('onInvalid'); }
-  @Output() get invalidCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onInvalidCapture'>>>('onInvalidCapture'); }
-  @Output() get resetEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onReset'>>>('onReset'); }
-  @Output() get resetCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onResetCapture'>>>('onResetCapture'); }
-  @Output() get formDataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onFormData'>>>('onFormData'); }
-  @Output() get formDataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onFormDataCapture'>>>('onFormDataCapture'); }
-  @Output() get keyDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onKeyDown'>>>('onKeyDown'); }
-  @Output() get keyDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onKeyDownCapture'>>>('onKeyDownCapture'); }
-  @Output() get keyPressEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onKeyPress'>>>('onKeyPress'); }
-  @Output() get keyPressCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onKeyPressCapture'>>>('onKeyPressCapture'); }
-  @Output() get keyUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onKeyUp'>>>('onKeyUp'); }
-  @Output() get keyUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onKeyUpCapture'>>>('onKeyUpCapture'); }
-  @Output() get abortEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onAbort'>>>('onAbort'); }
-  @Output() get abortCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onAbortCapture'>>>('onAbortCapture'); }
-  @Output() get canPlayEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onCanPlay'>>>('onCanPlay'); }
-  @Output() get canPlayCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onCanPlayCapture'>>>('onCanPlayCapture'); }
-  @Output() get canPlayThroughEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onCanPlayThrough'>>>('onCanPlayThrough'); }
-  @Output() get canPlayThroughCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onCanPlayThroughCapture'>>>('onCanPlayThroughCapture'); }
-  @Output() get durationChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onDurationChange'>>>('onDurationChange'); }
-  @Output() get durationChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onDurationChangeCapture'>>>('onDurationChangeCapture'); }
-  @Output() get emptiedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onEmptied'>>>('onEmptied'); }
-  @Output() get emptiedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onEmptiedCapture'>>>('onEmptiedCapture'); }
-  @Output() get encryptedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onEncrypted'>>>('onEncrypted'); }
-  @Output() get encryptedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onEncryptedCapture'>>>('onEncryptedCapture'); }
-  @Output() get endedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onEnded'>>>('onEnded'); }
-  @Output() get endedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onEndedCapture'>>>('onEndedCapture'); }
-  @Output() get loadedDataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onLoadedData'>>>('onLoadedData'); }
-  @Output() get loadedDataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onLoadedDataCapture'>>>('onLoadedDataCapture'); }
-  @Output() get loadedMetadataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onLoadedMetadata'>>>('onLoadedMetadata'); }
-  @Output() get loadedMetadataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onLoadedMetadataCapture'>>>('onLoadedMetadataCapture'); }
-  @Output() get loadStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onLoadStart'>>>('onLoadStart'); }
-  @Output() get loadStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onLoadStartCapture'>>>('onLoadStartCapture'); }
-  @Output() get pauseEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPause'>>>('onPause'); }
-  @Output() get pauseCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPauseCapture'>>>('onPauseCapture'); }
-  @Output() get playEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPlay'>>>('onPlay'); }
-  @Output() get playCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPlayCapture'>>>('onPlayCapture'); }
-  @Output() get playingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPlaying'>>>('onPlaying'); }
-  @Output() get playingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPlayingCapture'>>>('onPlayingCapture'); }
-  @Output() get progressEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onProgress'>>>('onProgress'); }
-  @Output() get progressCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onProgressCapture'>>>('onProgressCapture'); }
-  @Output() get rateChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onRateChange'>>>('onRateChange'); }
-  @Output() get rateChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onRateChangeCapture'>>>('onRateChangeCapture'); }
-  @Output() get seekedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onSeeked'>>>('onSeeked'); }
-  @Output() get seekedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onSeekedCapture'>>>('onSeekedCapture'); }
-  @Output() get seekingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onSeeking'>>>('onSeeking'); }
-  @Output() get seekingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onSeekingCapture'>>>('onSeekingCapture'); }
-  @Output() get stalledEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onStalled'>>>('onStalled'); }
-  @Output() get stalledCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onStalledCapture'>>>('onStalledCapture'); }
-  @Output() get suspendEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onSuspend'>>>('onSuspend'); }
-  @Output() get suspendCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onSuspendCapture'>>>('onSuspendCapture'); }
-  @Output() get timeUpdateEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onTimeUpdate'>>>('onTimeUpdate'); }
-  @Output() get timeUpdateCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onTimeUpdateCapture'>>>('onTimeUpdateCapture'); }
-  @Output() get volumeChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onVolumeChange'>>>('onVolumeChange'); }
-  @Output() get volumeChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onVolumeChangeCapture'>>>('onVolumeChangeCapture'); }
-  @Output() get waitingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onWaiting'>>>('onWaiting'); }
-  @Output() get waitingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onWaitingCapture'>>>('onWaitingCapture'); }
-  @Output() get clickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onClick'>>>('onClick'); }
-  @Output() get clickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onClickCapture'>>>('onClickCapture'); }
   @Output() get contextMenuEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onContextMenu'>>>('onContextMenu'); }
   @Output() get contextMenuCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onContextMenuCapture'>>>('onContextMenuCapture'); }
+  @Output() get copyEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onCopy'>>>('onCopy'); }
+  @Output() get copyCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onCopyCapture'>>>('onCopyCapture'); }
+  @Output() get cutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onCut'>>>('onCut'); }
+  @Output() get cutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onCutCapture'>>>('onCutCapture'); }
   @Output() get dblClickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onDblClick'>>>('onDblClick'); }
   @Output() get dblClickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onDblClickCapture'>>>('onDblClickCapture'); }
   @Output() get dragEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onDrag'>>>('onDrag'); }
@@ -474,6 +414,50 @@ export class DateTimeInput extends AngularComponentAdapter<AngularCallbackValue<
   @Output() get dragStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onDragStartCapture'>>>('onDragStartCapture'); }
   @Output() get dropEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onDrop'>>>('onDrop'); }
   @Output() get dropCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onDropCapture'>>>('onDropCapture'); }
+  @Output() get durationChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onDurationChange'>>>('onDurationChange'); }
+  @Output() get durationChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onDurationChangeCapture'>>>('onDurationChangeCapture'); }
+  @Output() get emptiedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onEmptied'>>>('onEmptied'); }
+  @Output() get emptiedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onEmptiedCapture'>>>('onEmptiedCapture'); }
+  @Output() get encryptedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onEncrypted'>>>('onEncrypted'); }
+  @Output() get encryptedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onEncryptedCapture'>>>('onEncryptedCapture'); }
+  @Output() get endedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onEnded'>>>('onEnded'); }
+  @Output() get endedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onEndedCapture'>>>('onEndedCapture'); }
+  @Output() get enterPictureInPictureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onEnterPictureInPicture'>>>('onEnterPictureInPicture'); }
+  @Output() get enterPictureInPictureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onEnterPictureInPictureCapture'>>>('onEnterPictureInPictureCapture'); }
+  @Output() get errorEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onError'>>>('onError'); }
+  @Output() get errorCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onErrorCapture'>>>('onErrorCapture'); }
+  @Output() get focusEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onFocus'>>>('onFocus'); }
+  @Output() get focusCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onFocusCapture'>>>('onFocusCapture'); }
+  @Output() get focusInEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onFocusIn'>>>('onFocusIn'); }
+  @Output() get focusInCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onFocusInCapture'>>>('onFocusInCapture'); }
+  @Output() get focusOutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onFocusOut'>>>('onFocusOut'); }
+  @Output() get focusOutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onFocusOutCapture'>>>('onFocusOutCapture'); }
+  @Output() get formDataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onFormData'>>>('onFormData'); }
+  @Output() get formDataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onFormDataCapture'>>>('onFormDataCapture'); }
+  @Output() get gotPointerCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onGotPointerCapture'>>>('onGotPointerCapture'); }
+  @Output() get gotPointerCaptureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onGotPointerCaptureCapture'>>>('onGotPointerCaptureCapture'); }
+  @Output() get inputEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onInput'>>>('onInput'); }
+  @Output() get inputCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onInputCapture'>>>('onInputCapture'); }
+  @Output() get invalidEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onInvalid'>>>('onInvalid'); }
+  @Output() get invalidCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onInvalidCapture'>>>('onInvalidCapture'); }
+  @Output() get keyDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onKeyDown'>>>('onKeyDown'); }
+  @Output() get keyDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onKeyDownCapture'>>>('onKeyDownCapture'); }
+  @Output() get keyPressEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onKeyPress'>>>('onKeyPress'); }
+  @Output() get keyPressCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onKeyPressCapture'>>>('onKeyPressCapture'); }
+  @Output() get keyUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onKeyUp'>>>('onKeyUp'); }
+  @Output() get keyUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onKeyUpCapture'>>>('onKeyUpCapture'); }
+  @Output() get leavePictureInPictureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onLeavePictureInPicture'>>>('onLeavePictureInPicture'); }
+  @Output() get leavePictureInPictureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onLeavePictureInPictureCapture'>>>('onLeavePictureInPictureCapture'); }
+  @Output() get loadEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onLoad'>>>('onLoad'); }
+  @Output() get loadCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onLoadCapture'>>>('onLoadCapture'); }
+  @Output() get loadStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onLoadStart'>>>('onLoadStart'); }
+  @Output() get loadStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onLoadStartCapture'>>>('onLoadStartCapture'); }
+  @Output() get loadedDataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onLoadedData'>>>('onLoadedData'); }
+  @Output() get loadedDataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onLoadedDataCapture'>>>('onLoadedDataCapture'); }
+  @Output() get loadedMetadataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onLoadedMetadata'>>>('onLoadedMetadata'); }
+  @Output() get loadedMetadataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onLoadedMetadataCapture'>>>('onLoadedMetadataCapture'); }
+  @Output() get lostPointerCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onLostPointerCapture'>>>('onLostPointerCapture'); }
+  @Output() get lostPointerCaptureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onLostPointerCaptureCapture'>>>('onLostPointerCaptureCapture'); }
   @Output() get mouseDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onMouseDown'>>>('onMouseDown'); }
   @Output() get mouseDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onMouseDownCapture'>>>('onMouseDownCapture'); }
   @Output() get mouseEnterEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onMouseEnter'>>>('onMouseEnter'); }
@@ -488,38 +472,38 @@ export class DateTimeInput extends AngularComponentAdapter<AngularCallbackValue<
   @Output() get mouseOverCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onMouseOverCapture'>>>('onMouseOverCapture'); }
   @Output() get mouseUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onMouseUp'>>>('onMouseUp'); }
   @Output() get mouseUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onMouseUpCapture'>>>('onMouseUpCapture'); }
-  @Output() get auxClickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onAuxClick'>>>('onAuxClick'); }
-  @Output() get auxClickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onAuxClickCapture'>>>('onAuxClickCapture'); }
-  @Output() get selectEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onSelect'>>>('onSelect'); }
-  @Output() get selectCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onSelectCapture'>>>('onSelectCapture'); }
-  @Output() get touchCancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onTouchCancel'>>>('onTouchCancel'); }
-  @Output() get touchCancelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onTouchCancelCapture'>>>('onTouchCancelCapture'); }
-  @Output() get touchEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onTouchEnd'>>>('onTouchEnd'); }
-  @Output() get touchEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onTouchEndCapture'>>>('onTouchEndCapture'); }
-  @Output() get touchMoveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onTouchMove'>>>('onTouchMove'); }
-  @Output() get touchMoveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onTouchMoveCapture'>>>('onTouchMoveCapture'); }
-  @Output() get touchStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onTouchStart'>>>('onTouchStart'); }
-  @Output() get touchStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onTouchStartCapture'>>>('onTouchStartCapture'); }
-  @Output() get pointerOverEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPointerOver'>>>('onPointerOver'); }
-  @Output() get pointerOverCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPointerOverCapture'>>>('onPointerOverCapture'); }
-  @Output() get pointerEnterEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPointerEnter'>>>('onPointerEnter'); }
-  @Output() get pointerEnterCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPointerEnterCapture'>>>('onPointerEnterCapture'); }
-  @Output() get pointerDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPointerDown'>>>('onPointerDown'); }
-  @Output() get pointerDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPointerDownCapture'>>>('onPointerDownCapture'); }
-  @Output() get pointerMoveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPointerMove'>>>('onPointerMove'); }
-  @Output() get pointerMoveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPointerMoveCapture'>>>('onPointerMoveCapture'); }
-  @Output() get pointerUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPointerUp'>>>('onPointerUp'); }
-  @Output() get pointerUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPointerUpCapture'>>>('onPointerUpCapture'); }
+  @Output() get pasteEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPaste'>>>('onPaste'); }
+  @Output() get pasteCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPasteCapture'>>>('onPasteCapture'); }
+  @Output() get pauseEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPause'>>>('onPause'); }
+  @Output() get pauseCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPauseCapture'>>>('onPauseCapture'); }
+  @Output() get playEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPlay'>>>('onPlay'); }
+  @Output() get playCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPlayCapture'>>>('onPlayCapture'); }
+  @Output() get playingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPlaying'>>>('onPlaying'); }
+  @Output() get playingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPlayingCapture'>>>('onPlayingCapture'); }
   @Output() get pointerCancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPointerCancel'>>>('onPointerCancel'); }
   @Output() get pointerCancelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPointerCancelCapture'>>>('onPointerCancelCapture'); }
-  @Output() get pointerOutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPointerOut'>>>('onPointerOut'); }
-  @Output() get pointerOutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPointerOutCapture'>>>('onPointerOutCapture'); }
+  @Output() get pointerDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPointerDown'>>>('onPointerDown'); }
+  @Output() get pointerDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPointerDownCapture'>>>('onPointerDownCapture'); }
+  @Output() get pointerEnterEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPointerEnter'>>>('onPointerEnter'); }
+  @Output() get pointerEnterCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPointerEnterCapture'>>>('onPointerEnterCapture'); }
   @Output() get pointerLeaveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPointerLeave'>>>('onPointerLeave'); }
   @Output() get pointerLeaveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPointerLeaveCapture'>>>('onPointerLeaveCapture'); }
-  @Output() get gotPointerCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onGotPointerCapture'>>>('onGotPointerCapture'); }
-  @Output() get gotPointerCaptureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onGotPointerCaptureCapture'>>>('onGotPointerCaptureCapture'); }
-  @Output() get lostPointerCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onLostPointerCapture'>>>('onLostPointerCapture'); }
-  @Output() get lostPointerCaptureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onLostPointerCaptureCapture'>>>('onLostPointerCaptureCapture'); }
+  @Output() get pointerMoveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPointerMove'>>>('onPointerMove'); }
+  @Output() get pointerMoveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPointerMoveCapture'>>>('onPointerMoveCapture'); }
+  @Output() get pointerOutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPointerOut'>>>('onPointerOut'); }
+  @Output() get pointerOutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPointerOutCapture'>>>('onPointerOutCapture'); }
+  @Output() get pointerOverEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPointerOver'>>>('onPointerOver'); }
+  @Output() get pointerOverCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPointerOverCapture'>>>('onPointerOverCapture'); }
+  @Output() get pointerUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPointerUp'>>>('onPointerUp'); }
+  @Output() get pointerUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onPointerUpCapture'>>>('onPointerUpCapture'); }
+  @Output() get progressEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onProgress'>>>('onProgress'); }
+  @Output() get progressCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onProgressCapture'>>>('onProgressCapture'); }
+  @Output() get rateChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onRateChange'>>>('onRateChange'); }
+  @Output() get rateChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onRateChangeCapture'>>>('onRateChangeCapture'); }
+  @Output() get resetEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onReset'>>>('onReset'); }
+  @Output() get resetCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onResetCapture'>>>('onResetCapture'); }
+  @Output() get resizeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onResize'>>>('onResize'); }
+  @Output() get resizeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onResizeCapture'>>>('onResizeCapture'); }
   @Output() get scrollEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onScroll'>>>('onScroll'); }
   @Output() get scrollCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onScrollCapture'>>>('onScrollCapture'); }
   @Output() get scrollEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onScrollEnd'>>>('onScrollEnd'); }
@@ -528,14 +512,31 @@ export class DateTimeInput extends AngularComponentAdapter<AngularCallbackValue<
   @Output() get scrollSnapChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onScrollSnapChangeCapture'>>>('onScrollSnapChangeCapture'); }
   @Output() get scrollSnapChangingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onScrollSnapChanging'>>>('onScrollSnapChanging'); }
   @Output() get scrollSnapChangingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onScrollSnapChangingCapture'>>>('onScrollSnapChangingCapture'); }
-  @Output() get wheelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onWheel'>>>('onWheel'); }
-  @Output() get wheelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onWheelCapture'>>>('onWheelCapture'); }
-  @Output() get animationStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onAnimationStart'>>>('onAnimationStart'); }
-  @Output() get animationStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onAnimationStartCapture'>>>('onAnimationStartCapture'); }
-  @Output() get animationEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onAnimationEnd'>>>('onAnimationEnd'); }
-  @Output() get animationEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onAnimationEndCapture'>>>('onAnimationEndCapture'); }
-  @Output() get animationIterationEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onAnimationIteration'>>>('onAnimationIteration'); }
-  @Output() get animationIterationCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onAnimationIterationCapture'>>>('onAnimationIterationCapture'); }
+  @Output() get searchEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onSearch'>>>('onSearch'); }
+  @Output() get searchCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onSearchCapture'>>>('onSearchCapture'); }
+  @Output() get seekedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onSeeked'>>>('onSeeked'); }
+  @Output() get seekedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onSeekedCapture'>>>('onSeekedCapture'); }
+  @Output() get seekingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onSeeking'>>>('onSeeking'); }
+  @Output() get seekingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onSeekingCapture'>>>('onSeekingCapture'); }
+  @Output() get selectEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onSelect'>>>('onSelect'); }
+  @Output() get selectCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onSelectCapture'>>>('onSelectCapture'); }
+  @Output() get stalledEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onStalled'>>>('onStalled'); }
+  @Output() get stalledCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onStalledCapture'>>>('onStalledCapture'); }
+  @Output() get submitEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onSubmit'>>>('onSubmit'); }
+  @Output() get submitCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onSubmitCapture'>>>('onSubmitCapture'); }
+  @Output() get suspendEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onSuspend'>>>('onSuspend'); }
+  @Output() get suspendCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onSuspendCapture'>>>('onSuspendCapture'); }
+  @Output() get timeUpdateEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onTimeUpdate'>>>('onTimeUpdate'); }
+  @Output() get timeUpdateCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onTimeUpdateCapture'>>>('onTimeUpdateCapture'); }
+  @Output() get toggleEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onToggle'>>>('onToggle'); }
+  @Output() get touchCancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onTouchCancel'>>>('onTouchCancel'); }
+  @Output() get touchCancelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onTouchCancelCapture'>>>('onTouchCancelCapture'); }
+  @Output() get touchEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onTouchEnd'>>>('onTouchEnd'); }
+  @Output() get touchEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onTouchEndCapture'>>>('onTouchEndCapture'); }
+  @Output() get touchMoveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onTouchMove'>>>('onTouchMove'); }
+  @Output() get touchMoveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onTouchMoveCapture'>>>('onTouchMoveCapture'); }
+  @Output() get touchStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onTouchStart'>>>('onTouchStart'); }
+  @Output() get touchStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onTouchStartCapture'>>>('onTouchStartCapture'); }
   @Output() get transitionCancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onTransitionCancel'>>>('onTransitionCancel'); }
   @Output() get transitionCancelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onTransitionCancelCapture'>>>('onTransitionCancelCapture'); }
   @Output() get transitionEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onTransitionEnd'>>>('onTransitionEnd'); }
@@ -544,12 +545,11 @@ export class DateTimeInput extends AngularComponentAdapter<AngularCallbackValue<
   @Output() get transitionRunCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onTransitionRunCapture'>>>('onTransitionRunCapture'); }
   @Output() get transitionStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onTransitionStart'>>>('onTransitionStart'); }
   @Output() get transitionStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onTransitionStartCapture'>>>('onTransitionStartCapture'); }
-  @Output() get enterPictureInPictureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onEnterPictureInPicture'>>>('onEnterPictureInPicture'); }
-  @Output() get enterPictureInPictureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onEnterPictureInPictureCapture'>>>('onEnterPictureInPictureCapture'); }
-  @Output() get leavePictureInPictureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onLeavePictureInPicture'>>>('onLeavePictureInPicture'); }
-  @Output() get leavePictureInPictureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onLeavePictureInPictureCapture'>>>('onLeavePictureInPictureCapture'); }
-  @Output() get resizeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onResize'>>>('onResize'); }
-  @Output() get resizeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onResizeCapture'>>>('onResizeCapture'); }
-  @Output() get commandEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onCommand'>>>('onCommand'); }
+  @Output() get volumeChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onVolumeChange'>>>('onVolumeChange'); }
+  @Output() get volumeChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onVolumeChangeCapture'>>>('onVolumeChangeCapture'); }
+  @Output() get waitingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onWaiting'>>>('onWaiting'); }
+  @Output() get waitingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onWaitingCapture'>>>('onWaitingCapture'); }
+  @Output() get wheelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onWheel'>>>('onWheel'); }
+  @Output() get wheelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateTimeInput', 'onWheelCapture'>>>('onWheelCapture'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

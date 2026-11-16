@@ -12,29 +12,29 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class Combobox extends AngularComponentAdapter<AngularCallbackValue<AngularInput<'Combobox', 'onChange'>>> {
   protected readonly rvComponentName = 'Combobox';
   protected rvResolveComponent() { return Control; }
-  @NgInput() declare "environment"?: AngularInput<'Combobox', "environment">;
-  @NgInput() declare "triggerAttributes"?: AngularInput<'Combobox', "triggerAttributes">;
-  @NgInput({ required: true }) declare "source": AngularInput<'Combobox', "source">;
-  @NgInput() declare "dataSource"?: AngularInput<'Combobox', "dataSource">;
-  @NgInput() declare "dataContext"?: AngularInput<'Combobox', "dataContext">;
-  @NgInput() declare "remoteText"?: AngularInput<'Combobox', "remoteText">;
-  @NgInput() declare "value"?: AngularInput<'Combobox', "value">;
-  @NgInput() declare "placeholder"?: AngularInput<'Combobox', "placeholder">;
-  @NgInput() declare "disabled"?: AngularInput<'Combobox', "disabled">;
-  @NgInput() declare "name"?: AngularInput<'Combobox', "name">;
-  @NgInput() declare "id"?: AngularInput<'Combobox', "id">;
-  @NgInput() declare "className"?: AngularInput<'Combobox', "className">;
-  @NgInput() declare "style"?: AngularInput<'Combobox', "style">;
-  @NgInput() declare "config"?: AngularInput<'Combobox', "config">;
   @NgInput() declare "beforeOutsideClose"?: AngularInput<'Combobox', "beforeOutsideClose">;
-  @NgInput() declare "renderContent"?: AngularInput<'Combobox', "renderContent">;
-  @NgInput() declare "renderOption"?: AngularInput<'Combobox', "renderOption">;
-  @NgInput() declare "renderValue"?: AngularInput<'Combobox', "renderValue">;
-  @NgInput() declare "renderPlaceholder"?: AngularInput<'Combobox', "renderPlaceholder">;
-  @NgInput() declare "renderSelectedValue"?: AngularInput<'Combobox', "renderSelectedValue">;
-  @NgInput() declare "renderNoResults"?: AngularInput<'Combobox', "renderNoResults">;
+  @NgInput() declare "className"?: AngularInput<'Combobox', "className">;
+  @NgInput() declare "config"?: AngularInput<'Combobox', "config">;
+  @NgInput() declare "dataContext"?: AngularInput<'Combobox', "dataContext">;
+  @NgInput() declare "dataSource"?: AngularInput<'Combobox', "dataSource">;
+  @NgInput() declare "disabled"?: AngularInput<'Combobox', "disabled">;
+  @NgInput() declare "environment"?: AngularInput<'Combobox', "environment">;
+  @NgInput() declare "id"?: AngularInput<'Combobox', "id">;
+  @NgInput() declare "name"?: AngularInput<'Combobox', "name">;
   @NgInput() declare "onChange"?: AngularInput<'Combobox', "onChange">;
   @NgInput() declare "onClose"?: AngularInput<'Combobox', "onClose">;
+  @NgInput() declare "placeholder"?: AngularInput<'Combobox', "placeholder">;
+  @NgInput() declare "remoteText"?: AngularInput<'Combobox', "remoteText">;
+  @NgInput() declare "renderContent"?: AngularInput<'Combobox', "renderContent">;
+  @NgInput() declare "renderNoResults"?: AngularInput<'Combobox', "renderNoResults">;
+  @NgInput() declare "renderOption"?: AngularInput<'Combobox', "renderOption">;
+  @NgInput() declare "renderPlaceholder"?: AngularInput<'Combobox', "renderPlaceholder">;
+  @NgInput() declare "renderSelectedValue"?: AngularInput<'Combobox', "renderSelectedValue">;
+  @NgInput() declare "renderValue"?: AngularInput<'Combobox', "renderValue">;
+  @NgInput({ required: true }) declare "source": AngularInput<'Combobox', "source">;
+  @NgInput() declare "style"?: AngularInput<'Combobox', "style">;
+  @NgInput() declare "triggerAttributes"?: AngularInput<'Combobox', "triggerAttributes">;
+  @NgInput() declare "value"?: AngularInput<'Combobox', "value">;
   @Output() get closeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'Combobox', 'onClose'>>>('onClose'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

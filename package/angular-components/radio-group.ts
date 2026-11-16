@@ -13,13 +13,13 @@ export class RadioGroup extends AngularComponentAdapter<AngularCallbackValue<Ang
   protected readonly rvComponentName = 'RadioGroup';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onChange"];
-  @NgInput({ required: true }) declare "value": AngularInput<'RadioGroup', "value">;
-  @NgInput({ required: true }) declare "options": AngularInput<'RadioGroup', "options">;
   @NgInput() declare "className"?: AngularInput<'RadioGroup', "className">;
-  @NgInput({ required: true }) declare "label": AngularInput<'RadioGroup', "label">;
   @NgInput() declare "disabled"?: AngularInput<'RadioGroup', "disabled">;
+  @NgInput({ required: true }) declare "label": AngularInput<'RadioGroup', "label">;
   @NgInput() declare "name"?: AngularInput<'RadioGroup', "name">;
   @NgInput() declare "onChange"?: AngularInput<'RadioGroup', "onChange">;
+  @NgInput({ required: true }) declare "options": AngularInput<'RadioGroup', "options">;
+  @NgInput({ required: true }) declare "value": AngularInput<'RadioGroup', "value">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

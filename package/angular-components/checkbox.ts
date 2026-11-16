@@ -12,13 +12,13 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class Checkbox extends AngularComponentAdapter<AngularCallbackValue<AngularInput<'Checkbox', 'onChange'>>> {
   protected readonly rvComponentName = 'Checkbox';
   protected rvResolveComponent() { return Control; }
-  @NgInput() declare "checked"?: AngularInput<'Checkbox', "checked">;
-  @NgInput() declare "indeterminate"?: AngularInput<'Checkbox', "indeterminate">;
-  @NgInput() declare "label"?: AngularInput<'Checkbox', "label">;
-  @NgInput() declare "description"?: AngularInput<'Checkbox', "description">;
   @NgInput() declare "ariaLabel"?: AngularInput<'Checkbox', "ariaLabel">;
+  @NgInput() declare "checked"?: AngularInput<'Checkbox', "checked">;
   @NgInput() declare "controlClassName"?: AngularInput<'Checkbox', "controlClassName">;
+  @NgInput() declare "description"?: AngularInput<'Checkbox', "description">;
+  @NgInput() declare "indeterminate"?: AngularInput<'Checkbox', "indeterminate">;
   @NgInput() declare "inputRef"?: AngularInput<'Checkbox', "inputRef">;
+  @NgInput() declare "label"?: AngularInput<'Checkbox', "label">;
   @NgInput() declare "onChange"?: AngularInput<'Checkbox', "onChange">;
   @Output() get checkedChange() { return this.rvOutput<AngularCallbackValue<AngularInput<'Checkbox', 'onChange'>>>('onChange'); }
   protected rvResolveProps() { return this.rvInputValues; }

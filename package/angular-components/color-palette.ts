@@ -13,15 +13,15 @@ export class ColorPalette extends AngularComponentAdapter<AngularCallbackValue<A
   protected readonly rvComponentName = 'ColorPalette';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onChange"];
-  @NgInput({ required: true }) declare "value": AngularInput<'ColorPalette', "value">;
-  @NgInput() declare "options"?: AngularInput<'ColorPalette', "options">;
   @NgInput({ required: true }) declare "ariaLabel": AngularInput<'ColorPalette', "ariaLabel">;
-  @NgInput({ required: true }) declare "defaultLabel": AngularInput<'ColorPalette', "defaultLabel">;
   @NgInput({ required: true }) declare "colorAriaLabel": AngularInput<'ColorPalette', "colorAriaLabel">;
+  @NgInput() declare "defaultDisabled"?: AngularInput<'ColorPalette', "defaultDisabled">;
+  @NgInput({ required: true }) declare "defaultLabel": AngularInput<'ColorPalette', "defaultLabel">;
   @NgInput() declare "disabled"?: AngularInput<'ColorPalette', "disabled">;
   @NgInput() declare "includeDefault"?: AngularInput<'ColorPalette', "includeDefault">;
-  @NgInput() declare "defaultDisabled"?: AngularInput<'ColorPalette', "defaultDisabled">;
   @NgInput() declare "onChange"?: AngularInput<'ColorPalette', "onChange">;
+  @NgInput() declare "options"?: AngularInput<'ColorPalette', "options">;
+  @NgInput({ required: true }) declare "value": AngularInput<'ColorPalette', "value">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

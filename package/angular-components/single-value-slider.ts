@@ -13,19 +13,19 @@ export class SingleValueSlider extends AngularComponentAdapter<AngularCallbackVa
   protected readonly rvComponentName = 'SingleValueSlider';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onChange"];
-  @NgInput({ required: true }) declare "min": AngularInput<'SingleValueSlider', "min">;
-  @NgInput({ required: true }) declare "max": AngularInput<'SingleValueSlider', "max">;
-  @NgInput({ required: true }) declare "value": AngularInput<'SingleValueSlider', "value">;
-  @NgInput() declare "step"?: AngularInput<'SingleValueSlider', "step">;
-  @NgInput() declare "disabled"?: AngularInput<'SingleValueSlider', "disabled">;
-  @NgInput() declare "id"?: AngularInput<'SingleValueSlider', "id">;
-  @NgInput() declare "className"?: AngularInput<'SingleValueSlider', "className">;
+  @NgInput() declare "ariaDescribedBy"?: AngularInput<'SingleValueSlider', "ariaDescribedBy">;
   @NgInput({ required: true }) declare "ariaLabel": AngularInput<'SingleValueSlider', "ariaLabel">;
   @NgInput() declare "ariaValueText"?: AngularInput<'SingleValueSlider', "ariaValueText">;
-  @NgInput() declare "ariaDescribedBy"?: AngularInput<'SingleValueSlider', "ariaDescribedBy">;
+  @NgInput() declare "className"?: AngularInput<'SingleValueSlider', "className">;
+  @NgInput() declare "disabled"?: AngularInput<'SingleValueSlider', "disabled">;
+  @NgInput() declare "id"?: AngularInput<'SingleValueSlider', "id">;
+  @NgInput({ required: true }) declare "max": AngularInput<'SingleValueSlider', "max">;
+  @NgInput({ required: true }) declare "min": AngularInput<'SingleValueSlider', "min">;
   @NgInput() declare "onChange"?: AngularInput<'SingleValueSlider', "onChange">;
   @NgInput() declare "onCommit"?: AngularInput<'SingleValueSlider', "onCommit">;
   @NgInput() declare "onKeyDown"?: AngularInput<'SingleValueSlider', "onKeyDown">;
+  @NgInput() declare "step"?: AngularInput<'SingleValueSlider', "step">;
+  @NgInput({ required: true }) declare "value": AngularInput<'SingleValueSlider', "value">;
   @Output() get commit() { return this.rvOutput<AngularCallbackValue<AngularInput<'SingleValueSlider', 'onCommit'>>>('onCommit'); }
   @Output() get keyDown() { return this.rvOutput<AngularCallbackValue<AngularInput<'SingleValueSlider', 'onKeyDown'>>>('onKeyDown'); }
   protected rvResolveProps() { return this.rvInputValues; }

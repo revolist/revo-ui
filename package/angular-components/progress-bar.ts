@@ -12,12 +12,12 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class ProgressBar extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'ProgressBar';
   protected rvResolveComponent() { return Control; }
-  @NgInput({ required: true }) declare "value": AngularInput<'ProgressBar', "value">;
-  @NgInput() declare "min"?: AngularInput<'ProgressBar', "min">;
-  @NgInput() declare "max"?: AngularInput<'ProgressBar', "max">;
   @NgInput() declare "ariaLabel"?: AngularInput<'ProgressBar', "ariaLabel">;
   @NgInput() declare "className"?: AngularInput<'ProgressBar', "className">;
   @NgInput() declare "fillClass"?: AngularInput<'ProgressBar', "fillClass">;
+  @NgInput() declare "max"?: AngularInput<'ProgressBar', "max">;
+  @NgInput() declare "min"?: AngularInput<'ProgressBar', "min">;
+  @NgInput({ required: true }) declare "value": AngularInput<'ProgressBar', "value">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

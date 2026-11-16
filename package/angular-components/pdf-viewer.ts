@@ -13,28 +13,28 @@ export class PdfViewer extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'PdfViewer';
   protected rvResolveComponent() { return Control; }
   @NgInput() declare "className"?: AngularInput<'PdfViewer', "className">;
-  @NgInput() declare "height"?: AngularInput<'PdfViewer', "height">;
-  @NgInput() declare "text"?: AngularInput<'PdfViewer', "text">;
-  @NgInput() declare "toolbar"?: AngularInput<'PdfViewer', "toolbar">;
-  @NgInput() declare "showHeader"?: AngularInput<'PdfViewer', "showHeader">;
-  @NgInput() declare "renderToolbar"?: AngularInput<'PdfViewer', "renderToolbar">;
-  @NgInput() declare "renderStatus"?: AngularInput<'PdfViewer', "renderStatus">;
-  @NgInput() declare "workerSrc"?: AngularInput<'PdfViewer', "workerSrc">;
-  @NgInput() declare "l10n"?: AngularInput<'PdfViewer', "l10n">;
-  @NgInput() declare "source"?: AngularInput<'PdfViewer', "source">;
+  @NgInput() declare "documentOptions"?: AngularInput<'PdfViewer', "documentOptions">;
   @NgInput() declare "fileName"?: AngularInput<'PdfViewer', "fileName">;
+  @NgInput() declare "height"?: AngularInput<'PdfViewer', "height">;
   @NgInput() declare "initialPage"?: AngularInput<'PdfViewer', "initialPage">;
   @NgInput() declare "initialZoom"?: AngularInput<'PdfViewer', "initialZoom">;
-  @NgInput() declare "documentOptions"?: AngularInput<'PdfViewer', "documentOptions">;
-  @NgInput() declare "onReady"?: AngularInput<'PdfViewer', "onReady">;
+  @NgInput() declare "l10n"?: AngularInput<'PdfViewer', "l10n">;
+  @NgInput() declare "onError"?: AngularInput<'PdfViewer', "onError">;
   @NgInput() declare "onLoad"?: AngularInput<'PdfViewer', "onLoad">;
   @NgInput() declare "onPageChange"?: AngularInput<'PdfViewer', "onPageChange">;
+  @NgInput() declare "onReady"?: AngularInput<'PdfViewer', "onReady">;
   @NgInput() declare "onZoomChange"?: AngularInput<'PdfViewer', "onZoomChange">;
-  @NgInput() declare "onError"?: AngularInput<'PdfViewer', "onError">;
-  @Output() get ready() { return this.rvOutput<AngularCallbackValue<AngularInput<'PdfViewer', 'onReady'>>>('onReady'); }
+  @NgInput() declare "renderStatus"?: AngularInput<'PdfViewer', "renderStatus">;
+  @NgInput() declare "renderToolbar"?: AngularInput<'PdfViewer', "renderToolbar">;
+  @NgInput() declare "showHeader"?: AngularInput<'PdfViewer', "showHeader">;
+  @NgInput() declare "source"?: AngularInput<'PdfViewer', "source">;
+  @NgInput() declare "text"?: AngularInput<'PdfViewer', "text">;
+  @NgInput() declare "toolbar"?: AngularInput<'PdfViewer', "toolbar">;
+  @NgInput() declare "workerSrc"?: AngularInput<'PdfViewer', "workerSrc">;
+  @Output() get errorEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'PdfViewer', 'onError'>>>('onError'); }
   @Output() get loadEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'PdfViewer', 'onLoad'>>>('onLoad'); }
   @Output() get pageChange() { return this.rvOutput<AngularCallbackValue<AngularInput<'PdfViewer', 'onPageChange'>>>('onPageChange'); }
+  @Output() get ready() { return this.rvOutput<AngularCallbackValue<AngularInput<'PdfViewer', 'onReady'>>>('onReady'); }
   @Output() get zoomChange() { return this.rvOutput<AngularCallbackValue<AngularInput<'PdfViewer', 'onZoomChange'>>>('onZoomChange'); }
-  @Output() get errorEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'PdfViewer', 'onError'>>>('onError'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

@@ -13,15 +13,15 @@ export class Switch extends AngularComponentAdapter<AngularCallbackValue<Angular
   protected readonly rvComponentName = 'Switch';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onChange"];
-  @NgInput({ required: true }) declare "checked": AngularInput<'Switch', "checked">;
-  @NgInput({ required: true }) declare "label": AngularInput<'Switch', "label">;
   @NgInput() declare "ariaLabel"?: AngularInput<'Switch', "ariaLabel">;
+  @NgInput({ required: true }) declare "checked": AngularInput<'Switch', "checked">;
   @NgInput() declare "className"?: AngularInput<'Switch', "className">;
   @NgInput() declare "disabled"?: AngularInput<'Switch', "disabled">;
+  @NgInput({ required: true }) declare "label": AngularInput<'Switch', "label">;
   @NgInput() declare "labelPosition"?: AngularInput<'Switch', "labelPosition">;
-  @NgInput() declare "title"?: AngularInput<'Switch', "title">;
-  @NgInput() declare "testId"?: AngularInput<'Switch', "testId">;
   @NgInput() declare "onChange"?: AngularInput<'Switch', "onChange">;
+  @NgInput() declare "testId"?: AngularInput<'Switch', "testId">;
+  @NgInput() declare "title"?: AngularInput<'Switch', "title">;
   @Output() get checkedChange() { return this.rvOutput<AngularCallbackValue<AngularInput<'Switch', 'onChange'>>>('onChange'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

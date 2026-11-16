@@ -12,9 +12,9 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class SvgIcon extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'SvgIcon';
   protected rvResolveComponent() { return Control; }
-  @NgInput({ required: true }) declare "svg": AngularInput<'SvgIcon', "svg">;
   @NgInput() declare "className"?: AngularInput<'SvgIcon', "className">;
   @NgInput() declare "size"?: AngularInput<'SvgIcon', "size">;
+  @NgInput({ required: true }) declare "svg": AngularInput<'SvgIcon', "svg">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

@@ -12,67 +12,9 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class ChoiceChip extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'ChoiceChip';
   protected rvResolveComponent() { return Control; }
-  @NgInput() declare "translate"?: AngularInput<'ChoiceChip', "translate">;
-  @NgInput() declare "value"?: AngularInput<'ChoiceChip', "value">;
-  @NgInput() declare "className"?: AngularInput<'ChoiceChip', "className">;
-  @NgInput() declare "disabled"?: AngularInput<'ChoiceChip', "disabled">;
-  @NgInput() declare "form"?: AngularInput<'ChoiceChip', "form">;
-  @NgInput() declare "name"?: AngularInput<'ChoiceChip', "name">;
-  @NgInput() declare "accesskey"?: AngularInput<'ChoiceChip', "accesskey">;
-  @NgInput() declare "accessKey"?: AngularInput<'ChoiceChip', "accessKey">;
-  @NgInput() declare "autocapitalize"?: AngularInput<'ChoiceChip', "autocapitalize">;
-  @NgInput() declare "autoCapitalize"?: AngularInput<'ChoiceChip', "autoCapitalize">;
-  @NgInput() declare "autocorrect"?: AngularInput<'ChoiceChip', "autocorrect">;
-  @NgInput() declare "autoCorrect"?: AngularInput<'ChoiceChip', "autoCorrect">;
-  @NgInput() declare "autofocus"?: AngularInput<'ChoiceChip', "autofocus">;
-  @NgInput() declare "autoFocus"?: AngularInput<'ChoiceChip', "autoFocus">;
-  @NgInput() declare "class"?: AngularInput<'ChoiceChip', "class">;
-  @NgInput() declare "contenteditable"?: AngularInput<'ChoiceChip', "contenteditable">;
-  @NgInput() declare "contentEditable"?: AngularInput<'ChoiceChip', "contentEditable">;
-  @NgInput() declare "dir"?: AngularInput<'ChoiceChip', "dir">;
-  @NgInput() declare "draggable"?: AngularInput<'ChoiceChip', "draggable">;
-  @NgInput() declare "enterkeyhint"?: AngularInput<'ChoiceChip', "enterkeyhint">;
-  @NgInput() declare "exportparts"?: AngularInput<'ChoiceChip', "exportparts">;
-  @NgInput() declare "hidden"?: AngularInput<'ChoiceChip', "hidden">;
-  @NgInput() declare "id"?: AngularInput<'ChoiceChip', "id">;
-  @NgInput() declare "inert"?: AngularInput<'ChoiceChip', "inert">;
-  @NgInput() declare "inputmode"?: AngularInput<'ChoiceChip', "inputmode">;
-  @NgInput() declare "inputMode"?: AngularInput<'ChoiceChip', "inputMode">;
-  @NgInput() declare "is"?: AngularInput<'ChoiceChip', "is">;
-  @NgInput() declare "lang"?: AngularInput<'ChoiceChip', "lang">;
-  @NgInput() declare "nonce"?: AngularInput<'ChoiceChip', "nonce">;
-  @NgInput() declare "part"?: AngularInput<'ChoiceChip', "part">;
-  @NgInput() declare "popover"?: AngularInput<'ChoiceChip', "popover">;
-  @NgInput() declare "slot"?: AngularInput<'ChoiceChip', "slot">;
-  @NgInput() declare "spellcheck"?: AngularInput<'ChoiceChip', "spellcheck">;
-  @NgInput() declare "style"?: AngularInput<'ChoiceChip', "style">;
-  @NgInput() declare "tabindex"?: AngularInput<'ChoiceChip', "tabindex">;
-  @NgInput() declare "tabIndex"?: AngularInput<'ChoiceChip', "tabIndex">;
-  @NgInput() declare "title"?: AngularInput<'ChoiceChip', "title">;
-  @NgInput() declare "role"?: AngularInput<'ChoiceChip', "role">;
-  @NgInput() declare "disablePictureInPicture"?: AngularInput<'ChoiceChip', "disablePictureInPicture">;
-  @NgInput() declare "elementtiming"?: AngularInput<'ChoiceChip', "elementtiming">;
-  @NgInput() declare "elementTiming"?: AngularInput<'ChoiceChip', "elementTiming">;
-  @NgInput() declare "results"?: AngularInput<'ChoiceChip', "results">;
   @NgInput() declare "about"?: AngularInput<'ChoiceChip', "about">;
-  @NgInput() declare "datatype"?: AngularInput<'ChoiceChip', "datatype">;
-  @NgInput() declare "inlist"?: AngularInput<'ChoiceChip', "inlist">;
-  @NgInput() declare "prefix"?: AngularInput<'ChoiceChip', "prefix">;
-  @NgInput() declare "property"?: AngularInput<'ChoiceChip', "property">;
-  @NgInput() declare "resource"?: AngularInput<'ChoiceChip', "resource">;
-  @NgInput() declare "typeof"?: AngularInput<'ChoiceChip', "typeof">;
-  @NgInput() declare "vocab"?: AngularInput<'ChoiceChip', "vocab">;
-  @NgInput() declare "itemid"?: AngularInput<'ChoiceChip', "itemid">;
-  @NgInput() declare "itemID"?: AngularInput<'ChoiceChip', "itemID">;
-  @NgInput() declare "itemprop"?: AngularInput<'ChoiceChip', "itemprop">;
-  @NgInput() declare "itemProp"?: AngularInput<'ChoiceChip', "itemProp">;
-  @NgInput() declare "itemref"?: AngularInput<'ChoiceChip', "itemref">;
-  @NgInput() declare "itemRef"?: AngularInput<'ChoiceChip', "itemRef">;
-  @NgInput() declare "itemscope"?: AngularInput<'ChoiceChip', "itemscope">;
-  @NgInput() declare "itemScope"?: AngularInput<'ChoiceChip', "itemScope">;
-  @NgInput() declare "itemtype"?: AngularInput<'ChoiceChip', "itemtype">;
-  @NgInput() declare "itemType"?: AngularInput<'ChoiceChip', "itemType">;
-  @NgInput() declare "dangerouslySetInnerHTML"?: AngularInput<'ChoiceChip', "dangerouslySetInnerHTML">;
+  @NgInput() declare "accessKey"?: AngularInput<'ChoiceChip', "accessKey">;
+  @NgInput() declare "accesskey"?: AngularInput<'ChoiceChip', "accesskey">;
   @NgInput() declare "aria-activedescendant"?: AngularInput<'ChoiceChip', "aria-activedescendant">;
   @NgInput() declare "aria-atomic"?: AngularInput<'ChoiceChip', "aria-atomic">;
   @NgInput() declare "aria-autocomplete"?: AngularInput<'ChoiceChip', "aria-autocomplete">;
@@ -126,127 +68,100 @@ export class ChoiceChip extends AngularComponentAdapter<never> {
   @NgInput() declare "aria-valuemin"?: AngularInput<'ChoiceChip', "aria-valuemin">;
   @NgInput() declare "aria-valuenow"?: AngularInput<'ChoiceChip', "aria-valuenow">;
   @NgInput() declare "aria-valuetext"?: AngularInput<'ChoiceChip', "aria-valuetext">;
-  @NgInput() declare "formaction"?: AngularInput<'ChoiceChip', "formaction">;
-  @NgInput() declare "formAction"?: AngularInput<'ChoiceChip', "formAction">;
-  @NgInput() declare "formenctype"?: AngularInput<'ChoiceChip', "formenctype">;
-  @NgInput() declare "formEncType"?: AngularInput<'ChoiceChip', "formEncType">;
-  @NgInput() declare "formmethod"?: AngularInput<'ChoiceChip', "formmethod">;
-  @NgInput() declare "formMethod"?: AngularInput<'ChoiceChip', "formMethod">;
-  @NgInput() declare "formnovalidate"?: AngularInput<'ChoiceChip', "formnovalidate">;
-  @NgInput() declare "formNoValidate"?: AngularInput<'ChoiceChip', "formNoValidate">;
-  @NgInput() declare "formtarget"?: AngularInput<'ChoiceChip', "formtarget">;
-  @NgInput() declare "formTarget"?: AngularInput<'ChoiceChip', "formTarget">;
-  @NgInput() declare "type"?: AngularInput<'ChoiceChip', "type">;
-  @NgInput() declare "command"?: AngularInput<'ChoiceChip', "command">;
-  @NgInput() declare "commandfor"?: AngularInput<'ChoiceChip', "commandfor">;
-  @NgInput() declare "commandFor"?: AngularInput<'ChoiceChip', "commandFor">;
-  @NgInput() declare "popovertarget"?: AngularInput<'ChoiceChip', "popovertarget">;
-  @NgInput() declare "popoverTarget"?: AngularInput<'ChoiceChip', "popoverTarget">;
-  @NgInput() declare "popovertargetaction"?: AngularInput<'ChoiceChip', "popovertargetaction">;
-  @NgInput() declare "popoverTargetAction"?: AngularInput<'ChoiceChip', "popoverTargetAction">;
+  @NgInput() declare "autoCapitalize"?: AngularInput<'ChoiceChip', "autoCapitalize">;
+  @NgInput() declare "autoCorrect"?: AngularInput<'ChoiceChip', "autoCorrect">;
+  @NgInput() declare "autoFocus"?: AngularInput<'ChoiceChip', "autoFocus">;
+  @NgInput() declare "autocapitalize"?: AngularInput<'ChoiceChip', "autocapitalize">;
+  @NgInput() declare "autocorrect"?: AngularInput<'ChoiceChip', "autocorrect">;
+  @NgInput() declare "autofocus"?: AngularInput<'ChoiceChip', "autofocus">;
+  @NgInput() declare "class"?: AngularInput<'ChoiceChip', "class">;
+  @NgInput() declare "className"?: AngularInput<'ChoiceChip', "className">;
   @NgInput() declare "color"?: AngularInput<'ChoiceChip', "color">;
-  @NgInput() declare "selected"?: AngularInput<'ChoiceChip', "selected">;
+  @NgInput() declare "command"?: AngularInput<'ChoiceChip', "command">;
+  @NgInput() declare "commandFor"?: AngularInput<'ChoiceChip', "commandFor">;
+  @NgInput() declare "commandfor"?: AngularInput<'ChoiceChip', "commandfor">;
+  @NgInput() declare "contentEditable"?: AngularInput<'ChoiceChip', "contentEditable">;
+  @NgInput() declare "contenteditable"?: AngularInput<'ChoiceChip', "contenteditable">;
+  @NgInput() declare "dangerouslySetInnerHTML"?: AngularInput<'ChoiceChip', "dangerouslySetInnerHTML">;
+  @NgInput() declare "datatype"?: AngularInput<'ChoiceChip', "datatype">;
+  @NgInput() declare "dir"?: AngularInput<'ChoiceChip', "dir">;
+  @NgInput() declare "disablePictureInPicture"?: AngularInput<'ChoiceChip', "disablePictureInPicture">;
+  @NgInput() declare "disabled"?: AngularInput<'ChoiceChip', "disabled">;
+  @NgInput() declare "draggable"?: AngularInput<'ChoiceChip', "draggable">;
+  @NgInput() declare "elementTiming"?: AngularInput<'ChoiceChip', "elementTiming">;
+  @NgInput() declare "elementtiming"?: AngularInput<'ChoiceChip', "elementtiming">;
+  @NgInput() declare "enterkeyhint"?: AngularInput<'ChoiceChip', "enterkeyhint">;
+  @NgInput() declare "exportparts"?: AngularInput<'ChoiceChip', "exportparts">;
+  @NgInput() declare "form"?: AngularInput<'ChoiceChip', "form">;
+  @NgInput() declare "formAction"?: AngularInput<'ChoiceChip', "formAction">;
+  @NgInput() declare "formEncType"?: AngularInput<'ChoiceChip', "formEncType">;
+  @NgInput() declare "formMethod"?: AngularInput<'ChoiceChip', "formMethod">;
+  @NgInput() declare "formNoValidate"?: AngularInput<'ChoiceChip', "formNoValidate">;
+  @NgInput() declare "formTarget"?: AngularInput<'ChoiceChip', "formTarget">;
+  @NgInput() declare "formaction"?: AngularInput<'ChoiceChip', "formaction">;
+  @NgInput() declare "formenctype"?: AngularInput<'ChoiceChip', "formenctype">;
+  @NgInput() declare "formmethod"?: AngularInput<'ChoiceChip', "formmethod">;
+  @NgInput() declare "formnovalidate"?: AngularInput<'ChoiceChip', "formnovalidate">;
+  @NgInput() declare "formtarget"?: AngularInput<'ChoiceChip', "formtarget">;
+  @NgInput() declare "hidden"?: AngularInput<'ChoiceChip', "hidden">;
+  @NgInput() declare "id"?: AngularInput<'ChoiceChip', "id">;
+  @NgInput() declare "inert"?: AngularInput<'ChoiceChip', "inert">;
   @NgInput() declare "info"?: AngularInput<'ChoiceChip', "info">;
-  @NgInput() declare "removeLabel"?: AngularInput<'ChoiceChip', "removeLabel">;
-  @NgInput() declare "removeClassName"?: AngularInput<'ChoiceChip', "removeClassName">;
+  @NgInput() declare "inlist"?: AngularInput<'ChoiceChip', "inlist">;
+  @NgInput() declare "inputMode"?: AngularInput<'ChoiceChip', "inputMode">;
+  @NgInput() declare "inputmode"?: AngularInput<'ChoiceChip', "inputmode">;
+  @NgInput() declare "is"?: AngularInput<'ChoiceChip', "is">;
+  @NgInput() declare "itemID"?: AngularInput<'ChoiceChip', "itemID">;
+  @NgInput() declare "itemProp"?: AngularInput<'ChoiceChip', "itemProp">;
+  @NgInput() declare "itemRef"?: AngularInput<'ChoiceChip', "itemRef">;
+  @NgInput() declare "itemScope"?: AngularInput<'ChoiceChip', "itemScope">;
+  @NgInput() declare "itemType"?: AngularInput<'ChoiceChip', "itemType">;
+  @NgInput() declare "itemid"?: AngularInput<'ChoiceChip', "itemid">;
+  @NgInput() declare "itemprop"?: AngularInput<'ChoiceChip', "itemprop">;
+  @NgInput() declare "itemref"?: AngularInput<'ChoiceChip', "itemref">;
+  @NgInput() declare "itemscope"?: AngularInput<'ChoiceChip', "itemscope">;
+  @NgInput() declare "itemtype"?: AngularInput<'ChoiceChip', "itemtype">;
+  @NgInput() declare "lang"?: AngularInput<'ChoiceChip', "lang">;
+  @NgInput() declare "name"?: AngularInput<'ChoiceChip', "name">;
+  @NgInput() declare "nonce"?: AngularInput<'ChoiceChip', "nonce">;
+  @NgInput() declare "onAbort"?: AngularInput<'ChoiceChip', "onAbort">;
+  @NgInput() declare "onAbortCapture"?: AngularInput<'ChoiceChip', "onAbortCapture">;
+  @NgInput() declare "onAnimationEnd"?: AngularInput<'ChoiceChip', "onAnimationEnd">;
+  @NgInput() declare "onAnimationEndCapture"?: AngularInput<'ChoiceChip', "onAnimationEndCapture">;
+  @NgInput() declare "onAnimationIteration"?: AngularInput<'ChoiceChip', "onAnimationIteration">;
+  @NgInput() declare "onAnimationIterationCapture"?: AngularInput<'ChoiceChip', "onAnimationIterationCapture">;
+  @NgInput() declare "onAnimationStart"?: AngularInput<'ChoiceChip', "onAnimationStart">;
+  @NgInput() declare "onAnimationStartCapture"?: AngularInput<'ChoiceChip', "onAnimationStartCapture">;
+  @NgInput() declare "onAuxClick"?: AngularInput<'ChoiceChip', "onAuxClick">;
+  @NgInput() declare "onAuxClickCapture"?: AngularInput<'ChoiceChip', "onAuxClickCapture">;
+  @NgInput() declare "onBeforeInput"?: AngularInput<'ChoiceChip', "onBeforeInput">;
+  @NgInput() declare "onBeforeInputCapture"?: AngularInput<'ChoiceChip', "onBeforeInputCapture">;
+  @NgInput() declare "onBeforeToggle"?: AngularInput<'ChoiceChip', "onBeforeToggle">;
+  @NgInput() declare "onBlur"?: AngularInput<'ChoiceChip', "onBlur">;
+  @NgInput() declare "onBlurCapture"?: AngularInput<'ChoiceChip', "onBlurCapture">;
+  @NgInput() declare "onCanPlay"?: AngularInput<'ChoiceChip', "onCanPlay">;
+  @NgInput() declare "onCanPlayCapture"?: AngularInput<'ChoiceChip', "onCanPlayCapture">;
+  @NgInput() declare "onCanPlayThrough"?: AngularInput<'ChoiceChip', "onCanPlayThrough">;
+  @NgInput() declare "onCanPlayThroughCapture"?: AngularInput<'ChoiceChip', "onCanPlayThroughCapture">;
+  @NgInput() declare "onCancel"?: AngularInput<'ChoiceChip', "onCancel">;
   @NgInput() declare "onChange"?: AngularInput<'ChoiceChip', "onChange">;
-  @NgInput() declare "onLoad"?: AngularInput<'ChoiceChip', "onLoad">;
-  @NgInput() declare "onLoadCapture"?: AngularInput<'ChoiceChip', "onLoadCapture">;
-  @NgInput() declare "onError"?: AngularInput<'ChoiceChip', "onError">;
-  @NgInput() declare "onErrorCapture"?: AngularInput<'ChoiceChip', "onErrorCapture">;
-  @NgInput() declare "onCopy"?: AngularInput<'ChoiceChip', "onCopy">;
-  @NgInput() declare "onCopyCapture"?: AngularInput<'ChoiceChip', "onCopyCapture">;
-  @NgInput() declare "onCut"?: AngularInput<'ChoiceChip', "onCut">;
-  @NgInput() declare "onCutCapture"?: AngularInput<'ChoiceChip', "onCutCapture">;
-  @NgInput() declare "onPaste"?: AngularInput<'ChoiceChip', "onPaste">;
-  @NgInput() declare "onPasteCapture"?: AngularInput<'ChoiceChip', "onPasteCapture">;
+  @NgInput() declare "onChangeCapture"?: AngularInput<'ChoiceChip', "onChangeCapture">;
+  @NgInput() declare "onClick"?: AngularInput<'ChoiceChip', "onClick">;
+  @NgInput() declare "onClickCapture"?: AngularInput<'ChoiceChip', "onClickCapture">;
+  @NgInput() declare "onClose"?: AngularInput<'ChoiceChip', "onClose">;
+  @NgInput() declare "onCommand"?: AngularInput<'ChoiceChip', "onCommand">;
   @NgInput() declare "onCompositionEnd"?: AngularInput<'ChoiceChip', "onCompositionEnd">;
   @NgInput() declare "onCompositionEndCapture"?: AngularInput<'ChoiceChip', "onCompositionEndCapture">;
   @NgInput() declare "onCompositionStart"?: AngularInput<'ChoiceChip', "onCompositionStart">;
   @NgInput() declare "onCompositionStartCapture"?: AngularInput<'ChoiceChip', "onCompositionStartCapture">;
   @NgInput() declare "onCompositionUpdate"?: AngularInput<'ChoiceChip', "onCompositionUpdate">;
   @NgInput() declare "onCompositionUpdateCapture"?: AngularInput<'ChoiceChip', "onCompositionUpdateCapture">;
-  @NgInput() declare "onBeforeToggle"?: AngularInput<'ChoiceChip', "onBeforeToggle">;
-  @NgInput() declare "onToggle"?: AngularInput<'ChoiceChip', "onToggle">;
-  @NgInput() declare "onClose"?: AngularInput<'ChoiceChip', "onClose">;
-  @NgInput() declare "onCancel"?: AngularInput<'ChoiceChip', "onCancel">;
-  @NgInput() declare "onFocus"?: AngularInput<'ChoiceChip', "onFocus">;
-  @NgInput() declare "onFocusCapture"?: AngularInput<'ChoiceChip', "onFocusCapture">;
-  @NgInput() declare "onFocusIn"?: AngularInput<'ChoiceChip', "onFocusIn">;
-  @NgInput() declare "onFocusInCapture"?: AngularInput<'ChoiceChip', "onFocusInCapture">;
-  @NgInput() declare "onFocusOut"?: AngularInput<'ChoiceChip', "onFocusOut">;
-  @NgInput() declare "onFocusOutCapture"?: AngularInput<'ChoiceChip', "onFocusOutCapture">;
-  @NgInput() declare "onBlur"?: AngularInput<'ChoiceChip', "onBlur">;
-  @NgInput() declare "onBlurCapture"?: AngularInput<'ChoiceChip', "onBlurCapture">;
-  @NgInput() declare "onChangeCapture"?: AngularInput<'ChoiceChip', "onChangeCapture">;
-  @NgInput() declare "onInput"?: AngularInput<'ChoiceChip', "onInput">;
-  @NgInput() declare "onInputCapture"?: AngularInput<'ChoiceChip', "onInputCapture">;
-  @NgInput() declare "onBeforeInput"?: AngularInput<'ChoiceChip', "onBeforeInput">;
-  @NgInput() declare "onBeforeInputCapture"?: AngularInput<'ChoiceChip', "onBeforeInputCapture">;
-  @NgInput() declare "onSearch"?: AngularInput<'ChoiceChip', "onSearch">;
-  @NgInput() declare "onSearchCapture"?: AngularInput<'ChoiceChip', "onSearchCapture">;
-  @NgInput() declare "onSubmit"?: AngularInput<'ChoiceChip', "onSubmit">;
-  @NgInput() declare "onSubmitCapture"?: AngularInput<'ChoiceChip', "onSubmitCapture">;
-  @NgInput() declare "onInvalid"?: AngularInput<'ChoiceChip', "onInvalid">;
-  @NgInput() declare "onInvalidCapture"?: AngularInput<'ChoiceChip', "onInvalidCapture">;
-  @NgInput() declare "onReset"?: AngularInput<'ChoiceChip', "onReset">;
-  @NgInput() declare "onResetCapture"?: AngularInput<'ChoiceChip', "onResetCapture">;
-  @NgInput() declare "onFormData"?: AngularInput<'ChoiceChip', "onFormData">;
-  @NgInput() declare "onFormDataCapture"?: AngularInput<'ChoiceChip', "onFormDataCapture">;
-  @NgInput() declare "onKeyDown"?: AngularInput<'ChoiceChip', "onKeyDown">;
-  @NgInput() declare "onKeyDownCapture"?: AngularInput<'ChoiceChip', "onKeyDownCapture">;
-  @NgInput() declare "onKeyPress"?: AngularInput<'ChoiceChip', "onKeyPress">;
-  @NgInput() declare "onKeyPressCapture"?: AngularInput<'ChoiceChip', "onKeyPressCapture">;
-  @NgInput() declare "onKeyUp"?: AngularInput<'ChoiceChip', "onKeyUp">;
-  @NgInput() declare "onKeyUpCapture"?: AngularInput<'ChoiceChip', "onKeyUpCapture">;
-  @NgInput() declare "onAbort"?: AngularInput<'ChoiceChip', "onAbort">;
-  @NgInput() declare "onAbortCapture"?: AngularInput<'ChoiceChip', "onAbortCapture">;
-  @NgInput() declare "onCanPlay"?: AngularInput<'ChoiceChip', "onCanPlay">;
-  @NgInput() declare "onCanPlayCapture"?: AngularInput<'ChoiceChip', "onCanPlayCapture">;
-  @NgInput() declare "onCanPlayThrough"?: AngularInput<'ChoiceChip', "onCanPlayThrough">;
-  @NgInput() declare "onCanPlayThroughCapture"?: AngularInput<'ChoiceChip', "onCanPlayThroughCapture">;
-  @NgInput() declare "onDurationChange"?: AngularInput<'ChoiceChip', "onDurationChange">;
-  @NgInput() declare "onDurationChangeCapture"?: AngularInput<'ChoiceChip', "onDurationChangeCapture">;
-  @NgInput() declare "onEmptied"?: AngularInput<'ChoiceChip', "onEmptied">;
-  @NgInput() declare "onEmptiedCapture"?: AngularInput<'ChoiceChip', "onEmptiedCapture">;
-  @NgInput() declare "onEncrypted"?: AngularInput<'ChoiceChip', "onEncrypted">;
-  @NgInput() declare "onEncryptedCapture"?: AngularInput<'ChoiceChip', "onEncryptedCapture">;
-  @NgInput() declare "onEnded"?: AngularInput<'ChoiceChip', "onEnded">;
-  @NgInput() declare "onEndedCapture"?: AngularInput<'ChoiceChip', "onEndedCapture">;
-  @NgInput() declare "onLoadedData"?: AngularInput<'ChoiceChip', "onLoadedData">;
-  @NgInput() declare "onLoadedDataCapture"?: AngularInput<'ChoiceChip', "onLoadedDataCapture">;
-  @NgInput() declare "onLoadedMetadata"?: AngularInput<'ChoiceChip', "onLoadedMetadata">;
-  @NgInput() declare "onLoadedMetadataCapture"?: AngularInput<'ChoiceChip', "onLoadedMetadataCapture">;
-  @NgInput() declare "onLoadStart"?: AngularInput<'ChoiceChip', "onLoadStart">;
-  @NgInput() declare "onLoadStartCapture"?: AngularInput<'ChoiceChip', "onLoadStartCapture">;
-  @NgInput() declare "onPause"?: AngularInput<'ChoiceChip', "onPause">;
-  @NgInput() declare "onPauseCapture"?: AngularInput<'ChoiceChip', "onPauseCapture">;
-  @NgInput() declare "onPlay"?: AngularInput<'ChoiceChip', "onPlay">;
-  @NgInput() declare "onPlayCapture"?: AngularInput<'ChoiceChip', "onPlayCapture">;
-  @NgInput() declare "onPlaying"?: AngularInput<'ChoiceChip', "onPlaying">;
-  @NgInput() declare "onPlayingCapture"?: AngularInput<'ChoiceChip', "onPlayingCapture">;
-  @NgInput() declare "onProgress"?: AngularInput<'ChoiceChip', "onProgress">;
-  @NgInput() declare "onProgressCapture"?: AngularInput<'ChoiceChip', "onProgressCapture">;
-  @NgInput() declare "onRateChange"?: AngularInput<'ChoiceChip', "onRateChange">;
-  @NgInput() declare "onRateChangeCapture"?: AngularInput<'ChoiceChip', "onRateChangeCapture">;
-  @NgInput() declare "onSeeked"?: AngularInput<'ChoiceChip', "onSeeked">;
-  @NgInput() declare "onSeekedCapture"?: AngularInput<'ChoiceChip', "onSeekedCapture">;
-  @NgInput() declare "onSeeking"?: AngularInput<'ChoiceChip', "onSeeking">;
-  @NgInput() declare "onSeekingCapture"?: AngularInput<'ChoiceChip', "onSeekingCapture">;
-  @NgInput() declare "onStalled"?: AngularInput<'ChoiceChip', "onStalled">;
-  @NgInput() declare "onStalledCapture"?: AngularInput<'ChoiceChip', "onStalledCapture">;
-  @NgInput() declare "onSuspend"?: AngularInput<'ChoiceChip', "onSuspend">;
-  @NgInput() declare "onSuspendCapture"?: AngularInput<'ChoiceChip', "onSuspendCapture">;
-  @NgInput() declare "onTimeUpdate"?: AngularInput<'ChoiceChip', "onTimeUpdate">;
-  @NgInput() declare "onTimeUpdateCapture"?: AngularInput<'ChoiceChip', "onTimeUpdateCapture">;
-  @NgInput() declare "onVolumeChange"?: AngularInput<'ChoiceChip', "onVolumeChange">;
-  @NgInput() declare "onVolumeChangeCapture"?: AngularInput<'ChoiceChip', "onVolumeChangeCapture">;
-  @NgInput() declare "onWaiting"?: AngularInput<'ChoiceChip', "onWaiting">;
-  @NgInput() declare "onWaitingCapture"?: AngularInput<'ChoiceChip', "onWaitingCapture">;
-  @NgInput() declare "onClick"?: AngularInput<'ChoiceChip', "onClick">;
-  @NgInput() declare "onClickCapture"?: AngularInput<'ChoiceChip', "onClickCapture">;
   @NgInput() declare "onContextMenu"?: AngularInput<'ChoiceChip', "onContextMenu">;
   @NgInput() declare "onContextMenuCapture"?: AngularInput<'ChoiceChip', "onContextMenuCapture">;
+  @NgInput() declare "onCopy"?: AngularInput<'ChoiceChip', "onCopy">;
+  @NgInput() declare "onCopyCapture"?: AngularInput<'ChoiceChip', "onCopyCapture">;
+  @NgInput() declare "onCut"?: AngularInput<'ChoiceChip', "onCut">;
+  @NgInput() declare "onCutCapture"?: AngularInput<'ChoiceChip', "onCutCapture">;
   @NgInput() declare "onDblClick"?: AngularInput<'ChoiceChip', "onDblClick">;
   @NgInput() declare "onDblClickCapture"?: AngularInput<'ChoiceChip', "onDblClickCapture">;
   @NgInput() declare "onDrag"?: AngularInput<'ChoiceChip', "onDrag">;
@@ -265,6 +180,50 @@ export class ChoiceChip extends AngularComponentAdapter<never> {
   @NgInput() declare "onDragStartCapture"?: AngularInput<'ChoiceChip', "onDragStartCapture">;
   @NgInput() declare "onDrop"?: AngularInput<'ChoiceChip', "onDrop">;
   @NgInput() declare "onDropCapture"?: AngularInput<'ChoiceChip', "onDropCapture">;
+  @NgInput() declare "onDurationChange"?: AngularInput<'ChoiceChip', "onDurationChange">;
+  @NgInput() declare "onDurationChangeCapture"?: AngularInput<'ChoiceChip', "onDurationChangeCapture">;
+  @NgInput() declare "onEmptied"?: AngularInput<'ChoiceChip', "onEmptied">;
+  @NgInput() declare "onEmptiedCapture"?: AngularInput<'ChoiceChip', "onEmptiedCapture">;
+  @NgInput() declare "onEncrypted"?: AngularInput<'ChoiceChip', "onEncrypted">;
+  @NgInput() declare "onEncryptedCapture"?: AngularInput<'ChoiceChip', "onEncryptedCapture">;
+  @NgInput() declare "onEnded"?: AngularInput<'ChoiceChip', "onEnded">;
+  @NgInput() declare "onEndedCapture"?: AngularInput<'ChoiceChip', "onEndedCapture">;
+  @NgInput() declare "onEnterPictureInPicture"?: AngularInput<'ChoiceChip', "onEnterPictureInPicture">;
+  @NgInput() declare "onEnterPictureInPictureCapture"?: AngularInput<'ChoiceChip', "onEnterPictureInPictureCapture">;
+  @NgInput() declare "onError"?: AngularInput<'ChoiceChip', "onError">;
+  @NgInput() declare "onErrorCapture"?: AngularInput<'ChoiceChip', "onErrorCapture">;
+  @NgInput() declare "onFocus"?: AngularInput<'ChoiceChip', "onFocus">;
+  @NgInput() declare "onFocusCapture"?: AngularInput<'ChoiceChip', "onFocusCapture">;
+  @NgInput() declare "onFocusIn"?: AngularInput<'ChoiceChip', "onFocusIn">;
+  @NgInput() declare "onFocusInCapture"?: AngularInput<'ChoiceChip', "onFocusInCapture">;
+  @NgInput() declare "onFocusOut"?: AngularInput<'ChoiceChip', "onFocusOut">;
+  @NgInput() declare "onFocusOutCapture"?: AngularInput<'ChoiceChip', "onFocusOutCapture">;
+  @NgInput() declare "onFormData"?: AngularInput<'ChoiceChip', "onFormData">;
+  @NgInput() declare "onFormDataCapture"?: AngularInput<'ChoiceChip', "onFormDataCapture">;
+  @NgInput() declare "onGotPointerCapture"?: AngularInput<'ChoiceChip', "onGotPointerCapture">;
+  @NgInput() declare "onGotPointerCaptureCapture"?: AngularInput<'ChoiceChip', "onGotPointerCaptureCapture">;
+  @NgInput() declare "onInput"?: AngularInput<'ChoiceChip', "onInput">;
+  @NgInput() declare "onInputCapture"?: AngularInput<'ChoiceChip', "onInputCapture">;
+  @NgInput() declare "onInvalid"?: AngularInput<'ChoiceChip', "onInvalid">;
+  @NgInput() declare "onInvalidCapture"?: AngularInput<'ChoiceChip', "onInvalidCapture">;
+  @NgInput() declare "onKeyDown"?: AngularInput<'ChoiceChip', "onKeyDown">;
+  @NgInput() declare "onKeyDownCapture"?: AngularInput<'ChoiceChip', "onKeyDownCapture">;
+  @NgInput() declare "onKeyPress"?: AngularInput<'ChoiceChip', "onKeyPress">;
+  @NgInput() declare "onKeyPressCapture"?: AngularInput<'ChoiceChip', "onKeyPressCapture">;
+  @NgInput() declare "onKeyUp"?: AngularInput<'ChoiceChip', "onKeyUp">;
+  @NgInput() declare "onKeyUpCapture"?: AngularInput<'ChoiceChip', "onKeyUpCapture">;
+  @NgInput() declare "onLeavePictureInPicture"?: AngularInput<'ChoiceChip', "onLeavePictureInPicture">;
+  @NgInput() declare "onLeavePictureInPictureCapture"?: AngularInput<'ChoiceChip', "onLeavePictureInPictureCapture">;
+  @NgInput() declare "onLoad"?: AngularInput<'ChoiceChip', "onLoad">;
+  @NgInput() declare "onLoadCapture"?: AngularInput<'ChoiceChip', "onLoadCapture">;
+  @NgInput() declare "onLoadStart"?: AngularInput<'ChoiceChip', "onLoadStart">;
+  @NgInput() declare "onLoadStartCapture"?: AngularInput<'ChoiceChip', "onLoadStartCapture">;
+  @NgInput() declare "onLoadedData"?: AngularInput<'ChoiceChip', "onLoadedData">;
+  @NgInput() declare "onLoadedDataCapture"?: AngularInput<'ChoiceChip', "onLoadedDataCapture">;
+  @NgInput() declare "onLoadedMetadata"?: AngularInput<'ChoiceChip', "onLoadedMetadata">;
+  @NgInput() declare "onLoadedMetadataCapture"?: AngularInput<'ChoiceChip', "onLoadedMetadataCapture">;
+  @NgInput() declare "onLostPointerCapture"?: AngularInput<'ChoiceChip', "onLostPointerCapture">;
+  @NgInput() declare "onLostPointerCaptureCapture"?: AngularInput<'ChoiceChip', "onLostPointerCaptureCapture">;
   @NgInput() declare "onMouseDown"?: AngularInput<'ChoiceChip', "onMouseDown">;
   @NgInput() declare "onMouseDownCapture"?: AngularInput<'ChoiceChip', "onMouseDownCapture">;
   @NgInput() declare "onMouseEnter"?: AngularInput<'ChoiceChip', "onMouseEnter">;
@@ -279,37 +238,39 @@ export class ChoiceChip extends AngularComponentAdapter<never> {
   @NgInput() declare "onMouseOverCapture"?: AngularInput<'ChoiceChip', "onMouseOverCapture">;
   @NgInput() declare "onMouseUp"?: AngularInput<'ChoiceChip', "onMouseUp">;
   @NgInput() declare "onMouseUpCapture"?: AngularInput<'ChoiceChip', "onMouseUpCapture">;
-  @NgInput() declare "onAuxClick"?: AngularInput<'ChoiceChip', "onAuxClick">;
-  @NgInput() declare "onAuxClickCapture"?: AngularInput<'ChoiceChip', "onAuxClickCapture">;
-  @NgInput() declare "onSelectCapture"?: AngularInput<'ChoiceChip', "onSelectCapture">;
-  @NgInput() declare "onTouchCancel"?: AngularInput<'ChoiceChip', "onTouchCancel">;
-  @NgInput() declare "onTouchCancelCapture"?: AngularInput<'ChoiceChip', "onTouchCancelCapture">;
-  @NgInput() declare "onTouchEnd"?: AngularInput<'ChoiceChip', "onTouchEnd">;
-  @NgInput() declare "onTouchEndCapture"?: AngularInput<'ChoiceChip', "onTouchEndCapture">;
-  @NgInput() declare "onTouchMove"?: AngularInput<'ChoiceChip', "onTouchMove">;
-  @NgInput() declare "onTouchMoveCapture"?: AngularInput<'ChoiceChip', "onTouchMoveCapture">;
-  @NgInput() declare "onTouchStart"?: AngularInput<'ChoiceChip', "onTouchStart">;
-  @NgInput() declare "onTouchStartCapture"?: AngularInput<'ChoiceChip', "onTouchStartCapture">;
-  @NgInput() declare "onPointerOver"?: AngularInput<'ChoiceChip', "onPointerOver">;
-  @NgInput() declare "onPointerOverCapture"?: AngularInput<'ChoiceChip', "onPointerOverCapture">;
-  @NgInput() declare "onPointerEnter"?: AngularInput<'ChoiceChip', "onPointerEnter">;
-  @NgInput() declare "onPointerEnterCapture"?: AngularInput<'ChoiceChip', "onPointerEnterCapture">;
-  @NgInput() declare "onPointerDown"?: AngularInput<'ChoiceChip', "onPointerDown">;
-  @NgInput() declare "onPointerDownCapture"?: AngularInput<'ChoiceChip', "onPointerDownCapture">;
-  @NgInput() declare "onPointerMove"?: AngularInput<'ChoiceChip', "onPointerMove">;
-  @NgInput() declare "onPointerMoveCapture"?: AngularInput<'ChoiceChip', "onPointerMoveCapture">;
-  @NgInput() declare "onPointerUp"?: AngularInput<'ChoiceChip', "onPointerUp">;
-  @NgInput() declare "onPointerUpCapture"?: AngularInput<'ChoiceChip', "onPointerUpCapture">;
+  @NgInput() declare "onPaste"?: AngularInput<'ChoiceChip', "onPaste">;
+  @NgInput() declare "onPasteCapture"?: AngularInput<'ChoiceChip', "onPasteCapture">;
+  @NgInput() declare "onPause"?: AngularInput<'ChoiceChip', "onPause">;
+  @NgInput() declare "onPauseCapture"?: AngularInput<'ChoiceChip', "onPauseCapture">;
+  @NgInput() declare "onPlay"?: AngularInput<'ChoiceChip', "onPlay">;
+  @NgInput() declare "onPlayCapture"?: AngularInput<'ChoiceChip', "onPlayCapture">;
+  @NgInput() declare "onPlaying"?: AngularInput<'ChoiceChip', "onPlaying">;
+  @NgInput() declare "onPlayingCapture"?: AngularInput<'ChoiceChip', "onPlayingCapture">;
   @NgInput() declare "onPointerCancel"?: AngularInput<'ChoiceChip', "onPointerCancel">;
   @NgInput() declare "onPointerCancelCapture"?: AngularInput<'ChoiceChip', "onPointerCancelCapture">;
-  @NgInput() declare "onPointerOut"?: AngularInput<'ChoiceChip', "onPointerOut">;
-  @NgInput() declare "onPointerOutCapture"?: AngularInput<'ChoiceChip', "onPointerOutCapture">;
+  @NgInput() declare "onPointerDown"?: AngularInput<'ChoiceChip', "onPointerDown">;
+  @NgInput() declare "onPointerDownCapture"?: AngularInput<'ChoiceChip', "onPointerDownCapture">;
+  @NgInput() declare "onPointerEnter"?: AngularInput<'ChoiceChip', "onPointerEnter">;
+  @NgInput() declare "onPointerEnterCapture"?: AngularInput<'ChoiceChip', "onPointerEnterCapture">;
   @NgInput() declare "onPointerLeave"?: AngularInput<'ChoiceChip', "onPointerLeave">;
   @NgInput() declare "onPointerLeaveCapture"?: AngularInput<'ChoiceChip', "onPointerLeaveCapture">;
-  @NgInput() declare "onGotPointerCapture"?: AngularInput<'ChoiceChip', "onGotPointerCapture">;
-  @NgInput() declare "onGotPointerCaptureCapture"?: AngularInput<'ChoiceChip', "onGotPointerCaptureCapture">;
-  @NgInput() declare "onLostPointerCapture"?: AngularInput<'ChoiceChip', "onLostPointerCapture">;
-  @NgInput() declare "onLostPointerCaptureCapture"?: AngularInput<'ChoiceChip', "onLostPointerCaptureCapture">;
+  @NgInput() declare "onPointerMove"?: AngularInput<'ChoiceChip', "onPointerMove">;
+  @NgInput() declare "onPointerMoveCapture"?: AngularInput<'ChoiceChip', "onPointerMoveCapture">;
+  @NgInput() declare "onPointerOut"?: AngularInput<'ChoiceChip', "onPointerOut">;
+  @NgInput() declare "onPointerOutCapture"?: AngularInput<'ChoiceChip', "onPointerOutCapture">;
+  @NgInput() declare "onPointerOver"?: AngularInput<'ChoiceChip', "onPointerOver">;
+  @NgInput() declare "onPointerOverCapture"?: AngularInput<'ChoiceChip', "onPointerOverCapture">;
+  @NgInput() declare "onPointerUp"?: AngularInput<'ChoiceChip', "onPointerUp">;
+  @NgInput() declare "onPointerUpCapture"?: AngularInput<'ChoiceChip', "onPointerUpCapture">;
+  @NgInput() declare "onProgress"?: AngularInput<'ChoiceChip', "onProgress">;
+  @NgInput() declare "onProgressCapture"?: AngularInput<'ChoiceChip', "onProgressCapture">;
+  @NgInput() declare "onRateChange"?: AngularInput<'ChoiceChip', "onRateChange">;
+  @NgInput() declare "onRateChangeCapture"?: AngularInput<'ChoiceChip', "onRateChangeCapture">;
+  @NgInput() declare "onRemove"?: AngularInput<'ChoiceChip', "onRemove">;
+  @NgInput() declare "onReset"?: AngularInput<'ChoiceChip', "onReset">;
+  @NgInput() declare "onResetCapture"?: AngularInput<'ChoiceChip', "onResetCapture">;
+  @NgInput() declare "onResize"?: AngularInput<'ChoiceChip', "onResize">;
+  @NgInput() declare "onResizeCapture"?: AngularInput<'ChoiceChip', "onResizeCapture">;
   @NgInput() declare "onScroll"?: AngularInput<'ChoiceChip', "onScroll">;
   @NgInput() declare "onScrollCapture"?: AngularInput<'ChoiceChip', "onScrollCapture">;
   @NgInput() declare "onScrollEnd"?: AngularInput<'ChoiceChip', "onScrollEnd">;
@@ -318,14 +279,31 @@ export class ChoiceChip extends AngularComponentAdapter<never> {
   @NgInput() declare "onScrollSnapChangeCapture"?: AngularInput<'ChoiceChip', "onScrollSnapChangeCapture">;
   @NgInput() declare "onScrollSnapChanging"?: AngularInput<'ChoiceChip', "onScrollSnapChanging">;
   @NgInput() declare "onScrollSnapChangingCapture"?: AngularInput<'ChoiceChip', "onScrollSnapChangingCapture">;
-  @NgInput() declare "onWheel"?: AngularInput<'ChoiceChip', "onWheel">;
-  @NgInput() declare "onWheelCapture"?: AngularInput<'ChoiceChip', "onWheelCapture">;
-  @NgInput() declare "onAnimationStart"?: AngularInput<'ChoiceChip', "onAnimationStart">;
-  @NgInput() declare "onAnimationStartCapture"?: AngularInput<'ChoiceChip', "onAnimationStartCapture">;
-  @NgInput() declare "onAnimationEnd"?: AngularInput<'ChoiceChip', "onAnimationEnd">;
-  @NgInput() declare "onAnimationEndCapture"?: AngularInput<'ChoiceChip', "onAnimationEndCapture">;
-  @NgInput() declare "onAnimationIteration"?: AngularInput<'ChoiceChip', "onAnimationIteration">;
-  @NgInput() declare "onAnimationIterationCapture"?: AngularInput<'ChoiceChip', "onAnimationIterationCapture">;
+  @NgInput() declare "onSearch"?: AngularInput<'ChoiceChip', "onSearch">;
+  @NgInput() declare "onSearchCapture"?: AngularInput<'ChoiceChip', "onSearchCapture">;
+  @NgInput() declare "onSeeked"?: AngularInput<'ChoiceChip', "onSeeked">;
+  @NgInput() declare "onSeekedCapture"?: AngularInput<'ChoiceChip', "onSeekedCapture">;
+  @NgInput() declare "onSeeking"?: AngularInput<'ChoiceChip', "onSeeking">;
+  @NgInput() declare "onSeekingCapture"?: AngularInput<'ChoiceChip', "onSeekingCapture">;
+  @NgInput() declare "onSelect"?: AngularInput<'ChoiceChip', "onSelect">;
+  @NgInput() declare "onSelectCapture"?: AngularInput<'ChoiceChip', "onSelectCapture">;
+  @NgInput() declare "onStalled"?: AngularInput<'ChoiceChip', "onStalled">;
+  @NgInput() declare "onStalledCapture"?: AngularInput<'ChoiceChip', "onStalledCapture">;
+  @NgInput() declare "onSubmit"?: AngularInput<'ChoiceChip', "onSubmit">;
+  @NgInput() declare "onSubmitCapture"?: AngularInput<'ChoiceChip', "onSubmitCapture">;
+  @NgInput() declare "onSuspend"?: AngularInput<'ChoiceChip', "onSuspend">;
+  @NgInput() declare "onSuspendCapture"?: AngularInput<'ChoiceChip', "onSuspendCapture">;
+  @NgInput() declare "onTimeUpdate"?: AngularInput<'ChoiceChip', "onTimeUpdate">;
+  @NgInput() declare "onTimeUpdateCapture"?: AngularInput<'ChoiceChip', "onTimeUpdateCapture">;
+  @NgInput() declare "onToggle"?: AngularInput<'ChoiceChip', "onToggle">;
+  @NgInput() declare "onTouchCancel"?: AngularInput<'ChoiceChip', "onTouchCancel">;
+  @NgInput() declare "onTouchCancelCapture"?: AngularInput<'ChoiceChip', "onTouchCancelCapture">;
+  @NgInput() declare "onTouchEnd"?: AngularInput<'ChoiceChip', "onTouchEnd">;
+  @NgInput() declare "onTouchEndCapture"?: AngularInput<'ChoiceChip', "onTouchEndCapture">;
+  @NgInput() declare "onTouchMove"?: AngularInput<'ChoiceChip', "onTouchMove">;
+  @NgInput() declare "onTouchMoveCapture"?: AngularInput<'ChoiceChip', "onTouchMoveCapture">;
+  @NgInput() declare "onTouchStart"?: AngularInput<'ChoiceChip', "onTouchStart">;
+  @NgInput() declare "onTouchStartCapture"?: AngularInput<'ChoiceChip', "onTouchStartCapture">;
   @NgInput() declare "onTransitionCancel"?: AngularInput<'ChoiceChip', "onTransitionCancel">;
   @NgInput() declare "onTransitionCancelCapture"?: AngularInput<'ChoiceChip', "onTransitionCancelCapture">;
   @NgInput() declare "onTransitionEnd"?: AngularInput<'ChoiceChip', "onTransitionEnd">;
@@ -334,113 +312,75 @@ export class ChoiceChip extends AngularComponentAdapter<never> {
   @NgInput() declare "onTransitionRunCapture"?: AngularInput<'ChoiceChip', "onTransitionRunCapture">;
   @NgInput() declare "onTransitionStart"?: AngularInput<'ChoiceChip', "onTransitionStart">;
   @NgInput() declare "onTransitionStartCapture"?: AngularInput<'ChoiceChip', "onTransitionStartCapture">;
-  @NgInput() declare "onEnterPictureInPicture"?: AngularInput<'ChoiceChip', "onEnterPictureInPicture">;
-  @NgInput() declare "onEnterPictureInPictureCapture"?: AngularInput<'ChoiceChip', "onEnterPictureInPictureCapture">;
-  @NgInput() declare "onLeavePictureInPicture"?: AngularInput<'ChoiceChip', "onLeavePictureInPicture">;
-  @NgInput() declare "onLeavePictureInPictureCapture"?: AngularInput<'ChoiceChip', "onLeavePictureInPictureCapture">;
-  @NgInput() declare "onResize"?: AngularInput<'ChoiceChip', "onResize">;
-  @NgInput() declare "onResizeCapture"?: AngularInput<'ChoiceChip', "onResizeCapture">;
-  @NgInput() declare "onCommand"?: AngularInput<'ChoiceChip', "onCommand">;
-  @NgInput() declare "onSelect"?: AngularInput<'ChoiceChip', "onSelect">;
-  @NgInput() declare "onRemove"?: AngularInput<'ChoiceChip', "onRemove">;
+  @NgInput() declare "onVolumeChange"?: AngularInput<'ChoiceChip', "onVolumeChange">;
+  @NgInput() declare "onVolumeChangeCapture"?: AngularInput<'ChoiceChip', "onVolumeChangeCapture">;
+  @NgInput() declare "onWaiting"?: AngularInput<'ChoiceChip', "onWaiting">;
+  @NgInput() declare "onWaitingCapture"?: AngularInput<'ChoiceChip', "onWaitingCapture">;
+  @NgInput() declare "onWheel"?: AngularInput<'ChoiceChip', "onWheel">;
+  @NgInput() declare "onWheelCapture"?: AngularInput<'ChoiceChip', "onWheelCapture">;
+  @NgInput() declare "part"?: AngularInput<'ChoiceChip', "part">;
+  @NgInput() declare "popover"?: AngularInput<'ChoiceChip', "popover">;
+  @NgInput() declare "popoverTarget"?: AngularInput<'ChoiceChip', "popoverTarget">;
+  @NgInput() declare "popoverTargetAction"?: AngularInput<'ChoiceChip', "popoverTargetAction">;
+  @NgInput() declare "popovertarget"?: AngularInput<'ChoiceChip', "popovertarget">;
+  @NgInput() declare "popovertargetaction"?: AngularInput<'ChoiceChip', "popovertargetaction">;
+  @NgInput() declare "prefix"?: AngularInput<'ChoiceChip', "prefix">;
+  @NgInput() declare "property"?: AngularInput<'ChoiceChip', "property">;
+  @NgInput() declare "removeClassName"?: AngularInput<'ChoiceChip', "removeClassName">;
+  @NgInput() declare "removeLabel"?: AngularInput<'ChoiceChip', "removeLabel">;
+  @NgInput() declare "resource"?: AngularInput<'ChoiceChip', "resource">;
+  @NgInput() declare "results"?: AngularInput<'ChoiceChip', "results">;
+  @NgInput() declare "role"?: AngularInput<'ChoiceChip', "role">;
+  @NgInput() declare "selected"?: AngularInput<'ChoiceChip', "selected">;
+  @NgInput() declare "slot"?: AngularInput<'ChoiceChip', "slot">;
+  @NgInput() declare "spellcheck"?: AngularInput<'ChoiceChip', "spellcheck">;
+  @NgInput() declare "style"?: AngularInput<'ChoiceChip', "style">;
+  @NgInput() declare "tabIndex"?: AngularInput<'ChoiceChip', "tabIndex">;
+  @NgInput() declare "tabindex"?: AngularInput<'ChoiceChip', "tabindex">;
+  @NgInput() declare "title"?: AngularInput<'ChoiceChip', "title">;
+  @NgInput() declare "translate"?: AngularInput<'ChoiceChip', "translate">;
+  @NgInput() declare "type"?: AngularInput<'ChoiceChip', "type">;
+  @NgInput() declare "typeof"?: AngularInput<'ChoiceChip', "typeof">;
+  @NgInput() declare "value"?: AngularInput<'ChoiceChip', "value">;
+  @NgInput() declare "vocab"?: AngularInput<'ChoiceChip', "vocab">;
+  @Output() get abortEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onAbort'>>>('onAbort'); }
+  @Output() get abortCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onAbortCapture'>>>('onAbortCapture'); }
+  @Output() get animationEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onAnimationEnd'>>>('onAnimationEnd'); }
+  @Output() get animationEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onAnimationEndCapture'>>>('onAnimationEndCapture'); }
+  @Output() get animationIterationEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onAnimationIteration'>>>('onAnimationIteration'); }
+  @Output() get animationIterationCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onAnimationIterationCapture'>>>('onAnimationIterationCapture'); }
+  @Output() get animationStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onAnimationStart'>>>('onAnimationStart'); }
+  @Output() get animationStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onAnimationStartCapture'>>>('onAnimationStartCapture'); }
+  @Output() get auxClickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onAuxClick'>>>('onAuxClick'); }
+  @Output() get auxClickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onAuxClickCapture'>>>('onAuxClickCapture'); }
+  @Output() get beforeInputEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onBeforeInput'>>>('onBeforeInput'); }
+  @Output() get beforeInputCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onBeforeInputCapture'>>>('onBeforeInputCapture'); }
+  @Output() get beforeToggleEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onBeforeToggle'>>>('onBeforeToggle'); }
+  @Output() get blurEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onBlur'>>>('onBlur'); }
+  @Output() get blurCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onBlurCapture'>>>('onBlurCapture'); }
+  @Output() get canPlayEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onCanPlay'>>>('onCanPlay'); }
+  @Output() get canPlayCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onCanPlayCapture'>>>('onCanPlayCapture'); }
+  @Output() get canPlayThroughEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onCanPlayThrough'>>>('onCanPlayThrough'); }
+  @Output() get canPlayThroughCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onCanPlayThroughCapture'>>>('onCanPlayThroughCapture'); }
+  @Output() get cancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onCancel'>>>('onCancel'); }
   @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onChange'>>>('onChange'); }
-  @Output() get loadEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onLoad'>>>('onLoad'); }
-  @Output() get loadCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onLoadCapture'>>>('onLoadCapture'); }
-  @Output() get errorEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onError'>>>('onError'); }
-  @Output() get errorCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onErrorCapture'>>>('onErrorCapture'); }
-  @Output() get copyEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onCopy'>>>('onCopy'); }
-  @Output() get copyCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onCopyCapture'>>>('onCopyCapture'); }
-  @Output() get cutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onCut'>>>('onCut'); }
-  @Output() get cutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onCutCapture'>>>('onCutCapture'); }
-  @Output() get pasteEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPaste'>>>('onPaste'); }
-  @Output() get pasteCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPasteCapture'>>>('onPasteCapture'); }
+  @Output() get changeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onChangeCapture'>>>('onChangeCapture'); }
+  @Output() get clickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onClick'>>>('onClick'); }
+  @Output() get clickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onClickCapture'>>>('onClickCapture'); }
+  @Output() get closeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onClose'>>>('onClose'); }
+  @Output() get commandEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onCommand'>>>('onCommand'); }
   @Output() get compositionEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onCompositionEnd'>>>('onCompositionEnd'); }
   @Output() get compositionEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onCompositionEndCapture'>>>('onCompositionEndCapture'); }
   @Output() get compositionStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onCompositionStart'>>>('onCompositionStart'); }
   @Output() get compositionStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onCompositionStartCapture'>>>('onCompositionStartCapture'); }
   @Output() get compositionUpdateEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onCompositionUpdate'>>>('onCompositionUpdate'); }
   @Output() get compositionUpdateCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onCompositionUpdateCapture'>>>('onCompositionUpdateCapture'); }
-  @Output() get beforeToggleEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onBeforeToggle'>>>('onBeforeToggle'); }
-  @Output() get toggleEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onToggle'>>>('onToggle'); }
-  @Output() get closeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onClose'>>>('onClose'); }
-  @Output() get cancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onCancel'>>>('onCancel'); }
-  @Output() get focusEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onFocus'>>>('onFocus'); }
-  @Output() get focusCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onFocusCapture'>>>('onFocusCapture'); }
-  @Output() get focusInEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onFocusIn'>>>('onFocusIn'); }
-  @Output() get focusInCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onFocusInCapture'>>>('onFocusInCapture'); }
-  @Output() get focusOutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onFocusOut'>>>('onFocusOut'); }
-  @Output() get focusOutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onFocusOutCapture'>>>('onFocusOutCapture'); }
-  @Output() get blurEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onBlur'>>>('onBlur'); }
-  @Output() get blurCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onBlurCapture'>>>('onBlurCapture'); }
-  @Output() get changeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onChangeCapture'>>>('onChangeCapture'); }
-  @Output() get inputEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onInput'>>>('onInput'); }
-  @Output() get inputCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onInputCapture'>>>('onInputCapture'); }
-  @Output() get beforeInputEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onBeforeInput'>>>('onBeforeInput'); }
-  @Output() get beforeInputCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onBeforeInputCapture'>>>('onBeforeInputCapture'); }
-  @Output() get searchEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onSearch'>>>('onSearch'); }
-  @Output() get searchCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onSearchCapture'>>>('onSearchCapture'); }
-  @Output() get submitEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onSubmit'>>>('onSubmit'); }
-  @Output() get submitCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onSubmitCapture'>>>('onSubmitCapture'); }
-  @Output() get invalidEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onInvalid'>>>('onInvalid'); }
-  @Output() get invalidCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onInvalidCapture'>>>('onInvalidCapture'); }
-  @Output() get resetEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onReset'>>>('onReset'); }
-  @Output() get resetCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onResetCapture'>>>('onResetCapture'); }
-  @Output() get formDataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onFormData'>>>('onFormData'); }
-  @Output() get formDataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onFormDataCapture'>>>('onFormDataCapture'); }
-  @Output() get keyDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onKeyDown'>>>('onKeyDown'); }
-  @Output() get keyDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onKeyDownCapture'>>>('onKeyDownCapture'); }
-  @Output() get keyPressEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onKeyPress'>>>('onKeyPress'); }
-  @Output() get keyPressCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onKeyPressCapture'>>>('onKeyPressCapture'); }
-  @Output() get keyUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onKeyUp'>>>('onKeyUp'); }
-  @Output() get keyUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onKeyUpCapture'>>>('onKeyUpCapture'); }
-  @Output() get abortEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onAbort'>>>('onAbort'); }
-  @Output() get abortCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onAbortCapture'>>>('onAbortCapture'); }
-  @Output() get canPlayEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onCanPlay'>>>('onCanPlay'); }
-  @Output() get canPlayCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onCanPlayCapture'>>>('onCanPlayCapture'); }
-  @Output() get canPlayThroughEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onCanPlayThrough'>>>('onCanPlayThrough'); }
-  @Output() get canPlayThroughCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onCanPlayThroughCapture'>>>('onCanPlayThroughCapture'); }
-  @Output() get durationChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onDurationChange'>>>('onDurationChange'); }
-  @Output() get durationChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onDurationChangeCapture'>>>('onDurationChangeCapture'); }
-  @Output() get emptiedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onEmptied'>>>('onEmptied'); }
-  @Output() get emptiedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onEmptiedCapture'>>>('onEmptiedCapture'); }
-  @Output() get encryptedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onEncrypted'>>>('onEncrypted'); }
-  @Output() get encryptedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onEncryptedCapture'>>>('onEncryptedCapture'); }
-  @Output() get endedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onEnded'>>>('onEnded'); }
-  @Output() get endedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onEndedCapture'>>>('onEndedCapture'); }
-  @Output() get loadedDataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onLoadedData'>>>('onLoadedData'); }
-  @Output() get loadedDataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onLoadedDataCapture'>>>('onLoadedDataCapture'); }
-  @Output() get loadedMetadataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onLoadedMetadata'>>>('onLoadedMetadata'); }
-  @Output() get loadedMetadataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onLoadedMetadataCapture'>>>('onLoadedMetadataCapture'); }
-  @Output() get loadStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onLoadStart'>>>('onLoadStart'); }
-  @Output() get loadStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onLoadStartCapture'>>>('onLoadStartCapture'); }
-  @Output() get pauseEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPause'>>>('onPause'); }
-  @Output() get pauseCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPauseCapture'>>>('onPauseCapture'); }
-  @Output() get playEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPlay'>>>('onPlay'); }
-  @Output() get playCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPlayCapture'>>>('onPlayCapture'); }
-  @Output() get playingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPlaying'>>>('onPlaying'); }
-  @Output() get playingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPlayingCapture'>>>('onPlayingCapture'); }
-  @Output() get progressEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onProgress'>>>('onProgress'); }
-  @Output() get progressCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onProgressCapture'>>>('onProgressCapture'); }
-  @Output() get rateChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onRateChange'>>>('onRateChange'); }
-  @Output() get rateChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onRateChangeCapture'>>>('onRateChangeCapture'); }
-  @Output() get seekedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onSeeked'>>>('onSeeked'); }
-  @Output() get seekedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onSeekedCapture'>>>('onSeekedCapture'); }
-  @Output() get seekingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onSeeking'>>>('onSeeking'); }
-  @Output() get seekingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onSeekingCapture'>>>('onSeekingCapture'); }
-  @Output() get stalledEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onStalled'>>>('onStalled'); }
-  @Output() get stalledCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onStalledCapture'>>>('onStalledCapture'); }
-  @Output() get suspendEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onSuspend'>>>('onSuspend'); }
-  @Output() get suspendCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onSuspendCapture'>>>('onSuspendCapture'); }
-  @Output() get timeUpdateEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onTimeUpdate'>>>('onTimeUpdate'); }
-  @Output() get timeUpdateCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onTimeUpdateCapture'>>>('onTimeUpdateCapture'); }
-  @Output() get volumeChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onVolumeChange'>>>('onVolumeChange'); }
-  @Output() get volumeChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onVolumeChangeCapture'>>>('onVolumeChangeCapture'); }
-  @Output() get waitingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onWaiting'>>>('onWaiting'); }
-  @Output() get waitingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onWaitingCapture'>>>('onWaitingCapture'); }
-  @Output() get clickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onClick'>>>('onClick'); }
-  @Output() get clickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onClickCapture'>>>('onClickCapture'); }
   @Output() get contextMenuEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onContextMenu'>>>('onContextMenu'); }
   @Output() get contextMenuCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onContextMenuCapture'>>>('onContextMenuCapture'); }
+  @Output() get copyEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onCopy'>>>('onCopy'); }
+  @Output() get copyCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onCopyCapture'>>>('onCopyCapture'); }
+  @Output() get cutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onCut'>>>('onCut'); }
+  @Output() get cutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onCutCapture'>>>('onCutCapture'); }
   @Output() get dblClickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onDblClick'>>>('onDblClick'); }
   @Output() get dblClickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onDblClickCapture'>>>('onDblClickCapture'); }
   @Output() get dragEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onDrag'>>>('onDrag'); }
@@ -459,6 +399,50 @@ export class ChoiceChip extends AngularComponentAdapter<never> {
   @Output() get dragStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onDragStartCapture'>>>('onDragStartCapture'); }
   @Output() get dropEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onDrop'>>>('onDrop'); }
   @Output() get dropCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onDropCapture'>>>('onDropCapture'); }
+  @Output() get durationChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onDurationChange'>>>('onDurationChange'); }
+  @Output() get durationChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onDurationChangeCapture'>>>('onDurationChangeCapture'); }
+  @Output() get emptiedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onEmptied'>>>('onEmptied'); }
+  @Output() get emptiedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onEmptiedCapture'>>>('onEmptiedCapture'); }
+  @Output() get encryptedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onEncrypted'>>>('onEncrypted'); }
+  @Output() get encryptedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onEncryptedCapture'>>>('onEncryptedCapture'); }
+  @Output() get endedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onEnded'>>>('onEnded'); }
+  @Output() get endedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onEndedCapture'>>>('onEndedCapture'); }
+  @Output() get enterPictureInPictureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onEnterPictureInPicture'>>>('onEnterPictureInPicture'); }
+  @Output() get enterPictureInPictureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onEnterPictureInPictureCapture'>>>('onEnterPictureInPictureCapture'); }
+  @Output() get errorEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onError'>>>('onError'); }
+  @Output() get errorCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onErrorCapture'>>>('onErrorCapture'); }
+  @Output() get focusEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onFocus'>>>('onFocus'); }
+  @Output() get focusCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onFocusCapture'>>>('onFocusCapture'); }
+  @Output() get focusInEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onFocusIn'>>>('onFocusIn'); }
+  @Output() get focusInCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onFocusInCapture'>>>('onFocusInCapture'); }
+  @Output() get focusOutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onFocusOut'>>>('onFocusOut'); }
+  @Output() get focusOutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onFocusOutCapture'>>>('onFocusOutCapture'); }
+  @Output() get formDataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onFormData'>>>('onFormData'); }
+  @Output() get formDataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onFormDataCapture'>>>('onFormDataCapture'); }
+  @Output() get gotPointerCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onGotPointerCapture'>>>('onGotPointerCapture'); }
+  @Output() get gotPointerCaptureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onGotPointerCaptureCapture'>>>('onGotPointerCaptureCapture'); }
+  @Output() get inputEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onInput'>>>('onInput'); }
+  @Output() get inputCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onInputCapture'>>>('onInputCapture'); }
+  @Output() get invalidEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onInvalid'>>>('onInvalid'); }
+  @Output() get invalidCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onInvalidCapture'>>>('onInvalidCapture'); }
+  @Output() get keyDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onKeyDown'>>>('onKeyDown'); }
+  @Output() get keyDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onKeyDownCapture'>>>('onKeyDownCapture'); }
+  @Output() get keyPressEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onKeyPress'>>>('onKeyPress'); }
+  @Output() get keyPressCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onKeyPressCapture'>>>('onKeyPressCapture'); }
+  @Output() get keyUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onKeyUp'>>>('onKeyUp'); }
+  @Output() get keyUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onKeyUpCapture'>>>('onKeyUpCapture'); }
+  @Output() get leavePictureInPictureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onLeavePictureInPicture'>>>('onLeavePictureInPicture'); }
+  @Output() get leavePictureInPictureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onLeavePictureInPictureCapture'>>>('onLeavePictureInPictureCapture'); }
+  @Output() get loadEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onLoad'>>>('onLoad'); }
+  @Output() get loadCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onLoadCapture'>>>('onLoadCapture'); }
+  @Output() get loadStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onLoadStart'>>>('onLoadStart'); }
+  @Output() get loadStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onLoadStartCapture'>>>('onLoadStartCapture'); }
+  @Output() get loadedDataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onLoadedData'>>>('onLoadedData'); }
+  @Output() get loadedDataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onLoadedDataCapture'>>>('onLoadedDataCapture'); }
+  @Output() get loadedMetadataEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onLoadedMetadata'>>>('onLoadedMetadata'); }
+  @Output() get loadedMetadataCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onLoadedMetadataCapture'>>>('onLoadedMetadataCapture'); }
+  @Output() get lostPointerCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onLostPointerCapture'>>>('onLostPointerCapture'); }
+  @Output() get lostPointerCaptureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onLostPointerCaptureCapture'>>>('onLostPointerCaptureCapture'); }
   @Output() get mouseDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onMouseDown'>>>('onMouseDown'); }
   @Output() get mouseDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onMouseDownCapture'>>>('onMouseDownCapture'); }
   @Output() get mouseEnterEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onMouseEnter'>>>('onMouseEnter'); }
@@ -473,37 +457,39 @@ export class ChoiceChip extends AngularComponentAdapter<never> {
   @Output() get mouseOverCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onMouseOverCapture'>>>('onMouseOverCapture'); }
   @Output() get mouseUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onMouseUp'>>>('onMouseUp'); }
   @Output() get mouseUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onMouseUpCapture'>>>('onMouseUpCapture'); }
-  @Output() get auxClickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onAuxClick'>>>('onAuxClick'); }
-  @Output() get auxClickCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onAuxClickCapture'>>>('onAuxClickCapture'); }
-  @Output() get selectCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onSelectCapture'>>>('onSelectCapture'); }
-  @Output() get touchCancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onTouchCancel'>>>('onTouchCancel'); }
-  @Output() get touchCancelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onTouchCancelCapture'>>>('onTouchCancelCapture'); }
-  @Output() get touchEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onTouchEnd'>>>('onTouchEnd'); }
-  @Output() get touchEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onTouchEndCapture'>>>('onTouchEndCapture'); }
-  @Output() get touchMoveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onTouchMove'>>>('onTouchMove'); }
-  @Output() get touchMoveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onTouchMoveCapture'>>>('onTouchMoveCapture'); }
-  @Output() get touchStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onTouchStart'>>>('onTouchStart'); }
-  @Output() get touchStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onTouchStartCapture'>>>('onTouchStartCapture'); }
-  @Output() get pointerOverEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPointerOver'>>>('onPointerOver'); }
-  @Output() get pointerOverCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPointerOverCapture'>>>('onPointerOverCapture'); }
-  @Output() get pointerEnterEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPointerEnter'>>>('onPointerEnter'); }
-  @Output() get pointerEnterCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPointerEnterCapture'>>>('onPointerEnterCapture'); }
-  @Output() get pointerDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPointerDown'>>>('onPointerDown'); }
-  @Output() get pointerDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPointerDownCapture'>>>('onPointerDownCapture'); }
-  @Output() get pointerMoveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPointerMove'>>>('onPointerMove'); }
-  @Output() get pointerMoveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPointerMoveCapture'>>>('onPointerMoveCapture'); }
-  @Output() get pointerUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPointerUp'>>>('onPointerUp'); }
-  @Output() get pointerUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPointerUpCapture'>>>('onPointerUpCapture'); }
+  @Output() get pasteEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPaste'>>>('onPaste'); }
+  @Output() get pasteCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPasteCapture'>>>('onPasteCapture'); }
+  @Output() get pauseEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPause'>>>('onPause'); }
+  @Output() get pauseCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPauseCapture'>>>('onPauseCapture'); }
+  @Output() get playEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPlay'>>>('onPlay'); }
+  @Output() get playCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPlayCapture'>>>('onPlayCapture'); }
+  @Output() get playingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPlaying'>>>('onPlaying'); }
+  @Output() get playingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPlayingCapture'>>>('onPlayingCapture'); }
   @Output() get pointerCancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPointerCancel'>>>('onPointerCancel'); }
   @Output() get pointerCancelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPointerCancelCapture'>>>('onPointerCancelCapture'); }
-  @Output() get pointerOutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPointerOut'>>>('onPointerOut'); }
-  @Output() get pointerOutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPointerOutCapture'>>>('onPointerOutCapture'); }
+  @Output() get pointerDownEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPointerDown'>>>('onPointerDown'); }
+  @Output() get pointerDownCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPointerDownCapture'>>>('onPointerDownCapture'); }
+  @Output() get pointerEnterEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPointerEnter'>>>('onPointerEnter'); }
+  @Output() get pointerEnterCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPointerEnterCapture'>>>('onPointerEnterCapture'); }
   @Output() get pointerLeaveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPointerLeave'>>>('onPointerLeave'); }
   @Output() get pointerLeaveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPointerLeaveCapture'>>>('onPointerLeaveCapture'); }
-  @Output() get gotPointerCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onGotPointerCapture'>>>('onGotPointerCapture'); }
-  @Output() get gotPointerCaptureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onGotPointerCaptureCapture'>>>('onGotPointerCaptureCapture'); }
-  @Output() get lostPointerCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onLostPointerCapture'>>>('onLostPointerCapture'); }
-  @Output() get lostPointerCaptureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onLostPointerCaptureCapture'>>>('onLostPointerCaptureCapture'); }
+  @Output() get pointerMoveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPointerMove'>>>('onPointerMove'); }
+  @Output() get pointerMoveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPointerMoveCapture'>>>('onPointerMoveCapture'); }
+  @Output() get pointerOutEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPointerOut'>>>('onPointerOut'); }
+  @Output() get pointerOutCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPointerOutCapture'>>>('onPointerOutCapture'); }
+  @Output() get pointerOverEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPointerOver'>>>('onPointerOver'); }
+  @Output() get pointerOverCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPointerOverCapture'>>>('onPointerOverCapture'); }
+  @Output() get pointerUpEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPointerUp'>>>('onPointerUp'); }
+  @Output() get pointerUpCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onPointerUpCapture'>>>('onPointerUpCapture'); }
+  @Output() get progressEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onProgress'>>>('onProgress'); }
+  @Output() get progressCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onProgressCapture'>>>('onProgressCapture'); }
+  @Output() get rateChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onRateChange'>>>('onRateChange'); }
+  @Output() get rateChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onRateChangeCapture'>>>('onRateChangeCapture'); }
+  @Output() get remove() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onRemove'>>>('onRemove'); }
+  @Output() get resetEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onReset'>>>('onReset'); }
+  @Output() get resetCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onResetCapture'>>>('onResetCapture'); }
+  @Output() get resizeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onResize'>>>('onResize'); }
+  @Output() get resizeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onResizeCapture'>>>('onResizeCapture'); }
   @Output() get scrollEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onScroll'>>>('onScroll'); }
   @Output() get scrollCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onScrollCapture'>>>('onScrollCapture'); }
   @Output() get scrollEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onScrollEnd'>>>('onScrollEnd'); }
@@ -512,14 +498,31 @@ export class ChoiceChip extends AngularComponentAdapter<never> {
   @Output() get scrollSnapChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onScrollSnapChangeCapture'>>>('onScrollSnapChangeCapture'); }
   @Output() get scrollSnapChangingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onScrollSnapChanging'>>>('onScrollSnapChanging'); }
   @Output() get scrollSnapChangingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onScrollSnapChangingCapture'>>>('onScrollSnapChangingCapture'); }
-  @Output() get wheelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onWheel'>>>('onWheel'); }
-  @Output() get wheelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onWheelCapture'>>>('onWheelCapture'); }
-  @Output() get animationStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onAnimationStart'>>>('onAnimationStart'); }
-  @Output() get animationStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onAnimationStartCapture'>>>('onAnimationStartCapture'); }
-  @Output() get animationEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onAnimationEnd'>>>('onAnimationEnd'); }
-  @Output() get animationEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onAnimationEndCapture'>>>('onAnimationEndCapture'); }
-  @Output() get animationIterationEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onAnimationIteration'>>>('onAnimationIteration'); }
-  @Output() get animationIterationCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onAnimationIterationCapture'>>>('onAnimationIterationCapture'); }
+  @Output() get searchEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onSearch'>>>('onSearch'); }
+  @Output() get searchCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onSearchCapture'>>>('onSearchCapture'); }
+  @Output() get seekedEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onSeeked'>>>('onSeeked'); }
+  @Output() get seekedCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onSeekedCapture'>>>('onSeekedCapture'); }
+  @Output() get seekingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onSeeking'>>>('onSeeking'); }
+  @Output() get seekingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onSeekingCapture'>>>('onSeekingCapture'); }
+  @Output() get selectEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onSelect'>>>('onSelect'); }
+  @Output() get selectCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onSelectCapture'>>>('onSelectCapture'); }
+  @Output() get stalledEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onStalled'>>>('onStalled'); }
+  @Output() get stalledCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onStalledCapture'>>>('onStalledCapture'); }
+  @Output() get submitEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onSubmit'>>>('onSubmit'); }
+  @Output() get submitCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onSubmitCapture'>>>('onSubmitCapture'); }
+  @Output() get suspendEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onSuspend'>>>('onSuspend'); }
+  @Output() get suspendCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onSuspendCapture'>>>('onSuspendCapture'); }
+  @Output() get timeUpdateEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onTimeUpdate'>>>('onTimeUpdate'); }
+  @Output() get timeUpdateCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onTimeUpdateCapture'>>>('onTimeUpdateCapture'); }
+  @Output() get toggleEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onToggle'>>>('onToggle'); }
+  @Output() get touchCancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onTouchCancel'>>>('onTouchCancel'); }
+  @Output() get touchCancelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onTouchCancelCapture'>>>('onTouchCancelCapture'); }
+  @Output() get touchEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onTouchEnd'>>>('onTouchEnd'); }
+  @Output() get touchEndCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onTouchEndCapture'>>>('onTouchEndCapture'); }
+  @Output() get touchMoveEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onTouchMove'>>>('onTouchMove'); }
+  @Output() get touchMoveCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onTouchMoveCapture'>>>('onTouchMoveCapture'); }
+  @Output() get touchStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onTouchStart'>>>('onTouchStart'); }
+  @Output() get touchStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onTouchStartCapture'>>>('onTouchStartCapture'); }
   @Output() get transitionCancelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onTransitionCancel'>>>('onTransitionCancel'); }
   @Output() get transitionCancelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onTransitionCancelCapture'>>>('onTransitionCancelCapture'); }
   @Output() get transitionEndEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onTransitionEnd'>>>('onTransitionEnd'); }
@@ -528,14 +531,11 @@ export class ChoiceChip extends AngularComponentAdapter<never> {
   @Output() get transitionRunCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onTransitionRunCapture'>>>('onTransitionRunCapture'); }
   @Output() get transitionStartEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onTransitionStart'>>>('onTransitionStart'); }
   @Output() get transitionStartCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onTransitionStartCapture'>>>('onTransitionStartCapture'); }
-  @Output() get enterPictureInPictureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onEnterPictureInPicture'>>>('onEnterPictureInPicture'); }
-  @Output() get enterPictureInPictureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onEnterPictureInPictureCapture'>>>('onEnterPictureInPictureCapture'); }
-  @Output() get leavePictureInPictureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onLeavePictureInPicture'>>>('onLeavePictureInPicture'); }
-  @Output() get leavePictureInPictureCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onLeavePictureInPictureCapture'>>>('onLeavePictureInPictureCapture'); }
-  @Output() get resizeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onResize'>>>('onResize'); }
-  @Output() get resizeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onResizeCapture'>>>('onResizeCapture'); }
-  @Output() get commandEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onCommand'>>>('onCommand'); }
-  @Output() get selectEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onSelect'>>>('onSelect'); }
-  @Output() get remove() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onRemove'>>>('onRemove'); }
+  @Output() get volumeChangeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onVolumeChange'>>>('onVolumeChange'); }
+  @Output() get volumeChangeCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onVolumeChangeCapture'>>>('onVolumeChangeCapture'); }
+  @Output() get waitingEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onWaiting'>>>('onWaiting'); }
+  @Output() get waitingCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onWaitingCapture'>>>('onWaitingCapture'); }
+  @Output() get wheelEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onWheel'>>>('onWheel'); }
+  @Output() get wheelCaptureEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onWheelCapture'>>>('onWheelCapture'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

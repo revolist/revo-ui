@@ -13,9 +13,9 @@ export class FormSection extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'FormSection';
   protected rvResolveComponent() { return Control; }
   @NgInput() declare "className"?: AngularInput<'FormSection', "className">;
+  @NgInput() declare "description"?: AngularInput<'FormSection', "description">;
   @NgInput() declare "label"?: AngularInput<'FormSection', "label">;
   @NgInput() declare "title"?: AngularInput<'FormSection', "title">;
-  @NgInput() declare "description"?: AngularInput<'FormSection', "description">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

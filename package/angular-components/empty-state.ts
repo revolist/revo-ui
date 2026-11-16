@@ -12,8 +12,8 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class EmptyState extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'EmptyState';
   protected rvResolveComponent() { return Control; }
-  @NgInput({ required: true }) declare "title": AngularInput<'EmptyState', "title">;
   @NgInput() declare "description"?: AngularInput<'EmptyState', "description">;
+  @NgInput({ required: true }) declare "title": AngularInput<'EmptyState', "title">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

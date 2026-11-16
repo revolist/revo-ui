@@ -12,20 +12,20 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class CalendarHeader extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'CalendarHeader';
   protected rvResolveComponent() { return Control; }
-  protected override readonly rvRequiredCallbacks = ["onPrevious","onNext"];
-  @NgInput({ required: true }) declare "label": AngularInput<'CalendarHeader', "label">;
-  @NgInput({ required: true }) declare "previousLabel": AngularInput<'CalendarHeader', "previousLabel">;
-  @NgInput({ required: true }) declare "nextLabel": AngularInput<'CalendarHeader', "nextLabel">;
+  protected override readonly rvRequiredCallbacks = ["onNext","onPrevious"];
   @NgInput() declare "caption"?: AngularInput<'CalendarHeader', "caption">;
+  @NgInput({ required: true }) declare "label": AngularInput<'CalendarHeader', "label">;
   @NgInput() declare "labelAction"?: AngularInput<'CalendarHeader', "labelAction">;
-  @NgInput() declare "showLabel"?: AngularInput<'CalendarHeader', "showLabel">;
-  @NgInput() declare "showPrevious"?: AngularInput<'CalendarHeader', "showPrevious">;
-  @NgInput() declare "showNext"?: AngularInput<'CalendarHeader', "showNext">;
-  @NgInput() declare "previousDisabled"?: AngularInput<'CalendarHeader', "previousDisabled">;
   @NgInput() declare "nextDisabled"?: AngularInput<'CalendarHeader', "nextDisabled">;
-  @NgInput() declare "onPrevious"?: AngularInput<'CalendarHeader', "onPrevious">;
+  @NgInput({ required: true }) declare "nextLabel": AngularInput<'CalendarHeader', "nextLabel">;
   @NgInput() declare "onNext"?: AngularInput<'CalendarHeader', "onNext">;
-  @Output() get previous() { return this.rvOutput<AngularCallbackValue<AngularInput<'CalendarHeader', 'onPrevious'>>>('onPrevious'); }
+  @NgInput() declare "onPrevious"?: AngularInput<'CalendarHeader', "onPrevious">;
+  @NgInput() declare "previousDisabled"?: AngularInput<'CalendarHeader', "previousDisabled">;
+  @NgInput({ required: true }) declare "previousLabel": AngularInput<'CalendarHeader', "previousLabel">;
+  @NgInput() declare "showLabel"?: AngularInput<'CalendarHeader', "showLabel">;
+  @NgInput() declare "showNext"?: AngularInput<'CalendarHeader', "showNext">;
+  @NgInput() declare "showPrevious"?: AngularInput<'CalendarHeader', "showPrevious">;
   @Output() get next() { return this.rvOutput<AngularCallbackValue<AngularInput<'CalendarHeader', 'onNext'>>>('onNext'); }
+  @Output() get previous() { return this.rvOutput<AngularCallbackValue<AngularInput<'CalendarHeader', 'onPrevious'>>>('onPrevious'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

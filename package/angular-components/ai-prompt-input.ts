@@ -12,24 +12,24 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class AiPromptInput extends AngularComponentAdapter<AngularCallbackValue<AngularInput<'AiPromptInput', 'onValueChange'>>> {
   protected readonly rvComponentName = 'AiPromptInput';
   protected rvResolveComponent() { return Control; }
-  protected override readonly rvRequiredCallbacks = ["onValueChange","onSubmit"];
-  @NgInput() declare "translations"?: AngularInput<'AiPromptInput', "translations">;
-  @NgInput({ required: true }) declare "value": AngularInput<'AiPromptInput', "value">;
+  protected override readonly rvRequiredCallbacks = ["onSubmit","onValueChange"];
+  @NgInput() declare "actions"?: AngularInput<'AiPromptInput', "actions">;
   @NgInput() declare "busy"?: AngularInput<'AiPromptInput', "busy">;
   @NgInput() declare "disabled"?: AngularInput<'AiPromptInput', "disabled">;
-  @NgInput() declare "label"?: AngularInput<'AiPromptInput', "label">;
-  @NgInput() declare "placeholder"?: AngularInput<'AiPromptInput', "placeholder">;
-  @NgInput() declare "submitLabel"?: AngularInput<'AiPromptInput', "submitLabel">;
-  @NgInput() declare "stopLabel"?: AngularInput<'AiPromptInput', "stopLabel">;
-  @NgInput() declare "promptHistory"?: AngularInput<'AiPromptInput', "promptHistory">;
-  @NgInput() declare "hint"?: AngularInput<'AiPromptInput', "hint">;
-  @NgInput() declare "actions"?: AngularInput<'AiPromptInput', "actions">;
   @NgInput() declare "footer"?: AngularInput<'AiPromptInput', "footer">;
-  @NgInput() declare "textareaProps"?: AngularInput<'AiPromptInput', "textareaProps">;
-  @NgInput() declare "onValueChange"?: AngularInput<'AiPromptInput', "onValueChange">;
-  @NgInput() declare "onSubmit"?: AngularInput<'AiPromptInput', "onSubmit">;
+  @NgInput() declare "hint"?: AngularInput<'AiPromptInput', "hint">;
+  @NgInput() declare "label"?: AngularInput<'AiPromptInput', "label">;
   @NgInput() declare "onStop"?: AngularInput<'AiPromptInput', "onStop">;
-  @Output() get submitEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'AiPromptInput', 'onSubmit'>>>('onSubmit'); }
+  @NgInput() declare "onSubmit"?: AngularInput<'AiPromptInput', "onSubmit">;
+  @NgInput() declare "onValueChange"?: AngularInput<'AiPromptInput', "onValueChange">;
+  @NgInput() declare "placeholder"?: AngularInput<'AiPromptInput', "placeholder">;
+  @NgInput() declare "promptHistory"?: AngularInput<'AiPromptInput', "promptHistory">;
+  @NgInput() declare "stopLabel"?: AngularInput<'AiPromptInput', "stopLabel">;
+  @NgInput() declare "submitLabel"?: AngularInput<'AiPromptInput', "submitLabel">;
+  @NgInput() declare "textareaProps"?: AngularInput<'AiPromptInput', "textareaProps">;
+  @NgInput() declare "translations"?: AngularInput<'AiPromptInput', "translations">;
+  @NgInput({ required: true }) declare "value": AngularInput<'AiPromptInput', "value">;
   @Output() get stop() { return this.rvOutput<AngularCallbackValue<AngularInput<'AiPromptInput', 'onStop'>>>('onStop'); }
+  @Output() get submitEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'AiPromptInput', 'onSubmit'>>>('onSubmit'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

@@ -12,12 +12,12 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class ActivityMessage extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'ActivityMessage';
   protected rvResolveComponent() { return Control; }
-  @NgInput() declare "className"?: AngularInput<'ActivityMessage', "className">;
-  @NgInput() declare "avatar"?: AngularInput<'ActivityMessage', "avatar">;
-  @NgInput() declare "timestamp"?: AngularInput<'ActivityMessage', "timestamp">;
-  @NgInput() declare "header"?: AngularInput<'ActivityMessage', "header">;
   @NgInput() declare "actions"?: AngularInput<'ActivityMessage', "actions">;
+  @NgInput() declare "avatar"?: AngularInput<'ActivityMessage', "avatar">;
+  @NgInput() declare "className"?: AngularInput<'ActivityMessage', "className">;
   @NgInput() declare "details"?: AngularInput<'ActivityMessage', "details">;
+  @NgInput() declare "header"?: AngularInput<'ActivityMessage', "header">;
+  @NgInput() declare "timestamp"?: AngularInput<'ActivityMessage', "timestamp">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

@@ -12,24 +12,24 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class StatusFeedbackPanel extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'StatusFeedbackPanel';
   protected rvResolveComponent() { return Control; }
-  @NgInput() declare "autoDismissMs"?: AngularInput<'StatusFeedbackPanel', "autoDismissMs">;
-  @NgInput() declare "compact"?: AngularInput<'StatusFeedbackPanel', "compact">;
-  @NgInput() declare "hideHeader"?: AngularInput<'StatusFeedbackPanel', "hideHeader">;
-  @NgInput() declare "closeLabel"?: AngularInput<'StatusFeedbackPanel', "closeLabel">;
-  @NgInput() declare "localeText"?: AngularInput<'StatusFeedbackPanel', "localeText">;
-  @NgInput({ required: true }) declare "title": AngularInput<'StatusFeedbackPanel', "title">;
-  @NgInput({ required: true }) declare "items": AngularInput<'StatusFeedbackPanel', "items">;
   @NgInput() declare "ariaLabel"?: AngularInput<'StatusFeedbackPanel', "ariaLabel">;
+  @NgInput() declare "autoDismissMs"?: AngularInput<'StatusFeedbackPanel', "autoDismissMs">;
   @NgInput() declare "className"?: AngularInput<'StatusFeedbackPanel', "className">;
-  @NgInput() declare "collapsed"?: AngularInput<'StatusFeedbackPanel', "collapsed">;
+  @NgInput() declare "closeLabel"?: AngularInput<'StatusFeedbackPanel', "closeLabel">;
   @NgInput() declare "collapseLabel"?: AngularInput<'StatusFeedbackPanel', "collapseLabel">;
+  @NgInput() declare "collapsed"?: AngularInput<'StatusFeedbackPanel', "collapsed">;
+  @NgInput() declare "compact"?: AngularInput<'StatusFeedbackPanel', "compact">;
   @NgInput() declare "expandLabel"?: AngularInput<'StatusFeedbackPanel', "expandLabel">;
-  @NgInput() declare "popover"?: AngularInput<'StatusFeedbackPanel', "popover">;
-  @NgInput() declare "onDismissItem"?: AngularInput<'StatusFeedbackPanel', "onDismissItem">;
+  @NgInput() declare "hideHeader"?: AngularInput<'StatusFeedbackPanel', "hideHeader">;
+  @NgInput({ required: true }) declare "items": AngularInput<'StatusFeedbackPanel', "items">;
+  @NgInput() declare "localeText"?: AngularInput<'StatusFeedbackPanel', "localeText">;
   @NgInput() declare "onClose"?: AngularInput<'StatusFeedbackPanel', "onClose">;
   @NgInput() declare "onCollapsedChange"?: AngularInput<'StatusFeedbackPanel', "onCollapsedChange">;
-  @Output() get dismissItem() { return this.rvOutput<AngularCallbackValue<AngularInput<'StatusFeedbackPanel', 'onDismissItem'>>>('onDismissItem'); }
+  @NgInput() declare "onDismissItem"?: AngularInput<'StatusFeedbackPanel', "onDismissItem">;
+  @NgInput() declare "popover"?: AngularInput<'StatusFeedbackPanel', "popover">;
+  @NgInput({ required: true }) declare "title": AngularInput<'StatusFeedbackPanel', "title">;
   @Output() get closeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'StatusFeedbackPanel', 'onClose'>>>('onClose'); }
   @Output() get collapsedChange() { return this.rvOutput<AngularCallbackValue<AngularInput<'StatusFeedbackPanel', 'onCollapsedChange'>>>('onCollapsedChange'); }
+  @Output() get dismissItem() { return this.rvOutput<AngularCallbackValue<AngularInput<'StatusFeedbackPanel', 'onDismissItem'>>>('onDismissItem'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

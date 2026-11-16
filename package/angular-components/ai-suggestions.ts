@@ -13,12 +13,12 @@ export class AiSuggestions extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'AiSuggestions';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onSelect"];
-  @NgInput() declare "maxVisible"?: AngularInput<'AiSuggestions', "maxVisible">;
-  @NgInput() declare "translations"?: AngularInput<'AiSuggestions', "translations">;
-  @NgInput({ required: true }) declare "items": AngularInput<'AiSuggestions', "items">;
   @NgInput() declare "disabled"?: AngularInput<'AiSuggestions', "disabled">;
+  @NgInput({ required: true }) declare "items": AngularInput<'AiSuggestions', "items">;
   @NgInput() declare "label"?: AngularInput<'AiSuggestions', "label">;
+  @NgInput() declare "maxVisible"?: AngularInput<'AiSuggestions', "maxVisible">;
   @NgInput() declare "onSelect"?: AngularInput<'AiSuggestions', "onSelect">;
+  @NgInput() declare "translations"?: AngularInput<'AiSuggestions', "translations">;
   @Output() get selectEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'AiSuggestions', 'onSelect'>>>('onSelect'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

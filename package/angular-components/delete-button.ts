@@ -13,15 +13,15 @@ export class DeleteButton extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'DeleteButton';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onClick"];
-  @NgInput() declare "disabled"?: AngularInput<'DeleteButton', "disabled">;
-  @NgInput() declare "rounded"?: AngularInput<'DeleteButton', "rounded">;
   @NgInput() declare "className"?: AngularInput<'DeleteButton', "className">;
+  @NgInput() declare "disabled"?: AngularInput<'DeleteButton', "disabled">;
   @NgInput() declare "locale"?: AngularInput<'DeleteButton', "locale">;
   @NgInput() declare "onClick"?: AngularInput<'DeleteButton', "onClick">;
-  @NgInput() declare "onMouseDown"?: AngularInput<'DeleteButton', "onMouseDown">;
   @NgInput() declare "onDblClick"?: AngularInput<'DeleteButton', "onDblClick">;
+  @NgInput() declare "onMouseDown"?: AngularInput<'DeleteButton', "onMouseDown">;
+  @NgInput() declare "rounded"?: AngularInput<'DeleteButton', "rounded">;
   @Output() get clickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DeleteButton', 'onClick'>>>('onClick'); }
-  @Output() get mouseDown() { return this.rvOutput<AngularCallbackValue<AngularInput<'DeleteButton', 'onMouseDown'>>>('onMouseDown'); }
   @Output() get dblClick() { return this.rvOutput<AngularCallbackValue<AngularInput<'DeleteButton', 'onDblClick'>>>('onDblClick'); }
+  @Output() get mouseDown() { return this.rvOutput<AngularCallbackValue<AngularInput<'DeleteButton', 'onMouseDown'>>>('onMouseDown'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

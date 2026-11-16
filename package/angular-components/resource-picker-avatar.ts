@@ -12,9 +12,9 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class ResourcePickerAvatar extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'ResourcePickerAvatar';
   protected rvResolveComponent() { return Control; }
-  @NgInput({ required: true }) declare "resource": AngularInput<'ResourcePickerAvatar', "resource">;
   @NgInput() declare "className"?: AngularInput<'ResourcePickerAvatar', "className">;
   @NgInput() declare "color"?: AngularInput<'ResourcePickerAvatar', "color">;
+  @NgInput({ required: true }) declare "resource": AngularInput<'ResourcePickerAvatar', "resource">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

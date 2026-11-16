@@ -13,10 +13,10 @@ export class BrushRange extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'BrushRange';
   protected rvResolveComponent() { return Control; }
   @NgInput() declare "chart"?: AngularInput<'BrushRange', "chart">;
+  @NgInput() declare "endLabel"?: AngularInput<'BrushRange', "endLabel">;
+  @NgInput() declare "selectionLabel"?: AngularInput<'BrushRange', "selectionLabel">;
   @NgInput({ required: true }) declare "slider": AngularInput<'BrushRange', "slider">;
   @NgInput() declare "startLabel"?: AngularInput<'BrushRange', "startLabel">;
-  @NgInput() declare "selectionLabel"?: AngularInput<'BrushRange', "selectionLabel">;
-  @NgInput() declare "endLabel"?: AngularInput<'BrushRange', "endLabel">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

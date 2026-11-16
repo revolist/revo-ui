@@ -12,11 +12,11 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class Rating extends AngularComponentAdapter<AngularCallbackValue<AngularInput<'Rating', 'onChange'>>> {
   protected readonly rvComponentName = 'Rating';
   protected rvResolveComponent() { return Control; }
-  @NgInput({ required: true }) declare "value": AngularInput<'Rating', "value">;
-  @NgInput() declare "max"?: AngularInput<'Rating', "max">;
-  @NgInput({ required: true }) declare "label": AngularInput<'Rating', "label">;
   @NgInput() declare "disabled"?: AngularInput<'Rating', "disabled">;
+  @NgInput({ required: true }) declare "label": AngularInput<'Rating', "label">;
+  @NgInput() declare "max"?: AngularInput<'Rating', "max">;
   @NgInput() declare "onChange"?: AngularInput<'Rating', "onChange">;
+  @NgInput({ required: true }) declare "value": AngularInput<'Rating', "value">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

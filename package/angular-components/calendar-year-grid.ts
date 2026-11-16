@@ -12,18 +12,18 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class CalendarYearGrid extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'CalendarYearGrid';
   protected rvResolveComponent() { return Control; }
-  protected override readonly rvRequiredCallbacks = ["onSelect","onEscape"];
-  @NgInput({ required: true }) declare "month": AngularInput<'CalendarYearGrid', "month">;
-  @NgInput() declare "system"?: AngularInput<'CalendarYearGrid', "system">;
-  @NgInput() declare "referenceDate"?: AngularInput<'CalendarYearGrid', "referenceDate">;
-  @NgInput() declare "minDate"?: AngularInput<'CalendarYearGrid', "minDate">;
-  @NgInput() declare "maxDate"?: AngularInput<'CalendarYearGrid', "maxDate">;
+  protected override readonly rvRequiredCallbacks = ["onEscape","onSelect"];
+  @NgInput({ required: true }) declare "ariaLabel": AngularInput<'CalendarYearGrid', "ariaLabel">;
   @NgInput() declare "isMonthDisabled"?: AngularInput<'CalendarYearGrid', "isMonthDisabled">;
   @NgInput({ required: true }) declare "locale": AngularInput<'CalendarYearGrid', "locale">;
-  @NgInput({ required: true }) declare "ariaLabel": AngularInput<'CalendarYearGrid', "ariaLabel">;
-  @NgInput() declare "onSelect"?: AngularInput<'CalendarYearGrid', "onSelect">;
+  @NgInput() declare "maxDate"?: AngularInput<'CalendarYearGrid', "maxDate">;
+  @NgInput() declare "minDate"?: AngularInput<'CalendarYearGrid', "minDate">;
+  @NgInput({ required: true }) declare "month": AngularInput<'CalendarYearGrid', "month">;
   @NgInput() declare "onEscape"?: AngularInput<'CalendarYearGrid', "onEscape">;
-  @Output() get selectEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'CalendarYearGrid', 'onSelect'>>>('onSelect'); }
+  @NgInput() declare "onSelect"?: AngularInput<'CalendarYearGrid', "onSelect">;
+  @NgInput() declare "referenceDate"?: AngularInput<'CalendarYearGrid', "referenceDate">;
+  @NgInput() declare "system"?: AngularInput<'CalendarYearGrid', "system">;
   @Output() get escape() { return this.rvOutput<AngularCallbackValue<AngularInput<'CalendarYearGrid', 'onEscape'>>>('onEscape'); }
+  @Output() get selectEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'CalendarYearGrid', 'onSelect'>>>('onSelect'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

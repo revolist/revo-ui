@@ -12,8 +12,8 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class AiTaskItem extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'AiTaskItem';
   protected rvResolveComponent() { return Control; }
-  @NgInput() declare "status"?: AngularInput<'AiTaskItem', "status">;
   @NgInput() declare "className"?: AngularInput<'AiTaskItem', "className">;
+  @NgInput() declare "status"?: AngularInput<'AiTaskItem', "status">;
   @NgInput() declare "translations"?: AngularInput<'AiTaskItem', "translations">;
 
   protected rvResolveProps() { return this.rvInputValues; }

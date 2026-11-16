@@ -13,17 +13,17 @@ export class ConfirmDialog extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'ConfirmDialog';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onClose","onConfirm"];
-  @NgInput({ required: true }) declare "open": AngularInput<'ConfirmDialog', "open">;
-  @NgInput({ required: true }) declare "title": AngularInput<'ConfirmDialog', "title">;
-  @NgInput({ required: true }) declare "closeLabel": AngularInput<'ConfirmDialog', "closeLabel">;
-  @NgInput() declare "footer"?: AngularInput<'ConfirmDialog', "footer">;
-  @NgInput() declare "draggable"?: AngularInput<'ConfirmDialog', "draggable">;
-  @NgInput() declare "returnFocus"?: AngularInput<'ConfirmDialog', "returnFocus">;
-  @NgInput({ required: true }) declare "confirmLabel": AngularInput<'ConfirmDialog', "confirmLabel">;
   @NgInput({ required: true }) declare "cancelLabel": AngularInput<'ConfirmDialog', "cancelLabel">;
-  @NgInput() declare "pending"?: AngularInput<'ConfirmDialog', "pending">;
+  @NgInput({ required: true }) declare "closeLabel": AngularInput<'ConfirmDialog', "closeLabel">;
+  @NgInput({ required: true }) declare "confirmLabel": AngularInput<'ConfirmDialog', "confirmLabel">;
+  @NgInput() declare "draggable"?: AngularInput<'ConfirmDialog', "draggable">;
+  @NgInput() declare "footer"?: AngularInput<'ConfirmDialog', "footer">;
   @NgInput() declare "onClose"?: AngularInput<'ConfirmDialog', "onClose">;
   @NgInput() declare "onConfirm"?: AngularInput<'ConfirmDialog', "onConfirm">;
+  @NgInput({ required: true }) declare "open": AngularInput<'ConfirmDialog', "open">;
+  @NgInput() declare "pending"?: AngularInput<'ConfirmDialog', "pending">;
+  @NgInput() declare "returnFocus"?: AngularInput<'ConfirmDialog', "returnFocus">;
+  @NgInput({ required: true }) declare "title": AngularInput<'ConfirmDialog', "title">;
   @Output() get closeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ConfirmDialog', 'onClose'>>>('onClose'); }
   @Output() get confirm() { return this.rvOutput<AngularCallbackValue<AngularInput<'ConfirmDialog', 'onConfirm'>>>('onConfirm'); }
   protected rvResolveProps() { return this.rvInputValues; }

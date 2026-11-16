@@ -12,10 +12,10 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class DurationDraft extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'DurationDraft';
   protected rvResolveComponent() { return Control; }
-  @NgInput({ required: true }) declare "value": AngularInput<'DurationDraft', "value">;
-  @NgInput({ required: true }) declare "options": AngularInput<'DurationDraft', "options">;
   @NgInput({ required: true }) declare "apply": AngularInput<'DurationDraft', "apply">;
   @NgInput({ required: true }) declare "cancel": AngularInput<'DurationDraft', "cancel">;
+  @NgInput({ required: true }) declare "options": AngularInput<'DurationDraft', "options">;
+  @NgInput({ required: true }) declare "value": AngularInput<'DurationDraft', "value">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

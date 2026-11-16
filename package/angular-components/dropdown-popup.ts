@@ -12,20 +12,20 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class DropdownPopup extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'DropdownPopup';
   protected rvResolveComponent() { return Control; }
-  @NgInput({ required: true }) declare "triggerRef": AngularInput<'DropdownPopup', "triggerRef">;
-  @NgInput() declare "portalTarget"?: AngularInput<'DropdownPopup', "portalTarget">;
-  @NgInput() declare "theme"?: AngularInput<'DropdownPopup', "theme">;
-  @NgInput() declare "dropdownMenuId"?: AngularInput<'DropdownPopup', "dropdownMenuId">;
-  @NgInput() declare "popupClassName"?: AngularInput<'DropdownPopup', "popupClassName">;
-  @NgInput() declare "closeOnClickOutside"?: AngularInput<'DropdownPopup', "closeOnClickOutside">;
   @NgInput() declare "align"?: AngularInput<'DropdownPopup', "align">;
+  @NgInput() declare "closeOnClickOutside"?: AngularInput<'DropdownPopup', "closeOnClickOutside">;
+  @NgInput() declare "dropdownMenuId"?: AngularInput<'DropdownPopup', "dropdownMenuId">;
   @NgInput() declare "matchTriggerWidth"?: AngularInput<'DropdownPopup', "matchTriggerWidth">;
   @NgInput() declare "maxHeight"?: AngularInput<'DropdownPopup', "maxHeight">;
   @NgInput() declare "observePopupResize"?: AngularInput<'DropdownPopup', "observePopupResize">;
-  @NgInput() declare "topLayer"?: AngularInput<'DropdownPopup', "topLayer">;
-  @NgInput() declare "onPointerRelease"?: AngularInput<'DropdownPopup', "onPointerRelease">;
   @NgInput() declare "onClose"?: AngularInput<'DropdownPopup', "onClose">;
-  @Output() get pointerRelease() { return this.rvOutput<AngularCallbackValue<AngularInput<'DropdownPopup', 'onPointerRelease'>>>('onPointerRelease'); }
+  @NgInput() declare "onPointerRelease"?: AngularInput<'DropdownPopup', "onPointerRelease">;
+  @NgInput() declare "popupClassName"?: AngularInput<'DropdownPopup', "popupClassName">;
+  @NgInput() declare "portalTarget"?: AngularInput<'DropdownPopup', "portalTarget">;
+  @NgInput() declare "theme"?: AngularInput<'DropdownPopup', "theme">;
+  @NgInput() declare "topLayer"?: AngularInput<'DropdownPopup', "topLayer">;
+  @NgInput({ required: true }) declare "triggerRef": AngularInput<'DropdownPopup', "triggerRef">;
   @Output() get closeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DropdownPopup', 'onClose'>>>('onClose'); }
+  @Output() get pointerRelease() { return this.rvOutput<AngularCallbackValue<AngularInput<'DropdownPopup', 'onPointerRelease'>>>('onPointerRelease'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

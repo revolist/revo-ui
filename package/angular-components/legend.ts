@@ -12,10 +12,10 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class Legend extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'Legend';
   protected rvResolveComponent() { return Control; }
-  @NgInput({ required: true }) declare "label": AngularInput<'Legend', "label">;
-  @NgInput({ required: true }) declare "items": AngularInput<'Legend', "items">;
   @NgInput() declare "className"?: AngularInput<'Legend', "className">;
   @NgInput() declare "itemClassName"?: AngularInput<'Legend', "itemClassName">;
+  @NgInput({ required: true }) declare "items": AngularInput<'Legend', "items">;
+  @NgInput({ required: true }) declare "label": AngularInput<'Legend', "label">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

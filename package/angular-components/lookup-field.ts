@@ -12,11 +12,11 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class LookupField extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'LookupField';
   protected rvResolveComponent() { return Control; }
-  @NgInput({ required: true }) declare "initial": AngularInput<'LookupField', "initial">;
-  @NgInput({ required: true }) declare "options": AngularInput<'LookupField', "options">;
-  @NgInput({ required: true }) declare "context": AngularInput<'LookupField', "context">;
   @NgInput({ required: true }) declare "apply": AngularInput<'LookupField', "apply">;
   @NgInput({ required: true }) declare "cancel": AngularInput<'LookupField', "cancel">;
+  @NgInput({ required: true }) declare "context": AngularInput<'LookupField', "context">;
+  @NgInput({ required: true }) declare "initial": AngularInput<'LookupField', "initial">;
+  @NgInput({ required: true }) declare "options": AngularInput<'LookupField', "options">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

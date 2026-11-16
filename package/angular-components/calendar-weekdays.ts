@@ -13,9 +13,9 @@ export class CalendarWeekdays extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'CalendarWeekdays';
   protected rvResolveComponent() { return Control; }
   @NgInput({ required: true }) declare "dates": AngularInput<'CalendarWeekdays', "dates">;
-  @NgInput() declare "weekNumberLabel"?: AngularInput<'CalendarWeekdays', "weekNumberLabel">;
-  @NgInput({ required: true }) declare "locale": AngularInput<'CalendarWeekdays', "locale">;
   @NgInput({ required: true }) declare "format": AngularInput<'CalendarWeekdays', "format">;
+  @NgInput({ required: true }) declare "locale": AngularInput<'CalendarWeekdays', "locale">;
+  @NgInput() declare "weekNumberLabel"?: AngularInput<'CalendarWeekdays', "weekNumberLabel">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

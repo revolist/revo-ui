@@ -13,17 +13,17 @@ export class ColorPicker extends AngularComponentAdapter<AngularCallbackValue<An
   protected readonly rvComponentName = 'ColorPicker';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onChange"];
-  @NgInput({ required: true }) declare "label": AngularInput<'ColorPicker', "label">;
-  @NgInput() declare "value"?: AngularInput<'ColorPicker', "value">;
-  @NgInput({ required: true }) declare "defaultLabel": AngularInput<'ColorPicker', "defaultLabel">;
-  @NgInput({ required: true }) declare "customLabel": AngularInput<'ColorPicker', "customLabel">;
-  @NgInput() declare "customHexLabel"?: AngularInput<'ColorPicker', "customHexLabel">;
-  @NgInput() declare "invalidColor"?: AngularInput<'ColorPicker', "invalidColor">;
-  @NgInput({ required: true }) declare "colorLabels": AngularInput<'ColorPicker', "colorLabels">;
-  @NgInput() declare "optional"?: AngularInput<'ColorPicker', "optional">;
   @NgInput() declare "allowHexInput"?: AngularInput<'ColorPicker', "allowHexInput">;
+  @NgInput({ required: true }) declare "colorLabels": AngularInput<'ColorPicker', "colorLabels">;
+  @NgInput() declare "customHexLabel"?: AngularInput<'ColorPicker', "customHexLabel">;
+  @NgInput({ required: true }) declare "customLabel": AngularInput<'ColorPicker', "customLabel">;
+  @NgInput({ required: true }) declare "defaultLabel": AngularInput<'ColorPicker', "defaultLabel">;
   @NgInput() declare "disabled"?: AngularInput<'ColorPicker', "disabled">;
+  @NgInput() declare "invalidColor"?: AngularInput<'ColorPicker', "invalidColor">;
+  @NgInput({ required: true }) declare "label": AngularInput<'ColorPicker', "label">;
   @NgInput() declare "onChange"?: AngularInput<'ColorPicker', "onChange">;
+  @NgInput() declare "optional"?: AngularInput<'ColorPicker', "optional">;
+  @NgInput() declare "value"?: AngularInput<'ColorPicker', "value">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

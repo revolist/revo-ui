@@ -12,11 +12,11 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class NumberDraft extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'NumberDraft';
   protected rvResolveComponent() { return Control; }
-  @NgInput({ required: true }) declare "value": AngularInput<'NumberDraft', "value">;
-  @NgInput({ required: true }) declare "options": AngularInput<'NumberDraft', "options">;
   @NgInput({ required: true }) declare "apply": AngularInput<'NumberDraft', "apply">;
   @NgInput({ required: true }) declare "cancel": AngularInput<'NumberDraft', "cancel">;
   @NgInput() declare "initialSelection"?: AngularInput<'NumberDraft', "initialSelection">;
+  @NgInput({ required: true }) declare "options": AngularInput<'NumberDraft', "options">;
+  @NgInput({ required: true }) declare "value": AngularInput<'NumberDraft', "value">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

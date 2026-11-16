@@ -12,10 +12,10 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class Badge extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'Badge';
   protected rvResolveComponent() { return Control; }
-  @NgInput() declare "variant"?: AngularInput<'Badge', "variant">;
-  @NgInput() declare "shape"?: AngularInput<'Badge', "shape">;
   @NgInput() declare "className"?: AngularInput<'Badge', "className">;
   @NgInput() declare "label"?: AngularInput<'Badge', "label">;
+  @NgInput() declare "shape"?: AngularInput<'Badge', "shape">;
+  @NgInput() declare "variant"?: AngularInput<'Badge', "variant">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

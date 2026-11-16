@@ -12,11 +12,11 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class AiResult extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'AiResult';
   protected rvResolveComponent() { return Control; }
-  @NgInput() declare "translations"?: AngularInput<'AiResult', "translations">;
-  @NgInput({ required: true }) declare "summary": AngularInput<'AiResult', "summary">;
-  @NgInput() declare "matchedRows"?: AngularInput<'AiResult', "matchedRows">;
-  @NgInput() declare "countLabel"?: AngularInput<'AiResult', "countLabel">;
   @NgInput() declare "actions"?: AngularInput<'AiResult', "actions">;
+  @NgInput() declare "countLabel"?: AngularInput<'AiResult', "countLabel">;
+  @NgInput() declare "matchedRows"?: AngularInput<'AiResult', "matchedRows">;
+  @NgInput({ required: true }) declare "summary": AngularInput<'AiResult', "summary">;
+  @NgInput() declare "translations"?: AngularInput<'AiResult', "translations">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

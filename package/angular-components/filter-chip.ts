@@ -12,11 +12,11 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class FilterChip extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'FilterChip';
   protected rvResolveComponent() { return Control; }
-  @NgInput() declare "removeLabel"?: AngularInput<'FilterChip', "removeLabel">;
   @NgInput() declare "className"?: AngularInput<'FilterChip', "className">;
-  @NgInput() declare "removeClassName"?: AngularInput<'FilterChip', "removeClassName">;
-  @NgInput() declare "role"?: AngularInput<'FilterChip', "role">;
   @NgInput() declare "onRemove"?: AngularInput<'FilterChip', "onRemove">;
+  @NgInput() declare "removeClassName"?: AngularInput<'FilterChip', "removeClassName">;
+  @NgInput() declare "removeLabel"?: AngularInput<'FilterChip', "removeLabel">;
+  @NgInput() declare "role"?: AngularInput<'FilterChip', "role">;
   @Output() get remove() { return this.rvOutput<AngularCallbackValue<AngularInput<'FilterChip', 'onRemove'>>>('onRemove'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

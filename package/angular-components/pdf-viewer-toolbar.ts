@@ -13,15 +13,15 @@ export class PdfViewerToolbar extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'PdfViewerToolbar';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onOpen","onToggleSearch"];
-  @NgInput({ required: true }) declare "controller": AngularInput<'PdfViewerToolbar', "controller">;
-  @NgInput({ required: true }) declare "state": AngularInput<'PdfViewerToolbar', "state">;
-  @NgInput() declare "config"?: AngularInput<'PdfViewerToolbar', "config">;
-  @NgInput() declare "text"?: AngularInput<'PdfViewerToolbar', "text">;
-  @NgInput() declare "searchOpen"?: AngularInput<'PdfViewerToolbar', "searchOpen">;
-  @NgInput() declare "searchId"?: AngularInput<'PdfViewerToolbar', "searchId">;
   @NgInput() declare "appendTo"?: AngularInput<'PdfViewerToolbar', "appendTo">;
+  @NgInput() declare "config"?: AngularInput<'PdfViewerToolbar', "config">;
+  @NgInput({ required: true }) declare "controller": AngularInput<'PdfViewerToolbar', "controller">;
   @NgInput() declare "onOpen"?: AngularInput<'PdfViewerToolbar', "onOpen">;
   @NgInput() declare "onToggleSearch"?: AngularInput<'PdfViewerToolbar', "onToggleSearch">;
+  @NgInput() declare "searchId"?: AngularInput<'PdfViewerToolbar', "searchId">;
+  @NgInput() declare "searchOpen"?: AngularInput<'PdfViewerToolbar', "searchOpen">;
+  @NgInput({ required: true }) declare "state": AngularInput<'PdfViewerToolbar', "state">;
+  @NgInput() declare "text"?: AngularInput<'PdfViewerToolbar', "text">;
   @Output() get open() { return this.rvOutput<AngularCallbackValue<AngularInput<'PdfViewerToolbar', 'onOpen'>>>('onOpen'); }
   @Output() get toggleSearch() { return this.rvOutput<AngularCallbackValue<AngularInput<'PdfViewerToolbar', 'onToggleSearch'>>>('onToggleSearch'); }
   protected rvResolveProps() { return this.rvInputValues; }

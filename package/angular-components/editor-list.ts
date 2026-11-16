@@ -13,12 +13,12 @@ export class EditorList extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'EditorList';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onSelect"];
+  @NgInput() declare "className"?: AngularInput<'EditorList', "className">;
   @NgInput({ required: true }) declare "label": AngularInput<'EditorList', "label">;
   @NgInput() declare "listRef"?: AngularInput<'EditorList', "listRef">;
-  @NgInput() declare "variant"?: AngularInput<'EditorList', "variant">;
-  @NgInput() declare "spacing"?: AngularInput<'EditorList', "spacing">;
-  @NgInput() declare "className"?: AngularInput<'EditorList', "className">;
   @NgInput() declare "onSelect"?: AngularInput<'EditorList', "onSelect">;
+  @NgInput() declare "spacing"?: AngularInput<'EditorList', "spacing">;
+  @NgInput() declare "variant"?: AngularInput<'EditorList', "variant">;
   @Output() get selectEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'EditorList', 'onSelect'>>>('onSelect'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

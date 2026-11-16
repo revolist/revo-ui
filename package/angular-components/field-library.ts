@@ -12,10 +12,10 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class FieldLibrary extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'FieldLibrary';
   protected rvResolveComponent() { return Control; }
-  @NgInput({ required: true }) declare "title": AngularInput<'FieldLibrary', "title">;
-  @NgInput() declare "id"?: AngularInput<'FieldLibrary', "id">;
-  @NgInput() declare "count"?: AngularInput<'FieldLibrary', "count">;
   @NgInput() declare "className"?: AngularInput<'FieldLibrary', "className">;
+  @NgInput() declare "count"?: AngularInput<'FieldLibrary', "count">;
+  @NgInput() declare "id"?: AngularInput<'FieldLibrary', "id">;
+  @NgInput({ required: true }) declare "title": AngularInput<'FieldLibrary', "title">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

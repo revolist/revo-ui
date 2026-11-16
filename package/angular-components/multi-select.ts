@@ -12,29 +12,29 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class MultiSelect extends AngularComponentAdapter<AngularCallbackValue<AngularInput<'MultiSelect', 'onChange'>>> {
   protected readonly rvComponentName = 'MultiSelect';
   protected rvResolveComponent() { return Control; }
-  @NgInput() declare "environment"?: AngularInput<'MultiSelect', "environment">;
-  @NgInput() declare "triggerAttributes"?: AngularInput<'MultiSelect', "triggerAttributes">;
-  @NgInput({ required: true }) declare "source": AngularInput<'MultiSelect', "source">;
-  @NgInput() declare "dataSource"?: AngularInput<'MultiSelect', "dataSource">;
-  @NgInput() declare "dataContext"?: AngularInput<'MultiSelect', "dataContext">;
-  @NgInput() declare "remoteText"?: AngularInput<'MultiSelect', "remoteText">;
-  @NgInput() declare "value"?: AngularInput<'MultiSelect', "value">;
-  @NgInput() declare "placeholder"?: AngularInput<'MultiSelect', "placeholder">;
-  @NgInput() declare "disabled"?: AngularInput<'MultiSelect', "disabled">;
-  @NgInput() declare "name"?: AngularInput<'MultiSelect', "name">;
-  @NgInput() declare "id"?: AngularInput<'MultiSelect', "id">;
-  @NgInput() declare "className"?: AngularInput<'MultiSelect', "className">;
-  @NgInput() declare "style"?: AngularInput<'MultiSelect', "style">;
-  @NgInput() declare "config"?: AngularInput<'MultiSelect', "config">;
   @NgInput() declare "beforeOutsideClose"?: AngularInput<'MultiSelect', "beforeOutsideClose">;
-  @NgInput() declare "renderContent"?: AngularInput<'MultiSelect', "renderContent">;
-  @NgInput() declare "renderOption"?: AngularInput<'MultiSelect', "renderOption">;
-  @NgInput() declare "renderValue"?: AngularInput<'MultiSelect', "renderValue">;
-  @NgInput() declare "renderPlaceholder"?: AngularInput<'MultiSelect', "renderPlaceholder">;
-  @NgInput() declare "renderSelectedValue"?: AngularInput<'MultiSelect', "renderSelectedValue">;
-  @NgInput() declare "renderNoResults"?: AngularInput<'MultiSelect', "renderNoResults">;
+  @NgInput() declare "className"?: AngularInput<'MultiSelect', "className">;
+  @NgInput() declare "config"?: AngularInput<'MultiSelect', "config">;
+  @NgInput() declare "dataContext"?: AngularInput<'MultiSelect', "dataContext">;
+  @NgInput() declare "dataSource"?: AngularInput<'MultiSelect', "dataSource">;
+  @NgInput() declare "disabled"?: AngularInput<'MultiSelect', "disabled">;
+  @NgInput() declare "environment"?: AngularInput<'MultiSelect', "environment">;
+  @NgInput() declare "id"?: AngularInput<'MultiSelect', "id">;
+  @NgInput() declare "name"?: AngularInput<'MultiSelect', "name">;
   @NgInput() declare "onChange"?: AngularInput<'MultiSelect', "onChange">;
   @NgInput() declare "onClose"?: AngularInput<'MultiSelect', "onClose">;
+  @NgInput() declare "placeholder"?: AngularInput<'MultiSelect', "placeholder">;
+  @NgInput() declare "remoteText"?: AngularInput<'MultiSelect', "remoteText">;
+  @NgInput() declare "renderContent"?: AngularInput<'MultiSelect', "renderContent">;
+  @NgInput() declare "renderNoResults"?: AngularInput<'MultiSelect', "renderNoResults">;
+  @NgInput() declare "renderOption"?: AngularInput<'MultiSelect', "renderOption">;
+  @NgInput() declare "renderPlaceholder"?: AngularInput<'MultiSelect', "renderPlaceholder">;
+  @NgInput() declare "renderSelectedValue"?: AngularInput<'MultiSelect', "renderSelectedValue">;
+  @NgInput() declare "renderValue"?: AngularInput<'MultiSelect', "renderValue">;
+  @NgInput({ required: true }) declare "source": AngularInput<'MultiSelect', "source">;
+  @NgInput() declare "style"?: AngularInput<'MultiSelect', "style">;
+  @NgInput() declare "triggerAttributes"?: AngularInput<'MultiSelect', "triggerAttributes">;
+  @NgInput() declare "value"?: AngularInput<'MultiSelect', "value">;
   @Output() get closeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'MultiSelect', 'onClose'>>>('onClose'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

@@ -12,11 +12,11 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class AiChatContent extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'AiChatContent';
   protected rvResolveComponent() { return Control; }
-  @NgInput() declare "label"?: AngularInput<'AiChatContent', "label">;
   @NgInput() declare "autoScroll"?: AngularInput<'AiChatContent', "autoScroll">;
   @NgInput() declare "busy"?: AngularInput<'AiChatContent', "busy">;
-  @NgInput() declare "jumpLabel"?: AngularInput<'AiChatContent', "jumpLabel">;
   @NgInput() declare "className"?: AngularInput<'AiChatContent', "className">;
+  @NgInput() declare "jumpLabel"?: AngularInput<'AiChatContent', "jumpLabel">;
+  @NgInput() declare "label"?: AngularInput<'AiChatContent', "label">;
   @NgInput() declare "translations"?: AngularInput<'AiChatContent', "translations">;
 
   protected rvResolveProps() { return this.rvInputValues; }

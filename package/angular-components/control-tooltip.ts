@@ -12,55 +12,55 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class ControlTooltip extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'ControlTooltip';
   protected rvResolveComponent() { return Control; }
-  @NgInput({ required: true }) declare "id": AngularInput<'ControlTooltip', "id">;
-  @NgInput({ required: true }) declare "text": AngularInput<'ControlTooltip', "text">;
-  @NgInput() declare "content"?: AngularInput<'ControlTooltip', "content">;
-  @NgInput({ required: true }) declare "visible": AngularInput<'ControlTooltip', "visible">;
+  @NgInput() declare "align"?: AngularInput<'ControlTooltip', "align">;
+  @NgInput() declare "alignOffset"?: AngularInput<'ControlTooltip', "alignOffset">;
   @NgInput() declare "anchor"?: AngularInput<'ControlTooltip', "anchor">;
-  @NgInput() declare "trigger"?: AngularInput<'ControlTooltip', "trigger">;
-  @NgInput() declare "filter"?: AngularInput<'ControlTooltip', "filter">;
-  @NgInput() declare "disabled"?: AngularInput<'ControlTooltip', "disabled">;
-  @NgInput() declare "open"?: AngularInput<'ControlTooltip', "open">;
-  @NgInput() declare "delay"?: AngularInput<'ControlTooltip', "delay">;
-  @NgInput() declare "closeDelay"?: AngularInput<'ControlTooltip', "closeDelay">;
-  @NgInput() declare "focusDelay"?: AngularInput<'ControlTooltip', "focusDelay">;
-  @NgInput() declare "group"?: AngularInput<'ControlTooltip', "group">;
+  @NgInput() declare "appendTo"?: AngularInput<'ControlTooltip', "appendTo">;
+  @NgInput() declare "arrow"?: AngularInput<'ControlTooltip', "arrow">;
   @NgInput() declare "autoHide"?: AngularInput<'ControlTooltip', "autoHide">;
-  @NgInput() declare "disableHoverablePopup"?: AngularInput<'ControlTooltip', "disableHoverablePopup">;
+  @NgInput() declare "className"?: AngularInput<'ControlTooltip', "className">;
+  @NgInput() declare "closeDelay"?: AngularInput<'ControlTooltip', "closeDelay">;
   @NgInput() declare "closeOnEscape"?: AngularInput<'ControlTooltip', "closeOnEscape">;
   @NgInput() declare "closeOnOutside"?: AngularInput<'ControlTooltip', "closeOnOutside">;
-  @NgInput() declare "hideOnClick"?: AngularInput<'ControlTooltip', "hideOnClick">;
-  @NgInput() declare "appendTo"?: AngularInput<'ControlTooltip', "appendTo">;
-  @NgInput() declare "keepMounted"?: AngularInput<'ControlTooltip', "keepMounted">;
-  @NgInput() declare "arrow"?: AngularInput<'ControlTooltip', "arrow">;
-  @NgInput() declare "width"?: AngularInput<'ControlTooltip', "width">;
-  @NgInput() declare "height"?: AngularInput<'ControlTooltip', "height">;
-  @NgInput() declare "maxWidth"?: AngularInput<'ControlTooltip', "maxWidth">;
-  @NgInput() declare "maxHeight"?: AngularInput<'ControlTooltip', "maxHeight">;
-  @NgInput() declare "className"?: AngularInput<'ControlTooltip', "className">;
-  @NgInput() declare "style"?: AngularInput<'ControlTooltip', "style">;
-  @NgInput() declare "transitionDuration"?: AngularInput<'ControlTooltip', "transitionDuration">;
-  @NgInput() declare "side"?: AngularInput<'ControlTooltip', "side">;
-  @NgInput() declare "placement"?: AngularInput<'ControlTooltip', "placement">;
-  @NgInput() declare "align"?: AngularInput<'ControlTooltip', "align">;
-  @NgInput() declare "sideOffset"?: AngularInput<'ControlTooltip', "sideOffset">;
-  @NgInput() declare "alignOffset"?: AngularInput<'ControlTooltip', "alignOffset">;
-  @NgInput() declare "direction"?: AngularInput<'ControlTooltip', "direction">;
+  @NgInput() declare "collisionAvoidance"?: AngularInput<'ControlTooltip', "collisionAvoidance">;
   @NgInput() declare "collisionBoundary"?: AngularInput<'ControlTooltip', "collisionBoundary">;
   @NgInput() declare "collisionPadding"?: AngularInput<'ControlTooltip', "collisionPadding">;
-  @NgInput() declare "collisionAvoidance"?: AngularInput<'ControlTooltip', "collisionAvoidance">;
-  @NgInput() declare "sticky"?: AngularInput<'ControlTooltip', "sticky">;
+  @NgInput() declare "content"?: AngularInput<'ControlTooltip', "content">;
+  @NgInput() declare "delay"?: AngularInput<'ControlTooltip', "delay">;
+  @NgInput() declare "direction"?: AngularInput<'ControlTooltip', "direction">;
+  @NgInput() declare "disableHoverablePopup"?: AngularInput<'ControlTooltip', "disableHoverablePopup">;
+  @NgInput() declare "disabled"?: AngularInput<'ControlTooltip', "disabled">;
+  @NgInput() declare "filter"?: AngularInput<'ControlTooltip', "filter">;
+  @NgInput() declare "focusDelay"?: AngularInput<'ControlTooltip', "focusDelay">;
+  @NgInput() declare "group"?: AngularInput<'ControlTooltip', "group">;
+  @NgInput() declare "height"?: AngularInput<'ControlTooltip', "height">;
+  @NgInput() declare "hideOnClick"?: AngularInput<'ControlTooltip', "hideOnClick">;
+  @NgInput({ required: true }) declare "id": AngularInput<'ControlTooltip', "id">;
+  @NgInput() declare "keepMounted"?: AngularInput<'ControlTooltip', "keepMounted">;
+  @NgInput() declare "maxHeight"?: AngularInput<'ControlTooltip', "maxHeight">;
+  @NgInput() declare "maxWidth"?: AngularInput<'ControlTooltip', "maxWidth">;
   @NgInput() declare "onBeforeOpenChange"?: AngularInput<'ControlTooltip', "onBeforeOpenChange">;
+  @NgInput() declare "onEscape"?: AngularInput<'ControlTooltip', "onEscape">;
+  @NgInput() declare "onHide"?: AngularInput<'ControlTooltip', "onHide">;
   @NgInput() declare "onOpenChange"?: AngularInput<'ControlTooltip', "onOpenChange">;
   @NgInput() declare "onOpenChangeComplete"?: AngularInput<'ControlTooltip', "onOpenChangeComplete">;
   @NgInput() declare "onShow"?: AngularInput<'ControlTooltip', "onShow">;
-  @NgInput() declare "onHide"?: AngularInput<'ControlTooltip', "onHide">;
-  @NgInput() declare "onEscape"?: AngularInput<'ControlTooltip', "onEscape">;
+  @NgInput() declare "open"?: AngularInput<'ControlTooltip', "open">;
+  @NgInput() declare "placement"?: AngularInput<'ControlTooltip', "placement">;
+  @NgInput() declare "side"?: AngularInput<'ControlTooltip', "side">;
+  @NgInput() declare "sideOffset"?: AngularInput<'ControlTooltip', "sideOffset">;
+  @NgInput() declare "sticky"?: AngularInput<'ControlTooltip', "sticky">;
+  @NgInput() declare "style"?: AngularInput<'ControlTooltip', "style">;
+  @NgInput({ required: true }) declare "text": AngularInput<'ControlTooltip', "text">;
+  @NgInput() declare "transitionDuration"?: AngularInput<'ControlTooltip', "transitionDuration">;
+  @NgInput() declare "trigger"?: AngularInput<'ControlTooltip', "trigger">;
+  @NgInput({ required: true }) declare "visible": AngularInput<'ControlTooltip', "visible">;
+  @NgInput() declare "width"?: AngularInput<'ControlTooltip', "width">;
   @Output() get beforeOpenChange() { return this.rvOutput<AngularCallbackValue<AngularInput<'ControlTooltip', 'onBeforeOpenChange'>>>('onBeforeOpenChange'); }
+  @Output() get escape() { return this.rvOutput<AngularCallbackValue<AngularInput<'ControlTooltip', 'onEscape'>>>('onEscape'); }
+  @Output() get hide() { return this.rvOutput<AngularCallbackValue<AngularInput<'ControlTooltip', 'onHide'>>>('onHide'); }
   @Output() get openChange() { return this.rvOutput<AngularCallbackValue<AngularInput<'ControlTooltip', 'onOpenChange'>>>('onOpenChange'); }
   @Output() get openChangeComplete() { return this.rvOutput<AngularCallbackValue<AngularInput<'ControlTooltip', 'onOpenChangeComplete'>>>('onOpenChangeComplete'); }
   @Output() get show() { return this.rvOutput<AngularCallbackValue<AngularInput<'ControlTooltip', 'onShow'>>>('onShow'); }
-  @Output() get hide() { return this.rvOutput<AngularCallbackValue<AngularInput<'ControlTooltip', 'onHide'>>>('onHide'); }
-  @Output() get escape() { return this.rvOutput<AngularCallbackValue<AngularInput<'ControlTooltip', 'onEscape'>>>('onEscape'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

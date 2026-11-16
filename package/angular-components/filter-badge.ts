@@ -13,15 +13,15 @@ export class FilterBadge extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'FilterBadge';
   protected rvResolveComponent() { return Control; }
   @NgInput() declare "className"?: AngularInput<'FilterBadge', "className">;
-  @NgInput() declare "role"?: AngularInput<'FilterBadge', "role">;
-  @NgInput() declare "removeLabel"?: AngularInput<'FilterBadge', "removeLabel">;
-  @NgInput() declare "removeClassName"?: AngularInput<'FilterBadge', "removeClassName">;
-  @NgInput() declare "label"?: AngularInput<'FilterBadge', "label">;
   @NgInput() declare "color"?: AngularInput<'FilterBadge', "color">;
+  @NgInput() declare "descriptionId"?: AngularInput<'FilterBadge', "descriptionId">;
   @NgInput() declare "details"?: AngularInput<'FilterBadge', "details">;
   @NgInput() declare "detailsLabel"?: AngularInput<'FilterBadge', "detailsLabel">;
-  @NgInput() declare "descriptionId"?: AngularInput<'FilterBadge', "descriptionId">;
+  @NgInput() declare "label"?: AngularInput<'FilterBadge', "label">;
   @NgInput() declare "onRemove"?: AngularInput<'FilterBadge', "onRemove">;
+  @NgInput() declare "removeClassName"?: AngularInput<'FilterBadge', "removeClassName">;
+  @NgInput() declare "removeLabel"?: AngularInput<'FilterBadge', "removeLabel">;
+  @NgInput() declare "role"?: AngularInput<'FilterBadge', "role">;
   @Output() get remove() { return this.rvOutput<AngularCallbackValue<AngularInput<'FilterBadge', 'onRemove'>>>('onRemove'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

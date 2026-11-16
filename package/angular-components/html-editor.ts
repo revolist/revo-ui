@@ -13,16 +13,16 @@ export class HtmlEditor extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'HtmlEditor';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onApply","onCancel"];
-  @NgInput() declare "formatSource"?: AngularInput<'HtmlEditor', "formatSource">;
-  @NgInput({ required: true }) declare "value": AngularInput<'HtmlEditor', "value">;
-  @NgInput() declare "required"?: AngularInput<'HtmlEditor', "required">;
-  @NgInput() declare "maxLength"?: AngularInput<'HtmlEditor', "maxLength">;
-  @NgInput() declare "text"?: AngularInput<'HtmlEditor', "text">;
   @NgInput() declare "actions"?: AngularInput<'HtmlEditor', "actions">;
   @NgInput() declare "autoApply"?: AngularInput<'HtmlEditor', "autoApply">;
-  @NgInput() declare "showActions"?: AngularInput<'HtmlEditor', "showActions">;
+  @NgInput() declare "formatSource"?: AngularInput<'HtmlEditor', "formatSource">;
+  @NgInput() declare "maxLength"?: AngularInput<'HtmlEditor', "maxLength">;
   @NgInput() declare "onApply"?: AngularInput<'HtmlEditor', "onApply">;
   @NgInput() declare "onCancel"?: AngularInput<'HtmlEditor', "onCancel">;
+  @NgInput() declare "required"?: AngularInput<'HtmlEditor', "required">;
+  @NgInput() declare "showActions"?: AngularInput<'HtmlEditor', "showActions">;
+  @NgInput() declare "text"?: AngularInput<'HtmlEditor', "text">;
+  @NgInput({ required: true }) declare "value": AngularInput<'HtmlEditor', "value">;
   @Output() get apply() { return this.rvOutput<AngularCallbackValue<AngularInput<'HtmlEditor', 'onApply'>>>('onApply'); }
   @Output() get cancel() { return this.rvOutput<AngularCallbackValue<AngularInput<'HtmlEditor', 'onCancel'>>>('onCancel'); }
   protected rvResolveProps() { return this.rvInputValues; }

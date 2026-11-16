@@ -12,9 +12,9 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class AiChat extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'AiChat';
   protected rvResolveComponent() { return Control; }
+  @NgInput() declare "className"?: AngularInput<'AiChat', "className">;
   @NgInput() declare "label"?: AngularInput<'AiChat', "label">;
   @NgInput() declare "style"?: AngularInput<'AiChat', "style">;
-  @NgInput() declare "className"?: AngularInput<'AiChat', "className">;
   @NgInput() declare "translations"?: AngularInput<'AiChat', "translations">;
 
   protected rvResolveProps() { return this.rvInputValues; }

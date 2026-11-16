@@ -13,35 +13,35 @@ export class DurationField extends AngularComponentAdapter<AngularCallbackValue<
   protected readonly rvComponentName = 'DurationField';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onChange"];
-  @NgInput({ required: true }) declare "value": AngularInput<'DurationField', "value">;
-  @NgInput() declare "label"?: AngularInput<'DurationField', "label">;
-  @NgInput() declare "invalidText"?: AngularInput<'DurationField', "invalidText">;
-  @NgInput() declare "disabled"?: AngularInput<'DurationField', "disabled">;
-  @NgInput() declare "readOnly"?: AngularInput<'DurationField', "readOnly">;
-  @NgInput() declare "className"?: AngularInput<'DurationField', "className">;
-  @NgInput() declare "slider"?: AngularInput<'DurationField', "slider">;
-  @NgInput() declare "unitButtons"?: AngularInput<'DurationField', "unitButtons">;
-  @NgInput() declare "unitLabels"?: AngularInput<'DurationField', "unitLabels">;
-  @NgInput() declare "unitLabel"?: AngularInput<'DurationField', "unitLabel">;
-  @NgInput() declare "placeholder"?: AngularInput<'DurationField', "placeholder">;
-  @NgInput() declare "modeLabel"?: AngularInput<'DurationField', "modeLabel">;
-  @NgInput() declare "workingLabel"?: AngularInput<'DurationField', "workingLabel">;
-  @NgInput() declare "elapsedLabel"?: AngularInput<'DurationField', "elapsedLabel">;
-  @NgInput({ required: true }) declare "defaultUnit": AngularInput<'DurationField', "defaultUnit">;
-  @NgInput() declare "allowedUnits"?: AngularInput<'DurationField', "allowedUnits">;
   @NgInput() declare "allowElapsed"?: AngularInput<'DurationField', "allowElapsed">;
-  @NgInput() declare "required"?: AngularInput<'DurationField', "required">;
-  @NgInput() declare "min"?: AngularInput<'DurationField', "min">;
+  @NgInput() declare "allowedUnits"?: AngularInput<'DurationField', "allowedUnits">;
+  @NgInput() declare "autoApply"?: AngularInput<'DurationField', "autoApply">;
+  @NgInput() declare "className"?: AngularInput<'DurationField', "className">;
+  @NgInput({ required: true }) declare "defaultUnit": AngularInput<'DurationField', "defaultUnit">;
+  @NgInput() declare "disabled"?: AngularInput<'DurationField', "disabled">;
+  @NgInput() declare "elapsedLabel"?: AngularInput<'DurationField', "elapsedLabel">;
+  @NgInput() declare "invalidText"?: AngularInput<'DurationField', "invalidText">;
+  @NgInput() declare "label"?: AngularInput<'DurationField', "label">;
   @NgInput() declare "max"?: AngularInput<'DurationField', "max">;
   @NgInput() declare "maximumFractionDigits"?: AngularInput<'DurationField', "maximumFractionDigits">;
-  @NgInput() declare "autoApply"?: AngularInput<'DurationField', "autoApply">;
-  @NgInput() declare "showActions"?: AngularInput<'DurationField', "showActions">;
+  @NgInput() declare "min"?: AngularInput<'DurationField', "min">;
+  @NgInput() declare "modeLabel"?: AngularInput<'DurationField', "modeLabel">;
   @NgInput() declare "onChange"?: AngularInput<'DurationField', "onChange">;
   @NgInput() declare "onCommit"?: AngularInput<'DurationField', "onCommit">;
-  @NgInput() declare "onValidityChange"?: AngularInput<'DurationField', "onValidityChange">;
   @NgInput() declare "onDraftChange"?: AngularInput<'DurationField', "onDraftChange">;
+  @NgInput() declare "onValidityChange"?: AngularInput<'DurationField', "onValidityChange">;
+  @NgInput() declare "placeholder"?: AngularInput<'DurationField', "placeholder">;
+  @NgInput() declare "readOnly"?: AngularInput<'DurationField', "readOnly">;
+  @NgInput() declare "required"?: AngularInput<'DurationField', "required">;
+  @NgInput() declare "showActions"?: AngularInput<'DurationField', "showActions">;
+  @NgInput() declare "slider"?: AngularInput<'DurationField', "slider">;
+  @NgInput() declare "unitButtons"?: AngularInput<'DurationField', "unitButtons">;
+  @NgInput() declare "unitLabel"?: AngularInput<'DurationField', "unitLabel">;
+  @NgInput() declare "unitLabels"?: AngularInput<'DurationField', "unitLabels">;
+  @NgInput({ required: true }) declare "value": AngularInput<'DurationField', "value">;
+  @NgInput() declare "workingLabel"?: AngularInput<'DurationField', "workingLabel">;
   @Output() get commit() { return this.rvOutput<AngularCallbackValue<AngularInput<'DurationField', 'onCommit'>>>('onCommit'); }
-  @Output() get validityChange() { return this.rvOutput<AngularCallbackValue<AngularInput<'DurationField', 'onValidityChange'>>>('onValidityChange'); }
   @Output() get draftChange() { return this.rvOutput<AngularCallbackValue<AngularInput<'DurationField', 'onDraftChange'>>>('onDraftChange'); }
+  @Output() get validityChange() { return this.rvOutput<AngularCallbackValue<AngularInput<'DurationField', 'onValidityChange'>>>('onValidityChange'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

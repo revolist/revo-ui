@@ -12,10 +12,10 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class AiMessage extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'AiMessage';
   protected rvResolveComponent() { return Control; }
-  @NgInput({ required: true }) declare "from": AngularInput<'AiMessage', "from">;
-  @NgInput() declare "label"?: AngularInput<'AiMessage', "label">;
-  @NgInput() declare "isStreaming"?: AngularInput<'AiMessage', "isStreaming">;
   @NgInput() declare "className"?: AngularInput<'AiMessage', "className">;
+  @NgInput({ required: true }) declare "from": AngularInput<'AiMessage', "from">;
+  @NgInput() declare "isStreaming"?: AngularInput<'AiMessage', "isStreaming">;
+  @NgInput() declare "label"?: AngularInput<'AiMessage', "label">;
   @NgInput() declare "translations"?: AngularInput<'AiMessage', "translations">;
 
   protected rvResolveProps() { return this.rvInputValues; }

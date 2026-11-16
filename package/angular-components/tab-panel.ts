@@ -12,9 +12,9 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class TabPanel extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'TabPanel';
   protected rvResolveComponent() { return Control; }
+  @NgInput({ required: true }) declare "active": AngularInput<'TabPanel', "active">;
   @NgInput({ required: true }) declare "id": AngularInput<'TabPanel', "id">;
   @NgInput({ required: true }) declare "labelledBy": AngularInput<'TabPanel', "labelledBy">;
-  @NgInput({ required: true }) declare "active": AngularInput<'TabPanel', "active">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

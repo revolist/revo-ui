@@ -12,14 +12,14 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class AiReasoning extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'AiReasoning';
   protected rvResolveComponent() { return Control; }
-  @NgInput() declare "title"?: AngularInput<'AiReasoning', "title">;
-  @NgInput() declare "isStreaming"?: AngularInput<'AiReasoning', "isStreaming">;
-  @NgInput() declare "duration"?: AngularInput<'AiReasoning', "duration">;
   @NgInput() declare "className"?: AngularInput<'AiReasoning', "className">;
-  @NgInput() declare "open"?: AngularInput<'AiReasoning', "open">;
   @NgInput() declare "defaultOpen"?: AngularInput<'AiReasoning', "defaultOpen">;
-  @NgInput() declare "translations"?: AngularInput<'AiReasoning', "translations">;
+  @NgInput() declare "duration"?: AngularInput<'AiReasoning', "duration">;
+  @NgInput() declare "isStreaming"?: AngularInput<'AiReasoning', "isStreaming">;
   @NgInput() declare "onOpenChange"?: AngularInput<'AiReasoning', "onOpenChange">;
+  @NgInput() declare "open"?: AngularInput<'AiReasoning', "open">;
+  @NgInput() declare "title"?: AngularInput<'AiReasoning', "title">;
+  @NgInput() declare "translations"?: AngularInput<'AiReasoning', "translations">;
   @Output() get openChange() { return this.rvOutput<AngularCallbackValue<AngularInput<'AiReasoning', 'onOpenChange'>>>('onOpenChange'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

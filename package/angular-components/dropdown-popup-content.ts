@@ -13,22 +13,22 @@ export class DropdownPopupContent extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'DropdownPopupContent';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onChange","onClose"];
-  @NgInput({ required: true }) declare "options": AngularInput<'DropdownPopupContent', "options">;
-  @NgInput() declare "selectedValues"?: AngularInput<'DropdownPopupContent', "selectedValues">;
-  @NgInput() declare "remote"?: AngularInput<'DropdownPopupContent', "remote">;
-  @NgInput({ required: true }) declare "value": AngularInput<'DropdownPopupContent', "value">;
   @NgInput({ required: true }) declare "config": AngularInput<'DropdownPopupContent', "config">;
-  @NgInput({ required: true }) declare "multiSelect": AngularInput<'DropdownPopupContent', "multiSelect">;
-  @NgInput({ required: true }) declare "search": AngularInput<'DropdownPopupContent', "search">;
-  @NgInput({ required: true }) declare "searchPlaceholder": AngularInput<'DropdownPopupContent', "searchPlaceholder">;
   @NgInput({ required: true }) declare "listboxId": AngularInput<'DropdownPopupContent', "listboxId">;
-  @NgInput({ required: true }) declare "searchId": AngularInput<'DropdownPopupContent', "searchId">;
-  @NgInput() declare "renderOption"?: AngularInput<'DropdownPopupContent', "renderOption">;
-  @NgInput() declare "renderNoResults"?: AngularInput<'DropdownPopupContent', "renderNoResults">;
-  @NgInput() declare "theme"?: AngularInput<'DropdownPopupContent', "theme">;
+  @NgInput({ required: true }) declare "multiSelect": AngularInput<'DropdownPopupContent', "multiSelect">;
   @NgInput() declare "onChange"?: AngularInput<'DropdownPopupContent', "onChange">;
   @NgInput() declare "onClose"?: AngularInput<'DropdownPopupContent', "onClose">;
   @NgInput() declare "onTabNavigation"?: AngularInput<'DropdownPopupContent', "onTabNavigation">;
+  @NgInput({ required: true }) declare "options": AngularInput<'DropdownPopupContent', "options">;
+  @NgInput() declare "remote"?: AngularInput<'DropdownPopupContent', "remote">;
+  @NgInput() declare "renderNoResults"?: AngularInput<'DropdownPopupContent', "renderNoResults">;
+  @NgInput() declare "renderOption"?: AngularInput<'DropdownPopupContent', "renderOption">;
+  @NgInput({ required: true }) declare "search": AngularInput<'DropdownPopupContent', "search">;
+  @NgInput({ required: true }) declare "searchId": AngularInput<'DropdownPopupContent', "searchId">;
+  @NgInput({ required: true }) declare "searchPlaceholder": AngularInput<'DropdownPopupContent', "searchPlaceholder">;
+  @NgInput() declare "selectedValues"?: AngularInput<'DropdownPopupContent', "selectedValues">;
+  @NgInput() declare "theme"?: AngularInput<'DropdownPopupContent', "theme">;
+  @NgInput({ required: true }) declare "value": AngularInput<'DropdownPopupContent', "value">;
   @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DropdownPopupContent', 'onChange'>>>('onChange'); }
   @Output() get closeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DropdownPopupContent', 'onClose'>>>('onClose'); }
   @Output() get tabNavigation() { return this.rvOutput<AngularCallbackValue<AngularInput<'DropdownPopupContent', 'onTabNavigation'>>>('onTabNavigation'); }

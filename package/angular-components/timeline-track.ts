@@ -12,18 +12,18 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class TimelineTrack extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'TimelineTrack';
   protected rvResolveComponent() { return Control; }
-  protected override readonly rvRequiredCallbacks = ["onSelect","onEventChange"];
-  @NgInput({ required: true }) declare "rows": AngularInput<'TimelineTrack', "rows">;
-  @NgInput() declare "tooltip"?: AngularInput<'TimelineTrack', "tooltip">;
-  @NgInput() declare "showActions"?: AngularInput<'TimelineTrack', "showActions">;
+  protected override readonly rvRequiredCallbacks = ["onEventChange","onSelect"];
   @NgInput() declare "formatValue"?: AngularInput<'TimelineTrack', "formatValue">;
   @NgInput() declare "getTooltip"?: AngularInput<'TimelineTrack', "getTooltip">;
-  @NgInput() declare "selected"?: AngularInput<'TimelineTrack', "selected">;
-  @NgInput({ required: true }) declare "range": AngularInput<'TimelineTrack', "range">;
   @NgInput() declare "labels"?: AngularInput<'TimelineTrack', "labels">;
-  @NgInput() declare "onSelect"?: AngularInput<'TimelineTrack', "onSelect">;
   @NgInput() declare "onEventChange"?: AngularInput<'TimelineTrack', "onEventChange">;
-  @Output() get selectEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TimelineTrack', 'onSelect'>>>('onSelect'); }
+  @NgInput() declare "onSelect"?: AngularInput<'TimelineTrack', "onSelect">;
+  @NgInput({ required: true }) declare "range": AngularInput<'TimelineTrack', "range">;
+  @NgInput({ required: true }) declare "rows": AngularInput<'TimelineTrack', "rows">;
+  @NgInput() declare "selected"?: AngularInput<'TimelineTrack', "selected">;
+  @NgInput() declare "showActions"?: AngularInput<'TimelineTrack', "showActions">;
+  @NgInput() declare "tooltip"?: AngularInput<'TimelineTrack', "tooltip">;
   @Output() get eventChange() { return this.rvOutput<AngularCallbackValue<AngularInput<'TimelineTrack', 'onEventChange'>>>('onEventChange'); }
+  @Output() get selectEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TimelineTrack', 'onSelect'>>>('onSelect'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

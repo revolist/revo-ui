@@ -13,14 +13,14 @@ export class AiChangePreview extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'AiChangePreview';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onApply","onCancel"];
-  @NgInput() declare "translations"?: AngularInput<'AiChangePreview', "translations">;
-  @NgInput({ required: true }) declare "summary": AngularInput<'AiChangePreview', "summary">;
-  @NgInput() declare "details"?: AngularInput<'AiChangePreview', "details">;
   @NgInput() declare "changes"?: AngularInput<'AiChangePreview', "changes">;
-  @NgInput() declare "notice"?: AngularInput<'AiChangePreview', "notice">;
+  @NgInput() declare "details"?: AngularInput<'AiChangePreview', "details">;
   @NgInput() declare "disabled"?: AngularInput<'AiChangePreview', "disabled">;
+  @NgInput() declare "notice"?: AngularInput<'AiChangePreview', "notice">;
   @NgInput() declare "onApply"?: AngularInput<'AiChangePreview', "onApply">;
   @NgInput() declare "onCancel"?: AngularInput<'AiChangePreview', "onCancel">;
+  @NgInput({ required: true }) declare "summary": AngularInput<'AiChangePreview', "summary">;
+  @NgInput() declare "translations"?: AngularInput<'AiChangePreview', "translations">;
   @Output() get apply() { return this.rvOutput<AngularCallbackValue<AngularInput<'AiChangePreview', 'onApply'>>>('onApply'); }
   @Output() get cancel() { return this.rvOutput<AngularCallbackValue<AngularInput<'AiChangePreview', 'onCancel'>>>('onCancel'); }
   protected rvResolveProps() { return this.rvInputValues; }

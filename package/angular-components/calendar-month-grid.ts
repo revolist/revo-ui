@@ -12,31 +12,31 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class CalendarMonthGrid extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'CalendarMonthGrid';
   protected rvResolveComponent() { return Control; }
-  protected override readonly rvRequiredCallbacks = ["onFocus","onPreview","onKeyDown","onSelect"];
+  protected override readonly rvRequiredCallbacks = ["onFocus","onKeyDown","onPreview","onSelect"];
+  @NgInput({ required: true }) declare "allowOutsideMonthSelection": AngularInput<'CalendarMonthGrid', "allowOutsideMonthSelection">;
   @NgInput({ required: true }) declare "dates": AngularInput<'CalendarMonthGrid', "dates">;
-  @NgInput() declare "system"?: AngularInput<'CalendarMonthGrid', "system">;
+  @NgInput() declare "dayClassName"?: AngularInput<'CalendarMonthGrid', "dayClassName">;
+  @NgInput({ required: true }) declare "focusedDate": AngularInput<'CalendarMonthGrid', "focusedDate">;
+  @NgInput({ required: true }) declare "formatDayLabel": AngularInput<'CalendarMonthGrid', "formatDayLabel">;
+  @NgInput({ required: true }) declare "isDisabled": AngularInput<'CalendarMonthGrid', "isDisabled">;
+  @NgInput({ required: true }) declare "month": AngularInput<'CalendarMonthGrid', "month">;
+  @NgInput() declare "onFocus"?: AngularInput<'CalendarMonthGrid', "onFocus">;
+  @NgInput() declare "onKeyDown"?: AngularInput<'CalendarMonthGrid', "onKeyDown">;
+  @NgInput() declare "onPreview"?: AngularInput<'CalendarMonthGrid', "onPreview">;
+  @NgInput() declare "onSelect"?: AngularInput<'CalendarMonthGrid', "onSelect">;
+  @NgInput() declare "preview"?: AngularInput<'CalendarMonthGrid', "preview">;
+  @NgInput() declare "previewDescriptionId"?: AngularInput<'CalendarMonthGrid', "previewDescriptionId">;
+  @NgInput() declare "previewInvalid"?: AngularInput<'CalendarMonthGrid', "previewInvalid">;
+  @NgInput() declare "referenceDate"?: AngularInput<'CalendarMonthGrid', "referenceDate">;
+  @NgInput() declare "renderDay"?: AngularInput<'CalendarMonthGrid', "renderDay">;
   @NgInput() declare "selectedDates"?: AngularInput<'CalendarMonthGrid', "selectedDates">;
+  @NgInput() declare "selection"?: AngularInput<'CalendarMonthGrid', "selection">;
+  @NgInput({ required: true }) declare "setDayRef": AngularInput<'CalendarMonthGrid', "setDayRef">;
+  @NgInput({ required: true }) declare "showOutsideDays": AngularInput<'CalendarMonthGrid', "showOutsideDays">;
+  @NgInput() declare "system"?: AngularInput<'CalendarMonthGrid', "system">;
   @NgInput() declare "visibleMonths"?: AngularInput<'CalendarMonthGrid', "visibleMonths">;
   @NgInput() declare "weekNumber"?: AngularInput<'CalendarMonthGrid', "weekNumber">;
   @NgInput() declare "weekNumberLabel"?: AngularInput<'CalendarMonthGrid', "weekNumberLabel">;
-  @NgInput({ required: true }) declare "month": AngularInput<'CalendarMonthGrid', "month">;
-  @NgInput({ required: true }) declare "focusedDate": AngularInput<'CalendarMonthGrid', "focusedDate">;
-  @NgInput() declare "referenceDate"?: AngularInput<'CalendarMonthGrid', "referenceDate">;
-  @NgInput() declare "selection"?: AngularInput<'CalendarMonthGrid', "selection">;
-  @NgInput() declare "preview"?: AngularInput<'CalendarMonthGrid', "preview">;
-  @NgInput() declare "previewInvalid"?: AngularInput<'CalendarMonthGrid', "previewInvalid">;
-  @NgInput() declare "previewDescriptionId"?: AngularInput<'CalendarMonthGrid', "previewDescriptionId">;
-  @NgInput({ required: true }) declare "showOutsideDays": AngularInput<'CalendarMonthGrid', "showOutsideDays">;
-  @NgInput({ required: true }) declare "allowOutsideMonthSelection": AngularInput<'CalendarMonthGrid', "allowOutsideMonthSelection">;
-  @NgInput() declare "dayClassName"?: AngularInput<'CalendarMonthGrid', "dayClassName">;
-  @NgInput() declare "renderDay"?: AngularInput<'CalendarMonthGrid', "renderDay">;
-  @NgInput({ required: true }) declare "isDisabled": AngularInput<'CalendarMonthGrid', "isDisabled">;
-  @NgInput({ required: true }) declare "formatDayLabel": AngularInput<'CalendarMonthGrid', "formatDayLabel">;
-  @NgInput({ required: true }) declare "setDayRef": AngularInput<'CalendarMonthGrid', "setDayRef">;
-  @NgInput() declare "onFocus"?: AngularInput<'CalendarMonthGrid', "onFocus">;
-  @NgInput() declare "onPreview"?: AngularInput<'CalendarMonthGrid', "onPreview">;
-  @NgInput() declare "onKeyDown"?: AngularInput<'CalendarMonthGrid', "onKeyDown">;
-  @NgInput() declare "onSelect"?: AngularInput<'CalendarMonthGrid', "onSelect">;
   @Output() get focusEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'CalendarMonthGrid', 'onFocus'>>>('onFocus'); }
   @Output() get keyDown() { return this.rvOutput<AngularCallbackValue<AngularInput<'CalendarMonthGrid', 'onKeyDown'>>>('onKeyDown'); }
   @Output() get selectEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'CalendarMonthGrid', 'onSelect'>>>('onSelect'); }

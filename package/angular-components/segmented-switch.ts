@@ -13,21 +13,21 @@ export class SegmentedSwitch extends AngularComponentAdapter<AngularCallbackValu
   protected readonly rvComponentName = 'SegmentedSwitch';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onChange"];
-  @NgInput({ required: true }) declare "value": AngularInput<'SegmentedSwitch', "value">;
-  @NgInput({ required: true }) declare "options": AngularInput<'SegmentedSwitch', "options">;
+  @NgInput() declare "activeClassName"?: AngularInput<'SegmentedSwitch', "activeClassName">;
   @NgInput() declare "ariaLabel"?: AngularInput<'SegmentedSwitch', "ariaLabel">;
   @NgInput() declare "className"?: AngularInput<'SegmentedSwitch', "className">;
-  @NgInput() declare "itemClassName"?: AngularInput<'SegmentedSwitch', "itemClassName">;
   @NgInput() declare "countClassName"?: AngularInput<'SegmentedSwitch', "countClassName">;
-  @NgInput() declare "activeClassName"?: AngularInput<'SegmentedSwitch', "activeClassName">;
   @NgInput() declare "disabled"?: AngularInput<'SegmentedSwitch', "disabled">;
   @NgInput() declare "iconOnly"?: AngularInput<'SegmentedSwitch', "iconOnly">;
-  @NgInput() declare "title"?: AngularInput<'SegmentedSwitch', "title">;
+  @NgInput() declare "itemClassName"?: AngularInput<'SegmentedSwitch', "itemClassName">;
+  @NgInput() declare "onChange"?: AngularInput<'SegmentedSwitch', "onChange">;
+  @NgInput({ required: true }) declare "options": AngularInput<'SegmentedSwitch', "options">;
+  @NgInput() declare "renderCount"?: AngularInput<'SegmentedSwitch', "renderCount">;
+  @NgInput() declare "renderOption"?: AngularInput<'SegmentedSwitch', "renderOption">;
   @NgInput() declare "role"?: AngularInput<'SegmentedSwitch', "role">;
   @NgInput() declare "testId"?: AngularInput<'SegmentedSwitch', "testId">;
-  @NgInput() declare "renderOption"?: AngularInput<'SegmentedSwitch', "renderOption">;
-  @NgInput() declare "renderCount"?: AngularInput<'SegmentedSwitch', "renderCount">;
-  @NgInput() declare "onChange"?: AngularInput<'SegmentedSwitch', "onChange">;
+  @NgInput() declare "title"?: AngularInput<'SegmentedSwitch', "title">;
+  @NgInput({ required: true }) declare "value": AngularInput<'SegmentedSwitch', "value">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

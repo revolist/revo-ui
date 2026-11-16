@@ -12,9 +12,9 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class FieldDropIndicator extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'FieldDropIndicator';
   protected rvResolveComponent() { return Control; }
-  @NgInput({ required: true }) declare "position": AngularInput<'FieldDropIndicator', "position">;
-  @NgInput() declare "index"?: AngularInput<'FieldDropIndicator', "index">;
   @NgInput() declare "className"?: AngularInput<'FieldDropIndicator', "className">;
+  @NgInput() declare "index"?: AngularInput<'FieldDropIndicator', "index">;
+  @NgInput({ required: true }) declare "position": AngularInput<'FieldDropIndicator', "position">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

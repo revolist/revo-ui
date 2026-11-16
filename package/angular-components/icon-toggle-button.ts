@@ -13,10 +13,10 @@ export class IconToggleButton extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'IconToggleButton';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onChange"];
-  @NgInput({ required: true }) declare "value": AngularInput<'IconToggleButton', "value">;
-  @NgInput({ required: true }) declare "label": AngularInput<'IconToggleButton', "label">;
   @NgInput({ required: true }) declare "icon": AngularInput<'IconToggleButton', "icon">;
+  @NgInput({ required: true }) declare "label": AngularInput<'IconToggleButton', "label">;
   @NgInput() declare "onChange"?: AngularInput<'IconToggleButton', "onChange">;
+  @NgInput({ required: true }) declare "value": AngularInput<'IconToggleButton', "value">;
   @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'IconToggleButton', 'onChange'>>>('onChange'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

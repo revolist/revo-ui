@@ -13,24 +13,24 @@ export class AiRequestTrail extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'AiRequestTrail';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onRemove"];
-  @NgInput() declare "translations"?: AngularInput<'AiRequestTrail', "translations">;
-  @NgInput({ required: true }) declare "items": AngularInput<'AiRequestTrail', "items">;
-  @NgInput() declare "footer"?: AngularInput<'AiRequestTrail', "footer">;
-  @NgInput() declare "showClear"?: AngularInput<'AiRequestTrail', "showClear">;
-  @NgInput() declare "disabled"?: AngularInput<'AiRequestTrail', "disabled">;
-  @NgInput() declare "removalsDisabled"?: AngularInput<'AiRequestTrail', "removalsDisabled">;
-  @NgInput() declare "label"?: AngularInput<'AiRequestTrail', "label">;
-  @NgInput() declare "triggerLabel"?: AngularInput<'AiRequestTrail', "triggerLabel">;
-  @NgInput() declare "clearLabel"?: AngularInput<'AiRequestTrail', "clearLabel">;
-  @NgInput() declare "clearDescription"?: AngularInput<'AiRequestTrail', "clearDescription">;
-  @NgInput() declare "removeLabel"?: AngularInput<'AiRequestTrail', "removeLabel">;
-  @NgInput() declare "countLabel"?: AngularInput<'AiRequestTrail', "countLabel">;
   @NgInput() declare "changedMessage"?: AngularInput<'AiRequestTrail', "changedMessage">;
-  @NgInput() declare "onRemove"?: AngularInput<'AiRequestTrail', "onRemove">;
+  @NgInput() declare "clearDescription"?: AngularInput<'AiRequestTrail', "clearDescription">;
+  @NgInput() declare "clearLabel"?: AngularInput<'AiRequestTrail', "clearLabel">;
+  @NgInput() declare "countLabel"?: AngularInput<'AiRequestTrail', "countLabel">;
+  @NgInput() declare "disabled"?: AngularInput<'AiRequestTrail', "disabled">;
+  @NgInput() declare "footer"?: AngularInput<'AiRequestTrail', "footer">;
+  @NgInput({ required: true }) declare "items": AngularInput<'AiRequestTrail', "items">;
+  @NgInput() declare "label"?: AngularInput<'AiRequestTrail', "label">;
   @NgInput() declare "onClear"?: AngularInput<'AiRequestTrail', "onClear">;
   @NgInput() declare "onEmpty"?: AngularInput<'AiRequestTrail', "onEmpty">;
-  @Output() get remove() { return this.rvOutput<AngularCallbackValue<AngularInput<'AiRequestTrail', 'onRemove'>>>('onRemove'); }
+  @NgInput() declare "onRemove"?: AngularInput<'AiRequestTrail', "onRemove">;
+  @NgInput() declare "removalsDisabled"?: AngularInput<'AiRequestTrail', "removalsDisabled">;
+  @NgInput() declare "removeLabel"?: AngularInput<'AiRequestTrail', "removeLabel">;
+  @NgInput() declare "showClear"?: AngularInput<'AiRequestTrail', "showClear">;
+  @NgInput() declare "translations"?: AngularInput<'AiRequestTrail', "translations">;
+  @NgInput() declare "triggerLabel"?: AngularInput<'AiRequestTrail', "triggerLabel">;
   @Output() get clear() { return this.rvOutput<AngularCallbackValue<AngularInput<'AiRequestTrail', 'onClear'>>>('onClear'); }
   @Output() get empty() { return this.rvOutput<AngularCallbackValue<AngularInput<'AiRequestTrail', 'onEmpty'>>>('onEmpty'); }
+  @Output() get remove() { return this.rvOutput<AngularCallbackValue<AngularInput<'AiRequestTrail', 'onRemove'>>>('onRemove'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

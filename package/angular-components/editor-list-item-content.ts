@@ -12,10 +12,10 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class EditorListItemContent extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'EditorListItemContent';
   protected rvResolveComponent() { return Control; }
+  @NgInput() declare "classNames"?: AngularInput<'EditorListItemContent', "classNames">;
+  @NgInput() declare "description"?: AngularInput<'EditorListItemContent', "description">;
   @NgInput() declare "icon"?: AngularInput<'EditorListItemContent', "icon">;
   @NgInput() declare "label"?: AngularInput<'EditorListItemContent', "label">;
-  @NgInput() declare "description"?: AngularInput<'EditorListItemContent', "description">;
-  @NgInput() declare "classNames"?: AngularInput<'EditorListItemContent', "classNames">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

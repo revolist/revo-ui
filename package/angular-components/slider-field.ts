@@ -13,25 +13,25 @@ export class SliderField extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'SliderField';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onChange"];
-  @NgInput({ required: true }) declare "label": AngularInput<'SliderField', "label">;
-  @NgInput() declare "layout"?: AngularInput<'SliderField', "layout">;
-  @NgInput() declare "valuePlacement"?: AngularInput<'SliderField', "valuePlacement">;
-  @NgInput() declare "formatValue"?: AngularInput<'SliderField', "formatValue">;
-  @NgInput() declare "ticks"?: AngularInput<'SliderField', "ticks">;
   @NgInput() declare "accentColor"?: AngularInput<'SliderField', "accentColor">;
-  @NgInput({ required: true }) declare "min": AngularInput<'SliderField', "min">;
-  @NgInput({ required: true }) declare "max": AngularInput<'SliderField', "max">;
-  @NgInput({ required: true }) declare "value": AngularInput<'SliderField', "value">;
-  @NgInput() declare "step"?: AngularInput<'SliderField', "step">;
-  @NgInput() declare "disabled"?: AngularInput<'SliderField', "disabled">;
-  @NgInput() declare "id"?: AngularInput<'SliderField', "id">;
-  @NgInput() declare "className"?: AngularInput<'SliderField', "className">;
+  @NgInput() declare "ariaDescribedBy"?: AngularInput<'SliderField', "ariaDescribedBy">;
   @NgInput({ required: true }) declare "ariaLabel": AngularInput<'SliderField', "ariaLabel">;
   @NgInput() declare "ariaValueText"?: AngularInput<'SliderField', "ariaValueText">;
-  @NgInput() declare "ariaDescribedBy"?: AngularInput<'SliderField', "ariaDescribedBy">;
+  @NgInput() declare "className"?: AngularInput<'SliderField', "className">;
+  @NgInput() declare "disabled"?: AngularInput<'SliderField', "disabled">;
+  @NgInput() declare "formatValue"?: AngularInput<'SliderField', "formatValue">;
+  @NgInput() declare "id"?: AngularInput<'SliderField', "id">;
+  @NgInput({ required: true }) declare "label": AngularInput<'SliderField', "label">;
+  @NgInput() declare "layout"?: AngularInput<'SliderField', "layout">;
+  @NgInput({ required: true }) declare "max": AngularInput<'SliderField', "max">;
+  @NgInput({ required: true }) declare "min": AngularInput<'SliderField', "min">;
   @NgInput() declare "onChange"?: AngularInput<'SliderField', "onChange">;
   @NgInput() declare "onCommit"?: AngularInput<'SliderField', "onCommit">;
   @NgInput() declare "onKeyDown"?: AngularInput<'SliderField', "onKeyDown">;
+  @NgInput() declare "step"?: AngularInput<'SliderField', "step">;
+  @NgInput() declare "ticks"?: AngularInput<'SliderField', "ticks">;
+  @NgInput({ required: true }) declare "value": AngularInput<'SliderField', "value">;
+  @NgInput() declare "valuePlacement"?: AngularInput<'SliderField', "valuePlacement">;
   @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'SliderField', 'onChange'>>>('onChange'); }
   @Output() get commit() { return this.rvOutput<AngularCallbackValue<AngularInput<'SliderField', 'onCommit'>>>('onCommit'); }
   @Output() get keyDown() { return this.rvOutput<AngularCallbackValue<AngularInput<'SliderField', 'onKeyDown'>>>('onKeyDown'); }

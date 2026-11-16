@@ -13,21 +13,21 @@ export class Tabs extends AngularComponentAdapter<AngularCallbackValue<AngularIn
   protected readonly rvComponentName = 'Tabs';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onChange"];
-  @NgInput({ required: true }) declare "value": AngularInput<'Tabs', "value">;
-  @NgInput({ required: true }) declare "options": AngularInput<'Tabs', "options">;
+  @NgInput() declare "activeClassName"?: AngularInput<'Tabs', "activeClassName">;
   @NgInput() declare "ariaLabel"?: AngularInput<'Tabs', "ariaLabel">;
   @NgInput() declare "className"?: AngularInput<'Tabs', "className">;
-  @NgInput() declare "itemClassName"?: AngularInput<'Tabs', "itemClassName">;
   @NgInput() declare "countClassName"?: AngularInput<'Tabs', "countClassName">;
-  @NgInput() declare "activeClassName"?: AngularInput<'Tabs', "activeClassName">;
   @NgInput() declare "disabled"?: AngularInput<'Tabs', "disabled">;
   @NgInput() declare "iconOnly"?: AngularInput<'Tabs', "iconOnly">;
-  @NgInput() declare "title"?: AngularInput<'Tabs', "title">;
+  @NgInput() declare "itemClassName"?: AngularInput<'Tabs', "itemClassName">;
+  @NgInput() declare "onChange"?: AngularInput<'Tabs', "onChange">;
+  @NgInput({ required: true }) declare "options": AngularInput<'Tabs', "options">;
+  @NgInput() declare "renderCount"?: AngularInput<'Tabs', "renderCount">;
+  @NgInput() declare "renderOption"?: AngularInput<'Tabs', "renderOption">;
   @NgInput() declare "role"?: AngularInput<'Tabs', "role">;
   @NgInput() declare "testId"?: AngularInput<'Tabs', "testId">;
-  @NgInput() declare "renderOption"?: AngularInput<'Tabs', "renderOption">;
-  @NgInput() declare "renderCount"?: AngularInput<'Tabs', "renderCount">;
-  @NgInput() declare "onChange"?: AngularInput<'Tabs', "onChange">;
+  @NgInput() declare "title"?: AngularInput<'Tabs', "title">;
+  @NgInput({ required: true }) declare "value": AngularInput<'Tabs', "value">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

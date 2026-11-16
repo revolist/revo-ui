@@ -13,17 +13,17 @@ export class ChoiceChips extends AngularComponentAdapter<AngularCallbackValue<An
   protected readonly rvComponentName = 'ChoiceChips';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onChange"];
-  @NgInput() declare "value"?: AngularInput<'ChoiceChips', "value">;
-  @NgInput({ required: true }) declare "options": AngularInput<'ChoiceChips', "options">;
-  @NgInput({ required: true }) declare "ariaLabel": AngularInput<'ChoiceChips', "ariaLabel">;
   @NgInput() declare "appearance"?: AngularInput<'ChoiceChips', "appearance">;
+  @NgInput({ required: true }) declare "ariaLabel": AngularInput<'ChoiceChips', "ariaLabel">;
+  @NgInput() declare "className"?: AngularInput<'ChoiceChips', "className">;
+  @NgInput() declare "disabled"?: AngularInput<'ChoiceChips', "disabled">;
+  @NgInput() declare "itemClassName"?: AngularInput<'ChoiceChips', "itemClassName">;
+  @NgInput() declare "onChange"?: AngularInput<'ChoiceChips', "onChange">;
+  @NgInput({ required: true }) declare "options": AngularInput<'ChoiceChips', "options">;
   @NgInput() declare "scrollable"?: AngularInput<'ChoiceChips', "scrollable">;
   @NgInput() declare "size"?: AngularInput<'ChoiceChips', "size">;
-  @NgInput() declare "className"?: AngularInput<'ChoiceChips', "className">;
-  @NgInput() declare "itemClassName"?: AngularInput<'ChoiceChips', "itemClassName">;
-  @NgInput() declare "disabled"?: AngularInput<'ChoiceChips', "disabled">;
   @NgInput() declare "testId"?: AngularInput<'ChoiceChips', "testId">;
-  @NgInput() declare "onChange"?: AngularInput<'ChoiceChips', "onChange">;
+  @NgInput() declare "value"?: AngularInput<'ChoiceChips', "value">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

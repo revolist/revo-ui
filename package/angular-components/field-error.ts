@@ -13,8 +13,8 @@ export class FieldError extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'FieldError';
   protected rvResolveComponent() { return Control; }
   @NgInput() declare "className"?: AngularInput<'FieldError', "className">;
-  @NgInput() declare "label"?: AngularInput<'FieldError', "label">;
   @NgInput() declare "id"?: AngularInput<'FieldError', "id">;
+  @NgInput() declare "label"?: AngularInput<'FieldError', "label">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

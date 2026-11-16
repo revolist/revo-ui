@@ -13,12 +13,12 @@ export class Listbox extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'Listbox';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onSelect"];
+  @NgInput() declare "className"?: AngularInput<'Listbox', "className">;
   @NgInput({ required: true }) declare "label": AngularInput<'Listbox', "label">;
   @NgInput() declare "listRef"?: AngularInput<'Listbox', "listRef">;
-  @NgInput() declare "variant"?: AngularInput<'Listbox', "variant">;
-  @NgInput() declare "spacing"?: AngularInput<'Listbox', "spacing">;
-  @NgInput() declare "className"?: AngularInput<'Listbox', "className">;
   @NgInput() declare "onSelect"?: AngularInput<'Listbox', "onSelect">;
+  @NgInput() declare "spacing"?: AngularInput<'Listbox', "spacing">;
+  @NgInput() declare "variant"?: AngularInput<'Listbox', "variant">;
   @Output() get selectEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'Listbox', 'onSelect'>>>('onSelect'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

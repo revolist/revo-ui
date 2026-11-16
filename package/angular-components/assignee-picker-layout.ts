@@ -13,21 +13,21 @@ export class AssigneePickerLayout extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'AssigneePickerLayout';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onQueryChange"];
-  @NgInput({ required: true }) declare "id": AngularInput<'AssigneePickerLayout', "id">;
-  @NgInput({ required: true }) declare "options": AngularInput<'AssigneePickerLayout', "options">;
-  @NgInput({ required: true }) declare "value": AngularInput<'AssigneePickerLayout', "value">;
-  @NgInput({ required: true }) declare "change": AngularInput<'AssigneePickerLayout', "change">;
   @NgInput({ required: true }) declare "apply": AngularInput<'AssigneePickerLayout', "apply">;
-  @NgInput({ required: true }) declare "cancel": AngularInput<'AssigneePickerLayout', "cancel">;
-  @NgInput() declare "theme"?: AngularInput<'AssigneePickerLayout', "theme">;
-  @NgInput({ required: true }) declare "defaultUnits": AngularInput<'AssigneePickerLayout', "defaultUnits">;
-  @NgInput() declare "showAvatars"?: AngularInput<'AssigneePickerLayout', "showAvatars">;
-  @NgInput() declare "text"?: AngularInput<'AssigneePickerLayout', "text">;
   @NgInput() declare "autoApply"?: AngularInput<'AssigneePickerLayout', "autoApply">;
-  @NgInput() declare "showActions"?: AngularInput<'AssigneePickerLayout', "showActions">;
+  @NgInput({ required: true }) declare "cancel": AngularInput<'AssigneePickerLayout', "cancel">;
+  @NgInput({ required: true }) declare "change": AngularInput<'AssigneePickerLayout', "change">;
+  @NgInput({ required: true }) declare "defaultUnits": AngularInput<'AssigneePickerLayout', "defaultUnits">;
+  @NgInput({ required: true }) declare "id": AngularInput<'AssigneePickerLayout', "id">;
+  @NgInput() declare "onQueryChange"?: AngularInput<'AssigneePickerLayout', "onQueryChange">;
+  @NgInput({ required: true }) declare "options": AngularInput<'AssigneePickerLayout', "options">;
   @NgInput({ required: true }) declare "query": AngularInput<'AssigneePickerLayout', "query">;
   @NgInput() declare "searchRef"?: AngularInput<'AssigneePickerLayout', "searchRef">;
-  @NgInput() declare "onQueryChange"?: AngularInput<'AssigneePickerLayout', "onQueryChange">;
+  @NgInput() declare "showActions"?: AngularInput<'AssigneePickerLayout', "showActions">;
+  @NgInput() declare "showAvatars"?: AngularInput<'AssigneePickerLayout', "showAvatars">;
+  @NgInput() declare "text"?: AngularInput<'AssigneePickerLayout', "text">;
+  @NgInput() declare "theme"?: AngularInput<'AssigneePickerLayout', "theme">;
+  @NgInput({ required: true }) declare "value": AngularInput<'AssigneePickerLayout', "value">;
   @Output() get queryChange() { return this.rvOutput<AngularCallbackValue<AngularInput<'AssigneePickerLayout', 'onQueryChange'>>>('onQueryChange'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

@@ -12,8 +12,8 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class AiMessageActions extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'AiMessageActions';
   protected rvResolveComponent() { return Control; }
-  @NgInput() declare "label"?: AngularInput<'AiMessageActions', "label">;
   @NgInput() declare "className"?: AngularInput<'AiMessageActions', "className">;
+  @NgInput() declare "label"?: AngularInput<'AiMessageActions', "label">;
   @NgInput() declare "translations"?: AngularInput<'AiMessageActions', "translations">;
 
   protected rvResolveProps() { return this.rvInputValues; }

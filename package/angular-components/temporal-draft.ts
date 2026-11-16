@@ -12,12 +12,12 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class TemporalDraft extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'TemporalDraft';
   protected rvResolveComponent() { return Control; }
-  @NgInput() declare "clearable"?: AngularInput<'TemporalDraft', "clearable">;
-  @NgInput({ required: true }) declare "value": AngularInput<'TemporalDraft', "value">;
-  @NgInput({ required: true }) declare "options": AngularInput<'TemporalDraft', "options">;
   @NgInput({ required: true }) declare "apply": AngularInput<'TemporalDraft', "apply">;
   @NgInput({ required: true }) declare "cancel": AngularInput<'TemporalDraft', "cancel">;
+  @NgInput() declare "clearable"?: AngularInput<'TemporalDraft', "clearable">;
   @NgInput() declare "onValidChange"?: AngularInput<'TemporalDraft', "onValidChange">;
+  @NgInput({ required: true }) declare "options": AngularInput<'TemporalDraft', "options">;
+  @NgInput({ required: true }) declare "value": AngularInput<'TemporalDraft', "value">;
   @Output() get validChange() { return this.rvOutput<AngularCallbackValue<AngularInput<'TemporalDraft', 'onValidChange'>>>('onValidChange'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

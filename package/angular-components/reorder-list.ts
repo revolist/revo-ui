@@ -13,19 +13,19 @@ export class ReorderList extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'ReorderList';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onDragOver","onDrop"];
-  @NgInput({ required: true }) declare "items": AngularInput<'ReorderList', "items">;
-  @NgInput({ required: true }) declare "itemKey": AngularInput<'ReorderList', "itemKey">;
-  @NgInput() declare "renderItem"?: AngularInput<'ReorderList', "renderItem">;
-  @NgInput() declare "renderHandle"?: AngularInput<'ReorderList', "renderHandle">;
-  @NgInput() declare "itemAttributes"?: AngularInput<'ReorderList', "itemAttributes">;
   @NgInput() declare "className"?: AngularInput<'ReorderList', "className">;
-  @NgInput() declare "rowClassName"?: AngularInput<'ReorderList', "rowClassName">;
-  @NgInput() declare "endClassName"?: AngularInput<'ReorderList', "endClassName">;
   @NgInput() declare "draggedKey"?: AngularInput<'ReorderList', "draggedKey">;
   @NgInput() declare "dropIndex"?: AngularInput<'ReorderList', "dropIndex">;
   @NgInput() declare "empty"?: AngularInput<'ReorderList', "empty">;
+  @NgInput() declare "endClassName"?: AngularInput<'ReorderList', "endClassName">;
+  @NgInput() declare "itemAttributes"?: AngularInput<'ReorderList', "itemAttributes">;
+  @NgInput({ required: true }) declare "itemKey": AngularInput<'ReorderList', "itemKey">;
+  @NgInput({ required: true }) declare "items": AngularInput<'ReorderList', "items">;
   @NgInput() declare "onDragOver"?: AngularInput<'ReorderList', "onDragOver">;
   @NgInput() declare "onDrop"?: AngularInput<'ReorderList', "onDrop">;
+  @NgInput() declare "renderHandle"?: AngularInput<'ReorderList', "renderHandle">;
+  @NgInput() declare "renderItem"?: AngularInput<'ReorderList', "renderItem">;
+  @NgInput() declare "rowClassName"?: AngularInput<'ReorderList', "rowClassName">;
   @Output() get dragOver() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderList', 'onDragOver'>>>('onDragOver'); }
   @Output() get drop() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderList', 'onDrop'>>>('onDrop'); }
   protected rvResolveProps() { return this.rvInputValues; }

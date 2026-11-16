@@ -13,21 +13,21 @@ export class SharedResourcePicker extends AngularComponentAdapter<AngularCallbac
   protected readonly rvComponentName = 'SharedResourcePicker';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onChange"];
-  @NgInput({ required: true }) declare "resources": AngularInput<'SharedResourcePicker', "resources">;
-  @NgInput({ required: true }) declare "selectedResourceIds": AngularInput<'SharedResourcePicker', "selectedResourceIds">;
-  @NgInput({ required: true }) declare "text": AngularInput<'SharedResourcePicker', "text">;
   @NgInput() declare "classNames"?: AngularInput<'SharedResourcePicker', "classNames">;
   @NgInput() declare "disabled"?: AngularInput<'SharedResourcePicker', "disabled">;
-  @NgInput() declare "readOnly"?: AngularInput<'SharedResourcePicker', "readOnly">;
-  @NgInput() declare "showSearch"?: AngularInput<'SharedResourcePicker', "showSearch">;
-  @NgInput() declare "presentation"?: AngularInput<'SharedResourcePicker', "presentation">;
-  @NgInput() declare "multiple"?: AngularInput<'SharedResourcePicker', "multiple">;
-  @NgInput() declare "preserveOrder"?: AngularInput<'SharedResourcePicker', "preserveOrder">;
-  @NgInput() declare "unassigned"?: AngularInput<'SharedResourcePicker', "unassigned">;
-  @NgInput() declare "resourceDataAttribute"?: AngularInput<'SharedResourcePicker', "resourceDataAttribute">;
-  @NgInput() declare "isResourceDisabled"?: AngularInput<'SharedResourcePicker', "isResourceDisabled">;
   @NgInput() declare "getAvatarColor"?: AngularInput<'SharedResourcePicker', "getAvatarColor">;
+  @NgInput() declare "isResourceDisabled"?: AngularInput<'SharedResourcePicker', "isResourceDisabled">;
+  @NgInput() declare "multiple"?: AngularInput<'SharedResourcePicker', "multiple">;
   @NgInput() declare "onChange"?: AngularInput<'SharedResourcePicker', "onChange">;
+  @NgInput() declare "presentation"?: AngularInput<'SharedResourcePicker', "presentation">;
+  @NgInput() declare "preserveOrder"?: AngularInput<'SharedResourcePicker', "preserveOrder">;
+  @NgInput() declare "readOnly"?: AngularInput<'SharedResourcePicker', "readOnly">;
+  @NgInput() declare "resourceDataAttribute"?: AngularInput<'SharedResourcePicker', "resourceDataAttribute">;
+  @NgInput({ required: true }) declare "resources": AngularInput<'SharedResourcePicker', "resources">;
+  @NgInput({ required: true }) declare "selectedResourceIds": AngularInput<'SharedResourcePicker', "selectedResourceIds">;
+  @NgInput() declare "showSearch"?: AngularInput<'SharedResourcePicker', "showSearch">;
+  @NgInput({ required: true }) declare "text": AngularInput<'SharedResourcePicker', "text">;
+  @NgInput() declare "unassigned"?: AngularInput<'SharedResourcePicker', "unassigned">;
   @Output() get selectedResourceIdsChange() { return this.rvOutput<AngularCallbackValue<AngularInput<'SharedResourcePicker', 'onChange'>>>('onChange'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

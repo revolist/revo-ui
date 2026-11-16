@@ -12,10 +12,10 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class MaskedDraft extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'MaskedDraft';
   protected rvResolveComponent() { return Control; }
-  @NgInput({ required: true }) declare "value": AngularInput<'MaskedDraft', "value">;
-  @NgInput({ required: true }) declare "options": AngularInput<'MaskedDraft', "options">;
   @NgInput({ required: true }) declare "apply": AngularInput<'MaskedDraft', "apply">;
   @NgInput({ required: true }) declare "cancel": AngularInput<'MaskedDraft', "cancel">;
+  @NgInput({ required: true }) declare "options": AngularInput<'MaskedDraft', "options">;
+  @NgInput({ required: true }) declare "value": AngularInput<'MaskedDraft', "value">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

@@ -13,20 +13,20 @@ export class Pagination extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'Pagination';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onChange"];
-  @NgInput({ required: true }) declare "page": AngularInput<'Pagination', "page">;
-  @NgInput({ required: true }) declare "pageCount": AngularInput<'Pagination', "pageCount">;
-  @NgInput({ required: true }) declare "label": AngularInput<'Pagination', "label">;
-  @NgInput({ required: true }) declare "previousLabel": AngularInput<'Pagination', "previousLabel">;
-  @NgInput({ required: true }) declare "nextLabel": AngularInput<'Pagination', "nextLabel">;
-  @NgInput() declare "firstLabel"?: AngularInput<'Pagination', "firstLabel">;
-  @NgInput() declare "lastLabel"?: AngularInput<'Pagination', "lastLabel">;
-  @NgInput() declare "variant"?: AngularInput<'Pagination', "variant">;
-  @NgInput() declare "disabled"?: AngularInput<'Pagination', "disabled">;
-  @NgInput() declare "navigation"?: AngularInput<'Pagination', "navigation">;
   @NgInput() declare "boundaryButtons"?: AngularInput<'Pagination', "boundaryButtons">;
   @NgInput() declare "buttons"?: AngularInput<'Pagination', "buttons">;
   @NgInput() declare "className"?: AngularInput<'Pagination', "className">;
+  @NgInput() declare "disabled"?: AngularInput<'Pagination', "disabled">;
+  @NgInput() declare "firstLabel"?: AngularInput<'Pagination', "firstLabel">;
+  @NgInput({ required: true }) declare "label": AngularInput<'Pagination', "label">;
+  @NgInput() declare "lastLabel"?: AngularInput<'Pagination', "lastLabel">;
+  @NgInput() declare "navigation"?: AngularInput<'Pagination', "navigation">;
+  @NgInput({ required: true }) declare "nextLabel": AngularInput<'Pagination', "nextLabel">;
   @NgInput() declare "onChange"?: AngularInput<'Pagination', "onChange">;
+  @NgInput({ required: true }) declare "page": AngularInput<'Pagination', "page">;
+  @NgInput({ required: true }) declare "pageCount": AngularInput<'Pagination', "pageCount">;
+  @NgInput({ required: true }) declare "previousLabel": AngularInput<'Pagination', "previousLabel">;
+  @NgInput() declare "variant"?: AngularInput<'Pagination', "variant">;
   @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'Pagination', 'onChange'>>>('onChange'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

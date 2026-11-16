@@ -13,16 +13,16 @@ export class FieldRemoveButton extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'FieldRemoveButton';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onClick"];
-  @NgInput() declare "disabled"?: AngularInput<'FieldRemoveButton', "disabled">;
-  @NgInput() declare "rounded"?: AngularInput<'FieldRemoveButton', "rounded">;
   @NgInput() declare "className"?: AngularInput<'FieldRemoveButton', "className">;
-  @NgInput() declare "locale"?: AngularInput<'FieldRemoveButton', "locale">;
   @NgInput() declare "compact"?: AngularInput<'FieldRemoveButton', "compact">;
+  @NgInput() declare "disabled"?: AngularInput<'FieldRemoveButton', "disabled">;
+  @NgInput() declare "locale"?: AngularInput<'FieldRemoveButton', "locale">;
   @NgInput() declare "onClick"?: AngularInput<'FieldRemoveButton', "onClick">;
-  @NgInput() declare "onMouseDown"?: AngularInput<'FieldRemoveButton', "onMouseDown">;
   @NgInput() declare "onDblClick"?: AngularInput<'FieldRemoveButton', "onDblClick">;
+  @NgInput() declare "onMouseDown"?: AngularInput<'FieldRemoveButton', "onMouseDown">;
+  @NgInput() declare "rounded"?: AngularInput<'FieldRemoveButton', "rounded">;
   @Output() get clickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'FieldRemoveButton', 'onClick'>>>('onClick'); }
-  @Output() get mouseDown() { return this.rvOutput<AngularCallbackValue<AngularInput<'FieldRemoveButton', 'onMouseDown'>>>('onMouseDown'); }
   @Output() get dblClick() { return this.rvOutput<AngularCallbackValue<AngularInput<'FieldRemoveButton', 'onDblClick'>>>('onDblClick'); }
+  @Output() get mouseDown() { return this.rvOutput<AngularCallbackValue<AngularInput<'FieldRemoveButton', 'onMouseDown'>>>('onMouseDown'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

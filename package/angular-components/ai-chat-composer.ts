@@ -12,24 +12,24 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class AiChatComposer extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'AiChatComposer';
   protected rvResolveComponent() { return Control; }
-  protected override readonly rvRequiredCallbacks = ["onValueChange","onSubmit"];
-  @NgInput() declare "translations"?: AngularInput<'AiChatComposer', "translations">;
-  @NgInput({ required: true }) declare "value": AngularInput<'AiChatComposer', "value">;
+  protected override readonly rvRequiredCallbacks = ["onSubmit","onValueChange"];
+  @NgInput() declare "actions"?: AngularInput<'AiChatComposer', "actions">;
   @NgInput() declare "busy"?: AngularInput<'AiChatComposer', "busy">;
   @NgInput() declare "disabled"?: AngularInput<'AiChatComposer', "disabled">;
-  @NgInput() declare "label"?: AngularInput<'AiChatComposer', "label">;
-  @NgInput() declare "placeholder"?: AngularInput<'AiChatComposer', "placeholder">;
-  @NgInput() declare "submitLabel"?: AngularInput<'AiChatComposer', "submitLabel">;
-  @NgInput() declare "stopLabel"?: AngularInput<'AiChatComposer', "stopLabel">;
-  @NgInput() declare "promptHistory"?: AngularInput<'AiChatComposer', "promptHistory">;
-  @NgInput() declare "hint"?: AngularInput<'AiChatComposer', "hint">;
-  @NgInput() declare "actions"?: AngularInput<'AiChatComposer', "actions">;
   @NgInput() declare "footer"?: AngularInput<'AiChatComposer', "footer">;
-  @NgInput() declare "textareaProps"?: AngularInput<'AiChatComposer', "textareaProps">;
-  @NgInput() declare "onValueChange"?: AngularInput<'AiChatComposer', "onValueChange">;
-  @NgInput() declare "onSubmit"?: AngularInput<'AiChatComposer', "onSubmit">;
+  @NgInput() declare "hint"?: AngularInput<'AiChatComposer', "hint">;
+  @NgInput() declare "label"?: AngularInput<'AiChatComposer', "label">;
   @NgInput() declare "onStop"?: AngularInput<'AiChatComposer', "onStop">;
-  @Output() get submitEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'AiChatComposer', 'onSubmit'>>>('onSubmit'); }
+  @NgInput() declare "onSubmit"?: AngularInput<'AiChatComposer', "onSubmit">;
+  @NgInput() declare "onValueChange"?: AngularInput<'AiChatComposer', "onValueChange">;
+  @NgInput() declare "placeholder"?: AngularInput<'AiChatComposer', "placeholder">;
+  @NgInput() declare "promptHistory"?: AngularInput<'AiChatComposer', "promptHistory">;
+  @NgInput() declare "stopLabel"?: AngularInput<'AiChatComposer', "stopLabel">;
+  @NgInput() declare "submitLabel"?: AngularInput<'AiChatComposer', "submitLabel">;
+  @NgInput() declare "textareaProps"?: AngularInput<'AiChatComposer', "textareaProps">;
+  @NgInput() declare "translations"?: AngularInput<'AiChatComposer', "translations">;
+  @NgInput({ required: true }) declare "value": AngularInput<'AiChatComposer', "value">;
   @Output() get stop() { return this.rvOutput<AngularCallbackValue<AngularInput<'AiChatComposer', 'onStop'>>>('onStop'); }
+  @Output() get submitEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'AiChatComposer', 'onSubmit'>>>('onSubmit'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

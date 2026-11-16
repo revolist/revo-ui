@@ -12,9 +12,9 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class AiActionStatus extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'AiActionStatus';
   protected rvResolveComponent() { return Control; }
-  @NgInput() declare "translations"?: AngularInput<'AiActionStatus', "translations">;
-  @NgInput({ required: true }) declare "phase": AngularInput<'AiActionStatus', "phase">;
   @NgInput({ required: true }) declare "message": AngularInput<'AiActionStatus', "message">;
+  @NgInput({ required: true }) declare "phase": AngularInput<'AiActionStatus', "phase">;
+  @NgInput() declare "translations"?: AngularInput<'AiActionStatus', "translations">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

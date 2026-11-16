@@ -12,21 +12,21 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class AreaChart extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'AreaChart';
   protected rvResolveComponent() { return Control; }
-  @NgInput() declare "height"?: AngularInput<'AreaChart', "height">;
-  @NgInput() declare "className"?: AngularInput<'AreaChart', "className">;
-  @NgInput() declare "tooltip"?: AngularInput<'AreaChart', "tooltip">;
-  @NgInput({ required: true }) declare "data": AngularInput<'AreaChart', "data">;
-  @NgInput({ required: true }) declare "ariaLabel": AngularInput<'AreaChart', "ariaLabel">;
-  @NgInput() declare "showPoints"?: AngularInput<'AreaChart', "showPoints">;
-  @NgInput() declare "showLabels"?: AngularInput<'AreaChart', "showLabels">;
-  @NgInput() declare "showValues"?: AngularInput<'AreaChart', "showValues">;
-  @NgInput() declare "showGrid"?: AngularInput<'AreaChart', "showGrid">;
-  @NgInput() declare "legend"?: AngularInput<'AreaChart', "legend">;
-  @NgInput() declare "formatValue"?: AngularInput<'AreaChart', "formatValue">;
-  @NgInput() declare "tooltipIndicator"?: AngularInput<'AreaChart', "tooltipIndicator">;
-  @NgInput() declare "interpolation"?: AngularInput<'AreaChart', "interpolation">;
   @NgInput() declare "areaFill"?: AngularInput<'AreaChart', "areaFill">;
+  @NgInput({ required: true }) declare "ariaLabel": AngularInput<'AreaChart', "ariaLabel">;
+  @NgInput() declare "className"?: AngularInput<'AreaChart', "className">;
+  @NgInput({ required: true }) declare "data": AngularInput<'AreaChart', "data">;
+  @NgInput() declare "formatValue"?: AngularInput<'AreaChart', "formatValue">;
+  @NgInput() declare "height"?: AngularInput<'AreaChart', "height">;
+  @NgInput() declare "interpolation"?: AngularInput<'AreaChart', "interpolation">;
+  @NgInput() declare "legend"?: AngularInput<'AreaChart', "legend">;
   @NgInput() declare "renderTooltip"?: AngularInput<'AreaChart', "renderTooltip">;
+  @NgInput() declare "showGrid"?: AngularInput<'AreaChart', "showGrid">;
+  @NgInput() declare "showLabels"?: AngularInput<'AreaChart', "showLabels">;
+  @NgInput() declare "showPoints"?: AngularInput<'AreaChart', "showPoints">;
+  @NgInput() declare "showValues"?: AngularInput<'AreaChart', "showValues">;
+  @NgInput() declare "tooltip"?: AngularInput<'AreaChart', "tooltip">;
+  @NgInput() declare "tooltipIndicator"?: AngularInput<'AreaChart', "tooltipIndicator">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

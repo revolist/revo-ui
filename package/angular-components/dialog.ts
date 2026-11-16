@@ -13,13 +13,13 @@ export class Dialog extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'Dialog';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onClose"];
-  @NgInput({ required: true }) declare "open": AngularInput<'Dialog', "open">;
-  @NgInput({ required: true }) declare "title": AngularInput<'Dialog', "title">;
   @NgInput({ required: true }) declare "closeLabel": AngularInput<'Dialog', "closeLabel">;
-  @NgInput() declare "footer"?: AngularInput<'Dialog', "footer">;
   @NgInput() declare "draggable"?: AngularInput<'Dialog', "draggable">;
-  @NgInput() declare "returnFocus"?: AngularInput<'Dialog', "returnFocus">;
+  @NgInput() declare "footer"?: AngularInput<'Dialog', "footer">;
   @NgInput() declare "onClose"?: AngularInput<'Dialog', "onClose">;
+  @NgInput({ required: true }) declare "open": AngularInput<'Dialog', "open">;
+  @NgInput() declare "returnFocus"?: AngularInput<'Dialog', "returnFocus">;
+  @NgInput({ required: true }) declare "title": AngularInput<'Dialog', "title">;
   @Output() get closeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'Dialog', 'onClose'>>>('onClose'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }
