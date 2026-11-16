@@ -2346,7 +2346,7 @@ body {
 .catalog:has(.gallery-home) {
   --home-hero-background: #fff;
 }
-.catalog[data-theme='dark']:has(.gallery-home) {
+:root[data-theme='dark'] .catalog:has(.gallery-home) {
   --home-hero-background: #000;
 }
 .catalog:has(.gallery-home) .catalog-topbar {

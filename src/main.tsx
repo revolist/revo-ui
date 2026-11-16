@@ -121,7 +121,9 @@ const resources = [
   { id: 2, name: 'Alex Chen', role: 'Engineer' },
 ];
 function App() {
-  const [theme, setTheme] = useState('light'),
+  const [theme, setTheme] = useState(() =>
+    document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light',
+  ),
     [rtl, setRtl] = useState(false);
   const [togglePressed, setTogglePressed] = useState(true);
   const [selected, setSelected] = useState(true);

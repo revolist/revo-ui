@@ -206,7 +206,7 @@ export function CatalogShell({
 
   }, [active, home, page, component?.title]);
   return (
-    <div class="rv-ui catalog" data-theme={theme} dir={rtl ? 'rtl' : 'ltr'}>
+    <div class="rv-ui catalog" dir={rtl ? 'rtl' : 'ltr'}>
       <a
         class="catalog-skip"
         onClick={(event) => {
@@ -273,6 +273,11 @@ export function CatalogShell({
                 const next = theme === 'dark' ? 'light' : 'dark';
                 onThemeChange(next);
                 document.documentElement.dataset.theme = next;
+                try {
+                  localStorage.setItem('revo-ui-theme', next);
+                } catch {
+                  // Keep theme changes usable when storage is blocked or full.
+                }
               }}
             >
               <svg
