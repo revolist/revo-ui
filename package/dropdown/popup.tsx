@@ -181,9 +181,14 @@ export function DropdownPopup({
       ? new ResizeObserverCtor(updatePosition)
       : undefined;
     resizeObserver?.observe(trigger);
-    // Validation and selection content can move a trigger without resizing it.
-    const dialogSurface = trigger.closest('.rv-dialog__surface, dialog');
-    if (dialogSurface) resizeObserver?.observe(dialogSurface);
+    // Surrounding content can move the field without changing its own size.
+    // Observe its layout ancestors only while open, using the same observer.
+    for (
+      let parent = trigger.parentElement;
+      parent;
+      parent = parent.parentElement
+    )
+      resizeObserver?.observe(parent);
     if (observePopupResize && dropdownRef.current) {
       resizeObserver?.observe(dropdownRef.current);
     }

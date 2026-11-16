@@ -62,3 +62,40 @@ test('remote lookup follows visual viewport pan, keyboard resize and page scroll
   await page.getByRole('option', { name: 'Design', exact: true }).click();
   await expect(example.locator('output')).toHaveText('"design"');
 });
+
+test('editable tags stay four pixels from their field while results change', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/components/multi-selects-autocomplete/');
+  const input = page.getByRole('combobox', { name: 'Skills', exact: true });
+  const trigger = input.locator('..');
+  await trigger.evaluate((element) =>
+    window.scrollBy(0, element.getBoundingClientRect().top - 240),
+  );
+  const popup = page.locator('.revo-dropdown-menu');
+  await input.fill('Test');
+  await expectAnchored(trigger, popup);
+  await input.press('Enter');
+  await input.fill('H');
+  await expectAnchored(trigger, popup);
+  await input.press('Enter');
+  await expectAnchored(trigger, popup);
+  await page.evaluate(() => {
+    Object.defineProperties(window.visualViewport!, {
+      offsetTop: { configurable: true, value: 70 },
+      height: { configurable: true, value: 350 },
+    });
+    window.visualViewport!.dispatchEvent(new Event('resize'));
+  });
+  await expectAnchored(trigger, popup);
+  await input.fill('TypeScript');
+  await expectAnchored(trigger, popup);
+  // A surrounding layout change can move the field without resizing it.
+  await page
+    .locator('#example-editable-tags .catalog-specimen')
+    .evaluate((element) => {
+      element.style.marginTop = '-36px';
+    });
+  await expectAnchored(trigger, popup);
+});
