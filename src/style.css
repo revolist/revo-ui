@@ -1381,8 +1381,63 @@ body {
   .catalog-sidebar {
     display: none;
   }
+  .catalog:has(#component-navigation[data-open='true']) {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+  }
+  .catalog:has(#component-navigation[data-open='true']) .catalog-topbar {
+    flex-shrink: 0;
+  }
+  .catalog-workspace:has(> #component-navigation[data-open='true']) {
+    display: flex;
+    align-items: stretch;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
+    width: 100%;
+  }
+  .catalog .catalog-mobile-nav {
+    align-self: flex-start;
+    flex-shrink: 0;
+  }
   .catalog-sidebar[data-open='true'] {
     display: block;
+    flex: 1;
+    min-height: 0;
+    max-height: none;
+    height: auto;
+    border: 0;
+    padding-bottom: max(20px, env(safe-area-inset-bottom));
+    overscroll-behavior: contain;
+  }
+  .catalog-sidebar[data-open='true'] > .rv-search-input {
+    top: 18px;
+    max-width: none;
+  }
+  .catalog-sidebar[data-open='true'] .rv-search-input input {
+    width: 100%;
+  }
+  .catalog-sidebar .catalog-nav-group > a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 8px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .catalog-sidebar .catalog-nav-group > a[aria-current] {
+    color: var(--rv-ui-accent);
+    font-weight: 600;
+  }
+  .catalog:has(#component-navigation[data-open='true'])
+    :is(.catalog-content, .catalog-footer) {
+    display: none;
   }
 }
 /* Financial compositions use the same chart and control primitives as the docs. */
