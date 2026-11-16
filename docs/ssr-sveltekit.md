@@ -6,9 +6,11 @@ Load page data on the server and keep the interactive control in a small Svelte 
 
 ## Run the starter
 
-Use Node.js 24.15 or newer and pnpm. From the cloned `revo-ui` repository:
+Use Node.js 24.15 or newer and pnpm 11. Named Svelte components are a source preview; npm version 4.0.23 only has the generic host. Build the public package from the cloned `revo-ui` repository before running this starter:
 
 ```sh
+pnpm install --frozen-lockfile
+pnpm build:public
 cd examples/ssr/sveltekit
 pnpm install --frozen-lockfile
 pnpm check
@@ -16,7 +18,7 @@ pnpm build
 pnpm start
 ```
 
-Open `http://localhost:3000`. The starter pins SvelteKit 3.2.0, Svelte 5.57.3 and `@revolist/ui` 4.0.23. `adapter-node` produces the standalone Node server. For development, use `pnpm dev`.
+Open `http://localhost:3000`. The starter pins SvelteKit 3.2.0, Svelte 5.57.3 and installs the local public `dist` package from this checkout. `adapter-node` produces the standalone Node server. For development, use `pnpm dev`.
 
 ## Keep each file focused
 
@@ -53,17 +55,14 @@ Keep the counter local to the component:
 ```svelte
 <!-- src/lib/SaveButton.svelte -->
 <script lang="ts">
-  import { UiComponent } from '@revolist/ui/svelte/unstyled';
+  import { SvgButton } from '@revolist/ui/svelte/svg-button/unstyled';
   let count = $state(0);
 </script>
 
-<UiComponent
-  component="SvgButton"
-  props={{
-    label: `Save ${count}`,
-    visibleLabel: `Save ${count}`,
-    onClick: () => { count += 1; },
-  }}
+<SvgButton
+  label={`Save ${count}`}
+  visibleLabel={`Save ${count}`}
+  onClick={() => { count += 1; }}
 />
 ```
 
@@ -82,6 +81,8 @@ Place it beside the server-rendered content:
   <SaveButton />
 </main>
 ```
+
+The per-component entry imports only the button adapter and its dependencies. It uses the same `SvgButton` name and direct props as React, Vue and Angular.
 
 The click handler updates browser state; it does not persist a report. Keep server data access in a loader and pass plain values into the page rather than sharing mutable module-level state between requests.
 

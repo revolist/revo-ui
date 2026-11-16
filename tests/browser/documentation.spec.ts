@@ -167,3 +167,14 @@ for (const [route, title] of [
     ).toBe(true);
   });
 }
+
+for (const framework of ['angular', 'svelte']) {
+  test(`${framework} guide teaches a selective named component import`, async ({ page }) => {
+    await page.goto(`/frameworks/${framework}/`);
+    const example = page.locator('.framework-card pre');
+    await expect(example).toContainText(`@revolist/ui/${framework}/svg-button`);
+    await expect(example).toContainText('SvgButton');
+    await expect(example).not.toContainText('UiComponent');
+    await expect(example).not.toContainText('[props]');
+  });
+}

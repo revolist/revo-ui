@@ -43,7 +43,7 @@
   "ssr-angular": {
     "label": "Angular SSR",
     "title": "Angular SSR and Revo UI",
-    "description": "Render an Angular page on the server and hydrate a small Revo UI region.",
+    "description": "Use a named Angular component with direct typed inputs and normal event bindings.",
     "source": "ssr-angular.md"
   },
   "ssr-react-router": {

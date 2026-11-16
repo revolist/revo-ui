@@ -1,4 +1,3 @@
-import { LookupField } from './dropdown/lookup-field';
 import * as ui from './preact';
 export const uiComponents = {
   AiChat: ui.AiChat,
@@ -82,7 +81,7 @@ export const uiComponents = {
   FormSection: ui.FormSection,
   Disclosure: ui.Disclosure,
   CollapsibleSection: ui.CollapsibleSection,
-  LookupField: LookupField,
+  LookupField: ui.LookupField,
   Panel: ui.Panel,
   Toolbar: ui.Toolbar,
   ToolbarGroup: ui.ToolbarGroup,

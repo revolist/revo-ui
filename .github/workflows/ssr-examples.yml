@@ -4,6 +4,12 @@ on:
   pull_request:
     paths:
       - "examples/ssr/**"
+      - "package/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "vite.config.ts"
+      - "scripts/build-public.mjs"
+      - "scripts/generate-*.mjs"
       - "docs/ssr*.md"
       - "docs/integration-*.md"
       - "scripts/verify-ssr-example.mjs"
@@ -12,6 +18,12 @@ on:
     branches: [main]
     paths:
       - "examples/ssr/**"
+      - "package/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "vite.config.ts"
+      - "scripts/build-public.mjs"
+      - "scripts/generate-*.mjs"
       - "scripts/verify-ssr-example.mjs"
       - ".github/workflows/ssr-examples.yml"
   workflow_dispatch:
@@ -52,6 +64,9 @@ jobs:
         run: |
           pnpm install --frozen-lockfile
           pnpm exec playwright install --with-deps chromium
+      - name: Build the public package for named adapter previews
+        if: matrix.starter == 'angular' || matrix.starter == 'sveltekit'
+        run: pnpm pack:public
       - name: Install and build the independent starter
         working-directory: examples/ssr/${{ matrix.starter }}
         run: |

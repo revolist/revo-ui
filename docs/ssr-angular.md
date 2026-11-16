@@ -1,14 +1,17 @@
 # Angular SSR and Revo UI
 
-Keep Angular server rendering and hydration enabled. Render page content with Angular and let `UiComponent` mount the interactive Revo UI control in the browser.
+Import the standalone `SvgButton` component and bind its inputs directly. Keep page content server-rendered; the adapter handles the button’s browser mount.
 
-[Open the complete starter](https://github.com/revolist/revo-ui/tree/main/examples/ssr/angular/). It uses Angular 22.2, TypeScript 6 and `@revolist/ui` 4.0.23.
+[Open the complete starter](https://github.com/revolist/revo-ui/tree/main/examples/ssr/angular/). It uses Angular 22.2, TypeScript 6 and the public package built from this checkout. Named Angular components are a source preview and are not exported by npm version 4.0.23.
 
 ## Run the example
 
-Use Node.js 24.15 or newer and pnpm 11. Copy the starter folder, then run inside it:
+Use Node.js 24.15 or newer and pnpm 11. Build the library from the cloned repository, then run the starter:
 
 ```sh
+pnpm install --frozen-lockfile
+pnpm build:public
+cd examples/ssr/angular
 pnpm install --frozen-lockfile
 pnpm check
 pnpm build
@@ -38,42 +41,41 @@ The starter includes the base stylesheet in Angular's build configuration:
 }
 ```
 
-In an existing application, append that entry to your existing `build.options.styles` array. Keep your own styles. The starter also configures SVG/GIF asset loaders for optional catalog dependencies. Base contains the button styles; other controls may need an additional [stylesheet family](bundle-size.md#stylesheet-families).
+In an existing application, append that entry to your existing `build.options.styles` array. Keep your own styles. Base contains the button styles; other controls may need an additional [stylesheet family](bundle-size.md#stylesheet-families).
 
 ## Keep the component small
 
 ```ts
 import { Component, signal } from "@angular/core";
-import { UiComponent } from "@revolist/ui/angular/unstyled";
+import { SvgButton } from "@revolist/ui/angular/svg-button/unstyled";
 
 @Component({
   selector: "app-root",
-  imports: [UiComponent],
+  imports: [SvgButton],
   template: `
     <main>
       <h1>Angular report</h1>
       <p>This text renders on the server. The button mounts in the browser.</p>
-      <rv-ui
-        ngSkipHydration
-        component="SvgButton"
-        [props]="{
-          label: 'Save ' + count(),
-          visibleLabel: 'Save ' + count(),
-          onClick: save,
-        }"
+      <rv-svg-button
+        [label]="'Save ' + count()"
+        [visibleLabel]="'Save ' + count()"
+        (click)="count.set(count() + 1)"
       />
     </main>
   `,
 })
 export class App {
   readonly count = signal(0);
-  readonly save = () => this.count.update((value) => value + 1);
 }
 ```
 
-`label` sets the accessible name and `visibleLabel` sets the button text. Both update with the signal. The adapter forwards the click callback and marks Angular for change detection.
+The per-component entry imports only the button adapter and its dependencies. `SvgButton` has the same name and control props as the React, Vue and Svelte adapters. Angular uses the `rv-svg-button` selector, direct typed inputs and a normal click binding. `label` supplies the accessible name; `visibleLabel` supplies the visible text.
 
-Put `ngSkipHydration` on the `rv-ui` component host. Angular recreates that small imperative region while hydrating the surrounding page. Do not put it on an ordinary wrapper element. No application mounted flag or `afterNextRender` wrapper is needed.
+The component manages its own hydration boundary, so this example needs no `[props]` bag, callback wrapper or manual `ngSkipHydration`. Angular renders the component host on the server and the adapter mounts its button in the browser. Important initial text belongs in the page template.
+
+## Other controls
+
+Import the named control you use, such as `Dropdown`, `Calendar` or `SearchInput`. The generic `UiComponent` remains available when your application intentionally chooses controls dynamically by catalog name. For native `<button>`, `<input>`, `<select>` and `<textarea>` markup, the separate `UiControlDirective` is also available.
 
 ## Keep request-time SSR enabled
 
@@ -87,9 +89,9 @@ provideServerRendering(
 
 The browser configuration uses `provideClientHydration()`. The CLI builds the server and browser entries together and links static CSS in the server response. `server.ts` uses Angular's `AngularNodeAppEngine` to render requests and Express to serve assets.
 
-The HTTP response contains the heading, page text and the adapter host. The shared button itself mounts in the browser. This distinction matters for SEO and a no-JavaScript experience: put meaningful text in Angular's page template.
+The HTTP response contains the heading, page text and the adapter host. The button appears when the browser adapter mounts.
 
-For a small form, add a native labeled input beside the control and bind its value to a second signal. Keep submission in a separate callback; the counter example needs no forms module, data service or network API.
+For a small form, add a labeled native input beside the button and bind its value to a second signal. Keep submission in a separate callback; the counter example needs no forms module, data service or network API.
 
 ## Verify the result
 

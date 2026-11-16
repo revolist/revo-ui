@@ -1,5 +1,5 @@
-import { renderSearchInput } from './native';
-import { h } from 'preact';
+import { renderSearchInput } from "./native";
+import { h, type JSX } from "preact";
 
 export type SearchInputRenderable = any;
 export type SearchInputRef<T> =
@@ -10,7 +10,10 @@ export type SearchInputEvent<T extends EventTarget> = Event & {
   currentTarget: T;
 };
 
-export type SearchInputProps = {
+export type SearchInputProps = Omit<
+  JSX.InputHTMLAttributes<HTMLInputElement>,
+  "value" | "onInput" | "type" | "ref"
+> & {
   value?: string;
   inputRef?: SearchInputRef<HTMLInputElement>;
   rootClassName?: string;
@@ -28,7 +31,7 @@ export type SearchInputProps = {
     event: SearchInputEvent<HTMLInputElement>,
   ) => void;
   onInput?: (event: SearchInputEvent<HTMLInputElement>) => void;
-  type?: 'search' | 'text';
+  type?: "search" | "text";
   [attribute: string]: any;
 };
 
@@ -49,12 +52,12 @@ function DefaultSearchIcon(): any {
 }
 
 export function SearchInput({
-  value = '',
+  value = "",
   inputRef,
-  rootClassName = '',
-  inputClassName = '',
-  iconClassName = '',
-  shortcutClassName = '',
+  rootClassName = "",
+  inputClassName = "",
+  iconClassName = "",
+  shortcutClassName = "",
   shortcut,
   icon,
   leading,
@@ -63,7 +66,7 @@ export function SearchInput({
   testId,
   onValueChange,
   onInput,
-  type = 'search',
+  type = "search",
   ...inputProps
 }: SearchInputProps): any {
   const handleInput = (event: SearchInputEvent<HTMLInputElement>) => {

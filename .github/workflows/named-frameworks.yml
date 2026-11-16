@@ -1,0 +1,43 @@
+name: Named Angular and Svelte adapters
+on:
+  pull_request:
+    paths:
+      - "package/**"
+      - "scripts/build-public.mjs"
+      - "scripts/generate-*.mjs"
+      - "scripts/named-framework-consumer.test.mjs"
+      - "vite.config.ts"
+      - "tests/browser/fixtures/framework-adapters/**"
+      - "tests/browser/named-framework-adapters.spec.ts"
+      - "playwright.named-frameworks.config.ts"
+      - ".github/workflows/named-frameworks.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    container: mcr.microsoft.com/playwright:v1.59.1-noble
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.25.0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24.22.1
+          package-manager-cache: false
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check:framework-components
+      - run: pnpm lint && pnpm lint:svelte
+      - run: pnpm pack:public
+      - run: pnpm test:public
+      - run: pnpm test:named-frameworks
+      - name: Retain browser failure traces
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: named-framework-failures
+          path: test-results/
+          if-no-files-found: ignore

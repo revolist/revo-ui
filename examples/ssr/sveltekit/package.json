@@ -6,7 +6,7 @@
     "node": ">=24.15.0"
   },
   "dependencies": {
-    "@revolist/ui": "4.0.23"
+    "@revolist/ui": "file:../../../dist"
   },
   "devDependencies": {
     "@sveltejs/adapter-node": "6.0.2",

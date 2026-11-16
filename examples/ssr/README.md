@@ -1,6 +1,6 @@
 # Revo UI integration starters
 
-Each folder is a separate, small application using the published `@revolist/ui` package. Use Node.js 24.22.1 or newer and pnpm 11.25.0. Copy one folder to start; you do not need the gallery source or its parent monorepo.
+Each folder is a small application. Most consume the published `@revolist/ui` package. Angular and SvelteKit preview the new named adapters from the locally built public `dist` package; build it first with `pnpm install --frozen-lockfile` and `pnpm build:public` at the repository root. Use Node.js 24.22.1 or newer and pnpm 11.25.0. Copy a published-package starter to start independently. The Angular and SvelteKit previews require this repository’s public build first.
 
 | Folder                           | Rendering                             | Guide                                              |
 | -------------------------------- | ------------------------------------- | -------------------------------------------------- |
@@ -26,7 +26,7 @@ pnpm build
 pnpm start
 ```
 
-Follow the folder README for its address and any framework-specific commands. SSR examples return a meaningful heading in the HTTP response. Revo UI adapters mount the interactive button in the browser; they do not render complete control HTML on the server. Click Save 0 to see Save 1. Reloading resets the local counter.
+Follow the folder README for its address and any framework-specific commands. SSR examples return a meaningful heading in the HTTP response. Revo UI catalog adapters mount the interactive button in the browser; they do not render complete control HTML on the server. Click Save 0 to see Save 1. Reloading resets the local counter.
 
 ## Verification
 

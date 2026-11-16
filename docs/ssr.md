@@ -17,7 +17,7 @@ Keep your page content on the server and use Revo UI for small interactive contr
 | [Refine](integration-refine.md)         | A small resource page using Next.js.                              |
 | [Lovable](integration-lovable.md)       | Revo UI in a TanStack Start or legacy React/Vite project.         |
 
-Browse the [complete starter sources](https://github.com/revolist/revo-ui/tree/main/examples/ssr). Each starter has its own dependencies and commands. Run it independently so it behaves like an ordinary application using the published package.
+Browse the [complete starter sources](https://github.com/revolist/revo-ui/tree/main/examples/ssr). Each starter has its own dependencies and commands. Most use the published package. Angular and SvelteKit preview named adapters from the locally built public package; follow their setup steps until those APIs are released.
 
 ## What the server renders
 

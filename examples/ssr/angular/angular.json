@@ -21,10 +21,6 @@
             "ssr": {
               "entry": "src/server.ts"
             },
-            "loader": {
-              ".svg": "file",
-              ".gif": "file"
-            },
             "security": {
               "allowedHosts": [
                 "localhost",

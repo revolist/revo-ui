@@ -91,16 +91,18 @@ See the [CDN examples in Docs](https://ui.rv-grid.com/frameworks/javascript-cdn/
 
 ## Framework support
 
-Use the same component library and shared styles across frameworks, while keeping application state in your chosen stack.
+Use the same component library and shared styles across frameworks, while keeping application state in your chosen stack. The new named Angular/Svelte exports are a source preview for the next release; the [Angular](docs/ssr-angular.md) and [SvelteKit](docs/ssr-sveltekit.md) guides show how to build and run the local public package.
 
 | Framework | Integration |
 | --- | --- |
 | <img src="src/assets/frameworks/react.svg" width="24" height="24" alt=""> React | Named components from `@revolist/ui/react`, with React state, children, and callbacks. |
 | <img src="src/assets/frameworks/vue.svg" width="24" height="24" alt=""> Vue | Named components from `@revolist/ui/vue`, with events, slots, and `v-model` for controls with a declared model. |
-| <img src="src/assets/frameworks/angular.svg" width="24" height="24" alt=""> Angular | Standalone `UiComponent` from `@revolist/ui/angular`, with props, events, and templates for custom content. |
-| <img src="src/assets/frameworks/svelte.svg" width="24" height="24" alt=""> Svelte | Svelte 5 `UiComponent` from `@revolist/ui/svelte`, with reactive props, callbacks, and snippets. |
+| <img src="src/assets/frameworks/angular.svg" width="24" height="24" alt=""> Angular | Named standalone components from `@revolist/ui/angular`, with typed inputs, events and `rvUiSlot` templates. |
+| <img src="src/assets/frameworks/svelte.svg" width="24" height="24" alt=""> Svelte | Named Svelte 5 components from `@revolist/ui/svelte`, with typed props, model bindings, callbacks and snippets. |
 | <img src="src/assets/frameworks/preact.svg" width="24" height="24" alt=""> Preact | Components from `@revolist/ui/preact`, with Preact hooks and JSX. |
 | <img src="src/assets/frameworks/typescript.svg" width="24" height="24" alt=""> Vanilla TypeScript | Mount components into a DOM element with `createFrameworkMount` from `@revolist/ui/framework`. |
+
+For a narrow dependency graph, import the matching component entry, for example `@revolist/ui/angular/svg-button` or `@revolist/ui/svelte/svg-button`. Each exports `SvgButton`; `/unstyled` variants use application-managed CSS.
 
 ## Components
 

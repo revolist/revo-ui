@@ -47,24 +47,21 @@ const count = ref(0);
     entry: '@revolist/ui/angular',
     language: 'TypeScript',
     description:
-      'Import the standalone UiComponent, select a component by name, and pass its props. Angular automatically loads the required component styles. For externally managed CSS, use @revolist/ui/angular/unstyled and import @revolist/ui/styles.css once in main.ts. uiEvent exposes callback names and arguments; valueChange handles a component’s declared value model. Use rvUiSlot templates for custom content.',
-    code: `import { Component } from '@angular/core';
-import { UiComponent, type UiEvent } from '@revolist/ui/angular';
+      'Import named standalone components and bind their typed inputs directly. Angular events and rvUiSlot templates keep content in Angular. Named adapters manage their own browser mount and hydration boundary. These named exports preview the next release; the Angular SSR guide includes the local public-package setup.',
+    code: `import { Component, signal } from '@angular/core';
+import { SvgButton } from '@revolist/ui/angular/svg-button';
 
 @Component({
   selector: 'app-report-action',
-  standalone: true,
-  imports: [UiComponent],
-  template: \`<rv-ui component="Button"
-    [props]="{ rounded: true, variant: 'primary', children: 'Create report · ' + count, onClick: click }"
-    (uiEvent)="handle($event)" />\`,
+  imports: [SvgButton],
+  template: \`<rv-svg-button
+    [label]="'Save ' + count()"
+    [visibleLabel]="'Save ' + count()"
+    (click)="count.set(count() + 1)"
+  />\`,
 })
 export class ReportAction {
-  count = 0;
-  click = () => {};
-  handle(event: UiEvent) {
-    if (event.name === 'onClick') this.count++;
-  }
+  readonly count = signal(0);
 }`,
   },
   {
@@ -72,21 +69,17 @@ export class ReportAction {
     entry: '@revolist/ui/svelte',
     language: 'Svelte',
     description:
-      'Use the Svelte 5 UiComponent host with the component name and props. Pass callbacks in props or observe onUiEvent; onValueChange handles declared value models. Svelte snippets provide custom content.',
+      'Import named Svelte 5 components with direct typed props and callbacks. Declared value models support bind:value (or the component’s model prop), and snippets provide custom content. These named exports preview the next release; the SvelteKit guide includes the local public-package setup.',
     code: `<script lang="ts">
-import { UiComponent } from '@revolist/ui/svelte';
+import { SvgButton } from '@revolist/ui/svelte/svg-button';
 
 let count = $state(0);
 </script>
 
-<UiComponent
-  component="Button"
-  props={{
-    rounded: true,
-    variant: 'primary',
-    children: 'Create report · ' + count,
-    onClick: () => count++,
-  }}
+<SvgButton
+  label={\`Save \${count}\`}
+  visibleLabel={\`Save \${count}\`}
+  onClick={() => count++}
 />`,
   },
   {
