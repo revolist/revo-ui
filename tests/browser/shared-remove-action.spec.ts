@@ -2,7 +2,7 @@ import { chooseOption } from './choose-option';
 import { test, expect } from './gallery-test';
 
 test.use({
-  gallerySections: ['field-configurators', 'selects-chips-and-resources'],
+  gallerySections: ['field-configurators', 'multi-selects-autocomplete'],
 });
 
 for (const theme of ['light', 'dark'])

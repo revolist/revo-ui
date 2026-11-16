@@ -1,5 +1,5 @@
 /** @jsxImportSource preact */
-import { getPopupCoordinates } from '../core/popup-position';
+import { getPopupCoordinates, getPopupViewport } from '../core/popup-position';
 import { ownsPopupTarget } from '../core/popup-ownership';
 import { h, type ComponentChildren, type RefObject, render } from 'preact';
 import { inheritUiMotion } from '../core/motion';
@@ -110,15 +110,14 @@ export function DropdownPopup({
           ? Math.max(0, maxHeight * coordinateSpace.scaleY)
           : Number.POSITIVE_INFINITY,
       );
-      const viewportHeight = ownerWindow.innerHeight;
-      const viewportWidth = ownerWindow.innerWidth;
+      const viewport = getPopupViewport(ownerWindow);
       const availableAbove = Math.max(
         0,
-        triggerRect.top - POPUP_GAP - VIEWPORT_GUTTER,
+        triggerRect.top - viewport.top - POPUP_GAP - VIEWPORT_GUTTER,
       );
       const availableBelow = Math.max(
         0,
-        viewportHeight - triggerRect.bottom - POPUP_GAP - VIEWPORT_GUTTER,
+        viewport.bottom - triggerRect.bottom - POPUP_GAP - VIEWPORT_GUTTER,
       );
       const opensAbove =
         desiredHeight > availableBelow && availableAbove > availableBelow;
@@ -131,12 +130,12 @@ export function DropdownPopup({
         align === 'end' ? triggerRect.right - menuWidth : triggerRect.left;
 
       viewportTop = Math.max(
-        VIEWPORT_GUTTER,
-        Math.min(viewportTop, viewportHeight - VIEWPORT_GUTTER - menuHeight),
+        viewport.top + VIEWPORT_GUTTER,
+        Math.min(viewportTop, viewport.bottom - VIEWPORT_GUTTER - menuHeight),
       );
       viewportLeft = Math.max(
-        VIEWPORT_GUTTER,
-        Math.min(viewportLeft, viewportWidth - menuWidth - VIEWPORT_GUTTER),
+        viewport.left + VIEWPORT_GUTTER,
+        Math.min(viewportLeft, viewport.right - menuWidth - VIEWPORT_GUTTER),
       );
       const position = getPopupCoordinates(popup, viewportTop, viewportLeft);
       setDropdownPosition({
@@ -172,6 +171,9 @@ export function DropdownPopup({
       popup.style.width = `${triggerRect.width / coordinateSpace.scaleX}px`;
     }
     updatePosition();
+    const visualViewport = ownerWindow.visualViewport;
+    visualViewport?.addEventListener('scroll', updatePosition);
+    visualViewport?.addEventListener('resize', updatePosition);
     ownerWindow.addEventListener('resize', updatePosition);
     ownerWindow.addEventListener('scroll', handleScroll, true);
     const ResizeObserverCtor = ownerWindow.ResizeObserver;
@@ -186,6 +188,8 @@ export function DropdownPopup({
       resizeObserver?.observe(dropdownRef.current);
     }
     return () => {
+      visualViewport?.removeEventListener('scroll', updatePosition);
+      visualViewport?.removeEventListener('resize', updatePosition);
       ownerWindow.removeEventListener('resize', updatePosition);
       ownerWindow.removeEventListener('scroll', handleScroll, true);
       resizeObserver?.disconnect();

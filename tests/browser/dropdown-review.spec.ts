@@ -1,14 +1,14 @@
 import { test, expect } from './gallery-test';
 
 test.use({
-  gallerySections: ['selects-chips-and-resources', 'calendar-and-dates'],
+  gallerySections: ['multi-selects-autocomplete', 'calendar-and-dates'],
 });
 
 for (const backwards of [false, true]) {
   test(`standalone select dismisses on ${backwards ? 'Shift+Tab' : 'Tab'} and advances focus`, async ({
     page,
   }) => {
-    await page.goto('/#selects-chips-and-resources');
+    await page.goto('/#multi-selects-autocomplete');
     const select = page.getByRole('combobox', { name: 'View', exact: true });
     await select.evaluate((element) => {
       const control = element.closest('.rv-select')!;

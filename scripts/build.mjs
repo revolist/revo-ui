@@ -40,6 +40,15 @@ try {
     await mkdir(destination, { recursive: true });
     await writeFile(resolve(destination, 'index.html'), html);
   }
+  const componentAliases = JSON.parse(await readFile(new URL('../src/component-aliases.json', import.meta.url), 'utf8'));
+  for (const [legacy, target] of Object.entries(componentAliases)) {
+    const canonical = target.split('#')[0];
+    const html = await readFile(resolve(root, 'dist-gallery/components', canonical, 'index.html'), 'utf8');
+    const destination = resolve(root, 'dist-gallery/components', legacy);
+    await mkdir(destination, { recursive: true });
+    // The shared router redirects these URLs while preserving moved example anchors.
+    await writeFile(resolve(destination, 'index.html'), html);
+  }
   console.log(`Rendered ${routes.length} pages in ${((performance.now() - renderStarted) / 1000).toFixed(1)}s.`);
   await writeFile(resolve(root, 'dist-gallery/sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${routes.map(route => `  <url><loc>${origin}${base === './' ? '/' : base}${route}</loc></url>`).join('\n')}\n</urlset>\n`);
 

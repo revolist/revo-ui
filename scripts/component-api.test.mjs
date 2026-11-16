@@ -26,7 +26,7 @@ test('documents every catalog component and maps it to a live family', () => {
   }
   assert.ok(component('HtmlEditor').families.includes('HTML Editor'));
   assert.ok(
-    component('Select').families.includes('Selects, chips and resources'),
+    component('Select').families.includes('Multi/selects, autocomplete'),
   );
 });
 

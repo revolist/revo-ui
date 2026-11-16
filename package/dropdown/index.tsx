@@ -10,7 +10,8 @@ import { useEffect, useRef, useMemo, useState } from 'preact/hooks';
 import { DropdownPopup } from './popup';
 import { DropdownPopupContent } from './content';
 import type { DropdownOption, DropdownProps } from './dropdown.types';
-import { RemoveButton } from '../buttons/remove-button';
+import { MultiselectValue } from './values';
+import { AutocompleteDropdown } from './autocomplete';
 import { chevronDownIcon } from '../icons';
 
 export * from './dropdown.types';
@@ -37,53 +38,6 @@ const SingleSelectValue = ({
     <span className={`selected-value ${className}`}>
       {renderValue ? renderValue(h, options[0]) : options[0].label}
     </span>
-  );
-};
-
-/**
- * Multiselect value component
- * @param options - The options to display
- * @param removeOption - The function to remove an option
- * @param className - The class name to apply to the component
- * @returns The multiselect value component
- */
-const MultiselectValue = ({
-  options,
-  removeOption,
-  className,
-  renderValue,
-  disabled,
-  removeLabel,
-}: {
-  options: DropdownOption[];
-  removeOption: (option: DropdownOption) => void;
-  className?: string;
-  renderValue?: NonNullable<DropdownProps['renderValue']>;
-  disabled?: boolean;
-  removeLabel?: (label: string) => string;
-}) => {
-  return (
-    <div className={`selected-values ${className}`}>
-      {options.map((option, index) => (
-        <span key={index} className="selected-tag">
-          {renderValue ? renderValue(h, option) : option.label}
-          {!disabled && !option.disabled && (
-            <RemoveButton
-              compact
-              onClick={(e) => {
-                e.stopPropagation();
-                removeOption(option);
-              }}
-              locale={{
-                title: removeLabel?.(option.label) ?? `Remove ${option.label}`,
-                ariaLabel:
-                  removeLabel?.(option.label) ?? `Remove ${option.label}`,
-              }}
-            />
-          )}
-        </span>
-      ))}
-    </div>
   );
 };
 
@@ -122,7 +76,7 @@ const PlaceholderValue = ({
 /**
  * Dropdown component
  */
-export function Dropdown<T = any>({
+function DropdownSelect<T = any>({
   source: localSource,
   triggerAttributes,
   dataSource,
@@ -529,6 +483,16 @@ export function Dropdown<T = any>({
         />
       )}
     </div>
+  );
+}
+
+/** Shared select-only or editable dropdown, selected through the public config. */
+export function Dropdown<T = any>(props: DropdownProps<T>): any {
+  return (props.config?.autocomplete || props.config?.tags) &&
+    !props.renderContent ? (
+    <AutocompleteDropdown {...props} />
+  ) : (
+    <DropdownSelect {...props} />
   );
 }
 

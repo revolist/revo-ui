@@ -147,7 +147,7 @@ for (const theme of ['light', 'dark']) {
       page.getByRole('dialog', { name: 'Confirm changes', exact: true }),
     ).toBeVisible();
     await scan(page, info, 'nested-confirmation');
-    await page.goto('/components/remote-lookup-field/');
+    await page.goto('/components/multi-selects-autocomplete/');
     await page.getByRole('button', { name: 'Select linked record' }).click();
     await page.getByRole('combobox', { name: 'Linked records' }).press('Enter');
     await page

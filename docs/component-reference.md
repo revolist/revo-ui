@@ -104,11 +104,11 @@ Text, search and numeric entry; field labels, validation, inline layouts and edi
 
 [Input](api/Input.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/)) | [TextInput](api/TextInput.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/)) | [Textarea](api/Textarea.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/)) | [SearchInput](api/SearchInput.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/)) | [NumberInput](api/NumberInput.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/)) | [NumberStepper](api/NumberStepper.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/)) | [DateInput](api/DateInput.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/)) | [TimeInput](api/TimeInput.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/)) | [DateTimeInput](api/DateTimeInput.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/)) | [FormField](api/FormField.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/)) | [FieldHint](api/FieldHint.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/)) | [FieldError](api/FieldError.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/)) | [FormSection](api/FormSection.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/)) | [HighlightedTextInput](api/HighlightedTextInput.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/)) | [InlineFieldGroup](api/InlineFieldGroup.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/)) | [NumberDraft](api/NumberDraft.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/)) | [MaskedDraft](api/MaskedDraft.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/)) | [HtmlEditor](api/HtmlEditor.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/))
 
-### Selects, chips and resources
+### Multi/selects, autocomplete
 
-Single or multiple selections, searchable options, selected-value templates, avatars, resource lists and assignee fields.
+Single and multiple selects, editable autocomplete, optional tags and remote record lookup.
 
-[Dropdown](api/Dropdown.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/)) | [DropdownPopup](api/DropdownPopup.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/)) | [DropdownPopupContent](api/DropdownPopupContent.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/)) | [Combobox](api/Combobox.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/)) | [MultiSelect](api/MultiSelect.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/)) | [Chip](api/Chip.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/)) | [FilterChip](api/FilterChip.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/)) | [Avatar](api/Avatar.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/)) | [AssigneePicker](api/AssigneePicker.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/)) | [AssigneePickerLayout](api/AssigneePickerLayout.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/))
+[Dropdown](api/Dropdown.md) ([examples](https://ui.rv-grid.com/components/multi-selects-autocomplete/)) | [DropdownPopup](api/DropdownPopup.md) ([examples](https://ui.rv-grid.com/components/multi-selects-autocomplete/)) | [DropdownPopupContent](api/DropdownPopupContent.md) ([examples](https://ui.rv-grid.com/components/multi-selects-autocomplete/)) | [Combobox](api/Combobox.md) ([examples](https://ui.rv-grid.com/components/multi-selects-autocomplete/)) | [MultiSelect](api/MultiSelect.md) ([examples](https://ui.rv-grid.com/components/multi-selects-autocomplete/)) | [Chip](api/Chip.md) ([examples](https://ui.rv-grid.com/components/multi-selects-autocomplete/)) | [FilterChip](api/FilterChip.md) ([examples](https://ui.rv-grid.com/components/multi-selects-autocomplete/)) | [LookupField](api/LookupField.md) ([examples](https://ui.rv-grid.com/components/multi-selects-autocomplete/))
 
 ### Sliders
 
@@ -136,21 +136,15 @@ Edit duration and effort with units, elapsed time and optional sliders.
 
 ### Resource selection
 
-Search and select people or other resources.
+Select people or other resources, with avatars and person selectors.
 
-[SharedResourcePicker](api/SharedResourcePicker.md) ([examples](https://ui.rv-grid.com/components/resource-selection/)) | [ResourcePickerAvatar](api/ResourcePickerAvatar.md) ([examples](https://ui.rv-grid.com/components/resource-selection/))
+[SharedResourcePicker](api/SharedResourcePicker.md) ([examples](https://ui.rv-grid.com/components/resource-selection/)) | [ResourcePickerAvatar](api/ResourcePickerAvatar.md) ([examples](https://ui.rv-grid.com/components/resource-selection/)) | [Avatar](api/Avatar.md) ([examples](https://ui.rv-grid.com/components/resource-selection/))
 
 ### Assignee field
 
 Assign people and edit their allocation units.
 
-[AssigneeField](api/AssigneeField.md) ([examples](https://ui.rv-grid.com/components/assignee-field/))
-
-### Remote lookup field
-
-Search remote records and apply linked-record selections.
-
-[LookupField](api/LookupField.md) ([examples](https://ui.rv-grid.com/components/remote-lookup-field/))
+[AssigneeField](api/AssigneeField.md) ([examples](https://ui.rv-grid.com/components/assignee-field/)) | [AssigneePicker](api/AssigneePicker.md) ([examples](https://ui.rv-grid.com/components/assignee-field/)) | [AssigneePickerLayout](api/AssigneePickerLayout.md) ([examples](https://ui.rv-grid.com/components/assignee-field/))
 
 ### Legend
 
@@ -257,7 +251,7 @@ Display local or remote PDFs with navigation, search, zoom, rotation, print/down
 
 ### JSX select adapter
 
-[**Select**](api/Select.md) ([examples](https://ui.rv-grid.com/components/selects-chips-and-resources/)) is an additional direct Preact adapter exported from `@revolist/ui/select`. Its JSX `<option>` children are data descriptors for the shared dropdown, not mounted native select elements. Use `value` / `onValueChange` for controlled state, `defaultValue` for uncontrolled state, and `multiple` for an array of selected strings. React/Vue applications can use their named `Combobox`, `MultiSelect`, or `Dropdown` adapters.
+[**Select**](api/Select.md) ([examples](https://ui.rv-grid.com/components/multi-selects-autocomplete/)) is an additional direct Preact adapter exported from `@revolist/ui/select`. Its JSX `<option>` children are data descriptors for the shared dropdown, not mounted native select elements. Use `value` / `onValueChange` for controlled state, `defaultValue` for uncontrolled state, and `multiple` for an array of selected strings. React/Vue applications can use their named `Combobox`, `MultiSelect`, or `Dropdown` adapters.
 
 ```tsx
 import { Select } from '@revolist/ui/select';
@@ -327,7 +321,43 @@ const personContent = (_h: unknown, person: { label: string; photo?: string }) =
 />
 ```
 
-Use `Combobox` for search and `MultiSelect` for multiple values. See [user images, search and resource examples](https://ui.rv-grid.com/components/selects-chips-and-resources/).
+Use `Combobox` for search and `MultiSelect` for multiple values. See [select and autocomplete examples](https://ui.rv-grid.com/components/multi-selects-autocomplete/) and [resource/avatar examples](https://ui.rv-grid.com/components/resource-selection/).
+
+For search directly in the field, enable `config.autocomplete`. The field remains
+focused while suggestions are filtered; Enter or clicking a suggestion commits
+its value. Escape and Tab discard an unselected query.
+
+```tsx
+<Combobox
+  source={options}
+  value={value}
+  onChange={setValue}
+  config={{ ariaLabel: 'View', autocomplete: true }}
+/>
+```
+
+Tags are optional. Supply a pure `config.tags` factory to offer a new option for
+non-empty text that does not already match an option. It enables the editable
+field automatically and preserves the option's value type. Return `null` or
+`undefined` to reject creation. The candidate is only committed when selected;
+`onCreateOption` is the place to persist it in your application's option source.
+
+```tsx
+<MultiSelect
+  source={skills}
+  value={selectedSkills}
+  onChange={setSelectedSkills}
+  onCreateOption={option => setSkills(current => [...current, option])}
+  config={{
+    ariaLabel: 'Skills',
+    tags: label => ({ value: label, label }),
+  }}
+/>
+```
+
+The editable input displays a selected option's plain text label. Custom
+`renderOption` content and multi-select `renderValue` chips remain supported.
+
 
 ## Advanced slider
 

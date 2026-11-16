@@ -1,0 +1,4 @@
+{
+  "selects-chips-and-resources": "multi-selects-autocomplete",
+  "remote-lookup-field": "multi-selects-autocomplete#example-remote-lookup-field"
+}

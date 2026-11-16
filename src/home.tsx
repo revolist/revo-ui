@@ -353,7 +353,7 @@ export function GalleryHome({
           <article class="home-widget finance-recent">
             <div class="widget-caption">
               <span>Recent transactions</span>
-              <a href={componentHref('selects-chips-and-resources')}>
+              <a href={componentHref('multi-selects-autocomplete')}>
                 Select & badges
               </a>
             </div>
@@ -453,7 +453,7 @@ export function GalleryHome({
             'Buttons',
             'Inputs and forms',
             'Selection controls',
-            'Selects, chips and resources',
+            'Multi/selects, autocomplete',
             'Calendar and dates',
             'Dialogs and floating surfaces',
           ].map((title) => (

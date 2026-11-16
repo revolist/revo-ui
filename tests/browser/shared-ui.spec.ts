@@ -1735,9 +1735,9 @@ test('shared filter badge details and removal remain independent', async ({
       await section.screenshot({
         path: testInfo.outputPath(`${width}-${theme}-selection-controls.png`),
       });
-      await page.locator('#selects-chips-and-resources').screenshot({
+      await page.locator('#multi-selects-autocomplete').screenshot({
         path: testInfo.outputPath(
-          `${width}-${theme}-selects-chips-and-resources.png`,
+          `${width}-${theme}-multi-selects-autocomplete.png`,
         ),
       });
     }
