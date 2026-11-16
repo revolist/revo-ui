@@ -120,17 +120,28 @@ export default defineConfig(({ mode }) => {
           },
         },
         svelte(),
-        utilities.plugin,
-        dts({
-          tsconfigPath: resolve(root, 'tsconfig.json'),
-          entryRoot: resolve(root, 'package'),
-          include: ['package'],
-          exclude: ['**/*.test.ts', '**/*.test.tsx'],
-          beforeWriteFile: (filePath, content) => ({
-            filePath,
-            content: utilities.rewrite(filePath, content),
-          }),
-        }),
+        ...(mode === 'library' ? [utilities.plugin] : []),
+        ...(mode === 'library'
+          ? [
+              dts({
+                tsconfigPath: resolve(root, 'tsconfig.json'),
+                entryRoot: resolve(root, 'package'),
+                include: ['package'],
+                exclude: [
+                  '**/*.test.ts',
+                  '**/*.test.tsx',
+                  'package/angular.ts',
+                  'package/angular-control.ts',
+                  'package/angular-adapter.ts',
+                  'package/angular-components/**',
+                ],
+                beforeWriteFile: (filePath, content) => ({
+                  filePath,
+                  content: utilities.rewrite(filePath, content),
+                }),
+              }),
+            ]
+          : []),
       ],
       oxc: { jsx: { runtime: 'automatic', importSource: 'preact' } },
       build: {

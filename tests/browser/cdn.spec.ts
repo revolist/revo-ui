@@ -139,7 +139,7 @@ for (const format of ['module', 'classic'] as const) {
       page.locator('.page[data-page-number="1"] canvas'),
     ).toBeVisible({ timeout: 20000 });
     expect(workers).toHaveLength(1);
-    expect(workers[0]).toContain('/browser/assets/pdf.worker');
+    expect(workers[0]).toContain('/browser/pdf.worker.min.mjs');
     expect(errors).toEqual([]);
   });
 }

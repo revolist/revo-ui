@@ -15,6 +15,11 @@ import ts from 'typescript';
 import { styleEntrypoints } from './style-entrypoints.mjs';
 import { compileAsync } from 'sass-embedded';
 import { compile as compileSvelte } from 'svelte/compiler';
+import {
+  forwardPublicDeclaration,
+  sharePdfWorker,
+  compactAngularRuntime,
+} from './compact-public-package.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const output = resolve(root, 'dist');
@@ -97,6 +102,8 @@ for (const angularOutput of [output, resolve(output, 'unstyled')]) {
           return `${prefix}${specifier.replace(/\.js$/, '')}.js${suffix}`;
         if (angularFiles.includes(`${target}/index.ts`))
           return `${prefix}${specifier}/index.js${suffix}`;
+        if (angularOutput !== output)
+          forwardPublicDeclaration(output, angularOutput, target);
         const external = relative(
           dirname(destination),
           resolve(angularOutput, `${target}.js`),
@@ -117,7 +124,7 @@ for (const angularOutput of [output, resolve(output, 'unstyled')]) {
           strict: true,
           skipLibCheck: true,
           experimentalDecorators: true,
-          declaration: true,
+          declaration: angularOutput === output,
           types: [],
           rootDir: '.',
           outDir: '../angular',
@@ -134,6 +141,14 @@ for (const angularOutput of [output, resolve(output, 'unstyled')]) {
   );
   run(['exec', 'ngc', '-p', resolve(staging, 'tsconfig.json')]);
   rmSync(staging, { recursive: true, force: true });
+  if (angularOutput !== output) {
+    for (const name of angularFiles)
+      forwardPublicDeclaration(
+        output,
+        angularOutput,
+        `angular/${name.replace(/\.ts$/, '')}`,
+      );
+  }
   for (const name of ['angular-control', 'angular'])
     rmSync(resolve(angularOutput, `${name}.d.ts`), { force: true });
 }
@@ -152,8 +167,18 @@ for (const svelteOutput of [output, resolve(output, 'unstyled')]) {
     const source = readFileSync(resolve(root, 'package/svelte', name), 'utf8');
     writeFileSync(resolve(svelteOutput, 'svelte', name), source);
     const declaration = resolve(root, 'package/svelte', `${name}.d.ts`);
-    if (existsSync(declaration))
+    if (svelteOutput === output && existsSync(declaration))
       cpSync(declaration, resolve(svelteOutput, 'svelte', `${name}.d.ts`));
+    if (svelteOutput !== output) {
+      for (const match of source.matchAll(/from\s*['"](\.[^'"]+)['"]/g)) {
+        if (match[1].endsWith('.svelte')) continue;
+        const target = relative(
+          resolve(root, 'package'),
+          resolve(root, 'package/svelte', match[1]),
+        ).replaceAll('\\', '/');
+        forwardPublicDeclaration(output, svelteOutput, target);
+      }
+    }
     const server = compileSvelte(source, {
       generate: 'server',
       filename: name,
@@ -499,6 +524,8 @@ cpSync(resolve(root, 'README.md'), resolve(output, 'README.md'));
 for (const name of ['OWNERSHIP.md', 'MIGRATION.md', 'LICENSE'])
   if (existsSync(resolve(root, name)))
     cpSync(resolve(root, name), resolve(output, name));
+sharePdfWorker(output);
+await compactAngularRuntime(output);
 console.log(
   `Public package prepared at ${output}; no registry publication performed.`,
 );

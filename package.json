@@ -641,7 +641,7 @@
     "lint": "tsc --noEmit",
     "build:public": "node scripts/build-public.mjs",
     "pack:public": "pnpm run build:public && pnpm --dir dist pack --pack-destination ../artifacts",
-    "test:public": "node --test scripts/public-package.test.mjs scripts/angular-public-consumer.test.mjs scripts/named-framework-consumer.test.mjs",
+    "test:public": "node --test scripts/public-package.test.mjs scripts/angular-public-consumer.test.mjs scripts/named-framework-consumer.test.mjs scripts/compact-public-package.test.mjs scripts/public-package-layout.test.mjs",
     "lint:svelte": "svelte-check --tsconfig ./tsconfig.svelte.json",
     "dev": "vite --host 127.0.0.1",
     "preview": "vite preview --outDir dist-gallery",
