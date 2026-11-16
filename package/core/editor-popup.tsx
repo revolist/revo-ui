@@ -1,6 +1,6 @@
-import { applyPopupPosition } from './popup-position';
 /** @jsxRuntime automatic */
 /** @jsxImportSource preact */
+import { applyPopupPosition } from './popup-position';
 import { ownsPopupTarget } from './popup-ownership';
 import type { ComponentChildren } from 'preact';
 import { createPreactElement, releasePreactElement } from '../preact-mount';
