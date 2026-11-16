@@ -1,0 +1,9 @@
+packages:
+  - "."
+
+allowBuilds:
+  esbuild: true
+  "@parcel/watcher": true
+
+minimumReleaseAgeExclude:
+  - "@revolist/ui@4.0.23"

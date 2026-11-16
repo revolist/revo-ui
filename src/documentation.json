@@ -2,18 +2,91 @@
   "javascript-cdn": {
     "label": "JavaScript / CDN",
     "title": "JavaScript / CDN",
-    "description": "Use Revo UI directly in the browser with ES module or classic-script CDN examples, pinned assets and optional PDF worker setup."
+    "description": "Use Revo UI directly in the browser with ES module or classic-script CDN examples, pinned assets and optional PDF worker setup.",
+    "category": "Essentials"
   },
   "ssr": {
     "label": "SSR",
     "title": "Server rendering and hydration",
     "description": "Use Revo UI in SSR applications: simple framework examples, initial CSS delivery, client mounting, hydration and CSP configuration.",
-    "source": "ssr.md"
+    "source": "ssr.md",
+    "category": "Server rendering"
   },
   "bundle-size": {
     "label": "Bundle size",
     "title": "Bundle size and selective styles",
     "description": "Keep Revo UI bundles small with tree-shaken imports, automatic or extracted CSS, selective stylesheets and reproducible size budgets.",
-    "source": "bundle-size.md"
+    "source": "bundle-size.md",
+    "category": "Essentials"
+  },
+  "ssr-nextjs": {
+    "label": "Next.js SSR",
+    "title": "Next.js App Router and Revo UI",
+    "description": "Build a small server-rendered Next.js page with a client-side Revo UI control.",
+    "source": "ssr-nextjs.md",
+    "category": "Server rendering"
+  },
+  "ssr-nuxt": {
+    "label": "Nuxt SSR",
+    "title": "Nuxt and Revo UI",
+    "description": "Use a Vue control in a server-rendered Nuxt application with global styles.",
+    "source": "ssr-nuxt.md",
+    "category": "Server rendering"
+  },
+  "ssr-sveltekit": {
+    "label": "SvelteKit SSR",
+    "title": "SvelteKit and Revo UI",
+    "description": "Keep page SSR enabled and mount a small Svelte control in the browser.",
+    "source": "ssr-sveltekit.md",
+    "category": "Server rendering"
+  },
+  "ssr-astro": {
+    "label": "Astro SSR",
+    "title": "Astro and Revo UI",
+    "description": "Combine server-rendered Astro content with a small interactive island.",
+    "source": "ssr-astro.md",
+    "category": "Server rendering"
+  },
+  "ssr-angular": {
+    "label": "Angular SSR",
+    "title": "Angular SSR and Revo UI",
+    "description": "Use a named Angular component with direct typed inputs and normal event bindings.",
+    "source": "ssr-angular.md",
+    "category": "Server rendering"
+  },
+  "ssr-react-router": {
+    "label": "React Router SSR",
+    "title": "React Router and Revo UI",
+    "description": "Use server data and a small interactive control in React Router framework mode.",
+    "source": "ssr-react-router.md",
+    "category": "Server rendering"
+  },
+  "ssr-tanstack-start": {
+    "label": "TanStack Start SSR",
+    "title": "TanStack Start and Revo UI",
+    "description": "Create a small server-rendered route with an interactive React control.",
+    "source": "ssr-tanstack-start.md",
+    "category": "Server rendering"
+  },
+  "ssr-nestjs": {
+    "label": "NestJS",
+    "title": "NestJS and Revo UI",
+    "description": "Render a NestJS template and mount one browser control with public APIs.",
+    "source": "ssr-nestjs.md",
+    "category": "Server rendering"
+  },
+  "integration-refine": {
+    "label": "Refine",
+    "title": "Refine and Revo UI",
+    "description": "Use Revo UI controls in a small Refine application with Next.js.",
+    "source": "integration-refine.md",
+    "category": "Integrations"
+  },
+  "integration-lovable": {
+    "label": "Lovable",
+    "title": "Lovable and Revo UI",
+    "description": "Add Revo UI to Lovable projects using TanStack Start or React and Vite.",
+    "source": "integration-lovable.md",
+    "category": "Integrations"
   }
 }

@@ -741,3 +741,5 @@ export type {
   TooltipContentContext,
   TooltipPositionOptions,
 } from './core/tooltip-options';
+
+export const LookupField = /* @__PURE__ */ createVueAdapter(ui.LookupField, 'LookupField');

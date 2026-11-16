@@ -130,3 +130,51 @@ for (const [hash, target] of [
     await expect(page.locator('article h1')).toBeVisible();
   });
 }
+
+for (const [route, title] of [
+  ["ssr-nextjs", "Next.js App Router and Revo UI"],
+  ["ssr-nuxt", "Nuxt and Revo UI"],
+  ["ssr-sveltekit", "SvelteKit and Revo UI"],
+  ["ssr-astro", "Astro and Revo UI"],
+  ["ssr-angular", "Angular SSR and Revo UI"],
+  ["ssr-react-router", "React Router and Revo UI"],
+  ["ssr-tanstack-start", "TanStack Start and Revo UI"],
+  ["ssr-nestjs", "NestJS and Revo UI"],
+  ["integration-refine", "Refine and Revo UI"],
+  ["integration-lovable", "Lovable and Revo UI"],
+]) {
+  test(`${route} starter guide is discoverable and readable`, async ({
+    page,
+  }) => {
+    await page.goto("/frameworks/ssr/");
+    await page.locator(`article a[href="/frameworks/${route}/"]`).first().click();
+    await expect(
+      page.getByRole("heading", { level: 1, name: title, exact: true }),
+    ).toBeVisible();
+    await expect(page).toHaveTitle(`${title} · Revo UI`);
+    await expect(page.locator("article pre code").first()).toBeVisible();
+    const source = page
+      .locator(
+        'article a[href*="github.com/revolist/revo-ui/tree/main/examples/ssr/"]',
+      )
+      .first();
+    await expect(source).toHaveAttribute("href", /examples\/ssr\//);
+    await page.setViewportSize({ width: 390, height: 844 });
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth + 1,
+      ),
+    ).toBe(true);
+  });
+}
+
+for (const framework of ['angular', 'svelte']) {
+  test(`${framework} guide teaches a selective named component import`, async ({ page }) => {
+    await page.goto(`/frameworks/${framework}/`);
+    const example = page.locator('.framework-card pre');
+    await expect(example).toContainText(`@revolist/ui/${framework}/svg-button`);
+    await expect(example).toContainText('SvgButton');
+    await expect(example).not.toContainText('UiComponent');
+    await expect(example).not.toContainText('[props]');
+  });
+}

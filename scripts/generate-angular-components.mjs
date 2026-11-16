@@ -1,0 +1,256 @@
+import ts from "typescript";
+import { readFileSync, writeFileSync, mkdirSync, readdirSync } from "node:fs";
+import { resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+import { componentApi } from "./component-api.mjs";
+
+const root = fileURLToPath(new URL("../", import.meta.url));
+const output = resolve(root, "package/angular-components");
+const catalog = readFileSync(
+  resolve(root, "package/component-catalog.ts"),
+  "utf8",
+);
+const names = [...catalog.matchAll(/^  (\w+):/gm)].map((match) => match[1]);
+const api = new Map(
+  componentApi(root, root).map((component) => [component.name, component]),
+);
+const metadata = ts.createSourceFile(
+  "component-metadata.ts",
+  readFileSync(resolve(root, "package/component-metadata.ts"), "utf8"),
+  ts.ScriptTarget.Latest,
+  true,
+);
+const models = new Map();
+for (const statement of metadata.statements) {
+  if (!ts.isVariableStatement(statement)) continue;
+  for (const declaration of statement.declarationList.declarations) {
+    if (declaration.name.getText(metadata) !== "componentModels") continue;
+    for (const entry of declaration.initializer.properties) {
+      const props = Object.fromEntries(
+        entry.initializer.properties.map((prop) => [
+          prop.name.getText(metadata),
+          prop.initializer.text,
+        ]),
+      );
+      models.set(entry.name.getText(metadata), props);
+    }
+  }
+}
+const kebab = (name) =>
+  name
+    .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
+    .replace(/([A-Z])([A-Z][a-z])/g, "$1-$2")
+    .toLowerCase();
+// TypeScript may enumerate union/intersection members in a different order
+// across compiler versions. Generated source order must not depend on it.
+const compareText = (left, right) => (left < right ? -1 : left > right ? 1 : 0);
+const byName = (left, right) => compareText(left.name, right.name);
+const requiresInput = (prop) =>
+  prop.required &&
+  !/^on[A-Z]/.test(prop.name) &&
+  !/ComponentChildren|VNode/.test(prop.type);
+
+// Native event outputs must not collide with bubbling DOM event listeners.
+const eventName = (event) => {
+  const plain = event.name.slice(2, 3).toLowerCase() + event.name.slice(3);
+  return event.inherited ||
+    [
+      "click",
+      "change",
+      "input",
+      "focus",
+      "blur",
+      "submit",
+      "reset",
+      "close",
+      "select",
+      "scroll",
+      "toggle",
+      "load",
+      "error",
+    ].includes(plain)
+    ? `${plain}Event`
+    : plain;
+};
+const contracts = new Map(
+  names.map((name) => {
+    const component = api.get(name);
+    const model = models.get(name);
+    const inputs = [...component.props, ...component.events]
+      .filter((prop) => !["children", "ref", "key", "jsx"].includes(prop.name))
+      .sort(byName);
+    const aliases = new Set();
+    const outputs = component.events
+      .filter((event) => event.name !== model?.callback)
+      .sort(byName)
+      .filter((event) => {
+        const alias = eventName(event);
+        if (
+          alias === "valueChange" ||
+          alias === "uiEvent" ||
+          inputs.some((input) => input.name === alias) ||
+          aliases.has(alias)
+        )
+          return false;
+        aliases.add(alias);
+        return true;
+      });
+    return [name, { component, model, inputs, outputs }];
+  }),
+);
+
+// Factor only the exact shared decorated contract. Generic K keeps each inherited
+// input/output typed against its own control, including native event targets.
+const nativeNames = new Set(
+  names.filter((name) => {
+    const { component } = contracts.get(name);
+    return [...component.props, ...component.events].some(
+      (prop) => prop.inherited,
+    );
+  }),
+);
+const native = [...nativeNames].map((name) => contracts.get(name));
+const sharedInputs = native[0].inputs.filter((prop) =>
+  native.every((contract) =>
+    contract.inputs.some(
+      (other) =>
+        other.name === prop.name &&
+        requiresInput(other) === requiresInput(prop),
+    ),
+  ),
+);
+const sharedOutputs = native[0].outputs.filter((event) =>
+  native.every((contract) =>
+    contract.outputs.some(
+      (other) =>
+        other.name === event.name && eventName(other) === eventName(event),
+    ),
+  ),
+);
+const sharedInputNames = new Set(sharedInputs.map((prop) => prop.name));
+const sharedOutputNames = new Set(sharedOutputs.map((event) => event.name));
+const inputFields = (inputs, type) =>
+  inputs
+    .map(
+      (prop) =>
+        `  @NgInput(${requiresInput(prop) ? "{ required: true }" : ""}) declare ${JSON.stringify(prop.name)}${requiresInput(prop) ? "" : "?"}: AngularInput<${type}, ${JSON.stringify(prop.name)}>;`,
+    )
+    .join("\n");
+const outputFields = (events, type) =>
+  events
+    .map(
+      (event) =>
+        `  @Output() get ${eventName(event)}() { return this.rvOutput<AngularCallbackValue<AngularInput<${type}, '${event.name}'>>>('${event.name}'); }`,
+    )
+    .join("\n");
+
+const generated = new Map();
+generated.set(
+  "native-adapter.ts",
+  `// Generated by scripts/generate-angular-components.mjs. Do not edit.
+import { Directive, Input as NgInput, Output } from '@angular/core';
+import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue } from '../angular-adapter';
+import type { UiComponentName } from '../component-catalog';
+
+/** Shared native metadata; K preserves the concrete control's complete types. */
+@Directive()
+export abstract class AngularNativeAdapter<K extends UiComponentName, ModelValue>
+  extends AngularComponentAdapter<ModelValue> {
+${inputFields(sharedInputs, "K")}
+${outputFields(sharedOutputs, "K")}
+}
+`,
+);
+for (const name of names) {
+  const { component, model, inputs, outputs } = contracts.get(name);
+  const usesNative = nativeNames.has(name);
+  const modelValue = model
+    ? `AngularCallbackValue<AngularInput<'${name}', '${model.callback}'>>`
+    : "never";
+  const base = usesNative
+    ? `AngularNativeAdapter<'${name}', ${modelValue}>`
+    : `AngularComponentAdapter<${modelValue}>`;
+  const adapterImports = usesNative
+    ? `import { AngularNativeAdapter } from './native-adapter';\nimport type { AngularInput, AngularCallbackValue } from '../angular-adapter';`
+    : `import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue } from '../angular-adapter';`;
+  const header = `// Generated by scripts/generate-angular-components.mjs. Do not edit.
+import { Component, Input as NgInput, Output } from '@angular/core';
+import { ${name} as Control } from '../component-controls/${kebab(name)}';
+${adapterImports}
+
+@Component({
+  selector: 'rv-${kebab(name)}',
+  standalone: true,
+  template: '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
+  host: { style: 'display: contents', ngSkipHydration: 'true' },
+})
+export class ${name} extends ${base} {
+  protected readonly rvComponentName = '${name}';
+  protected rvResolveComponent() { return Control; }
+`;
+  const requiredCallbacks = component.events
+    .filter((event) => event.required)
+    .map((event) => event.name)
+    .sort(compareText);
+  const callbackDefaults = requiredCallbacks.length
+    ? `  protected override readonly rvRequiredCallbacks = ${JSON.stringify(requiredCallbacks)};\n`
+    : "";
+  const fields = inputFields(
+    inputs.filter((prop) => !usesNative || !sharedInputNames.has(prop.name)),
+    `'${name}'`,
+  );
+  const callbackFields = outputFields(
+    outputs.filter(
+      (event) => !usesNative || !sharedOutputNames.has(event.name),
+    ),
+    `'${name}'`,
+  );
+  const modelField =
+    model && model.prop !== "value"
+      ? `  @Output() get ${model.prop}Change() { return this.rvOutput<AngularCallbackValue<AngularInput<'${name}', '${model.callback}'>>>('${model.callback}'); }`
+      : "";
+  generated.set(
+    `${kebab(name)}.ts`,
+    header +
+      callbackDefaults +
+      fields +
+      "\n" +
+      [callbackFields, modelField].filter(Boolean).join("\n") +
+      `\n  protected rvResolveProps() { return this.rvInputValues; }\n}\n`,
+  );
+}
+console.log(
+  `Shared ${sharedInputs.length} native inputs and ${sharedOutputs.length} outputs across ${nativeNames.size} controls`,
+);
+generated.set(
+  "index.ts",
+  "// Generated by scripts/generate-angular-components.mjs. Do not edit.\n" +
+    names
+      .map((name) => `export { ${name} } from './${kebab(name)}';`)
+      .join("\n") +
+    "\n",
+);
+mkdirSync(output, { recursive: true });
+for (const [name, source] of generated) {
+  const path = resolve(output, name);
+  if (process.argv.includes("--check")) {
+    const actual = readFileSync(path, "utf8");
+    if (actual !== source) {
+      const actualLines = actual.split("\n");
+      const expectedLines = source.split("\n");
+      const line = expectedLines.findIndex(
+        (value, index) => value !== actualLines[index],
+      );
+      const index = line < 0 ? expectedLines.length : line;
+      throw new Error(
+        `Outdated Angular adapter: ${name} at line ${index + 1} ` +
+          `(Node ${process.version}, TypeScript ${ts.version})\n` +
+          `checked in: ${JSON.stringify(actualLines[index])}\n` +
+          `expected:   ${JSON.stringify(expectedLines[index])}`,
+      );
+    }
+  } else writeFileSync(path, source);
+}
+console.log(
+  `${process.argv.includes("--check") ? "Checked" : "Generated"} ${names.length} named Angular components`,
+);

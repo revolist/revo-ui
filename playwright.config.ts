@@ -4,6 +4,7 @@ export default defineConfig({
   // Fixture servers, PDF behavior and exhaustive captures have dedicated configurations.
   testIgnore: [
     'framework-adapters.spec.ts',
+    'named-framework-adapters.spec.ts',
     'pdf-frameworks.spec.ts',
     'pdf-viewer.spec.ts',
     'gallery-capture.spec.ts',

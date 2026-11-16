@@ -380,7 +380,12 @@ for (const framework of ['react', 'vue', 'angular', 'svelte']) {
         outdir: 'out',
         format: 'esm',
         platform: 'browser',
-        define: { 'process.env.NODE_ENV': '"production"', ngDevMode: 'false' },
+        define: {
+          'process.env.NODE_ENV': '"production"',
+          ngDevMode: 'false',
+          // Inline IIFEs have no module URL; retain a base for optional PDF assets.
+          'import.meta.url': JSON.stringify('http://ui-style.test/app.js'),
+        },
         external: ['pdfjs-dist'],
         logLevel: 'silent',
       });

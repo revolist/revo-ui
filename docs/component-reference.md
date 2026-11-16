@@ -65,10 +65,14 @@ Controls can be used without a RevoGrid instance. Grid cell templates, providers
 | --- | --- | --- | --- |
 | React | `@revolist/ui/react` | Named React components; controlled props, callbacks, children, and custom content. | [React usage](https://ui.rv-grid.com/frameworks/react/) |
 | Vue | `@revolist/ui/vue` | Named Vue components, events and slots; declared value models support `v-model`. | [Vue usage](https://ui.rv-grid.com/frameworks/vue/) |
-| Angular | `@revolist/ui/angular` | Standalone `UiComponent` host with `component`, `props`, `uiEvent`, `valueChange`, and `rvUiSlot` templates. | [Angular usage](https://ui.rv-grid.com/frameworks/angular/) |
-| Svelte 5 | `@revolist/ui/svelte` | `UiComponent` host with reactive props, callbacks, and content snippets. | [Svelte usage](https://ui.rv-grid.com/frameworks/svelte/) |
+| Angular | `@revolist/ui/angular` | Named standalone components with typed direct inputs, model outputs and `rvUiSlot` templates; `UiComponent` remains for dynamic catalog selection. | [Angular usage](https://ui.rv-grid.com/frameworks/angular/) |
+| Svelte 5 | `@revolist/ui/svelte` | Named components with reactive typed props, model bindings and content snippets; `UiComponent` remains for dynamic catalog selection. | [Svelte usage](https://ui.rv-grid.com/frameworks/svelte/) |
 | Preact | `@revolist/ui/preact` | Direct components with Preact state, hooks, and render callbacks. | [Preact usage](https://ui.rv-grid.com/frameworks/preact/) |
 | Vanilla TypeScript | `@revolist/ui/framework` | `createFrameworkMount` and `uiComponents`; call `render` to update and `destroy` on disposal. | [Vanilla usage](https://ui.rv-grid.com/frameworks/vanilla-typescript/) |
+
+Prefer a per-component entry for a narrow dependency graph, for example `@revolist/ui/angular/svg-button` or `@revolist/ui/svelte/svg-button`. Add `/unstyled` when the application supplies static CSS. Framework barrels also provide the same named exports.
+
+Named Angular/Svelte exports preview the next package release. Use the [Angular](ssr-angular.md) or [SvelteKit](ssr-sveltekit.md) local public-package setup until they are published.
 
 Additional entries include `@revolist/ui/native` for DOM controllers and presentation helpers, `@revolist/ui/react-control` / `vue-control` / `angular-control` / `svelte-control` for framework-owned controls, and dedicated entries such as `@revolist/ui/select`, `@revolist/ui/timeline-track`, and `@revolist/ui/pdf-viewer`. Use the installed package's TypeScript declarations for exact prop types.
 
@@ -278,7 +282,7 @@ import { Select } from '@revolist/ui/select';
 | Controlled state | Keep values in the application and pass the matching callback. `TextInput` uses `onValueChange`; many pickers/sliders use `onChange`; verify the component's typed contract. |
 | Dropdown data | `source` is an array of `{ value, label, ...metadata }` descriptors. `disabled` options remain visible and are skipped by keyboard selection. |
 | Custom dropdown content | `renderOption` changes option content; `renderValue` changes the selected value. Preact receives `(h, option, selected)` / `(h, option)`. React callbacks omit the element-factory argument; Vue uses named slots. |
-| Angular/Svelte hosts | Use names from the component catalog. `valueChange` / `onValueChange` is tied to the component's declared value model, not every callback. For a generic callback such as `onClick`, supply that callback in `props` so the host can forward it. |
+| Angular/Svelte adapters | Prefer named imports and direct props. Angular exposes typed callback/model outputs; native events such as `(click)` bubble once. Svelte uses typed callbacks and bindable declared models. The generic `UiComponent` host remains for dynamic catalog selection. |
 | Forms | Associate inputs with a visible label or an accessible name. Use shared field hint/error presentation and pass disabled/invalid state explicitly. |
 | Overlays | Use the shared popup lifecycle. Dropdowns inside top-layer dialogs/calendars can opt into `config.topLayer`. Standalone selects dismiss and advance focus on Tab/Shift+Tab. |
 | Lifecycle | Framework adapters clean up their mounts. Manual framework mounts and native controllers must be destroyed when their view is removed. |

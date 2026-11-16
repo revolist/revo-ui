@@ -56,51 +56,22 @@ For smaller extracted stylesheets, use `styles/base.css` and only the required f
 
 For server-rendered applications, see the [SSR and hydration guide](docs/ssr.md) for framework recipes, initial CSS delivery, fallbacks and CSP.
 
-## Browser JavaScript / CDN (no build step)
-
-The standalone browser builds below use the published **4.0.12** release. Pin CSS and JavaScript to the same released version.
-
-```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@revolist/ui@4.0.12/styles.css">
-<div id="report-action" class="rv-ui"></div>
-<script type="module">
-import { createFrameworkMount, uiComponents } from
-  'https://cdn.jsdelivr.net/npm/@revolist/ui@4.0.12/browser/revo-ui.js';
-
-const mount = createFrameworkMount(document.querySelector('#report-action'), () => {});
-let count = 0;
-function update() {
-  mount.render(uiComponents.Button, {
-    variant: 'primary',
-    children: 'Create report · ' + count,
-    onClick: () => { count++; update(); },
-  });
-}
-update();
-// Call mount.destroy() before removing the host view.
-</script>
-```
-
-For a classic script, load `https://cdn.jsdelivr.net/npm/@revolist/ui@4.0.12/browser/revo-ui.global.js` and use `const { createFrameworkMount, uiComponents } = RevoUI` instead of the import. Both builds bundle their renderer and shared utilities; no import map or framework runtime is needed. Serve your HTML over HTTP(S) in a modern browser.
-
-You can replace the CDN prefix with `https://unpkg.com/@revolist/ui@4.0.12`, or self-host the package files. The `unpkg` and `jsdelivr` package defaults point to the classic script. The `@revolist/ui/browser` export points to the standalone ES module. Existing npm/framework ESM entries remain available for tree-shaking; host-framework adapters still require their respective frameworks.
-
-The complete browser bundles include the component catalog and PDF engine. PDF viewers also need `browser/pdf-viewer.css`. A matching PDF.js worker is included and starts only when a document is loaded. Serve the bundle and its worker assets from **your own origin**, or override `workerSrc` with your own matching module worker URL. Direct cross-origin CDN Worker URLs are not supported by the browser Worker constructor. Configure PDF document/asset access for your application.
-
-See the [CDN examples in Docs](https://ui.rv-grid.com/frameworks/javascript-cdn/) for complete module and classic-script HTML and lifecycle guidance.
+For browser use without a build step, see the [JavaScript / CDN guide](https://ui.rv-grid.com/frameworks/javascript-cdn/).
 
 ## Framework support
 
-Use the same component library and shared styles across frameworks, while keeping application state in your chosen stack.
+Use the same component library and shared styles across frameworks, while keeping application state in your chosen stack. The new named Angular/Svelte exports are a source preview for the next release; the [Angular](docs/ssr-angular.md) and [SvelteKit](docs/ssr-sveltekit.md) guides show how to build and run the local public package.
 
 | Framework | Integration |
 | --- | --- |
 | <img src="src/assets/frameworks/react.svg" width="24" height="24" alt=""> React | Named components from `@revolist/ui/react`, with React state, children, and callbacks. |
 | <img src="src/assets/frameworks/vue.svg" width="24" height="24" alt=""> Vue | Named components from `@revolist/ui/vue`, with events, slots, and `v-model` for controls with a declared model. |
-| <img src="src/assets/frameworks/angular.svg" width="24" height="24" alt=""> Angular | Standalone `UiComponent` from `@revolist/ui/angular`, with props, events, and templates for custom content. |
-| <img src="src/assets/frameworks/svelte.svg" width="24" height="24" alt=""> Svelte | Svelte 5 `UiComponent` from `@revolist/ui/svelte`, with reactive props, callbacks, and snippets. |
+| <img src="src/assets/frameworks/angular.svg" width="24" height="24" alt=""> Angular | Named standalone components from `@revolist/ui/angular`, with typed inputs, events and `rvUiSlot` templates. |
+| <img src="src/assets/frameworks/svelte.svg" width="24" height="24" alt=""> Svelte | Named Svelte 5 components from `@revolist/ui/svelte`, with typed props, model bindings, callbacks and snippets. |
 | <img src="src/assets/frameworks/preact.svg" width="24" height="24" alt=""> Preact | Components from `@revolist/ui/preact`, with Preact hooks and JSX. |
 | <img src="src/assets/frameworks/typescript.svg" width="24" height="24" alt=""> Vanilla TypeScript | Mount components into a DOM element with `createFrameworkMount` from `@revolist/ui/framework`. |
+
+For a narrow dependency graph, import the matching component entry, for example `@revolist/ui/angular/svg-button` or `@revolist/ui/svelte/svg-button`. Each exports `SvgButton`; `/unstyled` variants use application-managed CSS.
 
 ## Components
 

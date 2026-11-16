@@ -24,6 +24,35 @@ import pages from './pages.json';
 import { currentRoute, componentHref, frameworkHref, siteHref } from './routing';
 const families = pages.components;
 const groups = ['Controls', 'Pickers', 'Compositions', 'Advanced'];
+const documentationEntries = (category: string) =>
+  Object.entries(documentation)
+    .filter(([, doc]) => doc.category === category)
+    .map(([id, doc]) => ({ id, label: doc.label, href: frameworkHref(id) }));
+const documentationGroups = [
+  {
+    title: 'Essentials',
+    entries: [
+      { id: '', label: 'Getting started', href: siteHref('frameworks/') },
+      ...documentationEntries('Essentials'),
+      {
+        id: 'accessibility',
+        label: 'Accessibility',
+        href: siteHref('accessibility/'),
+      },
+    ],
+  },
+  {
+    title: 'Framework adapters',
+    entries: pages.frameworks.map((name) => {
+      const id = name.toLowerCase().replaceAll(' ', '-');
+      return { id, label: name, href: frameworkHref(id) };
+    }),
+  },
+  ...['Server rendering', 'Integrations'].map((title) => ({
+    title,
+    entries: documentationEntries(title),
+  })),
+];
 const Route = createContext('');
 export const sectionId = (title: string) =>
   title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
@@ -410,32 +439,25 @@ export function CatalogShell({
         {page === 'frameworks' && (
           <aside class="catalog-sidebar catalog-framework-sidebar">
             <nav aria-label="Documentation navigation">
-              <div class="catalog-nav-group">
-                <p>Docs</p>
-                <a
-                  href={siteHref('frameworks/')}
-                  aria-current={!active ? 'page' : undefined}
+              {documentationGroups.map(({ title, entries }) => (
+                <div
+                  class="catalog-nav-group"
+                  role="group"
+                  aria-labelledby={`docs-${sectionId(title)}`}
+                  key={title}
                 >
-                  Getting started
-                </a>
-                <a href={siteHref('accessibility/')}>Accessibility</a>
-                {Object.entries(documentation).map(([id, doc]) => (
-                  <a key={id} href={frameworkHref(id)} aria-current={active === id ? 'page' : undefined}>
-                    {doc.label}
-                  </a>
-                ))}
-                {pages.frameworks.map((name) => {
-                  const id = name.toLowerCase().replaceAll(' ', '-');
-                  return (
+                  <p id={`docs-${sectionId(title)}`}>{title}</p>
+                  {entries.map(({ id, label, href }) => (
                     <a
-                      href={frameworkHref(id)}
+                      key={id}
+                      href={href}
                       aria-current={active === id ? 'page' : undefined}
                     >
-                      {name}
+                      {label}
                     </a>
-                  );
-                })}
-              </div>
+                  ))}
+                </div>
+              ))}
             </nav>
           </aside>
         )}
