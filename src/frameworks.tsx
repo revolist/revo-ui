@@ -47,7 +47,7 @@ const count = ref(0);
     entry: '@revolist/ui/angular',
     language: 'TypeScript',
     description:
-      'Import named standalone components and bind their typed inputs directly. Angular events and rvUiSlot templates keep content in Angular. Named adapters manage their own browser mount and hydration boundary. These named exports preview the next release; the Angular SSR guide includes the local public-package setup.',
+      'Import named standalone components and bind their typed inputs directly. SvgButton is the imported component; rv-svg-button is its template tag. Angular events and rvUiSlot templates keep content in Angular. Named adapters manage their own browser mount and hydration boundary. These named exports preview the next release; the Angular SSR guide includes the local public-package setup.',
     code: `import { Component, signal } from '@angular/core';
 import { SvgButton } from '@revolist/ui/angular/svg-button';
 
