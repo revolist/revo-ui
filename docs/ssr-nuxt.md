@@ -16,7 +16,7 @@ pnpm build
 pnpm start
 ```
 
-Open `http://localhost:3000`. The starter pins Nuxt 4.6.4 and `@revolist/ui` 4.0.23. For development, use `pnpm dev`.
+Open `http://localhost:3000`. The starter pins Nuxt 4.6.4 and `@revolist/ui`. For development, use `pnpm dev`.
 
 ## Two small files
 

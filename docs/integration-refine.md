@@ -4,7 +4,7 @@ Use Refine for resource mutations and Revo UI for presentation. This small Next.
 
 ## Run the example
 
-[Open the complete starter](https://github.com/revolist/revo-ui/tree/main/examples/ssr/refine/). Use Node.js 24.15 or newer and pnpm 11. The lockfile pins the verified dependency versions, including `@revolist/ui@4.0.23`.
+[Open the complete starter](https://github.com/revolist/revo-ui/tree/main/examples/ssr/refine/). Use Node.js 24.15 or newer and pnpm 11. The lockfile pins the verified dependency versions.
 
 ```sh
 git clone https://github.com/revolist/revo-ui.git
@@ -16,7 +16,7 @@ pnpm start
 
 Open `http://localhost:3000`. The heading is present in the initial server HTML. Click **Save 0** and it becomes **Save 1**. Reloading resets local state. For development, use `pnpm dev`.
 
-The starter explicitly uses Next.js's supported Webpack build (`next build --webpack`). With UI 4.0.23, the default Turbopack resolver also resolves the barrel's unused optional PDF dependency. Webpack builds this small form example without installing PDF.js. The `force-dynamic` setting in the server layout makes this a request-time SSR example.
+The starter explicitly uses Next.js's supported Webpack build (`next build --webpack`). This avoids resolving the component barrel's unused optional PDF dependency. Webpack builds this small form example without installing PDF.js. The `force-dynamic` setting in the server layout makes this a request-time SSR example.
 
 ## Files to read
 

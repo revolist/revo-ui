@@ -4,7 +4,7 @@ Use React Router framework mode with SSR enabled. A server loader supplies the t
 
 ## Run the example
 
-[Open the complete starter](https://github.com/revolist/revo-ui/tree/main/examples/ssr/react-router/). Use Node.js 24.15 or newer and pnpm 11. The lockfile pins the verified dependency versions, including `@revolist/ui@4.0.23`.
+[Open the complete starter](https://github.com/revolist/revo-ui/tree/main/examples/ssr/react-router/). Use Node.js 24.15 or newer and pnpm 11. The lockfile pins the verified dependency versions.
 
 ```sh
 git clone https://github.com/revolist/revo-ui.git

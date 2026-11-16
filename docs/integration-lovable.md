@@ -4,7 +4,7 @@ First identify the generated project. Newer Lovable projects use TanStack Start;
 
 ## Run the example
 
-[Open the complete starter](https://github.com/revolist/revo-ui/tree/main/examples/ssr/lovable/). Use Node.js 24.15 or newer and pnpm 11. The lockfile pins the verified dependency versions, including `@revolist/ui@4.0.23`.
+[Open the complete starter](https://github.com/revolist/revo-ui/tree/main/examples/ssr/lovable/). Use Node.js 24.15 or newer and pnpm 11. The lockfile pins the verified dependency versions.
 
 ```sh
 git clone https://github.com/revolist/revo-ui.git
@@ -63,7 +63,7 @@ Use the actual dependencies and entry files as the decision point. Do not infer 
 ## A small prompt to copy
 
 ```text
-Install @revolist/ui@4.0.23 using this project's package manager.
+Install @revolist/ui using this project's package manager.
 In the existing page or route, use the named import { SvgButton } from
 @revolist/ui/react/unstyled. Add local count state there, starting at 0.
 Render SvgButton directly in that page.

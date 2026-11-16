@@ -15,4 +15,4 @@ Open http://127.0.0.1:3000. Click Save 0 to get Save 1. Reload resets it.
 
 See [the guide](../../../docs/ssr-nestjs.md) for file-by-file explanations. No server persistence or external API is involved.
 
-The workspace allows the exact recent release `@revolist/ui@4.0.23` through pnpm's release-age gate; other dependencies retain the default policy.
+The workspace allows the pinned Revo UI dependency through pnpm's release-age gate; other dependencies retain the default policy.

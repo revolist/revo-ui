@@ -4,7 +4,7 @@ Import `SvgButton` directly in the page and keep its count state there. The serv
 
 ## Run the example
 
-[Open the complete starter](https://github.com/revolist/revo-ui/tree/main/examples/ssr/nextjs/). Use Node.js 24.15 or newer and pnpm 11. The lockfile pins the verified dependency versions, including `@revolist/ui@4.0.23`.
+[Open the complete starter](https://github.com/revolist/revo-ui/tree/main/examples/ssr/nextjs/). Use Node.js 24.15 or newer and pnpm 11. The lockfile pins the verified dependency versions.
 
 ```sh
 git clone https://github.com/revolist/revo-ui.git
@@ -16,7 +16,7 @@ pnpm start
 
 Open `http://localhost:3000`. The heading is present in the initial server HTML. Click **Save 0** and it becomes **Save 1**. Reloading resets local state. For development, use `pnpm dev`.
 
-The starter explicitly uses Next.js's supported Webpack build (`next build --webpack`). With UI 4.0.23, the default Turbopack resolver also resolves the barrel's unused optional PDF dependency. Webpack builds this button-only example without installing PDF.js. The server layout's `force-dynamic` setting makes this a request-time SSR example.
+The starter explicitly uses Next.js's supported Webpack build (`next build --webpack`). This avoids resolving the component barrel's unused optional PDF dependency. Webpack builds this button-only example without installing PDF.js. The server layout's `force-dynamic` setting makes this a request-time SSR example.
 
 ## Files to read
 

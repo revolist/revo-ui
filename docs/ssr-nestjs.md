@@ -2,7 +2,7 @@
 
 Use NestJS to render the page with Handlebars, then mount one Revo UI button in the browser. This example has no frontend framework and no API to configure.
 
-[Open the complete starter](https://github.com/revolist/revo-ui/tree/main/examples/ssr/nestjs/). It uses NestJS 11, TypeScript 6 and `@revolist/ui` 4.0.23.
+[Open the complete starter](https://github.com/revolist/revo-ui/tree/main/examples/ssr/nestjs/). It uses NestJS 11, TypeScript 6 and `@revolist/ui`.
 
 ## Run the example
 

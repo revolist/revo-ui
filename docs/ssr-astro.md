@@ -16,7 +16,7 @@ pnpm build
 pnpm start
 ```
 
-Open `http://localhost:4321`. The starter pins Astro 7.4.12, Vue 3.5.45 and `@revolist/ui` 4.0.23. For development, use `pnpm dev`.
+Open `http://localhost:4321`. The starter pins Astro 7.4.12, Vue 3.5.45 and `@revolist/ui`. For development, use `pnpm dev`.
 
 ## Three small files
 

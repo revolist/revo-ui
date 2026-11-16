@@ -2,7 +2,7 @@
 
 Import the standalone `SvgButton` component and bind its inputs directly. Keep page content server-rendered; the adapter handles the button’s browser mount.
 
-[Open the complete starter](https://github.com/revolist/revo-ui/tree/main/examples/ssr/angular/). It uses Angular 22.2, TypeScript 6 and the public package built from this checkout. Named Angular components are a source preview and are not exported by npm version 4.0.23.
+[Open the complete starter](https://github.com/revolist/revo-ui/tree/main/examples/ssr/angular/). It uses Angular 22.2, TypeScript 6 and the public package built from this checkout. This starter previews the named Angular components from this checkout.
 
 ## Run the example
 

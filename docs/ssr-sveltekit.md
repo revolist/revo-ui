@@ -6,7 +6,7 @@ Load page data on the server and render the interactive control directly in the 
 
 ## Run the starter
 
-Use Node.js 24.15 or newer and pnpm 11. Named Svelte components are a source preview; npm version 4.0.23 only has the generic host. Build the public package from the cloned `revo-ui` repository before running this starter:
+Use Node.js 24.15 or newer and pnpm 11. This starter previews the named Svelte components from this checkout. Build the public package from the cloned `revo-ui` repository before running this starter:
 
 ```sh
 pnpm install --frozen-lockfile
