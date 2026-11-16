@@ -111,13 +111,13 @@ test('deep links, searchable navigation, history and missing routes', async ({
 }) => {
   await page.goto('/#component/select');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-    'Selects, chips and resources',
+    'Multi/selects, autocomplete',
   );
   expect(await page.locator('.catalog-example').count()).toBeGreaterThan(1);
   const search = page.getByRole('searchbox', { name: 'Find a component' });
   await search.fill('switch');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-    'Selects, chips and resources',
+    'Multi/selects, autocomplete',
   );
   await page
     .getByRole('navigation', { name: 'Component sections' })
@@ -128,7 +128,7 @@ test('deep links, searchable navigation, history and missing routes', async ({
   );
   await page.goBack();
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-    'Selects, chips and resources',
+    'Multi/selects, autocomplete',
   );
   await page.goto('/#component/not-a-component');
   await expect(
@@ -147,7 +147,7 @@ test('mobile overview and component code stay within the viewport', async ({
   ).toBeLessThanOrEqual(390);
   await page.goto('/#component/select');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-    'Selects, chips and resources',
+    'Multi/selects, autocomplete',
   );
   const browse = page.getByRole('button', {
     name: 'Browse components',
@@ -430,7 +430,7 @@ test('inline inputs match dropdown height and font size', async ({ page }) => {
 });
 
 test('searchable selects match plain select sizing', async ({ page }) => {
-  await page.goto('/#selects-chips-and-resources');
+  await page.goto('/#multi-selects-autocomplete');
   const plain = page.getByRole('combobox', { name: 'View', exact: true });
   const searchable = page.getByRole('combobox', {
     name: 'Searchable view',
@@ -699,7 +699,7 @@ test('standalone dropdown has balanced text and caret insets', async ({
 test('selects page includes user photos in selected value and options', async ({
   page,
 }) => {
-  await page.goto('/#selects-chips-and-resources');
+  await page.goto('/#multi-selects-autocomplete');
   const select = page.getByRole('combobox', {
     name: 'Choose a team member',
     exact: true,
@@ -800,6 +800,6 @@ test('resource selection has a dedicated picker page', async ({ page }) => {
       exact: true,
     }),
   ).toBeVisible();
-  await page.goto('/components/selects-chips-and-resources/');
+  await page.goto('/components/multi-selects-autocomplete/');
   await expect(page.getByRole('searchbox', { name: 'Search people' })).toHaveCount(0);
 });

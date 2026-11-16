@@ -1,8 +1,8 @@
 # Combobox
 
-Single or multiple selections, searchable options, selected-value templates, avatars, resource lists and assignee fields.
+Single and multiple selects, editable autocomplete, optional tags and remote record lookup.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/components/selects-chips-and-resources/) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/multi-selects-autocomplete/) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { Combobox } from '@revolist/ui/preact'`
 

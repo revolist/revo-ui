@@ -303,12 +303,12 @@ test('Weekly time grid is a standalone gallery component', async ({ page }) => {
   ).toHaveCount(0);
 });
 
-test('duration and remote lookup have independent gallery pages', async ({
+test('duration has its own page and remote lookup belongs with selects', async ({
   page,
 }) => {
-  for (const [route, title, component] of [
-    ['duration-and-effort', 'Duration and effort', 'DurationField'],
-    ['remote-lookup-field', 'Remote lookup field', 'LookupField'],
+  for (const [route, title, component, example] of [
+    ['duration-and-effort', 'Duration and effort', 'DurationField', 'Duration and effort'],
+    ['multi-selects-autocomplete', 'Multi/selects, autocomplete', 'LookupField', 'Remote lookup field'],
   ]) {
     await page.goto(`/components/${route}/`);
     await expect(
@@ -317,7 +317,7 @@ test('duration and remote lookup have independent gallery pages', async ({
     await expect(
       page
         .getByRole('navigation', { name: 'Component page contents' })
-        .getByRole('link', { name: title, exact: true }),
+        .getByRole('link', { name: example, exact: true }),
     ).toBeVisible();
     await page.goto(`/api/${component.toLowerCase()}/`);
     await expect(

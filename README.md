@@ -108,7 +108,8 @@ Explore live previews, variants, and expandable code examples on the website.
 
 - [Buttons](https://ui.rv-grid.com/components/buttons/) — Actions, icon buttons, toggles, and button groups.
 - [Inputs and forms](https://ui.rv-grid.com/components/inputs-and-forms/) — Text, search, numbers, validation, and field layouts.
-- [Selects and pickers](https://ui.rv-grid.com/components/selects-chips-and-resources/) — Searchable dropdowns, multiple selections, user images, and assignees.
+- [Multi/selects, autocomplete](https://ui.rv-grid.com/components/multi-selects-autocomplete/) — Single/multi-select, input autocomplete, optional tags and remote lookup.
+- [Resource selection](https://ui.rv-grid.com/components/resource-selection/) — People and resource pickers, user images and avatars.
 - [Selection controls](https://ui.rv-grid.com/components/selection-controls/) — Checkboxes, switches, radio buttons, and choice chips.
 - [Tabs and lists](https://ui.rv-grid.com/components/tabs-and-lists/) — Tabs, segmented controls, and selectable lists.
 - [Sliders](https://ui.rv-grid.com/components/sliders/) — Single values and ranges with labels and value badges.

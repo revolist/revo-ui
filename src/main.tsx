@@ -429,14 +429,11 @@ function App() {
         <HighlightedInputExample />
         <InlineFieldsExample />
       </Section>
-      <Section title="Selects, chips and resources">
+      <Section title="Multi/selects, autocomplete">
         <Example title="Select">
           <Select aria-label="View" value={selectView} onValueChange={setSelectView}>
             {options.map(option => <option value={option.value} disabled={option.disabled}>{option.label}</option>)}
           </Select>
-        </Example>
-        <Example title="User select with images">
-          <MemberDropdown label="Choose a team member" value={selectedPerson} onChange={setSelectedPerson} />
         </Example>
         <Example title="Searchable select">
           <Combobox
@@ -449,6 +446,7 @@ function App() {
           />
         </Example>
         <AutocompleteExamples />
+        <RemoteLookupExample />
         <Example title="Multiple selection">
           <MultiSelect
             source={options}
@@ -459,11 +457,14 @@ function App() {
             config={{ ariaLabel: 'Multiple views' }}
           />
         </Example>
+      </Section>
+      <Section title="Resource selection">
+        <Example title="User select with images">
+          <MemberDropdown label="Choose a team member" value={selectedPerson} onChange={setSelectedPerson} />
+        </Example>
         <Example title="Avatar">
           <Avatar value="Morgan Lee" label="Morgan Lee" />
         </Example>
-      </Section>
-      <Section title="Resource selection">
         <Example title="Resource selection">
           <SharedResourcePicker
             resources={resources}
@@ -603,9 +604,6 @@ function App() {
       </Section>
       <Section title="Assignee field">
         <AssigneeFieldExample />
-      </Section>
-      <Section title="Remote lookup field">
-        <RemoteLookupExample />
       </Section>
       <Section title="Legend">
         <Example title="Legend">
@@ -865,8 +863,9 @@ function App() {
     </CatalogShell>
   );
 }
-redirectLegacyRoute();
-const appRoot = document.getElementById('app')!;
-// The production homepage is pre-rendered; replace it before attaching live controls.
-appRoot.replaceChildren();
-render(<App />, appRoot);
+if (!redirectLegacyRoute()) {
+  const appRoot = document.getElementById('app')!;
+  // Keep prerendered content intact while a legacy URL navigates to its owner.
+  appRoot.replaceChildren();
+  render(<App />, appRoot);
+}

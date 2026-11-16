@@ -1,13 +1,13 @@
 import { expect, test } from './gallery-test';
 import { chooseOption } from './choose-option';
-test.use({ gallerySections: ['selects-chips-and-resources'] });
+test.use({ gallerySections: ['multi-selects-autocomplete'] });
 
 for (const width of [1280, 390]) {
   test(`editable autocomplete filters in the input and supports keyboard and pointer selection at ${width}px`, async ({
     page,
   }) => {
     await page.setViewportSize({ width, height: 900 });
-    await page.goto('/components/selects-chips-and-resources/');
+    await page.goto('/components/multi-selects-autocomplete/');
     const input = page.getByRole('combobox', {
       name: 'Autocomplete view',
       exact: true,
@@ -45,7 +45,7 @@ for (const width of [1280, 390]) {
     page,
   }, info) => {
     await page.setViewportSize({ width, height: 900 });
-    await page.goto('/components/selects-chips-and-resources/');
+    await page.goto('/components/multi-selects-autocomplete/');
     const input = page.getByRole('combobox', { name: 'Skills', exact: true });
     await input.fill('Svelte');
     await expect(page.locator('[data-create-option=true]')).toHaveText(
@@ -80,7 +80,7 @@ for (const width of [1280, 390]) {
 test('editable combobox does not commit Enter during composition and preserves the select-only variant', async ({
   page,
 }) => {
-  await page.goto('/components/selects-chips-and-resources/');
+  await page.goto('/components/multi-selects-autocomplete/');
   const input = page.getByRole('combobox', {
     name: 'Autocomplete view',
     exact: true,

@@ -15,7 +15,7 @@ const program = ts.createProgram([catalogPath, selectPath], {
 const checker = program.getTypeChecker();
 const groups = JSON.parse(readFileSync(resolve(gallery, 'docs/component-groups.json'), 'utf8'));
 const routes = new Map(groups.flatMap(([title, route, description, names]) => names.split(' ').map(name => [name, {title, route, description}])));
-routes.set('Select', {title:'Selects, chips and resources', route:'selects-chips-and-resources', description:'JSX option descriptors for the shared dropdown.'});
+routes.set('Select', {title:'Multi/selects, autocomplete', route:'multi-selects-autocomplete', description:'JSX option descriptors for the shared dropdown.'});
 const source = program.getSourceFile(catalogPath);
 let initializer;
 for (const statement of source.statements) if (ts.isVariableStatement(statement)) {
