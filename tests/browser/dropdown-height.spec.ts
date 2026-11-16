@@ -224,30 +224,39 @@ for (const editable of [false, true]) {
   });
 }
 
-for (const topLayer of [false, true]) {
-  test(`CSS zoom keeps the painted popup anchored inside the viewport (top layer: ${topLayer})`, async ({
-    page,
-  }) => {
-    await mount(page, { width: 320, height: 800, zoom: 2, topLayer });
-    const popup = page.locator('.revo-dropdown-menu');
-    await expect
-      .poll(async () => (await popup.boundingBox())!.width)
-      .toBeLessThanOrEqual(310);
-    const expectGeometry = async () => {
-      const menu = (await popup.boundingBox())!;
-      const trigger = (await page
-        .getByRole('combobox', { name: 'Options', exact: true })
-        .boundingBox())!;
-      expect(menu.x).toBeGreaterThanOrEqual(5);
-      expect(menu.x + menu.width).toBeLessThanOrEqual(315);
-      expect(menu.y).toBeCloseTo(trigger.y + trigger.height + 4, 0);
-      expect(menu.y + menu.height).toBeLessThanOrEqual(795);
-    };
-    await expectGeometry();
-    await page.evaluate(() => window.scrollBy(0, 20));
-    await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(20);
-    await expect(async () => await expectGeometry()).toPass();
-  });
+for (const withoutZoomAPI of [false, true]) {
+  for (const topLayer of [false, true]) {
+    test(`CSS zoom keeps the painted popup anchored inside the viewport (top layer: ${topLayer}, missing zoom API: ${withoutZoomAPI})`, async ({
+      page,
+    }) => {
+      if (withoutZoomAPI)
+        await page.evaluate(() =>
+          Object.defineProperty(Element.prototype, 'currentCSSZoom', {
+            configurable: true,
+            value: undefined,
+          }),
+        );
+      await mount(page, { width: 320, height: 800, zoom: 2, topLayer });
+      const popup = page.locator('.revo-dropdown-menu');
+      await expect
+        .poll(async () => (await popup.boundingBox())!.width)
+        .toBeLessThanOrEqual(310);
+      const expectGeometry = async () => {
+        const menu = (await popup.boundingBox())!;
+        const trigger = (await page
+          .getByRole('combobox', { name: 'Options', exact: true })
+          .boundingBox())!;
+        expect(menu.x).toBeGreaterThanOrEqual(5);
+        expect(menu.x + menu.width).toBeLessThanOrEqual(315);
+        expect(menu.y).toBeCloseTo(trigger.y + trigger.height + 4, 0);
+        expect(menu.y + menu.height).toBeLessThanOrEqual(795);
+      };
+      await expectGeometry();
+      await page.evaluate(() => window.scrollBy(0, 20));
+      await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(20);
+      await expect(async () => await expectGeometry()).toPass();
+    });
+  }
 }
 
 test('a host without a global box-sizing reset respects caps and keyboard bounds', async ({
