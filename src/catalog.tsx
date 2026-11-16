@@ -199,13 +199,13 @@ export function CatalogShell({
     return 'title' in child.props && typeof child.props.title === 'string' && inScope(child.props.title);
   });
   const visible = families.filter((family) => inScope(family.title) && matches(family, query));
+  const frameworkName = page === 'frameworks' ? pages.frameworks.find(name => sectionId(name) === active) : undefined;
   useEffect(() => {
     const doc = page === 'frameworks' ? documentationPage(active) : undefined;
-    const title = doc ? `${doc.title} · Revo UI` : page === 'accessibility' ? accessibilityArticle.title : home ? 'Revo UI — Components for Data-Rich Applications' : `${component?.title ?? (page === 'frameworks' ? (pages.frameworks.find(name => sectionId(name) === active) ? `${pages.frameworks.find(name => sectionId(name) === active)} integration` : 'Getting started') : page === 'colors' ? 'Design system colors' : 'UI components')} · Revo UI`;
+    const title = doc ? `${doc.seoTitle} · Revo UI` : page === 'accessibility' ? accessibilityArticle.title : home ? 'Revo UI — Components for Data-Rich Applications' : `${component?.title ?? (page === 'frameworks' ? (frameworkName ? `${frameworkName} UI components and integration` : 'Getting started') : page === 'colors' ? 'Design system colors' : 'UI components')} · Revo UI`;
     document.title = title;
-    document.querySelector('meta[property="og:type"]')?.setAttribute('content', page === 'accessibility' ? 'article' : 'website');
-    const frameworkName = page === 'frameworks' ? pages.frameworks.find(name => sectionId(name) === active) : undefined;
-    const description = doc ? doc.description : page === 'accessibility' ? accessibilityArticle.description : frameworkName ? `Use Revo UI with ${frameworkName}: installation, component examples, state, callbacks, and styling for financial and reporting applications.` : home ? 'Build data-rich applications with charts, AI chat, PDF viewing, timelines and date controls for React, Vue, Angular, Svelte, Preact and TypeScript.' : component?.description ?? (page === 'colors' ? 'Explore Revo UI semantic colors, palettes, and theme tokens for consistent application interfaces.' : page === 'frameworks' ? 'Integrate Revo UI with React, Vue, Angular, Svelte, Preact, or vanilla TypeScript. Follow installation and usage guides for your stack.' : 'Browse Revo UI controls, pickers, layouts, and compositions with interactive variants and formatted usage examples.');
+    document.querySelector('meta[property="og:type"]')?.setAttribute('content', page === 'accessibility' || (page === 'frameworks' && knownRoute && !!active) ? 'article' : 'website');
+    const description = doc ? doc.description : page === 'accessibility' ? accessibilityArticle.description : frameworkName ? `Integrate Revo UI components with ${frameworkName}. Start with a small typed example, then follow the linked SSR, styling and bundle-size guides.` : home ? 'Build data-rich applications with charts, AI chat, PDF viewing, timelines and date controls for React, Vue, Angular, Svelte, Preact and TypeScript.' : component?.description ?? (page === 'colors' ? 'Explore Revo UI semantic colors, palettes, and theme tokens for consistent application interfaces.' : page === 'frameworks' ? 'Integrate Revo UI with React, Vue, Angular, Svelte, Preact, or vanilla TypeScript. Follow installation and usage guides for your stack.' : 'Browse Revo UI controls, pickers, layouts, and compositions with interactive variants and formatted usage examples.');
     document.querySelector('meta[name="description"]')?.setAttribute('content', description);
     document.querySelector('meta[property="og:title"]')?.setAttribute('content', title);
     document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
@@ -216,6 +216,38 @@ export function CatalogShell({
     canonical.href = `https://ui.rv-grid.com${location.pathname}`;
     document.querySelector('meta[property="og:url"]')?.setAttribute('content', canonical.href);
     document.querySelector('meta[name="robots"]')?.setAttribute('content', (home || knownRoute) ? 'index, follow, max-image-preview:large' : 'noindex, follow');
+    document.getElementById('documentation-schema')?.remove();
+    if (page === 'frameworks' && active && knownRoute && (doc || frameworkName)) {
+      const structured = document.createElement('script');
+      structured.id = 'documentation-schema';
+      structured.type = 'application/ld+json';
+      structured.textContent = JSON.stringify({
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'TechArticle',
+            '@id': `${canonical.href}#article`,
+            url: canonical.href,
+            headline: doc?.title ?? `${frameworkName} integration`,
+            description,
+            inLanguage: 'en',
+            mainEntityOfPage: canonical.href,
+            articleSection: doc?.category ?? 'Framework adapters',
+            author: { '@type': 'Organization', name: 'Revo UI team', url: 'https://github.com/revolist/revo-ui' },
+            publisher: { '@type': 'Organization', name: 'Revolist', url: 'https://ui.rv-grid.com/' },
+            image: 'https://ui.rv-grid.com/og-image.png',
+          },
+          {
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Docs', item: `https://ui.rv-grid.com${siteHref('frameworks/')}` },
+              { '@type': 'ListItem', position: 2, name: doc?.label ?? frameworkName, item: canonical.href },
+            ],
+          },
+        ],
+      });
+      document.head.append(structured);
+    }
     document.getElementById('accessibility-article-schema')?.remove();
     if (page === 'accessibility' && knownRoute) {
       const structured = document.createElement('script');
@@ -462,6 +494,13 @@ export function CatalogShell({
           </aside>
         )}
         <div class="catalog-content">
+          {page === 'frameworks' && active && knownRoute && (
+            <nav class="framework-breadcrumb" aria-label="Breadcrumb">
+              <a href={siteHref('frameworks/')}>Docs</a>
+              <span aria-hidden="true">/</span>
+              <span aria-current="page">{documentationPage(active)?.label ?? frameworkName}</span>
+            </nav>
+          )}
           {page === "api" ? children : home ? (
             <GalleryHome theme={theme} motion={motion} />
           ) : (

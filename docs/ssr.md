@@ -21,7 +21,7 @@ Browse the [complete starter sources](https://github.com/revolist/revo-ui/tree/m
 
 ## What the server renders
 
-React, Vue, Angular `UiComponent` and Svelte adapters render their **host elements** on the server. They mount the interactive controls in the browser. A successful server import does not mean that the response contains the complete control HTML.
+React, Vue, Angular and Svelte component adapters render their **host elements** on the server. They mount the interactive controls in the browser. A successful server import does not mean that the response contains the complete control HTML.
 
 Render headings, descriptions and important initial data through your host framework. Those remain available before JavaScript loads. A fallback for a control is optional; keep its server and first browser render consistent. Reserve space if the control's appearance would move surrounding content.
 

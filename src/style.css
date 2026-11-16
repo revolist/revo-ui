@@ -2191,6 +2191,7 @@ body {
   box-shadow: 0 -12px 0 12px var(--rv-ui-surface), 0 10px 0 var(--rv-ui-surface);
 }
 
+.framework-breadcrumb { display: flex; gap: 8px; max-width: 960px; margin: 0 auto 20px; font-size: 13px; color: var(--rv-ui-text-muted); }
 .framework-guide { max-width: 960px; margin: 0 auto; }
 .framework-guide pre { margin: 16px 0 0; padding: 20px; overflow: auto; border-radius: 10px; background: var(--rv-ui-surface-sunken); font: 13px/1.8 ui-monospace, monospace; }
 .framework-guide p { color: var(--rv-ui-text-muted); line-height: 1.8; }

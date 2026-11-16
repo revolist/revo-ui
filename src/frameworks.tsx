@@ -1,5 +1,5 @@
 import { DocumentationPage, documentationPage } from './documentation';
-import { frameworkHref, currentRoute, siteHref } from './routing';
+import { frameworkHref, currentRoute, siteHref, componentHref } from './routing';
 import { useEffect, useState } from 'preact/hooks';
 import { CdnGuide } from './cdn-guide';
 import { Highlight } from './example-source';
@@ -7,6 +7,13 @@ import { Highlight } from './example-source';
 const guides = [
   {
     name: 'React',
+    relatedGuides: [
+      'ssr-nextjs',
+      'ssr-react-router',
+      'ssr-tanstack-start',
+      'integration-refine',
+      'integration-lovable',
+    ],
     entry: '@revolist/ui/react',
     language: 'TSX',
     description:
@@ -25,6 +32,7 @@ export default function Example() {
   },
   {
     name: 'Vue',
+    relatedGuides: ['ssr-nuxt', 'ssr-astro'],
     entry: '@revolist/ui/vue',
     language: 'Vue',
     description:
@@ -44,6 +52,7 @@ const count = ref(0);
   },
   {
     name: 'Angular',
+    relatedGuides: ['ssr-angular'],
     entry: '@revolist/ui/angular',
     language: 'TypeScript',
     description:
@@ -66,6 +75,7 @@ export class ReportAction {
   },
   {
     name: 'Svelte',
+    relatedGuides: ['ssr-sveltekit'],
     entry: '@revolist/ui/svelte',
     language: 'Svelte',
     description:
@@ -84,6 +94,7 @@ let count = $state(0);
   },
   {
     name: 'Preact',
+    relatedGuides: ['ssr', 'ssr-nestjs'],
     entry: '@revolist/ui/preact',
     language: 'TSX',
     description:
@@ -104,6 +115,7 @@ export function Example() {
   },
   {
     name: 'Vanilla TypeScript',
+    relatedGuides: ['ssr-nestjs', 'javascript-cdn'],
     entry: '@revolist/ui/framework',
     language: 'TypeScript',
     description:
@@ -142,7 +154,7 @@ export function FrameworksPage() {
   if (active === 'javascript-cdn') return <CdnGuide />;
   if (documentationPage(active)) return <DocumentationPage id={active} />;
   return (
-    <div class="framework-guide">
+    <article class="framework-guide">
       <div class="component-intro">
         <span class="home-eyebrow">ONE LIBRARY. YOUR STACK.</span>
         <h1>{selected ? `${selected.name} integration` : 'Getting started'}</h1>
@@ -202,8 +214,15 @@ export function FrameworksPage() {
                 <Highlight code={guide.code} />
               </pre>
             </details>
+            <nav class="framework-jump-links" aria-label={`${guide.name} related guides`}>
+              {guide.relatedGuides.map((id) => (
+                <a key={id} href={frameworkHref(id)}>{documentationPage(id)?.label}</a>
+              ))}
+              <a href={frameworkHref('bundle-size')}>Styles and bundle size</a>
+              <a href={componentHref('buttons')}>Button examples</a>
+            </nav>
           </section>
         ))}
-    </div>
+    </article>
   );
 }
