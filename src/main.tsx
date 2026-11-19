@@ -152,7 +152,6 @@ function App() {
   const [fieldDate, setFieldDate] = useState('2026-10-24');
   const [fieldTime, setFieldTime] = useState('09:00');
   const [fieldDateTime, setFieldDateTime] = useState('2026-10-24T09:00');
-  const [secondDate, setSecondDate] = useState<ISODateString>('2026-10-24');
   const [dateRange, setDateRange] = useState<CalendarDateRange>({
     from: '2026-10-20',
     to: '2026-10-24',
@@ -572,14 +571,20 @@ function App() {
               if (next) setDueDate(next);
             }}
           />
-          <DatePicker
-            label="Second date"
-            openLabel="Choose second date"
-            value={secondDate}
-            onChange={(next) => {
-              if (next) setSecondDate(next);
-            }}
-          />
+          <form>
+            <DatePicker
+              label="Second date"
+              openLabel="Choose second date"
+              defaultValue="2026-10-24"
+              defaultMonth="2026-10-01"
+              dateInput={{ format: 'eu' }}
+              name="secondDate"
+              required
+              clearable
+              clearLabel="Clear second date"
+              closeOnSelect={false}
+            />
+          </form>
         </Example>
         <Example title="Date range" wide>
           <DateRangePicker

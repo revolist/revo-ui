@@ -9,6 +9,7 @@ import {
   FieldGroupHeading,
   FieldGroup,
   FieldList,
+  DatePicker,
 } from '@revolist/ui/react';
 import { Component } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
@@ -25,6 +26,13 @@ function ReactHarness() {
     { 'aria-label': 'React adapters' },
     h('button', { onClick: () => setMounted(!mounted) }, 'Toggle React'),
     h('output', { 'data-react-value': '' }, value),
+    h(DatePicker, {
+      label: 'React custom date',
+      openLabel: 'Choose React custom date',
+      defaultValue: '2024-03-01',
+      dateInput: false,
+      renderTrigger: (props) => h('button', props),
+    }),
     h(
       FieldGroup,
       { heading: h('strong', null, 'React configurator heading') },

@@ -31,8 +31,10 @@ export function createCalendarMonth(
   );
   const last = endOfDisplayMonth(start, system);
   const weeks = Math.ceil((diffInDays(first, last) + 1) / 7);
-  return Array.from({ length: (fixedWeeks ? Math.max(6, weeks) : weeks) * 7 },
-    (_, index) => addDays(first, index));
+  return Array.from(
+    { length: (fixedWeeks ? Math.max(6, weeks) : weeks) * 7 },
+    (_, index) => addDays(first, index),
+  );
 }
 
 export function orderCalendarRange(
@@ -40,6 +42,28 @@ export function orderCalendarRange(
   to: ISODateString,
 ): CalendarDateRange {
   return compareIsoDates(from, to) <= 0 ? { from, to } : { from: to, to: from };
+}
+
+/** Validate completed civil ranges, optionally sharing a cached disabled-date scan for hover. */
+export function isCalendarRangeValid(
+  range: { from: ISODateString; to?: ISODateString },
+  min: number,
+  max: number,
+  blocked: (date: ISODateString) => boolean,
+  disabledInterior?: (date: ISODateString) => boolean,
+  scanPreview?: (from: ISODateString, to: ISODateString) => boolean,
+): boolean {
+  if (blocked(range.from)) return false;
+  if (!range.to) return true;
+  if (blocked(range.to)) return false;
+  const nights = diffInDays(range.from, range.to);
+  if (nights < min || nights > max || nights < 0) return false;
+  if (!disabledInterior || nights < 2) return true;
+  if (nights > 366000) return false;
+  if (scanPreview) return !scanPreview(range.from, range.to);
+  for (let day = addDays(range.from, 1); day < range.to; day = addDays(day, 1))
+    if (disabledInterior(day)) return false;
+  return true;
 }
 
 export function isDateInCalendarRange(
@@ -141,8 +165,12 @@ export function moveCalendarFocus(
   }
   for (let attempts = 0; attempts < 3660 && isValidIsoDate(next); attempts++) {
     if (
-      (step < 0 && options.minDate && compareIsoDates(next, options.minDate) < 0) ||
-      (step > 0 && options.maxDate && compareIsoDates(next, options.maxDate) > 0)
+      (step < 0 &&
+        options.minDate &&
+        compareIsoDates(next, options.minDate) < 0) ||
+      (step > 0 &&
+        options.maxDate &&
+        compareIsoDates(next, options.maxDate) > 0)
     )
       return;
     next = addDays(next, step);

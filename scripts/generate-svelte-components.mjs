@@ -61,14 +61,28 @@ for (const name of names) {
   const model = models.get(name);
   const controlImport = `import { ${name} as Control } from '../component-controls/${kebab(name)}';`;
   const binding = model ? `, ${model.prop} = $bindable()` : '';
-  const nativeProps = model
+  // The date controls distinguish an omitted value from an explicit undefined
+  // value. Legacy Svelte props preserve that distinction while allowing bind:value.
+  const datePicker = name === 'DatePicker' || name === 'DateRangePicker';
+  const propsDeclaration = datePicker
+    ? `interface $$Props extends SvelteComponentProps<'${name}'> {}
+  export let children: $$Props['children'] = undefined;
+  export let slots: $$Props['slots'] = undefined;
+  export let onUiEvent: $$Props['onUiEvent'] = undefined;
+  export let value: $$Props['value'] = undefined;
+  export let onChange: $$Props['onChange'] = undefined;`
+    : `let { children, slots, onUiEvent${binding}, ...props }: SvelteComponentProps<'${name}'> = $props();`;
+  const nativeProps = datePicker
+    ? `{ ...$$restProps, ...(Object.hasOwn($$props, 'value') ? { value } : {}), onChange: updateModel }`
+    : model
     ? `{ ...props, ${model.prop}, ${model.callback}: updateModel }`
     : 'props';
+  const callback = datePicker ? 'onChange' : model && `props.${model.callback}`;
   const handler = model
     ? `
   function updateModel(...args: Parameters<NonNullable<UiComponentProps<'${name}'>['${model.callback}']>>) {
     ${model.prop} = args[0];
-    if (props.${model.callback}) return Reflect.apply(props.${model.callback}, undefined, args);
+    if (${callback}) return Reflect.apply(${callback}, undefined, args);
   }
 `
     : '';
@@ -80,7 +94,7 @@ for (const name of names) {
   import Mount from './Mount.svelte';
   import type { SvelteComponentProps } from '../svelte-props';
 ${model ? "  import type { UiComponentProps } from '../component-catalog';\n" : ''}
-  let { children, slots, onUiEvent${binding}, ...props }: SvelteComponentProps<'${name}'> = $props();
+  ${propsDeclaration}
   let mount: Mount;
 ${handler}
   export function getElement(): HTMLElement | null {

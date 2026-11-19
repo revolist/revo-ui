@@ -266,6 +266,9 @@ test('an isolated TypeScript consumer resolves published declarations without wo
     import { Input } from '@revolist/ui/react-control';
     import { createElement } from 'react';
     import { Dropdown, FieldGroupHeading, FieldGroup, FieldList, FieldRow, PdfViewer, PdfViewerToolbar } from '@revolist/ui/react';
+    import { DatePicker as ReactDatePicker } from '@revolist/ui/react';
+    createElement(ReactDatePicker, { label: 'Date', openLabel: 'Choose date',
+      renderTrigger: props => createElement('button', props) });
     createElement(PdfViewer, { toolbar: { buttons: { print: false } },
       renderToolbar: (_controller, _state, props) => createElement(PdfViewerToolbar, props) });
     import type { PdfViewerProps as AngularPdfProps } from '@revolist/ui/angular';

@@ -5,12 +5,17 @@
   import type { SvelteComponentProps } from '../svelte-props';
   import type { UiComponentProps } from '../component-catalog';
 
-  let { children, slots, onUiEvent, value = $bindable(), ...props }: SvelteComponentProps<'DateRangePicker'> = $props();
+  interface $$Props extends SvelteComponentProps<'DateRangePicker'> {}
+  export let children: $$Props['children'] = undefined;
+  export let slots: $$Props['slots'] = undefined;
+  export let onUiEvent: $$Props['onUiEvent'] = undefined;
+  export let value: $$Props['value'] = undefined;
+  export let onChange: $$Props['onChange'] = undefined;
   let mount: Mount;
 
   function updateModel(...args: Parameters<NonNullable<UiComponentProps<'DateRangePicker'>['onChange']>>) {
     value = args[0];
-    if (props.onChange) return Reflect.apply(props.onChange, undefined, args);
+    if (onChange) return Reflect.apply(onChange, undefined, args);
   }
 
   export function getElement(): HTMLElement | null {
@@ -23,7 +28,7 @@
   component="DateRangePicker"
   control={Control}
   direct
-  props={{ ...props, value, onChange: updateModel }}
+  props={{ ...$$restProps, ...(Object.hasOwn($$props, 'value') ? { value } : {}), onChange: updateModel }}
   {children}
   {slots}
   {onUiEvent}

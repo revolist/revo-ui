@@ -8,13 +8,22 @@ import {
   Dropdown,
   Dialog,
   Panel,
+  DatePicker,
   UiSlotDirective,
 } from '../../../../dist/angular/angular.js';
 import NamedSvelteHarness from './NamedSvelteHarness.svelte';
 
 @Component({
   selector: 'named-angular-harness',
-  imports: [SvgButton, SearchInput, Dropdown, Dialog, Panel, UiSlotDirective],
+  imports: [
+    SvgButton,
+    SearchInput,
+    Dropdown,
+    Dialog,
+    Panel,
+    UiSlotDirective,
+    DatePicker,
+  ],
   template: `
     <section aria-label="Angular named components">
       <button (click)="mounted = !mounted">Toggle controls</button>
@@ -72,9 +81,41 @@ import NamedSvelteHarness from './NamedSvelteHarness.svelte';
         <button (click)="open = true">Open editor</button>
       }
     </section>
+    <form aria-label="Angular date form">
+      <rv-date-picker
+        label="Angular date"
+        openLabel="Choose Angular date"
+        name="date"
+        defaultMonth="2024-03-01"
+      />
+    </form>
+    <rv-date-picker
+      label="Angular bounded date"
+      openLabel="Choose Angular bounded date"
+      value="2024-03-30"
+      [minDate]="minimumDate"
+    />
+    <button (click)="minimumDate = '2024-03-31'">Raise date minimum</button>
+    <rv-date-picker
+      label="Angular outside day"
+      openLabel="Choose Angular outside day"
+      month="2024-03-01"
+      value="2024-03-01"
+      [minDate]="outsideMinimum"
+      [showOutsideDays]="true"
+      [allowOutsideMonthSelection]="true"
+    />
+    <button (click)="outsideMinimum = '2024-03-01'">
+      Restrict outside dates
+    </button>
+    <button (click)="outsideMinimum = '2024-04-01'">
+      Restrict whole month
+    </button>
   `,
 })
 class NamedAngularHarness {
+  outsideMinimum: '2024-02-29' | '2024-03-01' | '2024-04-01' = '2024-02-29';
+  minimumDate: '2024-03-30' | '2024-03-31' = '2024-03-30';
   count = 0;
   callbacks = 0;
   events = 0;

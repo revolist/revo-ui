@@ -125,5 +125,56 @@ for (const [locale, timezoneId] of [
       await expect(popup).toBeHidden();
       await expect(trigger).toBeFocused();
     });
+
+    test('submits the ISO date from a localized required field and can keep the calendar open', async ({
+      page,
+    }) => {
+      await page.goto('/components/calendar-and-dates/');
+      const input = page.getByRole('textbox', {
+        name: 'Second date',
+        exact: true,
+      });
+      const form = page.locator('form').filter({ has: input });
+      const submittedDate = () =>
+        form.evaluate((element: HTMLFormElement) =>
+          new FormData(element).get('secondDate'),
+        );
+      await expect(input).toHaveValue('24/10/2026');
+      expect(await submittedDate()).toBe('2026-10-24');
+      await page
+        .getByRole('button', { name: 'Clear second date', exact: true })
+        .click();
+      expect(
+        await form.evaluate((element: HTMLFormElement) =>
+          element.checkValidity(),
+        ),
+      ).toBe(false);
+      await input.fill('25/10/2026');
+      expect(
+        await form.evaluate((element: HTMLFormElement) =>
+          element.checkValidity(),
+        ),
+      ).toBe(true);
+      expect(await submittedDate()).toBe('2026-10-25');
+      await page
+        .getByRole('button', { name: 'Choose second date', exact: true })
+        .click();
+      const popup = page.getByRole('dialog', {
+        name: 'Second date',
+        exact: true,
+      });
+      await popup.locator('[data-calendar-date="2026-10-23"]').click();
+      await expect(popup).toBeVisible();
+      await expect(input).toHaveValue('23/10/2026');
+      expect(await submittedDate()).toBe('2026-10-23');
+      await form.evaluate((element: HTMLFormElement) => element.reset());
+      await expect(input).toHaveValue('24/10/2026');
+      expect(await submittedDate()).toBe('2026-10-24');
+      expect(
+        await form.evaluate((element: HTMLFormElement) =>
+          element.checkValidity(),
+        ),
+      ).toBe(true);
+    });
   });
 }

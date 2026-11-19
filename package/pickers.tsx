@@ -10,7 +10,11 @@ import {
   type ISODateString,
 } from '@revolist/ui-dates';
 import { Calendar } from './calendar';
-import { isCalendarDateDisabled, orderCalendarRange } from './calendar/model';
+import {
+  isCalendarDateDisabled,
+  isCalendarRangeValid,
+  orderCalendarRange,
+} from './calendar/model';
 import {
   getCalendarInitialDate,
   resolveCalendarReferenceDate,
@@ -32,6 +36,7 @@ import {
   attachMenuKeyboard,
 } from './surfaces';
 import { Button } from './controls';
+import { DEFAULT_CALENDAR_TRANSLATIONS } from './calendar/translations';
 import type { TooltipControllerOptions } from './core/tooltip-options';
 import { DateControl, type DateInputOptions } from './date-time/date-control';
 import { avatarTemplate, type AvatarTemplateOptions } from './avatar';
@@ -346,8 +351,145 @@ interface PopupDatePickerOptions extends CalendarOptions {
   defaultMonth?: ISODateString;
   /** Requests the first day of the newly visible month after calendar navigation. */
   onMonthChange?: (month: ISODateString) => void;
+  /** Close after a complete calendar selection. Defaults to true. */
+  closeOnSelect?: boolean;
+  /** Require a committed selection before submitting the enclosing form. */
+  required?: boolean;
+  /** Show a clear button for an existing selection. */
+  clearable?: boolean;
+  /** Localized text and accessible name for the clear button. */
+  clearLabel?: string;
+  /** Mount scope and dismissal options for the calendar popup. */
+  popup?: Pick<PopoverProps, 'appendTo' | 'closeOnOutside' | 'closeOnEscape'>;
+  /** Replace the calendar trigger. Forward the provided props and text to a button. */
+  renderTrigger?: (props: DatePickerTriggerProps) => ComponentChildren;
   disabled?: boolean;
   readOnly?: boolean;
+}
+
+export interface DatePickerTriggerProps {
+  type: 'button';
+  disabled?: boolean;
+  'aria-label': string;
+  'aria-haspopup': 'dialog';
+  'aria-expanded': boolean;
+  'aria-controls': string;
+  'aria-describedby'?: string;
+  ref: (element: HTMLButtonElement | null) => void;
+  onClick: (event?: unknown) => void;
+  /** Framework-neutral text for a custom trigger button. */
+  children: string;
+}
+
+function PickerTrigger({
+  render,
+  triggerRef,
+  children,
+  displayValue,
+  ...props
+}: Omit<DatePickerTriggerProps, 'ref' | 'children'> & {
+  render?: PopupDatePickerOptions['renderTrigger'];
+  triggerRef: DatePickerTriggerProps['ref'];
+  children: ComponentChildren;
+  displayValue?: string;
+}) {
+  const attributes = { ...props, ref: triggerRef };
+  if (!render) return <Button {...attributes}>{children}</Button>;
+  return (
+    <>
+      {displayValue && (
+        <span hidden id={props['aria-describedby']}>
+          {displayValue}
+        </span>
+      )}
+      {render({
+        ...attributes,
+        children: displayValue ?? props['aria-label'],
+      })}
+    </>
+  );
+}
+
+function usePickerValue<T>(props: { value?: T; defaultValue?: T }) {
+  const defaultValue = useRef(props.defaultValue);
+  const [localValue, setLocalValue] = useState(defaultValue.current);
+  const root = useRef<HTMLDivElement>(null);
+  const [resetKey, setResetKey] = useState(0);
+  const controlled = Object.hasOwn(props, 'value');
+
+  useLayoutEffect(() => {
+    const form = root.current?.closest('form');
+    if (!form) return;
+    let active = true;
+    const reset = (event: Event) => {
+      // Native reset writes to input elements after dispatching this event.
+      queueMicrotask(() => {
+        if (!active || event.defaultPrevented) return;
+        if (!controlled) setLocalValue(defaultValue.current);
+        setResetKey((key) => key + 1);
+      });
+    };
+    form.addEventListener('reset', reset);
+    return () => {
+      active = false;
+      form.removeEventListener('reset', reset);
+    };
+  }, [controlled]);
+
+  return {
+    root,
+    resetKey,
+    value: controlled ? props.value : localValue,
+    setValue: (value?: T) => {
+      if (!controlled) setLocalValue(value);
+    },
+  };
+}
+
+function PickerFormFields({
+  fields,
+  required,
+  disabled,
+  readOnly,
+  anchor,
+}: {
+  fields: readonly { name?: string; value?: ISODateString }[];
+  required?: boolean;
+  disabled?: boolean;
+  readOnly?: boolean;
+  anchor: HTMLButtonElement | null;
+}) {
+  return (
+    <>
+      {fields.map(
+        ({ name, value }, index) =>
+          name && (
+            <input
+              key={index}
+              type="hidden"
+              name={name}
+              value={value ?? ''}
+              disabled={disabled}
+            />
+          ),
+      )}
+      {required && !readOnly && (
+        <input
+          type="text"
+          class="rv-visually-hidden"
+          aria-hidden="true"
+          tabIndex={-1}
+          required
+          disabled={disabled}
+          value={fields.every(({ value }) => isValidIsoDate(value)) ? '1' : ''}
+          onInvalid={(event) => {
+            event.preventDefault();
+            anchor?.focus();
+          }}
+        />
+      )}
+    </>
+  );
 }
 
 function useDatePickerPopup({
@@ -379,6 +521,22 @@ function useDatePickerPopup({
     onOpenChange?.(next);
   };
   return { open, anchor, setAnchor, requestOpen };
+}
+
+function isPickerDateBlocked(date: ISODateString, options: CalendarOptions) {
+  return (
+    !isValidIsoDate(date) ||
+    isCalendarDateDisabled(date, {
+      minDate: options.minDate,
+      maxDate: options.maxDate,
+      isDisabled: options.isDateDisabled,
+    }) ||
+    Boolean(
+      options.isMonthDisabled?.(
+        startOfDisplayMonth(date, options.calendarSystem),
+      ),
+    )
+  );
 }
 
 function useDatePickerCalendar(
@@ -466,16 +624,7 @@ function useDatePickerCalendar(
         preview,
         referenceDate: resolveCalendarReferenceDate(options),
       },
-      isCalendarDateDisabled(date, {
-        minDate: options.minDate,
-        maxDate: options.maxDate,
-        isDisabled: options.isDateDisabled,
-      }) ||
-        Boolean(
-          options.isMonthDisabled?.(
-            startOfDisplayMonth(date, options.calendarSystem),
-          ),
-        ),
+      isPickerDateBlocked(date, options),
     );
     if (error === undefined) return true;
     options.onInvalidSelection?.(error, date);
@@ -504,23 +653,42 @@ function useDatePickerCalendar(
 
 export interface DatePickerProps extends PopupDatePickerOptions {
   value?: ISODateString;
-  onChange: (value?: ISODateString) => void;
+  /** Initial uncontrolled ISO date. */
+  defaultValue?: ISODateString;
+  /** Emits the committed ISO date, or undefined when it is cleared. */
+  onChange?: (value?: ISODateString) => void;
+  /** Form field name for the submitted ISO date. */
+  name?: string;
   label: string;
   openLabel: string;
 }
-export function DatePicker({
-  value,
-  onChange,
-  label,
-  openLabel,
-  disabled,
-  readOnly,
-  open: controlledOpen,
-  defaultOpen,
-  onOpenChange,
-  dateInput,
-  ...calendarOptions
-}: DatePickerProps) {
+export function DatePicker(props: DatePickerProps) {
+  const {
+    value: _value,
+    defaultValue: _defaultValue,
+    name,
+    onChange,
+    label,
+    openLabel,
+    disabled,
+    readOnly,
+    open: controlledOpen,
+    defaultOpen,
+    onOpenChange,
+    dateInput,
+    closeOnSelect = true,
+    required,
+    clearable,
+    clearLabel = 'Clear date',
+    popup,
+    renderTrigger,
+    ...calendarOptions
+  } = props;
+  const { root, resetKey, value, setValue } = usePickerValue(props);
+  const commit = (date?: ISODateString) => {
+    setValue(date);
+    onChange?.(date);
+  };
   const { open, anchor, setAnchor, requestOpen } = useDatePickerPopup({
     open: controlledOpen,
     defaultOpen,
@@ -538,10 +706,12 @@ export function DatePicker({
   const [id] = useState(() => createControlId('rv-date-picker'));
   const displayValue = dateInput === false ? value : undefined;
   return (
-    <div class="rv-date-picker">
+    <div ref={root} class="rv-date-picker">
       {dateInput !== false && (
         <DateControl
+          key={resetKey}
           label={label}
+          required={required}
           options={inputOptions}
           value={value ?? ''}
           minDate={calendarOptions.minDate}
@@ -554,12 +724,23 @@ export function DatePicker({
               text === '' ||
               (typeof text === 'string' && isValidIsoDate(text))
             )
-              onChange(text || undefined);
+              commit(text || undefined);
           }}
         />
       )}
-      <Button
-        ref={setAnchor}
+      <PickerFormFields
+        key={resetKey}
+        fields={[{ name, value }]}
+        required={required}
+        disabled={disabled}
+        readOnly={readOnly}
+        anchor={anchor}
+      />
+      <PickerTrigger
+        render={renderTrigger}
+        displayValue={displayValue}
+        type="button"
+        triggerRef={setAnchor}
         aria-label={openLabel}
         aria-haspopup="dialog"
         aria-expanded={open}
@@ -570,8 +751,21 @@ export function DatePicker({
       >
         {displayValue && <span id={`${id}-value`}>{displayValue}</span>}
         <SvgIcon svg={calendarIcon} />
-      </Button>
+      </PickerTrigger>
+      {clearable && value && (
+        <Button
+          type="button"
+          disabled={disabled || readOnly}
+          onClick={() => {
+            commit();
+            anchor?.focus();
+          }}
+        >
+          {clearLabel}
+        </Button>
+      )}
       <PopoverSurface
+        {...popup}
         requestDismissal
         open={popupOpen}
         anchor={anchor}
@@ -584,8 +778,8 @@ export function DatePicker({
             {...calendar.calendarProps}
             selection={selection}
             onSelect={(date) => {
-              onChange(date);
-              requestOpen(false, true);
+              commit(date);
+              if (closeOnSelect) requestOpen(false, true);
             }}
           />
         </div>
@@ -594,29 +788,72 @@ export function DatePicker({
   );
 }
 
-export interface DateRangePickerProps extends PopupDatePickerOptions {
+export interface DateRangePickerProps extends Omit<
+  PopupDatePickerOptions,
+  'presets'
+> {
   value?: CalendarDateRange;
-  onChange: (value: CalendarDateRange) => void;
+  /** Initial uncontrolled ISO range. */
+  defaultValue?: CalendarDateRange;
+  /** Emits a complete, ordered ISO range. */
+  onChange?: (value: CalendarDateRange) => void;
+  /** Requests clearing a controlled range. */
+  onClear?: () => void;
+  /** Form field name for the ISO start date. */
+  fromName?: string;
+  /** Form field name for the ISO end date. */
+  toName?: string;
+  /** Minimum length in nights. Defaults to zero. */
+  min?: number;
+  /** Maximum length in nights. */
+  max?: number;
+  /** Reject ranges containing disabled interior dates. */
+  excludeDisabled?: boolean;
+  /** Preset endpoints or complete ISO ranges. */
+  presets?: readonly (
+    | { label: string; date: ISODateString }
+    | { label: string; selection: CalendarDateRange }
+  )[];
   label: string;
   fromLabel: string;
   toLabel: string;
   openLabel: string;
 }
-export function DateRangePicker({
-  value,
-  onChange,
-  label,
-  fromLabel,
-  toLabel,
-  openLabel,
-  disabled,
-  readOnly,
-  open: controlledOpen,
-  defaultOpen,
-  onOpenChange,
-  dateInput,
-  ...calendarOptions
-}: DateRangePickerProps) {
+export function DateRangePicker(props: DateRangePickerProps) {
+  const {
+    value: _value,
+    defaultValue: _defaultValue,
+    onClear,
+    fromName,
+    toName,
+    min = 0,
+    max = Infinity,
+    excludeDisabled = false,
+    presets,
+    onChange,
+    label,
+    fromLabel,
+    toLabel,
+    openLabel,
+    disabled,
+    readOnly,
+    open: controlledOpen,
+    defaultOpen,
+    onOpenChange,
+    dateInput,
+    closeOnSelect = true,
+    required,
+    clearable,
+    clearLabel = 'Clear date range',
+    popup,
+    renderTrigger,
+    ...calendarOptions
+  } = props;
+  const { root, resetKey, value, setValue } = usePickerValue(props);
+  const commit = (range: CalendarDateRange) => {
+    setValue(range);
+    onChange?.(range);
+  };
   const { open, anchor, setAnchor, requestOpen } = useDatePickerPopup({
     open: controlledOpen,
     defaultOpen,
@@ -631,13 +868,21 @@ export function DateRangePicker({
       : undefined;
   const [start, setStart] = useState<ISODateString>();
   const [hover, setHover] = useState<ISODateString>();
+  const [typedDraft, setTypedDraft] = useState<Partial<CalendarDateRange>>();
+  const [invalidEndpoint, setInvalidEndpoint] = useState<'from' | 'to'>();
   const calendar = useDatePickerCalendar(
     calendarOptions,
     value?.from,
     popupOpen,
   );
-  const selection = start ? { from: start, to: start } : value;
-  const preview = start && hover ? orderCalendarRange(start, hover) : undefined;
+  const blocked = (date: ISODateString) =>
+    isPickerDateBlocked(date, calendarOptions);
+  const activeStart = start && !blocked(start) ? start : undefined;
+  const selection = activeStart
+    ? { from: activeStart, to: activeStart }
+    : value;
+  const preview =
+    activeStart && hover ? orderCalendarRange(activeStart, hover) : undefined;
   const clearDraft = () => {
     setStart(undefined);
     setHover(undefined);
@@ -645,24 +890,77 @@ export function DateRangePicker({
   const [id] = useState(() => createControlId('rv-date-picker'));
   const displayValue =
     dateInput === false && value ? `${value.from} – ${value.to}` : undefined;
-  useLayoutEffect(clearDraft, [open, value?.from, value?.to]);
-  const changeInput = (key: 'from' | 'to', date: string | string[]) => {
-    if (typeof date !== 'string' || !isValidIsoDate(date)) return;
-    onChange(
-      orderCalendarRange(
-        key === 'from' ? date : (value?.from ?? date),
-        key === 'to' ? date : (value?.to ?? date),
-      ),
+  const clearTypedDraft = () => {
+    setTypedDraft(undefined);
+    setInvalidEndpoint(undefined);
+  };
+  useLayoutEffect(clearDraft, [open, resetKey, value?.from, value?.to]);
+  useLayoutEffect(() => {
+    if (start && !activeStart) clearDraft();
+  }, [start, activeStart]);
+  useLayoutEffect(clearTypedDraft, [resetKey, value?.from, value?.to]);
+  const rangeValid = (range: CalendarDateRange) =>
+    isCalendarRangeValid(
+      range,
+      min,
+      max,
+      blocked,
+      excludeDisabled &&
+        (calendarOptions.isDateDisabled || calendarOptions.isMonthDisabled)
+        ? blocked
+        : undefined,
     );
+  const rejectRange = (date: ISODateString) =>
+    calendarOptions.onInvalidSelection?.(
+      calendarOptions.translations?.invalidSelection ??
+        DEFAULT_CALENDAR_TRANSLATIONS.invalidSelection,
+      date,
+    );
+  const completeRange = (range: CalendarDateRange) => {
+    commit(range);
+    clearTypedDraft();
+    clearDraft();
+    if (closeOnSelect) requestOpen(false, true);
+  };
+  const rangePresets = presets?.filter((preset) => 'selection' in preset);
+  const changeInput = (key: 'from' | 'to', date: string | string[]) => {
+    if (date === '') {
+      setTypedDraft((draft) => ({ ...draft, [key]: undefined }));
+      setInvalidEndpoint(undefined);
+      return;
+    }
+    if (typeof date !== 'string' || !isValidIsoDate(date)) return;
+    const draft = { ...typedDraft, [key]: date };
+    const otherKey = key === 'from' ? 'to' : 'from';
+    const other = draft[otherKey] ?? value?.[otherKey];
+    const range =
+      other || min <= 0 ? orderCalendarRange(date, other ?? date) : undefined;
+    if (range && rangeValid(range)) {
+      clearTypedDraft();
+      commit(range);
+      return;
+    }
+    // Keep individually valid endpoints so a second edit can complete the range.
+    setTypedDraft(draft);
+    setInvalidEndpoint(range ? key : undefined);
+    if (range) rejectRange(date);
   };
   return (
-    <div class="rv-date-range-picker" role="group" aria-label={label}>
+    <div
+      ref={root}
+      class="rv-date-range-picker"
+      role="group"
+      aria-label={label}
+    >
       {dateInput !== false && (
         <>
           <DateControl
+            key={`from-${resetKey}`}
             label={fromLabel}
+            required={required}
             options={inputOptions}
-            value={value?.from ?? ''}
+            value={typedDraft?.from ?? value?.from ?? ''}
+            invalid={invalidEndpoint === 'from'}
             disabled={disabled}
             readOnly={readOnly}
             minDate={calendarOptions.minDate}
@@ -673,9 +971,12 @@ export function DateRangePicker({
             onChange={(date) => changeInput('from', date)}
           />
           <DateControl
+            key={`to-${resetKey}`}
             label={toLabel}
+            required={required}
             options={inputOptions}
-            value={value?.to ?? ''}
+            value={typedDraft?.to ?? value?.to ?? ''}
+            invalid={invalidEndpoint === 'to'}
             disabled={disabled}
             readOnly={readOnly}
             minDate={calendarOptions.minDate}
@@ -687,8 +988,22 @@ export function DateRangePicker({
           />
         </>
       )}
-      <Button
-        ref={setAnchor}
+      <PickerFormFields
+        key={resetKey}
+        fields={[
+          { name: fromName, value: value?.from },
+          { name: toName, value: value?.to },
+        ]}
+        required={required}
+        disabled={disabled}
+        readOnly={readOnly}
+        anchor={anchor}
+      />
+      <PickerTrigger
+        render={renderTrigger}
+        displayValue={displayValue}
+        type="button"
+        triggerRef={setAnchor}
         disabled={disabled || readOnly}
         aria-label={openLabel}
         aria-haspopup="dialog"
@@ -699,8 +1014,24 @@ export function DateRangePicker({
       >
         {displayValue && <span id={`${id}-value`}>{displayValue}</span>}
         <SvgIcon svg={calendarIcon} />
-      </Button>
+      </PickerTrigger>
+      {clearable && value && (onClear || !Object.hasOwn(props, 'value')) && (
+        <Button
+          type="button"
+          disabled={disabled || readOnly}
+          onClick={() => {
+            setValue(undefined);
+            clearTypedDraft();
+            clearDraft();
+            onClear?.();
+            anchor?.focus();
+          }}
+        >
+          {clearLabel}
+        </Button>
+      )}
       <PopoverSurface
+        {...popup}
         requestDismissal
         open={popupOpen}
         anchor={anchor}
@@ -714,12 +1045,61 @@ export function DateRangePicker({
             selection={selection}
             preview={preview}
             onPreviewDateChange={setHover}
+            presets={presets?.filter((preset) => 'date' in preset)}
+            footer={
+              rangePresets?.length ? (
+                <>
+                  <div class="revo-calendar__presets">
+                    {rangePresets.map(({ label, selection: range }) => (
+                      <Button
+                        key={label}
+                        onClick={() => {
+                          if (!rangeValid(range)) {
+                            rejectRange(range.to);
+                            return;
+                          }
+                          if (
+                            !calendar.validateTypedDate(
+                              range.from,
+                              selection,
+                              preview,
+                            ) ||
+                            (range.to !== range.from &&
+                              !calendar.validateTypedDate(
+                                range.to,
+                                selection,
+                                preview,
+                              ))
+                          )
+                            return;
+                          completeRange(range);
+                          calendar.calendarProps.onFocusedDateChange(
+                            range.from,
+                          );
+                          calendar.calendarProps.onMonthChange(
+                            startOfDisplayMonth(
+                              range.from,
+                              calendarOptions.calendarSystem,
+                            ),
+                          );
+                        }}
+                      >
+                        {label}
+                      </Button>
+                    ))}
+                  </div>
+                  {calendarOptions.footer}
+                </>
+              ) : (
+                calendarOptions.footer
+              )
+            }
             onSelect={(date) => {
-              if (!start) setStart(date);
+              if (!activeStart) setStart(date);
               else {
-                onChange(orderCalendarRange(start, date));
-                clearDraft();
-                requestOpen(false, true);
+                const range = orderCalendarRange(activeStart, date);
+                if (rangeValid(range)) completeRange(range);
+                else rejectRange(date);
               }
             }}
           />

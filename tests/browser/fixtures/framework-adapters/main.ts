@@ -4,6 +4,7 @@ import {
   Dropdown,
   Dialog,
   DatePicker,
+  DateRangePicker,
   Tooltip,
   Panel,
   Popover,
@@ -42,6 +43,21 @@ createApp({
           'Toggle components',
         ),
         h('output', { id: 'status' }, status.value),
+        h(DatePicker, {
+          label: 'Vue clearable date',
+          openLabel: 'Choose Vue clearable date',
+          defaultValue: '2024-03-01',
+          clearable: '' as unknown as boolean,
+        }),
+        h(DateRangePicker, {
+          label: 'Vue restricted range',
+          openLabel: 'Choose Vue restricted range',
+          fromLabel: 'From',
+          toLabel: 'To',
+          defaultMonth: '2024-03-01',
+          'exclude-disabled': '',
+          isDateDisabled: (date) => date === '2024-03-03',
+        }),
         h('label', [
           h('input', {
             type: 'checkbox',
