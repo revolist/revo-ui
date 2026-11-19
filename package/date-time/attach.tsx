@@ -11,7 +11,20 @@ import { temporalInputDraft } from './keyboard-input';
 import { TemporalDraft } from './field';
 import { temporalPickerLabel, type TemporalPickerOptions } from './types';
 
-const pickerAttachments = new WeakMap<HTMLInputElement, () => void>();
+interface TemporalPickerAttachment {
+  open(): boolean;
+  dispose(): void;
+}
+
+const pickerAttachments = new WeakMap<
+  HTMLInputElement,
+  TemporalPickerAttachment
+>();
+
+/** Open the picker attached to an input, leaving an already-open draft intact. */
+export function openAttachedTemporalPicker(input: HTMLInputElement): boolean {
+  return pickerAttachments.get(input)?.open() ?? false;
+}
 
 /** Adds or replaces the shared picker on an existing native input. */
 export function attachTemporalPicker(
@@ -19,8 +32,47 @@ export function attachTemporalPicker(
   options: TemporalPickerOptions,
   commit: (value: string) => void,
 ): () => void {
-  pickerAttachments.get(input)?.();
+  pickerAttachments.get(input)?.dispose();
   let popup: EditorPopupHandle | undefined;
+  const open = () => {
+    if (popup || !input.isConnected || input.disabled || input.readOnly)
+      return false;
+    popup = mountEditorPopup(
+      input,
+      (close) => (
+        <TemporalDraft
+          value={temporalInputDraft(input.value, options)}
+          options={{
+            ...options,
+            selection: 'single',
+            required:
+              options.required ?? options.calendar?.required ?? input.required,
+          }}
+          cancel={close}
+          apply={(next) => {
+            if (!input.disabled && !input.readOnly)
+              commit(typeof next === 'string' ? next : '');
+            close();
+          }}
+        />
+      ),
+      {
+        fitViewport: options.kind === 'datetime',
+        className:
+          options.kind === 'time'
+            ? 'rv-editor-popup--time'
+            : options.kind === 'datetime'
+              ? 'rv-editor-popup--datetime'
+              : undefined,
+        label: temporalPickerLabel(options.kind ?? 'date', options.text),
+        trigger: button,
+        onClose: () => {
+          popup = undefined;
+        },
+      },
+    );
+    return true;
+  };
   const button = createPreactElement<HTMLButtonElement>(
     input.ownerDocument,
     <Button
@@ -34,42 +86,7 @@ export function attachTemporalPicker(
           popup.close();
           return;
         }
-        popup = mountEditorPopup(
-          input,
-          (close) => (
-            <TemporalDraft
-              value={temporalInputDraft(input.value, options)}
-              options={{
-                ...options,
-                selection: 'single',
-                required:
-                  options.required ??
-                  options.calendar?.required ??
-                  input.required,
-              }}
-              cancel={close}
-              apply={(next) => {
-                if (!input.disabled && !input.readOnly)
-                  commit(typeof next === 'string' ? next : '');
-                close();
-              }}
-            />
-          ),
-          {
-            fitViewport: options.kind === 'datetime',
-            className:
-              options.kind === 'time'
-                ? 'rv-editor-popup--time'
-                : options.kind === 'datetime'
-                  ? 'rv-editor-popup--datetime'
-                  : undefined,
-            label: temporalPickerLabel(options.kind ?? 'date', options.text),
-            trigger: button,
-            onClose: () => {
-              popup = undefined;
-            },
-          },
-        );
+        open();
       }}
     >
       <SvgIcon svg={options.kind === 'time' ? clockIcon : calendarIcon} />
@@ -88,14 +105,14 @@ export function attachTemporalPicker(
     attributeFilter: ['disabled', 'readonly'],
   });
   const dispose = () => {
-    if (pickerAttachments.get(input) !== dispose) return;
+    if (pickerAttachments.get(input)?.dispose !== dispose) return;
     pickerAttachments.delete(input);
     observer?.disconnect();
     popup?.close();
     releasePreactElement(button);
     button.remove();
   };
-  pickerAttachments.set(input, dispose);
+  pickerAttachments.set(input, { open, dispose });
   return dispose;
 }
 

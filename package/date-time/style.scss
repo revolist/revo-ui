@@ -244,9 +244,14 @@
     font-size: 12px;
   }
 }
-// Keep validation and actions in scroll order when a calendar and clock are tall.
-.rv-editor-popup--datetime .rv-temporal-draft .rv-editor-actions,
-.rv-editor-popup
+// Keep actions in scroll order for tall desktop pickers. Narrow datetime
+// pickers use the shared sticky footer while the stacked controls scroll.
+@media (width > 540px) {
+  .rv-editor-popup--datetime .rv-temporal-draft .rv-editor-actions {
+    position: static;
+  }
+}
+.rv-editor-popup:not(.rv-editor-popup--datetime)
   .rv-temporal-draft:has(.rv-temporal-picker--multi-month)
   .rv-editor-actions {
   position: static;
