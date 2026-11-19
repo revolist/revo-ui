@@ -1,5 +1,77 @@
 import { expect, test } from '@playwright/test';
 
+test('Svelte named date pickers use defaults and submit ISO values', async ({
+  page,
+}) => {
+  await page.goto('/named.html');
+  const form = page.getByRole('form', { name: 'Svelte date defaults' });
+  await expect(form.getByRole('textbox', { name: 'Svelte date' })).toHaveValue(
+    '2024-03-31',
+  );
+  await expect(form.getByRole('textbox', { name: 'Svelte from' })).toHaveValue(
+    '2024-02-29',
+  );
+  await expect(form.getByRole('textbox', { name: 'Svelte to' })).toHaveValue(
+    '2024-03-01',
+  );
+  expect(
+    await form.evaluate((element: HTMLFormElement) =>
+      Object.fromEntries(new FormData(element)),
+    ),
+  ).toEqual({
+    date: '2024-03-31',
+    from: '2024-02-29',
+    to: '2024-03-01',
+  });
+  await form.getByRole('button', { name: 'Clear date', exact: true }).click();
+  await expect(form.getByRole('textbox', { name: 'Svelte date' })).toHaveValue(
+    '',
+  );
+});
+
+test('Angular named date picker retains uncontrolled edits', async ({
+  page,
+}) => {
+  await page.goto('/named.html');
+  const input = page.getByRole('textbox', {
+    name: 'Angular date',
+    exact: true,
+  });
+  await input.fill('2024-03-29');
+  await input.blur();
+  await expect(input).toHaveValue('2024-03-29');
+  await page
+    .getByRole('button', { name: 'Choose Angular date', exact: true })
+    .click();
+  await page
+    .getByRole('dialog', { name: 'Angular date', exact: true })
+    .locator('[data-calendar-date="2024-03-31"]')
+    .click();
+  await expect(input).toHaveValue('2024-03-31');
+});
+
+test('date focus moves to an enabled day when minDate changes', async ({
+  page,
+}) => {
+  await page.goto('/named.html');
+  await page
+    .getByRole('button', { name: 'Choose Angular bounded date' })
+    .click();
+  const dialog = page.getByRole('dialog', { name: 'Angular bounded date' });
+  await expect(
+    dialog.locator('[data-calendar-date="2024-03-30"]'),
+  ).toBeFocused();
+  await page
+    .getByRole('button', { name: 'Raise date minimum' })
+    .dispatchEvent('click');
+  await expect(
+    dialog.locator('[data-calendar-date="2024-03-30"]'),
+  ).toBeDisabled();
+  await expect(
+    dialog.locator('[data-calendar-date="2024-03-31"]'),
+  ).toBeFocused();
+});
+
 for (const framework of ['Angular', 'Svelte']) {
   test(`${framework} named components update direct props, models, slots and clean up`, async ({
     page,

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { SvgButton, SearchInput, Dropdown, Dialog } from '../../../../dist/svelte-source.js';
+  import { SvgButton, SearchInput, Dropdown, Dialog, DatePicker, DateRangePicker } from '../../../../dist/svelte-source.js';
   let count = $state(0);
   let query = $state('');
   let selected = $state('a');
@@ -26,3 +26,9 @@
     <button onclick={() => open = true}>Open editor</button>
   {/if}
 </section>
+
+<form aria-label="Svelte date defaults">
+  <DatePicker label="Svelte date" openLabel="Choose Svelte date" name="date" defaultValue="2024-03-31" clearable />
+  <DateRangePicker label="Svelte range" openLabel="Choose Svelte range" fromLabel="Svelte from" toLabel="Svelte to"
+    fromName="from" toName="to" defaultValue={{ from: '2024-02-29', to: '2024-03-01' }} />
+</form>

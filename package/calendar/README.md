@@ -36,6 +36,8 @@ Month navigation can pass through months disabled by `isMonthDisabled`. Their da
 
 Use `defaultValue` for an uncontrolled selection and `closeOnSelect={false}` to keep the popup open. `name` on `DatePicker` and `fromName` / `toName` on `DateRangePicker` submit ISO dates even with localized text entry. `required` checks for a committed selection on form submission. Use `clearable` with a localized `clearLabel` and supply `onClear` to clear a controlled range.
 
+Omit `value` to let the picker manage selection, even when listening to `onChange`. Native form reset restores the initial selection for an uncontrolled picker. When replacing a typed range, the form keeps the previous committed ISO values until both new endpoints form a valid range.
+
 Range `min` and `max` count nights. `excludeDisabled` checks for unavailable dates inside the range. A range preset can supply a complete `{ label, selection: { from, to } }` entry or a `{ label, date }` endpoint. Use `popup` to configure mounting and dismissal. A `renderTrigger` callback can customize the button by spreading the supplied props, including its ref and accessibility attributes.
 
 Dates owns calendar boundaries, month arithmetic, formatting and week numbering. Non-Gregorian display uses the browser's Intl/ICU calendar data, with a clear RangeError if unavailable. All selected values remain Gregorian `YYYY-MM-DD` civil dates; they do not shift when the user's timezone changes. `timeZone` resolves Today and the initial month of an empty picker from the current instant. Pass `referenceInstant` to supply a different instant or `referenceDate` to supply the civil date directly. Custom time controls do not introduce booking or scheduling semantics.

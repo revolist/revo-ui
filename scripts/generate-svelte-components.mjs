@@ -61,6 +61,16 @@ for (const name of names) {
   const model = models.get(name);
   const controlImport = `import { ${name} as Control } from '../component-controls/${kebab(name)}';`;
   const binding = model ? `, ${model.prop} = $bindable()` : '';
+  const dateDefault = name === 'DatePicker' || name === 'DateRangePicker'
+    ? `
+  let initialized = false;
+  $effect.pre(() => {
+    if (initialized) return;
+    initialized = true;
+    if (value === undefined && props.defaultValue !== undefined) value = props.defaultValue;
+  });
+`
+    : '';
   const nativeProps = model
     ? `{ ...props, ${model.prop}, ${model.callback}: updateModel }`
     : 'props';
@@ -82,7 +92,7 @@ for (const name of names) {
 ${model ? "  import type { UiComponentProps } from '../component-catalog';\n" : ''}
   let { children, slots, onUiEvent${binding}, ...props }: SvelteComponentProps<'${name}'> = $props();
   let mount: Mount;
-${handler}
+${dateDefault}${handler}
   export function getElement(): HTMLElement | null {
     return mount?.getElement() ?? null;
   }

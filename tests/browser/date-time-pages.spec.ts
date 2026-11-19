@@ -167,6 +167,14 @@ for (const [locale, timezoneId] of [
       await expect(popup).toBeVisible();
       await expect(input).toHaveValue('23/10/2026');
       expect(await submittedDate()).toBe('2026-10-23');
+      await form.evaluate((element: HTMLFormElement) => element.reset());
+      await expect(input).toHaveValue('24/10/2026');
+      expect(await submittedDate()).toBe('2026-10-24');
+      expect(
+        await form.evaluate((element: HTMLFormElement) =>
+          element.checkValidity(),
+        ),
+      ).toBe(true);
     });
   });
 }

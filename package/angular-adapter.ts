@@ -148,7 +148,12 @@ export abstract class AngularComponentAdapter<ModelValue = unknown>
   }
   ngOnChanges(changes: SimpleChanges): void {
     for (const [name, change] of Object.entries(changes)) {
-      if (change.currentValue === undefined) delete this.rvInputValues[name];
+      const pickerValue =
+        name === "value" &&
+        (this.rvComponentName === "DatePicker" ||
+          this.rvComponentName === "DateRangePicker");
+      if (change.currentValue === undefined && !pickerValue)
+        delete this.rvInputValues[name];
       else this.rvInputValues[name] = change.currentValue;
     }
     this.rvUpdate();

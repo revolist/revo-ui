@@ -8,6 +8,13 @@
   let { children, slots, onUiEvent, value = $bindable(), ...props }: SvelteComponentProps<'DateRangePicker'> = $props();
   let mount: Mount;
 
+  let initialized = false;
+  $effect.pre(() => {
+    if (initialized) return;
+    initialized = true;
+    if (value === undefined && props.defaultValue !== undefined) value = props.defaultValue;
+  });
+
   function updateModel(...args: Parameters<NonNullable<UiComponentProps<'DateRangePicker'>['onChange']>>) {
     value = args[0];
     if (props.onChange) return Reflect.apply(props.onChange, undefined, args);

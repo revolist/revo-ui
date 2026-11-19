@@ -555,6 +555,80 @@ describe('popup date picker options', () => {
 });
 
 describe('date picker form and selection options', () => {
+  it('restores the initial uncontrolled range on native form reset', async () => {
+    const onChange = vi.fn();
+    mount(
+      <form>
+        <DateRangePicker
+          label="Range"
+          fromLabel="From"
+          toLabel="To"
+          openLabel="Choose range"
+          defaultValue={{ from: '2026-11-02', to: '2026-11-04' }}
+          fromName="from"
+          toName="to"
+          required
+          onChange={onChange}
+        />
+      </form>,
+    );
+    const form = host.querySelector('form')!;
+    const to = () => form.querySelector<HTMLInputElement>('[aria-label="To"]')!;
+    act(() => to().focus());
+    type(to(), '2026-11-06');
+    expect(new FormData(form).get('to')).toBe('2026-11-06');
+    await act(async () => form.reset());
+    expect(to().value).toBe('2026-11-04');
+    expect(new FormData(form).get('to')).toBe('2026-11-04');
+    expect(form.checkValidity()).toBe(true);
+    expect(onChange).toHaveBeenCalledOnce();
+  });
+
+  it.each(['from', 'to'] as const)(
+    'can replace a constrained typed range starting with %s',
+    (first) => {
+      const onChange = vi.fn();
+      mount(
+        <form>
+          <DateRangePicker
+            label="Range"
+            fromLabel="From"
+            toLabel="To"
+            openLabel="Choose range"
+            defaultValue={{ from: '2026-11-02', to: '2026-11-04' }}
+            fromName="from"
+            toName="to"
+            min={2}
+            max={4}
+            onChange={onChange}
+          />
+        </form>,
+      );
+      const from = host.querySelector<HTMLInputElement>('[aria-label="From"]')!;
+      const to = host.querySelector<HTMLInputElement>('[aria-label="To"]')!;
+      const inputs = first === 'from' ? [from, to] : [to, from];
+      const dates =
+        first === 'from'
+          ? ['2026-11-20', '2026-11-22']
+          : ['2026-11-22', '2026-11-20'];
+      const submitted = () =>
+        Object.fromEntries(new FormData(host.querySelector('form')!));
+      act(() => inputs[0].focus());
+      type(inputs[0], dates[0]);
+      act(() => inputs[0].blur());
+      expect(inputs[0].value).toBe(dates[0]);
+      expect(submitted()).toEqual({ from: '2026-11-02', to: '2026-11-04' });
+      expect(onChange).not.toHaveBeenCalled();
+      act(() => inputs[1].focus());
+      type(inputs[1], dates[1]);
+      expect(onChange).toHaveBeenCalledExactlyOnceWith({
+        from: '2026-11-20',
+        to: '2026-11-22',
+      });
+      expect(submitted()).toEqual({ from: '2026-11-20', to: '2026-11-22' });
+    },
+  );
+
   const button = (label: string, scope: ParentNode = host) =>
     [...scope.querySelectorAll('button')].find(
       (item) => item.textContent === label,

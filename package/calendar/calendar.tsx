@@ -109,6 +109,7 @@ export function Calendar({
   }, [month, weekStartsOn]);
   const referenceDate = resolveCalendarReferenceDate(props);
   const dayRefs = useRef(new Map<ISODateString, HTMLButtonElement>());
+  const focusedDay = useRef<HTMLButtonElement | null>(null);
   const requestFocus = useRef(false);
   const monthCaptionRefs = useRef(new Map<number, HTMLButtonElement>());
   const viewTriggerIndex = useRef<number>();
@@ -177,6 +178,23 @@ export function Calendar({
               months.includes(startOfDisplayMonth(date, system)) &&
               !isDisabled(date),
           ) ?? props.focusedDate);
+  useLayoutEffect(() => {
+    const previous = focusedDay.current;
+    if (
+      !previous ||
+      view !== 'month' ||
+      (previous.isConnected && !previous.disabled)
+    )
+      return;
+    const document = previous.ownerDocument;
+    if (
+      document.activeElement !== previous &&
+      document.activeElement !== document.body
+    )
+      return;
+    const next = dayRefs.current.get(focusTarget);
+    if (next && !next.disabled) next.focus({ preventScroll: true });
+  }, [focusTarget, view]);
   useLayoutEffect(() => {
     const requested = requestViewFocus.current;
     if (view !== 'month' || !requested) return;
@@ -283,7 +301,7 @@ export function Calendar({
     const yearMonths = displayYearMonths(candidate, system);
     if (yearMonths.includes(month)) return;
     return yearMonthDisabled(candidate)
-      ? yearMonths.find((date) => !yearMonthDisabled(date)) ?? candidate
+      ? (yearMonths.find((date) => !yearMonthDisabled(date)) ?? candidate)
       : candidate;
   };
   const step = props.pagedNavigation ? count : 1;
@@ -310,6 +328,25 @@ export function Calendar({
   return (
     <div
       class={`revo-calendar${props.showWeekNumber ? ' revo-calendar--week-numbers' : ''}${props.className ? ` ${props.className}` : ''}`}
+      onFocusCapture={(event) => {
+        const element = event.target as HTMLButtonElement;
+        focusedDay.current = element.hasAttribute('data-calendar-date')
+          ? element
+          : null;
+      }}
+      onBlurCapture={(event) => {
+        const element = focusedDay.current;
+        if (!element || element !== event.target) return;
+        if (event.relatedTarget) focusedDay.current = null;
+        else
+          queueMicrotask(() => {
+            if (
+              focusedDay.current === element &&
+              element.ownerDocument.activeElement !== element
+            )
+              focusedDay.current = null;
+          });
+      }}
       dir={props.dir}
       style={
         props.cellSize

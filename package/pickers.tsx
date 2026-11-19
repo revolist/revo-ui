@@ -392,18 +392,38 @@ function PickerTrigger({
   return <>{render ? render(attributes) : <Button {...attributes} />}</>;
 }
 
-function usePickerValue<T>(
-  props: { value?: T; defaultValue?: T },
-  hasChangeHandler: boolean,
-) {
-  const [localValue, setValue] = useState(props.defaultValue);
-  const controlled =
-    Object.hasOwn(props, 'value') ||
-    (!Object.hasOwn(props, 'defaultValue') && hasChangeHandler);
+function usePickerValue<T>(props: { value?: T; defaultValue?: T }) {
+  const defaultValue = useRef(props.defaultValue);
+  const [localValue, setLocalValue] = useState(defaultValue.current);
+  const root = useRef<HTMLDivElement>(null);
+  const [resetKey, setResetKey] = useState(0);
+  const controlled = Object.hasOwn(props, 'value');
+
+  useLayoutEffect(() => {
+    const form = root.current?.closest('form');
+    if (!form) return;
+    let active = true;
+    const reset = (event: Event) => {
+      // Native reset writes to input elements after dispatching this event.
+      queueMicrotask(() => {
+        if (!active || event.defaultPrevented) return;
+        if (!controlled) setLocalValue(defaultValue.current);
+        setResetKey((key) => key + 1);
+      });
+    };
+    form.addEventListener('reset', reset);
+    return () => {
+      active = false;
+      form.removeEventListener('reset', reset);
+    };
+  }, [controlled]);
+
   return {
+    root,
+    resetKey,
     value: controlled ? props.value : localValue,
     setValue: (value?: T) => {
-      if (!controlled) setValue(value);
+      if (!controlled) setLocalValue(value);
     },
   };
 }
@@ -646,7 +666,7 @@ export function DatePicker(props: DatePickerProps) {
     renderTrigger,
     ...calendarOptions
   } = props;
-  const { value, setValue } = usePickerValue(props, Boolean(onChange));
+  const { root, resetKey, value, setValue } = usePickerValue(props);
   const commit = (date?: ISODateString) => {
     setValue(date);
     onChange?.(date);
@@ -668,9 +688,10 @@ export function DatePicker(props: DatePickerProps) {
   const [id] = useState(() => createControlId('rv-date-picker'));
   const displayValue = dateInput === false ? value : undefined;
   return (
-    <div class="rv-date-picker">
+    <div ref={root} class="rv-date-picker">
       {dateInput !== false && (
         <DateControl
+          key={resetKey}
           label={label}
           required={required}
           options={inputOptions}
@@ -690,6 +711,7 @@ export function DatePicker(props: DatePickerProps) {
         />
       )}
       <PickerFormFields
+        key={resetKey}
         fields={[{ name, value }]}
         required={required}
         disabled={disabled}
@@ -808,7 +830,7 @@ export function DateRangePicker(props: DateRangePickerProps) {
     renderTrigger,
     ...calendarOptions
   } = props;
-  const { value, setValue } = usePickerValue(props, Boolean(onChange));
+  const { root, resetKey, value, setValue } = usePickerValue(props);
   const commit = (range: CalendarDateRange) => {
     setValue(range);
     onChange?.(range);
@@ -827,10 +849,8 @@ export function DateRangePicker(props: DateRangePickerProps) {
       : undefined;
   const [start, setStart] = useState<ISODateString>();
   const [hover, setHover] = useState<ISODateString>();
-  const [typedFirst, setTypedFirst] = useState<{
-    key: 'from' | 'to';
-    date: ISODateString;
-  }>();
+  const [typedDraft, setTypedDraft] = useState<Partial<CalendarDateRange>>();
+  const [invalidEndpoint, setInvalidEndpoint] = useState<'from' | 'to'>();
   const calendar = useDatePickerCalendar(
     calendarOptions,
     value?.from,
@@ -845,8 +865,12 @@ export function DateRangePicker(props: DateRangePickerProps) {
   const [id] = useState(() => createControlId('rv-date-picker'));
   const displayValue =
     dateInput === false && value ? `${value.from} – ${value.to}` : undefined;
-  useLayoutEffect(clearDraft, [open, value?.from, value?.to]);
-  useLayoutEffect(() => setTypedFirst(undefined), [value?.from, value?.to]);
+  const clearTypedDraft = () => {
+    setTypedDraft(undefined);
+    setInvalidEndpoint(undefined);
+  };
+  useLayoutEffect(clearDraft, [open, resetKey, value?.from, value?.to]);
+  useLayoutEffect(clearTypedDraft, [resetKey, value?.from, value?.to]);
   const blocked = (date: ISODateString) =>
     isPickerDateBlocked(date, calendarOptions);
   const rangeValid = (range: CalendarDateRange) =>
@@ -868,72 +892,78 @@ export function DateRangePicker(props: DateRangePickerProps) {
     );
   const completeRange = (range: CalendarDateRange) => {
     commit(range);
-    setTypedFirst(undefined);
+    clearTypedDraft();
     clearDraft();
     if (closeOnSelect) requestOpen(false, true);
   };
   const rangePresets = presets?.filter((preset) => 'selection' in preset);
-  const typedRange = (key: 'from' | 'to', date: ISODateString) => {
-    const other =
-      typedFirst && typedFirst.key !== key
-        ? typedFirst.date
-        : value?.[key === 'from' ? 'to' : 'from'];
-    if (!other && min > 0) return;
-    return orderCalendarRange(date, other ?? date);
-  };
-  const acceptInput = (key: 'from' | 'to', date: ISODateString) => {
-    if (!calendar.validateTypedDate(date, selection, preview)) return false;
-    const range = typedRange(key, date);
-    if (!range || rangeValid(range)) return true;
-    rejectRange(date);
-    return false;
-  };
   const changeInput = (key: 'from' | 'to', date: string | string[]) => {
-    if (date === '' && typedFirst?.key === key) setTypedFirst(undefined);
-    if (typeof date !== 'string' || !isValidIsoDate(date)) return;
-    const range = typedRange(key, date);
-    if (!range) {
-      setTypedFirst({ key, date });
+    if (date === '') {
+      setTypedDraft((draft) => ({ ...draft, [key]: undefined }));
+      setInvalidEndpoint(undefined);
       return;
     }
-    setTypedFirst(undefined);
-    commit(range);
+    if (typeof date !== 'string' || !isValidIsoDate(date)) return;
+    const draft = { ...typedDraft, [key]: date };
+    const otherKey = key === 'from' ? 'to' : 'from';
+    const other = draft[otherKey] ?? value?.[otherKey];
+    const range =
+      other || min <= 0 ? orderCalendarRange(date, other ?? date) : undefined;
+    if (range && rangeValid(range)) {
+      clearTypedDraft();
+      commit(range);
+      return;
+    }
+    // Keep individually valid endpoints so a second edit can complete the range.
+    setTypedDraft(draft);
+    setInvalidEndpoint(range ? key : undefined);
+    if (range) rejectRange(date);
   };
   return (
-    <div class="rv-date-range-picker" role="group" aria-label={label}>
+    <div
+      ref={root}
+      class="rv-date-range-picker"
+      role="group"
+      aria-label={label}
+    >
       {dateInput !== false && (
         <>
           <DateControl
+            key={`from-${resetKey}`}
             label={fromLabel}
             required={required}
             options={inputOptions}
-            value={
-              (typedFirst?.key === 'from' ? typedFirst.date : value?.from) ?? ''
-            }
+            value={typedDraft?.from ?? value?.from ?? ''}
+            invalid={invalidEndpoint === 'from'}
             disabled={disabled}
             readOnly={readOnly}
             minDate={calendarOptions.minDate}
             maxDate={calendarOptions.maxDate}
-            acceptDate={(date) => acceptInput('from', date)}
+            acceptDate={(date) =>
+              calendar.validateTypedDate(date, selection, preview)
+            }
             onChange={(date) => changeInput('from', date)}
           />
           <DateControl
+            key={`to-${resetKey}`}
             label={toLabel}
             required={required}
             options={inputOptions}
-            value={
-              (typedFirst?.key === 'to' ? typedFirst.date : value?.to) ?? ''
-            }
+            value={typedDraft?.to ?? value?.to ?? ''}
+            invalid={invalidEndpoint === 'to'}
             disabled={disabled}
             readOnly={readOnly}
             minDate={calendarOptions.minDate}
             maxDate={calendarOptions.maxDate}
-            acceptDate={(date) => acceptInput('to', date)}
+            acceptDate={(date) =>
+              calendar.validateTypedDate(date, selection, preview)
+            }
             onChange={(date) => changeInput('to', date)}
           />
         </>
       )}
       <PickerFormFields
+        key={resetKey}
         fields={[
           { name: fromName, value: value?.from },
           { name: toName, value: value?.to },
@@ -964,7 +994,7 @@ export function DateRangePicker(props: DateRangePickerProps) {
           disabled={disabled || readOnly}
           onClick={() => {
             setValue(undefined);
-            setTypedFirst(undefined);
+            clearTypedDraft();
             clearDraft();
             onClear?.();
             anchor?.focus();
