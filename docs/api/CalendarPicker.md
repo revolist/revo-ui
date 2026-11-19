@@ -36,8 +36,8 @@ The table lists library-declared props. Standard inherited HTML attributes are o
 | `formatWeekNumber` | `((week: number) => string) \| undefined` | No |  |
 | `footer` | `ComponentChildren` | No |  |
 | `cellSize` | `number \| undefined` | No |  |
-| `referenceInstant` | `Date \| undefined` | No | Optional instant used only to resolve Today in the requested zone. ISO date values never shift. |
-| `timeZone` | `string \| undefined` | No |  |
+| `referenceInstant` | `Date \| undefined` | No | Overrides the current instant used to resolve Today and the initial month of an empty picker. Defaults to UTC when no timezone is supplied. |
+| `timeZone` | `string \| undefined` | No | IANA timezone used to resolve Today. Uses the current instant by default and leaves ISO selections unchanged. |
 | `weekStartsOn` | `CalendarWeekStart \| undefined` | No |  |
 | `minDate` | `ISODateString \| undefined` | No |  |
 | `maxDate` | `ISODateString \| undefined` | No |  |

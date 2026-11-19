@@ -24,10 +24,11 @@ The table lists library-declared props. Standard inherited HTML attributes are o
 | `minDate` | `ISODateString \| undefined` | No |  |
 | `maxDate` | `ISODateString \| undefined` | No |  |
 | `isMonthDisabled` | `((month: ISODateString) => boolean) \| undefined` | No |  |
+| `focusOnMount` | `boolean \| undefined` | No | Focuses the active or first available month when entering the year view. |
 | `locale` | `string` | Yes |  |
 | `ariaLabel` | `string` | Yes |  |
 | `onSelect` | `(month: ISODateString) => void` | Yes |  |
-| `onEscape` | `() => void` | Yes |  |
+| `onEscape` | `(() => void) \| undefined` | No | Handles Escape within the year view when supplied. |
 
 ## Composition
 

@@ -24,21 +24,24 @@ The table lists library-declared props. Standard inherited HTML attributes are o
 | `fromLabel` | `string` | Yes |  |
 | `toLabel` | `string` | Yes |  |
 | `openLabel` | `string` | Yes |  |
+| `open` | `boolean \| undefined` | No | Controlled popup visibility. |
+| `defaultOpen` | `boolean \| undefined` | No | Initial popup visibility in uncontrolled mode. Defaults to false. |
+| `onOpenChange` | `((open: boolean) => void) \| undefined` | No | Requests a visibility change after trigger, selection or dismissal. |
+| `dateInput` | `boolean \| DateInputOptions \| undefined` | No | Configure typed date entry, or hide the input with false. Entry defaults to ISO. |
+| `month` | `ISODateString \| undefined` | No | Controlled visible calendar month, specified as an ISO civil date. |
+| `defaultMonth` | `ISODateString \| undefined` | No | Initial visible month for uncontrolled navigation. |
+| `onMonthChange` | `((month: ISODateString) => void) \| undefined` | No | Requests the first day of the newly visible month after calendar navigation. |
 | `disabled` | `boolean \| undefined` | No |  |
 | `readOnly` | `boolean \| undefined` | No |  |
-| `className` | `string \| undefined` | No |  |
-| `dir` | `"ltr" \| "rtl" \| undefined` | No |  |
-| `translations` | `Partial<CalendarTranslations> \| undefined` | No | Overrides any subset of the exported English calendar translations. |
-| `locale` | `string \| undefined` | No |  |
+| `referenceDate` | `ISODateString \| undefined` | No |  |
 | `previewInvalid` | `boolean \| undefined` | No | Marks the current preview as unavailable without changing selection. |
 | `previewDescription` | `string \| undefined` | No | Localized explanation, announced politely and linked to invalid preview days. |
-| `presets` | `readonly { readonly label: string; readonly date: ISODateString; }[] \| undefined` | No |  |
-| `referenceDate` | `ISODateString \| undefined` | No |  |
 | `calendarSystem` | `DisplayCalendarSystem \| undefined` | No |  |
+| `dir` | `"ltr" \| "rtl" \| undefined` | No |  |
 | `numberOfMonths` | `number \| undefined` | No |  |
 | `pagedNavigation` | `boolean \| undefined` | No |  |
 | `reverseMonths` | `boolean \| undefined` | No |  |
-| `captionLayout` | `"dropdown" \| "label" \| "dropdown-months" \| "dropdown-years" \| undefined` | No |  |
+| `captionLayout` | `"label" \| "dropdown" \| "dropdown-months" \| "dropdown-years" \| undefined` | No |  |
 | `startMonth` | `ISODateString \| undefined` | No | Navigation bounds; unlike minDate/maxDate these do not disable day values. |
 | `endMonth` | `ISODateString \| undefined` | No |  |
 | `disableNavigation` | `boolean \| undefined` | No |  |
@@ -46,9 +49,11 @@ The table lists library-declared props. Standard inherited HTML attributes are o
 | `weekNumbering` | `"iso" \| "local" \| undefined` | No |  |
 | `formatWeekNumber` | `((week: number) => string) \| undefined` | No |  |
 | `footer` | `ComponentChildren` | No |  |
+| `presets` | `readonly { readonly label: string; readonly date: ISODateString; }[] \| undefined` | No |  |
 | `cellSize` | `number \| undefined` | No |  |
-| `referenceInstant` | `Date \| undefined` | No | Optional instant used only to resolve Today in the requested zone. ISO date values never shift. |
-| `timeZone` | `string \| undefined` | No |  |
+| `referenceInstant` | `Date \| undefined` | No | Overrides the current instant used to resolve Today and the initial month of an empty picker. Defaults to UTC when no timezone is supplied. |
+| `timeZone` | `string \| undefined` | No | IANA timezone used to resolve Today. Uses the current instant by default and leaves ISO selections unchanged. |
+| `locale` | `string \| undefined` | No |  |
 | `weekStartsOn` | `CalendarWeekStart \| undefined` | No |  |
 | `minDate` | `ISODateString \| undefined` | No |  |
 | `maxDate` | `ISODateString \| undefined` | No |  |
@@ -67,6 +72,8 @@ The table lists library-declared props. Standard inherited HTML attributes are o
 | `views` | `readonly CalendarView[] \| undefined` | No | Available views. Defaults to month and year; supersedes &#96;enableYearView&#96;. |
 | `defaultView` | `CalendarView \| undefined` | No |  |
 | `isMonthDisabled` | `((month: ISODateString) => boolean) \| undefined` | No |  |
+| `translations` | `Partial<CalendarTranslations> \| undefined` | No | Overrides any subset of the exported English calendar translations. |
+| `className` | `string \| undefined` | No |  |
 | `dayClassName` | `string \| ((date: ISODateString, context: CalendarDayContext) => string \| undefined) \| undefined` | No |  |
 | `renderDay` | `((date: ISODateString, context: CalendarDayContext) => ComponentChildren) \| undefined` | No |  |
 | `formatMonth` | `((month: ISODateString, locale: string) => string) \| undefined` | No |  |

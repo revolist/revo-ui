@@ -22,7 +22,7 @@ The table lists library-declared props. Standard inherited HTML attributes are o
 | `previousLabel` | `string` | Yes |  |
 | `nextLabel` | `string` | Yes |  |
 | `caption` | `ComponentChildren` | No |  |
-| `labelAction` | `{ ariaLabel: string; onClick: () => void; } \| undefined` | No |  |
+| `labelAction` | `{ ariaLabel: string; onClick: () => void; ref?: (element: HTMLButtonElement \| null) => void; } \| undefined` | No |  |
 | `showLabel` | `boolean \| undefined` | No |  |
 | `showPrevious` | `boolean \| undefined` | No |  |
 | `showNext` | `boolean \| undefined` | No |  |

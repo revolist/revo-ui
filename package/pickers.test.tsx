@@ -11,6 +11,7 @@ afterEach(() => {
     act(() => render(null, host));
     host.remove();
   }
+  vi.useRealTimers();
 });
 function mount(view: preact.VNode) {
   host = document.createElement('div');
@@ -99,6 +100,457 @@ describe('shared date picker text entry', () => {
     }
     expect(host.querySelector('button')!.disabled).toBe(true);
     expect(change).not.toHaveBeenCalled();
+  });
+});
+
+describe('date picker calendar and text agree', () => {
+  it('rejects typed disabled dates, disabled months, and custom validation failures', () => {
+    const onChange = vi.fn();
+    const onInvalidSelection = vi.fn();
+    mount(
+      <DatePicker
+        value="2024-02-29"
+        label="Date"
+        openLabel="Choose date"
+        isDateDisabled={(date) => date === '2024-03-01'}
+        isMonthDisabled={(month) => month === '2024-04-01'}
+        validateSelection={(date) =>
+          date === '2024-05-01' ? 'Jour fermé' : true
+        }
+        translations={{ invalidSelection: 'Date indisponible' }}
+        onInvalidSelection={onInvalidSelection}
+        onChange={onChange}
+      />,
+    );
+    const input = host.querySelector('input')!;
+    act(() => input.focus());
+    for (const date of ['2024-03-01', '2024-04-10', '2024-05-01']) {
+      type(input, date);
+      expect(input.getAttribute('aria-invalid')).toBe('true');
+    }
+    expect(onInvalidSelection.mock.calls).toEqual([
+      ['Date indisponible', '2024-03-01'],
+      ['Date indisponible', '2024-04-10'],
+      ['Jour fermé', '2024-05-01'],
+    ]);
+    expect(onChange).not.toHaveBeenCalled();
+    act(() => input.blur());
+    expect(input.value).toBe('2024-02-29');
+    expect(input.getAttribute('aria-invalid')).not.toBe('true');
+  });
+
+  it('rejects a disabled typed range endpoint and orders valid endpoints', () => {
+    const onChange = vi.fn();
+    mount(
+      <DateRangePicker
+        value={{ from: '2024-02-26', to: '2024-02-28' }}
+        label="Range"
+        fromLabel="From"
+        toLabel="To"
+        openLabel="Choose range"
+        isDateDisabled={(date) => date === '2024-02-29'}
+        onChange={onChange}
+      />,
+    );
+    const to = host.querySelectorAll('input')[1]!;
+    act(() => to.focus());
+    type(to, '2024-02-29');
+    expect(to.getAttribute('aria-invalid')).toBe('true');
+    expect(onChange).not.toHaveBeenCalled();
+    type(to, '2024-02-25');
+    expect(to.getAttribute('aria-invalid')).not.toBe('true');
+    expect(onChange).toHaveBeenCalledWith({
+      from: '2024-02-25',
+      to: '2024-02-26',
+    });
+  });
+
+  it.each([
+    ['en-GB', 'UTC', '2025-01-01T00:00:00Z', '2025-01-01'],
+    ['en-US', 'America/New_York', '2025-01-01T00:00:00Z', '2024-12-31'],
+    ['en-IN', 'Asia/Kolkata', '2024-02-29T18:30:00Z', '2024-03-01'],
+    ['ar-LB', 'Asia/Beirut', '2024-03-31T21:00:00Z', '2024-04-01'],
+    ['ne-NP', 'Asia/Kathmandu', '2024-12-31T18:15:00Z', '2025-01-01'],
+    ['en-NZ', 'Pacific/Chatham', '2024-12-31T10:15:00Z', '2025-01-01'],
+    ['en-WS', 'Pacific/Apia', '2011-12-30T10:00:00Z', '2011-12-31'],
+    ['en-AU', 'Australia/Lord_Howe', '2024-10-05T15:30:00Z', '2024-10-06'],
+  ] as const)(
+    'opens on and emits the civil reference day for %s in %s',
+    (locale, timeZone, instant, date) => {
+      const onChange = vi.fn();
+      mount(
+        <DatePicker
+          label="Date"
+          openLabel="Choose date"
+          locale={locale}
+          timeZone={timeZone}
+          referenceInstant={new Date(instant)}
+          onChange={onChange}
+        />,
+      );
+      const trigger = host.querySelector('button')!;
+      act(() => trigger.click());
+      const day = document.querySelector<HTMLButtonElement>(
+        `[data-calendar-date="${date}"][aria-current="date"]`,
+      )!;
+      expect(day).not.toBeNull();
+      expect(document.activeElement?.getAttribute('data-calendar-date')).toBe(
+        date,
+      );
+      act(() => day.click());
+      expect(onChange).toHaveBeenCalledWith(date);
+      expect(document.activeElement).toBe(trigger);
+    },
+  );
+
+  it.each([
+    ['Asia/Kolkata', '2024-02-29T18:30:00Z', '2024-03-01'],
+    ['Asia/Beirut', '2024-03-31T21:00:00Z', '2024-04-01'],
+  ] as const)(
+    'uses the current day in %s for Today and the opening month',
+    (timeZone, instant, day) => {
+      vi.useFakeTimers({ toFake: ['Date'] });
+      vi.setSystemTime(new Date(Date.parse(instant) - 1000));
+      const onChange = vi.fn();
+      mount(
+        <DatePicker
+          label="Date"
+          openLabel="Choose date"
+          timeZone={timeZone}
+          showTodayButton
+          onChange={onChange}
+        />,
+      );
+      vi.setSystemTime(new Date(instant));
+      act(() => host.querySelector('button')!.click());
+      const dialog = document.querySelector('[role="dialog"]')!;
+      expect(
+        dialog.querySelector(
+          `[data-calendar-date="${day}"][aria-current="date"]:not([aria-hidden])`,
+        ),
+      ).not.toBeNull();
+      expect(document.activeElement?.getAttribute('data-calendar-date')).toBe(
+        day,
+      );
+      const today = dialog.querySelector<HTMLButtonElement>(
+        '.revo-calendar__today',
+      )!;
+      expect(today).not.toBeNull();
+      act(() => today.click());
+      expect(onChange).toHaveBeenCalledWith(day);
+    },
+  );
+
+  it('updates Today across Kolkata and Beirut without changing the controlled date', () => {
+    vi.useFakeTimers({ toFake: ['Date'] });
+    vi.setSystemTime(new Date('2024-03-31T18:30:00Z'));
+    const onChange = vi.fn();
+    const view = (timeZone: string) => (
+      <DatePicker
+        label="Date"
+        openLabel="Choose date"
+        value="2024-04-02"
+        timeZone={timeZone}
+        weekStartsOn={0}
+        showOutsideDays
+        onChange={onChange}
+      />
+    );
+    mount(view('Asia/Kolkata'));
+    act(() => host.querySelector('button')!.click());
+    const today = () =>
+      document
+        .querySelector('[aria-current="date"]')
+        ?.getAttribute('data-calendar-date');
+    expect(today()).toBe('2024-04-01');
+    act(() => render(view('Asia/Beirut'), host));
+    expect(today()).toBe('2024-03-31');
+    expect(host.querySelector('input')!.value).toBe('2024-04-02');
+    expect(
+      document.querySelector(
+        '[data-calendar-date="2024-04-02"][aria-selected="true"]',
+      ),
+    ).not.toBeNull();
+    expect(onChange).not.toHaveBeenCalled();
+  });
+
+  it('disables malformed presets while keeping Today a civil date', () => {
+    const onChange = vi.fn();
+    mount(
+      <DatePicker
+        label="Date"
+        openLabel="Choose date"
+        referenceDate="2024-02-29"
+        showTodayButton
+        presets={[{ label: 'Invalid leap day', date: '2023-02-29' }]}
+        onChange={onChange}
+      />,
+    );
+    act(() => host.querySelector('button')!.click());
+    const dialog = document.querySelector('[role="dialog"]')!;
+    const button = (label: string) =>
+      [...dialog.querySelectorAll('button')].find(
+        (item) => item.textContent === label,
+      )!;
+    expect(button('Invalid leap day').disabled).toBe(true);
+    act(() => button('Today').click());
+    expect(onChange).toHaveBeenCalledWith('2024-02-29');
+  });
+
+  it('reveals a changed controlled value while the popup is open', () => {
+    const props = {
+      label: 'Date',
+      openLabel: 'Choose date',
+      onChange: vi.fn(),
+    };
+    mount(<DatePicker {...props} value="2024-01-31" />);
+    act(() => host.querySelector('button')!.click());
+    act(() => render(<DatePicker {...props} value="2024-03-01" />, host));
+    expect(
+      document.querySelector(
+        '[data-calendar-date="2024-03-01"][aria-selected="true"]',
+      ),
+    ).not.toBeNull();
+    expect(document.activeElement?.getAttribute('data-calendar-date')).toBe(
+      '2024-03-01',
+    );
+  });
+
+  it('renders an unfinished range as a preview and commits only after the second selection', () => {
+    const onChange = vi.fn();
+    mount(
+      <DateRangePicker
+        label="Range"
+        fromLabel="From"
+        toLabel="To"
+        openLabel="Choose range"
+        referenceDate="2024-02-29"
+        onChange={onChange}
+      />,
+    );
+    act(() => host.querySelector('button')!.click());
+    const day = (date: string) =>
+      document.querySelector<HTMLButtonElement>(
+        `[data-calendar-date="${date}"]:not([aria-hidden])`,
+      )!;
+    expect(day('2024-02-29')).not.toBeNull();
+    act(() => day('2024-02-29').click());
+    act(() => day('2024-02-27').focus());
+    expect(day('2024-02-28').classList.contains('in-preview')).toBe(true);
+    expect(day('2024-02-28').getAttribute('aria-selected')).toBeNull();
+    expect(onChange).not.toHaveBeenCalled();
+    act(() => day('2024-02-27').click());
+    expect(onChange).toHaveBeenCalledWith({
+      from: '2024-02-27',
+      to: '2024-02-29',
+    });
+  });
+});
+
+describe('popup date picker options', () => {
+  const dialog = () =>
+    document.querySelector<HTMLElement>(
+      '.rv-popover[role="dialog"]:not([hidden])',
+    );
+  const day = (date: string) =>
+    dialog()?.querySelector<HTMLButtonElement>(
+      `[data-calendar-date="${date}"]:not([aria-hidden])`,
+    );
+  const trigger = () =>
+    host.querySelector<HTMLButtonElement>('button[aria-haspopup="dialog"]')!;
+  const escape = () =>
+    document.activeElement?.dispatchEvent(
+      new KeyboardEvent('keydown', {
+        key: 'Escape',
+        bubbles: true,
+        cancelable: true,
+      }),
+    );
+
+  it('requests controlled opening and keeps the live popup focused until dismissal is accepted', () => {
+    const onOpenChange = vi.fn();
+    const onChange = vi.fn();
+    const view = (open: boolean) => (
+      <DatePicker
+        label="Date"
+        openLabel="Choose date"
+        value="2024-04-02"
+        open={open}
+        defaultOpen
+        onOpenChange={onOpenChange}
+        onChange={onChange}
+      />
+    );
+    mount(view(false));
+    act(() => trigger().click());
+    expect(onOpenChange.mock.calls).toEqual([[true]]);
+    expect(dialog()).toBeNull();
+    act(() => render(view(true), host));
+    expect(document.activeElement?.getAttribute('data-calendar-date')).toBe(
+      '2024-04-02',
+    );
+    const surface = dialog();
+    act(escape);
+    expect(dialog()).toBe(surface);
+    expect(document.activeElement?.getAttribute('data-calendar-date')).toBe(
+      '2024-04-02',
+    );
+    act(() =>
+      document.body.dispatchEvent(new Event('pointerdown', { bubbles: true })),
+    );
+    expect(dialog()).toBe(surface);
+    act(escape);
+    act(() => render(view(false), host));
+    expect(dialog()).toBeNull();
+    expect(document.activeElement).toBe(trigger());
+    expect(onOpenChange.mock.calls).toEqual([
+      [true],
+      [false],
+      [false],
+      [false],
+    ]);
+    expect(onChange).not.toHaveBeenCalled();
+  });
+
+  it('opens on defaultMonth, navigates locally, and keeps the month across trigger toggles', () => {
+    const onMonthChange = vi.fn();
+    const onOpenChange = vi.fn();
+    mount(
+      <DatePicker
+        label="Date"
+        openLabel="Choose date"
+        defaultOpen
+        defaultMonth="2024-03-14"
+        value="2024-04-02"
+        dateInput={false}
+        onOpenChange={onOpenChange}
+        onMonthChange={onMonthChange}
+        onChange={vi.fn()}
+      />,
+    );
+    expect(host.querySelector('input')).toBeNull();
+    expect(trigger().textContent).toContain('2024-04-02');
+    expect(day('2024-03-14')).not.toBeNull();
+    expect(onOpenChange).not.toHaveBeenCalled();
+    expect(onMonthChange).not.toHaveBeenCalled();
+    act(() =>
+      dialog()!
+        .querySelector<HTMLButtonElement>('[aria-label="Previous month"]')!
+        .click(),
+    );
+    expect(onMonthChange.mock.calls).toEqual([['2024-02-01']]);
+    act(() => trigger().click());
+    expect(dialog()).toBeNull();
+    act(() => trigger().click());
+    expect(day('2024-02-29')).not.toBeNull();
+    expect(onOpenChange.mock.calls).toEqual([[false], [true]]);
+  });
+
+  it('requests a controlled month change and commits a Kolkata ISO date', () => {
+    vi.useFakeTimers({ toFake: ['Date'] });
+    vi.setSystemTime(new Date('2024-02-29T18:30:00Z'));
+    const onMonthChange = vi.fn();
+    const onOpenChange = vi.fn();
+    const onChange = vi.fn();
+    const view = (month: ISODateString) => (
+      <DatePicker
+        label="Date"
+        openLabel="Choose date"
+        open
+        timeZone="Asia/Kolkata"
+        month={month}
+        onOpenChange={onOpenChange}
+        onMonthChange={onMonthChange}
+        onChange={onChange}
+      />
+    );
+    mount(view('2024-02-05'));
+    expect(day('2024-02-29')).not.toBeNull();
+    act(() =>
+      dialog()!
+        .querySelector<HTMLButtonElement>('[aria-label="Next month"]')!
+        .click(),
+    );
+    expect(onMonthChange.mock.calls).toEqual([['2024-03-01']]);
+    expect(day('2024-03-01')).toBeNull();
+    act(() => render(view('2024-03-01'), host));
+    expect(day('2024-03-01')?.getAttribute('aria-current')).toBe('date');
+    act(() => day('2024-03-01')!.click());
+    expect(onChange).toHaveBeenCalledWith('2024-03-01');
+    expect(onOpenChange.mock.calls).toEqual([[false]]);
+    expect(dialog()).not.toBeNull();
+    expect(onMonthChange).toHaveBeenCalledOnce();
+  });
+
+  it('uses localized typed input with an unchanged ISO value in Kolkata', () => {
+    const onChange = vi.fn();
+    mount(
+      <DatePicker
+        label="Date"
+        openLabel="Choose date"
+        locale="en-IN"
+        timeZone="Asia/Kolkata"
+        dateInput={{ format: 'locale', placeholder: 'DD/MM/YYYY' }}
+        value="2024-03-01"
+        onChange={onChange}
+      />,
+    );
+    const input = host.querySelector('input')!;
+    expect(input.value).toBe('01/03/2024');
+    expect(input.placeholder).toBe('DD/MM/YYYY');
+    act(() => input.focus());
+    type(input, '29/02/2024');
+    expect(onChange.mock.calls).toEqual([['2024-02-29']]);
+  });
+
+  it('keeps localized Beirut range entry and selection in ISO, even after changing zones', () => {
+    vi.useFakeTimers({ toFake: ['Date'] });
+    vi.setSystemTime(new Date('2024-03-31T21:00:00Z'));
+    const onChange = vi.fn();
+    const onOpenChange = vi.fn();
+    const view = (
+      timeZone: string,
+      open: boolean,
+      dateInput: boolean | { format: 'locale' },
+    ) => (
+      <DateRangePicker
+        label="Range"
+        fromLabel="From"
+        toLabel="To"
+        openLabel="Choose range"
+        open={open}
+        timeZone={timeZone}
+        locale="fr-LB"
+        dateInput={dateInput}
+        month="2024-04-01"
+        value={{ from: '2024-04-01', to: '2024-04-05' }}
+        onOpenChange={onOpenChange}
+        onChange={onChange}
+      />
+    );
+    mount(view('Asia/Beirut', false, { format: 'locale' }));
+    const to = host.querySelectorAll('input')[1];
+    expect(to.value).toBe('05/04/2024');
+    act(() => to.focus());
+    type(to, '06/04/2024');
+    expect(onChange.mock.calls).toEqual([
+      [{ from: '2024-04-01', to: '2024-04-06' }],
+    ]);
+    act(() => render(view('Asia/Beirut', true, false), host));
+    expect(host.querySelector('input')).toBeNull();
+    expect(trigger().textContent).toContain('2024-04-01 – 2024-04-05');
+    expect(day('2024-04-01')?.getAttribute('aria-current')).toBe('date');
+    act(() => day('2024-04-04')!.click());
+    expect(onOpenChange).not.toHaveBeenCalled();
+    act(() => render(view('Asia/Kolkata', false, false), host));
+    act(() => render(view('Asia/Kolkata', true, false), host));
+    act(() => day('2024-04-03')!.click());
+    expect(onChange).toHaveBeenCalledOnce();
+    act(() => day('2024-04-05')!.click());
+    expect(onChange.mock.calls.at(-1)).toEqual([
+      { from: '2024-04-03', to: '2024-04-05' },
+    ]);
+    expect(onOpenChange.mock.calls).toEqual([[false]]);
   });
 });
 

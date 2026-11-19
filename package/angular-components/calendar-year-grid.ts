@@ -12,8 +12,9 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class CalendarYearGrid extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'CalendarYearGrid';
   protected rvResolveComponent() { return Control; }
-  protected override readonly rvRequiredCallbacks = ["onEscape","onSelect"];
+  protected override readonly rvRequiredCallbacks = ["onSelect"];
   @NgInput({ required: true }) declare "ariaLabel": AngularInput<'CalendarYearGrid', "ariaLabel">;
+  @NgInput() declare "focusOnMount"?: AngularInput<'CalendarYearGrid', "focusOnMount">;
   @NgInput() declare "isMonthDisabled"?: AngularInput<'CalendarYearGrid', "isMonthDisabled">;
   @NgInput({ required: true }) declare "locale": AngularInput<'CalendarYearGrid', "locale">;
   @NgInput() declare "maxDate"?: AngularInput<'CalendarYearGrid', "maxDate">;

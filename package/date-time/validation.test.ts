@@ -1,6 +1,41 @@
 import { expect, it } from 'vitest';
 import { validateTemporalSelection as validate } from './validation';
 const month = '2026-10-01';
+
+it('shares the calendar’s zoned reference date with typed validation', () => {
+  expect(
+    validate(
+      {
+        value: '2024-04-01',
+        onChange: () => {},
+        calendar: {
+          referenceInstant: new Date('2024-03-31T21:00:00Z'),
+          timeZone: 'Asia/Beirut',
+          validateSelection: (date, context) =>
+            date === context.referenceDate,
+        },
+      },
+      '2024-04-01',
+    ).valid,
+  ).toBe(true);
+});
+
+it('checks range interiors up to the last four-digit civil date', () => {
+  expect(
+    validate(
+      {
+        value: { from: '9999-12-29', to: '9999-12-31' },
+        selection: 'range',
+        onChange: () => {},
+        calendar: {
+          excludeDisabled: true,
+          isDateDisabled: () => false,
+        },
+      },
+      '9999-12-01',
+    ).valid,
+  ).toBe(true);
+});
 it('rejects invalid dates, bounds, disabled dates/months and required empties', () => {
   for (const value of [
     'bad',

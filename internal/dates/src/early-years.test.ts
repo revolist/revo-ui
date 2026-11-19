@@ -1,12 +1,36 @@
 import { describe, expect, it } from 'vitest';
 import { parseLocalDateValue } from './iso';
 import {
+  addCalendarMonths,
+  addDays,
+  diffInCalendarDays,
+  endOfMonth,
+} from './date-math';
+import { formatIsoDateInTimeZone } from './iso';
+import {
   parseIsoCivilDate,
   parseIsoLocalCivilDateTime,
   getPossibleInstants,
 } from './civil-time';
 
 describe('four-digit years below 100', () => {
+  it('retains the literal Gregorian year in date arithmetic', () => {
+    expect(endOfMonth('0000-02-01')).toBe('0000-02-29');
+    expect(addCalendarMonths('0099-01-31', 1)).toBe('0099-02-28');
+    expect(diffInCalendarDays('0099-12-31', '0100-01-01')).toBe(1);
+  });
+
+  it('returns complete ISO dates when walking beyond four-digit years', () => {
+    expect(addDays('0000-01-01', -1)).toBe('-000001-12-31');
+    expect(addDays('9999-12-31', 1)).toBe('+010000-01-01');
+    expect(addDays(addDays('9999-12-31', 1), 1)).toBe('+010000-01-02');
+  });
+
+  it('uses astronomical Gregorian years for zoned ISO output', () => {
+    expect(
+      formatIsoDateInTimeZone(new Date('0000-03-01T00:00:00Z'), 'UTC'),
+    ).toBe('0000-03-01');
+  });
   it.each(['0000', '0001', '0099', '0100'])(
     'preserves year %s in local date parsing',
     (year) => {
