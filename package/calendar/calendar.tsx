@@ -36,7 +36,6 @@ import {
 import { DEFAULT_CALENDAR_TRANSLATIONS } from './translations';
 import type { CalendarProps, CalendarView } from './types';
 import { CalendarYearGrid } from './year-grid';
-const SUNDAY = '2026-08-02' as ISODateString;
 const DAY_NAVIGATION_KEYS = [
   'ArrowLeft',
   'ArrowRight',
@@ -101,13 +100,13 @@ export function Calendar({
     [month, count, system, domainEnd],
   );
   const displayed = props.reverseMonths ? [...months].reverse() : months;
-  const weekdays = useMemo(
-    () =>
-      Array.from({ length: 7 }, (_, index) =>
-        addDays(SUNDAY, (weekStartsOn + index) % 7),
-      ),
-    [weekStartsOn],
-  );
+  const weekdays = useMemo(() => {
+    const firstDay = isValidIsoDate(month) ? month : MIN_CALENDAR_DATE;
+    const offset = (weekStartsOn - getUtcWeekday(firstDay) + 7) % 7;
+    return Array.from({ length: 7 }, (_, index) =>
+      addDays(firstDay, offset + index),
+    );
+  }, [month, weekStartsOn]);
   const referenceDate = resolveCalendarReferenceDate(props);
   const dayRefs = useRef(new Map<ISODateString, HTMLButtonElement>());
   const requestFocus = useRef(false);

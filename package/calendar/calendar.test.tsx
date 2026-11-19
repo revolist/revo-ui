@@ -39,6 +39,46 @@ function mountCalendar(
 }
 
 describe('independent calendar', () => {
+  it('passes weekdays from the displayed month to the header formatter', () => {
+    const formatWeekday = vi.fn((date: ISODateString) => date);
+    const { host } = mountCalendar({
+      month: '2024-01-01',
+      weekStartsOn: 6,
+      locale: 'fr-FR',
+      formatWeekday,
+    });
+    const headers = [...host.querySelectorAll('[role="columnheader"]')];
+    expect(headers.map((header) => header.textContent)).toEqual([
+      '2024-01-06',
+      '2024-01-07',
+      '2024-01-08',
+      '2024-01-09',
+      '2024-01-10',
+      '2024-01-11',
+      '2024-01-12',
+    ]);
+    expect(formatWeekday).toHaveBeenCalledWith('2024-01-06', 'fr-FR');
+  });
+
+  it.each([
+    ['en-IN', 1, ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']],
+    ['fr-FR', 0, ['dim.', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.']],
+  ] as const)(
+    'preserves %s weekday labels starting on day %s',
+    (locale, weekStartsOn, labels) => {
+      const { host } = mountCalendar({
+        month: '2024-02-01',
+        locale,
+        weekStartsOn,
+      });
+      expect(
+        [...host.querySelectorAll('[role="columnheader"]')].map(
+          (header) => header.textContent,
+        ),
+      ).toEqual(labels);
+    },
+  );
+
   it('builds natural or fixed month grids without timezone coercion', () => {
     expect(createCalendarMonth('2021-02-01', 1, false)).toHaveLength(28);
     expect(createCalendarMonth('2021-02-01', 1, true)).toHaveLength(42);
