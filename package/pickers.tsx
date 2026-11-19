@@ -35,7 +35,7 @@ import {
   TooltipController,
   attachMenuKeyboard,
 } from './surfaces';
-import { Button, type ButtonProps } from './controls';
+import { Button } from './controls';
 import { DEFAULT_CALENDAR_TRANSLATIONS } from './calendar/translations';
 import type { TooltipControllerOptions } from './core/tooltip-options';
 import { DateControl, type DateInputOptions } from './date-time/date-control';
@@ -361,35 +361,53 @@ interface PopupDatePickerOptions extends CalendarOptions {
   clearLabel?: string;
   /** Mount scope and dismissal options for the calendar popup. */
   popup?: Pick<PopoverProps, 'appendTo' | 'closeOnOutside' | 'closeOnEscape'>;
-  /** Replace the calendar trigger. Forward the provided props to a button. */
+  /** Replace the calendar trigger. Forward the provided props and text to a button. */
   renderTrigger?: (props: DatePickerTriggerProps) => ComponentChildren;
   disabled?: boolean;
   readOnly?: boolean;
 }
 
-export type DatePickerTriggerProps = Pick<
-  ButtonProps,
-  | 'type'
-  | 'disabled'
-  | 'aria-label'
-  | 'aria-haspopup'
-  | 'aria-expanded'
-  | 'aria-controls'
-  | 'aria-describedby'
-  | 'onClick'
-  | 'children'
-> & { ref: (element: HTMLButtonElement | null) => void };
+export interface DatePickerTriggerProps {
+  type: 'button';
+  disabled?: boolean;
+  'aria-label': string;
+  'aria-haspopup': 'dialog';
+  'aria-expanded': boolean;
+  'aria-controls': string;
+  'aria-describedby'?: string;
+  ref: (element: HTMLButtonElement | null) => void;
+  onClick: (event?: unknown) => void;
+  /** Framework-neutral text for a custom trigger button. */
+  children: string;
+}
 
 function PickerTrigger({
   render,
   triggerRef,
+  children,
+  displayValue,
   ...props
-}: Omit<DatePickerTriggerProps, 'ref'> & {
+}: Omit<DatePickerTriggerProps, 'ref' | 'children'> & {
   render?: PopupDatePickerOptions['renderTrigger'];
   triggerRef: DatePickerTriggerProps['ref'];
+  children: ComponentChildren;
+  displayValue?: string;
 }) {
   const attributes = { ...props, ref: triggerRef };
-  return <>{render ? render(attributes) : <Button {...attributes} />}</>;
+  if (!render) return <Button {...attributes}>{children}</Button>;
+  return (
+    <>
+      {displayValue && (
+        <span hidden id={props['aria-describedby']}>
+          {displayValue}
+        </span>
+      )}
+      {render({
+        ...attributes,
+        children: displayValue ?? props['aria-label'],
+      })}
+    </>
+  );
 }
 
 function usePickerValue<T>(props: { value?: T; defaultValue?: T }) {
@@ -720,6 +738,7 @@ export function DatePicker(props: DatePickerProps) {
       />
       <PickerTrigger
         render={renderTrigger}
+        displayValue={displayValue}
         type="button"
         triggerRef={setAnchor}
         aria-label={openLabel}
@@ -856,8 +875,14 @@ export function DateRangePicker(props: DateRangePickerProps) {
     value?.from,
     popupOpen,
   );
-  const selection = start ? { from: start, to: start } : value;
-  const preview = start && hover ? orderCalendarRange(start, hover) : undefined;
+  const blocked = (date: ISODateString) =>
+    isPickerDateBlocked(date, calendarOptions);
+  const activeStart = start && !blocked(start) ? start : undefined;
+  const selection = activeStart
+    ? { from: activeStart, to: activeStart }
+    : value;
+  const preview =
+    activeStart && hover ? orderCalendarRange(activeStart, hover) : undefined;
   const clearDraft = () => {
     setStart(undefined);
     setHover(undefined);
@@ -870,9 +895,10 @@ export function DateRangePicker(props: DateRangePickerProps) {
     setInvalidEndpoint(undefined);
   };
   useLayoutEffect(clearDraft, [open, resetKey, value?.from, value?.to]);
+  useLayoutEffect(() => {
+    if (start && !activeStart) clearDraft();
+  }, [start, activeStart]);
   useLayoutEffect(clearTypedDraft, [resetKey, value?.from, value?.to]);
-  const blocked = (date: ISODateString) =>
-    isPickerDateBlocked(date, calendarOptions);
   const rangeValid = (range: CalendarDateRange) =>
     isCalendarRangeValid(
       range,
@@ -975,6 +1001,7 @@ export function DateRangePicker(props: DateRangePickerProps) {
       />
       <PickerTrigger
         render={renderTrigger}
+        displayValue={displayValue}
         type="button"
         triggerRef={setAnchor}
         disabled={disabled || readOnly}
@@ -1068,9 +1095,9 @@ export function DateRangePicker(props: DateRangePickerProps) {
               )
             }
             onSelect={(date) => {
-              if (!start) setStart(date);
+              if (!activeStart) setStart(date);
               else {
-                const range = orderCalendarRange(start, date);
+                const range = orderCalendarRange(activeStart, date);
                 if (rangeValid(range)) completeRange(range);
                 else rejectRange(date);
               }

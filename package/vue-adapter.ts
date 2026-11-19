@@ -134,6 +134,9 @@ export function createVueAdapter<
             'pending',
             'draggable',
             'multiple',
+            'clearable',
+            'closeOnSelect',
+            'excludeDisabled',
           ].includes(normalized);
           props[normalized === 'class' ? 'className' : normalized] =
             boolean && value === '' ? true : value;

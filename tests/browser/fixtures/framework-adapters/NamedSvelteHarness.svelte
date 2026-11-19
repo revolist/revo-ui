@@ -5,6 +5,7 @@
   let selected = $state('a');
   let open = $state(false);
   let mounted = $state(true);
+  let boundDate = $state<`${number}-${number}-${number}`>();
   const options = [{ value: 'a', label: 'Alpha' }, { value: 'b', label: 'Beta' }];
 </script>
 
@@ -30,5 +31,9 @@
 <form aria-label="Svelte date defaults">
   <DatePicker label="Svelte date" openLabel="Choose Svelte date" name="date" defaultValue="2024-03-31" clearable />
   <DateRangePicker label="Svelte range" openLabel="Choose Svelte range" fromLabel="Svelte from" toLabel="Svelte to"
-    fromName="from" toName="to" defaultValue={{ from: '2024-02-29', to: '2024-03-01' }} />
+    fromName="from" toName="to" defaultValue={{ from: '2024-02-29', to: '2024-03-01' }} clearable />
 </form>
+
+<DatePicker label="Svelte bound date" openLabel="Choose Svelte bound date" bind:value={boundDate} />
+<output data-svelte-bound-date>{boundDate ?? ''}</output>
+<button onclick={() => boundDate = undefined}>Clear Svelte model</button>

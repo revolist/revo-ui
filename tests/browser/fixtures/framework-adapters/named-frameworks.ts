@@ -96,9 +96,25 @@ import NamedSvelteHarness from './NamedSvelteHarness.svelte';
       [minDate]="minimumDate"
     />
     <button (click)="minimumDate = '2024-03-31'">Raise date minimum</button>
+    <rv-date-picker
+      label="Angular outside day"
+      openLabel="Choose Angular outside day"
+      month="2024-03-01"
+      value="2024-03-01"
+      [minDate]="outsideMinimum"
+      [showOutsideDays]="true"
+      [allowOutsideMonthSelection]="true"
+    />
+    <button (click)="outsideMinimum = '2024-03-01'">
+      Restrict outside dates
+    </button>
+    <button (click)="outsideMinimum = '2024-04-01'">
+      Restrict whole month
+    </button>
   `,
 })
 class NamedAngularHarness {
+  outsideMinimum: '2024-02-29' | '2024-03-01' | '2024-04-01' = '2024-02-29';
   minimumDate: '2024-03-30' | '2024-03-31' = '2024-03-30';
   count = 0;
   callbacks = 0;

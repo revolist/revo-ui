@@ -82,7 +82,6 @@ The table lists library-declared props. Standard inherited HTML attributes are o
 | `validateSelection` | `((date: ISODateString, context: CalendarSelectionValidationContext) => CalendarSelectionValidationResult) \| undefined` | No |  |
 | `onInvalidSelection` | `((reason: string, date: ISODateString) => void) \| undefined` | No |  |
 | `onViewChange` | `((view: CalendarView) => void) \| undefined` | No |  |
-| `disabled` | `boolean \| undefined` | No |  |
 | `open` | `boolean \| undefined` | No | Controlled popup visibility. |
 | `defaultOpen` | `boolean \| undefined` | No | Initial popup visibility in uncontrolled mode. Defaults to false. |
 | `onOpenChange` | `((open: boolean) => void) \| undefined` | No | Requests a visibility change after trigger, selection or dismissal. |
@@ -93,7 +92,8 @@ The table lists library-declared props. Standard inherited HTML attributes are o
 | `clearable` | `boolean \| undefined` | No | Show a clear button for an existing selection. |
 | `clearLabel` | `string \| undefined` | No | Localized text and accessible name for the clear button. |
 | `popup` | `Pick<PopoverProps, "appendTo" \| "closeOnOutside" \| "closeOnEscape"> \| undefined` | No | Mount scope and dismissal options for the calendar popup. |
-| `renderTrigger` | `((props: DatePickerTriggerProps) => ComponentChildren) \| undefined` | No | Replace the calendar trigger. Forward the provided props to a button. |
+| `renderTrigger` | `((props: DatePickerTriggerProps) => ComponentChildren) \| undefined` | No | Replace the calendar trigger. Forward the provided props and text to a button. |
+| `disabled` | `boolean \| undefined` | No |  |
 | `readOnly` | `boolean \| undefined` | No |  |
 
 ## Composition

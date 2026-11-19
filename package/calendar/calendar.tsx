@@ -109,6 +109,7 @@ export function Calendar({
   }, [month, weekStartsOn]);
   const referenceDate = resolveCalendarReferenceDate(props);
   const dayRefs = useRef(new Map<ISODateString, HTMLButtonElement>());
+  const calendarRoot = useRef<HTMLDivElement>(null);
   const focusedDay = useRef<HTMLButtonElement | null>(null);
   const requestFocus = useRef(false);
   const monthCaptionRefs = useRef(new Map<number, HTMLButtonElement>());
@@ -179,6 +180,7 @@ export function Calendar({
               !isDisabled(date),
           ) ?? props.focusedDate);
   useLayoutEffect(() => {
+    // A constraint can disable the focused outside day without moving the tab stop.
     const previous = focusedDay.current;
     if (
       !previous ||
@@ -193,8 +195,14 @@ export function Calendar({
     )
       return;
     const next = dayRefs.current.get(focusTarget);
-    if (next && !next.disabled) next.focus({ preventScroll: true });
-  }, [focusTarget, view]);
+    const target =
+      next && !next.disabled
+        ? next
+        : (calendarRoot.current?.querySelector<HTMLButtonElement>(
+            '.revo-calendar__header button:not([disabled])',
+          ) ?? calendarRoot.current);
+    target?.focus({ preventScroll: true });
+  });
   useLayoutEffect(() => {
     const requested = requestViewFocus.current;
     if (view !== 'month' || !requested) return;
@@ -327,6 +335,8 @@ export function Calendar({
   };
   return (
     <div
+      ref={calendarRoot}
+      tabIndex={-1}
       class={`revo-calendar${props.showWeekNumber ? ' revo-calendar--week-numbers' : ''}${props.className ? ` ${props.className}` : ''}`}
       onFocusCapture={(event) => {
         const element = event.target as HTMLButtonElement;

@@ -36,7 +36,7 @@ The table lists library-declared props. Standard inherited HTML attributes are o
 | `clearable` | `boolean \| undefined` | No | Show a clear button for an existing selection. |
 | `clearLabel` | `string \| undefined` | No | Localized text and accessible name for the clear button. |
 | `popup` | `Pick<PopoverProps, "appendTo" \| "closeOnOutside" \| "closeOnEscape"> \| undefined` | No | Mount scope and dismissal options for the calendar popup. |
-| `renderTrigger` | `((props: DatePickerTriggerProps) => ComponentChildren) \| undefined` | No | Replace the calendar trigger. Forward the provided props to a button. |
+| `renderTrigger` | `((props: DatePickerTriggerProps) => ComponentChildren) \| undefined` | No | Replace the calendar trigger. Forward the provided props and text to a button. |
 | `disabled` | `boolean \| undefined` | No |  |
 | `readOnly` | `boolean \| undefined` | No |  |
 | `referenceDate` | `ISODateString \| undefined` | No |  |

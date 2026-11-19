@@ -27,6 +27,75 @@ test('Svelte named date pickers use defaults and submit ISO values', async ({
   await expect(form.getByRole('textbox', { name: 'Svelte date' })).toHaveValue(
     '',
   );
+  await form.evaluate((element: HTMLFormElement) => element.reset());
+  await expect(form.getByRole('textbox', { name: 'Svelte date' })).toHaveValue(
+    '2024-03-31',
+  );
+  await form
+    .getByRole('button', { name: 'Clear date range', exact: true })
+    .click();
+  await expect(form.getByRole('textbox', { name: 'Svelte from' })).toHaveValue(
+    '',
+  );
+  await expect(form.getByRole('textbox', { name: 'Svelte to' })).toHaveValue(
+    '',
+  );
+  await form.evaluate((element: HTMLFormElement) => element.reset());
+  await expect(form.getByRole('textbox', { name: 'Svelte from' })).toHaveValue(
+    '2024-02-29',
+  );
+  await expect(form.getByRole('textbox', { name: 'Svelte to' })).toHaveValue(
+    '2024-03-01',
+  );
+  expect(
+    await form.evaluate((element: HTMLFormElement) =>
+      Object.fromEntries(new FormData(element)),
+    ),
+  ).toEqual({ date: '2024-03-31', from: '2024-02-29', to: '2024-03-01' });
+});
+
+test('outside-day focus moves even when the grid tab stop stays the same', async ({
+  page,
+}) => {
+  await page.goto('/named.html');
+  await page
+    .getByRole('button', { name: 'Choose Angular outside day' })
+    .click();
+  const dialog = page.getByRole('dialog', { name: 'Angular outside day' });
+  const outside = dialog.locator('[data-calendar-date="2024-02-29"]');
+  const inside = dialog.locator('[data-calendar-date="2024-03-01"]');
+  await outside.focus();
+  await expect(outside).toBeFocused();
+  await expect(inside).toHaveAttribute('tabindex', '0');
+  await page
+    .getByRole('button', { name: 'Restrict outside dates' })
+    .dispatchEvent('click');
+  await expect(outside).toBeDisabled();
+  await expect(inside).toBeFocused();
+  await page
+    .getByRole('button', { name: 'Restrict whole month' })
+    .dispatchEvent('click');
+  await expect(inside).toBeDisabled();
+  await expect(
+    dialog.locator('.revo-calendar__header button:not([disabled])').first(),
+  ).toBeFocused();
+});
+
+test('Svelte date picker retains an explicitly bound model', async ({
+  page,
+}) => {
+  await page.goto('/named.html');
+  const input = page.getByRole('textbox', {
+    name: 'Svelte bound date',
+    exact: true,
+  });
+  await input.fill('2024-03-18');
+  await input.blur();
+  await expect(page.locator('[data-svelte-bound-date]')).toHaveText(
+    '2024-03-18',
+  );
+  await page.getByRole('button', { name: 'Clear Svelte model' }).click();
+  await expect(input).toHaveValue('');
 });
 
 test('Angular named date picker retains uncontrolled edits', async ({

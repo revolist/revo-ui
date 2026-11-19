@@ -555,6 +555,40 @@ describe('popup date picker options', () => {
 });
 
 describe('date picker form and selection options', () => {
+  it('restarts a calendar range when a new constraint disables its pending start', () => {
+    const onChange = vi.fn();
+    const view = (minDate: ISODateString) => (
+      <DateRangePicker
+        label="Range"
+        fromLabel="From"
+        toLabel="To"
+        openLabel="Choose range"
+        defaultOpen
+        month="2024-03-01"
+        minDate={minDate}
+        onChange={onChange}
+      />
+    );
+    mount(view('2024-03-10'));
+    const clickDay = (date: string) =>
+      act(() =>
+        document
+          .querySelector<HTMLButtonElement>(
+            `[data-calendar-date="${date}"]:not([aria-hidden])`,
+          )!
+          .click(),
+      );
+    clickDay('2024-03-10');
+    act(() => render(view('2024-03-11'), host));
+    clickDay('2024-03-12');
+    expect(onChange).not.toHaveBeenCalled();
+    clickDay('2024-03-13');
+    expect(onChange).toHaveBeenCalledExactlyOnceWith({
+      from: '2024-03-12',
+      to: '2024-03-13',
+    });
+  });
+
   it('restores the initial uncontrolled range on native form reset', async () => {
     const onChange = vi.fn();
     mount(
