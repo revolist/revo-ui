@@ -37,3 +37,14 @@ test('base CSS excludes heavyweight families while providing themed controls', (
   ])
     assert(!css.includes(selector), selector);
 });
+
+test('calendar CSS styles the dropdowns in the month and year caption', () => {
+  const css = readFileSync(resolve(root, 'dist/styles/calendar.css'), 'utf8');
+  for (const selector of [
+    '.revo-calendar__caption',
+    '.dropdown-arrow',
+    '.revo-dropdown-menu{',
+    '.dropdown-options{list-style:none',
+  ])
+    assert(css.includes(selector), selector);
+});
