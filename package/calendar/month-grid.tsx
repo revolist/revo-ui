@@ -1,6 +1,7 @@
 /** @jsxImportSource preact */
 import { h, type ComponentChildren } from 'preact';
 import {
+  isValidIsoDate,
   startOfDisplayMonth,
   type ISODateString,
   type DisplayCalendarSystem,
@@ -85,11 +86,12 @@ export function CalendarMonthGrid({
                 .slice(week * 7, week * 7 + 7)
                 .every(
                   (date) =>
-                    startOfDisplayMonth(date, system) !== month &&
-                    (!showOutsideDays ||
-                      visibleMonths?.includes(
-                        startOfDisplayMonth(date, system),
-                      )),
+                    !isValidIsoDate(date) ||
+                    (startOfDisplayMonth(date, system) !== month &&
+                      (!showOutsideDays ||
+                        visibleMonths?.includes(
+                          startOfDisplayMonth(date, system),
+                        ))),
                 )) ||
             undefined
           }
@@ -104,6 +106,14 @@ export function CalendarMonthGrid({
             </span>
           )}
           {dates.slice(week * 7, week * 7 + 7).map((date) => {
+            if (!isValidIsoDate(date))
+              return (
+                <span
+                  key={date}
+                  class="revo-calendar__day outside"
+                  aria-hidden="true"
+                />
+              );
             const outside = startOfDisplayMonth(date, system) !== month;
             const hidden =
               outside &&

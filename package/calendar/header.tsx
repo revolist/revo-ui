@@ -22,7 +22,11 @@ export function CalendarHeader({
   previousLabel: string;
   nextLabel: string;
   caption?: ComponentChildren;
-  labelAction?: { ariaLabel: string; onClick: () => void };
+  labelAction?: {
+    ariaLabel: string;
+    onClick: () => void;
+    ref?: (element: HTMLButtonElement | null) => void;
+  };
   showLabel?: boolean;
   showPrevious?: boolean;
   showNext?: boolean;
@@ -52,6 +56,7 @@ export function CalendarHeader({
         caption
       ) : showLabel && labelAction ? (
         <button
+          ref={labelAction.ref}
           type="button"
           class="revo-calendar__month-label revo-calendar__month-label-button"
           aria-label={labelAction.ariaLabel}

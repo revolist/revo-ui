@@ -84,3 +84,46 @@ test('date/time APIs and old calendar example links lead to their new categories
     await expect(page.locator(`#example-${anchor}`)).toBeVisible();
   }
 });
+
+for (const [locale, timezoneId] of [
+  ['en-IN', 'Asia/Kolkata'],
+  ['ar-LB', 'Asia/Beirut'],
+]) {
+  test.describe(`date picker keyboard selection in ${timezoneId}`, () => {
+    test.use({ locale, timezoneId });
+
+    test('keeps focus inside the calendar and commits the same civil date', async ({
+      page,
+    }) => {
+      await page.goto('/components/calendar-and-dates/');
+      const trigger = page.getByRole('button', {
+        name: 'Choose due date',
+        exact: true,
+      });
+      await trigger.focus();
+      await page.keyboard.press('Enter');
+      const popup = page.getByRole('dialog', { name: 'Due date', exact: true });
+      await expect(
+        popup.locator('[data-calendar-date="2026-10-24"]'),
+      ).toBeFocused();
+      await page.keyboard.press('ArrowRight');
+      await expect(
+        popup.locator('[data-calendar-date="2026-10-25"]'),
+      ).toBeFocused();
+      await page.keyboard.press('Enter');
+      await expect(
+        page.getByRole('textbox', { name: 'Due date', exact: true }),
+      ).toHaveValue('2026-10-25');
+      await expect(popup).toBeHidden();
+      await expect(trigger).toBeFocused();
+
+      await page.keyboard.press('Enter');
+      await expect(
+        popup.locator('[data-calendar-date="2026-10-25"]'),
+      ).toBeFocused();
+      await page.keyboard.press('Escape');
+      await expect(popup).toBeHidden();
+      await expect(trigger).toBeFocused();
+    });
+  });
+}

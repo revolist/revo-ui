@@ -18,7 +18,10 @@ export class DateRangePicker extends AngularComponentAdapter<AngularCallbackValu
   @NgInput() declare "captionLayout"?: AngularInput<'DateRangePicker', "captionLayout">;
   @NgInput() declare "cellSize"?: AngularInput<'DateRangePicker', "cellSize">;
   @NgInput() declare "className"?: AngularInput<'DateRangePicker', "className">;
+  @NgInput() declare "dateInput"?: AngularInput<'DateRangePicker', "dateInput">;
   @NgInput() declare "dayClassName"?: AngularInput<'DateRangePicker', "dayClassName">;
+  @NgInput() declare "defaultMonth"?: AngularInput<'DateRangePicker', "defaultMonth">;
+  @NgInput() declare "defaultOpen"?: AngularInput<'DateRangePicker', "defaultOpen">;
   @NgInput() declare "defaultView"?: AngularInput<'DateRangePicker', "defaultView">;
   @NgInput() declare "dir"?: AngularInput<'DateRangePicker', "dir">;
   @NgInput() declare "disableNavigation"?: AngularInput<'DateRangePicker', "disableNavigation">;
@@ -38,10 +41,14 @@ export class DateRangePicker extends AngularComponentAdapter<AngularCallbackValu
   @NgInput() declare "locale"?: AngularInput<'DateRangePicker', "locale">;
   @NgInput() declare "maxDate"?: AngularInput<'DateRangePicker', "maxDate">;
   @NgInput() declare "minDate"?: AngularInput<'DateRangePicker', "minDate">;
+  @NgInput() declare "month"?: AngularInput<'DateRangePicker', "month">;
   @NgInput() declare "numberOfMonths"?: AngularInput<'DateRangePicker', "numberOfMonths">;
   @NgInput() declare "onChange"?: AngularInput<'DateRangePicker', "onChange">;
   @NgInput() declare "onInvalidSelection"?: AngularInput<'DateRangePicker', "onInvalidSelection">;
+  @NgInput() declare "onMonthChange"?: AngularInput<'DateRangePicker', "onMonthChange">;
+  @NgInput() declare "onOpenChange"?: AngularInput<'DateRangePicker', "onOpenChange">;
   @NgInput() declare "onViewChange"?: AngularInput<'DateRangePicker', "onViewChange">;
+  @NgInput() declare "open"?: AngularInput<'DateRangePicker', "open">;
   @NgInput({ required: true }) declare "openLabel": AngularInput<'DateRangePicker', "openLabel">;
   @NgInput() declare "pagedNavigation"?: AngularInput<'DateRangePicker', "pagedNavigation">;
   @NgInput() declare "presets"?: AngularInput<'DateRangePicker', "presets">;
@@ -71,6 +78,8 @@ export class DateRangePicker extends AngularComponentAdapter<AngularCallbackValu
   @NgInput() declare "weekNumbering"?: AngularInput<'DateRangePicker', "weekNumbering">;
   @NgInput() declare "weekStartsOn"?: AngularInput<'DateRangePicker', "weekStartsOn">;
   @Output() get invalidSelection() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateRangePicker', 'onInvalidSelection'>>>('onInvalidSelection'); }
+  @Output() get monthChange() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateRangePicker', 'onMonthChange'>>>('onMonthChange'); }
+  @Output() get openChange() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateRangePicker', 'onOpenChange'>>>('onOpenChange'); }
   @Output() get viewChange() { return this.rvOutput<AngularCallbackValue<AngularInput<'DateRangePicker', 'onViewChange'>>>('onViewChange'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

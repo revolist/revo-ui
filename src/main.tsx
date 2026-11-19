@@ -148,6 +148,7 @@ function App() {
   const [range, setRange] = useState({ fromValue: 20, toValue: 80 });
   const [calendarDate, setCalendarDate] = useState<ISODateString>('2026-10-24');
   const [dueDate, setDueDate] = useState<ISODateString>('2026-10-24');
+  const [dueDateOpen, setDueDateOpen] = useState(false);
   const [fieldDate, setFieldDate] = useState('2026-10-24');
   const [fieldTime, setFieldTime] = useState('09:00');
   const [fieldDateTime, setFieldDateTime] = useState('2026-10-24T09:00');
@@ -565,6 +566,8 @@ function App() {
             label="Due date"
             openLabel="Choose due date"
             value={dueDate}
+            open={dueDateOpen}
+            onOpenChange={setDueDateOpen}
             onChange={(next) => {
               if (next) setDueDate(next);
             }}

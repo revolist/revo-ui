@@ -48,19 +48,22 @@ export function addMinutes(date: string, minutes: number): ISODateTimeString {
 }
 
 export function addMonths(date: string, months: number): ISODateString {
-  const [year, month] = normalizeIsoDate(date).split('-').map(Number);
-  return toISODate(new Date(Date.UTC(year, month - 1 + months, 1)));
+  const first = parseIsoDate(normalizeIsoDate(date));
+  first.setUTCMonth(first.getUTCMonth() + months, 1);
+  return formatIsoDate(first);
 }
 
 /** Adds calendar months while preserving the day-of-month, clamped to the target month. */
-export function addCalendarMonths(date: string, months: number): ISODateString {
+export function addCalendarMonths(
+  date: string,
+  months: number,
+): ISODateString {
   const current = parseIsoDate(normalizeIsoDate(date));
-  const targetFirst = new Date(
-    Date.UTC(current.getUTCFullYear(), current.getUTCMonth() + months, 1),
-  );
-  const lastDay = new Date(
-    Date.UTC(targetFirst.getUTCFullYear(), targetFirst.getUTCMonth() + 1, 0),
-  ).getUTCDate();
+  const targetFirst = new Date(current.getTime());
+  targetFirst.setUTCMonth(current.getUTCMonth() + months, 1);
+  const targetLast = new Date(targetFirst.getTime());
+  targetLast.setUTCMonth(targetFirst.getUTCMonth() + 1, 0);
+  const lastDay = targetLast.getUTCDate();
   targetFirst.setUTCDate(Math.min(current.getUTCDate(), lastDay));
   return formatIsoDate(targetFirst);
 }
@@ -72,9 +75,12 @@ export function diffInDays(startDate: string, endDate: string): number {
   );
 }
 
-export function diffInCalendarDays(startDate: string, endDate: string): number {
-  const start = Date.UTC(...toUtcDateParts(startDate));
-  const end = Date.UTC(...toUtcDateParts(endDate));
+export function diffInCalendarDays(
+  startDate: string,
+  endDate: string,
+): number {
+  const start = startOfUtcDayMs(startDate);
+  const end = startOfUtcDayMs(endDate);
   return Math.round((end - start) / DAY_IN_MS);
 }
 
@@ -224,30 +230,27 @@ export function endOfYear(date: string): ISODateString {
 
 /** Returns the UTC Monday for the week containing `date`. */
 export function getWeekStartIsoDate(date: Date): ISODateString {
-  const utcMidnight = Date.UTC(
-    date.getUTCFullYear(),
-    date.getUTCMonth(),
-    date.getUTCDate(),
-  );
+  const utcMidnight = startOfUtcDayMs(date);
   const day = date.getUTCDay();
   const mondayOffset = day === 0 ? -6 : 1 - day;
   return toISODate(new Date(utcMidnight + mondayOffset * DAY_IN_MS));
 }
 
 export function getMonthStartIsoDate(date: Date): ISODateString {
-  return toISODate(
-    new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), 1)),
-  );
+  const first = new Date(date.getTime());
+  first.setUTCDate(1);
+  return formatIsoDate(first);
 }
 
 export function getIsoWeekNumber(date: Date): number {
-  const utc = new Date(
-    Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()),
-  );
+  const utc = new Date(startOfUtcDayMs(date));
   const day = utc.getUTCDay() || 7;
   utc.setUTCDate(utc.getUTCDate() + 4 - day);
-  const yearStart = new Date(Date.UTC(utc.getUTCFullYear(), 0, 1));
-  return Math.ceil(((utc.getTime() - yearStart.getTime()) / DAY_IN_MS + 1) / 7);
+  const yearStart = new Date(utc.getTime());
+  yearStart.setUTCMonth(0, 1);
+  return Math.ceil(
+    ((utc.getTime() - yearStart.getTime()) / DAY_IN_MS + 1) / 7,
+  );
 }
 
 export function todayIsoDate(): ISODateString {
@@ -322,7 +325,7 @@ export function startOfUtcDayMs(value: string | number | Date): number {
       : typeof value === 'string'
         ? parseIsoDate(value)
         : value;
-  return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+  return new Date(date.getTime()).setUTCHours(0, 0, 0, 0);
 }
 
 /** Returns half-open instant bounds for a civil date (UTC by default). */
@@ -363,10 +366,4 @@ export function getDateRangeBounds(
     startMs: getDateDayBounds(range.start, timeZone).startMs,
     endMs: getDateDayBounds(addDays(range.end, 1), timeZone).startMs,
   };
-}
-
-function toUtcDateParts(date: string): [number, number, number] {
-  const normalized = formatIsoDate(parseIsoDate(date));
-  const [year, month, day] = normalized.split('-').map(Number);
-  return [year, month - 1, day];
 }

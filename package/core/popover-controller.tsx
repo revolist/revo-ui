@@ -30,6 +30,8 @@ export interface PopoverOptions {
   /** Defaults to the document body. */
   appendTo?: HTMLElement;
   onClose?: () => void;
+  /** Delegate Escape and outside presses to an owner that controls visibility. */
+  onDismissRequest?: (restoreFocus: boolean) => void;
   restoreFocus?: boolean;
   closeOnOutside?: boolean;
   closeOnEscape?: boolean;
@@ -115,7 +117,11 @@ export class PopoverController {
         !path.includes(anchor) &&
         !path.includes(content)
       )
-        close(false);
+        dismiss(false);
+    };
+    const dismiss = (restoreFocus: boolean) => {
+      if (options.onDismissRequest) options.onDismissRequest(restoreFocus);
+      else close(restoreFocus);
     };
     const keyboard = (event: KeyboardEvent) => {
       if (
@@ -126,7 +132,7 @@ export class PopoverController {
       ) {
         event.preventDefault();
         event.stopPropagation();
-        close();
+        dismiss(options.restoreFocus !== false);
       }
     };
     (options.appendTo ?? document.body).append(content);
