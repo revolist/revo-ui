@@ -554,6 +554,190 @@ describe('popup date picker options', () => {
   });
 });
 
+describe('date picker form and selection options', () => {
+  const button = (label: string, scope: ParentNode = host) =>
+    [...scope.querySelectorAll('button')].find(
+      (item) => item.textContent === label,
+    )!;
+  const day = (date: string) =>
+    document.querySelector<HTMLButtonElement>(
+      `[data-calendar-date="${date}"]:not([aria-hidden])`,
+    )!;
+
+  it('submits ISO values from localized uncontrolled input and requires a committed date', () => {
+    const onChange = vi.fn();
+    mount(
+      <form>
+        <DatePicker
+          label="Date"
+          openLabel="Choose date"
+          timeZone="Asia/Kolkata"
+          defaultValue="2024-03-01"
+          dateInput={{ format: 'eu' }}
+          required
+          name="due"
+          clearable
+          clearLabel="Effacer"
+          onChange={onChange}
+        />
+      </form>,
+    );
+    const form = host.querySelector('form')!;
+    const input = host.querySelector<HTMLInputElement>(
+      'input[aria-label="Date"]',
+    )!;
+    expect(input.value).toBe('01/03/2024');
+    expect(new FormData(form).get('due')).toBe('2024-03-01');
+    act(() => button('Effacer').click());
+    expect(onChange).toHaveBeenLastCalledWith(undefined);
+    expect(form.checkValidity()).toBe(false);
+    act(() => input.focus());
+    type(input, '29/02/2024');
+    expect(form.checkValidity()).toBe(true);
+    expect(new FormData(form).get('due')).toBe('2024-02-29');
+    expect(onChange).toHaveBeenLastCalledWith('2024-02-29');
+  });
+
+  it('forwards the custom trigger ref and dismissal policy, and keeps the popup open after selection', () => {
+    const scope = document.createElement('section');
+    document.body.append(scope);
+    try {
+      mount(
+        <DatePicker
+          label="Date"
+          openLabel="Choose date"
+          defaultMonth="2024-04-01"
+          dateInput={false}
+          closeOnSelect={false}
+          renderTrigger={({ children, ...props }) => (
+            <button {...props}>Custom {children}</button>
+          )}
+          popup={{
+            appendTo: scope,
+            closeOnOutside: false,
+            closeOnEscape: false,
+          }}
+        />,
+      );
+      const trigger = host.querySelector('button')!;
+      act(() => trigger.click());
+      expect(scope.querySelector('[role="dialog"]')).not.toBeNull();
+      expect(trigger.getAttribute('aria-expanded')).toBe('true');
+      act(() =>
+        document.body.dispatchEvent(
+          new Event('pointerdown', { bubbles: true }),
+        ),
+      );
+      act(() =>
+        document.activeElement?.dispatchEvent(
+          new KeyboardEvent('keydown', {
+            key: 'Escape',
+            bubbles: true,
+            cancelable: true,
+          }),
+        ),
+      );
+      act(() => day('2024-04-02').click());
+      expect(trigger.textContent).toContain('2024-04-02');
+      expect(trigger.getAttribute('aria-expanded')).toBe('true');
+    } finally {
+      scope.remove();
+    }
+  });
+
+  it('enforces Beirut range rules for day selection, typed entry, and complete presets', () => {
+    const onChange = vi.fn();
+    const rejected = vi.fn();
+    mount(
+      <form>
+        <DateRangePicker
+          label="Range"
+          fromLabel="From"
+          toLabel="To"
+          openLabel="Choose range"
+          timeZone="Asia/Beirut"
+          defaultMonth="2024-03-01"
+          defaultValue={undefined}
+          fromName="start"
+          toName="end"
+          required
+          min={2}
+          max={4}
+          excludeDisabled
+          closeOnSelect={false}
+          onChange={onChange}
+          onInvalidSelection={rejected}
+          isDateDisabled={(date) => date === '2024-03-28'}
+          presets={[
+            {
+              label: 'Blocked range',
+              selection: { from: '2024-03-27', to: '2024-03-30' },
+            },
+            {
+              label: 'Valid range',
+              selection: { from: '2024-03-29', to: '2024-03-31' },
+            },
+            { label: 'Start on March 29', date: '2024-03-29' },
+          ]}
+        />
+      </form>,
+    );
+    const form = host.querySelector('form')!;
+    const from = host.querySelector<HTMLInputElement>(
+      'input[aria-label="From"]',
+    )!;
+    const to = host.querySelector<HTMLInputElement>('input[aria-label="To"]')!;
+    act(() => from.focus());
+    type(from, '2024-03-27');
+    act(() => to.focus());
+    type(to, '2024-03-30');
+    expect(form.checkValidity()).toBe(false);
+    expect(onChange).not.toHaveBeenCalled();
+    expect(rejected).toHaveBeenLastCalledWith(expect.any(String), '2024-03-30');
+    act(() =>
+      host
+        .querySelector<HTMLButtonElement>('[aria-label="Choose range"]')!
+        .click(),
+    );
+    act(() => button('Blocked range', document).click());
+    expect(onChange).not.toHaveBeenCalled();
+    act(() => button('Start on March 29', document).click());
+    act(() => day('2024-03-30').click());
+    expect(onChange).not.toHaveBeenCalled();
+    act(() => button('Valid range', document).click());
+    expect(new FormData(form).get('start')).toBe('2024-03-29');
+    expect(new FormData(form).get('end')).toBe('2024-03-31');
+    expect(form.checkValidity()).toBe(true);
+    expect(onChange).toHaveBeenCalledExactlyOnceWith({
+      from: '2024-03-29',
+      to: '2024-03-31',
+    });
+    expect(
+      document.querySelector('[role="dialog"]:not([hidden])'),
+    ).not.toBeNull();
+  });
+
+  it('requests clearing a controlled range without emitting a partial range', () => {
+    const onChange = vi.fn();
+    const onClear = vi.fn();
+    mount(
+      <DateRangePicker
+        label="Range"
+        fromLabel="From"
+        toLabel="To"
+        openLabel="Choose range"
+        value={{ from: '2024-03-01', to: '2024-03-03' }}
+        clearable
+        onClear={onClear}
+        onChange={onChange}
+      />,
+    );
+    act(() => button('Clear date range').click());
+    expect(onClear).toHaveBeenCalledOnce();
+    expect(onChange).not.toHaveBeenCalled();
+  });
+});
+
 it('mounts a popover in an explicit scope so it retains local theme and direction', () => {
   const scope = document.createElement('section');
   scope.dir = 'rtl';

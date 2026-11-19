@@ -15,7 +15,7 @@ import {
   type ISODateString,
 } from '@revolist/ui-dates';
 import { Calendar } from './calendar';
-import { orderCalendarRange } from './model';
+import { isCalendarRangeValid, orderCalendarRange } from './model';
 import {
   getCalendarInitialDate,
   resolveCalendarReferenceDate,
@@ -206,26 +206,17 @@ export function CalendarPicker(props: CalendarPickerProps) {
     return (from: ISODateString, to: ISODateString) =>
       from < rangeAnchor ? checkEarlier(from) : checkLater(to);
   }, [rangeAnchor, isDisabledByRule, props]);
-  const rangeValid = (range: CalendarRangeSelection, preview = false) => {
-    if (blocked(range.from)) return false;
-    if (!range.to) return true;
-    if (blocked(range.to)) return false;
-    const nights = diffInDays(range.from, range.to);
-    if (nights < min || nights > max || nights < 0) return false;
-    if (nights < 2) return true;
-    if (excludeDisabled && (isDateDisabled || isMonthDisabled)) {
-      if (nights > 366000) return false;
-      if (preview && previewHasDisabledDate)
-        return !previewHasDisabledDate(range.from, range.to);
-      for (
-        let day = addDays(range.from, 1);
-        day < range.to;
-        day = addDays(day, 1)
-      )
-        if (isDisabledByRule(day)) return false;
-    }
-    return true;
-  };
+  const rangeValid = (range: CalendarRangeSelection, preview = false) =>
+    isCalendarRangeValid(
+      range,
+      min,
+      max,
+      blocked,
+      excludeDisabled && (isDateDisabled || isMonthDisabled)
+        ? isDisabledByRule
+        : undefined,
+      preview ? previewHasDisabledDate : undefined,
+    );
   const select = (date: ISODateString) => {
     if (props.mode === 'multiple') {
       const values = props.selected ?? [],

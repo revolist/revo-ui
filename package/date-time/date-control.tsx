@@ -23,6 +23,7 @@ export function DateControl({
   options = {},
   multiple,
   invalid,
+  required,
   errorId,
   disabled,
   readOnly,
@@ -37,6 +38,7 @@ export function DateControl({
   options?: DateInputOptions;
   multiple?: boolean;
   invalid?: boolean;
+  required?: boolean;
   disabled?: boolean;
   readOnly?: boolean;
   minDate?: string;
@@ -90,6 +92,7 @@ export function DateControl({
       autoComplete="off"
       spellcheck={false}
       aria-label={label}
+      aria-required={required || undefined}
       aria-invalid={invalid || invalidEntry || (editing && rejected)}
       aria-describedby={invalid ? errorId : undefined}
       placeholder={options.placeholder ?? dateEntryPlaceholder(options)}

@@ -19,7 +19,9 @@ The table lists library-declared props. Standard inherited HTML attributes are o
 | Prop | Type | Required | Description |
 | --- | --- | --- | --- |
 | `value` | `ISODateString \| undefined` | No |  |
-| `onChange` | `(value?: ISODateString) => void` | Yes |  |
+| `defaultValue` | `ISODateString \| undefined` | No | Initial uncontrolled ISO date. |
+| `onChange` | `((value?: ISODateString) => void) \| undefined` | No | Emits the committed ISO date, or undefined when it is cleared. |
+| `name` | `string \| undefined` | No | Form field name for the submitted ISO date. |
 | `label` | `string` | Yes |  |
 | `openLabel` | `string` | Yes |  |
 | `open` | `boolean \| undefined` | No | Controlled popup visibility. |
@@ -29,6 +31,12 @@ The table lists library-declared props. Standard inherited HTML attributes are o
 | `month` | `ISODateString \| undefined` | No | Controlled visible calendar month, specified as an ISO civil date. |
 | `defaultMonth` | `ISODateString \| undefined` | No | Initial visible month for uncontrolled navigation. |
 | `onMonthChange` | `((month: ISODateString) => void) \| undefined` | No | Requests the first day of the newly visible month after calendar navigation. |
+| `closeOnSelect` | `boolean \| undefined` | No | Close after a complete calendar selection. Defaults to true. |
+| `required` | `boolean \| undefined` | No | Require a committed selection before submitting the enclosing form. |
+| `clearable` | `boolean \| undefined` | No | Show a clear button for an existing selection. |
+| `clearLabel` | `string \| undefined` | No | Localized text and accessible name for the clear button. |
+| `popup` | `Pick<PopoverProps, "appendTo" \| "closeOnOutside" \| "closeOnEscape"> \| undefined` | No | Mount scope and dismissal options for the calendar popup. |
+| `renderTrigger` | `((props: DatePickerTriggerProps) => ComponentChildren) \| undefined` | No | Replace the calendar trigger. Forward the provided props to a button. |
 | `disabled` | `boolean \| undefined` | No |  |
 | `readOnly` | `boolean \| undefined` | No |  |
 | `referenceDate` | `ISODateString \| undefined` | No |  |
