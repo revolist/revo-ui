@@ -273,7 +273,7 @@
     "./styles/ai.css": "./package/styles/ai.css",
     "./styles/pdf-viewer.scss": "./package/styles/pdf-viewer.scss",
     "./styles/pdf-viewer.css": "./package/styles/pdf-viewer.css",
-    "./date-utils": "./package/date-utils.ts"
+    "./date-utils": "./package/date-utils.ts",
     "./dates": "./package/dates.ts",
     "./angular/ai-chat": "./package/angular-components/ai-chat.ts",
     "./svelte/ai-chat": "./package/svelte-entries/ai-chat.ts",
