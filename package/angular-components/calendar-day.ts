@@ -19,6 +19,7 @@ export class CalendarDay extends AngularComponentAdapter<never> {
   @NgInput({ required: true }) declare "disabled": AngularInput<'CalendarDay', "disabled">;
   @NgInput({ required: true }) declare "focused": AngularInput<'CalendarDay', "focused">;
   @NgInput({ required: true }) declare "hidden": AngularInput<'CalendarDay', "hidden">;
+  @NgInput() declare "inheritPresetScope"?: AngularInput<'CalendarDay', "inheritPresetScope">;
   @NgInput({ required: true }) declare "label": AngularInput<'CalendarDay', "label">;
   @NgInput() declare "onFocus"?: AngularInput<'CalendarDay', "onFocus">;
   @NgInput() declare "onKeyDown"?: AngularInput<'CalendarDay', "onKeyDown">;

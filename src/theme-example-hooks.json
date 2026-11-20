@@ -407,12 +407,6 @@
     ],
     "states": []
   },
-  "DateInput": {
-    "parts": [
-      "input"
-    ],
-    "states": []
-  },
   "DatePicker": {
     "parts": [
       "picker",
@@ -434,12 +428,6 @@
   "DateTimeField": {
     "parts": [
       "root"
-    ],
-    "states": []
-  },
-  "DateTimeInput": {
-    "parts": [
-      "input"
     ],
     "states": []
   },
@@ -1291,12 +1279,6 @@
     "states": [
       "aria-selected"
     ]
-  },
-  "TimeInput": {
-    "parts": [
-      "input"
-    ],
-    "states": []
   },
   "TimelineTrack": {
     "parts": [

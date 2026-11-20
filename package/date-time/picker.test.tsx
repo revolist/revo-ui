@@ -84,7 +84,8 @@ it('keeps time ranges date-free and validates bounds', () => {
     ),
   );
   expect(host.querySelector('.revo-calendar')).toBeNull();
-  expect(host.querySelectorAll('input[type="time"]')).toHaveLength(2);
+  expect(host.querySelectorAll('input[type="time"]')).toHaveLength(0);
+  expect(host.querySelectorAll('input[type="text"]')).toHaveLength(2);
   expect(validity).toHaveBeenLastCalledWith(false);
 });
 it('validates saved ranges and custom validation before enabling Apply', () => {

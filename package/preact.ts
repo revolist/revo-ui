@@ -134,12 +134,6 @@ export const NumberInput: typeof ui.NumberInput =
   /* @__PURE__ */ registerComponentStyles(ui.NumberInput, baseStyles);
 export const NumberStepper: typeof ui.NumberStepper =
   /* @__PURE__ */ registerComponentStyles(ui.NumberStepper, layoutStyles);
-export const DateInput: typeof ui.DateInput =
-  /* @__PURE__ */ registerComponentStyles(ui.DateInput, baseStyles);
-export const TimeInput: typeof ui.TimeInput =
-  /* @__PURE__ */ registerComponentStyles(ui.TimeInput, baseStyles);
-export const DateTimeInput: typeof ui.DateTimeInput =
-  /* @__PURE__ */ registerComponentStyles(ui.DateTimeInput, baseStyles);
 export const Chip: typeof ui.Chip = /* @__PURE__ */ registerComponentStyles(
   ui.Chip,
   baseStyles,

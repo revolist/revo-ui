@@ -34,8 +34,6 @@ import {
   Tabs,
 } from '@revolist/ui/preact';
 import {
-  DateInput,
-  DateTimeInput,
   DialogActions,
   DialogBody,
   DialogCloseButton,
@@ -46,7 +44,6 @@ import {
   FilterBadgeInfoButton,
   FilterChip,
   Input,
-  TimeInput,
 } from '@revolist/ui/preact';
 import {
   CalendarDay,
@@ -247,8 +244,6 @@ const names = new Set([
   'SegmentedControl',
   'SegmentedSwitch',
   'Tabs',
-  'DateInput',
-  'DateTimeInput',
   'DialogActions',
   'DialogBody',
   'DialogCloseButton',
@@ -259,7 +254,6 @@ const names = new Set([
   'FilterBadgeInfoButton',
   'FilterChip',
   'Input',
-  'TimeInput',
   'CalendarDay',
   'CalendarHeader',
   'CalendarWeekdays',
@@ -1733,18 +1727,6 @@ function Sample({
           {...shared}
           label="First"
           description="Details"
-        />
-      );
-    case 'DateInput':
-      return <DateInput {...shared} aria-label="Date" value="2026-11-20" />;
-    case 'TimeInput':
-      return <TimeInput {...shared} aria-label="Time" value="09:00" />;
-    case 'DateTimeInput':
-      return (
-        <DateTimeInput
-          {...shared}
-          aria-label="Date and time"
-          value="2026-11-20T09:00"
         />
       );
     case 'Input':

@@ -126,18 +126,6 @@ export const componentModels: ComponentModels = {
     prop: 'value',
     callback: 'onChange',
   },
-  DateInput: {
-    prop: 'value',
-    callback: 'onValueChange',
-  },
-  TimeInput: {
-    prop: 'value',
-    callback: 'onValueChange',
-  },
-  DateTimeInput: {
-    prop: 'value',
-    callback: 'onValueChange',
-  },
   Rating: {
     prop: 'value',
     callback: 'onChange',

@@ -48,6 +48,7 @@ export class CalendarPicker extends AngularComponentAdapter<AngularCallbackValue
   @NgInput() declare "onViewChange"?: AngularInput<'CalendarPicker', "onViewChange">;
   @NgInput() declare "pagedNavigation"?: AngularInput<'CalendarPicker', "pagedNavigation">;
   @NgInput() declare "preset"?: AngularInput<'CalendarPicker', "preset">;
+  @NgInput() declare "presetSurface"?: AngularInput<'CalendarPicker', "presetSurface">;
   @NgInput() declare "presets"?: AngularInput<'CalendarPicker', "presets">;
   @NgInput() declare "referenceDate"?: AngularInput<'CalendarPicker', "referenceDate">;
   @NgInput() declare "referenceInstant"?: AngularInput<'CalendarPicker', "referenceInstant">;

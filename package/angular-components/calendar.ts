@@ -47,6 +47,7 @@ export class Calendar extends AngularComponentAdapter<never> {
   @NgInput() declare "onViewChange"?: AngularInput<'Calendar', "onViewChange">;
   @NgInput() declare "pagedNavigation"?: AngularInput<'Calendar', "pagedNavigation">;
   @NgInput() declare "preset"?: AngularInput<'Calendar', "preset">;
+  @NgInput() declare "presetSurface"?: AngularInput<'Calendar', "presetSurface">;
   @NgInput() declare "presets"?: AngularInput<'Calendar', "presets">;
   @NgInput() declare "preview"?: AngularInput<'Calendar', "preview">;
   @NgInput() declare "previewDescription"?: AngularInput<'Calendar', "previewDescription">;

@@ -61,6 +61,7 @@ export class DateRangePicker extends AngularComponentAdapter<AngularCallbackValu
   @NgInput() declare "pagedNavigation"?: AngularInput<'DateRangePicker', "pagedNavigation">;
   @NgInput() declare "popup"?: AngularInput<'DateRangePicker', "popup">;
   @NgInput() declare "preset"?: AngularInput<'DateRangePicker', "preset">;
+  @NgInput() declare "presetSurface"?: AngularInput<'DateRangePicker', "presetSurface">;
   @NgInput() declare "presets"?: AngularInput<'DateRangePicker', "presets">;
   @NgInput() declare "previewDescription"?: AngularInput<'DateRangePicker', "previewDescription">;
   @NgInput() declare "previewInvalid"?: AngularInput<'DateRangePicker', "previewInvalid">;

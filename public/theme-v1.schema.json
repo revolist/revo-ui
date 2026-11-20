@@ -84,24 +84,6 @@
             "$ref": "#/$defs/textFieldPreset"
           }
         },
-        "DateInput": {
-          "type": "object",
-          "additionalProperties": {
-            "$ref": "#/$defs/textFieldPreset"
-          }
-        },
-        "TimeInput": {
-          "type": "object",
-          "additionalProperties": {
-            "$ref": "#/$defs/textFieldPreset"
-          }
-        },
-        "DateTimeInput": {
-          "type": "object",
-          "additionalProperties": {
-            "$ref": "#/$defs/textFieldPreset"
-          }
-        },
         "SearchInput": {
           "type": "object",
           "additionalProperties": {

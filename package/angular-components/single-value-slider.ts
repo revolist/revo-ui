@@ -19,6 +19,7 @@ export class SingleValueSlider extends AngularComponentAdapter<AngularCallbackVa
   @NgInput() declare "className"?: AngularInput<'SingleValueSlider', "className">;
   @NgInput() declare "disabled"?: AngularInput<'SingleValueSlider', "disabled">;
   @NgInput() declare "id"?: AngularInput<'SingleValueSlider', "id">;
+  @NgInput() declare "inheritPresetScope"?: AngularInput<'SingleValueSlider', "inheritPresetScope">;
   @NgInput({ required: true }) declare "max": AngularInput<'SingleValueSlider', "max">;
   @NgInput({ required: true }) declare "min": AngularInput<'SingleValueSlider', "min">;
   @NgInput() declare "onChange"?: AngularInput<'SingleValueSlider', "onChange">;

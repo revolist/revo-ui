@@ -16,6 +16,7 @@ export class ListboxOptionContent extends AngularComponentAdapter<never> {
   @NgInput() declare "classNames"?: AngularInput<'ListboxOptionContent', "classNames">;
   @NgInput() declare "description"?: AngularInput<'ListboxOptionContent', "description">;
   @NgInput() declare "icon"?: AngularInput<'ListboxOptionContent', "icon">;
+  @NgInput() declare "inheritPresetScope"?: AngularInput<'ListboxOptionContent', "inheritPresetScope">;
   @NgInput() declare "label"?: AngularInput<'ListboxOptionContent', "label">;
   @NgInput() declare "preset"?: AngularInput<'ListboxOptionContent', "preset">;
 

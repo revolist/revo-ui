@@ -13,7 +13,6 @@ import {
   TabPanel,
   ToggleButton,
 } from './controls';
-import { DateInput, DateTimeInput } from './controls';
 import { DateRangePicker, Popover } from './pickers';
 
 const hosts: HTMLElement[] = [];
@@ -101,7 +100,7 @@ it('isolates unnamed radio groups across independent instances', () => {
     second.querySelector('input')?.name,
   );
 });
-it('connects tab and panel semantics and leaves native dates in caller-owned representation', () => {
+it('connects tab and panel semantics', () => {
   const host = mount(
     <>
       <Tabs
@@ -119,8 +118,6 @@ it('connects tab and panel semantics and leaves native dates in caller-owned rep
       <TabPanel id="panel" labelledBy="details" active>
         Content
       </TabPanel>
-      <DateInput value="2026-10-24" />
-      <DateTimeInput value="2026-10-24T10:30" />
     </>,
   );
   expect(
@@ -129,9 +126,6 @@ it('connects tab and panel semantics and leaves native dates in caller-owned rep
   expect(
     host.querySelector('[role="tabpanel"]')?.getAttribute('aria-labelledby'),
   ).toBe('details');
-  expect(
-    host.querySelector<HTMLInputElement>('input[type="date"]')?.value,
-  ).toBe('2026-10-24');
 });
 it('selects an ordered range through two calendar clicks', () => {
   const change = vi.fn();

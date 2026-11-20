@@ -15,6 +15,7 @@ export class DropdownPopup extends AngularComponentAdapter<never> {
   @NgInput() declare "align"?: AngularInput<'DropdownPopup', "align">;
   @NgInput() declare "closeOnClickOutside"?: AngularInput<'DropdownPopup', "closeOnClickOutside">;
   @NgInput() declare "dropdownMenuId"?: AngularInput<'DropdownPopup', "dropdownMenuId">;
+  @NgInput() declare "inheritedPresetSurface"?: AngularInput<'DropdownPopup', "inheritedPresetSurface">;
   @NgInput() declare "matchTriggerWidth"?: AngularInput<'DropdownPopup', "matchTriggerWidth">;
   @NgInput() declare "maxHeight"?: AngularInput<'DropdownPopup', "maxHeight">;
   @NgInput() declare "observePopupResize"?: AngularInput<'DropdownPopup', "observePopupResize">;

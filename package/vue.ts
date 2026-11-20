@@ -224,21 +224,6 @@ export const NumberStepper = /* @__PURE__ */ createVueAdapter(
   'NumberStepper',
   { model: { prop: 'value', callback: 'onChange' } },
 );
-export const DateInput = /* @__PURE__ */ createVueAdapter(
-  ui.DateInput,
-  'DateInput',
-  { model: { prop: 'value', callback: 'onValueChange' } },
-);
-export const TimeInput = /* @__PURE__ */ createVueAdapter(
-  ui.TimeInput,
-  'TimeInput',
-  { model: { prop: 'value', callback: 'onValueChange' } },
-);
-export const DateTimeInput = /* @__PURE__ */ createVueAdapter(
-  ui.DateTimeInput,
-  'DateTimeInput',
-  { model: { prop: 'value', callback: 'onValueChange' } },
-);
 export const Chip = /* @__PURE__ */ createVueAdapter(ui.Chip, 'Chip');
 export const FieldHint = /* @__PURE__ */ createVueAdapter(
   ui.FieldHint,
