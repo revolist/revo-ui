@@ -218,9 +218,6 @@ export interface UiTheme {
     TextInput?: NamedPresets<TextFieldPreset>;
     Textarea?: NamedPresets<TextFieldPreset>;
     NumberInput?: NamedPresets<TextFieldPreset>;
-    DateInput?: NamedPresets<TextFieldPreset>;
-    TimeInput?: NamedPresets<TextFieldPreset>;
-    DateTimeInput?: NamedPresets<TextFieldPreset>;
     SearchInput?: NamedPresets<SearchInputPreset>;
   };
 }

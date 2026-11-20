@@ -12,6 +12,12 @@ import { TemporalDraft } from './field';
 import { temporalPickerLabel, type TemporalPickerOptions } from './types';
 
 const pickerAttachments = new WeakMap<HTMLInputElement, () => void>();
+const pickerOpeners = new WeakMap<HTMLInputElement, () => boolean>();
+
+/** Open an attached picker without toggling an already open picker closed. */
+export function openAttachedTemporalPicker(input: HTMLInputElement): boolean {
+  return pickerOpeners.get(input)?.() ?? false;
+}
 
 /** Adds or replaces the shared picker on an existing native input. */
 export function attachTemporalPicker(
@@ -76,6 +82,11 @@ export function attachTemporalPicker(
     </Button>,
   );
   input.after(button);
+  pickerOpeners.set(input, () => {
+    if (!input.isConnected || input.disabled || input.readOnly) return false;
+    if (!popup) button.click();
+    return !!popup;
+  });
   const Observer = input.ownerDocument.defaultView?.MutationObserver;
   const observer = Observer
     ? new Observer(() => {
@@ -90,6 +101,7 @@ export function attachTemporalPicker(
   const dispose = () => {
     if (pickerAttachments.get(input) !== dispose) return;
     pickerAttachments.delete(input);
+    pickerOpeners.delete(input);
     observer?.disconnect();
     popup?.close();
     releasePreactElement(button);

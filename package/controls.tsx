@@ -448,15 +448,6 @@ export function NumberStepper({
     </div>
   );
 }
-export function DateInput(props: Omit<TextInputProps, 'type'>) {
-  return <TextInput {...props} type="date" />;
-}
-export function TimeInput(props: Omit<TextInputProps, 'type'>) {
-  return <TextInput {...props} type="time" />;
-}
-export function DateTimeInput(props: Omit<TextInputProps, 'type'>) {
-  return <TextInput {...props} type="datetime-local" />;
-}
 export function Chip({ children, className = '', preset }: ShellProps) {
   return (
     <span
@@ -1150,9 +1141,6 @@ export function Rating({
 // Let native hint and policy adapters recognize these transparent compositions.
 registerControl(TextInput, 'input');
 registerControl(NumberInput, 'input');
-registerControl(DateInput, 'input');
-registerControl(TimeInput, 'input');
-registerControl(DateTimeInput, 'input');
 registerControl(Textarea, 'textarea');
 
 export * from './selection-list';

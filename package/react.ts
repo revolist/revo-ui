@@ -151,12 +151,6 @@ export const NumberInput: ReactUiComponent<typeof ui.NumberInput> =
   /* @__PURE__ */ createReactAdapter(ui.NumberInput, 'NumberInput');
 export const NumberStepper: ReactUiComponent<typeof ui.NumberStepper> =
   /* @__PURE__ */ createReactAdapter(ui.NumberStepper, 'NumberStepper');
-export const DateInput: ReactUiComponent<typeof ui.DateInput> =
-  /* @__PURE__ */ createReactAdapter(ui.DateInput, 'DateInput');
-export const TimeInput: ReactUiComponent<typeof ui.TimeInput> =
-  /* @__PURE__ */ createReactAdapter(ui.TimeInput, 'TimeInput');
-export const DateTimeInput: ReactUiComponent<typeof ui.DateTimeInput> =
-  /* @__PURE__ */ createReactAdapter(ui.DateTimeInput, 'DateTimeInput');
 export const Chip: ReactUiComponent<typeof ui.Chip> =
   /* @__PURE__ */ createReactAdapter(ui.Chip, 'Chip');
 export const FieldHint: ReactUiComponent<typeof ui.FieldHint> =

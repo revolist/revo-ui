@@ -162,9 +162,6 @@ test('building-block samples render their selected preset class', async ({
   const families: Record<string, string[]> = {
     'inputs-and-forms': [
       'Input',
-      'DateInput',
-      'TimeInput',
-      'DateTimeInput',
       'FormField',
       'FieldError',
       'FormSection',

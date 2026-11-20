@@ -26,6 +26,7 @@ export class MultiSelect extends AngularComponentAdapter<AngularCallbackValue<An
   @NgInput() declare "onCreateOption"?: AngularInput<'MultiSelect', "onCreateOption">;
   @NgInput() declare "placeholder"?: AngularInput<'MultiSelect', "placeholder">;
   @NgInput() declare "preset"?: AngularInput<'MultiSelect', "preset">;
+  @NgInput() declare "presetSurface"?: AngularInput<'MultiSelect', "presetSurface">;
   @NgInput() declare "remoteText"?: AngularInput<'MultiSelect', "remoteText">;
   @NgInput() declare "renderContent"?: AngularInput<'MultiSelect', "renderContent">;
   @NgInput() declare "renderNoResults"?: AngularInput<'MultiSelect', "renderNoResults">;

@@ -75,6 +75,8 @@ Use the same component library and shared styles across frameworks, while keepin
 
 For a narrow dependency graph, import the matching component entry, for example `@revolist/ui/angular/svg-button` or `@revolist/ui/svelte/svg-button`. Each exports `SvgButton`; `/unstyled` variants use application-managed CSS.
 
+For date and time fields, use the shared picker controls. See the [native input migration guide](docs/temporal-input-migration.md) when replacing `DateInput`, `TimeInput`, or `DateTimeInput`.
+
 ## Components
 
 Explore live previews, variants, and expandable code examples on the website.

@@ -1,6 +1,6 @@
 import { afterEach, expect, it, vi } from 'vitest';
 import { act } from 'preact/test-utils';
-import { attachTemporalPicker } from './attach';
+import { attachTemporalPicker, openAttachedTemporalPicker } from './attach';
 
 let dispose: (() => void) | undefined;
 afterEach(() => {
@@ -146,4 +146,20 @@ it('opens an inline draft using the calendar locale rather than the host locale'
   expect(
     document.querySelector<HTMLInputElement>('.rv-editor-popup input')?.value,
   ).toBe('11.12.2026');
+});
+
+
+it('opens an attached picker without toggling it closed and respects readonly state', () => {
+  const input = document.createElement('input');
+  document.body.append(input);
+  expect(openAttachedTemporalPicker(input)).toBe(false);
+  act(() => { dispose = attachTemporalPicker(input, { kind: 'date' }, () => {}); });
+  act(() => { expect(openAttachedTemporalPicker(input)).toBe(true); });
+  expect(document.querySelector('.rv-editor-popup')).toBeTruthy();
+  act(() => { expect(openAttachedTemporalPicker(input)).toBe(true); });
+  expect(document.querySelector('.rv-editor-popup')).toBeTruthy();
+  input.readOnly = true;
+  expect(openAttachedTemporalPicker(input)).toBe(false);
+  act(() => dispose?.());
+  expect(openAttachedTemporalPicker(input)).toBe(false);
 });
