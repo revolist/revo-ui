@@ -1,9 +1,19 @@
 import type { ClassPreset } from '../../../presets/types';
+import type { MotionPreset } from '../../../presets/motion';
 export interface SliderRange {
   fromValue: number;
   toValue: number;
 }
-export type RangeSliderPreset = ClassPreset & { props?: { step?: number; disabled?: boolean; showTooltips?: boolean; showRangeDisplay?: boolean; showRangeInputs?: boolean } };
+export type RangeSliderPreset = ClassPreset & {
+  motion?: MotionPreset;
+  props?: {
+    step?: number;
+    disabled?: boolean;
+    showTooltips?: boolean;
+    showRangeDisplay?: boolean;
+    showRangeInputs?: boolean;
+  };
+};
 export interface RangeSliderProps {
   preset?: RangeSliderPreset;
   /** Minimum value for the range */

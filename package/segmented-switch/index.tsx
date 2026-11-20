@@ -1,4 +1,10 @@
 import { h as preactH, type JSX } from 'preact';
+import { selectionSettle } from '../core/settle-motion';
+import {
+  motionAllowed,
+  presetAnimation,
+  type MotionPreset,
+} from '../presets/motion';
 
 export type SegmentedSwitchRenderable = any;
 
@@ -39,6 +45,7 @@ export type SegmentedSwitchOption<
 export type SegmentedSwitchRole = 'tablist' | 'radiogroup' | 'group';
 
 export type SegmentedSwitchPreset = {
+  motion?: MotionPreset;
   className?: string;
   props?: { iconOnly?: boolean; disabled?: boolean };
 };
@@ -79,6 +86,80 @@ function getItemRole(role: SegmentedSwitchRole) {
   if (role === 'tablist') return 'tab';
   if (role === 'radiogroup') return 'radio';
   return undefined;
+}
+
+/** Animate only after a controlled change has actually selected the target. */
+function animateSelection(
+  root: HTMLElement,
+  previous: DOMRect,
+  target: HTMLButtonElement,
+  motion?: MotionPreset,
+) {
+  if (
+    typeof window === 'undefined' ||
+    typeof target.animate !== 'function' ||
+    !motionAllowed(root)
+  )
+    return;
+  requestAnimationFrame(() => {
+    if (!root.isConnected || !target.classList.contains('on')) return;
+    root.querySelector('.rv-segmented-switch-indicator')?.remove();
+    delete root.dataset.sliding;
+    const bounds = root.getBoundingClientRect();
+    const next = target.getBoundingClientRect();
+    const selected = getComputedStyle(target);
+    const indicator = document.createElement('span');
+    indicator.className = 'rv-segmented-switch-indicator';
+    indicator.setAttribute('aria-hidden', 'true');
+    Object.assign(indicator.style, {
+      left: `${previous.left - bounds.left - root.clientLeft}px`,
+      top: `${next.top - bounds.top - root.clientTop}px`,
+      width: `${previous.width}px`,
+      height: `${next.height}px`,
+      borderRadius: selected.borderRadius,
+      background: selected.backgroundColor,
+      borderColor: selected.borderColor,
+      boxShadow: selected.boxShadow,
+    });
+    const distance = next.left - previous.left;
+    const configured = presetAnimation(
+      motion,
+      'selection',
+      {
+        keyframes: [
+          { transform: 'translateX(0)', width: `${previous.width}px` },
+          {
+            transform: `translateX(${distance}px) scaleX(${selectionSettle.scale})`,
+            width: `${next.width}px`,
+            offset: selectionSettle.offset,
+          },
+          {
+            transform: `translateX(${distance}px)`,
+            width: `${next.width}px`,
+          },
+        ],
+        options: {
+          duration: selectionSettle.duration,
+          easing: selectionSettle.easing,
+        },
+      },
+      { distance, startWidth: previous.width, endWidth: next.width },
+    );
+    if (!configured) return;
+    root.appendChild(indicator);
+    root.dataset.sliding = '';
+    const animation = indicator.animate(
+      configured.keyframes,
+      configured.options,
+    );
+    const cleanup = () => {
+      indicator.remove();
+      if (!root.querySelector('.rv-segmented-switch-indicator'))
+        delete root.dataset.sliding;
+    };
+    animation.onfinish = cleanup;
+    animation.oncancel = cleanup;
+  });
 }
 
 export function SegmentedSwitch<
@@ -150,12 +231,18 @@ export function renderSegmentedSwitch<
               enabledOptions.length) %
             enabledOptions.length;
     const target = enabledOptions[targetIndex];
-    onChange(target.value, target, event);
     const buttons = (
       event.currentTarget as HTMLButtonElement
     ).parentElement?.querySelectorAll<HTMLButtonElement>(
       '.rv-segmented-switch-item:not(:disabled)',
     );
+    const root = (event.currentTarget as HTMLButtonElement).parentElement;
+    const previous = (
+      event.currentTarget as HTMLButtonElement
+    ).getBoundingClientRect();
+    onChange(target.value, target, event);
+    if (root && buttons?.[targetIndex])
+      animateSelection(root, previous, buttons[targetIndex], preset?.motion);
     buttons?.[targetIndex]?.focus();
   };
 
@@ -215,7 +302,14 @@ export function renderSegmentedSwitch<
           onKeyDown: (event: KeyboardEvent) => moveFocus(event, option.value),
           onClick: (event: MouseEvent) => {
             if (itemDisabled || active) return;
+            const target = event.currentTarget as HTMLButtonElement;
+            const root = target.parentElement;
+            const previous = root
+              ?.querySelector<HTMLElement>('.rv-segmented-switch-item.on')
+              ?.getBoundingClientRect();
             onChange(option.value, option, event);
+            if (root && previous)
+              animateSelection(root, previous, target, preset?.motion);
           },
         },
         h(

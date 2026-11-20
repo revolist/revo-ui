@@ -1,3 +1,4 @@
+import { setGalleryPreference } from './gallery-preferences';
 import { chooseOption } from './choose-option';
 import { expect, test } from './gallery-test';
 
@@ -126,9 +127,7 @@ test('honors time constraints, seconds, AM/PM, explicit cancel and RTL', async (
   await expect(
     page.getByRole('textbox', { name: 'Confirm time', exact: true }),
   ).toHaveValue('14:30');
-  await page
-    .getByRole('switch', { name: 'Right to left', exact: true })
-    .check();
+  await setGalleryPreference(page, 'Right to left', true);
   await page
     .getByRole('button', { name: 'Choose confirmed time', exact: true })
     .click();

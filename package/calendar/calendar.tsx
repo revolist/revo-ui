@@ -14,6 +14,7 @@ import {
   type ISODateString,
 } from '@revolist/ui-dates';
 import { createControlId } from '../core/control-id';
+import { motionAllowed, presetAnimation } from '../presets/motion';
 import { ButtonControl } from '../native-control';
 import { CalendarHeader, CalendarWeekdays } from './header';
 import { CalendarCaption } from './caption';
@@ -127,6 +128,175 @@ function renderCalendar({
   const monthCaptionRefs = useRef(new Map<number, HTMLButtonElement>());
   const viewTriggerIndex = useRef<number>();
   const requestViewFocus = useRef<'caption' | 'day'>();
+  const singleDate = props.selectedDates?.length
+    ? props.selectedDates.length === 1 && !props.selection
+      ? props.selectedDates[0]
+      : undefined
+    : props.selection?.from && props.selection.from === props.selection.to
+      ? props.selection.from
+      : undefined;
+  const previousMotion = useRef({ month, view, singleDate });
+  useLayoutEffect(() => {
+    const previous = previousMotion.current;
+    previousMotion.current = { month, view, singleDate };
+    const root = calendarRoot.current;
+    const win = root?.ownerDocument.defaultView;
+    if (
+      !root ||
+      !win ||
+      typeof root.animate !== 'function' ||
+      !motionAllowed(root)
+    )
+      return;
+
+    if (month !== previous.month || view !== previous.view) {
+      const backwards = compareIsoDates(month, previous.month) < 0;
+      const periodEvent =
+        backwards && props.preset?.motion?.periodBackward
+          ? 'periodBackward'
+          : !backwards && props.preset?.motion?.periodForward
+            ? 'periodForward'
+            : 'period';
+      if (
+        !props.preset?.motion?.[periodEvent] &&
+        !props.preset?.motion?.caption
+      )
+        return;
+      const direction = win.getComputedStyle(root).direction === 'rtl' ? -1 : 1;
+      // Keep weekdays and navigation stable while the new columns open out
+      // from the center and fade in, in the direction of navigation.
+      const animations: Animation[] = [];
+      root
+        .querySelectorAll<HTMLElement>('.revo-calendar__month-label')
+        .forEach((label) => {
+          if (!props.preset?.motion?.caption) return;
+          const content =
+            label.querySelector<HTMLElement>('[aria-live]') ?? label;
+          const config = presetAnimation(props.preset?.motion, 'caption', {
+            keyframes: [{ opacity: 0 }, { opacity: 1 }],
+            options: { duration: 220, easing: 'ease-out' },
+          });
+          if (config)
+            animations.push(content.animate(config.keyframes, config.options));
+        });
+      root
+        .querySelectorAll<HTMLElement>(
+          '.revo-calendar__week, .revo-calendar__year-grid',
+        )
+        .forEach((row) => {
+          if (!props.preset?.motion?.[periodEvent]) return;
+          const yearGrid = row.classList.contains('revo-calendar__year-grid');
+          const items = row.querySelectorAll<HTMLElement>(
+            yearGrid ? '.revo-calendar__month' : '.revo-calendar__day',
+          );
+          items.forEach((item, index) => {
+            if (item.getAttribute('aria-hidden') === 'true') return;
+            const opacity = win.getComputedStyle(item).opacity;
+            const columns = yearGrid ? 3 : 7;
+            const column = index % columns;
+            const offset = ((columns - 1) / 2 - column) * 1.5 * direction;
+            const cascade = backwards ? columns - 1 - column : column;
+            const config = presetAnimation(
+              props.preset?.motion,
+              periodEvent,
+              {
+                keyframes: [
+                  {
+                    opacity: 0,
+                    transform: `translateX(${offset}px) scaleX(.92)`,
+                  },
+                  { opacity, transform: 'translateX(0) scaleX(1)' },
+                ],
+                options: {
+                  duration: 220,
+                  easing: 'cubic-bezier(.2, .8, .2, 1)',
+                  fill: 'backwards',
+                },
+              },
+              { x: offset, opacity, column, direction },
+            );
+            if (config)
+              animations.push(
+                item.animate(config.keyframes, {
+                  ...config.options,
+                  delay:
+                    Number(config.options.delay ?? 0) +
+                    cascade * (config.stagger ?? 14),
+                }),
+              );
+          });
+        });
+      animations.forEach(
+        (animation) => void animation.finished.catch(() => {}),
+      );
+      return () => animations.forEach((animation) => animation.cancel());
+    }
+    if (
+      !singleDate ||
+      !previous.singleDate ||
+      singleDate === previous.singleDate ||
+      month !== previous.month ||
+      view !== 'month' ||
+      previous.view !== 'month'
+    )
+      return;
+    const from = dayRefs.current.get(previous.singleDate);
+    const to = dayRefs.current.get(singleDate);
+    if (
+      !from ||
+      !to ||
+      from.closest('.revo-calendar__month-grid') !==
+        to.closest('.revo-calendar__month-grid')
+    )
+      return;
+    const bounds = root.getBoundingClientRect();
+    const start = from.getBoundingClientRect();
+    const end = to.getBoundingClientRect();
+    const style = win.getComputedStyle(to);
+    const indicator = root.ownerDocument.createElement('span');
+    indicator.className = 'revo-calendar__selection-indicator';
+    indicator.setAttribute('aria-hidden', 'true');
+    Object.assign(indicator.style, {
+      left: `${start.left - bounds.left - root.clientLeft}px`,
+      top: `${start.top - bounds.top - root.clientTop}px`,
+      width: `${start.width}px`,
+      height: `${start.height}px`,
+      borderRadius: style.borderRadius,
+      background: style.backgroundColor,
+    });
+    root.appendChild(indicator);
+    to.classList.add('revo-calendar__day--sliding');
+    const config = presetAnimation(
+      props.preset?.motion,
+      'selection',
+      {
+        keyframes: [
+          { transform: 'translate(0, 0)' },
+          {
+            transform: `translate(${end.left - start.left}px, ${end.top - start.top}px)`,
+          },
+        ],
+        options: { duration: 220, easing: 'cubic-bezier(.22, 1, .36, 1)' },
+      },
+      { x: end.left - start.left, y: end.top - start.top },
+    );
+    if (!config) {
+      indicator.remove();
+      to.classList.remove('revo-calendar__day--sliding');
+      return;
+    }
+    const animation = indicator.animate(config.keyframes, config.options);
+    void animation.finished.catch(() => {});
+    const cleanup = () => {
+      indicator.remove();
+      to.classList.remove('revo-calendar__day--sliding');
+    };
+    animation.onfinish = cleanup;
+    return () => {
+      animation.cancel();
+      cleanup();
+    };
+  }, [month, view, singleDate, props.preset?.motion]);
   const text = { ...DEFAULT_CALENDAR_TRANSLATIONS, ...translations };
   const monthDisabled = (candidate: ISODateString) =>
     isCalendarMonthDisabled(candidate, {
@@ -380,7 +550,11 @@ function renderCalendar({
     >
       <div class="revo-calendar__months" data-part="months">
         {(isYearView ? [month] : displayed).map((candidate, index) => (
-          <section class="revo-calendar__month-panel" data-part="month" key={index}>
+          <section
+            class="revo-calendar__month-panel"
+            data-part="month"
+            key={index}
+          >
             {showHeader && (
               <CalendarHeader
                 label={

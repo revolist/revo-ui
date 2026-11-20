@@ -1,3 +1,4 @@
+import { setGalleryPreference } from './gallery-preferences';
 import { chooseOption } from './choose-option';
 import { test, expect } from './gallery-test';
 
@@ -9,7 +10,7 @@ test('selection lists use the resource selection tint in both themes', async ({
   page,
 }) => {
   await page.goto('/#components');
-  await page.getByRole('switch', { name: 'Animations', exact: true }).uncheck();
+  await setGalleryPreference(page, 'Animations', false);
   const lists = page.locator('.catalog-example').filter({
     has: page.getByRole('heading', { name: 'Selection list', exact: true }),
   });

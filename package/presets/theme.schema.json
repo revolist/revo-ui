@@ -498,12 +498,6 @@
             "$ref": "#/$defs/classPreset"
           }
         },
-        "DeleteButton": {
-          "type": "object",
-          "additionalProperties": {
-            "$ref": "#/$defs/classPreset"
-          }
-        },
         "RemoveButton": {
           "type": "object",
           "additionalProperties": {
@@ -1142,6 +1136,9 @@
         },
         "defaults": {
           "$ref": "#/$defs/componentDefaults"
+        },
+        "motion": {
+          "$ref": "#/$defs/motionPreset"
         }
       },
       "allOf": [
@@ -1292,6 +1289,9 @@
         },
         "defaults": {
           "$ref": "#/$defs/componentDefaults"
+        },
+        "motion": {
+          "$ref": "#/$defs/motionPreset"
         }
       },
       "allOf": [
@@ -1639,6 +1639,9 @@
         },
         "defaults": {
           "$ref": "#/$defs/componentDefaults"
+        },
+        "motion": {
+          "$ref": "#/$defs/motionPreset"
         }
       },
       "allOf": [
@@ -1948,6 +1951,9 @@
         },
         "defaults": {
           "$ref": "#/$defs/componentDefaults"
+        },
+        "motion": {
+          "$ref": "#/$defs/motionPreset"
         }
       },
       "allOf": [
@@ -2419,6 +2425,9 @@
         },
         "defaults": {
           "$ref": "#/$defs/componentDefaults"
+        },
+        "motion": {
+          "$ref": "#/$defs/motionPreset"
         }
       },
       "allOf": [
@@ -2426,6 +2435,23 @@
           "if": {
             "required": [
               "styles"
+            ]
+          },
+          "then": {
+            "required": [
+              "className"
+            ],
+            "properties": {
+              "className": {
+                "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "motion"
             ]
           },
           "then": {
@@ -2466,6 +2492,9 @@
         },
         "defaults": {
           "$ref": "#/$defs/componentDefaults"
+        },
+        "motion": {
+          "$ref": "#/$defs/motionPreset"
         }
       },
       "allOf": [
@@ -2473,6 +2502,23 @@
           "if": {
             "required": [
               "styles"
+            ]
+          },
+          "then": {
+            "required": [
+              "className"
+            ],
+            "properties": {
+              "className": {
+                "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "motion"
             ]
           },
           "then": {
@@ -2534,6 +2580,9 @@
         },
         "defaults": {
           "$ref": "#/$defs/componentDefaults"
+        },
+        "motion": {
+          "$ref": "#/$defs/motionPreset"
         }
       },
       "allOf": [
@@ -2541,6 +2590,23 @@
           "if": {
             "required": [
               "styles"
+            ]
+          },
+          "then": {
+            "required": [
+              "className"
+            ],
+            "properties": {
+              "className": {
+                "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "motion"
             ]
           },
           "then": {
@@ -2678,6 +2744,91 @@
       },
       "additionalProperties": {
         "$ref": "#/$defs/jsonValue"
+      }
+    },
+    "motionPreset": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z][a-zA-Z0-9]*$"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/motionEvent"
+      }
+    },
+    "motionEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "duration": {
+          "type": "number",
+          "minimum": 0
+        },
+        "delay": {
+          "type": "number"
+        },
+        "stagger": {
+          "type": "number",
+          "minimum": 0
+        },
+        "easing": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "keyframes": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "propertyNames": {
+              "pattern": "^[a-zA-Z][a-zA-Z0-9]*$"
+            },
+            "additionalProperties": {
+              "type": [
+                "string",
+                "number"
+              ]
+            },
+            "properties": {
+              "offset": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              }
+            }
+          }
+        },
+        "endDelay": {
+          "type": "number"
+        },
+        "iterations": {
+          "type": "number",
+          "minimum": 0
+        },
+        "iterationStart": {
+          "type": "number",
+          "minimum": 0
+        },
+        "direction": {
+          "enum": [
+            "normal",
+            "reverse",
+            "alternate",
+            "alternate-reverse"
+          ]
+        },
+        "fill": {
+          "enum": [
+            "none",
+            "forwards",
+            "backwards",
+            "both",
+            "auto"
+          ]
+        }
       }
     }
   }

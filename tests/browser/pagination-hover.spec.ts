@@ -1,3 +1,4 @@
+import { setGalleryPreference } from './gallery-preferences';
 import { chooseOption } from './choose-option';
 import { test, expect } from './gallery-test';
 
@@ -12,9 +13,7 @@ for (const theme of ['light', 'dark']) {
       page.getByRole('button', { name: 'Theme', exact: true }),
       theme === 'light' ? 'Light' : 'Dark',
     );
-    await page
-      .getByRole('switch', { name: 'Animations', exact: true })
-      .uncheck();
+    await setGalleryPreference(page, 'Animations', false);
     const simple = page.getByRole('navigation', {
       name: 'Simple page numbers',
       exact: true,

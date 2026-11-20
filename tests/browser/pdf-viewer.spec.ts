@@ -1,3 +1,4 @@
+import { setGalleryPreference } from './gallery-preferences';
 import { chooseOption } from './choose-option';
 import { createRequire } from 'node:module';
 
@@ -292,9 +293,7 @@ test('keeps the mobile toolbar compact and the search field usable', async ({
 test('has no automated WCAG violations in the viewer and its mobile tools', async ({
   page,
 }) => {
-  const require = createRequire(
-    new URL('../../package.json', import.meta.url),
-  );
+  const require = createRequire(new URL('../../package.json', import.meta.url));
   await page.setViewportSize({ width: 390, height: 900 });
   await page.goto('/?section=pdf-viewer#pdf-viewer');
   const viewer = primary(page);
@@ -361,9 +360,7 @@ test('keeps mobile tools in the viewer direction and scoped theme', async ({
   await expect(
     viewer.getByRole('button', { name: 'More PDF tools', exact: true }),
   ).toBeEnabled();
-  await page
-    .getByRole('switch', { name: 'Right to left', exact: true })
-    .click();
+  await setGalleryPreference(page, 'Right to left', 'toggle');
   await page.addStyleTag({
     content: '.rv-pdf-viewer { --rv-ui-surface-elevated: rgb(12, 34, 56); }',
   });

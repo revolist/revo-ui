@@ -1,3 +1,4 @@
+import { setGalleryPreference } from './gallery-preferences';
 import { chooseOption } from './choose-option';
 import { test, expect } from './gallery-test';
 
@@ -12,9 +13,7 @@ for (const theme of ['light', 'dark']) {
       page.getByRole('button', { name: 'Theme', exact: true }),
       theme === 'light' ? 'Light' : 'Dark',
     );
-    await page
-      .getByRole('switch', { name: 'Animations', exact: true })
-      .uncheck();
+    await setGalleryPreference(page, 'Animations', false);
     const card = page.locator('.catalog-example').filter({
       has: page.getByRole('heading', { name: 'Range calendar', exact: true }),
     });
@@ -88,15 +87,11 @@ for (const theme of ['light', 'dark']) {
     await card.screenshot({
       path: info.outputPath(`invalid-band-${theme}.png`),
     });
-    await page
-      .getByRole('switch', { name: 'Right to left', exact: true })
-      .check();
+    await setGalleryPreference(page, 'Right to left', true);
     await day('2026-10-26').hover();
     await expect(day('2026-10-10')).toHaveCSS('border-top-right-radius', '7px');
     await expect(day('2026-10-26')).toHaveCSS('border-top-left-radius', '7px');
-    await page
-      .getByRole('switch', { name: 'Right to left', exact: true })
-      .uncheck();
+    await setGalleryPreference(page, 'Right to left', false);
     await day('2026-10-11').hover();
     await day('2026-10-11').click();
     await expect(day('2026-10-10')).toHaveAttribute('aria-selected', 'true');

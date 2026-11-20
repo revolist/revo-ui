@@ -16,7 +16,7 @@
 
 **Build data-rich applications with charts, AI chat, a PDF viewer, editable timelines, date controls, and more.**
 
-Revo UI brings these components to React, Vue, Angular, Svelte, Preact, and vanilla TypeScript, alongside the controls and layouts needed to compose complete workflows.
+Revo UI brings these components to React, Vue, Angular, Svelte, Preact, and vanilla TypeScript, alongside the controls and layouts needed to compose complete workflows. Components are highly customizable, with shared theme tokens, reusable presets, and CSS for individual parts.
 
 [Live components](https://ui.rv-grid.com/components/buttons/) · [Interactive overview](https://ui.rv-grid.com/) · [Framework guides](https://ui.rv-grid.com/frameworks/) · [RevoGrid](https://rv-grid.com/) · [Pro documentation](https://pro.rv-grid.com/)
 
@@ -43,7 +43,11 @@ mount.render(uiComponents.Button, {
 // Call mount.destroy() when removing the view.
 ```
 
-[Customize components with portable presets and CSS](docs/presets.md).
+## Customize your components
+
+Adapt colors, corner radii, component options, and individual parts to your design system. Create named presets with JSON and CSS, share them across projects and frameworks, and configure animation timing and keyframes where supported. Your application keeps control of state and event handlers.
+
+Use the [customization workspace](https://ui.rv-grid.com/customize/) to preview components and export a preset, or follow the [themes and presets guide](docs/presets.md) to configure them in code.
 
 [Try the live gallery](https://ui.rv-grid.com/components/buttons/) or choose a framework guide: [React](https://ui.rv-grid.com/frameworks/react/) · [Vue](https://ui.rv-grid.com/frameworks/vue/) · [Angular](https://ui.rv-grid.com/frameworks/angular/) · [Svelte](https://ui.rv-grid.com/frameworks/svelte/) · [Preact](https://ui.rv-grid.com/frameworks/preact/) · [Vanilla TypeScript](https://ui.rv-grid.com/frameworks/vanilla-typescript/).
 

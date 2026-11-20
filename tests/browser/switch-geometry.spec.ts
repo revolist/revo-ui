@@ -1,3 +1,4 @@
+import { setGalleryPreference } from './gallery-preferences';
 import { expect, test } from './gallery-test';
 
 test.use({ gallerySections: ['selection-controls'] });
@@ -7,9 +8,7 @@ for (const compact of [false, true]) {
     page,
   }) => {
     await page.goto('/#components');
-    await page
-      .getByRole('switch', { name: 'Animations', exact: true })
-      .uncheck();
+    await setGalleryPreference(page, 'Animations', false);
     const card = page.locator('.catalog-example').filter({
       has: page.getByRole('heading', { name: 'Switches', exact: true }),
     });
@@ -29,9 +28,7 @@ for (const compact of [false, true]) {
       exact: true,
     });
     for (const rtl of [false, true]) {
-      await page
-        .getByRole('switch', { name: 'Right to left', exact: true })
-        .setChecked(rtl);
+      await setGalleryPreference(page, 'Right to left', rtl);
       for (const checked of [false, true]) {
         await control.setChecked(checked);
         await card

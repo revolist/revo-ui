@@ -1,10 +1,24 @@
 /** @jsxImportSource preact */
 import type { ClassPreset } from '../../../presets/types';
+import type { MotionPreset } from '../../../presets/motion';
 import { h } from 'preact';
 import { Input } from '../../../native-control';
 
-export type SingleSliderPreset = ClassPreset & { props?: { step?: number; disabled?: boolean } };
-export type SliderFieldPreset = ClassPreset & { props?: { step?: number; disabled?: boolean; layout?: 'inline' | 'stacked'; valuePlacement?: 'end' | 'thumb' | 'none'; ticks?: number; accentColor?: string } };
+export type SingleSliderPreset = ClassPreset & {
+  motion?: MotionPreset;
+  props?: { step?: number; disabled?: boolean };
+};
+export type SliderFieldPreset = ClassPreset & {
+  motion?: MotionPreset;
+  props?: {
+    step?: number;
+    disabled?: boolean;
+    layout?: 'inline' | 'stacked';
+    valuePlacement?: 'end' | 'thumb' | 'none';
+    ticks?: number;
+    accentColor?: string;
+  };
+};
 export type SingleValueSliderProps = {
   /** Internal composition hook for SliderField. */
   inheritPresetScope?: boolean;
@@ -99,7 +113,8 @@ export function SliderField({
   ...slider
 }: SliderFieldProps) {
   const layout = layoutProp ?? slider.preset?.props?.layout ?? 'inline';
-  const valuePlacement = valuePlacementProp ?? slider.preset?.props?.valuePlacement ?? 'end';
+  const valuePlacement =
+    valuePlacementProp ?? slider.preset?.props?.valuePlacement ?? 'end';
   const ticks = ticksProp ?? slider.preset?.props?.ticks;
   const accentColor = accentColorProp ?? slider.preset?.props?.accentColor;
   const disabled = slider.disabled ?? slider.preset?.props?.disabled;

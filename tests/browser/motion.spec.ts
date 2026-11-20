@@ -1,3 +1,4 @@
+import { setGalleryPreference } from './gallery-preferences';
 import { chooseOption } from './choose-option';
 import { createRequire } from 'node:module';
 import { readFileSync } from 'node:fs';
@@ -45,7 +46,7 @@ test('motion is subtle, state-only, and can be disabled and restored from the ga
   expect(transitions.join(' ')).not.toMatch(
     /\b(?:all|width|height|left|right|top|bottom)\b/,
   );
-  await page.getByRole('switch', { name: 'Animations', exact: true }).uncheck();
+  await setGalleryPreference(page, 'Animations', false);
   for (const theme of ['light', 'dark']) {
     await chooseOption(
       page.getByRole('button', { name: 'Theme', exact: true }),
@@ -60,7 +61,7 @@ test('motion is subtle, state-only, and can be disabled and restored from the ga
   await expect(
     page.getByRole('checkbox', { name: 'Selection', exact: true }),
   ).not.toBeChecked();
-  await page.getByRole('switch', { name: 'Animations', exact: true }).check();
+  await setGalleryPreference(page, 'Animations', true);
   expect(
     await primary.evaluate((el) => getComputedStyle(el).transitionDuration),
   ).not.toBe('0s');
@@ -126,19 +127,13 @@ test('OS reduced motion wins over system mode and keeps controls and loading ind
 test('standalone checkbox, field and rating styles honor both disable mechanisms', async ({
   page,
 }) => {
-  const require = createRequire(
-    new URL('../../package.json', import.meta.url),
-  );
+  const require = createRequire(new URL('../../package.json', import.meta.url));
   const sass = require('sass-embedded') as typeof import('sass-embedded');
   const css =
     sass.compileString(
       "@use 'checkbox/checkbox'; @use 'styles/control'; .standalone-field { @include control.field; }",
       {
-        loadPaths: [
-          fileURLToPath(
-            new URL('../../package', import.meta.url),
-          ),
-        ],
+        loadPaths: [fileURLToPath(new URL('../../package', import.meta.url))],
       },
     ).css +
     readFileSync(

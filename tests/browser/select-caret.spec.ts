@@ -1,3 +1,4 @@
+import { setGalleryPreference } from './gallery-preferences';
 import { expect, test } from './gallery-test';
 
 test.use({
@@ -9,9 +10,7 @@ test('shared selects reserve caret space in both directions', async ({
 }) => {
   await page.goto('/#components');
   for (const rtl of [false, true]) {
-    await page
-      .getByRole('switch', { name: 'Right to left', exact: true })
-      .setChecked(rtl);
+    await setGalleryPreference(page, 'Right to left', rtl);
     for (const title of [
       'Month and year dropdowns',
       'Persian calendar',

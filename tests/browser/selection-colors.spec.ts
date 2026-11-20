@@ -1,3 +1,4 @@
+import { setGalleryPreference } from './gallery-preferences';
 import { chooseOption } from './choose-option';
 import { test, expect } from './gallery-test';
 
@@ -10,9 +11,7 @@ for (const theme of ['light', 'dark']) {
       page.getByRole('button', { name: 'Theme', exact: true }),
       theme === 'light' ? 'Light' : 'Dark',
     );
-    await page
-      .getByRole('switch', { name: 'Animations', exact: true })
-      .uncheck();
+    await setGalleryPreference(page, 'Animations', false);
     const calendar = page.locator('.catalog-example').filter({
       has: page.getByRole('heading', { name: 'Calendar', exact: true }),
     });

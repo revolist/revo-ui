@@ -1,7 +1,7 @@
 /** @jsxImportSource preact */
 import {
   FieldActions,
-  FieldRemoveButton as DeleteButton,
+  FieldRemoveButton,
   FieldIcon as ConfiguratorIcon,
 } from './field-configurator';
 import { SvgIcon } from './icons/icon';
@@ -83,10 +83,10 @@ export function ConfiguratorActionTrigger(props: ActionTriggerProps) {
 }
 
 export function ConfiguratorRemoveButton(
-  props: ComponentProps<typeof DeleteButton>,
+  props: ComponentProps<typeof FieldRemoveButton>,
 ) {
   return (
-    <DeleteButton
+    <FieldRemoveButton
       {...props}
       className={`pivot-remove-button ${props.className ?? ''}`}
     />

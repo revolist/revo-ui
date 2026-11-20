@@ -3,7 +3,6 @@ export * from './ai/components';
 export * from './ai/results';
 export * from './ai/request-trail';
 export * from './buttons/svg-button';
-export * from './buttons/delete-button';
 export * from './buttons/remove-button';
 export * from './checkbox/index';
 export * from './switch/index';

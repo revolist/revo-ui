@@ -1,9 +1,17 @@
 import { ButtonControl } from '../native-control';
 import { h } from 'preact';
+import { useLayoutEffect, useRef } from 'preact/hooks';
+import { selectionSettle } from '../core/settle-motion';
+import {
+  motionAllowed,
+  presetAnimation,
+  type MotionPreset,
+} from '../presets/motion';
 
 export type SwitchRenderable = any;
 
 export type SwitchPreset = {
+  motion?: MotionPreset;
   props?: { labelPosition?: 'before' | 'after' };
   className?: string;
   tokens?: {
@@ -43,6 +51,41 @@ export function Switch({
   title,
   testId,
 }: SwitchProps): any {
+  const thumbRef = useRef<HTMLSpanElement>(null);
+  const previousChecked = useRef(checked);
+  useLayoutEffect(() => {
+    const changed = previousChecked.current !== checked;
+    previousChecked.current = checked;
+    const thumb = thumbRef.current;
+    const win = thumb?.ownerDocument.defaultView;
+    if (
+      !changed ||
+      disabled ||
+      !thumb ||
+      !win ||
+      typeof thumb.animate !== 'function' ||
+      !motionAllowed(thumb)
+    )
+      return;
+    const configured = presetAnimation(preset?.motion, 'settle', {
+      keyframes: [
+        { transform: 'scaleX(1)' },
+        {
+          transform: `scaleX(${selectionSettle.scale})`,
+          offset: selectionSettle.offset,
+        },
+        { transform: 'scaleX(1)' },
+      ],
+      options: {
+        duration: selectionSettle.duration,
+        easing: selectionSettle.easing,
+      },
+    });
+    if (!configured) return;
+    const animation = thumb.animate(configured.keyframes, configured.options);
+    void animation.finished.catch(() => {});
+    return () => animation.cancel();
+  }, [checked, disabled, preset?.motion]);
   const tokens = preset?.tokens;
   const presetStyle = tokens && {
     '--rv-ui-switch-preset-track-width': tokens.trackWidth,
@@ -61,7 +104,7 @@ export function Switch({
   );
   const track = (
     <span class="rv-switch-track" data-part="track" aria-hidden="true">
-      <span class="rv-switch-thumb" data-part="thumb" />
+      <span ref={thumbRef} class="rv-switch-thumb" data-part="thumb" />
     </span>
   );
 

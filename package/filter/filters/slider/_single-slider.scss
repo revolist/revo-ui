@@ -1,3 +1,29 @@
+/** Shared tactile feedback for scalar and range slider thumbs. */
+@mixin thumb-motion {
+  transition:
+    transform var(--rv-slider-motion-duration, var(--rv-ui-motion-fast, 120ms))
+      var(--rv-slider-motion-easing, var(--rv-ui-motion-ease, ease)),
+    box-shadow var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease);
+
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    &:hover {
+      transform: scale(var(--rv-slider-hover-scale, 1.1));
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    &:active {
+      transform: scale(var(--rv-slider-press-scale, 0.92));
+    }
+    [data-rv-ui-motion='off'] & {
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
 /** One scalar thumb/track presentation for native, Stencil and Preact consumers. */
 @mixin presentation {
   appearance: none;
@@ -32,8 +58,7 @@
       var(--revo-grid-filter-control-thumb-bg, var(--rv-ui-surface))
     );
     box-shadow: 0 1px 3px var(--rv-ui-shadow);
-    transition: box-shadow var(--rv-ui-motion-fast, 120ms)
-      var(--rv-ui-motion-ease, ease);
+    @include thumb-motion;
     pointer-events: all;
   }
 
@@ -49,14 +74,19 @@
       var(--revo-grid-filter-control-thumb-bg, var(--rv-ui-surface))
     );
     box-shadow: 0 1px 3px var(--rv-ui-shadow);
-    transition: box-shadow var(--rv-ui-motion-fast, 120ms)
-      var(--rv-ui-motion-ease, ease);
+    @include thumb-motion;
     pointer-events: all;
   }
 
   &:disabled {
     opacity: 0.55;
     cursor: not-allowed;
+  }
+  &:disabled::-webkit-slider-thumb {
+    transform: none;
+  }
+  &:disabled::-moz-range-thumb {
+    transform: none;
   }
   &:focus-visible {
     outline: 2px solid var(--range-color, var(--rv-ui-accent));

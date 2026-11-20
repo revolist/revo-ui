@@ -16,7 +16,6 @@ test.beforeAll(async () => {
       [
         'dropdown/editor-dropdown.style.scss',
         'styles.scss',
-        'buttons/delete-button.style.scss',
         'buttons/remove-button.style.scss',
       ].map((path) => compileAsync(resolve(root, 'package', path))),
     )

@@ -111,13 +111,83 @@ it('keeps the documentation JSON examples usable by the preset helpers', async (
   const examples = [...markdown.matchAll(/```json\n([\s\S]*?)\n```/g)].map(
     (match) => JSON.parse(match[1]),
   );
-  expect(examples).toHaveLength(3);
+  expect(examples).toHaveLength(4);
   expect(themeToCss(examples[0])).toContain(
     '.my-switch-compact [data-part="thumb"]',
   );
   expect(examples[0].components.Switch.compact.tokens.trackWidth).toBe('44px');
   expect(examples[1].components.Button.primary.props.variant).toBe('primary');
-  expect(presetProps(examples[2].components.ProgressBar.capacity).max).toBe(
+  expect(presetProps(examples[3].components.ProgressBar.capacity).max).toBe(
     200,
   );
+});
+
+it('validates portable event motion and resolves custom frames', async () => {
+  const { validateMotionPreset } = await import('./index');
+  const { presetAnimation } = await import('./motion');
+  const motion = JSON.parse(
+    '{"selection":{"duration":400,"easing":"ease-in","keyframes":[{"transform":"translateX(0px)"},{"transform":"translateX({{distance}}px)"}]}}',
+  );
+  expect(() => validateMotionPreset(motion)).not.toThrow();
+  const result = presetAnimation(
+    motion,
+    'selection',
+    { keyframes: [], options: { duration: 100 } },
+    { distance: -37 },
+  );
+  expect(result?.options.duration).toBe(400);
+  expect(result?.keyframes[1].transform).toBe('translateX(-37px)');
+  expect(
+    presetAnimation({ selection: { enabled: false } }, 'selection', {
+      keyframes: [],
+      options: {},
+    }),
+  ).toBeUndefined();
+  expect(() => validateMotionPreset({ settle: { duration: -1 } })).toThrow();
+  expect(() =>
+    validateMotionPreset({
+      settle: { keyframes: [{ offset: 2 }, { opacity: 1 }] },
+    }),
+  ).toThrow();
+  expect(() =>
+    validateMotionPreset({
+      settle: { keyframes: [{ offset: 0.8 }, { offset: 0.2 }] },
+    }),
+  ).toThrow();
+  expect(() => validateMotionPreset({ settle: { onEnd: 'code' } })).toThrow();
+});
+
+it('generates scoped slider keyframes and honors motion-off selectors', async () => {
+  const { themeToCss } = await import('./index');
+  const theme = {
+    version: 1,
+    components: {
+      SliderField: {
+        custom: {
+          className: 'my-slider',
+          motion: {
+            hover: {
+              duration: 360,
+              keyframes: [
+                { transform: 'scale(1)' },
+                { transform: 'scale(1.2)' },
+              ],
+            },
+          },
+        },
+      },
+    },
+  } as const;
+  const css = themeToCss(JSON.parse(JSON.stringify(theme)));
+  expect(css).toContain('@keyframes rv-motion-my-slider-hover');
+  expect(css).toContain('scale(1.2)');
+  expect(css).toContain('::-webkit-slider-thumb:hover');
+  expect(css).toContain('::-moz-range-thumb:hover');
+  expect(css).toContain('360ms');
+  expect(css).toContain('prefers-reduced-motion: reduce');
+  expect(css).toContain('[data-rv-ui-motion="off"]');
+  const bad = JSON.parse(JSON.stringify(theme));
+  bad.components.SliderField.custom.motion.hover.keyframes[1].transform =
+    'scale(1); color:red';
+  expect(() => themeToCss(bad)).toThrow();
 });

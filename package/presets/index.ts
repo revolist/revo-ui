@@ -15,6 +15,8 @@ export type { ComponentDefaults, JsonValue } from './defaults';
 export { themeToCss } from './css';
 export type { PresetStyles } from './css';
 export type { ClassPreset } from './types';
+export { validateMotionPreset } from './motion';
+export type { MotionEvent, MotionFrame, MotionPreset } from './motion';
 import type { DialogPreset, PopoverPreset, TooltipPreset } from '../pickers';
 import type { BadgePreset } from '../badge.view';
 import type { ProgressBarPreset } from '../progress/bar';
@@ -29,12 +31,18 @@ import type {
 import type { CheckboxPreset } from '../checkbox';
 import type { ChoiceChipsPreset } from '../choice-chips';
 import type { RangeSliderPreset } from '../filter/filters/slider/types';
-import type { SingleSliderPreset, SliderFieldPreset } from '../filter/filters/slider/single';
+import type {
+  SingleSliderPreset,
+  SliderFieldPreset,
+} from '../filter/filters/slider/single';
 import type { SearchInputPreset } from '../search-input';
 import type { SegmentedSwitchPreset } from '../segmented-switch';
 import type { SwitchPreset } from '../switch';
 
-type NamedPresets<T> = Record<string, T & { styles?: PresetStyles; defaults?: ComponentDefaults }>;
+type NamedPresets<T> = Record<
+  string,
+  T & { styles?: PresetStyles; defaults?: ComponentDefaults }
+>;
 
 /** Portable component presets described by the Revo UI theme schema. */
 export interface UiTheme {
@@ -107,7 +115,6 @@ export interface UiTheme {
     ListboxOptionContent?: NamedPresets<ClassPreset>;
     SvgIcon?: NamedPresets<ClassPreset>;
     SvgButton?: NamedPresets<ClassPreset>;
-    DeleteButton?: NamedPresets<ClassPreset>;
     RemoveButton?: NamedPresets<ClassPreset>;
     Input?: NamedPresets<ClassPreset>;
     Calendar?: NamedPresets<CalendarPreset>;

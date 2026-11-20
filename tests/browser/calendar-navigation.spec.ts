@@ -1,3 +1,4 @@
+import { setGalleryPreference } from './gallery-preferences';
 import { test, expect } from './gallery-test';
 
 test.use({ gallerySections: ['calendar-and-dates'] });
@@ -22,7 +23,9 @@ test('keeps keyboard focus while paging and switching calendar views', async ({
   });
   await chooseMonth.focus();
   await page.keyboard.press('Enter');
-  await expect(calendar.getByRole('button', { name: 'November' })).toBeFocused();
+  await expect(
+    calendar.getByRole('button', { name: 'November' }),
+  ).toBeFocused();
   await page.keyboard.press('Escape');
   await expect(chooseMonth).toBeFocused();
   await page.keyboard.press('Enter');
@@ -36,7 +39,7 @@ test('moves across two visible months and keeps one grid tab stop in RTL', async
   page,
 }) => {
   await page.goto('/#components');
-  await page.getByRole('switch', { name: 'Right to left', exact: true }).check();
+  await setGalleryPreference(page, 'Right to left', true);
   const calendar = page.locator('.catalog-example').filter({
     has: page.getByRole('heading', { name: 'Range calendar', exact: true }),
   });

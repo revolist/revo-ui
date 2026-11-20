@@ -1,8 +1,13 @@
 import type { Component } from 'svelte';
 import InternalComponent from './svelte/UiComponent.svelte';
 import type { SvelteUiProps, SvelteUiHandle } from './svelte-props';
-export const UiComponent: Component<SvelteUiProps, SvelteUiHandle, ''> = InternalComponent;
-export type { SvelteUiProps, SvelteComponentProps, SvelteUiHandle } from './svelte-props';
+export const UiComponent: Component<SvelteUiProps, SvelteUiHandle, ''> =
+  InternalComponent;
+export type {
+  SvelteUiProps,
+  SvelteComponentProps,
+  SvelteUiHandle,
+} from './svelte-props';
 export type { UiComponentName, UiComponentProps } from './component-catalog';
 
 export type { PdfViewerProps, PdfViewerText } from './pdf-viewer/component';
@@ -56,7 +61,6 @@ export { default as AiRequestTrail } from './svelte/AiRequestTrail.svelte';
 export { default as Input } from './svelte/Input.svelte';
 export { default as SvgIcon } from './svelte/SvgIcon.svelte';
 export { default as SvgButton } from './svelte/SvgButton.svelte';
-export { default as DeleteButton } from './svelte/DeleteButton.svelte';
 export { default as RemoveButton } from './svelte/RemoveButton.svelte';
 export { default as Checkbox } from './svelte/Checkbox.svelte';
 export { default as Switch } from './svelte/Switch.svelte';

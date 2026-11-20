@@ -86,8 +86,7 @@
         var(--range-color, var(--rv-ui-accent));
       border-radius: 50%;
       box-shadow: 0 1px 3px var(--rv-ui-shadow);
-      transition: box-shadow var(--rv-ui-motion-fast, 120ms)
-        var(--rv-ui-motion-ease, cubic-bezier(0.2, 0, 0, 1));
+      @include single-slider.thumb-motion;
       cursor: pointer;
 
       &:hover {
@@ -123,9 +122,14 @@
         var(--range-color, var(--rv-ui-accent));
       border-radius: 50%;
       box-shadow: 0 1px 3px var(--rv-ui-shadow);
-      transition: box-shadow var(--rv-ui-motion-fast, 120ms)
-        var(--rv-ui-motion-ease, cubic-bezier(0.2, 0, 0, 1));
+      @include single-slider.thumb-motion;
       cursor: pointer;
+    }
+    &:disabled::-webkit-slider-thumb {
+      transform: none;
+    }
+    &:disabled::-moz-range-thumb {
+      transform: none;
     }
   }
 

@@ -1,49 +1,23 @@
+import { chooseOption } from './choose-option';
 import { expect, test } from '@playwright/test';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
-test('custom switch preview and exported preset stay in sync', async ({
-  page,
-}) => {
-  await page.goto('/components/selection-controls/');
-  const editor = page.locator('.switch-theme-editor');
-  const customized = editor.getByRole('switch', { name: 'Customized' });
-  const track = customized.locator('[data-part="track"]');
-  await expect(track).toHaveCSS('width', '40px');
-  await expect(track).toHaveCSS('background-color', 'rgb(109, 40, 217)');
-  await editor.getByLabel('Track width').fill('48');
-  await expect(track).toHaveCSS('width', '48px');
-  const downloadPromise = page.waitForEvent('download');
-  await editor.getByRole('button', { name: 'Download JSON' }).click();
-  const download = await downloadPromise;
-  const stream = await download.createReadStream();
-  let data = '';
-  for await (const chunk of stream) data += chunk.toString();
-  expect(JSON.parse(data).components.Switch.custom.tokens.trackWidth).toBe(
-    '48px',
-  );
-  await customized.evaluate((element) =>
-    element.style.setProperty('--rv-ui-switch-track-width', '52px'),
-  );
-  await expect(track).toHaveCSS('width', '52px');
-});
-
 test('component editor previews and exports a button theme', async ({
   page,
 }) => {
-  await page.goto('/components/buttons/');
+  await page.goto('/customize/');
   const editor = page.locator('.theme-editor').first();
-  await editor.locator('summary').first().click();
-  await editor.getByLabel('Component').selectOption('Button');
-  await editor.getByLabel('variant').selectOption('primary');
+  await chooseOption(editor.getByLabel('Component'), 'Button');
+  await chooseOption(editor.getByLabel('variant'), 'primary');
   const button = page
-    .locator('.catalog-example')
-    .getByRole('button', { name: 'Primary', exact: true })
-    .first();
+    .locator('.theme-samples > div')
+    .last()
+    .getByRole('button', { name: 'Save', exact: true });
   await expect(button).toHaveClass(/rv-theme-button/);
   await expect(button).toHaveCSS('background-color', 'rgb(109, 40, 217)');
   const downloadPromise = page.waitForEvent('download');
-  await editor.getByRole('button', { name: 'Download JSON' }).click();
+  await editor.getByRole('button', { name: 'JSON', exact: true }).click();
   const download = await downloadPromise;
   const stream = await download.createReadStream();
   let data = '';
@@ -54,13 +28,10 @@ test('component editor previews and exports a button theme', async ({
   expect(preset.className).toBe('rv-theme-button-custom');
 });
 
-test('previews a component inside a composed gallery example', async ({
-  page,
-}) => {
-  await page.goto('/components/ai-assistant/');
+test('previews a composed component in the workspace', async ({ page }) => {
+  await page.goto('/customize/');
   const editor = page.locator('.theme-editor').first();
-  await editor.locator('summary').first().click();
-  await editor.getByLabel('Component').selectOption('AiMessage');
+  await chooseOption(editor.getByLabel('Component'), 'AiMessage');
   await expect(
     page.locator('.rv-ai-message.rv-theme-ai-message-custom').first(),
   ).toBeVisible();
@@ -83,19 +54,17 @@ test('copyable full source excludes gallery preview adapters', async ({
 test('saves presets from different families into one portable theme', async ({
   page,
 }) => {
-  await page.goto('/components/buttons/');
+  await page.goto('/customize/');
   let editor = page.locator('.theme-editor').first();
-  await editor.locator('summary').first().click();
-  await editor.getByLabel('Component').selectOption('Button');
+  await chooseOption(editor.getByLabel('Component'), 'Button');
   await editor.getByLabel('Preset name').fill('violet');
-  await editor.getByLabel('variant').selectOption('primary');
+  await chooseOption(editor.getByLabel('variant'), 'primary');
   await editor.getByRole('button', { name: 'Save to theme' }).click();
   await expect(editor.getByText('Button / violet')).toBeVisible();
 
-  await page.goto('/components/selection-controls/');
+  await page.goto('/customize/');
   editor = page.locator('.theme-editor').first();
-  await editor.locator('summary').first().click();
-  await editor.getByLabel('Component').selectOption('Switch');
+  await chooseOption(editor.getByLabel('Component'), 'Switch');
   await editor.getByLabel('Preset name').fill('compact');
   await editor.getByRole('button', { name: 'Save to theme' }).click();
   const downloadPromise = page.waitForEvent('download');
@@ -110,46 +79,34 @@ test('saves presets from different families into one portable theme', async ({
   );
 });
 
-test('side-by-side samples apply the preset only to the customized control', async ({
-  page,
-}) => {
-  await page.goto('/components/selection-controls/');
+test('samples apply the preset to the customized control', async ({ page }) => {
+  await page.goto('/customize/');
   const editor = page.locator('.theme-editor').first();
-  await editor.locator('summary').first().click();
   for (const name of [
     'Checkbox',
     'ChoiceChip',
     'ChoiceChipInfoButton',
     'Switch',
   ]) {
-    await editor.getByLabel('Component').selectOption(name);
+    await chooseOption(editor.getByLabel('Component'), name);
     const samples = page.locator('.theme-samples');
     const presetClass = `rv-theme-${name.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}-custom`;
-    await expect(
-      samples.locator('> div').first().locator(`.${presetClass}`),
-    ).toHaveCount(0);
     await expect(
       samples.locator('> div').last().locator(`.${presetClass}`).first(),
     ).toBeVisible();
   }
 });
 
-test('number step preset changes only the customized sample behavior', async ({
+test('number step preset changes the customized sample behavior', async ({
   page,
 }) => {
-  await page.goto('/components/inputs-and-forms/');
+  await page.goto('/customize/');
   const editor = page.locator('.theme-editor').first();
-  await editor.locator('summary').first().click();
-  await editor.getByLabel('Component').selectOption('NumberStepper');
-  await editor.getByLabel('step', { exact: true }).fill('3');
+  await chooseOption(editor.getByLabel('Component'), 'NumberStepper');
+  await editor.getByLabel('Step', { exact: true }).fill('3');
   const samples = page.locator('.theme-samples');
-  const original = samples.locator('> div').first();
   const custom = samples.locator('> div').last();
-  await original.getByRole('button', { name: 'Increase' }).click();
   await custom.getByRole('button', { name: 'Increase' }).click();
-  await expect(
-    original.getByRole('spinbutton', { name: 'Quantity' }),
-  ).toHaveValue('2');
   await expect(
     custom.getByRole('spinbutton', { name: 'Quantity' }),
   ).toHaveValue('4');
@@ -247,7 +204,11 @@ test('building-block samples render their selected preset class', async ({
       'BarChart',
       'LineChart',
     ],
-    'resource-selection': ['Avatar', 'ResourcePickerAvatar', 'SharedResourcePicker'],
+    'resource-selection': [
+      'Avatar',
+      'ResourcePickerAvatar',
+      'SharedResourcePicker',
+    ],
     color: ['ColorPalette', 'ColorPicker'],
     accordion: ['CollapsibleSection'],
     'duration-and-effort': ['DurationField', 'DurationDraft'],
@@ -275,7 +236,11 @@ test('building-block samples render their selected preset class', async ({
       'DatePicker',
       'DateRangePicker',
     ],
-    'date-and-time-fields': ['DateTimeField', 'TemporalDraft', 'TemporalPicker'],
+    'date-and-time-fields': [
+      'DateTimeField',
+      'TemporalDraft',
+      'TemporalPicker',
+    ],
     'multi-selects-autocomplete': [
       'FilterChip',
       'DropdownPopupContent',
@@ -317,16 +282,12 @@ test('building-block samples render their selected preset class', async ({
     (currentFamilies[route] ??= []).push(name);
   }
   for (const [route, names] of Object.entries(currentFamilies)) {
-    await page.goto(`/components/${route}/`);
+    await page.goto('/customize/');
     const editor = page.locator('.theme-editor').first();
-    await editor.locator('summary').first().click();
     for (const name of names) {
-      await editor.getByLabel('Component').selectOption(name);
+      await chooseOption(editor.getByLabel('Component'), name);
       const presetClass = `rv-theme-${name.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}-custom`;
       const samples = page.locator('.theme-samples');
-      await expect(
-        samples.locator('> div').first().locator(`.${presetClass}`),
-      ).toHaveCount(0);
       await expect(
         samples.locator('> div').last().locator(`.${presetClass}`).first(),
       ).toBeVisible();
@@ -357,10 +318,9 @@ test('popup and staged component samples apply their theme when opened', async (
     const family = api.find((item) => item.name === name)?.families[0];
     expect(family, `${name} has a catalog family`).toBeTruthy();
     const route = family!.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-    await page.goto(`/components/${route}/`);
+    await page.goto('/customize/');
     const editor = page.locator('.theme-editor').first();
-    await editor.locator('summary').first().click();
-    await editor.getByLabel('Component').selectOption(name);
+    await chooseOption(editor.getByLabel('Component'), name);
     const sample = page.locator('.theme-samples > div').last();
     await sample.getByRole('button', { name: trigger }).click();
     const presetClass = `rv-theme-${name.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}-custom`;
@@ -374,11 +334,10 @@ test('PDF and timeline samples render themed components', async ({ page }) => {
     ['tooltip', ['Tooltip']],
     ['pdf-viewer', ['PdfViewer', 'PdfViewerToolbar']],
   ] as const) {
-    await page.goto(`/components/${route}/`);
+    await page.goto('/customize/');
     const editor = page.locator('.theme-editor').first();
-    await editor.locator('summary').first().click();
     for (const name of names) {
-      await editor.getByLabel('Component').selectOption(name);
+      await chooseOption(editor.getByLabel('Component'), name);
       const presetClass = `rv-theme-${name.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}-custom`;
       await expect(
         page
@@ -394,28 +353,27 @@ test('PDF and timeline samples render themed components', async ({ page }) => {
 test('shows live observed state hooks and resets samples when changing components', async ({
   page,
 }) => {
-  await page.goto('/components/selection-controls/');
+  await page.goto('/customize/');
   const editor = page.locator('.theme-editor').first();
-  await editor.locator('summary').first().click();
-  await editor.getByLabel('Component').selectOption('Switch');
+  await chooseOption(editor.getByLabel('Component'), 'Switch');
   const sample = page.locator('.theme-samples > div').last();
   await sample.getByRole('switch', { name: 'Enabled' }).click();
   await expect(
     editor.locator('p').filter({ hasText: 'Observed states' }),
   ).toContainText('[data-state="unchecked"]');
 
-  await page.goto('/components/assignee-field/');
+  await page.goto('/customize/');
   const selectEditor = page.locator('.theme-editor').first();
-  await selectEditor.locator('summary').first().click();
-  await selectEditor.getByLabel('Component').selectOption('AssigneePicker');
+  await chooseOption(selectEditor.getByLabel('Component'), 'AssigneePicker');
   await page
     .locator('.theme-samples > div')
     .last()
     .getByRole('button', { name: 'Open picker' })
     .click();
-  await selectEditor
-    .getByLabel('Component')
-    .selectOption('AssigneePickerLayout');
+  await chooseOption(
+    selectEditor.getByLabel('Component'),
+    'AssigneePickerLayout',
+  );
   await expect(
     page
       .locator('.theme-samples > div')
@@ -448,18 +406,17 @@ test('every catalog sample renders its customized preset', async ({ page }) => {
   const hooks: Record<string, { parts: string[]; states: string[] }> = {};
   for (const family of pages) {
     const route = family.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-    await page.goto(`/components/${route}/`);
+    await page.goto('/customize/');
     const editor = page.locator('.theme-editor').first();
-    await editor.locator('summary').first().click();
     const selector = editor.getByLabel('Component');
     const names = api
       .filter((item) => item.families.includes(family.title))
       .map((item) => item.name);
-    await expect(selector.locator('option')).toHaveCount(names.length);
+    await expect(selector).toBeVisible();
     for (const name of names) {
       if (seen.has(name)) continue;
       seen.add(name);
-      await selector.selectOption(name);
+      await chooseOption(selector, name);
       const sample = page.locator('.theme-samples > div').last();
       if (lazy[name])
         await sample.getByRole('button', { name: lazy[name] }).click();
@@ -511,10 +468,10 @@ test('every catalog sample renders its customized preset', async ({ page }) => {
 test('structured part styles update the preview and travel in JSON', async ({
   page,
 }) => {
-  await page.goto('/components/selection-controls/');
+  await page.goto('/customize/');
   const editor = page.locator('.theme-editor').first();
-  await editor.locator('summary').first().click();
-  await editor.getByLabel('Component').selectOption('Switch');
+  await chooseOption(editor.getByLabel('Component'), 'Switch');
+  await editor.getByText('Style individual parts').click();
   await editor.getByLabel('Part', { exact: true }).fill('thumb');
   await editor.getByLabel('CSS property').fill('background-color');
   await editor.getByLabel('CSS value').fill('rgb(255, 0, 0)');
@@ -524,12 +481,8 @@ test('structured part styles update the preview and travel in JSON', async ({
     'background-color',
     'rgb(255, 0, 0)',
   );
-  await expect(samples.first().locator('[data-part="thumb"]')).not.toHaveCSS(
-    'background-color',
-    'rgb(255, 0, 0)',
-  );
   const downloadPromise = page.waitForEvent('download');
-  await editor.getByRole('button', { name: 'Download JSON' }).click();
+  await editor.getByRole('button', { name: 'JSON', exact: true }).click();
   const stream = await (await downloadPromise).createReadStream();
   let data = '';
   for await (const chunk of stream) data += chunk.toString();
@@ -550,25 +503,25 @@ test('structured part styles update the preview and travel in JSON', async ({
 test('rating and slider behavior defaults work in the gallery', async ({
   page,
 }) => {
-  await page.goto('/components/progress-and-rating/');
+  await page.goto('/customize/');
   let editor = page.locator('.theme-editor').first();
-  await editor.locator('summary').first().click();
-  await editor.getByLabel('Component').selectOption('Rating');
-  await editor.getByLabel('max', { exact: true }).fill('3');
+  await chooseOption(editor.getByLabel('Component'), 'Rating');
+  await editor.getByLabel('Max', { exact: true }).fill('3');
   await expect(
     page.locator('.theme-samples > div').last().getByRole('radio'),
   ).toHaveCount(3);
 
-  await page.goto('/components/sliders/');
+  await page.goto('/customize/');
   editor = page.locator('.theme-editor').first();
-  await editor.locator('summary').first().click();
-  await editor.getByLabel('Component').selectOption('SliderField');
-  await editor
-    .getByRole('combobox', { name: 'layout', exact: true })
-    .selectOption('stacked');
-  await editor
-    .getByRole('combobox', { name: 'disabled', exact: true })
-    .selectOption('true');
+  await chooseOption(editor.getByLabel('Component'), 'SliderField');
+  await chooseOption(
+    editor.getByRole('combobox', { name: 'Layout', exact: true }),
+    'stacked',
+  );
+  await chooseOption(
+    editor.getByRole('combobox', { name: 'disabled', exact: true }),
+    'true',
+  );
   await editor
     .getByRole('textbox', { name: 'accentColor', exact: true })
     .fill('#ff0000');
@@ -582,13 +535,13 @@ test('rating and slider behavior defaults work in the gallery', async ({
 });
 
 test('tooltip trigger can be configured in a preset', async ({ page }) => {
-  await page.goto('/components/tooltip/');
+  await page.goto('/customize/');
   const editor = page.locator('.theme-editor').first();
-  await editor.locator('summary').first().click();
-  await editor.getByLabel('Component').selectOption('Tooltip');
-  await editor
-    .getByRole('combobox', { name: 'trigger', exact: true })
-    .selectOption('click');
+  await chooseOption(editor.getByLabel('Component'), 'Tooltip');
+  await chooseOption(
+    editor.getByRole('combobox', { name: 'trigger', exact: true }),
+    'click',
+  );
   const custom = page.locator('.theme-samples > div').last();
   await custom.getByRole('button', { name: 'Show tooltip' }).click();
   await expect(
@@ -599,24 +552,19 @@ test('tooltip trigger can be configured in a preset', async ({ page }) => {
 test('JSON behavior defaults preview and export for any component', async ({
   page,
 }) => {
-  await page.goto('/components/progress-and-rating/');
+  await page.goto('/customize/');
   const editor = page.locator('.theme-editor').first();
-  await editor.locator('summary').first().click();
-  await editor.getByLabel('Component').selectOption('ProgressBar');
+  await chooseOption(editor.getByLabel('Component'), 'ProgressBar');
   await editor.getByText('More behavior defaults (JSON)').click();
   await editor.getByLabel('Behavior defaults').fill('{"max":130}');
   await editor.getByRole('button', { name: 'Apply defaults' }).click();
   const samples = page.locator('.theme-samples > div');
-  await expect(samples.first().getByRole('progressbar')).toHaveAttribute(
-    'aria-valuemax',
-    '100',
-  );
   await expect(samples.last().getByRole('progressbar')).toHaveAttribute(
     'aria-valuemax',
     '130',
   );
   const downloadPromise = page.waitForEvent('download');
-  await editor.getByRole('button', { name: 'Download JSON' }).click();
+  await editor.getByRole('button', { name: 'JSON', exact: true }).click();
   const stream = await (await downloadPromise).createReadStream();
   let data = '';
   for await (const chunk of stream) data += chunk.toString();

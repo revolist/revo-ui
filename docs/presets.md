@@ -90,6 +90,7 @@ The preset applies its class, built-in `props`, and Switch tokens. Importing `th
 | `styles.root` | CSS declarations for the preset class. | Generate and import CSS with `themeToCss`. |
 | `styles.parts` | CSS declarations for named `data-part` elements. | Generate and import CSS with `themeToCss`. |
 | `defaults` | Other JSON-friendly component props. | Apply with `presetProps` as shown below. |
+| `motion` | Event-specific animation timing and keyframes, for components listed below. | Pass the preset; slider motion additionally requires generated CSS. |
 
 Structured part styles stop at an independently nested component marked with `data-part="root"`. Some composed components expose their internal parts to the parent preset: for example, Calendar exposes its day buttons. Give other nested components their own presets, or use ordinary CSS to target deeper descendants.
 
@@ -108,6 +109,65 @@ A component may have several named presets. Give presets with different styles d
   }
 }
 ```
+
+## Customize animation
+
+Animation is optional. A motion event can specify `enabled`, `duration`, `delay`, `endDelay`, `easing`, `iterations`, `iterationStart`, `direction`, `fill`, and `keyframes`. Times are in milliseconds. Keyframes use Web Animations properties such as `transform`, `opacity`, and `offset` (a number from 0 to 1). Omitting a setting keeps the component default. Set an event's `enabled` to `false` to turn that effect off.
+
+```json
+{
+  "version": 1,
+  "components": {
+    "Switch": {
+      "soft": {
+        "className": "soft-switch",
+        "motion": {
+          "settle": {
+            "duration": 400,
+            "easing": "ease-out",
+            "keyframes": [
+              { "transform": "scaleX(1)" },
+              { "transform": "scaleX(0.8)", "offset": 0.7 },
+              { "transform": "scaleX(1)" }
+            ]
+          }
+        }
+      }
+    },
+    "SliderField": {
+      "soft": {
+        "className": "soft-slider",
+        "motion": {
+          "hover": {
+            "duration": 180,
+            "keyframes": [
+              { "transform": "scale(1)" },
+              { "transform": "scale(1.2)" }
+            ]
+          },
+          "press": { "enabled": false }
+        }
+      }
+    }
+  }
+}
+```
+
+Pass the named preset to the corresponding component as in the example above. Switch, segmented control, calendar, and number stepper read their motion directly from the preset. For slider hover and press, run `themeToCss` and import its output: it contains scoped keyframes and selectors for the native slider thumb. Slider CSS supports `duration`, `delay`, `easing`, `iterations`, `direction`, `fill`, and `keyframes`; `endDelay`, `iterationStart`, and `stagger` apply only to JavaScript-driven events.
+
+| Component | Event names | Available keyframe placeholders |
+| --- | --- | --- |
+| Switch | `settle` | — |
+| SegmentedSwitch, SegmentedControl, Tabs | `selection` | `{{distance}}`, `{{startWidth}}`, `{{endWidth}}` in pixels |
+| Calendar and calendar pickers | `selection`, `caption`, `period`, `periodForward`, `periodBackward` | Selection: `{{x}}`, `{{y}}`; period: `{{x}}`, `{{opacity}}`, `{{column}}`, `{{direction}}` |
+| NumberStepper | `digits`, `digitsUp`, `digitsDown` | `{{fromY}}`, `{{toY}}`, `{{fromOpacity}}`, `{{toOpacity}}`, `{{direction}}` |
+| SingleValueSlider, SliderField, PreactRangeSlider | `hover`, `press` | — |
+
+For example, a segmented selection can end at `translateX({{distance}}px)`. Counter placeholders provide separate start and end values for outgoing and incoming digits. Calendar `periodForward` and `periodBackward` override `period` for their respective directions; number stepper `digitsUp` and `digitsDown` override `digits`. Calendar period and caption transitions are **off by default** and run only when configured. A calendar period can also set `stagger` (milliseconds per column).
+
+The same settings work in the **Animation (JSON)** section of the preset workspace. Enter the event object, choose **Apply animation**, try the preview, and download or save the theme. `validateMotionPreset` checks the shape of untrusted animation data; validate the complete theme against the published schema as well. The slider's simpler `--rv-slider-hover-scale`, `--rv-slider-press-scale`, `--rv-slider-motion-duration`, and `--rv-slider-motion-easing` variables can also be set through `styles.root`.
+
+System reduced-motion preferences and Revo UI's explicit motion-off setting override these animations. Other components can be customized using the preset's class and an ordinary CSS stylesheet, including custom selectors and `@keyframes`; keep that stylesheet alongside the JSON when sharing it. Slider presets require a class name for generated animation CSS.
 
 ## Configure other behavior with JSON
 
@@ -189,11 +249,15 @@ Use ordinary CSS for state selectors, responsive rules, pseudo-classes, and othe
 
 The Switch's `tokens` are `trackWidth`, `trackHeight`, `trackPadding`, `thumbSize`, `trackOff`, `trackOn`, and `thumb`. Public CSS variables can override them: `--rv-ui-switch-track-width`, `--rv-ui-switch-track-height`, `--rv-ui-switch-track-padding`, `--rv-ui-switch-thumb-size`, `--rv-ui-switch-track-off-color`, `--rv-ui-switch-track-on`, and `--rv-ui-switch-thumb-color` respectively. Normal CSS cascade and specificity still apply. Switch exposes `label`, `track`, and `thumb` parts and a `checked` or `unchecked` state.
 
-The component API pages list hooks observed in their examples. Parts and states can depend on configuration; open the component's **Customize and export** panel and interact with its preview to see currently visible parts and state attributes. Some popups render separately from their trigger, so inspect them while open. If you provide `AiResultView` with a custom table renderer, that renderer owns its markup and styling.
+The component API pages list hooks observed in their examples. Parts and states can depend on configuration; open the [Customize workspace](/customize/) and interact with the component preview to see currently visible parts and state attributes. Some popups render separately from their trigger, so inspect them while open. If you provide `AiResultView` with a custom table renderer, that renderer owns its markup and styling.
+
+## Preview a shared theme
+
+Open **Customize** in the gallery header to try an accent color and corner radius across component examples. The color and radius choices stay in this browser as you navigate. The same panel also contains the gallery animation and right-to-left switches. Use the component presets workspace to export JSON and CSS for your projects.
 
 ## Build and share in the gallery
 
-1. Open a component family in the gallery and expand **Customize and export**.
+1. Open **Customize** in the gallery navigation, then choose **Component presets**.
 2. Select the component and name the preset. Compare the default and customized examples.
 3. Change available built-in options. Under **JSON styles**, enter a root or part, a CSS property and a value, then choose **Add style**. Use **Additional CSS** for ordinary CSS.
 4. For other JSON-friendly props, open **More behavior defaults (JSON)**, enter an object such as `{"max":200}`, and choose **Apply defaults**.
@@ -212,3 +276,16 @@ Saved presets use browser local storage. Export the files before moving to anoth
 | Theme validation fails | Check `version`, component and preset names, supported built-in options, and the schema for your installed version. |
 
 Validate externally sourced theme files before using them. A TypeScript cast such as `as UiTheme` helps with editor types; it does not validate JSON at runtime.
+
+
+### Ready-made styles
+
+Set `data-rv-style` on a themed container to use a starting look: `compact`,
+`sharp`, `soft`, `raised`, or `glass`. Omit the attribute for the standard
+style. The style inherits your accent and theme; CSS variables can override its
+dimensions and radius. Glass uses translucent surfaces and backdrop blur where
+the browser supports it.
+
+```html
+<div class="rv-ui" data-rv-style="raised">…</div>
+```

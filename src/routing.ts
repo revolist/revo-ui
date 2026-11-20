@@ -16,8 +16,8 @@ export function pageKind() {
   if (pathParts()[0] === 'api') return 'api';
   return pathParts()[0] === 'frameworks'
     ? 'frameworks'
-    : pathParts()[0] === 'colors'
-      ? 'colors'
+    : pathParts()[0] === 'customize'
+      ? 'customize'
       : 'components';
 }
 export function currentRoute() {
@@ -26,7 +26,7 @@ export function currentRoute() {
   if (kind === 'api') return id ?? '';
   if (kind === 'components') return id ?? 'components';
   if (kind === 'frameworks') return id ?? '';
-  if (kind === 'colors') return '';
+  if (kind === 'customize') return '';
   return kind ? 'not-found' : location.hash.slice(1);
 }
 /** Preserve published hash/query links without leaving duplicate indexable views. */
@@ -36,6 +36,7 @@ export function redirectLegacyRoute() {
     const hash = location.hash.slice(1);
     let target: string | undefined;
     const [kind, component] = pathParts();
+    if (kind === 'colors') target = siteHref('customize/');
     const alias = kind === 'components' ? component : !kind ? hash : '';
     const movedExample =
       kind === 'components' && hash.startsWith('example-')
@@ -73,7 +74,7 @@ export function redirectLegacyRoute() {
         hash === 'editors'
       )
         target = componentHref('html-editor');
-      else if (query.get('page') === 'colors') target = siteHref('colors/');
+      else if (query.get('page') === 'colors') target = siteHref('customize/');
       else if (query.get('page') === 'frameworks')
         target = pages.frameworks.some((name) => slug(name) === hash)
           ? frameworkHref(hash)

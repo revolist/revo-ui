@@ -34,6 +34,50 @@
   gap: 8px;
   min-width: 0;
 }
+.rv-number-stepper {
+  position: relative;
+}
+.rv-number-stepper input[type='number'] {
+  font-variant-numeric: tabular-nums;
+}
+.rv-number-stepper input.rv-number-stepper__animating {
+  color: transparent;
+}
+.rv-number-stepper__rolling-value {
+  position: absolute;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  border-style: solid;
+  border-color: transparent;
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+  white-space: pre;
+}
+.rv-number-stepper__digit {
+  display: inline-grid;
+  overflow: hidden;
+  line-height: 1.2;
+  vertical-align: middle;
+}
+.rv-number-stepper__digit > span {
+  grid-area: 1 / 1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .rv-number-stepper > button:not(:disabled) {
+    transition:
+      transform var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease),
+      background-color var(--rv-ui-motion-fast, 120ms)
+        var(--rv-ui-motion-ease, ease);
+  }
+  .rv-number-stepper > button:not(:disabled):active {
+    transform: scale(0.94);
+  }
+  [data-rv-ui-motion='off'] .rv-number-stepper > button:not(:disabled):active {
+    transform: none;
+  }
+}
 .rv-toolbar {
   flex-wrap: wrap;
 }

@@ -327,6 +327,7 @@ revo-grid,
       > input[type='checkbox'] {
         flex: 0 0 auto;
         margin-block: 2px 0;
+        accent-color: var(--rv-ui-accent);
       }
     }
   }
@@ -347,7 +348,7 @@ revo-grid,
 }
 
 // Standalone controls share Dropdown behavior with grid editors and have form chrome.
-.dropdown-container.rv-select {
+.dropdown-container:is(.rv-select, .rv-assignee-editor) {
   height: auto;
   min-width: 0;
   .dropdown-trigger {
@@ -365,7 +366,12 @@ revo-grid,
 }
 
 // Standalone controls own the padding once; grid editors retain their compact insets.
-.dropdown-container:is(.rv-select, .rv-combobox, .rv-multi-select)
+.dropdown-container:is(
+    .rv-select,
+    .rv-combobox,
+    .rv-multi-select,
+    .rv-assignee-editor
+  )
   .dropdown-trigger {
   --rv-dropdown-arrow-size: 9px;
   --rv-dropdown-arrow-right: 12px;

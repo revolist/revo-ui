@@ -43,6 +43,7 @@ export interface CalendarSelectionValidationContext {
 export type CalendarSelectionValidationResult = boolean | string;
 
 export type CalendarPreset = ClassPreset & {
+  motion?: import('../presets/motion').MotionPreset;
   props?: {
     showTodayButton?: boolean;
     showOutsideDays?: boolean;

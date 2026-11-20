@@ -7,7 +7,7 @@ Shared Preact components are exported from `@revolist/ui/field-configurator` and
 - `FieldContent`: field icon and caption.
 - `SelectedField`: composition of the same row/content with an action slot, preserving the row DOM and consumer class names.
 - `FieldActions`: common action-strip layout.
-- `FieldRemoveButton`: compact neutral adapter over the existing animated DeleteButton; retains hover rotation, disabled behavior and reduced-motion support.
+- `FieldRemoveButton`: compact shared RemoveButton with disabled behavior and reduced-motion support.
 - `FieldStatusBadge`: compact status with an accessible summary and active appearance. The caller supplies the text and active state.
 
 Pivot uses these components for selected Rows, Columns, Values and Filters. It retains its settings menus, aggregation/filter calculations, field metadata, provider updates, undo/history and drag/drop logic. Existing Pivot classes and data attributes remain available to themes and tests.

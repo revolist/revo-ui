@@ -1,3 +1,4 @@
+import { setGalleryPreference } from './gallery-preferences';
 import { chooseOption } from './choose-option';
 import { test, expect } from './gallery-test';
 
@@ -386,7 +387,7 @@ test('pane resizing follows consecutive pointer moves, keyboard bounds and RTL',
   await page.mouse.up();
   await page.mouse.move(x + 80, y);
   await expect(handle).toHaveAttribute('aria-valuenow', '140');
-  await page.getByRole('switch', { name: 'Right to left' }).click();
+  await setGalleryPreference(page, 'Right to left', 'toggle');
   await handle.focus();
   await handle.press('ArrowLeft');
   await expect(handle).toHaveAttribute('aria-valuenow', '150');
@@ -532,7 +533,7 @@ test('themes, RTL and narrow layouts retain visible focus and fit the viewport',
     .getByRole('navigation', { name: 'Component sections' })
     .getByRole('link', { name: 'Buttons', exact: true });
   await expect(activeSection).toHaveAttribute('aria-current', 'location');
-  await page.getByRole('switch', { name: 'Right to left' }).click();
+  await setGalleryPreference(page, 'Right to left', 'toggle');
   await expect(page.locator('main')).toHaveAttribute('dir', 'rtl');
   await page.setViewportSize({ width: 390, height: 844 });
   const overflow = await page.locator('main *').evaluateAll((elements) =>
@@ -566,7 +567,7 @@ test('themes, RTL and narrow layouts retain visible focus and fit the viewport',
     fullPage: true,
   });
   await chooseOption(page.getByRole('button', { name: 'Theme' }), 'Light');
-  await page.getByRole('switch', { name: 'Right to left' }).click();
+  await setGalleryPreference(page, 'Right to left', 'toggle');
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.screenshot({
     path: 'test-results/gallery-light.png',
@@ -619,7 +620,7 @@ test('shared control states have complete presentation and logical RTL spacing',
       .locator('input[readonly]')
       .evaluate((element) => getComputedStyle(element).borderColor),
   );
-  await page.getByRole('switch', { name: 'Right to left' }).click();
+  await setGalleryPreference(page, 'Right to left', 'toggle');
   const search = page
     .locator('.rv-search-input')
     .filter({ has: page.getByRole('searchbox', { name: 'Search catalog' }) });
@@ -814,9 +815,7 @@ test('button groups have a single joined outline with logical corners and visibl
       theme === 'light' ? 'Light' : 'Dark',
     );
     for (const rtl of [false, true]) {
-      await page
-        .getByRole('switch', { name: 'Right to left', exact: true })
-        .setChecked(rtl);
+      await setGalleryPreference(page, 'Right to left', rtl);
       await expect(first).toHaveCSS('border-inline-start-width', '0px');
       await expect(first).toHaveCSS('border-inline-end-width', '0px');
       await expect(first).toHaveCSS('border-top-width', '0px');
@@ -927,9 +926,7 @@ test.describe('pagination family', () => {
             page.getByRole('button', { name: 'Theme', exact: true }),
             theme === 'light' ? 'Light' : 'Dark',
           );
-          await page
-            .getByRole('switch', { name: 'Right to left', exact: true })
-            .setChecked(rtl);
+          await setGalleryPreference(page, 'Right to left', rtl);
           const section = page.locator('#pagination');
           await expect(
             page
@@ -1015,9 +1012,7 @@ test('formatting controls are independent reusable examples in both themes and d
           page.getByRole('button', { name: 'Theme', exact: true }),
           theme === 'light' ? 'Light' : 'Dark',
         );
-        await page
-          .getByRole('switch', { name: 'Right to left', exact: true })
-          .setChecked(rtl);
+        await setGalleryPreference(page, 'Right to left', rtl);
         const options = page.getByRole('button', {
           name: 'More gallery options',
           exact: true,
@@ -1140,9 +1135,7 @@ test.describe('calendar family', () => {
             page.getByRole('button', { name: 'Theme', exact: true }),
             theme === 'light' ? 'Light' : 'Dark',
           );
-          await page
-            .getByRole('switch', { name: 'Right to left', exact: true })
-            .setChecked(rtl);
+          await setGalleryPreference(page, 'Right to left', rtl);
           const selected = section
             .locator('.revo-calendar__day.range-start')
             .first();
@@ -1250,9 +1243,7 @@ test.describe('charts family', () => {
             page.getByRole('button', { name: 'Theme' }),
             theme === 'light' ? 'Light' : 'Dark',
           );
-          await page
-            .getByRole('switch', { name: 'Right to left' })
-            .setChecked(rtl);
+          await setGalleryPreference(page, 'Right to left', rtl);
           await section.scrollIntoViewIfNeeded();
           await expect(section).toBeVisible();
           await expect(
