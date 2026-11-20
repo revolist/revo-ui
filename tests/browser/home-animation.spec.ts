@@ -77,7 +77,8 @@ for (const width of [390, 1280]) {
       path: `test-results/hero-dark-${width}.png`,
       fullPage: false,
     });
-    if (width <= 1200) await page.getByRole('button', { name: 'More gallery options' }).click();
+    if (width <= 1200)
+      await page.getByRole('button', { name: 'More gallery options' }).click();
     await page.getByRole('button', { name: 'Theme', exact: true }).click();
     await page.screenshot({
       path: `test-results/hero-light-${width}.png`,

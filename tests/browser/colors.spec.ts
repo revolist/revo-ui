@@ -15,10 +15,14 @@ test('header library links support pointer and keyboard navigation', async ({
     exact: true,
   });
   await expect(components).toHaveAttribute('aria-current', 'page');
-  await navigation.getByRole('button', { name: 'Customize', exact: true }).click();
+  await navigation
+    .getByRole('button', { name: 'Customize', exact: true })
+    .click();
   await page.getByRole('link', { name: 'Component presets' }).click();
   await expect(page).toHaveURL(/\/customize\/$/);
-  await expect(page.getByRole('heading', { name: 'Make it yours.' })).toBeVisible();
+  await expect(
+    page.getByRole('heading', { name: 'Make it yours.' }),
+  ).toBeVisible();
   await components.focus();
   await page.keyboard.press('Enter');
   await expect(page).toHaveURL(/\/components\/buttons\/$/);
@@ -159,9 +163,9 @@ test('native stylesheet uses the same explicit dark colors and detached dialogs 
 }) => {
   await page.goto('/?page=colors');
   await page.getByText('Explore semantic colors and palettes').click();
-  const sass = createRequire(
-    new URL('../../package.json', import.meta.url),
-  )('sass-embedded');
+  const sass = createRequire(new URL('../../package.json', import.meta.url))(
+    'sass-embedded',
+  );
   const nativeCss = sass.compile(
     fileURLToPath(
       new URL(

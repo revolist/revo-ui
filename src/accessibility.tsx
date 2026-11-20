@@ -345,8 +345,8 @@ export function AccessibilityPage() {
           </p>
           <p>
             Explore{' '}
-            <a href={siteHref('customize/')}>component themes and presets</a>. Try
-            enlarging this page’s text and navigating its examples without a
+            <a href={siteHref('customize/')}>component themes and presets</a>.
+            Try enlarging this page’s text and navigating its examples without a
             mouse.
           </p>
         </section>

@@ -127,19 +127,13 @@ test('OS reduced motion wins over system mode and keeps controls and loading ind
 test('standalone checkbox, field and rating styles honor both disable mechanisms', async ({
   page,
 }) => {
-  const require = createRequire(
-    new URL('../../package.json', import.meta.url),
-  );
+  const require = createRequire(new URL('../../package.json', import.meta.url));
   const sass = require('sass-embedded') as typeof import('sass-embedded');
   const css =
     sass.compileString(
       "@use 'checkbox/checkbox'; @use 'styles/control'; .standalone-field { @include control.field; }",
       {
-        loadPaths: [
-          fileURLToPath(
-            new URL('../../package', import.meta.url),
-          ),
-        ],
+        loadPaths: [fileURLToPath(new URL('../../package', import.meta.url))],
       },
     ).css +
     readFileSync(

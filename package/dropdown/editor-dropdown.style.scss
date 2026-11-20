@@ -366,7 +366,12 @@ revo-grid,
 }
 
 // Standalone controls own the padding once; grid editors retain their compact insets.
-.dropdown-container:is(.rv-select, .rv-combobox, .rv-multi-select, .rv-assignee-editor)
+.dropdown-container:is(
+    .rv-select,
+    .rv-combobox,
+    .rv-multi-select,
+    .rv-assignee-editor
+  )
   .dropdown-trigger {
   --rv-dropdown-arrow-size: 9px;
   --rv-dropdown-arrow-right: 12px;

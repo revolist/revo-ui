@@ -1,14 +1,14 @@
-import { h } from "preact";
-import { useEffect, useId, useState } from "preact/hooks";
-import { Button, CollapsibleSection, MultiSelect } from "@revolist/ui/preact";
-import { Select } from "@revolist/ui/select";
-import { Input, TextArea, ButtonControl } from "@revolist/ui/native-control";
-import { ColorPicker } from "@revolist/ui/color-palette/color-picker";
-import { SliderField } from "@revolist/ui/filter/filters/slider/single";
-import { Highlight } from "./example-source";
-import schema from "../package/presets/theme.schema.json";
-import { apiHref, frameworkHref } from "./routing";
-import type { ComponentApi } from "./api-types";
+import { h } from 'preact';
+import { useEffect, useId, useState } from 'preact/hooks';
+import { Button, CollapsibleSection, MultiSelect } from '@revolist/ui/preact';
+import { Select } from '@revolist/ui/select';
+import { Input, TextArea, ButtonControl } from '@revolist/ui/native-control';
+import { ColorPicker } from '@revolist/ui/color-palette/color-picker';
+import { SliderField } from '@revolist/ui/filter/filters/slider/single';
+import { Highlight } from './example-source';
+import schema from '../package/presets/theme.schema.json';
+import { apiHref, frameworkHref } from './routing';
+import type { ComponentApi } from './api-types';
 import {
   themeToCss,
   presetProps,
@@ -17,7 +17,7 @@ import {
   type MotionPreset,
   type PresetStyles,
   type UiTheme,
-} from "@revolist/ui/presets";
+} from '@revolist/ui/presets';
 
 type OptionSchema = {
   type?: string;
@@ -47,19 +47,19 @@ export interface ThemePreview {
 }
 
 type SavedPreset = ThemePreview & { name: string };
-const storageKey = "revo-ui-gallery-theme-v1";
+const storageKey = 'revo-ui-gallery-theme-v1';
 
 function loadSavedPresets(): SavedPreset[] {
   try {
-    const value = JSON.parse(localStorage.getItem(storageKey) ?? "[]");
+    const value = JSON.parse(localStorage.getItem(storageKey) ?? '[]');
     return Array.isArray(value)
       ? value.filter(
           (item) =>
             item &&
-            typeof item.component === "string" &&
-            typeof item.name === "string" &&
-            typeof item.css === "string" &&
-            typeof item.preset?.className === "string",
+            typeof item.component === 'string' &&
+            typeof item.name === 'string' &&
+            typeof item.css === 'string' &&
+            typeof item.preset?.className === 'string',
         )
       : [];
   } catch {
@@ -69,7 +69,7 @@ function loadSavedPresets(): SavedPreset[] {
 
 function download(name: string, contents: string, type: string) {
   const url = URL.createObjectURL(new Blob([contents], { type }));
-  const link = document.createElement("a");
+  const link = document.createElement('a');
   link.href = url;
   link.download = name;
   link.click();
@@ -90,25 +90,25 @@ export function ThemeEditor({
   const [names, setNames] = useState<string[]>([]);
   const [apiComponents, setApiComponents] = useState<ComponentApi[]>([]);
   const [selectedComponents, setSelectedComponents] = useState<string[]>([]);
-  const [component, setComponent] = useState("");
-  const [presetName, setPresetName] = useState("custom");
-  const [color, setColor] = useState("#6d28d9");
+  const [component, setComponent] = useState('');
+  const [presetName, setPresetName] = useState('custom');
+  const [color, setColor] = useState('#6d28d9');
   const [radius, setRadius] = useState(6);
   const [options, setOptions] = useState<Record<string, unknown>>({});
-  const [extraCss, setExtraCss] = useState("");
-  const [defaultsText, setDefaultsText] = useState("{}");
+  const [extraCss, setExtraCss] = useState('');
+  const [defaultsText, setDefaultsText] = useState('{}');
   const [defaults, setDefaults] = useState<ComponentDefaults>({});
-  const [defaultsError, setDefaultsError] = useState("");
-  const [motionText, setMotionText] = useState("{}");
+  const [defaultsError, setDefaultsError] = useState('');
+  const [motionText, setMotionText] = useState('{}');
   const [motion, setMotion] = useState<MotionPreset>({});
-  const [motionError, setMotionError] = useState("");
+  const [motionError, setMotionError] = useState('');
   const [structured, setStructured] = useState<
     Record<string, Record<string, string>>
   >({});
-  const [stylePart, setStylePart] = useState("");
-  const [styleProperty, setStyleProperty] = useState("");
-  const [styleValue, setStyleValue] = useState("");
-  const [styleError, setStyleError] = useState("");
+  const [stylePart, setStylePart] = useState('');
+  const [styleProperty, setStyleProperty] = useState('');
+  const [styleValue, setStyleValue] = useState('');
+  const [styleError, setStyleError] = useState('');
   const partsListId = useId();
   const [enabled, setEnabled] = useState(standalone);
   const [parts, setParts] = useState<string[]>([]);
@@ -118,33 +118,33 @@ export function ThemeEditor({
   useEffect(() => {
     const refresh = () => setSaved(loadSavedPresets());
     refresh();
-    window.addEventListener("storage", refresh);
-    window.addEventListener("revo-ui-theme-change", refresh);
+    window.addEventListener('storage', refresh);
+    window.addEventListener('revo-ui-theme-change', refresh);
     return () => {
-      window.removeEventListener("storage", refresh);
-      window.removeEventListener("revo-ui-theme-change", refresh);
+      window.removeEventListener('storage', refresh);
+      window.removeEventListener('revo-ui-theme-change', refresh);
     };
   }, []);
   useEffect(() => {
-    import("virtual:component-api").then(({ default: api }) => {
+    import('virtual:component-api').then(({ default: api }) => {
       const found = api.filter(
         (item) =>
           entries[item.name] && (!family || item.families.includes(family)),
       );
       const query = new URLSearchParams(location.search);
-      const requested = query.get("component");
-      const selectedFamily = query.get("family");
+      const requested = query.get('component');
+      const selectedFamily = query.get('family');
       setNames(found.map((item) => item.name));
       setApiComponents(found);
       const initial =
         found.find((item) => item.name === requested)?.name ??
-          found.find((item) => item.families.includes(selectedFamily ?? ""))
-            ?.name ??
-          found.find((item) => item.name === "Button")?.name ??
-          found[0]?.name ??
-          "";
+        found.find((item) => item.families.includes(selectedFamily ?? ''))
+          ?.name ??
+        found.find((item) => item.name === 'Button')?.name ??
+        found[0]?.name ??
+        '';
       setComponent(initial);
-      setOptions(initial === "Button" ? { variant: "primary" } : {});
+      setOptions(initial === 'Button' ? { variant: 'primary' } : {});
       setSelectedComponents(initial ? [initial] : []);
       onComponentsChange?.(initial ? [initial] : []);
     });
@@ -152,23 +152,26 @@ export function ThemeEditor({
   const presetKey =
     presetName
       .toLowerCase()
-      .replace(/[^a-z0-9-]+/g, "-")
-      .replace(/^-+|-+$/g, "") || "custom";
-  const className = `rv-theme-${component.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase()}-${presetKey}`;
+      .replace(/[^a-z0-9-]+/g, '-')
+      .replace(/^-+|-+$/g, '') || 'custom';
+  const className = `rv-theme-${component.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}-${presetKey}`;
   const ref =
-    entries[component]?.additionalProperties.$ref.split("/").pop() ?? "";
+    entries[component]?.additionalProperties.$ref.split('/').pop() ?? '';
   const properties = definitions[ref]?.properties?.props?.properties ?? {};
   const supportsMotion = Boolean(definitions[ref]?.properties?.motion);
-  const componentProps = apiComponents.find((item) => item.name === component)?.props ?? [];
+  const componentProps =
+    apiComponents.find((item) => item.name === component)?.props ?? [];
   const exampleCandidates: [string, string, boolean | number][] = [
-    ["disabled", "boolean", true],
-    ["readOnly", "boolean", true],
-    ["step", "number", 3],
-    ["max", "number", 10],
-    ["busy", "boolean", true],
+    ['disabled', 'boolean', true],
+    ['readOnly', 'boolean', true],
+    ['step', 'number', 3],
+    ['max', 'number', 10],
+    ['busy', 'boolean', true],
   ];
   const exampleEntry = exampleCandidates.find(([name, type]) =>
-    componentProps.some((prop) => prop.name === name && prop.type.includes(type)),
+    componentProps.some(
+      (prop) => prop.name === name && prop.type.includes(type),
+    ),
   );
   const behaviorExample = exampleEntry
     ? JSON.stringify({ [exampleEntry[0]]: exampleEntry[2] }, null, 2)
@@ -177,19 +180,19 @@ export function ThemeEditor({
     className,
     styles: {
       root: {
-        "--rv-ui-accent": color,
-        "--rv-ui-accent-hover": `color-mix(in srgb, ${color} 85%, black)`,
-        "--rv-ui-accent-text": `color-mix(in srgb, ${color} var(--rv-ui-accent-text-weight), var(--rv-ui-accent-text-base))`,
-        "--rv-ui-selected-bg": `color-mix(in srgb, ${color} 12%, var(--rv-ui-surface))`,
-        "--rv-ui-selected-accent-fg": "var(--rv-ui-accent-text)",
-        "--rv-ui-field-accent-text": "var(--rv-ui-accent-text)",
-        "--rv-ui-badge-bg": "var(--rv-ui-accent)",
-        "--rv-ui-focus-ring": `color-mix(in srgb, ${color} 35%, transparent)`,
-        "--rv-ui-radius": `${radius}px`,
+        '--rv-ui-accent': color,
+        '--rv-ui-accent-hover': `color-mix(in srgb, ${color} 85%, black)`,
+        '--rv-ui-accent-text': `color-mix(in srgb, ${color} var(--rv-ui-accent-text-weight), var(--rv-ui-accent-text-base))`,
+        '--rv-ui-selected-bg': `color-mix(in srgb, ${color} 12%, var(--rv-ui-surface))`,
+        '--rv-ui-selected-accent-fg': 'var(--rv-ui-accent-text)',
+        '--rv-ui-field-accent-text': 'var(--rv-ui-accent-text)',
+        '--rv-ui-badge-bg': 'var(--rv-ui-accent)',
+        '--rv-ui-focus-ring': `color-mix(in srgb, ${color} 35%, transparent)`,
+        '--rv-ui-radius': `${radius}px`,
         ...structured.root,
       },
       parts: Object.fromEntries(
-        Object.entries(structured).filter(([part]) => part !== "root"),
+        Object.entries(structured).filter(([part]) => part !== 'root'),
       ),
     },
     ...(Object.keys(options).length ? { props: options } : {}),
@@ -197,20 +200,30 @@ export function ThemeEditor({
     ...(Object.keys(motion).length ? { motion } : {}),
   };
   const sidebarTokens = {
-    "--rv-ui-accent": color,
-    "--rv-ui-accent-hover": `color-mix(in srgb, ${color} 85%, black)`,
-    "--rv-ui-accent-text": `color-mix(in srgb, ${color} var(--rv-ui-accent-text-weight, 90%), var(--rv-ui-accent-text-base, black))`,
-    "--rv-ui-selected-bg": `color-mix(in srgb, ${color} 12%, var(--rv-ui-surface))`,
-    "--rv-ui-selected-accent-fg": "var(--rv-ui-accent-text)",
-    "--rv-ui-field-accent-text": "var(--rv-ui-accent-text)",
-    "--rv-ui-focus-ring": `color-mix(in srgb, ${color} 35%, transparent)`,
+    '--rv-ui-accent': color,
+    '--rv-ui-accent-hover': `color-mix(in srgb, ${color} 85%, black)`,
+    '--rv-ui-accent-text': `color-mix(in srgb, ${color} var(--rv-ui-accent-text-weight, 90%), var(--rv-ui-accent-text-base, black))`,
+    '--rv-ui-selected-bg': `color-mix(in srgb, ${color} 12%, var(--rv-ui-surface))`,
+    '--rv-ui-selected-accent-fg': 'var(--rv-ui-accent-text)',
+    '--rv-ui-field-accent-text': 'var(--rv-ui-accent-text)',
+    '--rv-ui-focus-ring': `color-mix(in srgb, ${color} 35%, transparent)`,
   };
-  const sidebarPopupCss = themeToCss({ version: 1, components: { Button: { sidebar: { className: "rv-theme-editor-popup", styles: { root: sidebarTokens } } } } } as UiTheme);
+  const sidebarPopupCss = themeToCss({
+    version: 1,
+    components: {
+      Button: {
+        sidebar: {
+          className: 'rv-theme-editor-popup',
+          styles: { root: sidebarTokens },
+        },
+      },
+    },
+  } as UiTheme);
   const css =
     themeToCss({
       version: 1,
       components: { [component]: { [presetKey]: preset } },
-    } as UiTheme) + (extraCss ? `\n${extraCss}\n` : "");
+    } as UiTheme) + (extraCss ? `\n${extraCss}\n` : '');
   useEffect(() => {
     onPreview(enabled && component ? { component, preset, css } : undefined);
   }, [
@@ -238,14 +251,14 @@ export function ThemeEditor({
         const found = new Set<string>();
         const observedStates = new Set<string>();
         const stateNames = [
-          "data-state",
-          "data-tone",
-          "data-selected",
-          "data-filled",
-          "aria-checked",
-          "aria-pressed",
-          "aria-selected",
-          "aria-expanded",
+          'data-state',
+          'data-tone',
+          'data-selected',
+          'data-filled',
+          'aria-checked',
+          'aria-pressed',
+          'aria-selected',
+          'aria-expanded',
         ];
         const inspectState = (element: Element) => {
           for (const name of stateNames) {
@@ -256,25 +269,28 @@ export function ThemeEditor({
         for (const root of document.querySelectorAll(`.${className}`)) {
           inspectState(root);
           for (const element of root.querySelectorAll(
-            stateNames.map((name) => `[${name}]`).join(","),
+            stateNames.map((name) => `[${name}]`).join(','),
           ))
             inspectState(element);
-          const part = root.getAttribute("data-part");
+          const part = root.getAttribute('data-part');
           if (part) found.add(part);
           for (const element of root.querySelectorAll('[data-part]')) {
-            const nestedRoot = element.closest(`:is([data-part="root"], [data-preset-scope="root"]):not(.${className}):not([data-preset-scope="inherit"])`);
-            if (nestedRoot && nestedRoot !== root && root.contains(nestedRoot)) continue;
+            const nestedRoot = element.closest(
+              `:is([data-part="root"], [data-preset-scope="root"]):not(.${className}):not([data-preset-scope="inherit"])`,
+            );
+            if (nestedRoot && nestedRoot !== root && root.contains(nestedRoot))
+              continue;
             const child = element.getAttribute('data-part');
             if (child) found.add(child);
           }
         }
         const next = [...found].sort();
         setParts((previous) =>
-          previous.join("\0") === next.join("\0") ? previous : next,
+          previous.join('\0') === next.join('\0') ? previous : next,
         );
         const nextStates = [...observedStates].sort();
         setStates((previous) =>
-          previous.join("\0") === nextStates.join("\0") ? previous : nextStates,
+          previous.join('\0') === nextStates.join('\0') ? previous : nextStates,
         );
       });
     };
@@ -284,16 +300,16 @@ export function ThemeEditor({
       childList: true,
       attributes: true,
       attributeFilter: [
-        "class",
-        "data-part",
-        "data-state",
-        "data-tone",
-        "data-selected",
-        "data-filled",
-        "aria-checked",
-        "aria-pressed",
-        "aria-selected",
-        "aria-expanded",
+        'class',
+        'data-part',
+        'data-state',
+        'data-tone',
+        'data-selected',
+        'data-filled',
+        'aria-checked',
+        'aria-pressed',
+        'aria-selected',
+        'aria-expanded',
       ],
     });
     inspect();
@@ -307,31 +323,31 @@ export function ThemeEditor({
     try {
       localStorage.setItem(storageKey, JSON.stringify(next));
       setStorageError(false);
-      window.dispatchEvent(new Event("revo-ui-theme-change"));
+      window.dispatchEvent(new Event('revo-ui-theme-change'));
     } catch {
       setStorageError(true);
     }
   };
   const savedComponents: Record<
     string,
-    Record<string, ThemePreview["preset"]>
+    Record<string, ThemePreview['preset']>
   > = {};
   for (const item of saved)
     (savedComponents[item.component] ??= Object.create(null))[item.name] =
       item.preset;
   const savedTheme = {
-    $schema: "https://ui.rv-grid.com/theme-v1.schema.json",
+    $schema: 'https://ui.rv-grid.com/theme-v1.schema.json',
     version: 1,
     components: savedComponents,
   };
   const theme = {
-    $schema: "https://ui.rv-grid.com/theme-v1.schema.json",
+    $schema: 'https://ui.rv-grid.com/theme-v1.schema.json',
     version: 1,
     components: { [component]: { [presetKey]: preset } },
   };
   return (
     <details
-      class={`theme-editor${standalone ? " theme-editor--standalone" : ""}`}
+      class={`theme-editor${standalone ? ' theme-editor--standalone' : ''}`}
       style={sidebarTokens}
       open={standalone || undefined}
       onToggle={(event) => setEnabled(event.currentTarget.open)}
@@ -343,35 +359,52 @@ export function ThemeEditor({
           <div class="theme-editor-field">
             <span>Component</span>
             <MultiSelect
-              preset={{ className: "rv-theme-editor-popup" }}
+              preset={{ className: 'rv-theme-editor-popup' }}
               source={names.map((name) => ({ value: name, label: name }))}
-              config={{ search: true, ariaLabel: "Component", searchAriaLabel: "Search components to edit", searchPlaceholder: "Search components", topLayer: true, nativeTabNavigation: true }}
+              config={{
+                search: true,
+                ariaLabel: 'Component',
+                searchAriaLabel: 'Search components to edit',
+                searchPlaceholder: 'Search components',
+                topLayer: true,
+                nativeTabNavigation: true,
+              }}
               value={selectedComponents}
               onChange={(value) => {
-                const next = (Array.isArray(value) ? value : [value]).map(String);
+                const next = (Array.isArray(value) ? value : [value]).map(
+                  String,
+                );
                 if (!next.length) return;
-                const added = next.find((name) => !selectedComponents.includes(name));
-                const active = added ?? (next.includes(component) ? component : next[next.length - 1]);
+                const added = next.find(
+                  (name) => !selectedComponents.includes(name),
+                );
+                const active =
+                  added ??
+                  (next.includes(component)
+                    ? component
+                    : next[next.length - 1]);
                 setSelectedComponents(next);
                 onComponentsChange?.(next);
                 if (active === component) return;
                 setComponent(active);
-                setOptions(active === "Button" ? { variant: "primary" } : {});
+                setOptions(active === 'Button' ? { variant: 'primary' } : {});
                 setStructured({});
                 setDefaults({});
-                setDefaultsText("{}");
+                setDefaultsText('{}');
                 setMotion({});
-                setMotionText("{}");
-                setMotionError("");
-                setDefaultsError("");
-                setStylePart("");
-                setStyleError("");
+                setMotionText('{}');
+                setMotionError('');
+                setDefaultsError('');
+                setStylePart('');
+                setStyleError('');
               }}
             />
-            {selectedComponents.length > 1 && <small>Editing {component}</small>}
+            {selectedComponents.length > 1 && (
+              <small>Editing {component}</small>
+            )}
           </div>
           <label>
-            Preset name{" "}
+            Preset name{' '}
             <Input
               class="rv-control"
               value={presetName}
@@ -382,14 +415,14 @@ export function ThemeEditor({
             <legend>Accent color</legend>
             <div>
               {[
-                "#6d28d9",
-                "#2563eb",
-                "#0891b2",
-                "#059669",
-                "#65a30d",
-                "#d97706",
-                "#dc2626",
-                "#db2777",
+                '#6d28d9',
+                '#2563eb',
+                '#0891b2',
+                '#059669',
+                '#65a30d',
+                '#d97706',
+                '#dc2626',
+                '#db2777',
               ].map((value) => (
                 <ButtonControl
                   unstyled
@@ -432,7 +465,7 @@ export function ThemeEditor({
           />
           {Object.entries(properties)
             .flatMap(([name, property]) =>
-              property.type === "object"
+              property.type === 'object'
                 ? Object.entries(property.properties ?? {}).map(
                     ([child, definition]) => ({
                       name: `${name}.${child}`,
@@ -441,12 +474,12 @@ export function ThemeEditor({
                       property: definition,
                     }),
                   )
-                : [{ name, parent: "", key: name, property }],
+                : [{ name, parent: '', key: name, property }],
             )
             .filter(
               ({ property }) =>
                 property.enum ||
-                ["boolean", "number", "string"].includes(property.type ?? ""),
+                ['boolean', 'number', 'string'].includes(property.type ?? ''),
             )
             .map(({ name, parent, key, property }) => {
               const group = parent
@@ -463,12 +496,12 @@ export function ThemeEditor({
                           | undefined),
                       }
                     : next;
-                  if (value === "") delete values[key];
+                  if (value === '') delete values[key];
                   else
                     values[key] =
-                      property.type === "boolean"
-                        ? value === "true"
-                        : property.type === "number"
+                      property.type === 'boolean'
+                        ? value === 'true'
+                        : property.type === 'number'
                           ? Number(value)
                           : value;
                   if (parent) {
@@ -480,24 +513,24 @@ export function ThemeEditor({
               return (
                 <div class="theme-editor-field" key={name}>
                   <span>{name.charAt(0).toUpperCase() + name.slice(1)}</span>
-                  {property.type === "number" ||
-                  (property.type === "string" && !property.enum) ? (
+                  {property.type === 'number' ||
+                  (property.type === 'string' && !property.enum) ? (
                     <Input
                       class="rv-control"
                       aria-label={name.charAt(0).toUpperCase() + name.slice(1)}
-                      type={property.type === "number" ? "number" : "text"}
-                      value={selected === undefined ? "" : String(selected)}
+                      type={property.type === 'number' ? 'number' : 'text'}
+                      value={selected === undefined ? '' : String(selected)}
                       onInput={(event) => update(event.currentTarget.value)}
                     />
                   ) : (
                     <Select
-                      preset={{ className: "rv-theme-editor-popup" }}
+                      preset={{ className: 'rv-theme-editor-popup' }}
                       aria-label={name.charAt(0).toUpperCase() + name.slice(1)}
-                      value={selected === undefined ? "" : String(selected)}
+                      value={selected === undefined ? '' : String(selected)}
                       onValueChange={(value) => update(String(value))}
                     >
                       <option value="">Default</option>
-                      {(property.enum ?? ["true", "false"]).map((value) => (
+                      {(property.enum ?? ['true', 'false']).map((value) => (
                         <option key={value} value={value}>
                           {value}
                         </option>
@@ -518,16 +551,27 @@ export function ThemeEditor({
             {behaviorExample ? (
               <div class="theme-editor-behavior-example">
                 <span>Example for {component}</span>
-                <pre><code>{behaviorExample}</code></pre>
-                <Button type="button" onClick={() => { setDefaultsText(behaviorExample); setDefaultsError(""); }}>
+                <pre>
+                  <code>{behaviorExample}</code>
+                </pre>
+                <Button
+                  type="button"
+                  onClick={() => {
+                    setDefaultsText(behaviorExample);
+                    setDefaultsError('');
+                  }}
+                >
                   Use example
                 </Button>
               </div>
             ) : (
-              <p>See the <a href={apiHref(component)}>component API</a> for supported props.</p>
+              <p>
+                See the <a href={apiHref(component)}>component API</a> for
+                supported props.
+              </p>
             )}
             <label>
-              Behavior defaults{" "}
+              Behavior defaults{' '}
               <TextArea
                 class="rv-control"
                 value={defaultsText}
@@ -543,15 +587,15 @@ export function ThemeEditor({
                   if (
                     !parsed ||
                     Array.isArray(parsed) ||
-                    typeof parsed !== "object"
+                    typeof parsed !== 'object'
                   )
-                    throw new Error("Expected an object");
+                    throw new Error('Expected an object');
                   presetProps({ defaults: parsed as ComponentDefaults });
                   setDefaults(parsed as ComponentDefaults);
-                  setDefaultsError("");
+                  setDefaultsError('');
                 } catch {
                   setDefaultsError(
-                    "Enter a JSON object with serializable props; events, children and refs belong in code.",
+                    'Enter a JSON object with serializable props; events, children and refs belong in code.',
                   );
                 }
               }}
@@ -585,27 +629,27 @@ export function ThemeEditor({
                     const parsed: unknown = JSON.parse(motionText);
                     validateMotionPreset(parsed);
                     const supported =
-                      ref === "switchPreset"
-                        ? ["settle"]
-                        : ref === "segmentedSwitchPreset"
-                          ? ["selection"]
-                          : ref === "calendarPreset"
+                      ref === 'switchPreset'
+                        ? ['settle']
+                        : ref === 'segmentedSwitchPreset'
+                          ? ['selection']
+                          : ref === 'calendarPreset'
                             ? [
-                                "caption",
-                                "period",
-                                "periodForward",
-                                "periodBackward",
-                                "selection",
+                                'caption',
+                                'period',
+                                'periodForward',
+                                'periodBackward',
+                                'selection',
                               ]
-                            : ref === "numberStepperPreset"
-                              ? ["digits", "digitsUp", "digitsDown"]
-                              : ["hover", "press"];
+                            : ref === 'numberStepperPreset'
+                              ? ['digits', 'digitsUp', 'digitsDown']
+                              : ['hover', 'press'];
                     if (
                       Object.keys(parsed).some(
                         (name) => !supported.includes(name),
                       )
                     )
-                      throw new Error("Unknown animation event");
+                      throw new Error('Unknown animation event');
                     themeToCss({
                       version: 1,
                       components: {
@@ -615,10 +659,10 @@ export function ThemeEditor({
                       },
                     } as UiTheme);
                     setMotion(parsed);
-                    setMotionError("");
+                    setMotionError('');
                   } catch {
                     setMotionError(
-                      "Enter valid animation JSON using the events and settings supported by this component.",
+                      'Enter valid animation JSON using the events and settings supported by this component.',
                     );
                   }
                 }}
@@ -635,7 +679,7 @@ export function ThemeEditor({
             <fieldset class="theme-editor-styles">
               <legend>JSON styles</legend>
               <label>
-                Part{" "}
+                Part{' '}
                 <Input
                   class="rv-control"
                   list={partsListId}
@@ -646,13 +690,13 @@ export function ThemeEditor({
               </label>
               <datalist id={partsListId}>
                 {parts
-                  .filter((part) => part !== "root")
+                  .filter((part) => part !== 'root')
                   .map((part) => (
                     <option key={part} value={part} />
                   ))}
               </datalist>
               <label>
-                CSS property{" "}
+                CSS property{' '}
                 <Input
                   class="rv-control"
                   value={styleProperty}
@@ -663,7 +707,7 @@ export function ThemeEditor({
                 />
               </label>
               <label>
-                CSS value{" "}
+                CSS value{' '}
                 <Input
                   class="rv-control"
                   value={styleValue}
@@ -674,11 +718,11 @@ export function ThemeEditor({
               <Button
                 type="button"
                 onClick={() => {
-                  const part = stylePart.trim() || "root";
+                  const part = stylePart.trim() || 'root';
                   const property = styleProperty.trim();
                   const value = styleValue.trim();
                   if (!property || !value) {
-                    setStyleError("Enter a CSS property and value.");
+                    setStyleError('Enter a CSS property and value.');
                     return;
                   }
                   const next = {
@@ -688,7 +732,7 @@ export function ThemeEditor({
                   const styles = {
                     root: next.root,
                     parts: Object.fromEntries(
-                      Object.entries(next).filter(([key]) => key !== "root"),
+                      Object.entries(next).filter(([key]) => key !== 'root'),
                     ),
                   };
                   try {
@@ -699,12 +743,12 @@ export function ThemeEditor({
                       },
                     } as UiTheme);
                     setStructured(next);
-                    setStyleError("");
-                    setStyleProperty("");
-                    setStyleValue("");
+                    setStyleError('');
+                    setStyleProperty('');
+                    setStyleValue('');
                   } catch {
                     setStyleError(
-                      "Use a CSS property and simple value, and a lowercase part name.",
+                      'Use a CSS property and simple value, and a lowercase part name.',
                     );
                   }
                 }}
@@ -717,7 +761,7 @@ export function ThemeEditor({
                   <div key={`${part}:${property}`}>
                     <code>
                       {part}: {property}: {value}
-                    </code>{" "}
+                    </code>{' '}
                     <Button
                       type="button"
                       aria-label={`Remove ${part} ${property}`}
@@ -741,7 +785,7 @@ export function ThemeEditor({
               )}
             </fieldset>
             <label>
-              Additional CSS{" "}
+              Additional CSS{' '}
               <TextArea
                 class="rv-control"
                 value={extraCss}
@@ -773,11 +817,14 @@ export function ThemeEditor({
           )}
           <p class="theme-editor-guide">
             Apply the preset to a component and import its CSS in your project.{' '}
-            <a href={frameworkHref("presets")}>Read the themes and presets guide</a>.
+            <a href={frameworkHref('presets')}>
+              Read the themes and presets guide
+            </a>
+            .
           </p>
           {Object.keys(defaults).length > 0 && (
             <p>
-              Import <code>presetProps</code> from{" "}
+              Import <code>presetProps</code> from{' '}
               <code>@revolist/ui/presets</code> to apply the behavior defaults.
             </p>
           )}
@@ -795,7 +842,13 @@ export function ThemeEditor({
               />
             </pre>
           </div>
-          <div class="theme-editor-actions" style={{ "--rv-ui-accent": color, "--rv-ui-accent-hover": `color-mix(in srgb, ${color} 85%, black)` }}>
+          <div
+            class="theme-editor-actions"
+            style={{
+              '--rv-ui-accent': color,
+              '--rv-ui-accent-hover': `color-mix(in srgb, ${color} 85%, black)`,
+            }}
+          >
             <Button
               variant="primary"
               type="button"
@@ -810,33 +863,33 @@ export function ThemeEditor({
               }
             >
               Save to theme
-            </Button>{" "}
+            </Button>{' '}
             <Button
               type="button"
-              onClick={() => download("theme.css", css, "text/css")}
+              onClick={() => download('theme.css', css, 'text/css')}
             >
               CSS
-            </Button>{" "}
+            </Button>{' '}
             <Button
               type="button"
               onClick={() =>
                 download(
-                  "theme.json",
-                  JSON.stringify(theme, null, 2) + "\n",
-                  "application/json",
+                  'theme.json',
+                  JSON.stringify(theme, null, 2) + '\n',
+                  'application/json',
                 )
               }
             >
               JSON
-            </Button>{" "}
+            </Button>{' '}
             <Button
               type="button"
               onClick={() => {
-                download("theme.css", css, "text/css");
+                download('theme.css', css, 'text/css');
                 download(
-                  "theme.json",
-                  JSON.stringify(theme, null, 2) + "\n",
-                  "application/json",
+                  'theme.json',
+                  JSON.stringify(theme, null, 2) + '\n',
+                  'application/json',
                 );
               }}
             >
@@ -852,7 +905,7 @@ export function ThemeEditor({
               <ul>
                 {saved.map((item) => (
                   <li key={`${item.component}:${item.name}`}>
-                    {item.component} / {item.name}{" "}
+                    {item.component} / {item.name}{' '}
                     <Button
                       type="button"
                       aria-label={`Remove ${item.component} ${item.name}`}
@@ -875,21 +928,21 @@ export function ThemeEditor({
                 type="button"
                 onClick={() =>
                   download(
-                    "theme.css",
-                    saved.map((item) => item.css).join("\n"),
-                    "text/css",
+                    'theme.css',
+                    saved.map((item) => item.css).join('\n'),
+                    'text/css',
                   )
                 }
               >
                 Download saved CSS
-              </Button>{" "}
+              </Button>{' '}
               <Button
                 type="button"
                 onClick={() =>
                   download(
-                    "theme.json",
-                    JSON.stringify(savedTheme, null, 2) + "\n",
-                    "application/json",
+                    'theme.json',
+                    JSON.stringify(savedTheme, null, 2) + '\n',
+                    'application/json',
                   )
                 }
               >

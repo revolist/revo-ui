@@ -1,5 +1,12 @@
 import { AutocompleteExamples } from './autocomplete';
-import { TooltipPlacementExamples, TooltipTimingExamples, TooltipStateExamples, TooltipContentExamples, TooltipBoundaryExample, TooltipControllerExample } from './tooltips';
+import {
+  TooltipPlacementExamples,
+  TooltipTimingExamples,
+  TooltipStateExamples,
+  TooltipContentExamples,
+  TooltipBoundaryExample,
+  TooltipControllerExample,
+} from './tooltips';
 import { CollapsibleSection as __themeOriginal_CollapsibleSection } from '@revolist/ui/preact';
 import { AccessibilityPage } from './accessibility';
 import { ApiPage } from './api-page';
@@ -10,7 +17,12 @@ import { Select as __themeOriginal_Select } from '@revolist/ui/select';
 import { TimePickerExamples } from './time-picker';
 import { PdfViewerExamples } from './pdf-viewer';
 import { DateTimeField as __themeOriginal_DateTimeField } from '@revolist/ui/date-time';
-import { SharedEditorExamples, DurationEffortExample, RemoteLookupExample, AssigneeFieldExample } from './shared-editors';
+import {
+  SharedEditorExamples,
+  DurationEffortExample,
+  RemoteLookupExample,
+  AssigneeFieldExample,
+} from './shared-editors';
 import { RichTextEditorExample } from './rich-text';
 import { CustomizePage } from './customize-page';
 import { AiExamples } from './ai';
@@ -28,7 +40,7 @@ import { SliderLayoutExamples, TimelineTrackExample } from './sliders';
 import { CalendarExamples, DateTimeCalendarExample } from './calendars';
 import { Legend as __themeOriginal_Legend } from '@revolist/ui/legend';
 import { FormattingExamples } from './formatting';
-import {PaginationExamples} from './pagination';
+import { PaginationExamples } from './pagination';
 import { FieldConfiguratorExamples } from './field-configurator';
 import { ResizeExample } from './resize-example';
 import {
@@ -102,76 +114,151 @@ import {
   CircularProgress as __themeOriginal_CircularProgress,
   Rating as __themeOriginal_Rating,
 } from '@revolist/ui/preact';
-import {
-  renderScalarSlider,
-} from '@revolist/ui/native';
+import { renderScalarSlider } from '@revolist/ui/native';
 import type { CalendarDateRange } from '@revolist/ui/calendar/types';
 import type { ISODateString } from '@revolist/ui-dates';
 import '@revolist/ui/styles.scss';
 import './style.css';
 import { withThemePreview } from './theme-preview';
 
-const CollapsibleSection = withThemePreview(__themeOriginal_CollapsibleSection, 'CollapsibleSection');
+const CollapsibleSection = withThemePreview(
+  __themeOriginal_CollapsibleSection,
+  'CollapsibleSection',
+);
 const Select = withThemePreview(__themeOriginal_Select, 'Select');
-const DateTimeField = withThemePreview(__themeOriginal_DateTimeField, 'DateTimeField');
-const ActivityMessage = withThemePreview(__themeOriginal_ActivityMessage, 'ActivityMessage');
+const DateTimeField = withThemePreview(
+  __themeOriginal_DateTimeField,
+  'DateTimeField',
+);
+const ActivityMessage = withThemePreview(
+  __themeOriginal_ActivityMessage,
+  'ActivityMessage',
+);
 const SvgButton = withThemePreview(__themeOriginal_SvgButton, 'SvgButton');
 const SvgIcon = withThemePreview(__themeOriginal_SvgIcon, 'SvgIcon');
 const Legend = withThemePreview(__themeOriginal_Legend, 'Legend');
 const Button = withThemePreview(__themeOriginal_Button, 'Button');
 const IconButton = withThemePreview(__themeOriginal_IconButton, 'IconButton');
-const ToggleButton = withThemePreview(__themeOriginal_ToggleButton, 'ToggleButton');
-const ButtonGroup = withThemePreview(__themeOriginal_ButtonGroup, 'ButtonGroup');
+const ToggleButton = withThemePreview(
+  __themeOriginal_ToggleButton,
+  'ToggleButton',
+);
+const ButtonGroup = withThemePreview(
+  __themeOriginal_ButtonGroup,
+  'ButtonGroup',
+);
 const Checkbox = withThemePreview(__themeOriginal_Checkbox, 'Checkbox');
 const Switch = withThemePreview(__themeOriginal_Switch, 'Switch');
 const RadioGroup = withThemePreview(__themeOriginal_RadioGroup, 'RadioGroup');
-const ChoiceChips = withThemePreview(__themeOriginal_ChoiceChips, 'ChoiceChips');
+const ChoiceChips = withThemePreview(
+  __themeOriginal_ChoiceChips,
+  'ChoiceChips',
+);
 const Tabs = withThemePreview(__themeOriginal_Tabs, 'Tabs');
 const TabPanel = withThemePreview(__themeOriginal_TabPanel, 'TabPanel');
 const TextInput = withThemePreview(__themeOriginal_TextInput, 'TextInput');
 const Textarea = withThemePreview(__themeOriginal_Textarea, 'Textarea');
-const SearchInput = withThemePreview(__themeOriginal_SearchInput, 'SearchInput');
-const NumberInput = withThemePreview(__themeOriginal_NumberInput, 'NumberInput');
-const NumberStepper = withThemePreview(__themeOriginal_NumberStepper, 'NumberStepper');
+const SearchInput = withThemePreview(
+  __themeOriginal_SearchInput,
+  'SearchInput',
+);
+const NumberInput = withThemePreview(
+  __themeOriginal_NumberInput,
+  'NumberInput',
+);
+const NumberStepper = withThemePreview(
+  __themeOriginal_NumberStepper,
+  'NumberStepper',
+);
 const Combobox = withThemePreview(__themeOriginal_Combobox, 'Combobox');
-const MultiSelect = withThemePreview(__themeOriginal_MultiSelect, 'MultiSelect');
-const SingleValueSlider = withThemePreview(__themeOriginal_SingleValueSlider, 'SingleValueSlider');
-const PreactRangeSlider = withThemePreview(__themeOriginal_PreactRangeSlider, 'PreactRangeSlider');
+const MultiSelect = withThemePreview(
+  __themeOriginal_MultiSelect,
+  'MultiSelect',
+);
+const SingleValueSlider = withThemePreview(
+  __themeOriginal_SingleValueSlider,
+  'SingleValueSlider',
+);
+const PreactRangeSlider = withThemePreview(
+  __themeOriginal_PreactRangeSlider,
+  'PreactRangeSlider',
+);
 const Calendar = withThemePreview(__themeOriginal_Calendar, 'Calendar');
 const DatePicker = withThemePreview(__themeOriginal_DatePicker, 'DatePicker');
-const DateRangePicker = withThemePreview(__themeOriginal_DateRangePicker, 'DateRangePicker');
-const ColorPicker = withThemePreview(__themeOriginal_ColorPicker, 'ColorPicker');
-const ColorPalette = withThemePreview(__themeOriginal_ColorPalette, 'ColorPalette');
+const DateRangePicker = withThemePreview(
+  __themeOriginal_DateRangePicker,
+  'DateRangePicker',
+);
+const ColorPicker = withThemePreview(
+  __themeOriginal_ColorPicker,
+  'ColorPicker',
+);
+const ColorPalette = withThemePreview(
+  __themeOriginal_ColorPalette,
+  'ColorPalette',
+);
 const Avatar = withThemePreview(__themeOriginal_Avatar, 'Avatar');
-const SharedResourcePicker = withThemePreview(__themeOriginal_SharedResourcePicker, 'SharedResourcePicker');
+const SharedResourcePicker = withThemePreview(
+  __themeOriginal_SharedResourcePicker,
+  'SharedResourcePicker',
+);
 const FormField = withThemePreview(__themeOriginal_FormField, 'FormField');
 const FieldError = withThemePreview(__themeOriginal_FieldError, 'FieldError');
 const FieldHint = withThemePreview(__themeOriginal_FieldHint, 'FieldHint');
-const FormSection = withThemePreview(__themeOriginal_FormSection, 'FormSection');
+const FormSection = withThemePreview(
+  __themeOriginal_FormSection,
+  'FormSection',
+);
 const Dialog = withThemePreview(__themeOriginal_Dialog, 'Dialog');
-const ConfirmDialog = withThemePreview(__themeOriginal_ConfirmDialog, 'ConfirmDialog');
+const ConfirmDialog = withThemePreview(
+  __themeOriginal_ConfirmDialog,
+  'ConfirmDialog',
+);
 const Popover = withThemePreview(__themeOriginal_Popover, 'Popover');
 const Tooltip = withThemePreview(__themeOriginal_Tooltip, 'Tooltip');
 const Menu = withThemePreview(__themeOriginal_Menu, 'Menu');
 const MenuItem = withThemePreview(__themeOriginal_MenuItem, 'MenuItem');
-const MenuSeparator = withThemePreview(__themeOriginal_MenuSeparator, 'MenuSeparator');
+const MenuSeparator = withThemePreview(
+  __themeOriginal_MenuSeparator,
+  'MenuSeparator',
+);
 const Submenu = withThemePreview(__themeOriginal_Submenu, 'Submenu');
 const Toolbar = withThemePreview(__themeOriginal_Toolbar, 'Toolbar');
-const ToolbarGroup = withThemePreview(__themeOriginal_ToolbarGroup, 'ToolbarGroup');
-const ToolbarSeparator = withThemePreview(__themeOriginal_ToolbarSeparator, 'ToolbarSeparator');
+const ToolbarGroup = withThemePreview(
+  __themeOriginal_ToolbarGroup,
+  'ToolbarGroup',
+);
+const ToolbarSeparator = withThemePreview(
+  __themeOriginal_ToolbarSeparator,
+  'ToolbarSeparator',
+);
 const Badge = withThemePreview(__themeOriginal_Badge, 'Badge');
 const CountBadge = withThemePreview(__themeOriginal_CountBadge, 'CountBadge');
-const StatusBadge = withThemePreview(__themeOriginal_StatusBadge, 'StatusBadge');
-const StatusFeedbackPanel = withThemePreview(__themeOriginal_StatusFeedbackPanel, 'StatusFeedbackPanel');
+const StatusBadge = withThemePreview(
+  __themeOriginal_StatusBadge,
+  'StatusBadge',
+);
+const StatusFeedbackPanel = withThemePreview(
+  __themeOriginal_StatusFeedbackPanel,
+  'StatusFeedbackPanel',
+);
 const Alert = withThemePreview(__themeOriginal_Alert, 'Alert');
 const Spinner = withThemePreview(__themeOriginal_Spinner, 'Spinner');
-const LoadingOverlay = withThemePreview(__themeOriginal_LoadingOverlay, 'LoadingOverlay');
+const LoadingOverlay = withThemePreview(
+  __themeOriginal_LoadingOverlay,
+  'LoadingOverlay',
+);
 const EmptyState = withThemePreview(__themeOriginal_EmptyState, 'EmptyState');
 const Panel = withThemePreview(__themeOriginal_Panel, 'Panel');
-const ProgressBar = withThemePreview(__themeOriginal_ProgressBar, 'ProgressBar');
-const CircularProgress = withThemePreview(__themeOriginal_CircularProgress, 'CircularProgress');
+const ProgressBar = withThemePreview(
+  __themeOriginal_ProgressBar,
+  'ProgressBar',
+);
+const CircularProgress = withThemePreview(
+  __themeOriginal_CircularProgress,
+  'CircularProgress',
+);
 const Rating = withThemePreview(__themeOriginal_Rating, 'Rating');
-
 
 const icon =
   '<svg viewBox="0 0 16 16"><path fill="currentColor" d="M7 1h2v6h6v2H9v6H7V9H1V7h6z"/></svg>';
@@ -186,8 +273,8 @@ const resources = [
 ];
 function App() {
   const [theme, setTheme] = useState(() =>
-    document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light',
-  ),
+      document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light',
+    ),
     [rtl, setRtl] = useState(false);
   const [togglePressed, setTogglePressed] = useState(true);
   const [selected, setSelected] = useState(true);
@@ -237,13 +324,55 @@ function App() {
   const [buttonAction, setButtonAction] = useState('No action yet');
   const [groupAction, setGroupAction] = useState('No action yet');
   const [addedCount, setAddedCount] = useState(0);
-  if (pageKind() === 'accessibility') return <CatalogShell page="accessibility" theme={theme} rtl={rtl} onThemeChange={setTheme} onRtlChange={setRtl}><AccessibilityPage /></CatalogShell>;
-  if (pageKind() === 'api') return <CatalogShell page="api" theme={theme} rtl={rtl} onThemeChange={setTheme} onRtlChange={setRtl}><ApiPage /></CatalogShell>;
+  if (pageKind() === 'accessibility')
+    return (
+      <CatalogShell
+        page="accessibility"
+        theme={theme}
+        rtl={rtl}
+        onThemeChange={setTheme}
+        onRtlChange={setRtl}
+      >
+        <AccessibilityPage />
+      </CatalogShell>
+    );
+  if (pageKind() === 'api')
+    return (
+      <CatalogShell
+        page="api"
+        theme={theme}
+        rtl={rtl}
+        onThemeChange={setTheme}
+        onRtlChange={setRtl}
+      >
+        <ApiPage />
+      </CatalogShell>
+    );
   if (pageKind() === 'frameworks') {
-    return <CatalogShell page="frameworks" theme={theme} rtl={rtl} onThemeChange={setTheme} onRtlChange={setRtl}><FrameworksPage /></CatalogShell>;
+    return (
+      <CatalogShell
+        page="frameworks"
+        theme={theme}
+        rtl={rtl}
+        onThemeChange={setTheme}
+        onRtlChange={setRtl}
+      >
+        <FrameworksPage />
+      </CatalogShell>
+    );
   }
   if (pageKind() === 'customize') {
-    return <CatalogShell page="customize" theme={theme} rtl={rtl} onThemeChange={setTheme} onRtlChange={setRtl}><CustomizePage /></CatalogShell>;
+    return (
+      <CatalogShell
+        page="customize"
+        theme={theme}
+        rtl={rtl}
+        onThemeChange={setTheme}
+        onRtlChange={setRtl}
+      >
+        <CustomizePage />
+      </CatalogShell>
+    );
   }
   return (
     <CatalogShell
@@ -253,11 +382,20 @@ function App() {
       onRtlChange={setRtl}
     >
       <Section title="Buttons">
-
         <Example title="Button variants">
           <div class="catalog-row">
-            <Button variant="solid" onClick={() => setButtonAction('Solid clicked')}>Solid</Button>
-            <SvgButton variant="solid" label="Add task" icon={plusIcon} onClick={() => setButtonAction('Add task clicked')} />
+            <Button
+              variant="solid"
+              onClick={() => setButtonAction('Solid clicked')}
+            >
+              Solid
+            </Button>
+            <SvgButton
+              variant="solid"
+              label="Add task"
+              icon={plusIcon}
+              onClick={() => setButtonAction('Add task clicked')}
+            />
             <Button
               variant="primary"
               onClick={() => setButtonAction('Primary clicked')}
@@ -280,9 +418,22 @@ function App() {
               Delete
             </Button>
             <Button disabled>Disabled</Button>
-            <Button variant="link" onClick={() => setButtonAction('Link clicked')}>Link action</Button>
-            <SvgButton variant="link" label="Add item" visibleLabel="Add item" icon={plusIcon} onClick={() => setButtonAction('Add item clicked')} />
-            <Button variant="link" disabled>Disabled link</Button>
+            <Button
+              variant="link"
+              onClick={() => setButtonAction('Link clicked')}
+            >
+              Link action
+            </Button>
+            <SvgButton
+              variant="link"
+              label="Add item"
+              visibleLabel="Add item"
+              icon={plusIcon}
+              onClick={() => setButtonAction('Add item clicked')}
+            />
+            <Button variant="link" disabled>
+              Disabled link
+            </Button>
 
             <Button
               size="compact"
@@ -295,24 +446,62 @@ function App() {
         </Example>
         <Example title="Rounded buttons">
           <div class="catalog-row">
-            <Button rounded variant="solid">Solid pill</Button>
-            <Button rounded variant="primary">Primary pill</Button>
+            <Button rounded variant="solid">
+              Solid pill
+            </Button>
+            <Button rounded variant="primary">
+              Primary pill
+            </Button>
             <Button rounded>Outline pill</Button>
-            <Button rounded variant="ghost">Ghost pill</Button>
-            <Button rounded variant="danger">Danger pill</Button>
-            <Button rounded size="compact">Compact pill</Button>
-            <Button rounded disabled>Disabled pill</Button>
-            <Button rounded href={componentHref('sliders')}>Browse sliders</Button>
+            <Button rounded variant="ghost">
+              Ghost pill
+            </Button>
+            <Button rounded variant="danger">
+              Danger pill
+            </Button>
+            <Button rounded size="compact">
+              Compact pill
+            </Button>
+            <Button rounded disabled>
+              Disabled pill
+            </Button>
+            <Button rounded href={componentHref('sliders')}>
+              Browse sliders
+            </Button>
           </div>
         </Example>
         <Example title="Busy buttons">
           <div class="catalog-row">
-            <Button variant="primary" busy={busyButtons} onClick={() => setButtonAction('Busy action clicked')}>Save changes</Button>
-            <Button busy={busyButtons} onClick={() => setButtonAction('Busy outline clicked')}>Upload file</Button>
-            <IconButton label="Sync items" icon={icon} busy={busyButtons} onClick={() => setButtonAction('Busy icon clicked')} />
-            <ToggleButton busy={busyButtons} pressed={togglePressed} onPressedChange={setTogglePressed}>Busy toggle</ToggleButton>
+            <Button
+              variant="primary"
+              busy={busyButtons}
+              onClick={() => setButtonAction('Busy action clicked')}
+            >
+              Save changes
+            </Button>
+            <Button
+              busy={busyButtons}
+              onClick={() => setButtonAction('Busy outline clicked')}
+            >
+              Upload file
+            </Button>
+            <IconButton
+              label="Sync items"
+              icon={icon}
+              busy={busyButtons}
+              onClick={() => setButtonAction('Busy icon clicked')}
+            />
+            <ToggleButton
+              busy={busyButtons}
+              pressed={togglePressed}
+              onPressedChange={setTogglePressed}
+            >
+              Busy toggle
+            </ToggleButton>
           </div>
-          <ToggleButton pressed={busyButtons} onPressedChange={setBusyButtons}>Busy state</ToggleButton>
+          <ToggleButton pressed={busyButtons} onPressedChange={setBusyButtons}>
+            Busy state
+          </ToggleButton>
         </Example>
         <Example title="Icon button">
           <IconButton
@@ -487,8 +676,16 @@ function App() {
       </Section>
       <Section title="Multi/selects, autocomplete">
         <Example title="Select">
-          <Select aria-label="View" value={selectView} onValueChange={setSelectView}>
-            {options.map(option => <option value={option.value} disabled={option.disabled}>{option.label}</option>)}
+          <Select
+            aria-label="View"
+            value={selectView}
+            onValueChange={setSelectView}
+          >
+            {options.map((option) => (
+              <option value={option.value} disabled={option.disabled}>
+                {option.label}
+              </option>
+            ))}
           </Select>
         </Example>
         <Example title="Searchable select">
@@ -516,7 +713,11 @@ function App() {
       </Section>
       <Section title="Resource selection">
         <Example title="User select with images">
-          <MemberDropdown label="Choose a team member" value={selectedPerson} onChange={setSelectedPerson} />
+          <MemberDropdown
+            label="Choose a team member"
+            value={selectedPerson}
+            onChange={setSelectedPerson}
+          />
         </Example>
         <Example title="Avatar">
           <Avatar value="Morgan Lee" label="Morgan Lee" />
@@ -590,15 +791,29 @@ function App() {
       </Section>
       <Section title="Activity messages">
         <Example title="Chat-style activity">
-          <ActivityMessage avatar={<Avatar value="https://i.pravatar.cc/96?img=9" initials="PS" label="Priya Shah" />}
+          <ActivityMessage
+            avatar={
+              <Avatar
+                value="https://i.pravatar.cc/96?img=9"
+                initials="PS"
+                label="Priya Shah"
+              />
+            }
             timestamp={<time dateTime="2026-10-25T16:01:00">4:01 PM</time>}
-            header={<><strong>Priya Shah</strong> updated the owner</>}
-            actions={<Button variant="link">View change ↗</Button>}>
+            header={
+              <>
+                <strong>Priya Shah</strong> updated the owner
+              </>
+            }
+            actions={<Button variant="link">View change ↗</Button>}
+          >
             <p>Portfolio ownership transferred to Sam Carter.</p>
           </ActivityMessage>
         </Example>
       </Section>
-      <Section title="Formatting controls"><FormattingExamples /></Section>
+      <Section title="Formatting controls">
+        <FormattingExamples />
+      </Section>
       <Section title="Charts and range selection">
         <ChartExamples />
       </Section>
@@ -655,17 +870,37 @@ function App() {
       </Section>
       <Section title="Time pickers">
         <Example title="Time field">
-          <DateTimeField aria-label="Time field" kind="time" value={fieldTime} onValueChange={setFieldTime}
-            picker={{ timeFormat: '24h', text: { chooseTime: 'Choose field time' } }} />
+          <DateTimeField
+            aria-label="Time field"
+            kind="time"
+            value={fieldTime}
+            onValueChange={setFieldTime}
+            picker={{
+              timeFormat: '24h',
+              text: { chooseTime: 'Choose field time' },
+            }}
+          />
         </Example>
         <TimePickerExamples />
       </Section>
       <Section title="Date and time fields">
         <Example title="Date and time fields">
-          <DateTimeField aria-label="Date field" value={fieldDate} onValueChange={setFieldDate}
-            picker={{ text: { chooseDate: 'Choose field date' } }} />
-          <DateTimeField aria-label="Date and time field" kind="datetime" value={fieldDateTime} onValueChange={setFieldDateTime}
-            picker={{ timeFormat: '24h', text: { chooseDate: 'Choose field date and time' } }} />
+          <DateTimeField
+            aria-label="Date field"
+            value={fieldDate}
+            onValueChange={setFieldDate}
+            picker={{ text: { chooseDate: 'Choose field date' } }}
+          />
+          <DateTimeField
+            aria-label="Date and time field"
+            kind="datetime"
+            value={fieldDateTime}
+            onValueChange={setFieldDateTime}
+            picker={{
+              timeFormat: '24h',
+              text: { chooseDate: 'Choose field date and time' },
+            }}
+          />
         </Example>
         <SharedEditorExamples />
         <DateTimeCalendarExample />
@@ -678,12 +913,19 @@ function App() {
       </Section>
       <Section title="Legend">
         <Example title="Legend">
-          <Legend label="Calendar legend" items={[
-            { id: 'working', label: 'Working day', marker: 'outline' },
-            { id: 'closed', label: 'Non-working', color: 'var(--rv-ui-text-muted)' },
-            { id: 'exception', label: 'Exception', tone: 'selected' },
-            { id: 'inherited', label: 'Inherited', marker: 'dashed' },
-          ]} />
+          <Legend
+            label="Calendar legend"
+            items={[
+              { id: 'working', label: 'Working day', marker: 'outline' },
+              {
+                id: 'closed',
+                label: 'Non-working',
+                color: 'var(--rv-ui-text-muted)',
+              },
+              { id: 'exception', label: 'Exception', tone: 'selected' },
+              { id: 'inherited', label: 'Inherited', marker: 'dashed' },
+            ]}
+          />
         </Example>
       </Section>
       <Section title="Weekly time grid">
@@ -776,14 +1018,30 @@ function App() {
       <Section title="Accordion">
         <Example title="Accordion sections" wide>
           <div class="catalog-accordion">
-            <CollapsibleSection title="Project details" description="Each section expands independently." defaultOpen>
-              <TextInput aria-label="Accordion project name" placeholder="Project name" />
+            <CollapsibleSection
+              title="Project details"
+              description="Each section expands independently."
+              defaultOpen
+            >
+              <TextInput
+                aria-label="Accordion project name"
+                placeholder="Project name"
+              />
             </CollapsibleSection>
-            <CollapsibleSection title="Display settings" description="Collapsed content keeps its draft values.">
-              <TextInput aria-label="Accordion display label" placeholder="Display label" />
+            <CollapsibleSection
+              title="Display settings"
+              description="Collapsed content keeps its draft values."
+            >
+              <TextInput
+                aria-label="Accordion display label"
+                placeholder="Display label"
+              />
             </CollapsibleSection>
             <CollapsibleSection title="How does this work?">
-              <p>Use Enter or Space to toggle a section. Multiple sections can stay open.</p>
+              <p>
+                Use Enter or Space to toggle a section. Multiple sections can
+                stay open.
+              </p>
             </CollapsibleSection>
           </div>
         </Example>
@@ -805,15 +1063,33 @@ function App() {
         <IconToolbarExample />
         <Example title="Drawing toolbar">
           <Toolbar label="Drawing tools" className="rv-toolbar--surface">
-            {(['select', 'rectangle', 'line', 'arrow', 'note'] as const).map(tool => (
-              <IconButton key={tool} label={tool === 'select' ? 'Select tool' : `${tool[0].toUpperCase()}${tool.slice(1)} tool`}
-                aria-pressed={drawingTool === tool}
-                icon={`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="${DRAWING_TOOL_PATHS[tool]}"/></svg>`}
-                onClick={() => setDrawingTool(tool)} />
-            ))}
+            {(['select', 'rectangle', 'line', 'arrow', 'note'] as const).map(
+              (tool) => (
+                <IconButton
+                  key={tool}
+                  label={
+                    tool === 'select'
+                      ? 'Select tool'
+                      : `${tool[0].toUpperCase()}${tool.slice(1)} tool`
+                  }
+                  aria-pressed={drawingTool === tool}
+                  icon={`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="${DRAWING_TOOL_PATHS[tool]}"/></svg>`}
+                  onClick={() => setDrawingTool(tool)}
+                />
+              ),
+            )}
           </Toolbar>
-          <FieldHint>Choose a drawing tool. Drawing behavior stays in Charts.</FieldHint>
-          <div class="catalog-row"><IconButton label="Drawing unavailable" disabled icon={`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="${DRAWING_TOOL_PATHS.rectangle}"/></svg>`} /><FieldHint>Drawing unavailable</FieldHint></div>
+          <FieldHint>
+            Choose a drawing tool. Drawing behavior stays in Charts.
+          </FieldHint>
+          <div class="catalog-row">
+            <IconButton
+              label="Drawing unavailable"
+              disabled
+              icon={`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="${DRAWING_TOOL_PATHS.rectangle}"/></svg>`}
+            />
+            <FieldHint>Drawing unavailable</FieldHint>
+          </div>
         </Example>
         <Example title="Document toolbar">
           <Toolbar label="Document actions">
@@ -876,8 +1152,12 @@ function App() {
           <StatusBadge tone="warning" label="Needs attention" />
         </Example>
         <Example title="Alerts">
-          <Alert tone="success" icon={<SvgIcon svg={alertCheckIcon} />}>Changes saved</Alert>
-          <Alert tone="danger" icon={<SvgIcon svg={alertWarningIcon} />}
+          <Alert tone="success" icon={<SvgIcon svg={alertCheckIcon} />}>
+            Changes saved
+          </Alert>
+          <Alert
+            tone="danger"
+            icon={<SvgIcon svg={alertWarningIcon} />}
             title="A value needs attention"
             description="Review the highlighted field and try again."
           />
@@ -909,7 +1189,9 @@ function App() {
           <ResizeExample rtl={rtl} />
         </Example>
       </Section>
-      <Section title="Pagination"><PaginationExamples /></Section>
+      <Section title="Pagination">
+        <PaginationExamples />
+      </Section>
       <Section title="Progress and rating">
         <Example title="Progress bar">
           <ProgressBar value={35} ariaLabel="Completion" />
@@ -928,9 +1210,17 @@ function App() {
           />
         </Example>
       </Section>
-      <Section title="HTML Editor" columns={1}><RichTextEditorExample /></Section>
-      <Section title="PDF viewer" columns={1}><PdfViewerExamples /></Section>
-      <Section title="AI assistant"><AiExamples /><AiChatExample /><AiResultsExample /></Section>
+      <Section title="HTML Editor" columns={1}>
+        <RichTextEditorExample />
+      </Section>
+      <Section title="PDF viewer" columns={1}>
+        <PdfViewerExamples />
+      </Section>
+      <Section title="AI assistant">
+        <AiExamples />
+        <AiChatExample />
+        <AiResultsExample />
+      </Section>
     </CatalogShell>
   );
 }

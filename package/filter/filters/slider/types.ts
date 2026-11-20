@@ -1,5 +1,5 @@
-import type { ClassPreset } from "../../../presets/types";
-import type { MotionPreset } from "../../../presets/motion";
+import type { ClassPreset } from '../../../presets/types';
+import type { MotionPreset } from '../../../presets/motion';
 export interface SliderRange {
   fromValue: number;
   toValue: number;

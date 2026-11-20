@@ -1367,7 +1367,11 @@ function Sample({
         />
       );
     case 'Pane':
-      return <Pane {...shared}><div class="theme-pane-sample-content">Pane content</div></Pane>;
+      return (
+        <Pane {...shared}>
+          <div class="theme-pane-sample-content">Pane content</div>
+        </Pane>
+      );
     case 'Rating':
       return (
         <Rating
@@ -1386,7 +1390,9 @@ function Sample({
     case 'SplitLayout':
       return (
         <SplitLayout {...shared}>
-          <Pane><div class="theme-pane-sample-content">Pane content</div></Pane>
+          <Pane>
+            <div class="theme-pane-sample-content">Pane content</div>
+          </Pane>
         </SplitLayout>
       );
     case 'SvgButton':
@@ -1678,11 +1684,17 @@ function Sample({
         </details>
       );
     case 'EditorPane':
-      return <EditorPane {...shared}><div class="theme-pane-sample-content">Pane content</div></EditorPane>;
+      return (
+        <EditorPane {...shared}>
+          <div class="theme-pane-sample-content">Pane content</div>
+        </EditorPane>
+      );
     case 'EditorSplitLayout':
       return (
         <EditorSplitLayout {...shared}>
-          <EditorPane><div class="theme-pane-sample-content">Pane content</div></EditorPane>
+          <EditorPane>
+            <div class="theme-pane-sample-content">Pane content</div>
+          </EditorPane>
         </EditorSplitLayout>
       );
     case 'EditorList':
@@ -1988,7 +2000,11 @@ export function ThemeSamples({ preview }: { preview: ThemePreview }) {
     <div class="theme-samples">
       <div>
         <span>Customized</span>
-        <Sample key={`${preview.component}-custom`} name={preview.component} preset={preview.preset} />
+        <Sample
+          key={`${preview.component}-custom`}
+          name={preview.component}
+          preset={preview.preset}
+        />
       </div>
     </div>
   );

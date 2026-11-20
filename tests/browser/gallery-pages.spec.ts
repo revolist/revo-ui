@@ -233,10 +233,9 @@ test('UI-only finance previews, portfolio breakdown and invoice table work toget
   await expect(holdings).toContainText('$21,000.00');
   const invoiceTable = page.getByRole('table', { name: 'Invoice details' });
   for (const table of [holdings, invoiceTable]) {
-    await expect(table.locator('tbody tr:first-child > :first-child')).toHaveCSS(
-      'padding-inline-start',
-      '10px',
-    );
+    await expect(
+      table.locator('tbody tr:first-child > :first-child'),
+    ).toHaveCSS('padding-inline-start', '10px');
     await expect(table.locator('thead th:first-child')).toHaveCSS(
       'padding-inline-start',
       '10px',
@@ -486,7 +485,9 @@ test('audit standalone field sizing across the gallery', async ({ page }) => {
   }
 });
 
-test('header theme button and customize panel animation switch work', async ({ page }) => {
+test('header theme button and customize panel animation switch work', async ({
+  page,
+}) => {
   await page.goto('/');
   const theme = page.getByRole('button', { name: 'Theme', exact: true });
   await expect(theme.locator('svg')).toHaveCount(1);
@@ -718,7 +719,9 @@ for (const width of [1280, 390]) {
             groups[index].top - groups[index - 1].bottom,
           ).toBeGreaterThanOrEqual(20);
         }
-        await page.getByRole('button', { name: 'Customize', exact: true }).click();
+        await page
+          .getByRole('button', { name: 'Customize', exact: true })
+          .click();
         await page
           .getByRole('switch', { name: 'Right to left', exact: true })
           .click();
@@ -784,9 +787,15 @@ test('standalone dropdown has balanced text and caret insets', async ({
   });
   for (const rtl of [false, true]) {
     if (rtl) {
-      await page.getByRole('button', { name: 'Customize', exact: true }).click();
-      await page.getByRole('switch', { name: 'Right to left', exact: true }).check();
-      await page.getByRole('button', { name: 'Customize', exact: true }).click();
+      await page
+        .getByRole('button', { name: 'Customize', exact: true })
+        .click();
+      await page
+        .getByRole('switch', { name: 'Right to left', exact: true })
+        .check();
+      await page
+        .getByRole('button', { name: 'Customize', exact: true })
+        .click();
     }
     const sizes = await select.evaluate((el) => {
       const caret = el
@@ -872,13 +881,22 @@ test('footer product names link to RevoGrid and Pro documentation', async ({
   }
 });
 
-test('header navigation omits the star request on desktop and mobile', async ({ page }) => {
+test('header navigation omits the star request on desktop and mobile', async ({
+  page,
+}) => {
   for (const width of [1280, 390]) {
     await page.setViewportSize({ width, height: 800 });
     await page.goto('/components/timeline-track/');
     const navigation = page.getByRole('navigation', { name: 'Library pages' });
-    await expect(navigation.getByRole('link', { name: 'Star on GitHub' })).toHaveCount(0);
-    await expect(navigation.getByRole('link')).toHaveText(['Overview', 'Components', 'Docs', 'API']);
+    await expect(
+      navigation.getByRole('link', { name: 'Star on GitHub' }),
+    ).toHaveCount(0);
+    await expect(navigation.getByRole('link')).toHaveText([
+      'Overview',
+      'Components',
+      'Docs',
+      'API',
+    ]);
   }
 });
 
@@ -897,7 +915,9 @@ test('wide planner keeps member controls in the grid column beside the summary',
   const summary = (await planner
     .getByRole('complementary', { name: 'Weekly priorities' })
     .boundingBox())!;
-  const gridPanel = (await planner.locator('.planning-grid-panel').boundingBox())!;
+  const gridPanel = (await planner
+    .locator('.planning-grid-panel')
+    .boundingBox())!;
   expect(controls.x + controls.width).toBeLessThanOrEqual(summary.x);
   expect(Math.abs(summary.y - gridPanel.y)).toBeLessThan(5);
 });
@@ -907,13 +927,19 @@ test('resource selection has a dedicated picker page', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
     'Resource selection',
   );
-  await expect(page.getByRole('searchbox', { name: 'Search people' })).toBeVisible();
   await expect(
-    page.getByRole('navigation', { name: 'Component sections' }).getByRole('link', {
-      name: 'Resource selection',
-      exact: true,
-    }),
+    page.getByRole('searchbox', { name: 'Search people' }),
+  ).toBeVisible();
+  await expect(
+    page
+      .getByRole('navigation', { name: 'Component sections' })
+      .getByRole('link', {
+        name: 'Resource selection',
+        exact: true,
+      }),
   ).toBeVisible();
   await page.goto('/components/multi-selects-autocomplete/');
-  await expect(page.getByRole('searchbox', { name: 'Search people' })).toHaveCount(0);
+  await expect(
+    page.getByRole('searchbox', { name: 'Search people' }),
+  ).toHaveCount(0);
 });

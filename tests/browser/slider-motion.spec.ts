@@ -1,14 +1,14 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from '@playwright/test';
 
-test("slider retains keyboard and pointer interaction with hover and press feedback", async ({
+test('slider retains keyboard and pointer interaction with hover and press feedback', async ({
   page,
 }) => {
-  await page.emulateMedia({ reducedMotion: "no-preference" });
-  await page.goto("/components/sliders/");
-  const slider = page.getByRole("slider", { name: "Volume", exact: true });
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('/components/sliders/');
+  const slider = page.getByRole('slider', { name: 'Volume', exact: true });
   await slider.focus();
-  await slider.press("ArrowRight");
-  await expect(slider).toHaveValue("8");
+  await slider.press('ArrowRight');
+  await expect(slider).toHaveValue('8');
   await slider.blur();
   await page.mouse.move(0, 0);
   const idle = await slider.screenshot();
@@ -28,16 +28,16 @@ test("slider retains keyboard and pointer interaction with hover and press feedb
   await page.mouse.up();
   expect(Number(await slider.inputValue())).toBeLessThan(8);
   await expect(
-    page.getByRole("slider", { name: "Legacy code" }),
+    page.getByRole('slider', { name: 'Legacy code' }),
   ).toBeDisabled();
 });
 
-test("slider press remains visually still with reduced motion", async ({
+test('slider press remains visually still with reduced motion', async ({
   page,
 }) => {
-  await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto("/components/sliders/");
-  const slider = page.getByRole("slider", { name: "Volume", exact: true });
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/components/sliders/');
+  const slider = page.getByRole('slider', { name: 'Volume', exact: true });
   const box = await slider.boundingBox();
   await page.mouse.move(
     box!.x + 10 + (box!.width - 20) * 0.7,
@@ -50,20 +50,20 @@ test("slider press remains visually still with reduced motion", async ({
   await page.mouse.up();
 });
 
-test("range slider preserves native keyboard interaction and the motion-off setting", async ({
+test('range slider preserves native keyboard interaction and the motion-off setting', async ({
   page,
 }) => {
-  await page.emulateMedia({ reducedMotion: "no-preference" });
-  await page.goto("/components/sliders/");
-  const slider = page.getByRole("slider", { name: "Minimum amount" });
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('/components/sliders/');
+  const slider = page.getByRole('slider', { name: 'Minimum amount' });
   const before = Number(await slider.inputValue());
   await slider.focus();
-  await slider.press("ArrowRight");
+  await slider.press('ArrowRight');
   expect(Number(await slider.inputValue())).toBeGreaterThan(before);
-  const volume = page.getByRole("slider", { name: "Volume", exact: true });
+  const volume = page.getByRole('slider', { name: 'Volume', exact: true });
   await page
-    .locator(".catalog")
-    .evaluate((element) => element.setAttribute("data-rv-ui-motion", "off"));
+    .locator('.catalog')
+    .evaluate((element) => element.setAttribute('data-rv-ui-motion', 'off'));
   const box = await volume.boundingBox();
   await page.mouse.move(
     box!.x + 10 + (box!.width - 20) * 0.7,

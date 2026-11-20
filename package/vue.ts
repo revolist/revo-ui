@@ -455,10 +455,9 @@ export const FieldRemoveButton = /* @__PURE__ */ createVueAdapter(
   ui.FieldRemoveButton,
   'FieldRemoveButton',
 );
-export const FieldRemoveIcon = /* @__PURE__ */ createVueAdapter<NonNullable<Parameters<typeof ui.FieldRemoveIcon>[0]>>(
-  ui.FieldRemoveIcon,
-  'FieldRemoveIcon',
-);
+export const FieldRemoveIcon = /* @__PURE__ */ createVueAdapter<
+  NonNullable<Parameters<typeof ui.FieldRemoveIcon>[0]>
+>(ui.FieldRemoveIcon, 'FieldRemoveIcon');
 export const FieldDropIndicator = /* @__PURE__ */ createVueAdapter(
   ui.FieldDropIndicator,
   'FieldDropIndicator',
@@ -721,4 +720,7 @@ export type {
   TooltipPositionOptions,
 } from './core/tooltip-options';
 
-export const LookupField = /* @__PURE__ */ createVueAdapter(ui.LookupField, 'LookupField');
+export const LookupField = /* @__PURE__ */ createVueAdapter(
+  ui.LookupField,
+  'LookupField',
+);

@@ -1,10 +1,10 @@
-import { h as preactH, type JSX } from "preact";
-import { selectionSettle } from "../core/settle-motion";
+import { h as preactH, type JSX } from 'preact';
+import { selectionSettle } from '../core/settle-motion';
 import {
   motionAllowed,
   presetAnimation,
   type MotionPreset,
-} from "../presets/motion";
+} from '../presets/motion';
 
 export type SegmentedSwitchRenderable = any;
 
@@ -25,24 +25,24 @@ export type SegmentedSwitchOption<
   ariaControls?: string;
   /** Consumer metadata; the switch retains ownership of behavior and tab semantics. */
   buttonAttributes?: Omit<
-    JSX.IntrinsicElements["button"],
-    | "children"
-    | "class"
-    | "className"
-    | "id"
-    | "type"
-    | "role"
-    | "tabIndex"
-    | "disabled"
-    | "onClick"
-    | "onKeyDown"
-    | "aria-selected"
-    | "aria-checked"
-    | "aria-controls"
+    JSX.IntrinsicElements['button'],
+    | 'children'
+    | 'class'
+    | 'className'
+    | 'id'
+    | 'type'
+    | 'role'
+    | 'tabIndex'
+    | 'disabled'
+    | 'onClick'
+    | 'onKeyDown'
+    | 'aria-selected'
+    | 'aria-checked'
+    | 'aria-controls'
   > & { [attribute: `data-${string}`]: string | number | boolean | undefined };
 };
 
-export type SegmentedSwitchRole = "tablist" | "radiogroup" | "group";
+export type SegmentedSwitchRole = 'tablist' | 'radiogroup' | 'group';
 
 export type SegmentedSwitchPreset = {
   motion?: MotionPreset;
@@ -83,8 +83,8 @@ export type SegmentedSwitchProps<
 };
 
 function getItemRole(role: SegmentedSwitchRole) {
-  if (role === "tablist") return "tab";
-  if (role === "radiogroup") return "radio";
+  if (role === 'tablist') return 'tab';
+  if (role === 'radiogroup') return 'radio';
   return undefined;
 }
 
@@ -96,21 +96,21 @@ function animateSelection(
   motion?: MotionPreset,
 ) {
   if (
-    typeof window === "undefined" ||
-    typeof target.animate !== "function" ||
+    typeof window === 'undefined' ||
+    typeof target.animate !== 'function' ||
     !motionAllowed(root)
   )
     return;
   requestAnimationFrame(() => {
-    if (!root.isConnected || !target.classList.contains("on")) return;
-    root.querySelector(".rv-segmented-switch-indicator")?.remove();
+    if (!root.isConnected || !target.classList.contains('on')) return;
+    root.querySelector('.rv-segmented-switch-indicator')?.remove();
     delete root.dataset.sliding;
     const bounds = root.getBoundingClientRect();
     const next = target.getBoundingClientRect();
     const selected = getComputedStyle(target);
-    const indicator = document.createElement("span");
-    indicator.className = "rv-segmented-switch-indicator";
-    indicator.setAttribute("aria-hidden", "true");
+    const indicator = document.createElement('span');
+    indicator.className = 'rv-segmented-switch-indicator';
+    indicator.setAttribute('aria-hidden', 'true');
     Object.assign(indicator.style, {
       left: `${previous.left - bounds.left - root.clientLeft}px`,
       top: `${next.top - bounds.top - root.clientTop}px`,
@@ -124,10 +124,10 @@ function animateSelection(
     const distance = next.left - previous.left;
     const configured = presetAnimation(
       motion,
-      "selection",
+      'selection',
       {
         keyframes: [
-          { transform: "translateX(0)", width: `${previous.width}px` },
+          { transform: 'translateX(0)', width: `${previous.width}px` },
           {
             transform: `translateX(${distance}px) scaleX(${selectionSettle.scale})`,
             width: `${next.width}px`,
@@ -147,14 +147,14 @@ function animateSelection(
     );
     if (!configured) return;
     root.appendChild(indicator);
-    root.dataset.sliding = "";
+    root.dataset.sliding = '';
     const animation = indicator.animate(
       configured.keyframes,
       configured.options,
     );
     const cleanup = () => {
       indicator.remove();
-      if (!root.querySelector(".rv-segmented-switch-indicator"))
+      if (!root.querySelector('.rv-segmented-switch-indicator'))
         delete root.dataset.sliding;
     };
     animation.onfinish = cleanup;
@@ -179,14 +179,14 @@ export function renderSegmentedSwitch<
     options,
     onChange,
     ariaLabel,
-    className = "",
-    itemClassName = "",
-    countClassName = "",
-    activeClassName = "on",
+    className = '',
+    itemClassName = '',
+    countClassName = '',
+    activeClassName = 'on',
     disabled: disabledProp,
     iconOnly: iconOnlyProp,
     title,
-    role = "tablist",
+    role = 'tablist',
     testId,
     renderOption,
     renderCount,
@@ -205,12 +205,12 @@ export function renderSegmentedSwitch<
   const moveFocus = (event: KeyboardEvent, currentValue: T) => {
     if (
       ![
-        "ArrowLeft",
-        "ArrowRight",
-        "ArrowUp",
-        "ArrowDown",
-        "Home",
-        "End",
+        'ArrowLeft',
+        'ArrowRight',
+        'ArrowUp',
+        'ArrowDown',
+        'Home',
+        'End',
       ].includes(event.key)
     )
       return;
@@ -220,11 +220,11 @@ export function renderSegmentedSwitch<
     const current = enabledOptions.findIndex(
       (option) => option.value === currentValue,
     );
-    const backwards = event.key === "ArrowLeft" || event.key === "ArrowUp";
+    const backwards = event.key === 'ArrowLeft' || event.key === 'ArrowUp';
     const targetIndex =
-      event.key === "Home"
+      event.key === 'Home'
         ? 0
-        : event.key === "End"
+        : event.key === 'End'
           ? enabledOptions.length - 1
           : (Math.max(0, current) +
               (backwards ? -1 : 1) +
@@ -234,7 +234,7 @@ export function renderSegmentedSwitch<
     const buttons = (
       event.currentTarget as HTMLButtonElement
     ).parentElement?.querySelectorAll<HTMLButtonElement>(
-      ".rv-segmented-switch-item:not(:disabled)",
+      '.rv-segmented-switch-item:not(:disabled)',
     );
     const root = (event.currentTarget as HTMLButtonElement).parentElement;
     const previous = (
@@ -247,40 +247,40 @@ export function renderSegmentedSwitch<
   };
 
   return h(
-    "div",
+    'div',
     {
       class:
-        `rv-segmented-switch${iconOnly ? " rv-segmented-switch--icon-only" : ""} ${preset?.className ?? ""} ${className}`.trim(),
+        `rv-segmented-switch${iconOnly ? ' rv-segmented-switch--icon-only' : ''} ${preset?.className ?? ''} ${className}`.trim(),
       role,
-      "data-part": "root",
-      "aria-label": ariaLabel,
+      'data-part': 'root',
+      'aria-label': ariaLabel,
       title,
-      "data-testid": testId,
+      'data-testid': testId,
     },
     ...options.map((option) => {
       const active = option.value === value;
       const itemDisabled = disabled || !!option.disabled;
       const state = { active, disabled: itemDisabled };
       return h(
-        "button",
+        'button',
         {
           ...option.buttonAttributes,
           key: String(option.value),
-          type: "button",
+          type: 'button',
           role: itemRole,
           id: option.id,
-          "aria-controls": option.ariaControls,
-          "aria-selected": itemRole === "tab" ? String(active) : undefined,
-          "aria-checked": itemRole === "radio" ? String(active) : undefined,
-          "aria-pressed": role === "group" ? String(active) : undefined,
-          "aria-label":
+          'aria-controls': option.ariaControls,
+          'aria-selected': itemRole === 'tab' ? String(active) : undefined,
+          'aria-checked': itemRole === 'radio' ? String(active) : undefined,
+          'aria-pressed': role === 'group' ? String(active) : undefined,
+          'aria-label':
             option.ariaLabel ??
-            (iconOnly && typeof option.label === "string"
+            (iconOnly && typeof option.label === 'string'
               ? option.label
               : undefined),
           title:
             option.title ??
-            (iconOnly && typeof option.label === "string"
+            (iconOnly && typeof option.label === 'string'
               ? option.label
               : undefined),
           tabIndex:
@@ -293,19 +293,19 @@ export function renderSegmentedSwitch<
                 ? -1
                 : undefined,
           class:
-            `rv-segmented-switch-item ${active ? `on ${activeClassName}` : ""} ${itemClassName} ${option.className ?? ""}`.trim(),
+            `rv-segmented-switch-item ${active ? `on ${activeClassName}` : ''} ${itemClassName} ${option.className ?? ''}`.trim(),
           disabled: itemDisabled,
-          "data-part": "item",
-          "data-state": active ? "active" : "inactive",
-          "data-value": String(option.value),
-          "data-testid": option.testId,
+          'data-part': 'item',
+          'data-state': active ? 'active' : 'inactive',
+          'data-value': String(option.value),
+          'data-testid': option.testId,
           onKeyDown: (event: KeyboardEvent) => moveFocus(event, option.value),
           onClick: (event: MouseEvent) => {
             if (itemDisabled || active) return;
             const target = event.currentTarget as HTMLButtonElement;
             const root = target.parentElement;
             const previous = root
-              ?.querySelector<HTMLElement>(".rv-segmented-switch-item.on")
+              ?.querySelector<HTMLElement>('.rv-segmented-switch-item.on')
               ?.getBoundingClientRect();
             onChange(option.value, option, event);
             if (root && previous)
@@ -313,16 +313,16 @@ export function renderSegmentedSwitch<
           },
         },
         h(
-          "span",
-          { class: "rv-segmented-switch-label", "data-part": "label" },
+          'span',
+          { class: 'rv-segmented-switch-label', 'data-part': 'label' },
           renderOption ? renderOption(option, state) : option.label,
         ),
         option.count !== undefined
           ? h(
-              "span",
+              'span',
               {
                 class: `rv-segmented-switch-count ${countClassName}`.trim(),
-                "data-part": "count",
+                'data-part': 'count',
               },
               renderCount ? renderCount(option, state) : option.count,
             )

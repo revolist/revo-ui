@@ -31,8 +31,15 @@ test('themes guide displays diagrams, instructions and navigation on desktop and
   await page.screenshot({ path: '/tmp/revo-ui-themes-guide.png' });
   await page.setViewportSize({ width: 390, height: 844 });
   await expect(page.locator('.markdown-guide')).toBeVisible();
-  await expect(page.getByText('Scroll to explore the diagram').first()).toBeVisible();
-  expect(await page.locator('.documentation-figure-scroll').first().evaluate((element) => element.scrollWidth > element.clientWidth)).toBe(true);
+  await expect(
+    page.getByText('Scroll to explore the diagram').first(),
+  ).toBeVisible();
+  expect(
+    await page
+      .locator('.documentation-figure-scroll')
+      .first()
+      .evaluate((element) => element.scrollWidth > element.clientWidth),
+  ).toBe(true);
   await page.screenshot({ path: '/tmp/revo-ui-themes-guide-mobile.png' });
   expect(
     await page.evaluate(
@@ -46,13 +53,17 @@ test('themes guide displays diagrams, instructions and navigation on desktop and
   ).toHaveAttribute('href', '/frameworks/presets/');
 });
 
-
-test('documentation navigation opens the customization workspace', async ({ page }) => {
+test('documentation navigation opens the customization workspace', async ({
+  page,
+}) => {
   await page.goto('/frameworks/presets/');
-  const link = page.getByRole('navigation', { name: 'Documentation navigation' })
+  const link = page
+    .getByRole('navigation', { name: 'Documentation navigation' })
     .getByRole('link', { name: 'Customize components', exact: true });
   await expect(link).toHaveAttribute('href', '/customize/');
   await link.click();
   await expect(page).toHaveURL(/\/customize\/$/);
-  await expect(page.getByRole('heading', { name: 'Make it yours.' })).toBeVisible();
+  await expect(
+    page.getByRole('heading', { name: 'Make it yours.' }),
+  ).toBeVisible();
 });

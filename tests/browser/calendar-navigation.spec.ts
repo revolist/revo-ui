@@ -23,7 +23,9 @@ test('keeps keyboard focus while paging and switching calendar views', async ({
   });
   await chooseMonth.focus();
   await page.keyboard.press('Enter');
-  await expect(calendar.getByRole('button', { name: 'November' })).toBeFocused();
+  await expect(
+    calendar.getByRole('button', { name: 'November' }),
+  ).toBeFocused();
   await page.keyboard.press('Escape');
   await expect(chooseMonth).toBeFocused();
   await page.keyboard.press('Enter');

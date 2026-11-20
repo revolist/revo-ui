@@ -25,10 +25,19 @@ for (const theme of ['light', 'dark'])
       await expect(trigger).toHaveCSS('border-top-width', '1px');
       const bounds = await trigger.evaluate((element) => {
         const field = element.getBoundingClientRect();
-        const tag = element.querySelector('.selected-tag')!.getBoundingClientRect();
-        return { left: tag.left - field.left, right: field.right - tag.right, top: tag.top - field.top, bottom: field.bottom - tag.bottom };
+        const tag = element
+          .querySelector('.selected-tag')!
+          .getBoundingClientRect();
+        return {
+          left: tag.left - field.left,
+          right: field.right - tag.right,
+          top: tag.top - field.top,
+          bottom: field.bottom - tag.bottom,
+        };
       });
-      expect(Math.min(bounds.left, bounds.right, bounds.top, bounds.bottom)).toBeGreaterThanOrEqual(1);
+      expect(
+        Math.min(bounds.left, bounds.right, bounds.top, bounds.bottom),
+      ).toBeGreaterThanOrEqual(1);
       expect(await picker.locator('revo-grid').count()).toBe(0);
       const dialog = (await picker.boundingBox())!;
       const search = (await picker.getByRole('searchbox').boundingBox())!;

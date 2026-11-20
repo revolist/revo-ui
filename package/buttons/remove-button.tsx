@@ -19,8 +19,15 @@ export type RemoveButtonProps = {
 
 /** Neutral close/remove action for fields, chips, and other controls. */
 export function RemoveButton({
-  preset, onClick, disabled, rounded, onMouseDown, onDblClick,
-  compact = false, className = '', locale = { title: 'Remove', ariaLabel: 'Remove' },
+  preset,
+  onClick,
+  disabled,
+  rounded,
+  onMouseDown,
+  onDblClick,
+  compact = false,
+  className = '',
+  locale = { title: 'Remove', ariaLabel: 'Remove' },
 }: RemoveButtonProps) {
   return (
     <button

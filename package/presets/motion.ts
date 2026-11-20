@@ -8,8 +8,8 @@ export interface MotionEvent {
   easing?: string;
   iterations?: number;
   iterationStart?: number;
-  direction?: "normal" | "reverse" | "alternate" | "alternate-reverse";
-  fill?: "none" | "forwards" | "backwards" | "both" | "auto";
+  direction?: 'normal' | 'reverse' | 'alternate' | 'alternate-reverse';
+  fill?: 'none' | 'forwards' | 'backwards' | 'both' | 'auto';
   /** Additional delay per calendar column, in milliseconds. */
   stagger?: number;
   keyframes?: MotionFrame[];
@@ -22,9 +22,9 @@ export function motionAllowed(element: HTMLElement): boolean {
   return Boolean(
     win &&
     !element.closest('[data-rv-ui-motion="off"]') &&
-    !win.matchMedia?.("(prefers-reduced-motion: reduce)").matches &&
+    !win.matchMedia?.('(prefers-reduced-motion: reduce)').matches &&
     parseFloat(
-      win.getComputedStyle(element).getPropertyValue("--rv-ui-motion-normal"),
+      win.getComputedStyle(element).getPropertyValue('--rv-ui-motion-normal'),
     ) !== 0,
   );
 }
@@ -33,73 +33,73 @@ export function motionAllowed(element: HTMLElement): boolean {
 export function validateMotionPreset(
   value: unknown,
 ): asserts value is MotionPreset {
-  if (!value || typeof value !== "object" || Array.isArray(value))
-    throw new TypeError("Motion must be an object");
+  if (!value || typeof value !== 'object' || Array.isArray(value))
+    throw new TypeError('Motion must be an object');
   for (const [name, event] of Object.entries(value)) {
     if (
       !/^[a-z][a-zA-Z0-9]*$/.test(name) ||
       !event ||
-      typeof event !== "object" ||
+      typeof event !== 'object' ||
       Array.isArray(event)
     )
-      throw new TypeError("Invalid motion event");
+      throw new TypeError('Invalid motion event');
     for (const [key, entry] of Object.entries(event)) {
-      if (key === "enabled" && typeof entry === "boolean") continue;
+      if (key === 'enabled' && typeof entry === 'boolean') continue;
       if (
-        ["duration", "stagger", "iterations", "iterationStart"].includes(key) &&
-        typeof entry === "number" &&
+        ['duration', 'stagger', 'iterations', 'iterationStart'].includes(key) &&
+        typeof entry === 'number' &&
         Number.isFinite(entry) &&
         entry >= 0
       )
         continue;
       if (
-        ["delay", "endDelay"].includes(key) &&
-        typeof entry === "number" &&
+        ['delay', 'endDelay'].includes(key) &&
+        typeof entry === 'number' &&
         Number.isFinite(entry)
       )
         continue;
       if (
-        key === "direction" &&
-        ["normal", "reverse", "alternate", "alternate-reverse"].includes(
+        key === 'direction' &&
+        ['normal', 'reverse', 'alternate', 'alternate-reverse'].includes(
           String(entry),
         )
       )
         continue;
       if (
-        key === "fill" &&
-        ["none", "forwards", "backwards", "both", "auto"].includes(
+        key === 'fill' &&
+        ['none', 'forwards', 'backwards', 'both', 'auto'].includes(
           String(entry),
         )
       )
         continue;
       if (
-        key === "easing" &&
-        typeof entry === "string" &&
+        key === 'easing' &&
+        typeof entry === 'string' &&
         entry.length > 0 &&
         entry.length <= 200 &&
-        (typeof CSS === "undefined" ||
-          CSS.supports("animation-timing-function", entry))
+        (typeof CSS === 'undefined' ||
+          CSS.supports('animation-timing-function', entry))
       )
         continue;
       if (
-        key === "keyframes" &&
+        key === 'keyframes' &&
         Array.isArray(entry) &&
         entry.length >= 2 &&
         entry.every(
           (frame) =>
             frame &&
-            typeof frame === "object" &&
+            typeof frame === 'object' &&
             !Array.isArray(frame) &&
             Object.entries(frame).every(
               ([property, v]) =>
                 /^[a-zA-Z][a-zA-Z0-9]*$/.test(property) &&
-                (property === "offset"
-                  ? typeof v === "number" &&
+                (property === 'offset'
+                  ? typeof v === 'number' &&
                     Number.isFinite(v) &&
                     v >= 0 &&
                     v <= 1
-                  : typeof v === "string" ||
-                    (typeof v === "number" && Number.isFinite(v))),
+                  : typeof v === 'string' ||
+                    (typeof v === 'number' && Number.isFinite(v))),
             ),
         )
       ) {
@@ -107,16 +107,16 @@ export function validateMotionPreset(
         for (const frame of entry) {
           if (frame.offset !== undefined) {
             if (frame.offset < lastOffset)
-              throw new TypeError("Keyframe offsets must be ordered");
+              throw new TypeError('Keyframe offsets must be ordered');
             lastOffset = frame.offset;
           }
           if (
             frame.easing !== undefined &&
-            (typeof frame.easing !== "string" ||
-              (typeof CSS !== "undefined" &&
-                !CSS.supports("animation-timing-function", frame.easing)))
+            (typeof frame.easing !== 'string' ||
+              (typeof CSS !== 'undefined' &&
+                !CSS.supports('animation-timing-function', frame.easing)))
           )
-            throw new TypeError("Invalid keyframe easing");
+            throw new TypeError('Invalid keyframe easing');
         }
         continue;
       }
@@ -144,7 +144,7 @@ export function presetAnimation(
     Object.fromEntries(
       Object.entries(frame).map(([key, value]) => [
         key,
-        typeof value === "string"
+        typeof value === 'string'
           ? value.replace(/\{\{([a-zA-Z]+)\}\}/g, (token, name: string) =>
               String(variables[name] ?? token),
             )

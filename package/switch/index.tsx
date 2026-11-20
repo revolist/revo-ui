@@ -1,18 +1,18 @@
-import { ButtonControl } from "../native-control";
-import { h } from "preact";
-import { useLayoutEffect, useRef } from "preact/hooks";
-import { selectionSettle } from "../core/settle-motion";
+import { ButtonControl } from '../native-control';
+import { h } from 'preact';
+import { useLayoutEffect, useRef } from 'preact/hooks';
+import { selectionSettle } from '../core/settle-motion';
 import {
   motionAllowed,
   presetAnimation,
   type MotionPreset,
-} from "../presets/motion";
+} from '../presets/motion';
 
 export type SwitchRenderable = any;
 
 export type SwitchPreset = {
   motion?: MotionPreset;
-  props?: { labelPosition?: "before" | "after" };
+  props?: { labelPosition?: 'before' | 'after' };
   className?: string;
   tokens?: {
     trackWidth?: string;
@@ -33,7 +33,7 @@ export type SwitchProps = {
   ariaLabel?: string;
   className?: string;
   disabled?: boolean;
-  labelPosition?: "before" | "after";
+  labelPosition?: 'before' | 'after';
   title?: string;
   testId?: string;
 };
@@ -45,7 +45,7 @@ export function Switch({
   onChange,
   label,
   ariaLabel,
-  className = "",
+  className = '',
   disabled = false,
   labelPosition,
   title,
@@ -63,18 +63,18 @@ export function Switch({
       disabled ||
       !thumb ||
       !win ||
-      typeof thumb.animate !== "function" ||
+      typeof thumb.animate !== 'function' ||
       !motionAllowed(thumb)
     )
       return;
-    const configured = presetAnimation(preset?.motion, "settle", {
+    const configured = presetAnimation(preset?.motion, 'settle', {
       keyframes: [
-        { transform: "scaleX(1)" },
+        { transform: 'scaleX(1)' },
         {
           transform: `scaleX(${selectionSettle.scale})`,
           offset: selectionSettle.offset,
         },
-        { transform: "scaleX(1)" },
+        { transform: 'scaleX(1)' },
       ],
       options: {
         duration: selectionSettle.duration,
@@ -88,15 +88,15 @@ export function Switch({
   }, [checked, disabled, preset?.motion]);
   const tokens = preset?.tokens;
   const presetStyle = tokens && {
-    "--rv-ui-switch-preset-track-width": tokens.trackWidth,
-    "--rv-ui-switch-preset-track-height": tokens.trackHeight,
-    "--rv-ui-switch-preset-track-padding": tokens.trackPadding,
-    "--rv-ui-switch-preset-thumb-size": tokens.thumbSize,
-    "--rv-ui-switch-preset-track-off": tokens.trackOff,
-    "--rv-ui-switch-preset-track-on": tokens.trackOn,
-    "--rv-ui-switch-preset-thumb": tokens.thumb,
+    '--rv-ui-switch-preset-track-width': tokens.trackWidth,
+    '--rv-ui-switch-preset-track-height': tokens.trackHeight,
+    '--rv-ui-switch-preset-track-padding': tokens.trackPadding,
+    '--rv-ui-switch-preset-thumb-size': tokens.thumbSize,
+    '--rv-ui-switch-preset-track-off': tokens.trackOff,
+    '--rv-ui-switch-preset-track-on': tokens.trackOn,
+    '--rv-ui-switch-preset-thumb': tokens.thumb,
   };
-  const position = labelPosition ?? preset?.props?.labelPosition ?? "before";
+  const position = labelPosition ?? preset?.props?.labelPosition ?? 'before';
   const copy = (
     <span class="rv-switch-label" data-part="label">
       {label}
@@ -111,22 +111,22 @@ export function Switch({
   return (
     <ButtonControl
       type="button"
-      class={["rv-switch", preset?.className, className]
+      class={['rv-switch', preset?.className, className]
         .filter(Boolean)
-        .join(" ")}
+        .join(' ')}
       style={presetStyle}
       data-part="root"
       data-state={checked ? 'checked' : 'unchecked'}
       role="switch"
       aria-checked={checked}
-      aria-label={ariaLabel ?? (typeof label === "string" ? label : undefined)}
+      aria-label={ariaLabel ?? (typeof label === 'string' ? label : undefined)}
       disabled={disabled}
       title={title}
       data-testid={testId}
       onClick={() => onChange(!checked)}
     >
-      {position === "before" ? copy : track}
-      {position === "before" ? track : copy}
+      {position === 'before' ? copy : track}
+      {position === 'before' ? track : copy}
     </ButtonControl>
   );
 }

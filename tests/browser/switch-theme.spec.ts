@@ -11,7 +11,8 @@ test('component editor previews and exports a button theme', async ({
   await chooseOption(editor.getByLabel('Component'), 'Button');
   await chooseOption(editor.getByLabel('variant'), 'primary');
   const button = page
-    .locator('.theme-samples > div').last()
+    .locator('.theme-samples > div')
+    .last()
     .getByRole('button', { name: 'Save', exact: true });
   await expect(button).toHaveClass(/rv-theme-button/);
   await expect(button).toHaveCSS('background-color', 'rgb(109, 40, 217)');
@@ -27,9 +28,7 @@ test('component editor previews and exports a button theme', async ({
   expect(preset.className).toBe('rv-theme-button-custom');
 });
 
-test('previews a composed component in the workspace', async ({
-  page,
-}) => {
+test('previews a composed component in the workspace', async ({ page }) => {
   await page.goto('/customize/');
   const editor = page.locator('.theme-editor').first();
   await chooseOption(editor.getByLabel('Component'), 'AiMessage');
@@ -80,9 +79,7 @@ test('saves presets from different families into one portable theme', async ({
   );
 });
 
-test('samples apply the preset to the customized control', async ({
-  page,
-}) => {
+test('samples apply the preset to the customized control', async ({ page }) => {
   await page.goto('/customize/');
   const editor = page.locator('.theme-editor').first();
   for (const name of [
@@ -207,7 +204,11 @@ test('building-block samples render their selected preset class', async ({
       'BarChart',
       'LineChart',
     ],
-    'resource-selection': ['Avatar', 'ResourcePickerAvatar', 'SharedResourcePicker'],
+    'resource-selection': [
+      'Avatar',
+      'ResourcePickerAvatar',
+      'SharedResourcePicker',
+    ],
     color: ['ColorPalette', 'ColorPicker'],
     accordion: ['CollapsibleSection'],
     'duration-and-effort': ['DurationField', 'DurationDraft'],
@@ -235,7 +236,11 @@ test('building-block samples render their selected preset class', async ({
       'DatePicker',
       'DateRangePicker',
     ],
-    'date-and-time-fields': ['DateTimeField', 'TemporalDraft', 'TemporalPicker'],
+    'date-and-time-fields': [
+      'DateTimeField',
+      'TemporalDraft',
+      'TemporalPicker',
+    ],
     'multi-selects-autocomplete': [
       'FilterChip',
       'DropdownPopupContent',
@@ -365,7 +370,10 @@ test('shows live observed state hooks and resets samples when changing component
     .last()
     .getByRole('button', { name: 'Open picker' })
     .click();
-  await chooseOption(selectEditor.getByLabel('Component'), 'AssigneePickerLayout');
+  await chooseOption(
+    selectEditor.getByLabel('Component'),
+    'AssigneePickerLayout',
+  );
   await expect(
     page
       .locator('.theme-samples > div')
@@ -506,8 +514,14 @@ test('rating and slider behavior defaults work in the gallery', async ({
   await page.goto('/customize/');
   editor = page.locator('.theme-editor').first();
   await chooseOption(editor.getByLabel('Component'), 'SliderField');
-  await chooseOption(editor.getByRole('combobox', { name: 'Layout', exact: true }), 'stacked');
-  await chooseOption(editor.getByRole('combobox', { name: 'disabled', exact: true }), 'true');
+  await chooseOption(
+    editor.getByRole('combobox', { name: 'Layout', exact: true }),
+    'stacked',
+  );
+  await chooseOption(
+    editor.getByRole('combobox', { name: 'disabled', exact: true }),
+    'true',
+  );
   await editor
     .getByRole('textbox', { name: 'accentColor', exact: true })
     .fill('#ff0000');
@@ -524,7 +538,10 @@ test('tooltip trigger can be configured in a preset', async ({ page }) => {
   await page.goto('/customize/');
   const editor = page.locator('.theme-editor').first();
   await chooseOption(editor.getByLabel('Component'), 'Tooltip');
-  await chooseOption(editor.getByRole('combobox', { name: 'trigger', exact: true }), 'click');
+  await chooseOption(
+    editor.getByRole('combobox', { name: 'trigger', exact: true }),
+    'click',
+  );
   const custom = page.locator('.theme-samples > div').last();
   await custom.getByRole('button', { name: 'Show tooltip' }).click();
   await expect(

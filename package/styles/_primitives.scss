@@ -176,10 +176,16 @@
     background: var(--rv-ui-btn-ghost-hover-bg);
     opacity: 0;
     pointer-events: none;
-    transition: opacity var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease);
+    transition: opacity var(--rv-ui-motion-fast, 120ms)
+      var(--rv-ui-motion-ease, ease);
   }
-  &:hover:not(:disabled), &:active:not(:disabled) { background: transparent; }
-  &:hover:not(:disabled)::before { opacity: 1; }
+  &:hover:not(:disabled),
+  &:active:not(:disabled) {
+    background: transparent;
+  }
+  &:hover:not(:disabled)::before {
+    opacity: 1;
+  }
 
   &:focus-visible {
     border-radius: 8px;
@@ -289,7 +295,8 @@ label.rv-switch-label {
   box-shadow: 0 1px 3px var(--rv-ui-shadow);
   transform-origin: left center;
   transition:
-    inset-inline-start var(--rv-ui-motion-normal, 160ms) cubic-bezier(0.2, 0.8, 0.2, 1),
+    inset-inline-start var(--rv-ui-motion-normal, 160ms)
+      cubic-bezier(0.2, 0.8, 0.2, 1),
     transform var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease);
 }
 
@@ -302,14 +309,18 @@ label.rv-switch-label {
   transform-origin: right center;
 }
 .rv-switch[aria-checked='true']:dir(rtl) .rv-switch-thumb,
-.rv-switch-label:dir(rtl) .rv-switch-input:checked + .rv-switch-track .rv-switch-thumb {
+.rv-switch-label:dir(rtl)
+  .rv-switch-input:checked
+  + .rv-switch-track
+  .rv-switch-thumb {
   transform-origin: left center;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .rv-switch:not(:disabled):active .rv-switch-thumb,
   .rv-switch-input:not(:disabled):active + .rv-switch-track .rv-switch-thumb,
-  label.rv-switch-label:active:has(.rv-switch-input:not(:disabled)) .rv-switch-thumb {
+  label.rv-switch-label:active:has(.rv-switch-input:not(:disabled))
+    .rv-switch-thumb {
     transform: scaleX(1.15);
   }
   [data-rv-ui-motion='off'] .rv-switch-thumb {
@@ -742,7 +753,10 @@ label.rv-switch-label {
   background: transparent;
   color: var(
     --rv-segmented-item-color,
-    var(--rv-ah-text-2, var(--rv-segmented-theme-item-color, var(--rv-ui-text-muted)))
+    var(
+      --rv-ah-text-2,
+      var(--rv-segmented-theme-item-color, var(--rv-ui-text-muted))
+    )
   );
   cursor: pointer;
   font: inherit;

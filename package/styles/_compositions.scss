@@ -66,11 +66,17 @@
 }
 @media (prefers-reduced-motion: no-preference) {
   .rv-number-stepper > button:not(:disabled) {
-    transition: transform var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease),
-      background-color var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease);
+    transition:
+      transform var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease),
+      background-color var(--rv-ui-motion-fast, 120ms)
+        var(--rv-ui-motion-ease, ease);
   }
-  .rv-number-stepper > button:not(:disabled):active { transform: scale(.94); }
-  [data-rv-ui-motion='off'] .rv-number-stepper > button:not(:disabled):active { transform: none; }
+  .rv-number-stepper > button:not(:disabled):active {
+    transform: scale(0.94);
+  }
+  [data-rv-ui-motion='off'] .rv-number-stepper > button:not(:disabled):active {
+    transform: none;
+  }
 }
 .rv-toolbar {
   flex-wrap: wrap;

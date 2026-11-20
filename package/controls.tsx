@@ -240,7 +240,14 @@ export function TabPanel({
   children?: ComponentChildren;
 }) {
   return (
-    <div id={id} class={`${preset?.className ?? ''} ${className}`.trim()} data-part="root" role="tabpanel" aria-labelledby={labelledBy} hidden={!active}>
+    <div
+      id={id}
+      class={`${preset?.className ?? ''} ${className}`.trim()}
+      data-part="root"
+      role="tabpanel"
+      aria-labelledby={labelledBy}
+      hidden={!active}
+    >
       {children}
     </div>
   );
@@ -421,7 +428,12 @@ export function NumberStepper({
     const pending = pendingStep.current;
     pendingStep.current = undefined;
     if (pending && pending.to === value && root.current)
-      return animateNumberStep(root.current, pending.from, value, preset?.motion);
+      return animateNumberStep(
+        root.current,
+        pending.from,
+        value,
+        preset?.motion,
+      );
   }, [value, preset?.motion]);
   const set = (next: number) => {
     if (Number.isFinite(next)) onChange(Math.max(min, Math.min(max, next)));
@@ -433,7 +445,13 @@ export function NumberStepper({
     set(next);
   };
   return (
-    <div ref={root} class={`rv-number-stepper ${preset?.className ?? ''} ${className}`} data-part="root" role="group" aria-label={label}>
+    <div
+      ref={root}
+      class={`rv-number-stepper ${preset?.className ?? ''} ${className}`}
+      data-part="root"
+      role="group"
+      aria-label={label}
+    >
       <Button
         data-part="decrease"
         disabled={disabled || readOnly || value <= min}
@@ -826,7 +844,9 @@ export function Submenu({
     </div>
   );
 }
-export function ResizeHandle(props: ResizeOptions & { preset?: ClassPreset; className?: string }) {
+export function ResizeHandle(
+  props: ResizeOptions & { preset?: ClassPreset; className?: string },
+) {
   const ref = useRef<HTMLDivElement>(null);
   const latest = useRef(props);
   latest.current = props;
@@ -909,7 +929,12 @@ export type PaginationButtonOptions = Pick<
   'disabled' | 'variant' | 'className' | 'title'
 >;
 export type PaginationPreset = ClassPreset & {
-  props?: { variant?: 'compact' | 'numbered' | 'icons'; disabled?: boolean; navigation?: boolean; boundaryButtons?: boolean };
+  props?: {
+    variant?: 'compact' | 'numbered' | 'icons';
+    disabled?: boolean;
+    navigation?: boolean;
+    boundaryButtons?: boolean;
+  };
 };
 export interface PaginationProps {
   preset?: PaginationPreset;
@@ -955,7 +980,8 @@ export function Pagination({
   const variant = variantProp ?? preset?.props?.variant ?? 'compact';
   const disabled = disabledProp ?? preset?.props?.disabled ?? false;
   const navigation = navigationProp ?? preset?.props?.navigation ?? true;
-  const boundaryButtons = boundaryButtonsProp ?? preset?.props?.boundaryButtons ?? false;
+  const boundaryButtons =
+    boundaryButtonsProp ?? preset?.props?.boundaryButtons ?? false;
   const count = Number.isFinite(pageCount)
     ? Math.max(0, Math.floor(pageCount))
     : 0;
@@ -1101,7 +1127,9 @@ export function CircularProgress({
     </svg>
   );
 }
-export type RatingPreset = ClassPreset & { props?: { max?: number; disabled?: boolean } };
+export type RatingPreset = ClassPreset & {
+  props?: { max?: number; disabled?: boolean };
+};
 export function Rating({
   preset,
   className = '',

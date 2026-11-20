@@ -3,5 +3,5 @@ export const selectionSettle = {
   scale: 0.9,
   offset: 0.72,
   duration: 280,
-  easing: "ease-out",
+  easing: 'ease-out',
 } as const;

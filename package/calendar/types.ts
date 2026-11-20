@@ -1,9 +1,9 @@
-import type { ComponentChildren } from "preact";
-import type { ClassPreset } from "../presets/types";
-import type { DisplayCalendarSystem, ISODateString } from "@revolist/ui-dates";
+import type { ComponentChildren } from 'preact';
+import type { ClassPreset } from '../presets/types';
+import type { DisplayCalendarSystem, ISODateString } from '@revolist/ui-dates';
 
 export type CalendarWeekStart = 0 | 1 | 2 | 3 | 4 | 5 | 6;
-export type CalendarView = "month" | "year";
+export type CalendarView = 'month' | 'year';
 
 export interface CalendarDateRange {
   readonly from: ISODateString;
@@ -43,7 +43,7 @@ export interface CalendarSelectionValidationContext {
 export type CalendarSelectionValidationResult = boolean | string;
 
 export type CalendarPreset = ClassPreset & {
-  motion?: import("../presets/motion").MotionPreset;
+  motion?: import('../presets/motion').MotionPreset;
   props?: {
     showTodayButton?: boolean;
     showOutsideDays?: boolean;
@@ -69,21 +69,21 @@ export interface CalendarProps {
   /** Independent selected dates for a multiple-selection composition. */
   readonly selectedDates?: readonly ISODateString[];
   readonly calendarSystem?: DisplayCalendarSystem;
-  readonly dir?: "ltr" | "rtl";
+  readonly dir?: 'ltr' | 'rtl';
   readonly numberOfMonths?: number;
   readonly pagedNavigation?: boolean;
   readonly reverseMonths?: boolean;
   readonly captionLayout?:
-    | "label"
-    | "dropdown"
-    | "dropdown-months"
-    | "dropdown-years";
+    | 'label'
+    | 'dropdown'
+    | 'dropdown-months'
+    | 'dropdown-years';
   /** Navigation bounds; unlike minDate/maxDate these do not disable day values. */
   readonly startMonth?: ISODateString;
   readonly endMonth?: ISODateString;
   readonly disableNavigation?: boolean;
   readonly showWeekNumber?: boolean;
-  readonly weekNumbering?: "iso" | "local";
+  readonly weekNumbering?: 'iso' | 'local';
   readonly formatWeekNumber?: (week: number) => string;
   readonly footer?: ComponentChildren;
   readonly presets?: readonly {
@@ -156,6 +156,6 @@ export interface MoveCalendarFocusOptions {
   readonly minDate?: ISODateString;
   readonly maxDate?: ISODateString;
   readonly isDisabled?: (date: ISODateString) => boolean;
-  readonly dir?: "ltr" | "rtl";
+  readonly dir?: 'ltr' | 'rtl';
   readonly calendarSystem?: DisplayCalendarSystem;
 }

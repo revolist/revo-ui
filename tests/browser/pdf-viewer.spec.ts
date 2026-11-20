@@ -293,9 +293,7 @@ test('keeps the mobile toolbar compact and the search field usable', async ({
 test('has no automated WCAG violations in the viewer and its mobile tools', async ({
   page,
 }) => {
-  const require = createRequire(
-    new URL('../../package.json', import.meta.url),
-  );
+  const require = createRequire(new URL('../../package.json', import.meta.url));
   await page.setViewportSize({ width: 390, height: 900 });
   await page.goto('/?section=pdf-viewer#pdf-viewer');
   const viewer = primary(page);

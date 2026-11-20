@@ -1,8 +1,13 @@
 import type { Component } from 'svelte';
 import InternalComponent from './svelte/UiComponent.svelte';
 import type { SvelteUiProps, SvelteUiHandle } from './svelte-props';
-export const UiComponent: Component<SvelteUiProps, SvelteUiHandle, ''> = InternalComponent;
-export type { SvelteUiProps, SvelteComponentProps, SvelteUiHandle } from './svelte-props';
+export const UiComponent: Component<SvelteUiProps, SvelteUiHandle, ''> =
+  InternalComponent;
+export type {
+  SvelteUiProps,
+  SvelteComponentProps,
+  SvelteUiHandle,
+} from './svelte-props';
 export type { UiComponentName, UiComponentProps } from './component-catalog';
 
 export type { PdfViewerProps, PdfViewerText } from './pdf-viewer/component';

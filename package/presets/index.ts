@@ -31,12 +31,18 @@ import type {
 import type { CheckboxPreset } from '../checkbox';
 import type { ChoiceChipsPreset } from '../choice-chips';
 import type { RangeSliderPreset } from '../filter/filters/slider/types';
-import type { SingleSliderPreset, SliderFieldPreset } from '../filter/filters/slider/single';
+import type {
+  SingleSliderPreset,
+  SliderFieldPreset,
+} from '../filter/filters/slider/single';
 import type { SearchInputPreset } from '../search-input';
 import type { SegmentedSwitchPreset } from '../segmented-switch';
 import type { SwitchPreset } from '../switch';
 
-type NamedPresets<T> = Record<string, T & { styles?: PresetStyles; defaults?: ComponentDefaults }>;
+type NamedPresets<T> = Record<
+  string,
+  T & { styles?: PresetStyles; defaults?: ComponentDefaults }
+>;
 
 /** Portable component presets described by the Revo UI theme schema. */
 export interface UiTheme {

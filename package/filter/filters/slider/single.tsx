@@ -1,8 +1,8 @@
 /** @jsxImportSource preact */
-import type { ClassPreset } from "../../../presets/types";
-import type { MotionPreset } from "../../../presets/motion";
-import { h } from "preact";
-import { Input } from "../../../native-control";
+import type { ClassPreset } from '../../../presets/types';
+import type { MotionPreset } from '../../../presets/motion';
+import { h } from 'preact';
+import { Input } from '../../../native-control';
 
 export type SingleSliderPreset = ClassPreset & {
   motion?: MotionPreset;
@@ -13,8 +13,8 @@ export type SliderFieldPreset = ClassPreset & {
   props?: {
     step?: number;
     disabled?: boolean;
-    layout?: "inline" | "stacked";
-    valuePlacement?: "end" | "thumb" | "none";
+    layout?: 'inline' | 'stacked';
+    valuePlacement?: 'end' | 'thumb' | 'none';
     ticks?: number;
     accentColor?: string;
   };
@@ -54,7 +54,7 @@ export function SingleValueSlider({
   step: stepProp,
   disabled: disabledProp,
   id,
-  className = "",
+  className = '',
   ariaLabel,
   ariaValueText,
   ariaDescribedBy,
@@ -70,7 +70,7 @@ export function SingleValueSlider({
 
   return (
     <Input
-      class={`rv-single-slider ${preset?.className ?? ""} ${className}`.trim()}
+      class={`rv-single-slider ${preset?.className ?? ''} ${className}`.trim()}
       data-part="input"
       data-preset-scope={inheritPresetScope ? undefined : 'root'}
       id={id}
@@ -80,7 +80,7 @@ export function SingleValueSlider({
       step={step}
       value={value}
       disabled={disabled}
-      style={{ "--rv-single-slider-value": `${percent}%` }}
+      style={{ '--rv-single-slider-value': `${percent}%` }}
       aria-label={ariaLabel}
       aria-valuetext={ariaValueText}
       aria-describedby={ariaDescribedBy}
@@ -94,8 +94,8 @@ export function SingleValueSlider({
 export interface SliderFieldProps extends SingleValueSliderProps {
   preset?: SliderFieldPreset;
   label: string;
-  layout?: "inline" | "stacked";
-  valuePlacement?: "end" | "thumb" | "none";
+  layout?: 'inline' | 'stacked';
+  valuePlacement?: 'end' | 'thumb' | 'none';
   formatValue?: (value: number) => string;
   /** Number of evenly spaced decorative tick marks, bounded to 2–101. */
   ticks?: number;
@@ -112,9 +112,9 @@ export function SliderField({
   accentColor: accentColorProp,
   ...slider
 }: SliderFieldProps) {
-  const layout = layoutProp ?? slider.preset?.props?.layout ?? "inline";
+  const layout = layoutProp ?? slider.preset?.props?.layout ?? 'inline';
   const valuePlacement =
-    valuePlacementProp ?? slider.preset?.props?.valuePlacement ?? "end";
+    valuePlacementProp ?? slider.preset?.props?.valuePlacement ?? 'end';
   const ticks = ticksProp ?? slider.preset?.props?.ticks;
   const accentColor = accentColorProp ?? slider.preset?.props?.accentColor;
   const disabled = slider.disabled ?? slider.preset?.props?.disabled;
@@ -135,16 +135,16 @@ export function SliderField({
       : 0;
   return (
     <label
-      class={`rv-slider-field rv-slider-field--${layout} rv-slider-field--${valuePlacement}${disabled ? " is-disabled" : ""} ${slider.preset?.className ?? ""}`}
+      class={`rv-slider-field rv-slider-field--${layout} rv-slider-field--${valuePlacement}${disabled ? ' is-disabled' : ''} ${slider.preset?.className ?? ''}`}
       data-part="root"
       style={
-        accentColor ? { "--rv-slider-field-accent": accentColor } : undefined
+        accentColor ? { '--rv-slider-field-accent': accentColor } : undefined
       }
     >
       <span class="rv-slider-field__label">{label}</span>
       <span
         class="rv-slider-field__track"
-        style={{ "--rv-slider-field-position": `${percent / 100}` }}
+        style={{ '--rv-slider-field-position': `${percent / 100}` }}
       >
         <SingleValueSlider
           {...slider}
@@ -159,13 +159,13 @@ export function SliderField({
             ))}
           </span>
         )}
-        {valuePlacement === "thumb" && (
+        {valuePlacement === 'thumb' && (
           <span class="rv-slider-field__thumb-value" aria-hidden="true">
             {text}
           </span>
         )}
       </span>
-      {valuePlacement === "end" && (
+      {valuePlacement === 'end' && (
         <span
           class="rv-slider-field__value rv-badge rv-badge--inline"
           aria-hidden="true"
