@@ -92,6 +92,7 @@ export const Button = /* @__PURE__ */ registerControl(
         : undefined,
     );
     const classes = [
+      'rv-style-action',
       variant === 'default' ? 'rv-btn' : `rv-btn-${variant}`,
       size === 'compact' ? 'rv-btn-sm' : size === 'large' ? 'rv-btn-lg' : '',
       rounded ? 'rv-btn-rounded' : '',
@@ -132,6 +133,7 @@ export const Button = /* @__PURE__ */ registerControl(
         type="button"
         {...props}
         class={[
+          'rv-style-action',
           variant === 'default' ? 'rv-btn' : `rv-btn-${variant}`,
           size === 'compact'
             ? 'rv-btn-sm'
@@ -170,7 +172,7 @@ export function IconButton({
       label={label}
       icon={icon}
       badge={badge}
-      className={`rv-btn-icon ${variant === 'default' ? 'rv-btn' : `rv-btn-${variant}`} ${size === 'compact' ? 'rv-btn-sm' : size === 'large' ? 'rv-btn-lg' : ''} ${(rounded ?? preset?.props?.rounded) ? 'rv-btn-rounded' : ''} ${preset?.className ?? ''} ${className}`}
+      className={`rv-btn-icon rv-style-action ${variant === 'default' ? 'rv-btn' : `rv-btn-${variant}`} ${size === 'compact' ? 'rv-btn-sm' : size === 'large' ? 'rv-btn-lg' : ''} ${(rounded ?? preset?.props?.rounded) ? 'rv-btn-rounded' : ''} ${preset?.className ?? ''} ${className}`}
     >
       {children}
     </SvgButton>

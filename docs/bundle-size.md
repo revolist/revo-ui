@@ -103,3 +103,5 @@ This bundles consumer imports from the emitted distribution with pinned esbuild,
 `pnpm test:size` is enforced by UI coverage CI after the public package checks. Limits live in `scripts/bundle-size.mjs`; missing measurements, invalid values and over-budget results fail. Limits are not rewritten automatically. `node scripts/bundle-size.mjs --report` prints measurements for investigation without updating any limit.
 
 Measure automatic JavaScript (including embedded CSS), extracted JavaScript and required external CSS separately when comparing consumer builds. The original three-control React consumer required 26,245 gzip bytes of JavaScript plus 28,576 bytes of aggregate CSS. Exact current measurements are printed by the budget command; optional peers, application code and separately loaded PDF.js are excluded.
+
+The full React entry budget is 156 KiB gzip to accommodate the shared customization and motion controls. Narrow imports keep their separate, tighter budgets.
