@@ -17,6 +17,7 @@ export class EditorList extends AngularComponentAdapter<never> {
   @NgInput({ required: true }) declare "label": AngularInput<'EditorList', "label">;
   @NgInput() declare "listRef"?: AngularInput<'EditorList', "listRef">;
   @NgInput() declare "onSelect"?: AngularInput<'EditorList', "onSelect">;
+  @NgInput() declare "preset"?: AngularInput<'EditorList', "preset">;
   @NgInput() declare "spacing"?: AngularInput<'EditorList', "spacing">;
   @NgInput() declare "variant"?: AngularInput<'EditorList', "variant">;
   @Output() get selectEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'EditorList', 'onSelect'>>>('onSelect'); }

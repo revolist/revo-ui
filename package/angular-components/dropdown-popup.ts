@@ -22,6 +22,7 @@ export class DropdownPopup extends AngularComponentAdapter<never> {
   @NgInput() declare "onPointerRelease"?: AngularInput<'DropdownPopup', "onPointerRelease">;
   @NgInput() declare "popupClassName"?: AngularInput<'DropdownPopup', "popupClassName">;
   @NgInput() declare "portalTarget"?: AngularInput<'DropdownPopup', "portalTarget">;
+  @NgInput() declare "preset"?: AngularInput<'DropdownPopup', "preset">;
   @NgInput() declare "theme"?: AngularInput<'DropdownPopup', "theme">;
   @NgInput() declare "topLayer"?: AngularInput<'DropdownPopup', "topLayer">;
   @NgInput({ required: true }) declare "triggerRef": AngularInput<'DropdownPopup', "triggerRef">;

@@ -20,6 +20,7 @@ export class FieldRemoveButton extends AngularComponentAdapter<never> {
   @NgInput() declare "onClick"?: AngularInput<'FieldRemoveButton', "onClick">;
   @NgInput() declare "onDblClick"?: AngularInput<'FieldRemoveButton', "onDblClick">;
   @NgInput() declare "onMouseDown"?: AngularInput<'FieldRemoveButton', "onMouseDown">;
+  @NgInput() declare "preset"?: AngularInput<'FieldRemoveButton', "preset">;
   @NgInput() declare "rounded"?: AngularInput<'FieldRemoveButton', "rounded">;
   @Output() get clickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'FieldRemoveButton', 'onClick'>>>('onClick'); }
   @Output() get dblClick() { return this.rvOutput<AngularCallbackValue<AngularInput<'FieldRemoveButton', 'onDblClick'>>>('onDblClick'); }

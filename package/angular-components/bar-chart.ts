@@ -21,6 +21,7 @@ export class BarChart extends AngularComponentAdapter<never> {
   @NgInput() declare "height"?: AngularInput<'BarChart', "height">;
   @NgInput() declare "interpolation"?: AngularInput<'BarChart', "interpolation">;
   @NgInput() declare "legend"?: AngularInput<'BarChart', "legend">;
+  @NgInput() declare "preset"?: AngularInput<'BarChart', "preset">;
   @NgInput() declare "renderTooltip"?: AngularInput<'BarChart', "renderTooltip">;
   @NgInput() declare "showGrid"?: AngularInput<'BarChart', "showGrid">;
   @NgInput() declare "showLabels"?: AngularInput<'BarChart', "showLabels">;

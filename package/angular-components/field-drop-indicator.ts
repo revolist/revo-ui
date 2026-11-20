@@ -15,6 +15,7 @@ export class FieldDropIndicator extends AngularComponentAdapter<never> {
   @NgInput() declare "className"?: AngularInput<'FieldDropIndicator', "className">;
   @NgInput() declare "index"?: AngularInput<'FieldDropIndicator', "index">;
   @NgInput({ required: true }) declare "position": AngularInput<'FieldDropIndicator', "position">;
+  @NgInput() declare "preset"?: AngularInput<'FieldDropIndicator', "preset">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

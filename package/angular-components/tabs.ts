@@ -22,6 +22,7 @@ export class Tabs extends AngularComponentAdapter<AngularCallbackValue<AngularIn
   @NgInput() declare "itemClassName"?: AngularInput<'Tabs', "itemClassName">;
   @NgInput() declare "onChange"?: AngularInput<'Tabs', "onChange">;
   @NgInput({ required: true }) declare "options": AngularInput<'Tabs', "options">;
+  @NgInput() declare "preset"?: AngularInput<'Tabs', "preset">;
   @NgInput() declare "renderCount"?: AngularInput<'Tabs', "renderCount">;
   @NgInput() declare "renderOption"?: AngularInput<'Tabs', "renderOption">;
   @NgInput() declare "role"?: AngularInput<'Tabs', "role">;

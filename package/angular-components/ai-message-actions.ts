@@ -14,6 +14,7 @@ export class AiMessageActions extends AngularComponentAdapter<never> {
   protected rvResolveComponent() { return Control; }
   @NgInput() declare "className"?: AngularInput<'AiMessageActions', "className">;
   @NgInput() declare "label"?: AngularInput<'AiMessageActions', "label">;
+  @NgInput() declare "preset"?: AngularInput<'AiMessageActions', "preset">;
   @NgInput() declare "translations"?: AngularInput<'AiMessageActions', "translations">;
 
   protected rvResolveProps() { return this.rvInputValues; }

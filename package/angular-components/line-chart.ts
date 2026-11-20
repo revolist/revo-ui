@@ -20,6 +20,7 @@ export class LineChart extends AngularComponentAdapter<never> {
   @NgInput() declare "height"?: AngularInput<'LineChart', "height">;
   @NgInput() declare "interpolation"?: AngularInput<'LineChart', "interpolation">;
   @NgInput() declare "legend"?: AngularInput<'LineChart', "legend">;
+  @NgInput() declare "preset"?: AngularInput<'LineChart', "preset">;
   @NgInput() declare "renderTooltip"?: AngularInput<'LineChart', "renderTooltip">;
   @NgInput() declare "showGrid"?: AngularInput<'LineChart', "showGrid">;
   @NgInput() declare "showLabels"?: AngularInput<'LineChart', "showLabels">;

@@ -12,7 +12,8 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class ToolbarSeparator extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'ToolbarSeparator';
   protected rvResolveComponent() { return Control; }
-
+  @NgInput() declare "className"?: AngularInput<'ToolbarSeparator', "className">;
+  @NgInput() declare "preset"?: AngularInput<'ToolbarSeparator', "preset">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

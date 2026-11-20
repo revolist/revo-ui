@@ -19,6 +19,7 @@ export class HtmlEditor extends AngularComponentAdapter<never> {
   @NgInput() declare "maxLength"?: AngularInput<'HtmlEditor', "maxLength">;
   @NgInput() declare "onApply"?: AngularInput<'HtmlEditor', "onApply">;
   @NgInput() declare "onCancel"?: AngularInput<'HtmlEditor', "onCancel">;
+  @NgInput() declare "preset"?: AngularInput<'HtmlEditor', "preset">;
   @NgInput() declare "required"?: AngularInput<'HtmlEditor', "required">;
   @NgInput() declare "showActions"?: AngularInput<'HtmlEditor', "showActions">;
   @NgInput() declare "text"?: AngularInput<'HtmlEditor', "text">;

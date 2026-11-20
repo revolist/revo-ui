@@ -13,9 +13,11 @@ export class AiAssistant extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'AiAssistant';
   protected rvResolveComponent() { return Control; }
   @NgInput() declare "busy"?: AngularInput<'AiAssistant', "busy">;
+  @NgInput() declare "className"?: AngularInput<'AiAssistant', "className">;
   @NgInput() declare "footer"?: AngularInput<'AiAssistant', "footer">;
   @NgInput() declare "label"?: AngularInput<'AiAssistant', "label">;
   @NgInput() declare "layout"?: AngularInput<'AiAssistant', "layout">;
+  @NgInput() declare "preset"?: AngularInput<'AiAssistant', "preset">;
   @NgInput() declare "translations"?: AngularInput<'AiAssistant', "translations">;
 
   protected rvResolveProps() { return this.rvInputValues; }

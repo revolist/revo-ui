@@ -12,7 +12,9 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class RatingStar extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'RatingStar';
   protected rvResolveComponent() { return Control; }
+  @NgInput() declare "className"?: AngularInput<'RatingStar', "className">;
   @NgInput({ required: true }) declare "filled": AngularInput<'RatingStar', "filled">;
+  @NgInput() declare "preset"?: AngularInput<'RatingStar', "preset">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

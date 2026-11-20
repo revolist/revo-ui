@@ -15,6 +15,7 @@ export class Menu extends AngularComponentAdapter<never> {
   @NgInput() declare "className"?: AngularInput<'Menu', "className">;
   @NgInput() declare "label"?: AngularInput<'Menu', "label">;
   @NgInput() declare "onClose"?: AngularInput<'Menu', "onClose">;
+  @NgInput() declare "preset"?: AngularInput<'Menu', "preset">;
   @Output() get closeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'Menu', 'onClose'>>>('onClose'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

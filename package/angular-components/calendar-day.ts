@@ -25,6 +25,7 @@ export class CalendarDay extends AngularComponentAdapter<never> {
   @NgInput() declare "onPreview"?: AngularInput<'CalendarDay', "onPreview">;
   @NgInput() declare "onSelect"?: AngularInput<'CalendarDay', "onSelect">;
   @NgInput({ required: true }) declare "outside": AngularInput<'CalendarDay', "outside">;
+  @NgInput() declare "preset"?: AngularInput<'CalendarDay', "preset">;
   @NgInput() declare "previewDescriptionId"?: AngularInput<'CalendarDay', "previewDescriptionId">;
   @NgInput({ required: true }) declare "previewEnd": AngularInput<'CalendarDay', "previewEnd">;
   @NgInput() declare "previewInvalid"?: AngularInput<'CalendarDay', "previewInvalid">;

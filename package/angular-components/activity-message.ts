@@ -17,6 +17,7 @@ export class ActivityMessage extends AngularComponentAdapter<never> {
   @NgInput() declare "className"?: AngularInput<'ActivityMessage', "className">;
   @NgInput() declare "details"?: AngularInput<'ActivityMessage', "details">;
   @NgInput() declare "header"?: AngularInput<'ActivityMessage', "header">;
+  @NgInput() declare "preset"?: AngularInput<'ActivityMessage', "preset">;
   @NgInput() declare "timestamp"?: AngularInput<'ActivityMessage', "timestamp">;
 
   protected rvResolveProps() { return this.rvInputValues; }

@@ -17,6 +17,7 @@ export class TemporalDraft extends AngularComponentAdapter<never> {
   @NgInput() declare "clearable"?: AngularInput<'TemporalDraft', "clearable">;
   @NgInput() declare "onValidChange"?: AngularInput<'TemporalDraft', "onValidChange">;
   @NgInput({ required: true }) declare "options": AngularInput<'TemporalDraft', "options">;
+  @NgInput() declare "preset"?: AngularInput<'TemporalDraft', "preset">;
   @NgInput({ required: true }) declare "value": AngularInput<'TemporalDraft', "value">;
   @Output() get validChange() { return this.rvOutput<AngularCallbackValue<AngularInput<'TemporalDraft', 'onValidChange'>>>('onValidChange'); }
   protected rvResolveProps() { return this.rvInputValues; }

@@ -19,6 +19,7 @@ export class AssigneePicker extends AngularComponentAdapter<never> {
   @NgInput({ required: true }) declare "defaultUnits": AngularInput<'AssigneePicker', "defaultUnits">;
   @NgInput({ required: true }) declare "id": AngularInput<'AssigneePicker', "id">;
   @NgInput({ required: true }) declare "options": AngularInput<'AssigneePicker', "options">;
+  @NgInput() declare "preset"?: AngularInput<'AssigneePicker', "preset">;
   @NgInput() declare "showActions"?: AngularInput<'AssigneePicker', "showActions">;
   @NgInput() declare "showAvatars"?: AngularInput<'AssigneePicker', "showAvatars">;
   @NgInput() declare "text"?: AngularInput<'AssigneePicker', "text">;

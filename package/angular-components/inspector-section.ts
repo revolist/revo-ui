@@ -16,6 +16,7 @@ export class InspectorSection extends AngularComponentAdapter<never> {
   @NgInput({ required: true }) declare "expandLabel": AngularInput<'InspectorSection', "expandLabel">;
   @NgInput({ required: true }) declare "icon": AngularInput<'InspectorSection', "icon">;
   @NgInput() declare "open"?: AngularInput<'InspectorSection', "open">;
+  @NgInput() declare "preset"?: AngularInput<'InspectorSection', "preset">;
   @NgInput({ required: true }) declare "title": AngularInput<'InspectorSection', "title">;
 
   protected rvResolveProps() { return this.rvInputValues; }

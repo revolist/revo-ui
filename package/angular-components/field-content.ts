@@ -14,6 +14,7 @@ export class FieldContent extends AngularComponentAdapter<never> {
   protected rvResolveComponent() { return Control; }
   @NgInput() declare "className"?: AngularInput<'FieldContent', "className">;
   @NgInput() declare "icon"?: AngularInput<'FieldContent', "icon">;
+  @NgInput() declare "preset"?: AngularInput<'FieldContent', "preset">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

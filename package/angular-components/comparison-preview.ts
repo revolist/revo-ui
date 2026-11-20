@@ -17,6 +17,7 @@ export class ComparisonPreview extends AngularComponentAdapter<never> {
   @NgInput() declare "formattedStyle"?: AngularInput<'ComparisonPreview', "formattedStyle">;
   @NgInput({ required: true }) declare "labels": AngularInput<'ComparisonPreview', "labels">;
   @NgInput({ required: true }) declare "originalValue": AngularInput<'ComparisonPreview', "originalValue">;
+  @NgInput() declare "preset"?: AngularInput<'ComparisonPreview', "preset">;
   @NgInput() declare "visual"?: AngularInput<'ComparisonPreview', "visual">;
 
   protected rvResolveProps() { return this.rvInputValues; }

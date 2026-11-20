@@ -15,6 +15,7 @@ export class FieldError extends AngularComponentAdapter<never> {
   @NgInput() declare "className"?: AngularInput<'FieldError', "className">;
   @NgInput() declare "id"?: AngularInput<'FieldError', "id">;
   @NgInput() declare "label"?: AngularInput<'FieldError', "label">;
+  @NgInput() declare "preset"?: AngularInput<'FieldError', "preset">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

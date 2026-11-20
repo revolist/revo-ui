@@ -15,6 +15,7 @@ export class TimeGrid extends AngularComponentAdapter<never> {
   protected override readonly rvRequiredCallbacks = ["onClick","onFocus","onKeyDown","onPointerDown","onPointerEnter"];
   @NgInput({ required: true }) declare "cellLabel": AngularInput<'TimeGrid', "cellLabel">;
   @NgInput({ required: true }) declare "cells": AngularInput<'TimeGrid', "cells">;
+  @NgInput() declare "className"?: AngularInput<'TimeGrid', "className">;
   @NgInput({ required: true }) declare "days": AngularInput<'TimeGrid', "days">;
   @NgInput() declare "disabled"?: AngularInput<'TimeGrid', "disabled">;
   @NgInput({ required: true }) declare "focused": AngularInput<'TimeGrid', "focused">;
@@ -26,6 +27,7 @@ export class TimeGrid extends AngularComponentAdapter<never> {
   @NgInput() declare "onKeyDown"?: AngularInput<'TimeGrid', "onKeyDown">;
   @NgInput() declare "onPointerDown"?: AngularInput<'TimeGrid', "onPointerDown">;
   @NgInput() declare "onPointerEnter"?: AngularInput<'TimeGrid', "onPointerEnter">;
+  @NgInput() declare "preset"?: AngularInput<'TimeGrid', "preset">;
   @NgInput({ required: true }) declare "weekendDays": AngularInput<'TimeGrid', "weekendDays">;
   @NgInput() declare "workingHours"?: AngularInput<'TimeGrid', "workingHours">;
   @Output() get clickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TimeGrid', 'onClick'>>>('onClick'); }

@@ -31,6 +31,7 @@ export class DurationField extends AngularComponentAdapter<AngularCallbackValue<
   @NgInput() declare "onDraftChange"?: AngularInput<'DurationField', "onDraftChange">;
   @NgInput() declare "onValidityChange"?: AngularInput<'DurationField', "onValidityChange">;
   @NgInput() declare "placeholder"?: AngularInput<'DurationField', "placeholder">;
+  @NgInput() declare "preset"?: AngularInput<'DurationField', "preset">;
   @NgInput() declare "readOnly"?: AngularInput<'DurationField', "readOnly">;
   @NgInput() declare "required"?: AngularInput<'DurationField', "required">;
   @NgInput() declare "showActions"?: AngularInput<'DurationField', "showActions">;

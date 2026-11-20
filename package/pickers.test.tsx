@@ -1039,3 +1039,17 @@ it('keeps date picker preset roots separate from calendar surfaces', async () =>
     host.remove();
   }
 });
+
+it('keeps date picker preset styling alongside uncontrolled form values', () => {
+  mount(
+    <DatePicker
+      defaultValue="2026-11-20"
+      name="delivery"
+      label="Delivery"
+      openLabel="Choose date"
+      preset={{ className: 'delivery-theme' }}
+    />,
+  );
+  expect(host.querySelector('.rv-date-picker.delivery-theme')?.getAttribute('data-part')).toBe('picker');
+  expect((host.querySelector('input[name="delivery"]') as HTMLInputElement).value).toBe('2026-11-20');
+});

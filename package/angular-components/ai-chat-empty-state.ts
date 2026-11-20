@@ -14,6 +14,7 @@ export class AiChatEmptyState extends AngularComponentAdapter<never> {
   protected rvResolveComponent() { return Control; }
   @NgInput() declare "className"?: AngularInput<'AiChatEmptyState', "className">;
   @NgInput() declare "description"?: AngularInput<'AiChatEmptyState', "description">;
+  @NgInput() declare "preset"?: AngularInput<'AiChatEmptyState', "preset">;
   @NgInput() declare "renderContent"?: AngularInput<'AiChatEmptyState', "renderContent">;
   @NgInput() declare "title"?: AngularInput<'AiChatEmptyState', "title">;
   @NgInput() declare "translations"?: AngularInput<'AiChatEmptyState', "translations">;

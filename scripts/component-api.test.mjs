@@ -237,6 +237,22 @@ test('registered Select preserves documented value and selection contracts', () 
   );
 });
 
+test('date/time APIs use their field family as canonical and also expose time pickers', () => {
+  for (const name of ['DateTimeField', 'TemporalPicker', 'TemporalDraft']) {
+    assert.deepEqual(component(name).families, [
+      'Date and time fields',
+      'Time pickers',
+    ]);
+    const reference = readFileSync(
+      resolve(gallery, `docs/api/${name}.md`),
+      'utf8',
+    );
+    assert.match(
+      reference,
+      /\[Live examples and formatted usage\]\(https:\/\/ui\.rv-grid\.com\/components\/date-and-time-fields\/\)/,
+    );
+  }
+});
 test('every documented component has a portable preset contract and schema entry', () => {
   const schema = JSON.parse(
     readFileSync(resolve(gallery, 'package/presets/theme.schema.json'), 'utf8'),
@@ -298,22 +314,5 @@ test('every documented component has example CSS hook metadata', () => {
   for (const [name, value] of Object.entries(hooks)) {
     assert.ok(Array.isArray(value.parts), name);
     assert.ok(Array.isArray(value.states), name);
-  }
-});
-
-test('date/time APIs use their field family as canonical and also expose time pickers', () => {
-  for (const name of ['DateTimeField', 'TemporalPicker', 'TemporalDraft']) {
-    assert.deepEqual(component(name).families, [
-      'Date and time fields',
-      'Time pickers',
-    ]);
-    const reference = readFileSync(
-      resolve(gallery, `docs/api/${name}.md`),
-      'utf8',
-    );
-    assert.match(
-      reference,
-      /\[Live examples and formatted usage\]\(https:\/\/ui\.rv-grid\.com\/components\/date-and-time-fields\/\)/,
-    );
   }
 });

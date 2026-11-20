@@ -12,9 +12,11 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class CircularProgress extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'CircularProgress';
   protected rvResolveComponent() { return Control; }
+  @NgInput() declare "className"?: AngularInput<'CircularProgress', "className">;
   @NgInput({ required: true }) declare "label": AngularInput<'CircularProgress', "label">;
   @NgInput() declare "max"?: AngularInput<'CircularProgress', "max">;
   @NgInput() declare "min"?: AngularInput<'CircularProgress', "min">;
+  @NgInput() declare "preset"?: AngularInput<'CircularProgress', "preset">;
   @NgInput({ required: true }) declare "value": AngularInput<'CircularProgress', "value">;
 
   protected rvResolveProps() { return this.rvInputValues; }

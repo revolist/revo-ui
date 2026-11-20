@@ -13,8 +13,10 @@ export class AiResult extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'AiResult';
   protected rvResolveComponent() { return Control; }
   @NgInput() declare "actions"?: AngularInput<'AiResult', "actions">;
+  @NgInput() declare "className"?: AngularInput<'AiResult', "className">;
   @NgInput() declare "countLabel"?: AngularInput<'AiResult', "countLabel">;
   @NgInput() declare "matchedRows"?: AngularInput<'AiResult', "matchedRows">;
+  @NgInput() declare "preset"?: AngularInput<'AiResult', "preset">;
   @NgInput({ required: true }) declare "summary": AngularInput<'AiResult', "summary">;
   @NgInput() declare "translations"?: AngularInput<'AiResult', "translations">;
 

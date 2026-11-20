@@ -13,7 +13,9 @@ export class LoadingOverlay extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'LoadingOverlay';
   protected rvResolveComponent() { return Control; }
   @NgInput({ required: true }) declare "busy": AngularInput<'LoadingOverlay', "busy">;
+  @NgInput() declare "className"?: AngularInput<'LoadingOverlay', "className">;
   @NgInput({ required: true }) declare "label": AngularInput<'LoadingOverlay', "label">;
+  @NgInput() declare "preset"?: AngularInput<'LoadingOverlay', "preset">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

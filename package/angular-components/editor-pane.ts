@@ -13,6 +13,7 @@ export class EditorPane extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'EditorPane';
   protected rvResolveComponent() { return Control; }
   @NgInput() declare "className"?: AngularInput<'EditorPane', "className">;
+  @NgInput() declare "preset"?: AngularInput<'EditorPane', "preset">;
   @NgInput() declare "scrollable"?: AngularInput<'EditorPane', "scrollable">;
 
   protected rvResolveProps() { return this.rvInputValues; }

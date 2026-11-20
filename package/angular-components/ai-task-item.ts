@@ -13,6 +13,7 @@ export class AiTaskItem extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'AiTaskItem';
   protected rvResolveComponent() { return Control; }
   @NgInput() declare "className"?: AngularInput<'AiTaskItem', "className">;
+  @NgInput() declare "preset"?: AngularInput<'AiTaskItem', "preset">;
   @NgInput() declare "status"?: AngularInput<'AiTaskItem', "status">;
   @NgInput() declare "translations"?: AngularInput<'AiTaskItem', "translations">;
 

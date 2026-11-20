@@ -14,6 +14,7 @@ export class FilterChip extends AngularComponentAdapter<never> {
   protected rvResolveComponent() { return Control; }
   @NgInput() declare "className"?: AngularInput<'FilterChip', "className">;
   @NgInput() declare "onRemove"?: AngularInput<'FilterChip', "onRemove">;
+  @NgInput() declare "preset"?: AngularInput<'FilterChip', "preset">;
   @NgInput() declare "removeClassName"?: AngularInput<'FilterChip', "removeClassName">;
   @NgInput() declare "removeLabel"?: AngularInput<'FilterChip', "removeLabel">;
   @NgInput() declare "role"?: AngularInput<'FilterChip', "role">;

@@ -1,5 +1,5 @@
-import { SwitchThemeEditor } from './switch-theme-editor';
 import { AutocompleteExamples } from './autocomplete';
+import { SwitchThemeEditor } from './switch-theme-editor';
 import { TooltipPlacementExamples, TooltipTimingExamples, TooltipStateExamples, TooltipContentExamples, TooltipBoundaryExample, TooltipControllerExample } from './tooltips';
 import { CollapsibleSection as __themeOriginal_CollapsibleSection } from '@revolist/ui/preact';
 import { AccessibilityPage } from './accessibility';

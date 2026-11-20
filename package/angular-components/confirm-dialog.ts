@@ -22,6 +22,7 @@ export class ConfirmDialog extends AngularComponentAdapter<never> {
   @NgInput() declare "onConfirm"?: AngularInput<'ConfirmDialog', "onConfirm">;
   @NgInput({ required: true }) declare "open": AngularInput<'ConfirmDialog', "open">;
   @NgInput() declare "pending"?: AngularInput<'ConfirmDialog', "pending">;
+  @NgInput() declare "preset"?: AngularInput<'ConfirmDialog', "preset">;
   @NgInput() declare "returnFocus"?: AngularInput<'ConfirmDialog', "returnFocus">;
   @NgInput({ required: true }) declare "title": AngularInput<'ConfirmDialog', "title">;
   @Output() get closeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ConfirmDialog', 'onClose'>>>('onClose'); }

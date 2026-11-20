@@ -20,6 +20,7 @@ export class Switch extends AngularComponentAdapter<AngularCallbackValue<Angular
   @NgInput({ required: true }) declare "label": AngularInput<'Switch', "label">;
   @NgInput() declare "labelPosition"?: AngularInput<'Switch', "labelPosition">;
   @NgInput() declare "onChange"?: AngularInput<'Switch', "onChange">;
+  @NgInput() declare "preset"?: AngularInput<'Switch', "preset">;
   @NgInput() declare "testId"?: AngularInput<'Switch', "testId">;
   @NgInput() declare "title"?: AngularInput<'Switch', "title">;
   @Output() get checkedChange() { return this.rvOutput<AngularCallbackValue<AngularInput<'Switch', 'onChange'>>>('onChange'); }

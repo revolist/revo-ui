@@ -18,6 +18,7 @@ export class PdfViewerToolbar extends AngularComponentAdapter<never> {
   @NgInput({ required: true }) declare "controller": AngularInput<'PdfViewerToolbar', "controller">;
   @NgInput() declare "onOpen"?: AngularInput<'PdfViewerToolbar', "onOpen">;
   @NgInput() declare "onToggleSearch"?: AngularInput<'PdfViewerToolbar', "onToggleSearch">;
+  @NgInput() declare "preset"?: AngularInput<'PdfViewerToolbar', "preset">;
   @NgInput() declare "searchId"?: AngularInput<'PdfViewerToolbar', "searchId">;
   @NgInput() declare "searchOpen"?: AngularInput<'PdfViewerToolbar', "searchOpen">;
   @NgInput({ required: true }) declare "state": AngularInput<'PdfViewerToolbar', "state">;

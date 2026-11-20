@@ -12,10 +12,12 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class ListboxOptionContent extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'ListboxOptionContent';
   protected rvResolveComponent() { return Control; }
+  @NgInput() declare "className"?: AngularInput<'ListboxOptionContent', "className">;
   @NgInput() declare "classNames"?: AngularInput<'ListboxOptionContent', "classNames">;
   @NgInput() declare "description"?: AngularInput<'ListboxOptionContent', "description">;
   @NgInput() declare "icon"?: AngularInput<'ListboxOptionContent', "icon">;
   @NgInput() declare "label"?: AngularInput<'ListboxOptionContent', "label">;
+  @NgInput() declare "preset"?: AngularInput<'ListboxOptionContent', "preset">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

@@ -17,6 +17,7 @@ export class TypographyControls extends AngularComponentAdapter<never> {
   @NgInput({ required: true }) declare "icons": AngularInput<'TypographyControls', "icons">;
   @NgInput({ required: true }) declare "labels": AngularInput<'TypographyControls', "labels">;
   @NgInput() declare "onChange"?: AngularInput<'TypographyControls', "onChange">;
+  @NgInput() declare "preset"?: AngularInput<'TypographyControls', "preset">;
   @NgInput({ required: true }) declare "value": AngularInput<'TypographyControls', "value">;
   @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'TypographyControls', 'onChange'>>>('onChange'); }
   protected rvResolveProps() { return this.rvInputValues; }

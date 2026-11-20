@@ -16,6 +16,7 @@ export class IconChoiceGroup extends AngularComponentAdapter<never> {
   @NgInput({ required: true }) declare "ariaLabel": AngularInput<'IconChoiceGroup', "ariaLabel">;
   @NgInput() declare "onChange"?: AngularInput<'IconChoiceGroup', "onChange">;
   @NgInput({ required: true }) declare "options": AngularInput<'IconChoiceGroup', "options">;
+  @NgInput() declare "preset"?: AngularInput<'IconChoiceGroup', "preset">;
   @NgInput({ required: true }) declare "value": AngularInput<'IconChoiceGroup', "value">;
   @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'IconChoiceGroup', 'onChange'>>>('onChange'); }
   protected rvResolveProps() { return this.rvInputValues; }

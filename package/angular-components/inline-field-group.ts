@@ -14,6 +14,7 @@ export class InlineFieldGroup extends AngularComponentAdapter<never> {
   protected rvResolveComponent() { return Control; }
   @NgInput() declare "className"?: AngularInput<'InlineFieldGroup', "className">;
   @NgInput() declare "label"?: AngularInput<'InlineFieldGroup', "label">;
+  @NgInput() declare "preset"?: AngularInput<'InlineFieldGroup', "preset">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

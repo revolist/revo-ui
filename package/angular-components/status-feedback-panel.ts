@@ -27,6 +27,7 @@ export class StatusFeedbackPanel extends AngularComponentAdapter<never> {
   @NgInput() declare "onCollapsedChange"?: AngularInput<'StatusFeedbackPanel', "onCollapsedChange">;
   @NgInput() declare "onDismissItem"?: AngularInput<'StatusFeedbackPanel', "onDismissItem">;
   @NgInput() declare "popover"?: AngularInput<'StatusFeedbackPanel', "popover">;
+  @NgInput() declare "preset"?: AngularInput<'StatusFeedbackPanel', "preset">;
   @NgInput({ required: true }) declare "title": AngularInput<'StatusFeedbackPanel', "title">;
   @Output() get closeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'StatusFeedbackPanel', 'onClose'>>>('onClose'); }
   @Output() get collapsedChange() { return this.rvOutput<AngularCallbackValue<AngularInput<'StatusFeedbackPanel', 'onCollapsedChange'>>>('onCollapsedChange'); }

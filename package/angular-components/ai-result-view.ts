@@ -12,6 +12,8 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class AiResultView extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'AiResultView';
   protected rvResolveComponent() { return Control; }
+  @NgInput() declare "className"?: AngularInput<'AiResultView', "className">;
+  @NgInput() declare "preset"?: AngularInput<'AiResultView', "preset">;
   @NgInput() declare "renderTable"?: AngularInput<'AiResultView', "renderTable">;
   @NgInput({ required: true }) declare "result": AngularInput<'AiResultView', "result">;
 

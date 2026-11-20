@@ -294,6 +294,7 @@ export abstract class AngularNativeAdapter<K extends UiComponentName, ModelValue
   @NgInput() declare "part"?: AngularInput<K, "part">;
   @NgInput() declare "popover"?: AngularInput<K, "popover">;
   @NgInput() declare "prefix"?: AngularInput<K, "prefix">;
+  @NgInput() declare "preset"?: AngularInput<K, "preset">;
   @NgInput() declare "property"?: AngularInput<K, "property">;
   @NgInput() declare "resource"?: AngularInput<K, "resource">;
   @NgInput() declare "results"?: AngularInput<K, "results">;

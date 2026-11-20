@@ -12,12 +12,7 @@ export type SearchInputEvent<T extends EventTarget> = Event & {
 
 export type SearchInputPreset = {
   className?: string;
-  props?: {
-    hideIcon?: boolean;
-    type?: 'search' | 'text';
-    disabled?: boolean;
-    readOnly?: boolean;
-  };
+  props?: { hideIcon?: boolean; type?: 'search' | 'text'; disabled?: boolean; readOnly?: boolean };
 };
 
 export type SearchInputProps = Omit<

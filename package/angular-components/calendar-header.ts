@@ -14,12 +14,14 @@ export class CalendarHeader extends AngularComponentAdapter<never> {
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onNext","onPrevious"];
   @NgInput() declare "caption"?: AngularInput<'CalendarHeader', "caption">;
+  @NgInput() declare "className"?: AngularInput<'CalendarHeader', "className">;
   @NgInput({ required: true }) declare "label": AngularInput<'CalendarHeader', "label">;
   @NgInput() declare "labelAction"?: AngularInput<'CalendarHeader', "labelAction">;
   @NgInput() declare "nextDisabled"?: AngularInput<'CalendarHeader', "nextDisabled">;
   @NgInput({ required: true }) declare "nextLabel": AngularInput<'CalendarHeader', "nextLabel">;
   @NgInput() declare "onNext"?: AngularInput<'CalendarHeader', "onNext">;
   @NgInput() declare "onPrevious"?: AngularInput<'CalendarHeader', "onPrevious">;
+  @NgInput() declare "preset"?: AngularInput<'CalendarHeader', "preset">;
   @NgInput() declare "previousDisabled"?: AngularInput<'CalendarHeader', "previousDisabled">;
   @NgInput({ required: true }) declare "previousLabel": AngularInput<'CalendarHeader', "previousLabel">;
   @NgInput() declare "showLabel"?: AngularInput<'CalendarHeader', "showLabel">;

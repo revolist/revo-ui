@@ -28,6 +28,7 @@ export class SliderField extends AngularComponentAdapter<never> {
   @NgInput() declare "onChange"?: AngularInput<'SliderField', "onChange">;
   @NgInput() declare "onCommit"?: AngularInput<'SliderField', "onCommit">;
   @NgInput() declare "onKeyDown"?: AngularInput<'SliderField', "onKeyDown">;
+  @NgInput() declare "preset"?: AngularInput<'SliderField', "preset">;
   @NgInput() declare "step"?: AngularInput<'SliderField', "step">;
   @NgInput() declare "ticks"?: AngularInput<'SliderField', "ticks">;
   @NgInput({ required: true }) declare "value": AngularInput<'SliderField', "value">;

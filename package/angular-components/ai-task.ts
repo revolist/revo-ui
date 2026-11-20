@@ -16,6 +16,7 @@ export class AiTask extends AngularComponentAdapter<never> {
   @NgInput() declare "defaultOpen"?: AngularInput<'AiTask', "defaultOpen">;
   @NgInput() declare "onOpenChange"?: AngularInput<'AiTask', "onOpenChange">;
   @NgInput() declare "open"?: AngularInput<'AiTask', "open">;
+  @NgInput() declare "preset"?: AngularInput<'AiTask', "preset">;
   @NgInput() declare "status"?: AngularInput<'AiTask', "status">;
   @NgInput({ required: true }) declare "title": AngularInput<'AiTask', "title">;
   @NgInput() declare "translations"?: AngularInput<'AiTask', "translations">;

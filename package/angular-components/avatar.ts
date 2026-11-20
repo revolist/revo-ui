@@ -17,6 +17,7 @@ export class Avatar extends AngularComponentAdapter<never> {
   @NgInput() declare "index"?: AngularInput<'Avatar', "index">;
   @NgInput() declare "initials"?: AngularInput<'Avatar', "initials">;
   @NgInput() declare "label"?: AngularInput<'Avatar', "label">;
+  @NgInput() declare "preset"?: AngularInput<'Avatar', "preset">;
   @NgInput() declare "rectangular"?: AngularInput<'Avatar', "rectangular">;
   @NgInput() declare "size"?: AngularInput<'Avatar', "size">;
   @NgInput() declare "style"?: AngularInput<'Avatar', "style">;

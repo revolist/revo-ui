@@ -14,6 +14,7 @@ export class AiRequestTrail extends AngularComponentAdapter<never> {
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onRemove"];
   @NgInput() declare "changedMessage"?: AngularInput<'AiRequestTrail', "changedMessage">;
+  @NgInput() declare "className"?: AngularInput<'AiRequestTrail', "className">;
   @NgInput() declare "clearDescription"?: AngularInput<'AiRequestTrail', "clearDescription">;
   @NgInput() declare "clearLabel"?: AngularInput<'AiRequestTrail', "clearLabel">;
   @NgInput() declare "countLabel"?: AngularInput<'AiRequestTrail', "countLabel">;
@@ -24,6 +25,7 @@ export class AiRequestTrail extends AngularComponentAdapter<never> {
   @NgInput() declare "onClear"?: AngularInput<'AiRequestTrail', "onClear">;
   @NgInput() declare "onEmpty"?: AngularInput<'AiRequestTrail', "onEmpty">;
   @NgInput() declare "onRemove"?: AngularInput<'AiRequestTrail', "onRemove">;
+  @NgInput() declare "preset"?: AngularInput<'AiRequestTrail', "preset">;
   @NgInput() declare "removalsDisabled"?: AngularInput<'AiRequestTrail', "removalsDisabled">;
   @NgInput() declare "removeLabel"?: AngularInput<'AiRequestTrail', "removeLabel">;
   @NgInput() declare "showClear"?: AngularInput<'AiRequestTrail', "showClear">;

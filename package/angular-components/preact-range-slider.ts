@@ -28,6 +28,7 @@ export class PreactRangeSlider extends AngularComponentAdapter<never> {
   @NgInput() declare "onRangeChange"?: AngularInput<'PreactRangeSlider', "onRangeChange">;
   @NgInput() declare "onRangeCommit"?: AngularInput<'PreactRangeSlider', "onRangeCommit">;
   @NgInput() declare "parseInputValue"?: AngularInput<'PreactRangeSlider', "parseInputValue">;
+  @NgInput() declare "preset"?: AngularInput<'PreactRangeSlider', "preset">;
   @NgInput() declare "scaleFactor"?: AngularInput<'PreactRangeSlider', "scaleFactor">;
   @NgInput() declare "showRangeDisplay"?: AngularInput<'PreactRangeSlider', "showRangeDisplay">;
   @NgInput() declare "showRangeInputs"?: AngularInput<'PreactRangeSlider', "showRangeInputs">;

@@ -17,6 +17,7 @@ export class AiChatContent extends AngularComponentAdapter<never> {
   @NgInput() declare "className"?: AngularInput<'AiChatContent', "className">;
   @NgInput() declare "jumpLabel"?: AngularInput<'AiChatContent', "jumpLabel">;
   @NgInput() declare "label"?: AngularInput<'AiChatContent', "label">;
+  @NgInput() declare "preset"?: AngularInput<'AiChatContent', "preset">;
   @NgInput() declare "translations"?: AngularInput<'AiChatContent', "translations">;
 
   protected rvResolveProps() { return this.rvInputValues; }

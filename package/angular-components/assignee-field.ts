@@ -14,6 +14,7 @@ export class AssigneeField extends AngularComponentAdapter<never> {
   protected rvResolveComponent() { return Control; }
   @NgInput({ required: true }) declare "cancel": AngularInput<'AssigneeField', "cancel">;
   @NgInput({ required: true }) declare "options": AngularInput<'AssigneeField', "options">;
+  @NgInput() declare "preset"?: AngularInput<'AssigneeField', "preset">;
   @NgInput() declare "renderPicker"?: AngularInput<'AssigneeField', "renderPicker">;
   @NgInput() declare "renderValue"?: AngularInput<'AssigneeField', "renderValue">;
   @NgInput({ required: true }) declare "save": AngularInput<'AssigneeField', "save">;

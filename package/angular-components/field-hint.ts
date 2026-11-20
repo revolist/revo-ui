@@ -15,6 +15,7 @@ export class FieldHint extends AngularComponentAdapter<never> {
   @NgInput() declare "className"?: AngularInput<'FieldHint', "className">;
   @NgInput() declare "id"?: AngularInput<'FieldHint', "id">;
   @NgInput() declare "label"?: AngularInput<'FieldHint', "label">;
+  @NgInput() declare "preset"?: AngularInput<'FieldHint', "preset">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

@@ -18,6 +18,7 @@ export class Dialog extends AngularComponentAdapter<never> {
   @NgInput() declare "footer"?: AngularInput<'Dialog', "footer">;
   @NgInput() declare "onClose"?: AngularInput<'Dialog', "onClose">;
   @NgInput({ required: true }) declare "open": AngularInput<'Dialog', "open">;
+  @NgInput() declare "preset"?: AngularInput<'Dialog', "preset">;
   @NgInput() declare "returnFocus"?: AngularInput<'Dialog', "returnFocus">;
   @NgInput({ required: true }) declare "title": AngularInput<'Dialog', "title">;
   @Output() get closeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'Dialog', 'onClose'>>>('onClose'); }

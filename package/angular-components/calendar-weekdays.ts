@@ -12,9 +12,11 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class CalendarWeekdays extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'CalendarWeekdays';
   protected rvResolveComponent() { return Control; }
+  @NgInput() declare "className"?: AngularInput<'CalendarWeekdays', "className">;
   @NgInput({ required: true }) declare "dates": AngularInput<'CalendarWeekdays', "dates">;
   @NgInput({ required: true }) declare "format": AngularInput<'CalendarWeekdays', "format">;
   @NgInput({ required: true }) declare "locale": AngularInput<'CalendarWeekdays', "locale">;
+  @NgInput() declare "preset"?: AngularInput<'CalendarWeekdays', "preset">;
   @NgInput() declare "weekNumberLabel"?: AngularInput<'CalendarWeekdays', "weekNumberLabel">;
 
   protected rvResolveProps() { return this.rvInputValues; }

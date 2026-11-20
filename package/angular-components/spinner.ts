@@ -12,7 +12,9 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class Spinner extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'Spinner';
   protected rvResolveComponent() { return Control; }
+  @NgInput() declare "className"?: AngularInput<'Spinner', "className">;
   @NgInput({ required: true }) declare "label": AngularInput<'Spinner', "label">;
+  @NgInput() declare "preset"?: AngularInput<'Spinner', "preset">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

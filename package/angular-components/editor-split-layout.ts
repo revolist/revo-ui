@@ -13,6 +13,7 @@ export class EditorSplitLayout extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'EditorSplitLayout';
   protected rvResolveComponent() { return Control; }
   @NgInput() declare "className"?: AngularInput<'EditorSplitLayout', "className">;
+  @NgInput() declare "preset"?: AngularInput<'EditorSplitLayout', "preset">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

@@ -14,6 +14,7 @@ export class ToolbarGroup extends AngularComponentAdapter<never> {
   protected rvResolveComponent() { return Control; }
   @NgInput() declare "className"?: AngularInput<'ToolbarGroup', "className">;
   @NgInput() declare "label"?: AngularInput<'ToolbarGroup', "label">;
+  @NgInput() declare "preset"?: AngularInput<'ToolbarGroup', "preset">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

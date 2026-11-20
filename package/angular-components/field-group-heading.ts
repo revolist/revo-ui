@@ -14,6 +14,7 @@ export class FieldGroupHeading extends AngularComponentAdapter<never> {
   protected rvResolveComponent() { return Control; }
   @NgInput() declare "actions"?: AngularInput<'FieldGroupHeading', "actions">;
   @NgInput() declare "className"?: AngularInput<'FieldGroupHeading', "className">;
+  @NgInput() declare "preset"?: AngularInput<'FieldGroupHeading', "preset">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

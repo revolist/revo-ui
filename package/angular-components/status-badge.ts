@@ -15,6 +15,7 @@ export class StatusBadge extends AngularComponentAdapter<never> {
   @NgInput() declare "busy"?: AngularInput<'StatusBadge', "busy">;
   @NgInput() declare "className"?: AngularInput<'StatusBadge', "className">;
   @NgInput({ required: true }) declare "label": AngularInput<'StatusBadge', "label">;
+  @NgInput() declare "preset"?: AngularInput<'StatusBadge', "preset">;
   @NgInput() declare "tone"?: AngularInput<'StatusBadge', "tone">;
 
   protected rvResolveProps() { return this.rvInputValues; }

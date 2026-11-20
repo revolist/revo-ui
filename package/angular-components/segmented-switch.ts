@@ -22,6 +22,7 @@ export class SegmentedSwitch extends AngularComponentAdapter<AngularCallbackValu
   @NgInput() declare "itemClassName"?: AngularInput<'SegmentedSwitch', "itemClassName">;
   @NgInput() declare "onChange"?: AngularInput<'SegmentedSwitch', "onChange">;
   @NgInput({ required: true }) declare "options": AngularInput<'SegmentedSwitch', "options">;
+  @NgInput() declare "preset"?: AngularInput<'SegmentedSwitch', "preset">;
   @NgInput() declare "renderCount"?: AngularInput<'SegmentedSwitch', "renderCount">;
   @NgInput() declare "renderOption"?: AngularInput<'SegmentedSwitch', "renderOption">;
   @NgInput() declare "role"?: AngularInput<'SegmentedSwitch', "role">;

@@ -21,6 +21,7 @@ export class AssigneePickerLayout extends AngularComponentAdapter<never> {
   @NgInput({ required: true }) declare "id": AngularInput<'AssigneePickerLayout', "id">;
   @NgInput() declare "onQueryChange"?: AngularInput<'AssigneePickerLayout', "onQueryChange">;
   @NgInput({ required: true }) declare "options": AngularInput<'AssigneePickerLayout', "options">;
+  @NgInput() declare "preset"?: AngularInput<'AssigneePickerLayout', "preset">;
   @NgInput({ required: true }) declare "query": AngularInput<'AssigneePickerLayout', "query">;
   @NgInput() declare "searchRef"?: AngularInput<'AssigneePickerLayout', "searchRef">;
   @NgInput() declare "showActions"?: AngularInput<'AssigneePickerLayout', "showActions">;

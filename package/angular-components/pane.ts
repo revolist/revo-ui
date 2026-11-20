@@ -13,6 +13,7 @@ export class Pane extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'Pane';
   protected rvResolveComponent() { return Control; }
   @NgInput() declare "className"?: AngularInput<'Pane', "className">;
+  @NgInput() declare "preset"?: AngularInput<'Pane', "preset">;
   @NgInput() declare "scrollable"?: AngularInput<'Pane', "scrollable">;
 
   protected rvResolveProps() { return this.rvInputValues; }

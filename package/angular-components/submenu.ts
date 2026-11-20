@@ -14,6 +14,7 @@ export class Submenu extends AngularComponentAdapter<never> {
   protected rvResolveComponent() { return Control; }
   @NgInput() declare "className"?: AngularInput<'Submenu', "className">;
   @NgInput({ required: true }) declare "label": AngularInput<'Submenu', "label">;
+  @NgInput() declare "preset"?: AngularInput<'Submenu', "preset">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

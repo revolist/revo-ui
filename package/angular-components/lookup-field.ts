@@ -17,6 +17,7 @@ export class LookupField extends AngularComponentAdapter<never> {
   @NgInput({ required: true }) declare "context": AngularInput<'LookupField', "context">;
   @NgInput({ required: true }) declare "initial": AngularInput<'LookupField', "initial">;
   @NgInput({ required: true }) declare "options": AngularInput<'LookupField', "options">;
+  @NgInput() declare "preset"?: AngularInput<'LookupField', "preset">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

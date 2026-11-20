@@ -16,6 +16,7 @@ export class NumberDraft extends AngularComponentAdapter<never> {
   @NgInput({ required: true }) declare "cancel": AngularInput<'NumberDraft', "cancel">;
   @NgInput() declare "initialSelection"?: AngularInput<'NumberDraft', "initialSelection">;
   @NgInput({ required: true }) declare "options": AngularInput<'NumberDraft', "options">;
+  @NgInput() declare "preset"?: AngularInput<'NumberDraft', "preset">;
   @NgInput({ required: true }) declare "value": AngularInput<'NumberDraft', "value">;
 
   protected rvResolveProps() { return this.rvInputValues; }

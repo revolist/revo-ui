@@ -14,6 +14,7 @@ export class ColorPicker extends AngularComponentAdapter<AngularCallbackValue<An
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onChange"];
   @NgInput() declare "allowHexInput"?: AngularInput<'ColorPicker', "allowHexInput">;
+  @NgInput() declare "className"?: AngularInput<'ColorPicker', "className">;
   @NgInput({ required: true }) declare "colorLabels": AngularInput<'ColorPicker', "colorLabels">;
   @NgInput() declare "customHexLabel"?: AngularInput<'ColorPicker', "customHexLabel">;
   @NgInput({ required: true }) declare "customLabel": AngularInput<'ColorPicker', "customLabel">;
@@ -23,6 +24,7 @@ export class ColorPicker extends AngularComponentAdapter<AngularCallbackValue<An
   @NgInput({ required: true }) declare "label": AngularInput<'ColorPicker', "label">;
   @NgInput() declare "onChange"?: AngularInput<'ColorPicker', "onChange">;
   @NgInput() declare "optional"?: AngularInput<'ColorPicker', "optional">;
+  @NgInput() declare "preset"?: AngularInput<'ColorPicker', "preset">;
   @NgInput() declare "value"?: AngularInput<'ColorPicker', "value">;
 
   protected rvResolveProps() { return this.rvInputValues; }

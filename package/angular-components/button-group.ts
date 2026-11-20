@@ -14,6 +14,7 @@ export class ButtonGroup extends AngularComponentAdapter<never> {
   protected rvResolveComponent() { return Control; }
   @NgInput() declare "className"?: AngularInput<'ButtonGroup', "className">;
   @NgInput() declare "label"?: AngularInput<'ButtonGroup', "label">;
+  @NgInput() declare "preset"?: AngularInput<'ButtonGroup', "preset">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

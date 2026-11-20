@@ -255,12 +255,6 @@ test('an isolated TypeScript consumer resolves published declarations without wo
     const candidate: string = '2026-11-16';
     if (isValidIsoDate(candidate)) { const valid: ISODateString = candidate; void valid; }
     void [count, caption];
-    import { themeToCss, presetProps, type UiTheme } from '@revolist/ui/presets';
-    const theme: UiTheme = { version: 1, components: { Switch: { branded: { className: 'branded-switch', styles: { parts: { thumb: { 'border-radius': '50%' } } } } }, ProgressBar: { capacity: { defaults: { max: 200 } } } } };
-    const compiledStyles: string = themeToCss(theme);
-    void compiledStyles;
-    const switchDefaults = presetProps(theme.components.Switch?.branded);
-    void switchDefaults;
     import { createControl, mountAiAssistant, type ControlTag } from '@revolist/ui';
     import { createFrameworkMount, uiComponents } from '@revolist/ui/framework';
     import { Button } from '@revolist/ui/react';
@@ -275,6 +269,12 @@ test('an isolated TypeScript consumer resolves published declarations without wo
     import { DatePicker as ReactDatePicker } from '@revolist/ui/react';
     createElement(ReactDatePicker, { label: 'Date', openLabel: 'Choose date',
       renderTrigger: props => createElement('button', props) });
+    import { themeToCss, presetProps, type UiTheme } from '@revolist/ui/presets';
+    const theme: UiTheme = { version: 1, components: { Switch: { branded: { className: 'branded-switch', styles: { parts: { thumb: { 'border-radius': '50%' } } } } }, ProgressBar: { capacity: { defaults: { max: 200 } } } } };
+    const compiledStyles: string = themeToCss(theme);
+    void compiledStyles;
+    const switchDefaults = presetProps(theme.components.Switch?.branded);
+    void switchDefaults;
     createElement(ProgressBar, { ...presetProps(theme.components.ProgressBar?.capacity), value: 65, ariaLabel: 'Capacity' });
     createElement(PdfViewer, { toolbar: { buttons: { print: false } },
       renderToolbar: (_controller, _state, props) => createElement(PdfViewerToolbar, props) });

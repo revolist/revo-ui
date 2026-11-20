@@ -55,6 +55,7 @@ export class DatePicker extends AngularComponentAdapter<AngularCallbackValue<Ang
   @NgInput({ required: true }) declare "openLabel": AngularInput<'DatePicker', "openLabel">;
   @NgInput() declare "pagedNavigation"?: AngularInput<'DatePicker', "pagedNavigation">;
   @NgInput() declare "popup"?: AngularInput<'DatePicker', "popup">;
+  @NgInput() declare "preset"?: AngularInput<'DatePicker', "preset">;
   @NgInput() declare "presets"?: AngularInput<'DatePicker', "presets">;
   @NgInput() declare "previewDescription"?: AngularInput<'DatePicker', "previewDescription">;
   @NgInput() declare "previewInvalid"?: AngularInput<'DatePicker', "previewInvalid">;

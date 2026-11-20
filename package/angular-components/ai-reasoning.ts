@@ -18,6 +18,7 @@ export class AiReasoning extends AngularComponentAdapter<never> {
   @NgInput() declare "isStreaming"?: AngularInput<'AiReasoning', "isStreaming">;
   @NgInput() declare "onOpenChange"?: AngularInput<'AiReasoning', "onOpenChange">;
   @NgInput() declare "open"?: AngularInput<'AiReasoning', "open">;
+  @NgInput() declare "preset"?: AngularInput<'AiReasoning', "preset">;
   @NgInput() declare "title"?: AngularInput<'AiReasoning', "title">;
   @NgInput() declare "translations"?: AngularInput<'AiReasoning', "translations">;
   @Output() get openChange() { return this.rvOutput<AngularCallbackValue<AngularInput<'AiReasoning', 'onOpenChange'>>>('onOpenChange'); }

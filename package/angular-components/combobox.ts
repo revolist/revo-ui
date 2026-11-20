@@ -25,6 +25,7 @@ export class Combobox extends AngularComponentAdapter<AngularCallbackValue<Angul
   @NgInput() declare "onClose"?: AngularInput<'Combobox', "onClose">;
   @NgInput() declare "onCreateOption"?: AngularInput<'Combobox', "onCreateOption">;
   @NgInput() declare "placeholder"?: AngularInput<'Combobox', "placeholder">;
+  @NgInput() declare "preset"?: AngularInput<'Combobox', "preset">;
   @NgInput() declare "remoteText"?: AngularInput<'Combobox', "remoteText">;
   @NgInput() declare "renderContent"?: AngularInput<'Combobox', "renderContent">;
   @NgInput() declare "renderNoResults"?: AngularInput<'Combobox', "renderNoResults">;

@@ -21,6 +21,7 @@ export class SharedResourcePicker extends AngularComponentAdapter<AngularCallbac
   @NgInput() declare "onChange"?: AngularInput<'SharedResourcePicker', "onChange">;
   @NgInput() declare "presentation"?: AngularInput<'SharedResourcePicker', "presentation">;
   @NgInput() declare "preserveOrder"?: AngularInput<'SharedResourcePicker', "preserveOrder">;
+  @NgInput() declare "preset"?: AngularInput<'SharedResourcePicker', "preset">;
   @NgInput() declare "readOnly"?: AngularInput<'SharedResourcePicker', "readOnly">;
   @NgInput() declare "resourceDataAttribute"?: AngularInput<'SharedResourcePicker', "resourceDataAttribute">;
   @NgInput({ required: true }) declare "resources": AngularInput<'SharedResourcePicker', "resources">;

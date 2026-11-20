@@ -16,6 +16,7 @@ export class Disclosure extends AngularComponentAdapter<never> {
   @NgInput() declare "label"?: AngularInput<'Disclosure', "label">;
   @NgInput() declare "onToggle"?: AngularInput<'Disclosure', "onToggle">;
   @NgInput() declare "open"?: AngularInput<'Disclosure', "open">;
+  @NgInput() declare "preset"?: AngularInput<'Disclosure', "preset">;
   @NgInput() declare "summary"?: AngularInput<'Disclosure', "summary">;
   @Output() get toggleEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'Disclosure', 'onToggle'>>>('onToggle'); }
   protected rvResolveProps() { return this.rvInputValues; }

@@ -24,6 +24,7 @@ export class SingleValueSlider extends AngularComponentAdapter<AngularCallbackVa
   @NgInput() declare "onChange"?: AngularInput<'SingleValueSlider', "onChange">;
   @NgInput() declare "onCommit"?: AngularInput<'SingleValueSlider', "onCommit">;
   @NgInput() declare "onKeyDown"?: AngularInput<'SingleValueSlider', "onKeyDown">;
+  @NgInput() declare "preset"?: AngularInput<'SingleValueSlider', "preset">;
   @NgInput() declare "step"?: AngularInput<'SingleValueSlider', "step">;
   @NgInput({ required: true }) declare "value": AngularInput<'SingleValueSlider', "value">;
   @Output() get commit() { return this.rvOutput<AngularCallbackValue<AngularInput<'SingleValueSlider', 'onCommit'>>>('onCommit'); }

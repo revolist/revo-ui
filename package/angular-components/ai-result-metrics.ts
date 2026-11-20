@@ -12,6 +12,8 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class AiResultMetrics extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'AiResultMetrics';
   protected rvResolveComponent() { return Control; }
+  @NgInput() declare "className"?: AngularInput<'AiResultMetrics', "className">;
+  @NgInput() declare "preset"?: AngularInput<'AiResultMetrics', "preset">;
   @NgInput({ required: true }) declare "result": AngularInput<'AiResultMetrics', "result">;
 
   protected rvResolveProps() { return this.rvInputValues; }

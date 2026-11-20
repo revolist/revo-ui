@@ -9,8 +9,8 @@ import {
   FieldGroupHeading,
   FieldGroup,
   FieldList,
-  Switch,
   DatePicker,
+  Switch,
 } from '@revolist/ui/react';
 import { presetProps } from '@revolist/ui/presets';
 import { theme } from './shared-theme';

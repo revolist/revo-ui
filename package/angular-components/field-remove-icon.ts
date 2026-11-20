@@ -12,7 +12,8 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class FieldRemoveIcon extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'FieldRemoveIcon';
   protected rvResolveComponent() { return Control; }
-
+  @NgInput() declare "className"?: AngularInput<'FieldRemoveIcon', "className">;
+  @NgInput() declare "preset"?: AngularInput<'FieldRemoveIcon', "preset">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }
