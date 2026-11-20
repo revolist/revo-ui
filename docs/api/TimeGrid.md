@@ -16,24 +16,24 @@ Angular/Svelte: pass `component="TimeGrid"` to the framework's `UiComponent` hos
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `disabled` | `boolean \| undefined` | No |  |
-| `legacyClassPrefix` | `string \| undefined` | No |  |
-| `days` | `readonly TimeGridDayLabel[]` | Yes |  |
-| `cells` | `ReadonlySet<string>` | Yes |  |
-| `focused` | `string` | Yes |  |
-| `weekendDays` | `readonly number[]` | Yes |  |
-| `workingHours` | `TimeGridWorkingHours \| undefined` | No |  |
-| `gridLabel` | `string` | Yes |  |
-| `hourLabel` | `(hour: number) => string` | Yes |  |
-| `cellLabel` | `(day: TimeGridDayLabel, start: string, end: string, selected: boolean) => string` | Yes |  |
-| `matrixRef` | `RefObject<HTMLDivElement>` | Yes |  |
-| `onFocus` | `(key: string) => void` | Yes |  |
-| `onKeyDown` | `(event: h.JSX.TargetedKeyboardEvent<HTMLButtonElement>, weekday: number, hour: number) => void` | Yes |  |
-| `onClick` | `(event: h.JSX.TargetedMouseEvent<HTMLButtonElement>, weekday: number, hour: number, selected: boolean) => void` | Yes |  |
-| `onPointerDown` | `(event: h.JSX.TargetedPointerEvent<HTMLButtonElement>, weekday: number, hour: number, selected: boolean) => void` | Yes |  |
-| `onPointerEnter` | `(weekday: number, hour: number) => void` | Yes |  |
+| Prop                | Type                                                                                                               | Required | Description |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------ | -------- | ----------- |
+| `disabled`          | `boolean \| undefined`                                                                                             | No       |             |
+| `legacyClassPrefix` | `string \| undefined`                                                                                              | No       |             |
+| `days`              | `readonly TimeGridDayLabel[]`                                                                                      | Yes      |             |
+| `cells`             | `ReadonlySet<string>`                                                                                              | Yes      |             |
+| `focused`           | `string`                                                                                                           | Yes      |             |
+| `weekendDays`       | `readonly number[]`                                                                                                | Yes      |             |
+| `workingHours`      | `TimeGridWorkingHours \| undefined`                                                                                | No       |             |
+| `gridLabel`         | `string`                                                                                                           | Yes      |             |
+| `hourLabel`         | `(hour: number) => string`                                                                                         | Yes      |             |
+| `cellLabel`         | `(day: TimeGridDayLabel, start: string, end: string, selected: boolean) => string`                                 | Yes      |             |
+| `matrixRef`         | `RefObject<HTMLDivElement>`                                                                                        | Yes      |             |
+| `onFocus`           | `(key: string) => void`                                                                                            | Yes      |             |
+| `onKeyDown`         | `(event: h.JSX.TargetedKeyboardEvent<HTMLButtonElement>, weekday: number, hour: number) => void`                   | Yes      |             |
+| `onClick`           | `(event: h.JSX.TargetedMouseEvent<HTMLButtonElement>, weekday: number, hour: number, selected: boolean) => void`   | Yes      |             |
+| `onPointerDown`     | `(event: h.JSX.TargetedPointerEvent<HTMLButtonElement>, weekday: number, hour: number, selected: boolean) => void` | Yes      |             |
+| `onPointerEnter`    | `(weekday: number, hour: number) => void`                                                                          | Yes      |             |
 
 ## Composition
 

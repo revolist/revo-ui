@@ -316,10 +316,7 @@ it('clamps a paged multi-month window so the bounded last month stays reachable'
 
 it('retains navigation focus and transfers focus when changing views', () => {
   const host = mount(
-    <CalendarPicker
-      defaultMonth="2026-10-01"
-      onSelectionChange={() => {}}
-    />,
+    <CalendarPicker defaultMonth="2026-10-01" onSelectionChange={() => {}} />,
   );
   const button = (label: string) =>
     host.querySelector<HTMLButtonElement>(`button[aria-label="${label}"]`)!;
@@ -387,7 +384,9 @@ it('pages to an available month when the next year has a disabled anchor month',
       onMonthChange={monthChange}
     />,
   );
-  const next = host.querySelector<HTMLButtonElement>('[aria-label="Next year"]')!;
+  const next = host.querySelector<HTMLButtonElement>(
+    '[aria-label="Next year"]',
+  )!;
   expect(next.disabled).toBe(false);
   act(() => next.click());
   expect(monthChange).toHaveBeenCalledExactlyOnceWith('2027-01-01');
@@ -407,7 +406,9 @@ it('keeps Page Down in the requested month when the clamped day is unavailable',
 it('keeps the header usable when all calendar days are disabled', () => {
   const host = mount(<Calendar {...base} isDateDisabled={() => true} />);
   expect(host.querySelector('[data-calendar-date][tabindex="0"]')).toBeNull();
-  const next = host.querySelector<HTMLButtonElement>('[aria-label="Next month"]')!;
+  const next = host.querySelector<HTMLButtonElement>(
+    '[aria-label="Next month"]',
+  )!;
   expect(next.disabled).toBe(false);
 });
 
@@ -420,7 +421,9 @@ it('can browse through a disabled month using the month-only view', () => {
       onSelectionChange={() => {}}
     />,
   );
-  const next = host.querySelector<HTMLButtonElement>('[aria-label="Next month"]')!;
+  const next = host.querySelector<HTMLButtonElement>(
+    '[aria-label="Next month"]',
+  )!;
   expect(next.disabled).toBe(false);
   act(() => next.click());
   expect(
@@ -484,9 +487,7 @@ it('commits a range ending on the final supported date without exposing extended
     from: '9999-12-29',
     to: '9999-12-31',
   });
-  expect(disabled).not.toHaveBeenCalledWith(
-    expect.stringMatching(/^[+-]/),
-  );
+  expect(disabled).not.toHaveBeenCalledWith(expect.stringMatching(/^[+-]/));
 });
 
 it.each([

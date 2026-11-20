@@ -2,7 +2,13 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { h, render } from 'preact';
 import { useState } from 'preact/hooks';
 import { act } from 'preact/test-utils';
-import { DatePicker, DateRangePicker, Dialog, Popover, Tooltip } from './pickers';
+import {
+  DatePicker,
+  DateRangePicker,
+  Dialog,
+  Popover,
+  Tooltip,
+} from './pickers';
 import type { ISODateString } from '@revolist/ui-dates';
 
 let host: HTMLDivElement;
@@ -1019,21 +1025,57 @@ it('updates dialog preset classes without reopening the dialog', () => {
   expect(close).not.toHaveBeenCalled();
 });
 
-
 it('lets explicit tooltip behavior override preset defaults', async () => {
-  const root = mount(<Tooltip text="Details" trigger="click" preset={{ className: 'tooltip-theme', props: { trigger: 'manual' } }}><button>Open</button></Tooltip>);
+  const root = mount(
+    <Tooltip
+      text="Details"
+      trigger="click"
+      preset={{ className: 'tooltip-theme', props: { trigger: 'manual' } }}
+    >
+      <button>Open</button>
+    </Tooltip>,
+  );
   act(() => root.querySelector('button')!.click());
-  await vi.waitFor(() => expect(document.querySelector('.rv-tooltip.tooltip-theme[data-visible="true"]')).not.toBeNull());
-  expect(document.querySelector('.rv-tooltip.tooltip-theme')?.hasAttribute('data-preset-surface')).toBe(true);
+  await vi.waitFor(() =>
+    expect(
+      document.querySelector('.rv-tooltip.tooltip-theme[data-visible="true"]'),
+    ).not.toBeNull(),
+  );
+  expect(
+    document
+      .querySelector('.rv-tooltip.tooltip-theme')
+      ?.hasAttribute('data-preset-surface'),
+  ).toBe(true);
 });
 
 it('keeps date picker preset roots separate from calendar surfaces', async () => {
   const host = document.body.appendChild(document.createElement('div'));
   try {
-    act(() => render(<DatePicker label="Date" openLabel="Choose date" preset={{ className: 'picker-theme' }} />, host));
-    expect(host.querySelector('.rv-date-picker')?.classList.contains('picker-theme')).toBe(true);
-    act(() => host.querySelector<HTMLButtonElement>('[aria-label="Choose date"]')!.click());
-    await vi.waitFor(() => expect(document.querySelector('.revo-calendar.picker-theme')?.hasAttribute('data-preset-surface')).toBe(true));
+    act(() =>
+      render(
+        <DatePicker
+          label="Date"
+          openLabel="Choose date"
+          preset={{ className: 'picker-theme' }}
+        />,
+        host,
+      ),
+    );
+    expect(
+      host.querySelector('.rv-date-picker')?.classList.contains('picker-theme'),
+    ).toBe(true);
+    act(() =>
+      host
+        .querySelector<HTMLButtonElement>('[aria-label="Choose date"]')!
+        .click(),
+    );
+    await vi.waitFor(() =>
+      expect(
+        document
+          .querySelector('.revo-calendar.picker-theme')
+          ?.hasAttribute('data-preset-surface'),
+      ).toBe(true),
+    );
   } finally {
     act(() => render(null, host));
     host.remove();
@@ -1050,6 +1092,12 @@ it('keeps date picker preset styling alongside uncontrolled form values', () => 
       preset={{ className: 'delivery-theme' }}
     />,
   );
-  expect(host.querySelector('.rv-date-picker.delivery-theme')?.getAttribute('data-part')).toBe('picker');
-  expect((host.querySelector('input[name="delivery"]') as HTMLInputElement).value).toBe('2026-11-20');
+  expect(
+    host
+      .querySelector('.rv-date-picker.delivery-theme')
+      ?.getAttribute('data-part'),
+  ).toBe('picker');
+  expect(
+    (host.querySelector('input[name="delivery"]') as HTMLInputElement).value,
+  ).toBe('2026-11-20');
 });

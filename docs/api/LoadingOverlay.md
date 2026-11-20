@@ -16,11 +16,11 @@ Angular/Svelte: pass `component="LoadingOverlay"` to the framework's `UiComponen
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `busy` | `boolean` | Yes |  |
-| `label` | `string` | Yes |  |
-| `children` | `ComponentChildren` | No |  |
+| Prop       | Type                | Required | Description |
+| ---------- | ------------------- | -------- | ----------- |
+| `busy`     | `boolean`           | Yes      |             |
+| `label`    | `string`            | Yes      |             |
+| `children` | `ComponentChildren` | No       |             |
 
 ## Composition
 

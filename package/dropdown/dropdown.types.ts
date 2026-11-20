@@ -111,7 +111,14 @@ export type DropdownPreset = {
   className?: string;
   props?: {
     disabled?: boolean;
-    config?: Pick<DropdownConfig, 'search' | 'closeOnClickOutside' | 'autoOpen' | 'multiSelect' | 'closeOnTab'>;
+    config?: Pick<
+      DropdownConfig,
+      | 'search'
+      | 'closeOnClickOutside'
+      | 'autoOpen'
+      | 'multiSelect'
+      | 'closeOnTab'
+    >;
   };
 };
 

@@ -29,7 +29,12 @@ export function IconChoiceGroup<Value extends string>({
   readonly onChange: (value: Value) => void;
 }) {
   return (
-    <div class={`rv-format-segmented ${preset?.className ?? ''}`} data-part="root" role="group" aria-label={ariaLabel}>
+    <div
+      class={`rv-format-segmented ${preset?.className ?? ''}`}
+      data-part="root"
+      role="group"
+      aria-label={ariaLabel}
+    >
       {options.map((option) => (
         <SegmentedButton
           key={option.value}

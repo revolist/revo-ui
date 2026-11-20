@@ -34,7 +34,11 @@ export function FilterChip({
   role,
 }: FilterChipProps) {
   return (
-    <span class={`rv-btn-pill ${preset?.className ?? ''} ${className}`.trim()} data-part="root" role={role}>
+    <span
+      class={`rv-btn-pill ${preset?.className ?? ''} ${className}`.trim()}
+      data-part="root"
+      role={role}
+    >
       {children}
       {onRemove && (
         <button
@@ -120,7 +124,9 @@ export function FormField({
       <label
         {...attributes}
         htmlFor={controlId ?? attributes.htmlFor}
-        class={['rv-field', preset?.className, className, nativeClass].filter(Boolean).join(' ')}
+        class={['rv-field', preset?.className, className, nativeClass]
+          .filter(Boolean)
+          .join(' ')}
         data-part="root"
       >
         {renderFormFieldContent({
@@ -210,7 +216,12 @@ export function DisclosureSummary({
   return (
     <summary
       {...attributes}
-      class={['rv-disclosure-summary', preset?.className, className, nativeClass]
+      class={[
+        'rv-disclosure-summary',
+        preset?.className,
+        className,
+        nativeClass,
+      ]
         .filter(Boolean)
         .join(' ')}
       data-part="root"

@@ -7,17 +7,26 @@ import type { AngularInput, AngularCallbackValue } from '../angular-adapter';
 @Component({
   selector: 'rv-field-row',
   standalone: true,
-  template: '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
+  template:
+    '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
   host: { style: 'display: contents', ngSkipHydration: 'true' },
 })
 export class FieldRow extends AngularNativeAdapter<'FieldRow', never> {
   protected readonly rvComponentName = 'FieldRow';
-  protected rvResolveComponent() { return Control; }
-  @NgInput() declare "aria-label"?: AngularInput<'FieldRow', "aria-label">;
-  @NgInput() declare "dropPosition"?: AngularInput<'FieldRow', "dropPosition">;
-  @NgInput() declare "indicator"?: AngularInput<'FieldRow', "indicator">;
-  @NgInput() declare "onChange"?: AngularInput<'FieldRow', "onChange">;
-  @NgInput() declare "title"?: AngularInput<'FieldRow', "title">;
-  @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'FieldRow', 'onChange'>>>('onChange'); }
-  protected rvResolveProps() { return this.rvInputValues; }
+  protected rvResolveComponent() {
+    return Control;
+  }
+  @NgInput() declare 'aria-label'?: AngularInput<'FieldRow', 'aria-label'>;
+  @NgInput() declare 'dropPosition'?: AngularInput<'FieldRow', 'dropPosition'>;
+  @NgInput() declare 'indicator'?: AngularInput<'FieldRow', 'indicator'>;
+  @NgInput() declare 'onChange'?: AngularInput<'FieldRow', 'onChange'>;
+  @NgInput() declare 'title'?: AngularInput<'FieldRow', 'title'>;
+  @Output() get changeEvent() {
+    return this.rvOutput<
+      AngularCallbackValue<AngularInput<'FieldRow', 'onChange'>>
+    >('onChange');
+  }
+  protected rvResolveProps() {
+    return this.rvInputValues;
+  }
 }

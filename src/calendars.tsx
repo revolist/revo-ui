@@ -1,13 +1,22 @@
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
-import { CalendarPicker as __themeOriginal_CalendarPicker, type CalendarRangeSelection } from '@revolist/ui/calendar/index';
+import {
+  CalendarPicker as __themeOriginal_CalendarPicker,
+  type CalendarRangeSelection,
+} from '@revolist/ui/calendar/index';
 import { parseIsoDate, type ISODateString } from '@revolist/ui-dates';
 import { DateTimeField as __themeOriginal_DateTimeField } from '@revolist/ui/date-time';
 import { Example } from './catalog';
 import { withThemePreview } from './theme-preview';
 
-const CalendarPicker = withThemePreview(__themeOriginal_CalendarPicker, 'CalendarPicker');
-const DateTimeField = withThemePreview(__themeOriginal_DateTimeField, 'DateTimeField');
+const CalendarPicker = withThemePreview(
+  __themeOriginal_CalendarPicker,
+  'CalendarPicker',
+);
+const DateTimeField = withThemePreview(
+  __themeOriginal_DateTimeField,
+  'DateTimeField',
+);
 
 const reference = '2026-10-24' as const;
 const translations = {
@@ -123,7 +132,9 @@ export function CalendarExamples() {
               ? 'calendar-booked'
               : undefined
           }
-          formatDayLabel={(date, locale) => `${Number(date.slice(8, 10))} $100, ${new Intl.DateTimeFormat(locale, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).format(parseIsoDate(date))}`}
+          formatDayLabel={(date, locale) =>
+            `${Number(date.slice(8, 10))} $100, ${new Intl.DateTimeFormat(locale, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).format(parseIsoDate(date))}`
+          }
           renderDay={(date) => (
             <span class="calendar-price">
               <span>{Number(date.slice(8, 10))}</span>
@@ -223,13 +234,27 @@ export function DateTimeCalendarExample() {
           <div class="rv-form-grid">
             <label class="rv-field">
               <span class="rv-field__label">Start time</span>
-              <DateTimeField kind="time" value={start} onValueChange={setStart}
-                picker={{ timeFormat: '24h', text: { chooseTime: 'Choose start time' } }} />
+              <DateTimeField
+                kind="time"
+                value={start}
+                onValueChange={setStart}
+                picker={{
+                  timeFormat: '24h',
+                  text: { chooseTime: 'Choose start time' },
+                }}
+              />
             </label>
             <label class="rv-field">
               <span class="rv-field__label">End time</span>
-              <DateTimeField kind="time" value={end} onValueChange={setEnd}
-                picker={{ timeFormat: '24h', text: { chooseTime: 'Choose end time' } }} />
+              <DateTimeField
+                kind="time"
+                value={end}
+                onValueChange={setEnd}
+                picker={{
+                  timeFormat: '24h',
+                  text: { chooseTime: 'Choose end time' },
+                }}
+              />
             </label>
           </div>
         }

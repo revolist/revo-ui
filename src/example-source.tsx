@@ -9,13 +9,25 @@ const sourceFiles = import.meta.glob('./*.tsx', {
   eager: true,
 }) as Record<string, string>;
 // Gallery-only preview adapters should not appear in copyable examples.
-const files = Object.fromEntries(Object.entries(sourceFiles).map(([path, source]) => [
-  path,
-  source
-    .replace(/^import \{ withThemePreview \} from ['"]\.\/theme-preview['"];\n/gm, '')
-    .replace(/^const (\w+)\s*=\s*withThemePreview\(\s*__themeOriginal_\1\s*,\s*['"][^'"]+['"]\s*,?\s*\);\s*$/gm, '')
-    .replace(/(\w+) as __themeOriginal_(\w+)/g, (_, original: string, local: string) => original === local ? original : `${original} as ${local}`),
-]));
+const files = Object.fromEntries(
+  Object.entries(sourceFiles).map(([path, source]) => [
+    path,
+    source
+      .replace(
+        /^import \{ withThemePreview \} from ['"]\.\/theme-preview['"];\n/gm,
+        '',
+      )
+      .replace(
+        /^const (\w+)\s*=\s*withThemePreview\(\s*__themeOriginal_\1\s*,\s*['"][^'"]+['"]\s*,?\s*\);\s*$/gm,
+        '',
+      )
+      .replace(
+        /(\w+) as __themeOriginal_(\w+)/g,
+        (_, original: string, local: string) =>
+          original === local ? original : `${original} as ${local}`,
+      ),
+  ]),
+);
 export const slug = (title: string) =>
   title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 const sections = [

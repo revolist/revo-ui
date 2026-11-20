@@ -16,12 +16,12 @@ Angular/Svelte: pass `component="StatusBadge"` to the framework's `UiComponent` 
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `label` | `string` | Yes |  |
-| `tone` | `StatusFeedbackTone \| undefined` | No |  |
-| `busy` | `boolean \| undefined` | No |  |
-| `className` | `string \| undefined` | No |  |
+| Prop        | Type                              | Required | Description |
+| ----------- | --------------------------------- | -------- | ----------- |
+| `label`     | `string`                          | Yes      |             |
+| `tone`      | `StatusFeedbackTone \| undefined` | No       |             |
+| `busy`      | `boolean \| undefined`            | No       |             |
+| `className` | `string \| undefined`             | No       |             |
 
 ## Composition
 

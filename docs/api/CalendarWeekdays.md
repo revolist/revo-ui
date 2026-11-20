@@ -16,12 +16,12 @@ Angular/Svelte: pass `component="CalendarWeekdays"` to the framework's `UiCompon
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `dates` | `readonly ISODateString[]` | Yes |  |
-| `weekNumberLabel` | `string \| undefined` | No |  |
-| `locale` | `string` | Yes |  |
-| `format` | `(date: ISODateString, locale: string) => string` | Yes |  |
+| Prop              | Type                                              | Required | Description |
+| ----------------- | ------------------------------------------------- | -------- | ----------- |
+| `dates`           | `readonly ISODateString[]`                        | Yes      |             |
+| `weekNumberLabel` | `string \| undefined`                             | No       |             |
+| `locale`          | `string`                                          | Yes      |             |
+| `format`          | `(date: ISODateString, locale: string) => string` | Yes      |             |
 
 ## Composition
 

@@ -3,7 +3,9 @@
 import type { ClassPreset } from './presets/types';
 import { h as preactH, type ComponentChildren, type JSX } from 'preact';
 
-export type AlertPreset = ClassPreset & { props?: { tone?: 'neutral' | 'warning' | 'danger' | 'success' } };
+export type AlertPreset = ClassPreset & {
+  props?: { tone?: 'neutral' | 'warning' | 'danger' | 'success' };
+};
 
 export type AlertProps = Omit<JSX.IntrinsicElements['div'], 'title'> & {
   preset?: AlertPreset;
@@ -49,11 +51,23 @@ export function renderAlert<T>(
         </span>
       )}
       <div class="rv-alert__content" data-part="content">
-        {title && <div class="rv-alert__title" data-part="title">{title}</div>}
-        {description && <div class="rv-alert__description" data-part="description">{description}</div>}
+        {title && (
+          <div class="rv-alert__title" data-part="title">
+            {title}
+          </div>
+        )}
+        {description && (
+          <div class="rv-alert__description" data-part="description">
+            {description}
+          </div>
+        )}
         {children}
       </div>
-      {actions && <div class="rv-alert__actions" data-part="actions">{actions}</div>}
+      {actions && (
+        <div class="rv-alert__actions" data-part="actions">
+          {actions}
+        </div>
+      )}
     </div>
   ) as T;
 }

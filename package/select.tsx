@@ -20,7 +20,10 @@ export type SelectPreset = {
   className?: string;
   props?: {
     disabled?: boolean;
-    config?: Omit<NonNullable<NonNullable<DropdownPreset['props']>['config']>, 'multiSelect'>;
+    config?: Omit<
+      NonNullable<NonNullable<DropdownPreset['props']>['config']>,
+      'multiSelect'
+    >;
   };
 };
 
@@ -115,7 +118,8 @@ export const Select = /* @__PURE__ */ registerControl(function Select(
     ...attributes
   } = props;
   const field = useContext(FormFieldContext);
-  const disabled = field.disabled || (ownDisabled ?? preset?.props?.disabled ?? false);
+  const disabled =
+    field.disabled || (ownDisabled ?? preset?.props?.disabled ?? false);
   const source = selectOptions(children, optionPolicy);
   const [draft, setDraft] = useState<string | string[]>(() => {
     const initial =

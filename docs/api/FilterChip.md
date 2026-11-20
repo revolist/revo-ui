@@ -16,14 +16,14 @@ Angular/Svelte: pass `component="FilterChip"` to the framework's `UiComponent` h
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `children` | `ComponentChildren` | Yes |  |
-| `removeLabel` | `string \| undefined` | No |  |
-| `onRemove` | `(() => void) \| undefined` | No |  |
-| `className` | `string \| undefined` | No |  |
-| `removeClassName` | `string \| undefined` | No |  |
-| `role` | `"listitem" \| undefined` | No |  |
+| Prop              | Type                        | Required | Description |
+| ----------------- | --------------------------- | -------- | ----------- |
+| `children`        | `ComponentChildren`         | Yes      |             |
+| `removeLabel`     | `string \| undefined`       | No       |             |
+| `onRemove`        | `(() => void) \| undefined` | No       |             |
+| `className`       | `string \| undefined`       | No       |             |
+| `removeClassName` | `string \| undefined`       | No       |             |
+| `role`            | `"listitem" \| undefined`   | No       |             |
 
 ## Composition
 

@@ -16,11 +16,11 @@ Angular/Svelte: pass `component="InlineFieldGroup"` to the framework's `UiCompon
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `children` | `ComponentChildren` | Yes |  |
-| `className` | `string \| undefined` | No |  |
-| `label` | `string \| undefined` | No |  |
+| Prop        | Type                  | Required | Description |
+| ----------- | --------------------- | -------- | ----------- |
+| `children`  | `ComponentChildren`   | Yes      |             |
+| `className` | `string \| undefined` | No       |             |
+| `label`     | `string \| undefined` | No       |             |
 
 ## Composition
 

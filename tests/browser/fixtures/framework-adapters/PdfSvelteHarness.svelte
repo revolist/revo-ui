@@ -8,9 +8,9 @@
 
 <section aria-label="Svelte PDF">
   <button onclick={() => (mounted = !mounted)}>Toggle Svelte PDF</button>
-  <button onclick={() => (configured = !configured)}
-    >Configure Svelte PDF</button
-  >
+  <button onclick={() => (configured = !configured)}>
+    Configure Svelte PDF
+  </button>
   <output>{page}</output>
   {#if mounted}
     <UiComponent

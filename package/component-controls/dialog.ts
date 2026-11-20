@@ -3,5 +3,7 @@ import { Dialog as Control } from '../pickers';
 import { registerComponentStyles } from '../core/component-styles';
 import { dialogsStyles } from '../component-style-families';
 
-export const Dialog: typeof Control =
-  /* @__PURE__ */ registerComponentStyles(Control, dialogsStyles);
+export const Dialog: typeof Control = /* @__PURE__ */ registerComponentStyles(
+  Control,
+  dialogsStyles,
+);

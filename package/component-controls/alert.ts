@@ -3,5 +3,7 @@ import { Alert as Control } from '../alert';
 import { registerComponentStyles } from '../core/component-styles';
 import { layoutStyles } from '../component-style-families';
 
-export const Alert: typeof Control =
-  /* @__PURE__ */ registerComponentStyles(Control, layoutStyles);
+export const Alert: typeof Control = /* @__PURE__ */ registerComponentStyles(
+  Control,
+  layoutStyles,
+);

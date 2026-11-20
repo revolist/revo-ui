@@ -16,13 +16,13 @@ Angular/Svelte: pass `component="Badge"` to the framework's `UiComponent` host. 
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `children` | `ComponentChildren` | No |  |
-| `className` | `string \| undefined` | No |  |
-| `label` | `string \| undefined` | No |  |
-| `variant` | `"solid" \| "neutral" \| "accent" \| undefined` | No | Neutral counters or accent emphasis. Defaults to the existing solid badge. |
-| `shape` | `"rounded" \| "pill" \| undefined` | No |  |
+| Prop        | Type                                            | Required | Description                                                                |
+| ----------- | ----------------------------------------------- | -------- | -------------------------------------------------------------------------- |
+| `children`  | `ComponentChildren`                             | No       |                                                                            |
+| `className` | `string \| undefined`                           | No       |                                                                            |
+| `label`     | `string \| undefined`                           | No       |                                                                            |
+| `variant`   | `"solid" \| "neutral" \| "accent" \| undefined` | No       | Neutral counters or accent emphasis. Defaults to the existing solid badge. |
+| `shape`     | `"rounded" \| "pill" \| undefined`              | No       |                                                                            |
 
 ## Composition
 

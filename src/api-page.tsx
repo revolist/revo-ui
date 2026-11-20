@@ -82,7 +82,10 @@ export function ApiPage() {
         .includes(query.trim().toLowerCase()),
     ) ?? [];
   return (
-    <div class={`api-workspace${selected ? ' api-workspace--detail' : ''}`} aria-busy={!api}>
+    <div
+      class={`api-workspace${selected ? ' api-workspace--detail' : ''}`}
+      aria-busy={!api}
+    >
       <Button
         className="api-browse"
         aria-expanded={mobileOpen}

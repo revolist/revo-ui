@@ -16,12 +16,12 @@ Angular/Svelte: pass `component="Menu"` to the framework's `UiComponent` host. S
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `children` | `ComponentChildren` | No |  |
-| `className` | `string \| undefined` | No |  |
-| `label` | `string \| undefined` | No |  |
-| `onClose` | `(() => void) \| undefined` | No |  |
+| Prop        | Type                        | Required | Description |
+| ----------- | --------------------------- | -------- | ----------- |
+| `children`  | `ComponentChildren`         | No       |             |
+| `className` | `string \| undefined`       | No       |             |
+| `label`     | `string \| undefined`       | No       |             |
+| `onClose`   | `(() => void) \| undefined` | No       |             |
 
 ## Composition
 

@@ -16,17 +16,17 @@ Angular/Svelte: pass `component="DateTimeField"` to the framework's `UiComponent
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `kind` | `LocalDateControlKind \| undefined` | No |  |
-| `value` | `string` | Yes |  |
-| `required` | `boolean \| undefined` | No |  |
-| `disabled` | `boolean \| undefined` | No |  |
-| `readOnly` | `boolean \| undefined` | No |  |
-| `picker` | `Omit<TemporalPickerOptions, "selection" \| "kind"> \| undefined` | No |  |
-| `onValueChange` | `((value: string) => void) \| undefined` | No |  |
-| `formatValue` | `((value: string) => string) \| undefined` | No | Existing product text adapters can keep their custom display/parser. |
-| `parseValue` | `((text: string) => string \| undefined) \| undefined` | No |  |
+| Prop            | Type                                                              | Required | Description                                                          |
+| --------------- | ----------------------------------------------------------------- | -------- | -------------------------------------------------------------------- |
+| `kind`          | `LocalDateControlKind \| undefined`                               | No       |                                                                      |
+| `value`         | `string`                                                          | Yes      |                                                                      |
+| `required`      | `boolean \| undefined`                                            | No       |                                                                      |
+| `disabled`      | `boolean \| undefined`                                            | No       |                                                                      |
+| `readOnly`      | `boolean \| undefined`                                            | No       |                                                                      |
+| `picker`        | `Omit<TemporalPickerOptions, "selection" \| "kind"> \| undefined` | No       |                                                                      |
+| `onValueChange` | `((value: string) => void) \| undefined`                          | No       |                                                                      |
+| `formatValue`   | `((value: string) => string) \| undefined`                        | No       | Existing product text adapters can keep their custom display/parser. |
+| `parseValue`    | `((text: string) => string \| undefined) \| undefined`            | No       |                                                                      |
 
 ## Composition
 

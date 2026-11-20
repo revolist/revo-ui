@@ -77,11 +77,7 @@ export function validateTemporalSelection(
     if (rangeNights < 2) return true;
     const firstDate = temporalDatePart(from);
     const lastDate = temporalDatePart(to);
-    for (
-      let day = addDays(firstDate, 1);
-      day < lastDate;
-      day = addDays(day, 1)
-    )
+    for (let day = addDays(firstDate, 1); day < lastDate; day = addDays(day, 1))
       if (!validDate(day)) return false;
     return true;
   };

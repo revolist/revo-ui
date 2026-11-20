@@ -16,15 +16,15 @@ Angular/Svelte: pass `component="SelectedField"` to the framework's `UiComponent
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `className` | `string \| (SignalLike<string \| undefined> & string) \| undefined` | No |  |
-| `indicator` | `ComponentChildren` | No |  |
-| `dropPosition` | `"before" \| "after" \| undefined` | No |  |
-| `label` | `ComponentChildren` | Yes |  |
-| `icon` | `ComponentChildren` | No |  |
-| `actions` | `ComponentChildren` | No |  |
-| `contentClassName` | `string \| undefined` | No |  |
+| Prop               | Type                                                                | Required | Description |
+| ------------------ | ------------------------------------------------------------------- | -------- | ----------- |
+| `className`        | `string \| (SignalLike<string \| undefined> & string) \| undefined` | No       |             |
+| `indicator`        | `ComponentChildren`                                                 | No       |             |
+| `dropPosition`     | `"before" \| "after" \| undefined`                                  | No       |             |
+| `label`            | `ComponentChildren`                                                 | Yes      |             |
+| `icon`             | `ComponentChildren`                                                 | No       |             |
+| `actions`          | `ComponentChildren`                                                 | No       |             |
+| `contentClassName` | `string \| undefined`                                               | No       |             |
 
 ## Composition
 

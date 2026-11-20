@@ -16,16 +16,16 @@ Angular/Svelte: pass `component="ChoiceChip"` to the framework's `UiComponent` h
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `children` | `ComponentChildren` | Yes |  |
-| `color` | `string \| undefined` | No |  |
-| `selected` | `boolean \| undefined` | No |  |
-| `onSelect` | `h.JSX.MouseEventHandler<HTMLButtonElement> \| undefined` | No |  |
-| `info` | `ComponentChildren` | No |  |
-| `onRemove` | `(() => void) \| undefined` | No |  |
-| `removeLabel` | `string \| undefined` | No |  |
-| `removeClassName` | `string \| undefined` | No |  |
+| Prop              | Type                                                      | Required | Description |
+| ----------------- | --------------------------------------------------------- | -------- | ----------- |
+| `children`        | `ComponentChildren`                                       | Yes      |             |
+| `color`           | `string \| undefined`                                     | No       |             |
+| `selected`        | `boolean \| undefined`                                    | No       |             |
+| `onSelect`        | `h.JSX.MouseEventHandler<HTMLButtonElement> \| undefined` | No       |             |
+| `info`            | `ComponentChildren`                                       | No       |             |
+| `onRemove`        | `(() => void) \| undefined`                               | No       |             |
+| `removeLabel`     | `string \| undefined`                                     | No       |             |
+| `removeClassName` | `string \| undefined`                                     | No       |             |
 
 ## Composition
 

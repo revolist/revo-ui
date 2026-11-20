@@ -29,7 +29,13 @@ function ReactHarness() {
     'section',
     { 'aria-label': 'React adapters' },
     h('button', { onClick: () => setMounted(!mounted) }, 'Toggle React'),
-    h(Switch, { ...presetProps(theme.components.Switch?.shared), label: 'React shared theme', checked: themed, disabled: false, onChange: setThemed }),
+    h(Switch, {
+      ...presetProps(theme.components.Switch?.shared),
+      label: 'React shared theme',
+      checked: themed,
+      disabled: false,
+      onChange: setThemed,
+    }),
     h('output', { 'data-react-value': '' }, value),
     h(DatePicker, {
       label: 'React custom date',

@@ -1,2 +1,5 @@
-declare const Tabs: import('../svelte-props').SvelteNamedComponent<'Tabs', 'value'>;
+declare const Tabs: import('../svelte-props').SvelteNamedComponent<
+  'Tabs',
+  'value'
+>;
 export default Tabs;

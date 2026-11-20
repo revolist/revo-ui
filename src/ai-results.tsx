@@ -7,10 +7,18 @@ import {
 import { Example } from './catalog';
 import { withThemePreview } from './theme-preview';
 
-const AiResultTable = withThemePreview(__themeOriginal_AiResultTable, 'AiResultTable');
-const AiResultMetrics = withThemePreview(__themeOriginal_AiResultMetrics, 'AiResultMetrics');
-const AiResultText = withThemePreview(__themeOriginal_AiResultText, 'AiResultText');
-
+const AiResultTable = withThemePreview(
+  __themeOriginal_AiResultTable,
+  'AiResultTable',
+);
+const AiResultMetrics = withThemePreview(
+  __themeOriginal_AiResultMetrics,
+  'AiResultMetrics',
+);
+const AiResultText = withThemePreview(
+  __themeOriginal_AiResultText,
+  'AiResultText',
+);
 
 /** Independent result presentations, using explicit sample data only. */
 export function AiResultsExample() {

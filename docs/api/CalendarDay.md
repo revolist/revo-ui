@@ -16,30 +16,30 @@ Angular/Svelte: pass `component="CalendarDay"` to the framework's `UiComponent` 
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `date` | `ISODateString` | Yes |  |
-| `label` | `string` | Yes |  |
-| `className` | `string \| undefined` | No |  |
-| `outside` | `boolean` | Yes |  |
-| `hidden` | `boolean` | Yes |  |
-| `disabled` | `boolean` | Yes |  |
-| `focused` | `boolean` | Yes |  |
-| `selected` | `boolean` | Yes |  |
-| `previewed` | `boolean` | Yes |  |
-| `previewInvalid` | `boolean \| undefined` | No |  |
-| `previewDescriptionId` | `string \| undefined` | No |  |
-| `rangeStart` | `boolean` | Yes |  |
-| `rangeEnd` | `boolean` | Yes |  |
-| `previewStart` | `boolean` | Yes |  |
-| `previewEnd` | `boolean` | Yes |  |
-| `today` | `boolean` | Yes |  |
-| `content` | `ComponentChildren` | No |  |
-| `setRef` | `(date: ISODateString, element: HTMLButtonElement \| null) => void` | Yes |  |
-| `onFocus` | `(date: ISODateString) => void` | Yes |  |
-| `onPreview` | `(date?: ISODateString) => void` | Yes |  |
-| `onKeyDown` | `(event: h.JSX.TargetedKeyboardEvent<HTMLButtonElement>, date: ISODateString) => void` | Yes |  |
-| `onSelect` | `(date: ISODateString) => void` | Yes |  |
+| Prop                   | Type                                                                                   | Required | Description |
+| ---------------------- | -------------------------------------------------------------------------------------- | -------- | ----------- |
+| `date`                 | `ISODateString`                                                                        | Yes      |             |
+| `label`                | `string`                                                                               | Yes      |             |
+| `className`            | `string \| undefined`                                                                  | No       |             |
+| `outside`              | `boolean`                                                                              | Yes      |             |
+| `hidden`               | `boolean`                                                                              | Yes      |             |
+| `disabled`             | `boolean`                                                                              | Yes      |             |
+| `focused`              | `boolean`                                                                              | Yes      |             |
+| `selected`             | `boolean`                                                                              | Yes      |             |
+| `previewed`            | `boolean`                                                                              | Yes      |             |
+| `previewInvalid`       | `boolean \| undefined`                                                                 | No       |             |
+| `previewDescriptionId` | `string \| undefined`                                                                  | No       |             |
+| `rangeStart`           | `boolean`                                                                              | Yes      |             |
+| `rangeEnd`             | `boolean`                                                                              | Yes      |             |
+| `previewStart`         | `boolean`                                                                              | Yes      |             |
+| `previewEnd`           | `boolean`                                                                              | Yes      |             |
+| `today`                | `boolean`                                                                              | Yes      |             |
+| `content`              | `ComponentChildren`                                                                    | No       |             |
+| `setRef`               | `(date: ISODateString, element: HTMLButtonElement \| null) => void`                    | Yes      |             |
+| `onFocus`              | `(date: ISODateString) => void`                                                        | Yes      |             |
+| `onPreview`            | `(date?: ISODateString) => void`                                                       | Yes      |             |
+| `onKeyDown`            | `(event: h.JSX.TargetedKeyboardEvent<HTMLButtonElement>, date: ISODateString) => void` | Yes      |             |
+| `onSelect`             | `(date: ISODateString) => void`                                                        | Yes      |             |
 
 ## Composition
 

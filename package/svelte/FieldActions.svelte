@@ -4,7 +4,12 @@
   import Mount from './Mount.svelte';
   import type { SvelteComponentProps } from '../svelte-props';
 
-  let { children, slots, onUiEvent, ...props }: SvelteComponentProps<'FieldActions'> = $props();
+  let {
+    children,
+    slots,
+    onUiEvent,
+    ...props
+  }: SvelteComponentProps<'FieldActions'> = $props();
   let mount: Mount;
 
   export function getElement(): HTMLElement | null {
@@ -17,7 +22,7 @@
   component="FieldActions"
   control={Control}
   direct
-  props={props}
+  {props}
   {children}
   {slots}
   {onUiEvent}

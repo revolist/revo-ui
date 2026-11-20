@@ -106,7 +106,9 @@ function Hints() {
         actions={[{ id: 'bold', label: 'Bold', text: 'B' }]}
         onAction={() => {}}
       />
-      <Tooltip text="Clear formatting"><SvgButton label="Clear formatting" /></Tooltip>
+      <Tooltip text="Clear formatting">
+        <SvgButton label="Clear formatting" />
+      </Tooltip>
       <button {...hint.triggerProps}>Help</button>
       {hint.tooltip}
     </div>

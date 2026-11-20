@@ -3,5 +3,7 @@ import { MenuItem as Control } from '../controls';
 import { registerComponentStyles } from '../core/component-styles';
 import { layoutStyles } from '../component-style-families';
 
-export const MenuItem: typeof Control =
-  /* @__PURE__ */ registerComponentStyles(Control, layoutStyles);
+export const MenuItem: typeof Control = /* @__PURE__ */ registerComponentStyles(
+  Control,
+  layoutStyles,
+);

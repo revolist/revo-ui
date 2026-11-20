@@ -25,9 +25,9 @@ on:
   pull_request:
     paths:
       [
-        ".github/workflows/publish.yml",
-        "scripts/release*",
-        "scripts/prepare-github-package.mjs",
+        '.github/workflows/publish.yml',
+        'scripts/release*',
+        'scripts/prepare-github-package.mjs',
       ]
   workflow_dispatch:
     inputs:

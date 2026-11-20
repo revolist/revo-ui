@@ -63,21 +63,21 @@ We use [WCAG 2.2 Level A and AA](https://www.w3.org/TR/WCAG22/) to guide compone
 
 ## Component coverage
 
-| Component family | Accessibility features |
-| --- | --- |
-| Buttons and toolbars | Named actions, keyboard activation, visible focus, pressed and disabled states. |
-| Inputs and forms | Connected labels and descriptions, required and invalid states, validation feedback. |
-| Dropdowns, lists and resource pickers | Search, keyboard navigation, selection state, named options and status feedback. |
-| Tabs, radio groups and selection controls | Group semantics, arrow-key navigation and selected or checked states. |
-| Calendars and date pickers | Named dates, keyboard navigation, selection and range feedback, text-responsive layout. |
-| Dialogs, menus and popovers | Named surfaces, focus management, nested dismissal and focus return. |
-| Tooltips | Hover and focus access, trigger descriptions, pointer travel, persistence and Escape dismissal. |
-| Sliders and resize controls | Keyboard input, accessible values and focus indicators. |
-| Timeline tracks | Keyboard interaction, click/tap movement and endpoint commands, named events and responsive lanes. |
-| Field configurators | Named field actions, selection and move-up/move-down commands. |
-| Status, feedback and badges | Accessible names, status and alert announcements, text and icon state cues. |
-| Charts | Accessible chart labels and shared tooltip behavior. |
-| PDF viewer | Named viewer controls, keyboard interaction and document text-layer support. |
+| Component family                          | Accessibility features                                                                             |
+| ----------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| Buttons and toolbars                      | Named actions, keyboard activation, visible focus, pressed and disabled states.                    |
+| Inputs and forms                          | Connected labels and descriptions, required and invalid states, validation feedback.               |
+| Dropdowns, lists and resource pickers     | Search, keyboard navigation, selection state, named options and status feedback.                   |
+| Tabs, radio groups and selection controls | Group semantics, arrow-key navigation and selected or checked states.                              |
+| Calendars and date pickers                | Named dates, keyboard navigation, selection and range feedback, text-responsive layout.            |
+| Dialogs, menus and popovers               | Named surfaces, focus management, nested dismissal and focus return.                               |
+| Tooltips                                  | Hover and focus access, trigger descriptions, pointer travel, persistence and Escape dismissal.    |
+| Sliders and resize controls               | Keyboard input, accessible values and focus indicators.                                            |
+| Timeline tracks                           | Keyboard interaction, click/tap movement and endpoint commands, named events and responsive lanes. |
+| Field configurators                       | Named field actions, selection and move-up/move-down commands.                                     |
+| Status, feedback and badges               | Accessible names, status and alert announcements, text and icon state cues.                        |
+| Charts                                    | Accessible chart labels and shared tooltip behavior.                                               |
+| PDF viewer                                | Named viewer controls, keyboard interaction and document text-layer support.                       |
 
 ## How we check accessibility
 

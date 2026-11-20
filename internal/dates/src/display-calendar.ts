@@ -2,10 +2,7 @@ import { addDays, compareIsoDates, diffInDays } from './date-math';
 import { parseIsoDate, getUtcWeekday, type ISODateString } from './iso';
 
 /** Display systems with twelve months. Values always remain Gregorian ISO civil dates. */
-export type DisplayCalendarSystem =
-  | 'gregory'
-  | 'persian'
-  | 'islamic-umalqura';
+export type DisplayCalendarSystem = 'gregory' | 'persian' | 'islamic-umalqura';
 const formatters = new Map<string, Intl.DateTimeFormat>();
 function formatter(
   locale: string,

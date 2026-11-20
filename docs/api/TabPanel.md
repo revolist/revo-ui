@@ -16,12 +16,12 @@ Angular/Svelte: pass `component="TabPanel"` to the framework's `UiComponent` hos
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `id` | `string` | Yes |  |
-| `labelledBy` | `string` | Yes |  |
-| `active` | `boolean` | Yes |  |
-| `children` | `ComponentChildren` | No |  |
+| Prop         | Type                | Required | Description |
+| ------------ | ------------------- | -------- | ----------- |
+| `id`         | `string`            | Yes      |             |
+| `labelledBy` | `string`            | Yes      |             |
+| `active`     | `boolean`           | Yes      |             |
+| `children`   | `ComponentChildren` | No       |             |
 
 ## Composition
 

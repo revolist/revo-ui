@@ -16,13 +16,13 @@ Angular/Svelte: pass `component="Rating"` to the framework's `UiComponent` host.
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `value` | `number` | Yes |  |
-| `max` | `number \| undefined` | No |  |
-| `label` | `string` | Yes |  |
-| `onChange` | `((value: number) => void) \| undefined` | No |  |
-| `disabled` | `boolean \| undefined` | No |  |
+| Prop       | Type                                     | Required | Description |
+| ---------- | ---------------------------------------- | -------- | ----------- |
+| `value`    | `number`                                 | Yes      |             |
+| `max`      | `number \| undefined`                    | No       |             |
+| `label`    | `string`                                 | Yes      |             |
+| `onChange` | `((value: number) => void) \| undefined` | No       |             |
+| `disabled` | `boolean \| undefined`                   | No       |             |
 
 ## Composition
 

@@ -28,7 +28,10 @@ export function OptionButton({
       aria-pressed={selected}
     >
       <strong data-part="label">{label}</strong>
-      <span class={`rv-option-button__detail ${detailClassName}`} data-part="detail">
+      <span
+        class={`rv-option-button__detail ${detailClassName}`}
+        data-part="detail"
+      >
         {detail}
       </span>
     </ButtonControl>

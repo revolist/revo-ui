@@ -144,7 +144,11 @@ describe('independent calendar', () => {
     expect(host.querySelector('.revo-calendar__header')).not.toBeNull();
     expect(host.querySelector('.revo-calendar__weekdays')).not.toBeNull();
     expect(host.querySelector('.revo-calendar__month-grid')).not.toBeNull();
-    expect(host.querySelector('.revo-calendar__month-grid')?.getAttribute('data-preset-scope')).toBe('inherit');
+    expect(
+      host
+        .querySelector('.revo-calendar__month-grid')
+        ?.getAttribute('data-preset-scope'),
+    ).toBe('inherit');
     expect(host.querySelectorAll('.revo-calendar__day')).toHaveLength(42);
     expect(host.querySelectorAll('.revo-calendar__day.in-range')).toHaveLength(
       5,

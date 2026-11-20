@@ -16,10 +16,10 @@ Angular/Svelte: pass `component="Input"` to the framework's `UiComponent` host. 
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `className` | `h.JSX.Signalish<string \| undefined>` | No |  |
-| `class` | `h.JSX.Signalish<string \| undefined> \| Record<string, boolean \| undefined>` | No |  |
+| Prop        | Type                                                                           | Required | Description |
+| ----------- | ------------------------------------------------------------------------------ | -------- | ----------- |
+| `className` | `h.JSX.Signalish<string \| undefined>`                                         | No       |             |
+| `class`     | `h.JSX.Signalish<string \| undefined> \| Record<string, boolean \| undefined>` | No       |             |
 
 ## Composition
 

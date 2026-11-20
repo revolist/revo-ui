@@ -13,7 +13,11 @@ import {
 export * from './palette';
 
 export type ColorPalettePreset = ClassPreset & {
-  props?: { disabled?: boolean; includeDefault?: boolean; defaultDisabled?: boolean };
+  props?: {
+    disabled?: boolean;
+    includeDefault?: boolean;
+    defaultDisabled?: boolean;
+  };
 };
 
 export interface ColorPaletteProps {
@@ -44,8 +48,10 @@ export function ColorPalette({
   onChange,
 }: ColorPaletteProps) {
   const disabled = disabledProp ?? preset?.props?.disabled ?? false;
-  const includeDefault = includeDefaultProp ?? preset?.props?.includeDefault ?? true;
-  const defaultDisabled = defaultDisabledProp ?? preset?.props?.defaultDisabled ?? false;
+  const includeDefault =
+    includeDefaultProp ?? preset?.props?.includeDefault ?? true;
+  const defaultDisabled =
+    defaultDisabledProp ?? preset?.props?.defaultDisabled ?? false;
   const selectedEnabledIndex = options.findIndex(
     (option) => option.value === value && !option.disabled,
   );
@@ -54,7 +60,12 @@ export function ColorPalette({
   const handleKeyDown = handleColorPaletteKeyDown;
 
   return (
-    <div class={`rv-color-palette ${preset?.className ?? ''} ${className}`} data-part="root" role="radiogroup" aria-label={ariaLabel}>
+    <div
+      class={`rv-color-palette ${preset?.className ?? ''} ${className}`}
+      data-part="root"
+      role="radiogroup"
+      aria-label={ariaLabel}
+    >
       <div class="rv-color-palette__swatches">
         {options.map((option, index) => {
           const selected = option.value === value;

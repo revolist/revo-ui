@@ -48,10 +48,9 @@ export function CalendarCaption({
     const lastSupportedYear = displayYearMonths(domainEnd, system)[0];
     const first = start
       ? displayYearMonths(start, system)[0]
-      : [
-          firstSupportedYear,
-          addDisplayMonths(currentStart, -600, system),
-        ].sort(compareIsoDates)[1];
+      : [firstSupportedYear, addDisplayMonths(currentStart, -600, system)].sort(
+          compareIsoDates,
+        )[1];
     const last = end
       ? displayYearMonths(end, system)[0]
       : [lastSupportedYear, addDisplayMonths(currentStart, 120, system)].sort(
@@ -97,12 +96,7 @@ export function CalendarCaption({
         />
       ) : (
         <span>
-          {formatDisplayCalendarDate(
-            month,
-            locale,
-            { month: 'long' },
-            system,
-          )}
+          {formatDisplayCalendarDate(month, locale, { month: 'long' }, system)}
         </span>
       )}
       {layout !== 'dropdown-months' ? (

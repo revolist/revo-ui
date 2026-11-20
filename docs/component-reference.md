@@ -48,7 +48,11 @@ export function ReportName() {
   const [name, setName] = useState('Monthly revenue');
   return (
     <>
-      <TextInput aria-label="Report name" value={name} onValueChange={setName} />
+      <TextInput
+        aria-label="Report name"
+        value={name}
+        onValueChange={setName}
+      />
       <Button rounded variant="primary" onClick={() => console.log(name)}>
         Create report
       </Button>
@@ -61,14 +65,14 @@ Controls can be used without a RevoGrid instance. Grid cell templates, providers
 
 ## Framework integrations
 
-| Framework | Entry point | Integration | Guide |
-| --- | --- | --- | --- |
-| React | `@revolist/ui/react` | Named React components; controlled props, callbacks, children, and custom content. | [React usage](https://ui.rv-grid.com/frameworks/react/) |
-| Vue | `@revolist/ui/vue` | Named Vue components, events and slots; declared value models support `v-model`. | [Vue usage](https://ui.rv-grid.com/frameworks/vue/) |
-| Angular | `@revolist/ui/angular` | Named standalone components with typed direct inputs, model outputs and `rvUiSlot` templates; `UiComponent` remains for dynamic catalog selection. | [Angular usage](https://ui.rv-grid.com/frameworks/angular/) |
-| Svelte 5 | `@revolist/ui/svelte` | Named components with reactive typed props, model bindings and content snippets; `UiComponent` remains for dynamic catalog selection. | [Svelte usage](https://ui.rv-grid.com/frameworks/svelte/) |
-| Preact | `@revolist/ui/preact` | Direct components with Preact state, hooks, and render callbacks. | [Preact usage](https://ui.rv-grid.com/frameworks/preact/) |
-| Vanilla TypeScript | `@revolist/ui/framework` | `createFrameworkMount` and `uiComponents`; call `render` to update and `destroy` on disposal. | [Vanilla usage](https://ui.rv-grid.com/frameworks/vanilla-typescript/) |
+| Framework          | Entry point              | Integration                                                                                                                                        | Guide                                                                  |
+| ------------------ | ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| React              | `@revolist/ui/react`     | Named React components; controlled props, callbacks, children, and custom content.                                                                 | [React usage](https://ui.rv-grid.com/frameworks/react/)                |
+| Vue                | `@revolist/ui/vue`       | Named Vue components, events and slots; declared value models support `v-model`.                                                                   | [Vue usage](https://ui.rv-grid.com/frameworks/vue/)                    |
+| Angular            | `@revolist/ui/angular`   | Named standalone components with typed direct inputs, model outputs and `rvUiSlot` templates; `UiComponent` remains for dynamic catalog selection. | [Angular usage](https://ui.rv-grid.com/frameworks/angular/)            |
+| Svelte 5           | `@revolist/ui/svelte`    | Named components with reactive typed props, model bindings and content snippets; `UiComponent` remains for dynamic catalog selection.              | [Svelte usage](https://ui.rv-grid.com/frameworks/svelte/)              |
+| Preact             | `@revolist/ui/preact`    | Direct components with Preact state, hooks, and render callbacks.                                                                                  | [Preact usage](https://ui.rv-grid.com/frameworks/preact/)              |
+| Vanilla TypeScript | `@revolist/ui/framework` | `createFrameworkMount` and `uiComponents`; call `render` to update and `destroy` on disposal.                                                      | [Vanilla usage](https://ui.rv-grid.com/frameworks/vanilla-typescript/) |
 
 Prefer a per-component entry for a narrow dependency graph, for example `@revolist/ui/angular/svg-button` or `@revolist/ui/svelte/svg-button`. Add `/unstyled` when the application supplies static CSS. Framework barrels also provide the same named exports.
 
@@ -260,7 +264,6 @@ Display local or remote PDFs with navigation, search, zoom, rotation, print/down
 
 [PdfViewer](api/PdfViewer.md) ([examples](https://ui.rv-grid.com/components/pdf-viewer/)) | [PdfViewerToolbar](api/PdfViewerToolbar.md) ([examples](https://ui.rv-grid.com/components/pdf-viewer/))
 
-
 ### JSX select adapter
 
 [**Select**](api/Select.md) ([examples](https://ui.rv-grid.com/components/multi-selects-autocomplete/)) is an additional direct Preact adapter exported from `@revolist/ui/select`. Its JSX `<option>` children are data descriptors for the shared dropdown, not mounted native select elements. Use `value` / `onValueChange` for controlled state, `defaultValue` for uncontrolled state, and `multiple` for an array of selected strings. React/Vue applications can use their named `Combobox`, `MultiSelect`, or `Dropdown` adapters.
@@ -271,24 +274,26 @@ import { Select } from '@revolist/ui/select';
 <Select aria-label="View" value={view} onValueChange={setView}>
   <option value="table">Table</option>
   <option value="board">Board</option>
-  <option value="calendar" disabled>Calendar</option>
-</Select>
+  <option value="calendar" disabled>
+    Calendar
+  </option>
+</Select>;
 ```
 
 ## Usage contracts
 
-| Concern | Contract |
-| --- | --- |
-| Controlled state | Keep values in the application and pass the matching callback. `TextInput` uses `onValueChange`; many pickers/sliders use `onChange`; verify the component's typed contract. |
-| Dropdown data | `source` is an array of `{ value, label, ...metadata }` descriptors. `disabled` options remain visible and are skipped by keyboard selection. |
-| Custom dropdown content | `renderOption` changes option content; `renderValue` changes the selected value. Preact receives `(h, option, selected)` / `(h, option)`. React callbacks omit the element-factory argument; Vue uses named slots. |
-| Angular/Svelte adapters | Prefer named imports and direct props. Angular exposes typed callback/model outputs; native events such as `(click)` bubble once. Svelte uses typed callbacks and bindable declared models. The generic `UiComponent` host remains for dynamic catalog selection. |
-| Forms | Associate inputs with a visible label or an accessible name. Use shared field hint/error presentation and pass disabled/invalid state explicitly. |
-| Overlays | Use the shared popup lifecycle. Dropdowns inside top-layer dialogs/calendars can opt into `config.topLayer`. Standalone selects dismiss and advance focus on Tab/Shift+Tab. |
-| Lifecycle | Framework adapters clean up their mounts. Manual framework mounts and native controllers must be destroyed when their view is removed. |
-| AI components | These render chat, prompt, task and result UI. Your application provides model access, data, authorization and tool execution. |
-| PDF viewer | Supply a PDF source; a matching PDF.js worker is bundled by default. Set workerSrc only to override it. Remote files require appropriate CORS access. Tool groups, text and toolbar/status rendering are configurable. See the [PDF viewer examples](https://ui.rv-grid.com/components/pdf-viewer/). |
-| Charts | Revo UI includes compact bar/line/area primitives and a range brush. The separate [RevoGrid Charts product](https://rv-grid.com/charts/) provides the larger charting surface. |
+| Concern                 | Contract                                                                                                                                                                                                                                                                                             |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Controlled state        | Keep values in the application and pass the matching callback. `TextInput` uses `onValueChange`; many pickers/sliders use `onChange`; verify the component's typed contract.                                                                                                                         |
+| Dropdown data           | `source` is an array of `{ value, label, ...metadata }` descriptors. `disabled` options remain visible and are skipped by keyboard selection.                                                                                                                                                        |
+| Custom dropdown content | `renderOption` changes option content; `renderValue` changes the selected value. Preact receives `(h, option, selected)` / `(h, option)`. React callbacks omit the element-factory argument; Vue uses named slots.                                                                                   |
+| Angular/Svelte adapters | Prefer named imports and direct props. Angular exposes typed callback/model outputs; native events such as `(click)` bubble once. Svelte uses typed callbacks and bindable declared models. The generic `UiComponent` host remains for dynamic catalog selection.                                    |
+| Forms                   | Associate inputs with a visible label or an accessible name. Use shared field hint/error presentation and pass disabled/invalid state explicitly.                                                                                                                                                    |
+| Overlays                | Use the shared popup lifecycle. Dropdowns inside top-layer dialogs/calendars can opt into `config.topLayer`. Standalone selects dismiss and advance focus on Tab/Shift+Tab.                                                                                                                          |
+| Lifecycle               | Framework adapters clean up their mounts. Manual framework mounts and native controllers must be destroyed when their view is removed.                                                                                                                                                               |
+| AI components           | These render chat, prompt, task and result UI. Your application provides model access, data, authorization and tool execution.                                                                                                                                                                       |
+| PDF viewer              | Supply a PDF source; a matching PDF.js worker is bundled by default. Set workerSrc only to override it. Remote files require appropriate CORS access. Tool groups, text and toolbar/status rendering are configurable. See the [PDF viewer examples](https://ui.rv-grid.com/components/pdf-viewer/). |
+| Charts                  | Revo UI includes compact bar/line/area primitives and a range brush. The separate [RevoGrid Charts product](https://rv-grid.com/charts/) provides the larger charting surface.                                                                                                                       |
 
 The following snippets use the direct Preact APIs; the framework guides show their equivalent integration patterns. Values and callbacks such as `saved` / `setSaved` are application-owned state inside your component; the linked live examples include the complete surrounding setup.
 
@@ -315,9 +320,17 @@ const people = [
   { value: 'alex', label: 'Alex Morgan', photo: '/people/alex.jpg' },
   { value: 'sam', label: 'Sam Rivera', photo: '/people/sam.jpg' },
 ];
-const personContent = (_h: unknown, person: { label: string; photo?: string }) => (
+const personContent = (
+  _h: unknown,
+  person: { label: string; photo?: string },
+) => (
   <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
-    <Avatar value={person.photo} label="" initials={person.label[0]} size={16} />
+    <Avatar
+      value={person.photo}
+      label=""
+      initials={person.label[0]}
+      size={16}
+    />
     <span>{person.label}</span>
   </span>
 );
@@ -326,11 +339,15 @@ const personContent = (_h: unknown, person: { label: string; photo?: string }) =
   className="rv-select"
   source={people}
   value={personId}
-  onChange={next => setPersonId(String(next))}
-  config={{ ariaLabel: 'Team member', topLayer: true, nativeTabNavigation: true }}
+  onChange={(next) => setPersonId(String(next))}
+  config={{
+    ariaLabel: 'Team member',
+    topLayer: true,
+    nativeTabNavigation: true,
+  }}
   renderOption={personContent}
   renderValue={personContent}
-/>
+/>;
 ```
 
 Use `Combobox` for search and `MultiSelect` for multiple values. See [select and autocomplete examples](https://ui.rv-grid.com/components/multi-selects-autocomplete/) and [resource/avatar examples](https://ui.rv-grid.com/components/resource-selection/).
@@ -359,10 +376,10 @@ field automatically and preserves the option's value type. Return `null` or
   source={skills}
   value={selectedSkills}
   onChange={setSelectedSkills}
-  onCreateOption={option => setSkills(current => [...current, option])}
+  onCreateOption={(option) => setSkills((current) => [...current, option])}
   config={{
     ariaLabel: 'Skills',
-    tags: label => ({ value: label, label }),
+    tags: (label) => ({ value: label, label }),
   }}
 />
 ```
@@ -376,7 +393,6 @@ while their remove buttons and editable input remain usable. Menus can grow to
 the keyboard. Use `config.maxHeight` for a smaller pixel cap, or override
 `--rv-dropdown-menu-max-height` and `--rv-dropdown-menu-options-max-height` for
 a themed limit.
-
 
 ## Advanced slider
 
@@ -392,9 +408,9 @@ import { SliderField } from '@revolist/ui/filter/filters/slider/single';
   step={50}
   value={saved}
   valuePlacement="end"
-  formatValue={value => `${Math.round(value / 20000 * 100)}%`}
+  formatValue={(value) => `${Math.round((value / 20000) * 100)}%`}
   onChange={setSaved}
-/>
+/>;
 ```
 
 `layout="stacked"` gives the slider a full-width row; `valuePlacement="end"` puts the formatted value beside the label. Optional accent colors, ticks and thumb callouts are shown on the [Sliders page](https://ui.rv-grid.com/components/sliders/).
@@ -404,7 +420,7 @@ import { SliderField } from '@revolist/ui/filter/filters/slider/single';
 ```tsx
 import { BarChart } from '@revolist/ui/preact';
 
-const largestExpense = Math.max(...expenses.map(item => item.value));
+const largestExpense = Math.max(...expenses.map((item) => item.value));
 
 <BarChart
   data={expenses}
@@ -413,8 +429,8 @@ const largestExpense = Math.max(...expenses.map(item => item.value));
   showGrid
   showLabels
   tooltipIndicator="dot"
-  barColor={datum => datum.value === largestExpense ? '#f97316' : undefined}
-/>
+  barColor={(datum) => (datum.value === largestExpense ? '#f97316' : undefined)}
+/>;
 ```
 
 Each datum has `key`, `value`, and `tooltip: { title, details? }`; optional `selected` controls emphasis. `barColor` accepts a CSS color or `(datum, index) => color | undefined`. Returning `undefined` retains the theme color. Tooltip markers use the resolved bar color. See [Charts and range selection](https://ui.rv-grid.com/components/charts-and-range-selection/).
@@ -426,11 +442,30 @@ import { TimelineTrack } from '@revolist/ui/timeline-track';
 
 // Application-owned rows; retain these metadata fields when committing changes.
 const initialRows = [
-  { id: 'build', event: { start: 8, end: 12, label: 'Build', color: '#2563eb', textColor: '#ffffff' } },
-  { id: 'review', event: {
-    start: 14, end: 18, label: 'Review', color: '#7c3aed', textColor: '#ffffff',
-    segments: [{ color: '#7c3aed', weight: 3 }, { color: '#c2410c', weight: 1 }],
-  } },
+  {
+    id: 'build',
+    event: {
+      start: 8,
+      end: 12,
+      label: 'Build',
+      color: '#2563eb',
+      textColor: '#ffffff',
+    },
+  },
+  {
+    id: 'review',
+    event: {
+      start: 14,
+      end: 18,
+      label: 'Review',
+      color: '#7c3aed',
+      textColor: '#ffffff',
+      segments: [
+        { color: '#7c3aed', weight: 3 },
+        { color: '#c2410c', weight: 1 },
+      ],
+    },
+  },
 ];
 
 <TimelineTrack
@@ -438,9 +473,13 @@ const initialRows = [
   selected={selected}
   range={{ start: 0, end: 24 }}
   onSelect={setSelected}
-  onEventChange={(id, event) => setRows(current => current.map(row => row.id === id ? { ...row, event } : row))}
-  formatValue={value => `${String(value).padStart(2, '0')}:00`}
-/>
+  onEventChange={(id, event) =>
+    setRows((current) =>
+      current.map((row) => (row.id === id ? { ...row, event } : row)),
+    )
+  }
+  formatValue={(value) => `${String(value).padStart(2, '0')}:00`}
+/>;
 ```
 
 Events support single colors or weighted color segments. Moving/resizing preserves metadata and scales phase proportions. Hover/focus tooltips show the event name and range; use `getTooltip` for custom text or `tooltip={false}` to disable them. Pointer dragging and Left/Right keyboard controls are demonstrated on [Timeline track](https://ui.rv-grid.com/components/timeline-track/).
@@ -473,15 +512,15 @@ Motion follows the system's reduced-motion preference. `data-rv-ui-motion="off"`
 
 ## RevoGrid products
 
-| Product | Website | Documentation |
-| --- | --- | --- |
-| RevoGrid | [rv-grid.com](https://rv-grid.com/) | [Core docs](https://rv-grid.com/guide/) |
-| Grid Pro | [RevoGrid Pro](https://pro.rv-grid.com/) | [Pro guides](https://pro.rv-grid.com/guides/installation/) |
-| Pivot | [Pivot tables](https://rv-grid.com/pivot/) | [Pivot guide](https://pro.rv-grid.com/guides/pivot/) |
-| Charts | [JavaScript charts](https://rv-grid.com/charts/) | [Pro documentation](https://pro.rv-grid.com/) |
-| Gantt | [Gantt charts](https://rv-grid.com/gantt/) | [Gantt guide](https://pro.rv-grid.com/guides/gantt/) |
-| Scheduler | [Resource scheduling](https://rv-grid.com/jsscheduler/) | [Pro documentation](https://pro.rv-grid.com/) |
-| Kanban | [Kanban boards](https://rv-grid.com/kanban/) | [Pro documentation](https://pro.rv-grid.com/) |
+| Product   | Website                                                 | Documentation                                              |
+| --------- | ------------------------------------------------------- | ---------------------------------------------------------- |
+| RevoGrid  | [rv-grid.com](https://rv-grid.com/)                     | [Core docs](https://rv-grid.com/guide/)                    |
+| Grid Pro  | [RevoGrid Pro](https://pro.rv-grid.com/)                | [Pro guides](https://pro.rv-grid.com/guides/installation/) |
+| Pivot     | [Pivot tables](https://rv-grid.com/pivot/)              | [Pivot guide](https://pro.rv-grid.com/guides/pivot/)       |
+| Charts    | [JavaScript charts](https://rv-grid.com/charts/)        | [Pro documentation](https://pro.rv-grid.com/)              |
+| Gantt     | [Gantt charts](https://rv-grid.com/gantt/)              | [Gantt guide](https://pro.rv-grid.com/guides/gantt/)       |
+| Scheduler | [Resource scheduling](https://rv-grid.com/jsscheduler/) | [Pro documentation](https://pro.rv-grid.com/)              |
+| Kanban    | [Kanban boards](https://rv-grid.com/kanban/)            | [Pro documentation](https://pro.rv-grid.com/)              |
 
 ## Licensing
 

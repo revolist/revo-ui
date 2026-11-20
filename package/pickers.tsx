@@ -42,12 +42,28 @@ import { DateControl, type DateInputOptions } from './date-time/date-control';
 import { avatarTemplate, type AvatarTemplateOptions } from './avatar';
 import { renderProgressBar, type ProgressBarProps } from './progress/bar';
 
-type DropdownPresetConfig = NonNullable<NonNullable<DropdownPreset['props']>['config']>;
+type DropdownPresetConfig = NonNullable<
+  NonNullable<DropdownPreset['props']>['config']
+>;
 /** Search and single selection are owned by Combobox. */
-export type ComboboxPreset = { className?: string; props?: { disabled?: boolean; config?: Omit<DropdownPresetConfig, 'search' | 'multiSelect'> } };
+export type ComboboxPreset = {
+  className?: string;
+  props?: {
+    disabled?: boolean;
+    config?: Omit<DropdownPresetConfig, 'search' | 'multiSelect'>;
+  };
+};
 /** Multiple selection is owned by MultiSelect. */
-export type MultiSelectPreset = { className?: string; props?: { disabled?: boolean; config?: Omit<DropdownPresetConfig, 'multiSelect'> } };
-export function Combobox<T>(props: Omit<DropdownProps<T>, 'preset'> & { preset?: ComboboxPreset }) {
+export type MultiSelectPreset = {
+  className?: string;
+  props?: {
+    disabled?: boolean;
+    config?: Omit<DropdownPresetConfig, 'multiSelect'>;
+  };
+};
+export function Combobox<T>(
+  props: Omit<DropdownProps<T>, 'preset'> & { preset?: ComboboxPreset },
+) {
   return (
     <Dropdown
       {...props}
@@ -56,7 +72,9 @@ export function Combobox<T>(props: Omit<DropdownProps<T>, 'preset'> & { preset?:
     />
   );
 }
-export function MultiSelect<T>(props: Omit<DropdownProps<T>, 'preset'> & { preset?: MultiSelectPreset }) {
+export function MultiSelect<T>(
+  props: Omit<DropdownProps<T>, 'preset'> & { preset?: MultiSelectPreset },
+) {
   return (
     <Dropdown
       {...props}
@@ -179,7 +197,19 @@ function PopoverSurface({
   );
 }
 
-export type TooltipPreset = import('./presets/types').ClassPreset & { props?: { side?: 'top' | 'bottom' | 'left' | 'right' | 'inline-start' | 'inline-end'; align?: 'start' | 'center' | 'end'; trigger?: 'hover' | 'focus' | 'click' | 'manual'; delay?: number; arrow?: boolean; disabled?: boolean; closeOnEscape?: boolean; closeOnOutside?: boolean; autoHide?: boolean } };
+export type TooltipPreset = import('./presets/types').ClassPreset & {
+  props?: {
+    side?: 'top' | 'bottom' | 'left' | 'right' | 'inline-start' | 'inline-end';
+    align?: 'start' | 'center' | 'end';
+    trigger?: 'hover' | 'focus' | 'click' | 'manual';
+    delay?: number;
+    arrow?: boolean;
+    disabled?: boolean;
+    closeOnEscape?: boolean;
+    closeOnOutside?: boolean;
+    autoHide?: boolean;
+  };
+};
 export interface TooltipProps extends TooltipControllerOptions {
   preset?: TooltipPreset;
   /** Simple text remains supported; content/renderContent can provide rich non-interactive descriptions. */
@@ -192,8 +222,19 @@ export interface TooltipProps extends TooltipControllerOptions {
 }
 export function Tooltip(props: TooltipProps) {
   const ref = useRef<HTMLSpanElement>(null);
-  const defaults = Object.fromEntries(Object.entries(props.preset?.props ?? {}).filter(([key]) => (props as unknown as Record<string, unknown>)[key] === undefined));
-  const options = { ...props, ...defaults, className: [props.preset?.className, props.className].filter(Boolean).join(' ') || undefined };
+  const defaults = Object.fromEntries(
+    Object.entries(props.preset?.props ?? {}).filter(
+      ([key]) =>
+        (props as unknown as Record<string, unknown>)[key] === undefined,
+    ),
+  );
+  const options = {
+    ...props,
+    ...defaults,
+    className:
+      [props.preset?.className, props.className].filter(Boolean).join(' ') ||
+      undefined,
+  };
   const latest = useRef(options);
   latest.current = options;
   const [controller] = useState(() => new TooltipController());
@@ -252,7 +293,11 @@ export function Tooltip(props: TooltipProps) {
   }, [controller, props.anchor, props.filter]);
   useLayoutEffect(synchronize);
   return (
-    <span ref={ref} class={`rv-tooltip-anchor ${props.preset?.className ?? ''}`} data-part="root">
+    <span
+      ref={ref}
+      class={`rv-tooltip-anchor ${props.preset?.className ?? ''}`}
+      data-part="root"
+    >
       {props.children}
     </span>
   );
@@ -751,7 +796,12 @@ export function DatePicker(props: DatePickerProps) {
   const [id] = useState(() => createControlId('rv-date-picker'));
   const displayValue = dateInput === false ? value : undefined;
   return (
-    <div ref={root} class={`rv-date-picker ${calendarOptions.preset?.className ?? ''}`} data-part="picker" data-preset-scope="root">
+    <div
+      ref={root}
+      class={`rv-date-picker ${calendarOptions.preset?.className ?? ''}`}
+      data-part="picker"
+      data-preset-scope="root"
+    >
       {dateInput !== false && (
         <DateControl
           key={resetKey}

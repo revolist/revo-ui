@@ -30,7 +30,8 @@ export function InspectorSection({
   const tooltip = useControlTooltip(tooltipText, true);
   return (
     <details
-      class={`rv-format-inspector-section ${preset?.className ?? ''}`} data-part="root"
+      class={`rv-format-inspector-section ${preset?.className ?? ''}`}
+      data-part="root"
       open={expanded}
       onToggle={(event) => setExpanded(event.currentTarget.open)}
     >

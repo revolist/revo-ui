@@ -85,13 +85,19 @@ export function Checkbox({
 }: CheckboxProps): any {
   const input = renderCheckbox(h, {
     ...attributes,
-    className: [label === undefined && description === undefined ? preset?.className : undefined, attributes.className]
+    className: [
+      label === undefined && description === undefined
+        ? preset?.className
+        : undefined,
+      attributes.className,
+    ]
       .filter(Boolean)
       .join(' '),
     disabled: attributes.disabled ?? preset?.props?.disabled,
     checked,
     'data-part': 'input',
-    'data-preset-scope': label === undefined && description === undefined ? 'root' : undefined,
+    'data-preset-scope':
+      label === undefined && description === undefined ? 'root' : undefined,
     'aria-label': ariaLabel,
     'aria-checked': indeterminate ? 'mixed' : !!checked,
     ref: (element: HTMLInputElement | null) => {

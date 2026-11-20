@@ -16,20 +16,20 @@ Angular/Svelte: pass `component="AssigneePicker"` to the framework's `UiComponen
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `id` | `string` | Yes |  |
-| `options` | `AssigneeOption[]` | Yes |  |
-| `value` | `AssigneeAssignment[]` | Yes |  |
-| `change` | `(value: AssigneeAssignment[]) => void` | Yes |  |
-| `apply` | `() => void` | Yes |  |
-| `cancel` | `() => void` | Yes |  |
-| `theme` | `string \| undefined` | No |  |
-| `defaultUnits` | `number` | Yes |  |
-| `showAvatars` | `boolean \| undefined` | No |  |
-| `text` | `AssigneeText \| undefined` | No |  |
-| `autoApply` | `boolean \| undefined` | No | Apply completed edits automatically. Set false to require explicit Apply. |
-| `showActions` | `boolean \| undefined` | No | Show Apply/Cancel buttons. Defaults to true only when autoApply is false. |
+| Prop           | Type                                    | Required | Description                                                               |
+| -------------- | --------------------------------------- | -------- | ------------------------------------------------------------------------- |
+| `id`           | `string`                                | Yes      |                                                                           |
+| `options`      | `AssigneeOption[]`                      | Yes      |                                                                           |
+| `value`        | `AssigneeAssignment[]`                  | Yes      |                                                                           |
+| `change`       | `(value: AssigneeAssignment[]) => void` | Yes      |                                                                           |
+| `apply`        | `() => void`                            | Yes      |                                                                           |
+| `cancel`       | `() => void`                            | Yes      |                                                                           |
+| `theme`        | `string \| undefined`                   | No       |                                                                           |
+| `defaultUnits` | `number`                                | Yes      |                                                                           |
+| `showAvatars`  | `boolean \| undefined`                  | No       |                                                                           |
+| `text`         | `AssigneeText \| undefined`             | No       |                                                                           |
+| `autoApply`    | `boolean \| undefined`                  | No       | Apply completed edits automatically. Set false to require explicit Apply. |
+| `showActions`  | `boolean \| undefined`                  | No       | Show Apply/Cancel buttons. Defaults to true only when autoApply is false. |
 
 ## Composition
 

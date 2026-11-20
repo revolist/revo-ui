@@ -16,16 +16,16 @@ Angular/Svelte: pass `component="Checkbox"` to the framework's `UiComponent` hos
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `checked` | `boolean \| undefined` | No |  |
-| `indeterminate` | `boolean \| undefined` | No |  |
-| `label` | `any` | No |  |
-| `description` | `any` | No |  |
-| `ariaLabel` | `string \| undefined` | No |  |
-| `controlClassName` | `string \| undefined` | No |  |
-| `inputRef` | `((input: HTMLInputElement \| null) => void) \| undefined` | No |  |
-| `onChange` | `((checked: boolean, event: Event & { currentTarget: HTMLInputElement; }) => void) \| undefined` | No |  |
+| Prop               | Type                                                                                             | Required | Description |
+| ------------------ | ------------------------------------------------------------------------------------------------ | -------- | ----------- |
+| `checked`          | `boolean \| undefined`                                                                           | No       |             |
+| `indeterminate`    | `boolean \| undefined`                                                                           | No       |             |
+| `label`            | `any`                                                                                            | No       |             |
+| `description`      | `any`                                                                                            | No       |             |
+| `ariaLabel`        | `string \| undefined`                                                                            | No       |             |
+| `controlClassName` | `string \| undefined`                                                                            | No       |             |
+| `inputRef`         | `((input: HTMLInputElement \| null) => void) \| undefined`                                       | No       |             |
+| `onChange`         | `((checked: boolean, event: Event & { currentTarget: HTMLInputElement; }) => void) \| undefined` | No       |             |
 
 ## Composition
 

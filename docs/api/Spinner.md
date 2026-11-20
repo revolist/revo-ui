@@ -16,9 +16,9 @@ Angular/Svelte: pass `component="Spinner"` to the framework's `UiComponent` host
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `label` | `string` | Yes |  |
+| Prop    | Type     | Required | Description |
+| ------- | -------- | -------- | ----------- |
+| `label` | `string` | Yes      |             |
 
 ## Composition
 

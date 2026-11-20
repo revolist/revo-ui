@@ -16,15 +16,15 @@ Angular/Svelte: pass `component="EditorListItem"` to the framework's `UiComponen
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `value` | `string` | Yes |  |
-| `selected` | `boolean` | Yes |  |
-| `className` | `string \| undefined` | No |  |
-| `icon` | `ComponentChildren` | No |  |
-| `label` | `ComponentChildren` | No |  |
-| `description` | `ComponentChildren` | No |  |
-| `contentClassNames` | `{ readonly icon?: string; readonly copy?: string; readonly label?: string; readonly description?: string; } \| undefined` | No |  |
+| Prop                | Type                                                                                                                       | Required | Description |
+| ------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------- | ----------- |
+| `value`             | `string`                                                                                                                   | Yes      |             |
+| `selected`          | `boolean`                                                                                                                  | Yes      |             |
+| `className`         | `string \| undefined`                                                                                                      | No       |             |
+| `icon`              | `ComponentChildren`                                                                                                        | No       |             |
+| `label`             | `ComponentChildren`                                                                                                        | No       |             |
+| `description`       | `ComponentChildren`                                                                                                        | No       |             |
+| `contentClassNames` | `{ readonly icon?: string; readonly copy?: string; readonly label?: string; readonly description?: string; } \| undefined` | No       |             |
 
 ## Composition
 

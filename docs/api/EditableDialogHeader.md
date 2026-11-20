@@ -16,21 +16,21 @@ Angular/Svelte: pass `component="EditableDialogHeader"` to the framework's `UiCo
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `name` | `string \| undefined` | No | Optional dialog name above the editable item title. |
-| `title` | `string` | Yes |  |
-| `onClose` | `(() => void) \| undefined` | No |  |
-| `titleId` | `string` | Yes |  |
-| `description` | `ComponentChildren` | No |  |
-| `inputLabel` | `string` | Yes |  |
-| `titleHidden` | `boolean \| undefined` | No |  |
-| `headingClass` | `string \| undefined` | No |  |
-| `kickerClass` | `string \| undefined` | No |  |
-| `titleClass` | `string \| undefined` | No |  |
-| `inputProps` | `false \| (Omit<h.JSX.InputHTMLAttributes<HTMLInputElement>, "ref"> & { [attribute: &#96;data-${string}&#96;]: unknown; }) \| undefined` | No | false renders a static title while retaining the same header layout. |
-| `closeLabel` | `string` | Yes |  |
-| `closeProps` | `Omit<h.JSX.ButtonHTMLAttributes<HTMLButtonElement>, "ref"> \| undefined` | No |  |
+| Prop           | Type                                                                                                                                     | Required | Description                                                          |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | -------- | -------------------------------------------------------------------- |
+| `name`         | `string \| undefined`                                                                                                                    | No       | Optional dialog name above the editable item title.                  |
+| `title`        | `string`                                                                                                                                 | Yes      |                                                                      |
+| `onClose`      | `(() => void) \| undefined`                                                                                                              | No       |                                                                      |
+| `titleId`      | `string`                                                                                                                                 | Yes      |                                                                      |
+| `description`  | `ComponentChildren`                                                                                                                      | No       |                                                                      |
+| `inputLabel`   | `string`                                                                                                                                 | Yes      |                                                                      |
+| `titleHidden`  | `boolean \| undefined`                                                                                                                   | No       |                                                                      |
+| `headingClass` | `string \| undefined`                                                                                                                    | No       |                                                                      |
+| `kickerClass`  | `string \| undefined`                                                                                                                    | No       |                                                                      |
+| `titleClass`   | `string \| undefined`                                                                                                                    | No       |                                                                      |
+| `inputProps`   | `false \| (Omit<h.JSX.InputHTMLAttributes<HTMLInputElement>, "ref"> & { [attribute: &#96;data-${string}&#96;]: unknown; }) \| undefined` | No       | false renders a static title while retaining the same header layout. |
+| `closeLabel`   | `string`                                                                                                                                 | Yes      |                                                                      |
+| `closeProps`   | `Omit<h.JSX.ButtonHTMLAttributes<HTMLButtonElement>, "ref"> \| undefined`                                                                | No       |                                                                      |
 
 ## Composition
 

@@ -7,40 +7,82 @@ import type { AngularInput, AngularCallbackValue } from '../angular-adapter';
 @Component({
   selector: 'rv-rating-choice',
   standalone: true,
-  template: '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
+  template:
+    '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
   host: { style: 'display: contents', ngSkipHydration: 'true' },
 })
 export class RatingChoice extends AngularNativeAdapter<'RatingChoice', never> {
   protected readonly rvComponentName = 'RatingChoice';
-  protected rvResolveComponent() { return Control; }
-  @NgInput() declare "aria-label"?: AngularInput<'RatingChoice', "aria-label">;
-  @NgInput() declare "command"?: AngularInput<'RatingChoice', "command">;
-  @NgInput() declare "commandFor"?: AngularInput<'RatingChoice', "commandFor">;
-  @NgInput() declare "commandfor"?: AngularInput<'RatingChoice', "commandfor">;
-  @NgInput() declare "disabled"?: AngularInput<'RatingChoice', "disabled">;
-  @NgInput({ required: true }) declare "filled": AngularInput<'RatingChoice', "filled">;
-  @NgInput() declare "form"?: AngularInput<'RatingChoice', "form">;
-  @NgInput() declare "formAction"?: AngularInput<'RatingChoice', "formAction">;
-  @NgInput() declare "formEncType"?: AngularInput<'RatingChoice', "formEncType">;
-  @NgInput() declare "formMethod"?: AngularInput<'RatingChoice', "formMethod">;
-  @NgInput() declare "formNoValidate"?: AngularInput<'RatingChoice', "formNoValidate">;
-  @NgInput() declare "formTarget"?: AngularInput<'RatingChoice', "formTarget">;
-  @NgInput() declare "formaction"?: AngularInput<'RatingChoice', "formaction">;
-  @NgInput() declare "formenctype"?: AngularInput<'RatingChoice', "formenctype">;
-  @NgInput() declare "formmethod"?: AngularInput<'RatingChoice', "formmethod">;
-  @NgInput() declare "formnovalidate"?: AngularInput<'RatingChoice', "formnovalidate">;
-  @NgInput() declare "formtarget"?: AngularInput<'RatingChoice', "formtarget">;
-  @NgInput({ required: true }) declare "label": AngularInput<'RatingChoice', "label">;
-  @NgInput() declare "name"?: AngularInput<'RatingChoice', "name">;
-  @NgInput() declare "onChange"?: AngularInput<'RatingChoice', "onChange">;
-  @NgInput() declare "popoverTarget"?: AngularInput<'RatingChoice', "popoverTarget">;
-  @NgInput() declare "popoverTargetAction"?: AngularInput<'RatingChoice', "popoverTargetAction">;
-  @NgInput() declare "popovertarget"?: AngularInput<'RatingChoice', "popovertarget">;
-  @NgInput() declare "popovertargetaction"?: AngularInput<'RatingChoice', "popovertargetaction">;
-  @NgInput({ required: true }) declare "selected": AngularInput<'RatingChoice', "selected">;
-  @NgInput() declare "title"?: AngularInput<'RatingChoice', "title">;
-  @NgInput() declare "type"?: AngularInput<'RatingChoice', "type">;
-  @NgInput() declare "value"?: AngularInput<'RatingChoice', "value">;
-  @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'RatingChoice', 'onChange'>>>('onChange'); }
-  protected rvResolveProps() { return this.rvInputValues; }
+  protected rvResolveComponent() {
+    return Control;
+  }
+  @NgInput() declare 'aria-label'?: AngularInput<'RatingChoice', 'aria-label'>;
+  @NgInput() declare 'command'?: AngularInput<'RatingChoice', 'command'>;
+  @NgInput() declare 'commandFor'?: AngularInput<'RatingChoice', 'commandFor'>;
+  @NgInput() declare 'commandfor'?: AngularInput<'RatingChoice', 'commandfor'>;
+  @NgInput() declare 'disabled'?: AngularInput<'RatingChoice', 'disabled'>;
+  @NgInput({ required: true }) declare 'filled': AngularInput<
+    'RatingChoice',
+    'filled'
+  >;
+  @NgInput() declare 'form'?: AngularInput<'RatingChoice', 'form'>;
+  @NgInput() declare 'formAction'?: AngularInput<'RatingChoice', 'formAction'>;
+  @NgInput() declare 'formEncType'?: AngularInput<
+    'RatingChoice',
+    'formEncType'
+  >;
+  @NgInput() declare 'formMethod'?: AngularInput<'RatingChoice', 'formMethod'>;
+  @NgInput() declare 'formNoValidate'?: AngularInput<
+    'RatingChoice',
+    'formNoValidate'
+  >;
+  @NgInput() declare 'formTarget'?: AngularInput<'RatingChoice', 'formTarget'>;
+  @NgInput() declare 'formaction'?: AngularInput<'RatingChoice', 'formaction'>;
+  @NgInput() declare 'formenctype'?: AngularInput<
+    'RatingChoice',
+    'formenctype'
+  >;
+  @NgInput() declare 'formmethod'?: AngularInput<'RatingChoice', 'formmethod'>;
+  @NgInput() declare 'formnovalidate'?: AngularInput<
+    'RatingChoice',
+    'formnovalidate'
+  >;
+  @NgInput() declare 'formtarget'?: AngularInput<'RatingChoice', 'formtarget'>;
+  @NgInput({ required: true }) declare 'label': AngularInput<
+    'RatingChoice',
+    'label'
+  >;
+  @NgInput() declare 'name'?: AngularInput<'RatingChoice', 'name'>;
+  @NgInput() declare 'onChange'?: AngularInput<'RatingChoice', 'onChange'>;
+  @NgInput() declare 'popoverTarget'?: AngularInput<
+    'RatingChoice',
+    'popoverTarget'
+  >;
+  @NgInput() declare 'popoverTargetAction'?: AngularInput<
+    'RatingChoice',
+    'popoverTargetAction'
+  >;
+  @NgInput() declare 'popovertarget'?: AngularInput<
+    'RatingChoice',
+    'popovertarget'
+  >;
+  @NgInput() declare 'popovertargetaction'?: AngularInput<
+    'RatingChoice',
+    'popovertargetaction'
+  >;
+  @NgInput({ required: true }) declare 'selected': AngularInput<
+    'RatingChoice',
+    'selected'
+  >;
+  @NgInput() declare 'title'?: AngularInput<'RatingChoice', 'title'>;
+  @NgInput() declare 'type'?: AngularInput<'RatingChoice', 'type'>;
+  @NgInput() declare 'value'?: AngularInput<'RatingChoice', 'value'>;
+  @Output() get changeEvent() {
+    return this.rvOutput<
+      AngularCallbackValue<AngularInput<'RatingChoice', 'onChange'>>
+    >('onChange');
+  }
+  protected rvResolveProps() {
+    return this.rvInputValues;
+  }
 }

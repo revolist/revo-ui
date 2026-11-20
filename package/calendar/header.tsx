@@ -41,7 +41,10 @@ export function CalendarHeader({
   onNext: () => void;
 }) {
   return (
-    <header class={`revo-calendar__header ${preset?.className ?? ''} ${className}`} data-part="root">
+    <header
+      class={`revo-calendar__header ${preset?.className ?? ''} ${className}`}
+      data-part="root"
+    >
       {showPrevious ? (
         <button
           type="button"
@@ -111,7 +114,11 @@ export function CalendarWeekdays({
   format: (date: ISODateString, locale: string) => string;
 }) {
   return (
-    <div class={`revo-calendar__weekdays ${preset?.className ?? ''} ${className}`} data-part="root" role="row">
+    <div
+      class={`revo-calendar__weekdays ${preset?.className ?? ''} ${className}`}
+      data-part="root"
+      role="row"
+    >
       {weekNumberLabel && (
         <span role="columnheader" aria-label={weekNumberLabel}>
           #

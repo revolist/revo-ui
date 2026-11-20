@@ -16,17 +16,17 @@ Angular/Svelte: pass `component="Switch"` to the framework's `UiComponent` host.
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `checked` | `boolean` | Yes |  |
-| `onChange` | `(checked: boolean) => void` | Yes |  |
-| `label` | `any` | Yes |  |
-| `ariaLabel` | `string \| undefined` | No |  |
-| `className` | `string \| undefined` | No |  |
-| `disabled` | `boolean \| undefined` | No |  |
-| `labelPosition` | `"before" \| "after" \| undefined` | No |  |
-| `title` | `string \| undefined` | No |  |
-| `testId` | `string \| undefined` | No |  |
+| Prop            | Type                               | Required | Description |
+| --------------- | ---------------------------------- | -------- | ----------- |
+| `checked`       | `boolean`                          | Yes      |             |
+| `onChange`      | `(checked: boolean) => void`       | Yes      |             |
+| `label`         | `any`                              | Yes      |             |
+| `ariaLabel`     | `string \| undefined`              | No       |             |
+| `className`     | `string \| undefined`              | No       |             |
+| `disabled`      | `boolean \| undefined`             | No       |             |
+| `labelPosition` | `"before" \| "after" \| undefined` | No       |             |
+| `title`         | `string \| undefined`              | No       |             |
+| `testId`        | `string \| undefined`              | No       |             |
 
 ## Composition
 

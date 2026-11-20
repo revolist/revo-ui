@@ -3,5 +3,7 @@ import { AiResult as Control } from '../ai/components';
 import { registerComponentStyles } from '../core/component-styles';
 import { aiStyles } from '../component-style-families';
 
-export const AiResult: typeof Control =
-  /* @__PURE__ */ registerComponentStyles(Control, aiStyles);
+export const AiResult: typeof Control = /* @__PURE__ */ registerComponentStyles(
+  Control,
+  aiStyles,
+);

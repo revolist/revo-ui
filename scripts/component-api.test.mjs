@@ -284,9 +284,15 @@ test('every documented component has a portable preset contract and schema entry
 });
 
 test('selection wrappers advertise only preset options they can honor', () => {
-  const schema = JSON.parse(readFileSync(resolve(gallery, 'package/presets/theme.schema.json'), 'utf8'));
+  const schema = JSON.parse(
+    readFileSync(resolve(gallery, 'package/presets/theme.schema.json'), 'utf8'),
+  );
   const config = (component) => {
-    const ref = schema.properties.components.properties[component].additionalProperties.$ref.split('/').pop();
+    const ref = schema.properties.components.properties[
+      component
+    ].additionalProperties.$ref
+      .split('/')
+      .pop();
     return schema.$defs[ref].properties.props.properties.config.properties;
   };
   assert.equal('multiSelect' in config('Select'), false);
@@ -298,19 +304,28 @@ test('selection wrappers advertise only preset options they can honor', () => {
 });
 
 test('each documented component has a gallery comparison sample', () => {
-  const source = readFileSync(resolve(gallery, 'src/theme-samples.tsx'), 'utf8');
+  const source = readFileSync(
+    resolve(gallery, 'src/theme-samples.tsx'),
+    'utf8',
+  );
   const list = source.match(/const names = new Set\(\[([\s\S]*?)\]\)/)?.[1];
   assert.ok(list, 'Sample name list must be present');
   const names = [...list.matchAll(/'([^']+)'/g)].map((match) => match[1]);
-  const cases = [...source.matchAll(/case '([^']+)':/g)].map((match) => match[1]);
+  const cases = [...source.matchAll(/case '([^']+)':/g)].map(
+    (match) => match[1],
+  );
   assert.deepEqual(names.sort(), api.map((item) => item.name).sort());
   assert.deepEqual(cases.sort(), names);
 });
 
-
 test('every documented component has example CSS hook metadata', () => {
-  const hooks = JSON.parse(readFileSync(resolve(gallery, 'src/theme-example-hooks.json'), 'utf8'));
-  assert.deepEqual(Object.keys(hooks).sort(), api.map((item) => item.name).sort());
+  const hooks = JSON.parse(
+    readFileSync(resolve(gallery, 'src/theme-example-hooks.json'), 'utf8'),
+  );
+  assert.deepEqual(
+    Object.keys(hooks).sort(),
+    api.map((item) => item.name).sort(),
+  );
   for (const [name, value] of Object.entries(hooks)) {
     assert.ok(Array.isArray(value.parts), name);
     assert.ok(Array.isArray(value.states), name);

@@ -7,39 +7,105 @@ import type { AngularInput, AngularCallbackValue } from '../angular-adapter';
 @Component({
   selector: 'rv-dialog-close-button',
   standalone: true,
-  template: '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
+  template:
+    '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
   host: { style: 'display: contents', ngSkipHydration: 'true' },
 })
-export class DialogCloseButton extends AngularNativeAdapter<'DialogCloseButton', never> {
+export class DialogCloseButton extends AngularNativeAdapter<
+  'DialogCloseButton',
+  never
+> {
   protected readonly rvComponentName = 'DialogCloseButton';
-  protected rvResolveComponent() { return Control; }
-  @NgInput({ required: true }) declare "aria-label": AngularInput<'DialogCloseButton', "aria-label">;
-  @NgInput() declare "class"?: AngularInput<'DialogCloseButton', "class">;
-  @NgInput() declare "command"?: AngularInput<'DialogCloseButton', "command">;
-  @NgInput() declare "commandFor"?: AngularInput<'DialogCloseButton', "commandFor">;
-  @NgInput() declare "commandfor"?: AngularInput<'DialogCloseButton', "commandfor">;
-  @NgInput() declare "disabled"?: AngularInput<'DialogCloseButton', "disabled">;
-  @NgInput() declare "form"?: AngularInput<'DialogCloseButton', "form">;
-  @NgInput() declare "formAction"?: AngularInput<'DialogCloseButton', "formAction">;
-  @NgInput() declare "formEncType"?: AngularInput<'DialogCloseButton', "formEncType">;
-  @NgInput() declare "formMethod"?: AngularInput<'DialogCloseButton', "formMethod">;
-  @NgInput() declare "formNoValidate"?: AngularInput<'DialogCloseButton', "formNoValidate">;
-  @NgInput() declare "formTarget"?: AngularInput<'DialogCloseButton', "formTarget">;
-  @NgInput() declare "formaction"?: AngularInput<'DialogCloseButton', "formaction">;
-  @NgInput() declare "formenctype"?: AngularInput<'DialogCloseButton', "formenctype">;
-  @NgInput() declare "formmethod"?: AngularInput<'DialogCloseButton', "formmethod">;
-  @NgInput() declare "formnovalidate"?: AngularInput<'DialogCloseButton', "formnovalidate">;
-  @NgInput() declare "formtarget"?: AngularInput<'DialogCloseButton', "formtarget">;
-  @NgInput() declare "iconClass"?: AngularInput<'DialogCloseButton', "iconClass">;
-  @NgInput() declare "name"?: AngularInput<'DialogCloseButton', "name">;
-  @NgInput() declare "onChange"?: AngularInput<'DialogCloseButton', "onChange">;
-  @NgInput() declare "popoverTarget"?: AngularInput<'DialogCloseButton', "popoverTarget">;
-  @NgInput() declare "popoverTargetAction"?: AngularInput<'DialogCloseButton', "popoverTargetAction">;
-  @NgInput() declare "popovertarget"?: AngularInput<'DialogCloseButton', "popovertarget">;
-  @NgInput() declare "popovertargetaction"?: AngularInput<'DialogCloseButton', "popovertargetaction">;
-  @NgInput() declare "title"?: AngularInput<'DialogCloseButton', "title">;
-  @NgInput() declare "type"?: AngularInput<'DialogCloseButton', "type">;
-  @NgInput() declare "value"?: AngularInput<'DialogCloseButton', "value">;
-  @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogCloseButton', 'onChange'>>>('onChange'); }
-  protected rvResolveProps() { return this.rvInputValues; }
+  protected rvResolveComponent() {
+    return Control;
+  }
+  @NgInput({ required: true }) declare 'aria-label': AngularInput<
+    'DialogCloseButton',
+    'aria-label'
+  >;
+  @NgInput() declare 'class'?: AngularInput<'DialogCloseButton', 'class'>;
+  @NgInput() declare 'command'?: AngularInput<'DialogCloseButton', 'command'>;
+  @NgInput() declare 'commandFor'?: AngularInput<
+    'DialogCloseButton',
+    'commandFor'
+  >;
+  @NgInput() declare 'commandfor'?: AngularInput<
+    'DialogCloseButton',
+    'commandfor'
+  >;
+  @NgInput() declare 'disabled'?: AngularInput<'DialogCloseButton', 'disabled'>;
+  @NgInput() declare 'form'?: AngularInput<'DialogCloseButton', 'form'>;
+  @NgInput() declare 'formAction'?: AngularInput<
+    'DialogCloseButton',
+    'formAction'
+  >;
+  @NgInput() declare 'formEncType'?: AngularInput<
+    'DialogCloseButton',
+    'formEncType'
+  >;
+  @NgInput() declare 'formMethod'?: AngularInput<
+    'DialogCloseButton',
+    'formMethod'
+  >;
+  @NgInput() declare 'formNoValidate'?: AngularInput<
+    'DialogCloseButton',
+    'formNoValidate'
+  >;
+  @NgInput() declare 'formTarget'?: AngularInput<
+    'DialogCloseButton',
+    'formTarget'
+  >;
+  @NgInput() declare 'formaction'?: AngularInput<
+    'DialogCloseButton',
+    'formaction'
+  >;
+  @NgInput() declare 'formenctype'?: AngularInput<
+    'DialogCloseButton',
+    'formenctype'
+  >;
+  @NgInput() declare 'formmethod'?: AngularInput<
+    'DialogCloseButton',
+    'formmethod'
+  >;
+  @NgInput() declare 'formnovalidate'?: AngularInput<
+    'DialogCloseButton',
+    'formnovalidate'
+  >;
+  @NgInput() declare 'formtarget'?: AngularInput<
+    'DialogCloseButton',
+    'formtarget'
+  >;
+  @NgInput() declare 'iconClass'?: AngularInput<
+    'DialogCloseButton',
+    'iconClass'
+  >;
+  @NgInput() declare 'name'?: AngularInput<'DialogCloseButton', 'name'>;
+  @NgInput() declare 'onChange'?: AngularInput<'DialogCloseButton', 'onChange'>;
+  @NgInput() declare 'popoverTarget'?: AngularInput<
+    'DialogCloseButton',
+    'popoverTarget'
+  >;
+  @NgInput() declare 'popoverTargetAction'?: AngularInput<
+    'DialogCloseButton',
+    'popoverTargetAction'
+  >;
+  @NgInput() declare 'popovertarget'?: AngularInput<
+    'DialogCloseButton',
+    'popovertarget'
+  >;
+  @NgInput() declare 'popovertargetaction'?: AngularInput<
+    'DialogCloseButton',
+    'popovertargetaction'
+  >;
+  @NgInput() declare 'title'?: AngularInput<'DialogCloseButton', 'title'>;
+  @NgInput() declare 'type'?: AngularInput<'DialogCloseButton', 'type'>;
+  @NgInput() declare 'value'?: AngularInput<'DialogCloseButton', 'value'>;
+  @Output() get changeEvent() {
+    return this.rvOutput<
+      AngularCallbackValue<AngularInput<'DialogCloseButton', 'onChange'>>
+    >('onChange');
+  }
+  protected rvResolveProps() {
+    return this.rvInputValues;
+  }
 }

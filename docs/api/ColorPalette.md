@@ -16,17 +16,17 @@ Angular/Svelte: pass `component="ColorPalette"` to the framework's `UiComponent`
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `value` | `ColorPaletteValue` | Yes |  |
-| `options` | `readonly ColorPaletteOption[] \| undefined` | No |  |
-| `ariaLabel` | `string` | Yes |  |
-| `defaultLabel` | `string` | Yes |  |
-| `colorAriaLabel` | `(option: ColorPaletteOption) => string` | Yes |  |
-| `disabled` | `boolean \| undefined` | No |  |
-| `includeDefault` | `boolean \| undefined` | No |  |
-| `defaultDisabled` | `boolean \| undefined` | No |  |
-| `onChange` | `(value: ColorPaletteValue) => void` | Yes |  |
+| Prop              | Type                                         | Required | Description |
+| ----------------- | -------------------------------------------- | -------- | ----------- |
+| `value`           | `ColorPaletteValue`                          | Yes      |             |
+| `options`         | `readonly ColorPaletteOption[] \| undefined` | No       |             |
+| `ariaLabel`       | `string`                                     | Yes      |             |
+| `defaultLabel`    | `string`                                     | Yes      |             |
+| `colorAriaLabel`  | `(option: ColorPaletteOption) => string`     | Yes      |             |
+| `disabled`        | `boolean \| undefined`                       | No       |             |
+| `includeDefault`  | `boolean \| undefined`                       | No       |             |
+| `defaultDisabled` | `boolean \| undefined`                       | No       |             |
+| `onChange`        | `(value: ColorPaletteValue) => void`         | Yes      |             |
 
 ## Composition
 

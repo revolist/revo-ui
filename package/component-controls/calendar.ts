@@ -3,5 +3,7 @@ import { Calendar as Control } from '../calendar/calendar';
 import { registerComponentStyles } from '../core/component-styles';
 import { calendarStyles } from '../component-style-families';
 
-export const Calendar: typeof Control =
-  /* @__PURE__ */ registerComponentStyles(Control, calendarStyles);
+export const Calendar: typeof Control = /* @__PURE__ */ registerComponentStyles(
+  Control,
+  calendarStyles,
+);

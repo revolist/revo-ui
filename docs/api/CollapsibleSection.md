@@ -16,17 +16,17 @@ Angular/Svelte: pass `component="CollapsibleSection"` to the framework's `UiComp
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `title` | `ComponentChildren` | Yes | Heading displayed in the keyboard-accessible expand/collapse trigger. |
-| `description` | `ComponentChildren` | No | Supporting text displayed above the expanded content. |
-| `defaultOpen` | `boolean \| undefined` | No | Expand initially. Later toggles are owned by the native disclosure. |
-| `children` | `ComponentChildren` | Yes | Section content; stays mounted when collapsed to preserve drafts. |
-| `className` | `string \| undefined` | No | Additional CSS classes on the outer disclosure. |
-| `summaryClassName` | `string \| undefined` | No | Additional CSS classes on the summary trigger. |
-| `contentClassName` | `string \| undefined` | No | Additional CSS classes on the content container. |
-| `descriptionClassName` | `string \| undefined` | No | Additional CSS classes on the supporting description. |
-| `renderRoot` | `((props: JSX.IntrinsicElements["details"]) => ComponentChildren) \| undefined` | No | Host policies can wrap the native details without owning its presentation. |
+| Prop                   | Type                                                                            | Required | Description                                                                |
+| ---------------------- | ------------------------------------------------------------------------------- | -------- | -------------------------------------------------------------------------- |
+| `title`                | `ComponentChildren`                                                             | Yes      | Heading displayed in the keyboard-accessible expand/collapse trigger.      |
+| `description`          | `ComponentChildren`                                                             | No       | Supporting text displayed above the expanded content.                      |
+| `defaultOpen`          | `boolean \| undefined`                                                          | No       | Expand initially. Later toggles are owned by the native disclosure.        |
+| `children`             | `ComponentChildren`                                                             | Yes      | Section content; stays mounted when collapsed to preserve drafts.          |
+| `className`            | `string \| undefined`                                                           | No       | Additional CSS classes on the outer disclosure.                            |
+| `summaryClassName`     | `string \| undefined`                                                           | No       | Additional CSS classes on the summary trigger.                             |
+| `contentClassName`     | `string \| undefined`                                                           | No       | Additional CSS classes on the content container.                           |
+| `descriptionClassName` | `string \| undefined`                                                           | No       | Additional CSS classes on the supporting description.                      |
+| `renderRoot`           | `((props: JSX.IntrinsicElements["details"]) => ComponentChildren) \| undefined` | No       | Host policies can wrap the native details without owning its presentation. |
 
 ## Composition
 

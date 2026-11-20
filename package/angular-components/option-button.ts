@@ -7,42 +7,78 @@ import type { AngularInput, AngularCallbackValue } from '../angular-adapter';
 @Component({
   selector: 'rv-option-button',
   standalone: true,
-  template: '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
+  template:
+    '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
   host: { style: 'display: contents', ngSkipHydration: 'true' },
 })
 export class OptionButton extends AngularNativeAdapter<'OptionButton', never> {
   protected readonly rvComponentName = 'OptionButton';
-  protected rvResolveComponent() { return Control; }
-  @NgInput() declare "aria-label"?: AngularInput<'OptionButton', "aria-label">;
-  @NgInput() declare "class"?: AngularInput<'OptionButton', "class">;
-  @NgInput() declare "command"?: AngularInput<'OptionButton', "command">;
-  @NgInput() declare "commandFor"?: AngularInput<'OptionButton', "commandFor">;
-  @NgInput() declare "commandfor"?: AngularInput<'OptionButton', "commandfor">;
-  @NgInput() declare "detail"?: AngularInput<'OptionButton', "detail">;
-  @NgInput() declare "detailClassName"?: AngularInput<'OptionButton', "detailClassName">;
-  @NgInput() declare "disabled"?: AngularInput<'OptionButton', "disabled">;
-  @NgInput() declare "form"?: AngularInput<'OptionButton', "form">;
-  @NgInput() declare "formAction"?: AngularInput<'OptionButton', "formAction">;
-  @NgInput() declare "formEncType"?: AngularInput<'OptionButton', "formEncType">;
-  @NgInput() declare "formMethod"?: AngularInput<'OptionButton', "formMethod">;
-  @NgInput() declare "formNoValidate"?: AngularInput<'OptionButton', "formNoValidate">;
-  @NgInput() declare "formTarget"?: AngularInput<'OptionButton', "formTarget">;
-  @NgInput() declare "formaction"?: AngularInput<'OptionButton', "formaction">;
-  @NgInput() declare "formenctype"?: AngularInput<'OptionButton', "formenctype">;
-  @NgInput() declare "formmethod"?: AngularInput<'OptionButton', "formmethod">;
-  @NgInput() declare "formnovalidate"?: AngularInput<'OptionButton', "formnovalidate">;
-  @NgInput() declare "formtarget"?: AngularInput<'OptionButton', "formtarget">;
-  @NgInput() declare "label"?: AngularInput<'OptionButton', "label">;
-  @NgInput() declare "name"?: AngularInput<'OptionButton', "name">;
-  @NgInput() declare "onChange"?: AngularInput<'OptionButton', "onChange">;
-  @NgInput() declare "popoverTarget"?: AngularInput<'OptionButton', "popoverTarget">;
-  @NgInput() declare "popoverTargetAction"?: AngularInput<'OptionButton', "popoverTargetAction">;
-  @NgInput() declare "popovertarget"?: AngularInput<'OptionButton', "popovertarget">;
-  @NgInput() declare "popovertargetaction"?: AngularInput<'OptionButton', "popovertargetaction">;
-  @NgInput() declare "selected"?: AngularInput<'OptionButton', "selected">;
-  @NgInput() declare "title"?: AngularInput<'OptionButton', "title">;
-  @NgInput() declare "type"?: AngularInput<'OptionButton', "type">;
-  @NgInput() declare "value"?: AngularInput<'OptionButton', "value">;
-  @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'OptionButton', 'onChange'>>>('onChange'); }
-  protected rvResolveProps() { return this.rvInputValues; }
+  protected rvResolveComponent() {
+    return Control;
+  }
+  @NgInput() declare 'aria-label'?: AngularInput<'OptionButton', 'aria-label'>;
+  @NgInput() declare 'class'?: AngularInput<'OptionButton', 'class'>;
+  @NgInput() declare 'command'?: AngularInput<'OptionButton', 'command'>;
+  @NgInput() declare 'commandFor'?: AngularInput<'OptionButton', 'commandFor'>;
+  @NgInput() declare 'commandfor'?: AngularInput<'OptionButton', 'commandfor'>;
+  @NgInput() declare 'detail'?: AngularInput<'OptionButton', 'detail'>;
+  @NgInput() declare 'detailClassName'?: AngularInput<
+    'OptionButton',
+    'detailClassName'
+  >;
+  @NgInput() declare 'disabled'?: AngularInput<'OptionButton', 'disabled'>;
+  @NgInput() declare 'form'?: AngularInput<'OptionButton', 'form'>;
+  @NgInput() declare 'formAction'?: AngularInput<'OptionButton', 'formAction'>;
+  @NgInput() declare 'formEncType'?: AngularInput<
+    'OptionButton',
+    'formEncType'
+  >;
+  @NgInput() declare 'formMethod'?: AngularInput<'OptionButton', 'formMethod'>;
+  @NgInput() declare 'formNoValidate'?: AngularInput<
+    'OptionButton',
+    'formNoValidate'
+  >;
+  @NgInput() declare 'formTarget'?: AngularInput<'OptionButton', 'formTarget'>;
+  @NgInput() declare 'formaction'?: AngularInput<'OptionButton', 'formaction'>;
+  @NgInput() declare 'formenctype'?: AngularInput<
+    'OptionButton',
+    'formenctype'
+  >;
+  @NgInput() declare 'formmethod'?: AngularInput<'OptionButton', 'formmethod'>;
+  @NgInput() declare 'formnovalidate'?: AngularInput<
+    'OptionButton',
+    'formnovalidate'
+  >;
+  @NgInput() declare 'formtarget'?: AngularInput<'OptionButton', 'formtarget'>;
+  @NgInput() declare 'label'?: AngularInput<'OptionButton', 'label'>;
+  @NgInput() declare 'name'?: AngularInput<'OptionButton', 'name'>;
+  @NgInput() declare 'onChange'?: AngularInput<'OptionButton', 'onChange'>;
+  @NgInput() declare 'popoverTarget'?: AngularInput<
+    'OptionButton',
+    'popoverTarget'
+  >;
+  @NgInput() declare 'popoverTargetAction'?: AngularInput<
+    'OptionButton',
+    'popoverTargetAction'
+  >;
+  @NgInput() declare 'popovertarget'?: AngularInput<
+    'OptionButton',
+    'popovertarget'
+  >;
+  @NgInput() declare 'popovertargetaction'?: AngularInput<
+    'OptionButton',
+    'popovertargetaction'
+  >;
+  @NgInput() declare 'selected'?: AngularInput<'OptionButton', 'selected'>;
+  @NgInput() declare 'title'?: AngularInput<'OptionButton', 'title'>;
+  @NgInput() declare 'type'?: AngularInput<'OptionButton', 'type'>;
+  @NgInput() declare 'value'?: AngularInput<'OptionButton', 'value'>;
+  @Output() get changeEvent() {
+    return this.rvOutput<
+      AngularCallbackValue<AngularInput<'OptionButton', 'onChange'>>
+    >('onChange');
+  }
+  protected rvResolveProps() {
+    return this.rvInputValues;
+  }
 }

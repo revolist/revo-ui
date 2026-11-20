@@ -46,11 +46,11 @@ In an existing application, append that entry to your existing `build.options.st
 ## Keep the component small
 
 ```ts
-import { Component, signal } from "@angular/core";
-import { SvgButton } from "@revolist/ui/angular/svg-button/unstyled";
+import { Component, signal } from '@angular/core';
+import { SvgButton } from '@revolist/ui/angular/svg-button/unstyled';
 
 @Component({
-  selector: "app-root",
+  selector: 'app-root',
   imports: [SvgButton],
   template: `
     <main>
@@ -83,7 +83,7 @@ The server bootstrap adds a server route:
 
 ```ts
 provideServerRendering(
-  withRoutes([{ path: "**", renderMode: RenderMode.Server }]),
+  withRoutes([{ path: '**', renderMode: RenderMode.Server }]),
 );
 ```
 

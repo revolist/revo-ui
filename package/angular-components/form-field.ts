@@ -7,24 +7,33 @@ import type { AngularInput, AngularCallbackValue } from '../angular-adapter';
 @Component({
   selector: 'rv-form-field',
   standalone: true,
-  template: '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
+  template:
+    '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
   host: { style: 'display: contents', ngSkipHydration: 'true' },
 })
 export class FormField extends AngularNativeAdapter<'FormField', never> {
   protected readonly rvComponentName = 'FormField';
-  protected rvResolveComponent() { return Control; }
-  @NgInput() declare "aria-label"?: AngularInput<'FormField', "aria-label">;
-  @NgInput() declare "class"?: AngularInput<'FormField', "class">;
-  @NgInput() declare "controlId"?: AngularInput<'FormField', "controlId">;
-  @NgInput() declare "for"?: AngularInput<'FormField', "for">;
-  @NgInput() declare "form"?: AngularInput<'FormField', "form">;
-  @NgInput() declare "hint"?: AngularInput<'FormField', "hint">;
-  @NgInput() declare "hintId"?: AngularInput<'FormField', "hintId">;
-  @NgInput() declare "htmlFor"?: AngularInput<'FormField', "htmlFor">;
-  @NgInput() declare "label"?: AngularInput<'FormField', "label">;
-  @NgInput() declare "labelId"?: AngularInput<'FormField', "labelId">;
-  @NgInput() declare "onChange"?: AngularInput<'FormField', "onChange">;
-  @NgInput() declare "title"?: AngularInput<'FormField', "title">;
-  @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'FormField', 'onChange'>>>('onChange'); }
-  protected rvResolveProps() { return this.rvInputValues; }
+  protected rvResolveComponent() {
+    return Control;
+  }
+  @NgInput() declare 'aria-label'?: AngularInput<'FormField', 'aria-label'>;
+  @NgInput() declare 'class'?: AngularInput<'FormField', 'class'>;
+  @NgInput() declare 'controlId'?: AngularInput<'FormField', 'controlId'>;
+  @NgInput() declare 'for'?: AngularInput<'FormField', 'for'>;
+  @NgInput() declare 'form'?: AngularInput<'FormField', 'form'>;
+  @NgInput() declare 'hint'?: AngularInput<'FormField', 'hint'>;
+  @NgInput() declare 'hintId'?: AngularInput<'FormField', 'hintId'>;
+  @NgInput() declare 'htmlFor'?: AngularInput<'FormField', 'htmlFor'>;
+  @NgInput() declare 'label'?: AngularInput<'FormField', 'label'>;
+  @NgInput() declare 'labelId'?: AngularInput<'FormField', 'labelId'>;
+  @NgInput() declare 'onChange'?: AngularInput<'FormField', 'onChange'>;
+  @NgInput() declare 'title'?: AngularInput<'FormField', 'title'>;
+  @Output() get changeEvent() {
+    return this.rvOutput<
+      AngularCallbackValue<AngularInput<'FormField', 'onChange'>>
+    >('onChange');
+  }
+  protected rvResolveProps() {
+    return this.rvInputValues;
+  }
 }

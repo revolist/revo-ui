@@ -1,8 +1,8 @@
-import { createFrameworkMount } from "@revolist/ui/framework/unstyled";
-import { SvgButton } from "@revolist/ui/preact/unstyled";
-import "@revolist/ui/styles/base.css";
+import { createFrameworkMount } from '@revolist/ui/framework/unstyled';
+import { SvgButton } from '@revolist/ui/preact/unstyled';
+import '@revolist/ui/styles/base.css';
 
-const host = document.getElementById("report-action")!;
+const host = document.getElementById('report-action')!;
 const mount = createFrameworkMount(host, () => {}, { styles: false });
 let count = 0;
 

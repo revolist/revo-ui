@@ -16,24 +16,24 @@ Angular/Svelte: pass `component="DistributionChart"` to the framework's `UiCompo
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `data` | `readonly DistributionChartDatum[]` | Yes |  |
-| `ariaLabel` | `string` | Yes |  |
-| `type` | `DistributionChartType \| undefined` | No |  |
-| `height` | `number \| undefined` | No |  |
-| `showPoints` | `boolean \| undefined` | No |  |
-| `showLabels` | `boolean \| undefined` | No | Optional category text; defaults to the tooltip title. |
-| `showValues` | `boolean \| undefined` | No |  |
-| `showGrid` | `boolean \| undefined` | No |  |
-| `legend` | `string \| undefined` | No |  |
-| `formatValue` | `((value: number) => string) \| undefined` | No |  |
-| `tooltip` | `boolean \| undefined` | No |  |
-| `tooltipIndicator` | `"none" \| "line" \| "dot" \| "dashed" \| undefined` | No |  |
-| `interpolation` | `"step" \| "linear" \| undefined` | No |  |
-| `areaFill` | `"solid" \| "gradient" \| undefined` | No |  |
-| `className` | `string \| undefined` | No |  |
-| `renderTooltip` | `((datum: DistributionChartDatum, index: number) => ComponentChildren) \| undefined` | No |  |
+| Prop               | Type                                                                                 | Required | Description                                            |
+| ------------------ | ------------------------------------------------------------------------------------ | -------- | ------------------------------------------------------ |
+| `data`             | `readonly DistributionChartDatum[]`                                                  | Yes      |                                                        |
+| `ariaLabel`        | `string`                                                                             | Yes      |                                                        |
+| `type`             | `DistributionChartType \| undefined`                                                 | No       |                                                        |
+| `height`           | `number \| undefined`                                                                | No       |                                                        |
+| `showPoints`       | `boolean \| undefined`                                                               | No       |                                                        |
+| `showLabels`       | `boolean \| undefined`                                                               | No       | Optional category text; defaults to the tooltip title. |
+| `showValues`       | `boolean \| undefined`                                                               | No       |                                                        |
+| `showGrid`         | `boolean \| undefined`                                                               | No       |                                                        |
+| `legend`           | `string \| undefined`                                                                | No       |                                                        |
+| `formatValue`      | `((value: number) => string) \| undefined`                                           | No       |                                                        |
+| `tooltip`          | `boolean \| undefined`                                                               | No       |                                                        |
+| `tooltipIndicator` | `"none" \| "line" \| "dot" \| "dashed" \| undefined`                                 | No       |                                                        |
+| `interpolation`    | `"step" \| "linear" \| undefined`                                                    | No       |                                                        |
+| `areaFill`         | `"solid" \| "gradient" \| undefined`                                                 | No       |                                                        |
+| `className`        | `string \| undefined`                                                                | No       |                                                        |
+| `renderTooltip`    | `((datum: DistributionChartDatum, index: number) => ComponentChildren) \| undefined` | No       |                                                        |
 
 ## Composition
 

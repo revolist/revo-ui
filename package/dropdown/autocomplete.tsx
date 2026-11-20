@@ -294,7 +294,9 @@ export function AutocompleteDropdown<T>(props: DropdownProps<T>) {
           portalTarget={portalTarget}
           topLayer={config.topLayer}
           dropdownMenuId={menuId}
-          popupClassName={[preset?.className, config.popupClassName].filter(Boolean).join(' ')}
+          popupClassName={[preset?.className, config.popupClassName]
+            .filter(Boolean)
+            .join(' ')}
           inheritedPresetSurface={!!preset?.className}
           theme={config.theme}
           maxHeight={config.maxHeight}

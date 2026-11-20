@@ -16,10 +16,10 @@ Angular/Svelte: pass `component="DialogCloseButton"` to the framework's `UiCompo
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `aria-label` | `h.JSX.Signalish<string \| undefined> & string` | Yes | Defines a string value that labels the current element. |
-| `iconClass` | `string \| undefined` | No |  |
+| Prop         | Type                                            | Required | Description                                             |
+| ------------ | ----------------------------------------------- | -------- | ------------------------------------------------------- |
+| `aria-label` | `h.JSX.Signalish<string \| undefined> & string` | Yes      | Defines a string value that labels the current element. |
+| `iconClass`  | `string \| undefined`                           | No       |                                                         |
 
 ## Composition
 

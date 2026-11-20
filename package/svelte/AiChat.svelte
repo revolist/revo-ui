@@ -4,7 +4,8 @@
   import Mount from './Mount.svelte';
   import type { SvelteComponentProps } from '../svelte-props';
 
-  let { children, slots, onUiEvent, ...props }: SvelteComponentProps<'AiChat'> = $props();
+  let { children, slots, onUiEvent, ...props }: SvelteComponentProps<'AiChat'> =
+    $props();
   let mount: Mount;
 
   export function getElement(): HTMLElement | null {
@@ -17,7 +18,7 @@
   component="AiChat"
   control={Control}
   direct
-  props={props}
+  {props}
   {children}
   {slots}
   {onUiEvent}

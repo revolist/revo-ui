@@ -16,14 +16,14 @@ Angular/Svelte: pass `component="ProgressBar"` to the framework's `UiComponent` 
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `value` | `number` | Yes |  |
-| `min` | `number \| undefined` | No |  |
-| `max` | `number \| undefined` | No |  |
-| `ariaLabel` | `string \| undefined` | No |  |
-| `className` | `string \| undefined` | No |  |
-| `fillClass` | `string \| Record<string, boolean> \| undefined` | No |  |
+| Prop        | Type                                             | Required | Description |
+| ----------- | ------------------------------------------------ | -------- | ----------- |
+| `value`     | `number`                                         | Yes      |             |
+| `min`       | `number \| undefined`                            | No       |             |
+| `max`       | `number \| undefined`                            | No       |             |
+| `ariaLabel` | `string \| undefined`                            | No       |             |
+| `className` | `string \| undefined`                            | No       |             |
+| `fillClass` | `string \| Record<string, boolean> \| undefined` | No       |             |
 
 ## Composition
 

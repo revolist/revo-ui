@@ -13,7 +13,9 @@
   export let onChange: $$Props['onChange'] = undefined;
   let mount: Mount;
 
-  function updateModel(...args: Parameters<NonNullable<UiComponentProps<'DatePicker'>['onChange']>>) {
+  function updateModel(
+    ...args: Parameters<NonNullable<UiComponentProps<'DatePicker'>['onChange']>>
+  ) {
     value = args[0];
     if (onChange) return Reflect.apply(onChange, undefined, args);
   }
@@ -28,7 +30,11 @@
   component="DatePicker"
   control={Control}
   direct
-  props={{ ...$$restProps, ...(Object.hasOwn($$props, 'value') ? { value } : {}), onChange: updateModel }}
+  props={{
+    ...$$restProps,
+    ...(Object.hasOwn($$props, 'value') ? { value } : {}),
+    onChange: updateModel,
+  }}
   {children}
   {slots}
   {onUiEvent}

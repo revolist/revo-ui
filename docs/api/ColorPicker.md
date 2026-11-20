@@ -16,19 +16,19 @@ Angular/Svelte: pass `component="ColorPicker"` to the framework's `UiComponent` 
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `label` | `string` | Yes |  |
-| `value` | `string \| undefined` | No |  |
-| `defaultLabel` | `string` | Yes |  |
-| `customLabel` | `string` | Yes |  |
-| `customHexLabel` | `string \| undefined` | No |  |
-| `invalidColor` | `string \| undefined` | No |  |
-| `colorLabels` | `Readonly<Record<string, string>>` | Yes |  |
-| `optional` | `boolean \| undefined` | No |  |
-| `allowHexInput` | `boolean \| undefined` | No | Set false for a selection-only palette and native color chooser. |
-| `disabled` | `boolean \| undefined` | No |  |
-| `onChange` | `(value: string \| undefined) => void` | Yes |  |
+| Prop             | Type                                   | Required | Description                                                      |
+| ---------------- | -------------------------------------- | -------- | ---------------------------------------------------------------- |
+| `label`          | `string`                               | Yes      |                                                                  |
+| `value`          | `string \| undefined`                  | No       |                                                                  |
+| `defaultLabel`   | `string`                               | Yes      |                                                                  |
+| `customLabel`    | `string`                               | Yes      |                                                                  |
+| `customHexLabel` | `string \| undefined`                  | No       |                                                                  |
+| `invalidColor`   | `string \| undefined`                  | No       |                                                                  |
+| `colorLabels`    | `Readonly<Record<string, string>>`     | Yes      |                                                                  |
+| `optional`       | `boolean \| undefined`                 | No       |                                                                  |
+| `allowHexInput`  | `boolean \| undefined`                 | No       | Set false for a selection-only palette and native color chooser. |
+| `disabled`       | `boolean \| undefined`                 | No       |                                                                  |
+| `onChange`       | `(value: string \| undefined) => void` | Yes      |                                                                  |
 
 ## Composition
 

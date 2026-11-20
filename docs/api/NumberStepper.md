@@ -16,18 +16,18 @@ Angular/Svelte: pass `component="NumberStepper"` to the framework's `UiComponent
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `value` | `number` | Yes |  |
-| `min` | `number \| undefined` | No |  |
-| `max` | `number \| undefined` | No |  |
-| `step` | `number \| undefined` | No |  |
-| `onChange` | `(value: number) => void` | Yes |  |
-| `label` | `string` | Yes |  |
-| `decreaseLabel` | `string` | Yes |  |
-| `increaseLabel` | `string` | Yes |  |
-| `disabled` | `boolean \| undefined` | No |  |
-| `readOnly` | `boolean \| undefined` | No |  |
+| Prop            | Type                      | Required | Description |
+| --------------- | ------------------------- | -------- | ----------- |
+| `value`         | `number`                  | Yes      |             |
+| `min`           | `number \| undefined`     | No       |             |
+| `max`           | `number \| undefined`     | No       |             |
+| `step`          | `number \| undefined`     | No       |             |
+| `onChange`      | `(value: number) => void` | Yes      |             |
+| `label`         | `string`                  | Yes      |             |
+| `decreaseLabel` | `string`                  | Yes      |             |
+| `increaseLabel` | `string`                  | Yes      |             |
+| `disabled`      | `boolean \| undefined`    | No       |             |
+| `readOnly`      | `boolean \| undefined`    | No       |             |
 
 ## Composition
 

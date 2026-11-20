@@ -53,7 +53,9 @@ export function FinancialWidgets({ preview }: { preview: ComponentChildren }) {
       <article class="home-widget finance-allocation">
         <div class="widget-caption">
           <span>Portfolio breakdown</span>
-          <a href={componentHref('charts-and-range-selection')}>Charts & data presentation</a>
+          <a href={componentHref('charts-and-range-selection')}>
+            Charts & data presentation
+          </a>
         </div>
         <div class="widget-between">
           <div>
@@ -73,7 +75,12 @@ export function FinancialWidgets({ preview }: { preview: ComponentChildren }) {
           <option value="growth">Growth</option>
           <option value="conservative">Conservative</option>
         </Select>
-        <div class="finance-table-scroll" role="region" aria-label="Asset allocation" tabIndex={0}>
+        <div
+          class="finance-table-scroll"
+          role="region"
+          aria-label="Asset allocation"
+          tabIndex={0}
+        >
           <table class="finance-detail-table">
             <caption class="finance-visually-hidden">
               Portfolio holdings

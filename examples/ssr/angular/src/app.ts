@@ -1,8 +1,8 @@
-import { Component, signal } from "@angular/core";
-import { SvgButton } from "@revolist/ui/angular/svg-button/unstyled";
+import { Component, signal } from '@angular/core';
+import { SvgButton } from '@revolist/ui/angular/svg-button/unstyled';
 
 @Component({
-  selector: "app-root",
+  selector: 'app-root',
   imports: [SvgButton],
   template: `
     <main>

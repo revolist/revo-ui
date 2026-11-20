@@ -3,10 +3,7 @@
   "$id": "https://ui.rv-grid.com/theme-v1.schema.json",
   "title": "Revo UI theme",
   "type": "object",
-  "required": [
-    "version",
-    "components"
-  ],
+  "required": ["version", "components"],
   "additionalProperties": false,
   "properties": {
     "$schema": {
@@ -1097,10 +1094,7 @@
           "additionalProperties": false,
           "properties": {
             "labelPosition": {
-              "enum": [
-                "before",
-                "after"
-              ]
+              "enum": ["before", "after"]
             }
           }
         },
@@ -1144,14 +1138,10 @@
       "allOf": [
         {
           "if": {
-            "required": [
-              "styles"
-            ]
+            "required": ["styles"]
           },
           "then": {
-            "required": [
-              "className"
-            ],
+            "required": ["className"],
             "properties": {
               "className": {
                 "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
@@ -1185,10 +1175,7 @@
               ]
             },
             "size": {
-              "enum": [
-                "compact",
-                "default"
-              ]
+              "enum": ["compact", "default"]
             },
             "rounded": {
               "type": "boolean"
@@ -1205,14 +1192,10 @@
       "allOf": [
         {
           "if": {
-            "required": [
-              "styles"
-            ]
+            "required": ["styles"]
           },
           "then": {
-            "required": [
-              "className"
-            ],
+            "required": ["className"],
             "properties": {
               "className": {
                 "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
@@ -1248,14 +1231,10 @@
       "allOf": [
         {
           "if": {
-            "required": [
-              "styles"
-            ]
+            "required": ["styles"]
           },
           "then": {
-            "required": [
-              "className"
-            ],
+            "required": ["className"],
             "properties": {
               "className": {
                 "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
@@ -1297,14 +1276,10 @@
       "allOf": [
         {
           "if": {
-            "required": [
-              "styles"
-            ]
+            "required": ["styles"]
           },
           "then": {
-            "required": [
-              "className"
-            ],
+            "required": ["className"],
             "properties": {
               "className": {
                 "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
@@ -1343,14 +1318,10 @@
       "allOf": [
         {
           "if": {
-            "required": [
-              "styles"
-            ]
+            "required": ["styles"]
           },
           "then": {
-            "required": [
-              "className"
-            ],
+            "required": ["className"],
             "properties": {
               "className": {
                 "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
@@ -1381,10 +1352,7 @@
               "type": "boolean"
             },
             "type": {
-              "enum": [
-                "search",
-                "text"
-              ]
+              "enum": ["search", "text"]
             }
           }
         },
@@ -1398,14 +1366,10 @@
       "allOf": [
         {
           "if": {
-            "required": [
-              "styles"
-            ]
+            "required": ["styles"]
           },
           "then": {
-            "required": [
-              "className"
-            ],
+            "required": ["className"],
             "properties": {
               "className": {
                 "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
@@ -1427,19 +1391,13 @@
           "additionalProperties": false,
           "properties": {
             "appearance": {
-              "enum": [
-                "soft",
-                "outlined"
-              ]
+              "enum": ["soft", "outlined"]
             },
             "scrollable": {
               "type": "boolean"
             },
             "size": {
-              "enum": [
-                "small",
-                "medium"
-              ]
+              "enum": ["small", "medium"]
             },
             "disabled": {
               "type": "boolean"
@@ -1456,14 +1414,10 @@
       "allOf": [
         {
           "if": {
-            "required": [
-              "styles"
-            ]
+            "required": ["styles"]
           },
           "then": {
-            "required": [
-              "className"
-            ],
+            "required": ["className"],
             "properties": {
               "className": {
                 "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
@@ -1490,14 +1444,10 @@
       "allOf": [
         {
           "if": {
-            "required": [
-              "styles"
-            ]
+            "required": ["styles"]
           },
           "then": {
-            "required": [
-              "className"
-            ],
+            "required": ["className"],
             "properties": {
               "className": {
                 "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
@@ -1519,17 +1469,10 @@
           "additionalProperties": false,
           "properties": {
             "variant": {
-              "enum": [
-                "neutral",
-                "accent",
-                "solid"
-              ]
+              "enum": ["neutral", "accent", "solid"]
             },
             "shape": {
-              "enum": [
-                "pill",
-                "rounded"
-              ]
+              "enum": ["pill", "rounded"]
             }
           }
         },
@@ -1543,14 +1486,10 @@
       "allOf": [
         {
           "if": {
-            "required": [
-              "styles"
-            ]
+            "required": ["styles"]
           },
           "then": {
-            "required": [
-              "className"
-            ],
+            "required": ["className"],
             "properties": {
               "className": {
                 "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
@@ -1578,10 +1517,7 @@
               "type": "boolean"
             },
             "role": {
-              "enum": [
-                "dialog",
-                "menu"
-              ]
+              "enum": ["dialog", "menu"]
             }
           }
         },
@@ -1595,14 +1531,10 @@
       "allOf": [
         {
           "if": {
-            "required": [
-              "styles"
-            ]
+            "required": ["styles"]
           },
           "then": {
-            "required": [
-              "className"
-            ],
+            "required": ["className"],
             "properties": {
               "className": {
                 "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
@@ -1647,14 +1579,10 @@
       "allOf": [
         {
           "if": {
-            "required": [
-              "styles"
-            ]
+            "required": ["styles"]
           },
           "then": {
-            "required": [
-              "className"
-            ],
+            "required": ["className"],
             "properties": {
               "className": {
                 "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
@@ -1690,14 +1618,10 @@
       "allOf": [
         {
           "if": {
-            "required": [
-              "styles"
-            ]
+            "required": ["styles"]
           },
           "then": {
-            "required": [
-              "className"
-            ],
+            "required": ["className"],
             "properties": {
               "className": {
                 "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
@@ -1754,14 +1678,10 @@
       "allOf": [
         {
           "if": {
-            "required": [
-              "styles"
-            ]
+            "required": ["styles"]
           },
           "then": {
-            "required": [
-              "className"
-            ],
+            "required": ["className"],
             "properties": {
               "className": {
                 "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
@@ -1783,12 +1703,7 @@
           "additionalProperties": false,
           "properties": {
             "tone": {
-              "enum": [
-                "neutral",
-                "warning",
-                "danger",
-                "success"
-              ]
+              "enum": ["neutral", "warning", "danger", "success"]
             }
           }
         },
@@ -1802,14 +1717,10 @@
       "allOf": [
         {
           "if": {
-            "required": [
-              "styles"
-            ]
+            "required": ["styles"]
           },
           "then": {
-            "required": [
-              "className"
-            ],
+            "required": ["className"],
             "properties": {
               "className": {
                 "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
@@ -1845,14 +1756,10 @@
       "allOf": [
         {
           "if": {
-            "required": [
-              "styles"
-            ]
+            "required": ["styles"]
           },
           "then": {
-            "required": [
-              "className"
-            ],
+            "required": ["className"],
             "properties": {
               "className": {
                 "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
@@ -1874,11 +1781,7 @@
           "additionalProperties": false,
           "properties": {
             "variant": {
-              "enum": [
-                "compact",
-                "numbered",
-                "icons"
-              ]
+              "enum": ["compact", "numbered", "icons"]
             },
             "disabled": {
               "type": "boolean"
@@ -1901,14 +1804,10 @@
       "allOf": [
         {
           "if": {
-            "required": [
-              "styles"
-            ]
+            "required": ["styles"]
           },
           "then": {
-            "required": [
-              "className"
-            ],
+            "required": ["className"],
             "properties": {
               "className": {
                 "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
@@ -1959,14 +1858,10 @@
       "allOf": [
         {
           "if": {
-            "required": [
-              "styles"
-            ]
+            "required": ["styles"]
           },
           "then": {
-            "required": [
-              "className"
-            ],
+            "required": ["className"],
             "properties": {
               "className": {
                 "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
@@ -2003,10 +1898,7 @@
               "type": "boolean"
             },
             "presentation": {
-              "enum": [
-                "inline",
-                "dropdown"
-              ]
+              "enum": ["inline", "dropdown"]
             }
           }
         },
@@ -2020,14 +1912,10 @@
       "allOf": [
         {
           "if": {
-            "required": [
-              "styles"
-            ]
+            "required": ["styles"]
           },
           "then": {
-            "required": [
-              "className"
-            ],
+            "required": ["className"],
             "properties": {
               "className": {
                 "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
@@ -2069,14 +1957,10 @@
       "allOf": [
         {
           "if": {
-            "required": [
-              "styles"
-            ]
+            "required": ["styles"]
           },
           "then": {
-            "required": [
-              "className"
-            ],
+            "required": ["className"],
             "properties": {
               "className": {
                 "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
@@ -2118,14 +2002,10 @@
       "allOf": [
         {
           "if": {
-            "required": [
-              "styles"
-            ]
+            "required": ["styles"]
           },
           "then": {
-            "required": [
-              "className"
-            ],
+            "required": ["className"],
             "properties": {
               "className": {
                 "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
@@ -2179,14 +2059,10 @@
       "allOf": [
         {
           "if": {
-            "required": [
-              "styles"
-            ]
+            "required": ["styles"]
           },
           "then": {
-            "required": [
-              "className"
-            ],
+            "required": ["className"],
             "properties": {
               "className": {
                 "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
@@ -2237,14 +2113,10 @@
       "allOf": [
         {
           "if": {
-            "required": [
-              "styles"
-            ]
+            "required": ["styles"]
           },
           "then": {
-            "required": [
-              "className"
-            ],
+            "required": ["className"],
             "properties": {
               "className": {
                 "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
@@ -2298,14 +2170,10 @@
       "allOf": [
         {
           "if": {
-            "required": [
-              "styles"
-            ]
+            "required": ["styles"]
           },
           "then": {
-            "required": [
-              "className"
-            ],
+            "required": ["className"],
             "properties": {
               "className": {
                 "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
@@ -2374,14 +2242,10 @@
       "allOf": [
         {
           "if": {
-            "required": [
-              "styles"
-            ]
+            "required": ["styles"]
           },
           "then": {
-            "required": [
-              "className"
-            ],
+            "required": ["className"],
             "properties": {
               "className": {
                 "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
@@ -2433,14 +2297,10 @@
       "allOf": [
         {
           "if": {
-            "required": [
-              "styles"
-            ]
+            "required": ["styles"]
           },
           "then": {
-            "required": [
-              "className"
-            ],
+            "required": ["className"],
             "properties": {
               "className": {
                 "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
@@ -2450,14 +2310,10 @@
         },
         {
           "if": {
-            "required": [
-              "motion"
-            ]
+            "required": ["motion"]
           },
           "then": {
-            "required": [
-              "className"
-            ],
+            "required": ["className"],
             "properties": {
               "className": {
                 "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
@@ -2500,14 +2356,10 @@
       "allOf": [
         {
           "if": {
-            "required": [
-              "styles"
-            ]
+            "required": ["styles"]
           },
           "then": {
-            "required": [
-              "className"
-            ],
+            "required": ["className"],
             "properties": {
               "className": {
                 "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
@@ -2517,14 +2369,10 @@
         },
         {
           "if": {
-            "required": [
-              "motion"
-            ]
+            "required": ["motion"]
           },
           "then": {
-            "required": [
-              "className"
-            ],
+            "required": ["className"],
             "properties": {
               "className": {
                 "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
@@ -2556,17 +2404,10 @@
               "type": "boolean"
             },
             "layout": {
-              "enum": [
-                "inline",
-                "stacked"
-              ]
+              "enum": ["inline", "stacked"]
             },
             "valuePlacement": {
-              "enum": [
-                "end",
-                "thumb",
-                "none"
-              ]
+              "enum": ["end", "thumb", "none"]
             },
             "ticks": {
               "type": "number",
@@ -2588,14 +2429,10 @@
       "allOf": [
         {
           "if": {
-            "required": [
-              "styles"
-            ]
+            "required": ["styles"]
           },
           "then": {
-            "required": [
-              "className"
-            ],
+            "required": ["className"],
             "properties": {
               "className": {
                 "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
@@ -2605,14 +2442,10 @@
         },
         {
           "if": {
-            "required": [
-              "motion"
-            ]
+            "required": ["motion"]
           },
           "then": {
-            "required": [
-              "className"
-            ],
+            "required": ["className"],
             "properties": {
               "className": {
                 "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
@@ -2647,19 +2480,10 @@
               ]
             },
             "align": {
-              "enum": [
-                "start",
-                "center",
-                "end"
-              ]
+              "enum": ["start", "center", "end"]
             },
             "trigger": {
-              "enum": [
-                "hover",
-                "focus",
-                "click",
-                "manual"
-              ]
+              "enum": ["hover", "focus", "click", "manual"]
             },
             "delay": {
               "type": "number",
@@ -2689,14 +2513,10 @@
       "allOf": [
         {
           "if": {
-            "required": [
-              "styles"
-            ]
+            "required": ["styles"]
           },
           "then": {
-            "required": [
-              "className"
-            ],
+            "required": ["className"],
             "properties": {
               "className": {
                 "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
@@ -2787,10 +2607,7 @@
               "pattern": "^[a-zA-Z][a-zA-Z0-9]*$"
             },
             "additionalProperties": {
-              "type": [
-                "string",
-                "number"
-              ]
+              "type": ["string", "number"]
             },
             "properties": {
               "offset": {
@@ -2813,21 +2630,10 @@
           "minimum": 0
         },
         "direction": {
-          "enum": [
-            "normal",
-            "reverse",
-            "alternate",
-            "alternate-reverse"
-          ]
+          "enum": ["normal", "reverse", "alternate", "alternate-reverse"]
         },
         "fill": {
-          "enum": [
-            "none",
-            "forwards",
-            "backwards",
-            "both",
-            "auto"
-          ]
+          "enum": ["none", "forwards", "backwards", "both", "auto"]
         }
       }
     }

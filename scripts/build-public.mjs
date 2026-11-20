@@ -53,7 +53,10 @@ function copyStyles(directory) {
 }
 copyStyles(resolve(root, 'package'));
 mkdirSync(resolve(output, 'presets'), { recursive: true });
-cpSync(resolve(root, 'package/presets/theme.schema.json'), resolve(output, 'presets/theme.schema.json'));
+cpSync(
+  resolve(root, 'package/presets/theme.schema.json'),
+  resolve(output, 'presets/theme.schema.json'),
+);
 for (const name of [
   'styles',
   'native-styles',

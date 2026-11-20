@@ -12,7 +12,8 @@ import { h, type JSX } from 'preact';
 import { createPreactElement, releasePreactElement } from '../preact-mount';
 
 /** Shared presentation for text hints and rich product/chart tooltip content. */
-export const TOOLTIP_STYLES = `\n.rv-tooltip.rv-tooltip {
+export const TOOLTIP_STYLES = `
+.rv-tooltip.rv-tooltip {
   box-sizing: border-box;
   position: fixed;
   flex-direction: column;
@@ -28,7 +29,8 @@ export const TOOLTIP_STYLES = `\n.rv-tooltip.rv-tooltip {
   background: var(--rv-tooltip-bg, #191919);
   color: var(--rv-tooltip-fg, #fff);
   box-shadow: 0 4px 14px var(--rv-ui-shadow, rgb(0 0 0 / 18%));
-  font: 12px/1.4 var(--rv-ui-font-family, Inter, ui-sans-serif, system-ui, sans-serif);
+  font: 12px/1.4
+    var(--rv-ui-font-family, Inter, ui-sans-serif, system-ui, sans-serif);
   font-weight: 400;
   text-align: start;
   white-space: pre-wrap;
@@ -38,21 +40,68 @@ export const TOOLTIP_STYLES = `\n.rv-tooltip.rv-tooltip {
   overflow: auto;
   pointer-events: auto;
 }
-.rv-tooltip[data-arrow="true"] { overflow: visible; }
-.rv-tooltip__content { display:block; min-height:0; max-height:inherit; overflow:auto; }
-.rv-tooltip[data-arrow="true"]::before { content:''; position:absolute; width:8px; height:8px; background:inherit; transform:rotate(45deg); pointer-events:none; }
-.rv-tooltip[data-side="top"]::before { bottom:-4px; left:calc(var(--rv-tooltip-arrow-x) - 4px); }
-.rv-tooltip[data-side="bottom"]::before { top:-4px; left:calc(var(--rv-tooltip-arrow-x) - 4px); }
-.rv-tooltip[data-side="left"]::before { right:-4px; top:calc(var(--rv-tooltip-arrow-y) - 4px); }
-.rv-tooltip[data-side="right"]::before { left:-4px; top:calc(var(--rv-tooltip-arrow-y) - 4px); }
-.rv-tooltip[data-duration="true"] { transition: opacity var(--rv-tooltip-duration); }
-.rv-tooltip[data-state="opening"], .rv-tooltip[data-state="closing"] { opacity:0; }
-.rv-tooltip[data-state="closing"] { pointer-events:none; }
-@media (prefers-reduced-motion:reduce) { .rv-tooltip[data-duration="true"] { transition:none; } }
-.rv-tooltip[hidden], .rv-tooltip[data-visible="false"] { display: none; }
-.rv-tooltip[data-overflow] { pointer-events: auto; }
+.rv-tooltip[data-arrow='true'] {
+  overflow: visible;
+}
+.rv-tooltip__content {
+  display: block;
+  min-height: 0;
+  max-height: inherit;
+  overflow: auto;
+}
+.rv-tooltip[data-arrow='true']::before {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: inherit;
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+.rv-tooltip[data-side='top']::before {
+  bottom: -4px;
+  left: calc(var(--rv-tooltip-arrow-x) - 4px);
+}
+.rv-tooltip[data-side='bottom']::before {
+  top: -4px;
+  left: calc(var(--rv-tooltip-arrow-x) - 4px);
+}
+.rv-tooltip[data-side='left']::before {
+  right: -4px;
+  top: calc(var(--rv-tooltip-arrow-y) - 4px);
+}
+.rv-tooltip[data-side='right']::before {
+  left: -4px;
+  top: calc(var(--rv-tooltip-arrow-y) - 4px);
+}
+.rv-tooltip[data-duration='true'] {
+  transition: opacity var(--rv-tooltip-duration);
+}
+.rv-tooltip[data-state='opening'],
+.rv-tooltip[data-state='closing'] {
+  opacity: 0;
+}
+.rv-tooltip[data-state='closing'] {
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .rv-tooltip[data-duration='true'] {
+    transition: none;
+  }
+}
+.rv-tooltip[hidden],
+.rv-tooltip[data-visible='false'] {
+  display: none;
+}
+.rv-tooltip[data-overflow] {
+  pointer-events: auto;
+}
 @media (forced-colors: active) {
-  .rv-tooltip.rv-tooltip { color: CanvasText; background: Canvas; border: 1px solid CanvasText; }
+  .rv-tooltip.rv-tooltip {
+    color: CanvasText;
+    background: Canvas;
+    border: 1px solid CanvasText;
+  }
 }
 `;
 

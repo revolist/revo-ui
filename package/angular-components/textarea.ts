@@ -7,35 +7,50 @@ import type { AngularInput, AngularCallbackValue } from '../angular-adapter';
 @Component({
   selector: 'rv-textarea',
   standalone: true,
-  template: '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
+  template:
+    '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
   host: { style: 'display: contents', ngSkipHydration: 'true' },
 })
-export class Textarea extends AngularNativeAdapter<'Textarea', AngularCallbackValue<AngularInput<'Textarea', 'onValueChange'>>> {
+export class Textarea extends AngularNativeAdapter<
+  'Textarea',
+  AngularCallbackValue<AngularInput<'Textarea', 'onValueChange'>>
+> {
   protected readonly rvComponentName = 'Textarea';
-  protected rvResolveComponent() { return Control; }
-  @NgInput() declare "aria-label"?: AngularInput<'Textarea', "aria-label">;
-  @NgInput() declare "autoComplete"?: AngularInput<'Textarea', "autoComplete">;
-  @NgInput() declare "autocomplete"?: AngularInput<'Textarea', "autocomplete">;
-  @NgInput() declare "class"?: AngularInput<'Textarea', "class">;
-  @NgInput() declare "cols"?: AngularInput<'Textarea', "cols">;
-  @NgInput() declare "defaultValue"?: AngularInput<'Textarea', "defaultValue">;
-  @NgInput() declare "dirName"?: AngularInput<'Textarea', "dirName">;
-  @NgInput() declare "disabled"?: AngularInput<'Textarea', "disabled">;
-  @NgInput() declare "form"?: AngularInput<'Textarea', "form">;
-  @NgInput() declare "maxLength"?: AngularInput<'Textarea', "maxLength">;
-  @NgInput() declare "maxlength"?: AngularInput<'Textarea', "maxlength">;
-  @NgInput() declare "minLength"?: AngularInput<'Textarea', "minLength">;
-  @NgInput() declare "minlength"?: AngularInput<'Textarea', "minlength">;
-  @NgInput() declare "name"?: AngularInput<'Textarea', "name">;
-  @NgInput() declare "onChange"?: AngularInput<'Textarea', "onChange">;
-  @NgInput() declare "onValueChange"?: AngularInput<'Textarea', "onValueChange">;
-  @NgInput() declare "placeholder"?: AngularInput<'Textarea', "placeholder">;
-  @NgInput() declare "readOnly"?: AngularInput<'Textarea', "readOnly">;
-  @NgInput() declare "required"?: AngularInput<'Textarea', "required">;
-  @NgInput() declare "rows"?: AngularInput<'Textarea', "rows">;
-  @NgInput() declare "title"?: AngularInput<'Textarea', "title">;
-  @NgInput() declare "value"?: AngularInput<'Textarea', "value">;
-  @NgInput() declare "wrap"?: AngularInput<'Textarea', "wrap">;
-  @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'Textarea', 'onChange'>>>('onChange'); }
-  protected rvResolveProps() { return this.rvInputValues; }
+  protected rvResolveComponent() {
+    return Control;
+  }
+  @NgInput() declare 'aria-label'?: AngularInput<'Textarea', 'aria-label'>;
+  @NgInput() declare 'autoComplete'?: AngularInput<'Textarea', 'autoComplete'>;
+  @NgInput() declare 'autocomplete'?: AngularInput<'Textarea', 'autocomplete'>;
+  @NgInput() declare 'class'?: AngularInput<'Textarea', 'class'>;
+  @NgInput() declare 'cols'?: AngularInput<'Textarea', 'cols'>;
+  @NgInput() declare 'defaultValue'?: AngularInput<'Textarea', 'defaultValue'>;
+  @NgInput() declare 'dirName'?: AngularInput<'Textarea', 'dirName'>;
+  @NgInput() declare 'disabled'?: AngularInput<'Textarea', 'disabled'>;
+  @NgInput() declare 'form'?: AngularInput<'Textarea', 'form'>;
+  @NgInput() declare 'maxLength'?: AngularInput<'Textarea', 'maxLength'>;
+  @NgInput() declare 'maxlength'?: AngularInput<'Textarea', 'maxlength'>;
+  @NgInput() declare 'minLength'?: AngularInput<'Textarea', 'minLength'>;
+  @NgInput() declare 'minlength'?: AngularInput<'Textarea', 'minlength'>;
+  @NgInput() declare 'name'?: AngularInput<'Textarea', 'name'>;
+  @NgInput() declare 'onChange'?: AngularInput<'Textarea', 'onChange'>;
+  @NgInput() declare 'onValueChange'?: AngularInput<
+    'Textarea',
+    'onValueChange'
+  >;
+  @NgInput() declare 'placeholder'?: AngularInput<'Textarea', 'placeholder'>;
+  @NgInput() declare 'readOnly'?: AngularInput<'Textarea', 'readOnly'>;
+  @NgInput() declare 'required'?: AngularInput<'Textarea', 'required'>;
+  @NgInput() declare 'rows'?: AngularInput<'Textarea', 'rows'>;
+  @NgInput() declare 'title'?: AngularInput<'Textarea', 'title'>;
+  @NgInput() declare 'value'?: AngularInput<'Textarea', 'value'>;
+  @NgInput() declare 'wrap'?: AngularInput<'Textarea', 'wrap'>;
+  @Output() get changeEvent() {
+    return this.rvOutput<
+      AngularCallbackValue<AngularInput<'Textarea', 'onChange'>>
+    >('onChange');
+  }
+  protected rvResolveProps() {
+    return this.rvInputValues;
+  }
 }

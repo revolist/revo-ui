@@ -16,12 +16,12 @@ Angular/Svelte: pass `component="IconToolbar"` to the framework's `UiComponent` 
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `actions` | `readonly IconToolbarAction[]` | Yes |  |
-| `label` | `string \| undefined` | No |  |
-| `onAction` | `(action: string) => void` | Yes |  |
-| `onEscape` | `(() => void) \| undefined` | No | Restore the owning composite focus when Escape dismisses an action tooltip. |
+| Prop       | Type                           | Required | Description                                                                 |
+| ---------- | ------------------------------ | -------- | --------------------------------------------------------------------------- |
+| `actions`  | `readonly IconToolbarAction[]` | Yes      |                                                                             |
+| `label`    | `string \| undefined`          | No       |                                                                             |
+| `onAction` | `(action: string) => void`     | Yes      |                                                                             |
+| `onEscape` | `(() => void) \| undefined`    | No       | Restore the owning composite focus when Escape dismisses an action tooltip. |
 
 ## Composition
 

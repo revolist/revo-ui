@@ -16,23 +16,23 @@ Angular/Svelte: pass `component="StatusFeedbackPanel"` to the framework's `UiCom
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `autoDismissMs` | `number \| undefined` | No | Component adapters only: dismiss settled neutral/success items after this delay. Disabled by default. |
-| `onDismissItem` | `((id: string) => void) \| undefined` | No | The owner removes the item after its exit animation. |
-| `compact` | `boolean \| undefined` | No |  |
-| `onClose` | `(() => void) \| undefined` | No |  |
-| `closeLabel` | `string \| undefined` | No |  |
-| `localeText` | `Partial<StatusFeedbackLocaleText> \| undefined` | No |  |
-| `title` | `string` | Yes |  |
-| `items` | `readonly StatusFeedbackItem[]` | Yes |  |
-| `ariaLabel` | `string \| undefined` | No |  |
-| `className` | `string \| undefined` | No |  |
-| `collapsed` | `boolean \| undefined` | No |  |
-| `onCollapsedChange` | `((collapsed: boolean) => void) \| undefined` | No |  |
-| `collapseLabel` | `string \| undefined` | No |  |
-| `expandLabel` | `string \| undefined` | No |  |
-| `popover` | `StatusFeedbackPopoverController \| undefined` | No |  |
+| Prop                | Type                                             | Required | Description                                                                                           |
+| ------------------- | ------------------------------------------------ | -------- | ----------------------------------------------------------------------------------------------------- |
+| `autoDismissMs`     | `number \| undefined`                            | No       | Component adapters only: dismiss settled neutral/success items after this delay. Disabled by default. |
+| `onDismissItem`     | `((id: string) => void) \| undefined`            | No       | The owner removes the item after its exit animation.                                                  |
+| `compact`           | `boolean \| undefined`                           | No       |                                                                                                       |
+| `onClose`           | `(() => void) \| undefined`                      | No       |                                                                                                       |
+| `closeLabel`        | `string \| undefined`                            | No       |                                                                                                       |
+| `localeText`        | `Partial<StatusFeedbackLocaleText> \| undefined` | No       |                                                                                                       |
+| `title`             | `string`                                         | Yes      |                                                                                                       |
+| `items`             | `readonly StatusFeedbackItem[]`                  | Yes      |                                                                                                       |
+| `ariaLabel`         | `string \| undefined`                            | No       |                                                                                                       |
+| `className`         | `string \| undefined`                            | No       |                                                                                                       |
+| `collapsed`         | `boolean \| undefined`                           | No       |                                                                                                       |
+| `onCollapsedChange` | `((collapsed: boolean) => void) \| undefined`    | No       |                                                                                                       |
+| `collapseLabel`     | `string \| undefined`                            | No       |                                                                                                       |
+| `expandLabel`       | `string \| undefined`                            | No       |                                                                                                       |
+| `popover`           | `StatusFeedbackPopoverController \| undefined`   | No       |                                                                                                       |
 
 ## Composition
 

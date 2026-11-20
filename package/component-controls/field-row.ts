@@ -3,5 +3,7 @@ import { FieldRow as Control } from '../field-configurator';
 import { registerComponentStyles } from '../core/component-styles';
 import { fieldsStyles } from '../component-style-families';
 
-export const FieldRow: typeof Control =
-  /* @__PURE__ */ registerComponentStyles(Control, fieldsStyles);
+export const FieldRow: typeof Control = /* @__PURE__ */ registerComponentStyles(
+  Control,
+  fieldsStyles,
+);

@@ -16,21 +16,21 @@ Angular/Svelte: pass `component="ReorderList"` to the framework's `UiComponent` 
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `items` | `readonly T[]` | Yes |  |
-| `itemKey` | `(item: T) => string \| number` | Yes |  |
-| `renderItem` | `(item: T, index: number) => ComponentChildren` | Yes |  |
-| `renderHandle` | `((item: T, index: number) => ComponentChildren) \| undefined` | No |  |
-| `itemAttributes` | `((item: T, index: number) => JSX.HTMLAttributes<HTMLDivElement> & Record<string, unknown>) \| undefined` | No |  |
-| `className` | `string \| undefined` | No |  |
-| `rowClassName` | `string \| ((item: T, index: number) => string) \| undefined` | No |  |
-| `endClassName` | `string \| undefined` | No |  |
-| `draggedKey` | `string \| number \| undefined` | No |  |
-| `dropIndex` | `number \| undefined` | No |  |
-| `empty` | `ComponentChildren` | No |  |
-| `onDragOver` | `(event: DragEvent, boundary: number) => void` | Yes |  |
-| `onDrop` | `(event: DragEvent, boundary: number) => void` | Yes |  |
+| Prop             | Type                                                                                                      | Required | Description |
+| ---------------- | --------------------------------------------------------------------------------------------------------- | -------- | ----------- |
+| `items`          | `readonly T[]`                                                                                            | Yes      |             |
+| `itemKey`        | `(item: T) => string \| number`                                                                           | Yes      |             |
+| `renderItem`     | `(item: T, index: number) => ComponentChildren`                                                           | Yes      |             |
+| `renderHandle`   | `((item: T, index: number) => ComponentChildren) \| undefined`                                            | No       |             |
+| `itemAttributes` | `((item: T, index: number) => JSX.HTMLAttributes<HTMLDivElement> & Record<string, unknown>) \| undefined` | No       |             |
+| `className`      | `string \| undefined`                                                                                     | No       |             |
+| `rowClassName`   | `string \| ((item: T, index: number) => string) \| undefined`                                             | No       |             |
+| `endClassName`   | `string \| undefined`                                                                                     | No       |             |
+| `draggedKey`     | `string \| number \| undefined`                                                                           | No       |             |
+| `dropIndex`      | `number \| undefined`                                                                                     | No       |             |
+| `empty`          | `ComponentChildren`                                                                                       | No       |             |
+| `onDragOver`     | `(event: DragEvent, boundary: number) => void`                                                            | Yes      |             |
+| `onDrop`         | `(event: DragEvent, boundary: number) => void`                                                            | Yes      |             |
 
 ## Composition
 

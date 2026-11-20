@@ -16,13 +16,13 @@ Angular/Svelte: pass `component="NumberDraft"` to the framework's `UiComponent` 
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `value` | `unknown` | Yes |  |
-| `options` | `NumberInputOptions` | Yes |  |
-| `apply` | `(value: number \| null) => void` | Yes |  |
-| `cancel` | `() => void` | Yes |  |
-| `initialSelection` | `"end" \| "all" \| undefined` | No | Printable-key editors keep the initiating character and continue at its end. |
+| Prop               | Type                              | Required | Description                                                                  |
+| ------------------ | --------------------------------- | -------- | ---------------------------------------------------------------------------- |
+| `value`            | `unknown`                         | Yes      |                                                                              |
+| `options`          | `NumberInputOptions`              | Yes      |                                                                              |
+| `apply`            | `(value: number \| null) => void` | Yes      |                                                                              |
+| `cancel`           | `() => void`                      | Yes      |                                                                              |
+| `initialSelection` | `"end" \| "all" \| undefined`     | No       | Printable-key editors keep the initiating character and continue at its end. |
 
 ## Composition
 

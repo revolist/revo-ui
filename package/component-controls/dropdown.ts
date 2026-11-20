@@ -3,5 +3,7 @@ import { Dropdown as Control } from '../dropdown/index';
 import { registerComponentStyles } from '../core/component-styles';
 import { baseStyles } from '../component-style-families';
 
-export const Dropdown: typeof Control =
-  /* @__PURE__ */ registerComponentStyles(Control, baseStyles);
+export const Dropdown: typeof Control = /* @__PURE__ */ registerComponentStyles(
+  Control,
+  baseStyles,
+);

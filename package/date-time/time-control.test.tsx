@@ -8,7 +8,18 @@ afterEach(() => act(() => render(null, host)));
 
 it('uses localized text entry and emits ISO time without a native picker', () => {
   const change = vi.fn();
-  act(() => render(<TimeControl label="Heure" value="13:45:20" locale="fr-FR" precision="second" onChange={change} />, host));
+  act(() =>
+    render(
+      <TimeControl
+        label="Heure"
+        value="13:45:20"
+        locale="fr-FR"
+        precision="second"
+        onChange={change}
+      />,
+      host,
+    ),
+  );
   const input = host.querySelector('input')!;
   expect(input.type).toBe('text');
   expect(input.value).toBe('13:45:20');

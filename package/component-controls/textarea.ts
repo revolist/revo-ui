@@ -3,5 +3,7 @@ import { Textarea as Control } from '../controls';
 import { registerComponentStyles } from '../core/component-styles';
 import { baseStyles } from '../component-style-families';
 
-export const Textarea: typeof Control =
-  /* @__PURE__ */ registerComponentStyles(Control, baseStyles);
+export const Textarea: typeof Control = /* @__PURE__ */ registerComponentStyles(
+  Control,
+  baseStyles,
+);

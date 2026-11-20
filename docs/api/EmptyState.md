@@ -16,11 +16,11 @@ Angular/Svelte: pass `component="EmptyState"` to the framework's `UiComponent` h
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `title` | `string` | Yes |  |
-| `description` | `string \| undefined` | No |  |
-| `children` | `ComponentChildren` | No |  |
+| Prop          | Type                  | Required | Description |
+| ------------- | --------------------- | -------- | ----------- |
+| `title`       | `string`              | Yes      |             |
+| `description` | `string \| undefined` | No       |             |
+| `children`    | `ComponentChildren`   | No       |             |
 
 ## Composition
 

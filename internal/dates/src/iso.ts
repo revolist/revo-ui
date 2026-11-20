@@ -82,9 +82,7 @@ export function getIsoWeekdayUtc(date: Date): number {
 }
 
 export function getUtcWeekday(value: string | Date): number {
-  return (
-    typeof value === 'string' ? parseIsoDate(value) : value
-  ).getUTCDay();
+  return (typeof value === 'string' ? parseIsoDate(value) : value).getUTCDay();
 }
 
 export function getIsoWeekday(value: string | Date): number {
@@ -171,9 +169,7 @@ export function formatLocalIsoDate(value: Date): ISODateString {
 }
 
 /** Returns local calendar fields as `YYYY-MM-DD`, or `null` for a missing/invalid date. */
-export function toLocalIsoDate(
-  value: Date | undefined,
-): ISODateString | null {
+export function toLocalIsoDate(value: Date | undefined): ISODateString | null {
   if (!value || Number.isNaN(value.getTime())) {
     return null;
   }

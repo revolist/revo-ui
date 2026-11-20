@@ -3,5 +3,7 @@ import { Submenu as Control } from '../controls';
 import { registerComponentStyles } from '../core/component-styles';
 import { layoutStyles } from '../component-style-families';
 
-export const Submenu: typeof Control =
-  /* @__PURE__ */ registerComponentStyles(Control, layoutStyles);
+export const Submenu: typeof Control = /* @__PURE__ */ registerComponentStyles(
+  Control,
+  layoutStyles,
+);

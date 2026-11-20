@@ -16,16 +16,16 @@ Angular/Svelte: pass `component="FieldRemoveButton"` to the framework's `UiCompo
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `onClick` | `(e: MouseEvent) => void` | Yes |  |
-| `disabled` | `boolean \| undefined` | No |  |
-| `rounded` | `boolean \| undefined` | No |  |
-| `onMouseDown` | `((event: MouseEvent) => void) \| undefined` | No |  |
-| `onDblClick` | `((event: MouseEvent) => void) \| undefined` | No |  |
-| `className` | `string \| undefined` | No |  |
-| `locale` | `{ title?: string; ariaLabel?: string; } \| undefined` | No |  |
-| `compact` | `boolean \| undefined` | No | Compact hit area for an action embedded inside a selected-value chip. |
+| Prop          | Type                                                   | Required | Description                                                           |
+| ------------- | ------------------------------------------------------ | -------- | --------------------------------------------------------------------- |
+| `onClick`     | `(e: MouseEvent) => void`                              | Yes      |                                                                       |
+| `disabled`    | `boolean \| undefined`                                 | No       |                                                                       |
+| `rounded`     | `boolean \| undefined`                                 | No       |                                                                       |
+| `onMouseDown` | `((event: MouseEvent) => void) \| undefined`           | No       |                                                                       |
+| `onDblClick`  | `((event: MouseEvent) => void) \| undefined`           | No       |                                                                       |
+| `className`   | `string \| undefined`                                  | No       |                                                                       |
+| `locale`      | `{ title?: string; ariaLabel?: string; } \| undefined` | No       |                                                                       |
+| `compact`     | `boolean \| undefined`                                 | No       | Compact hit area for an action embedded inside a selected-value chip. |
 
 ## Composition
 

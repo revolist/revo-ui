@@ -19,19 +19,37 @@ import {
   FieldGroup as __themeOriginal_FieldGroup,
   FieldIcon as __themeOriginal_FieldIcon,
 } from '@revolist/ui/field-configurator';
-import { Button as __themeOriginal_Button, Checkbox as __themeOriginal_Checkbox } from '@revolist/ui/preact';
+import {
+  Button as __themeOriginal_Button,
+  Checkbox as __themeOriginal_Checkbox,
+} from '@revolist/ui/preact';
 import { Example } from './catalog';
 import { Select as __themeOriginal_Select } from '@revolist/ui/select';
 import textIcon from '@fortawesome/fontawesome-free/svgs/solid/font.svg?raw';
 import { withThemePreview } from './theme-preview';
 
-const FieldRemoveButton = withThemePreview(__themeOriginal_FieldRemoveButton, 'FieldRemoveButton');
-const SelectedField = withThemePreview(__themeOriginal_SelectedField, 'SelectedField');
-const FieldActions = withThemePreview(__themeOriginal_FieldActions, 'FieldActions');
-const FieldStatusBadge = withThemePreview(__themeOriginal_FieldStatusBadge, 'FieldStatusBadge');
+const FieldRemoveButton = withThemePreview(
+  __themeOriginal_FieldRemoveButton,
+  'FieldRemoveButton',
+);
+const SelectedField = withThemePreview(
+  __themeOriginal_SelectedField,
+  'SelectedField',
+);
+const FieldActions = withThemePreview(
+  __themeOriginal_FieldActions,
+  'FieldActions',
+);
+const FieldStatusBadge = withThemePreview(
+  __themeOriginal_FieldStatusBadge,
+  'FieldStatusBadge',
+);
 const FieldList = withThemePreview(__themeOriginal_FieldList, 'FieldList');
 const FieldItem = withThemePreview(__themeOriginal_FieldItem, 'FieldItem');
-const FieldContent = withThemePreview(__themeOriginal_FieldContent, 'FieldContent');
+const FieldContent = withThemePreview(
+  __themeOriginal_FieldContent,
+  'FieldContent',
+);
 const FieldGroup = withThemePreview(__themeOriginal_FieldGroup, 'FieldGroup');
 const FieldIcon = withThemePreview(__themeOriginal_FieldIcon, 'FieldIcon');
 const Button = withThemePreview(__themeOriginal_Button, 'Button');
@@ -47,7 +65,9 @@ export function FieldConfiguratorExamples() {
   const reorder = useFieldReorder(areas.Fields, (next) =>
     setAreas({ Fields: next }),
   );
-  const movableField = areas.Fields.includes(fieldToMove) ? fieldToMove : (areas.Fields[0] ?? '');
+  const movableField = areas.Fields.includes(fieldToMove)
+    ? fieldToMove
+    : (areas.Fields[0] ?? '');
   const moveIndex = areas.Fields.indexOf(movableField);
   const [configured, setConfigured] = useState<Record<string, boolean>>({
     Year: true,
@@ -108,7 +128,11 @@ export function FieldConfiguratorExamples() {
               </FieldActions>
             }
           >
-            <FieldList {...reorder.list} empty={!fields.length} placeholder="Drop fields here">
+            <FieldList
+              {...reorder.list}
+              empty={!fields.length}
+              placeholder="Drop fields here"
+            >
               {fields.map((field, index) => (
                 <SelectedField
                   key={field}
@@ -179,13 +203,34 @@ export function FieldConfiguratorExamples() {
               ))}
             </FieldList>
             <div class="catalog-row catalog-field-reorder">
-              <Select aria-label="Field to move" value={movableField} disabled={!fields.length} onValueChange={setFieldToMove}>
-                {fields.map(field => <option value={field}>{field}</option>)}
+              <Select
+                aria-label="Field to move"
+                value={movableField}
+                disabled={!fields.length}
+                onValueChange={setFieldToMove}
+              >
+                {fields.map((field) => (
+                  <option value={field}>{field}</option>
+                ))}
               </Select>
-              <Button variant="ghost" size="compact" aria-label={`Move up: ${movableField}`} disabled={moveIndex <= 0}
-                onClick={() => reorder.move(moveIndex, moveIndex - 1)}>Move up</Button>
-              <Button variant="ghost" size="compact" aria-label={`Move down: ${movableField}`} disabled={moveIndex < 0 || moveIndex === fields.length - 1}
-                onClick={() => reorder.move(moveIndex, moveIndex + 2)}>Move down</Button>
+              <Button
+                variant="ghost"
+                size="compact"
+                aria-label={`Move up: ${movableField}`}
+                disabled={moveIndex <= 0}
+                onClick={() => reorder.move(moveIndex, moveIndex - 1)}
+              >
+                Move up
+              </Button>
+              <Button
+                variant="ghost"
+                size="compact"
+                aria-label={`Move down: ${movableField}`}
+                disabled={moveIndex < 0 || moveIndex === fields.length - 1}
+                onClick={() => reorder.move(moveIndex, moveIndex + 2)}
+              >
+                Move down
+              </Button>
             </div>
           </FieldGroup>
         ))}

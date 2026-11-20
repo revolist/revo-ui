@@ -16,12 +16,12 @@ Angular/Svelte: pass `component="DurationDraft"` to the framework's `UiComponent
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `value` | `string \| number \| ParsedDuration \| null` | Yes |  |
-| `options` | `DurationFieldOptions & { label?: string; invalidText?: string; actions?: Partial<import("../editor-actions").EditorActionText>; }` | Yes |  |
-| `apply` | `(value: ParsedDuration \| null) => void` | Yes |  |
-| `cancel` | `() => void` | Yes |  |
+| Prop      | Type                                                                                                                                | Required | Description |
+| --------- | ----------------------------------------------------------------------------------------------------------------------------------- | -------- | ----------- |
+| `value`   | `string \| number \| ParsedDuration \| null`                                                                                        | Yes      |             |
+| `options` | `DurationFieldOptions & { label?: string; invalidText?: string; actions?: Partial<import("../editor-actions").EditorActionText>; }` | Yes      |             |
+| `apply`   | `(value: ParsedDuration \| null) => void`                                                                                           | Yes      |             |
+| `cancel`  | `() => void`                                                                                                                        | Yes      |             |
 
 ## Composition
 

@@ -14,18 +14,13 @@
             "server": "src/main.server.ts",
             "index": "src/index.html",
             "tsConfig": "tsconfig.json",
-            "styles": [
-              "node_modules/@revolist/ui/styles/base.css"
-            ],
+            "styles": ["node_modules/@revolist/ui/styles/base.css"],
             "outputMode": "server",
             "ssr": {
               "entry": "src/server.ts"
             },
             "security": {
-              "allowedHosts": [
-                "localhost",
-                "127.0.0.1"
-              ]
+              "allowedHosts": ["localhost", "127.0.0.1"]
             }
           }
         }

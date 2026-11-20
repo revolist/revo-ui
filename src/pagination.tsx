@@ -3,13 +3,15 @@ import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import { Example } from './catalog';
 import { PaginationPanel } from '@revolist/ui/native';
-import { Pagination as __themeOriginal_Pagination, FieldHint as __themeOriginal_FieldHint } from '@revolist/ui/preact';
+import {
+  Pagination as __themeOriginal_Pagination,
+  FieldHint as __themeOriginal_FieldHint,
+} from '@revolist/ui/preact';
 import { withThemePreview } from './theme-preview';
 
 const Dropdown = withThemePreview(__themeOriginal_Dropdown, 'Dropdown');
 const Pagination = withThemePreview(__themeOriginal_Pagination, 'Pagination');
 const FieldHint = withThemePreview(__themeOriginal_FieldHint, 'FieldHint');
-
 
 export function PaginationExamples() {
   const [simple, setSimple] = useState(0),
@@ -47,7 +49,16 @@ export function PaginationExamples() {
         />
       </Example>
       <Example title="Page numbers only">
-        <Pagination page={simple} pageCount={5} onChange={setSimple} variant="numbered" navigation={false} label="Simple page numbers" previousLabel="Previous simple page" nextLabel="Next simple page" />
+        <Pagination
+          page={simple}
+          pageCount={5}
+          onChange={setSimple}
+          variant="numbered"
+          navigation={false}
+          label="Simple page numbers"
+          previousLabel="Previous simple page"
+          nextLabel="Next simple page"
+        />
       </Example>
       <Example title="Compact navigation">
         <Pagination
@@ -70,7 +81,11 @@ export function PaginationExamples() {
         })}
       </Example>
       <Example title="Navigation without first/last">
-        {panel(withoutBoundaries, setWithoutBoundaries, { boundaryButtons: false, info: false, totalInfo: false })}
+        {panel(withoutBoundaries, setWithoutBoundaries, {
+          boundaryButtons: false,
+          info: false,
+          totalInfo: false,
+        })}
       </Example>
       <Example title="Pages and selector" wide>
         {panel(combined, setCombined, { buttonCount: 3 })}
@@ -79,14 +94,20 @@ export function PaginationExamples() {
         <div class="rv-pagination-layout">
           <label>
             Rows per page
-            <Dropdown className="rv-select" source={[{ value: '10', label: '10' }, { value: '25', label: '25' }, { value: '50', label: '50' }]}
-              config={{ ariaLabel: "Rows per page" }}
+            <Dropdown
+              className="rv-select"
+              source={[
+                { value: '10', label: '10' },
+                { value: '25', label: '25' },
+                { value: '50', label: '50' },
+              ]}
+              config={{ ariaLabel: 'Rows per page' }}
               value={String(size)}
               onChange={(next) => {
                 setSize(Number(String(next)));
                 setTable(0);
               }}
-             />
+            />
           </label>
           <Pagination
             page={table}

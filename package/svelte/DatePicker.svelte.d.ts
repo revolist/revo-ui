@@ -1,2 +1,5 @@
-declare const DatePicker: import('../svelte-props').SvelteNamedComponent<'DatePicker', 'value'>;
+declare const DatePicker: import('../svelte-props').SvelteNamedComponent<
+  'DatePicker',
+  'value'
+>;
 export default DatePicker;

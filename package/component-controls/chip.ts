@@ -3,5 +3,7 @@ import { Chip as Control } from '../controls';
 import { registerComponentStyles } from '../core/component-styles';
 import { baseStyles } from '../component-style-families';
 
-export const Chip: typeof Control =
-  /* @__PURE__ */ registerComponentStyles(Control, baseStyles);
+export const Chip: typeof Control = /* @__PURE__ */ registerComponentStyles(
+  Control,
+  baseStyles,
+);

@@ -5,9 +5,21 @@ import starOutline from '@fortawesome/fontawesome-free/svgs/regular/star.svg?raw
 import { SvgIcon } from './icons/icon';
 import { ButtonControl } from './native-control';
 
-export function RatingStar({ filled, preset, className = '' }: { filled: boolean; preset?: ClassPreset; className?: string }) {
+export function RatingStar({
+  filled,
+  preset,
+  className = '',
+}: {
+  filled: boolean;
+  preset?: ClassPreset;
+  className?: string;
+}) {
   return (
-    <span class={`rv-rating__star ${preset?.className ?? ''} ${className}`} data-part="root" data-filled={filled ? 'true' : 'false'}>
+    <span
+      class={`rv-rating__star ${preset?.className ?? ''} ${className}`}
+      data-part="root"
+      data-filled={filled ? 'true' : 'false'}
+    >
       <SvgIcon svg={filled ? starSolid : starOutline} />
     </span>
   );

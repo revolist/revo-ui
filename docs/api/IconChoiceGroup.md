@@ -16,12 +16,12 @@ Angular/Svelte: pass `component="IconChoiceGroup"` to the framework's `UiCompone
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `value` | `Value` | Yes |  |
-| `options` | `readonly SegmentedOption<Value>[]` | Yes |  |
-| `ariaLabel` | `string` | Yes |  |
-| `onChange` | `(value: Value) => void` | Yes |  |
+| Prop        | Type                                | Required | Description |
+| ----------- | ----------------------------------- | -------- | ----------- |
+| `value`     | `Value`                             | Yes      |             |
+| `options`   | `readonly SegmentedOption<Value>[]` | Yes      |             |
+| `ariaLabel` | `string`                            | Yes      |             |
+| `onChange`  | `(value: Value) => void`            | Yes      |             |
 
 ## Composition
 

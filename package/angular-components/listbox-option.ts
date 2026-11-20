@@ -7,43 +7,91 @@ import type { AngularInput, AngularCallbackValue } from '../angular-adapter';
 @Component({
   selector: 'rv-listbox-option',
   standalone: true,
-  template: '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
+  template:
+    '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
   host: { style: 'display: contents', ngSkipHydration: 'true' },
 })
-export class ListboxOption extends AngularNativeAdapter<'ListboxOption', never> {
+export class ListboxOption extends AngularNativeAdapter<
+  'ListboxOption',
+  never
+> {
   protected readonly rvComponentName = 'ListboxOption';
-  protected rvResolveComponent() { return Control; }
-  @NgInput() declare "aria-label"?: AngularInput<'ListboxOption', "aria-label">;
-  @NgInput() declare "class"?: AngularInput<'ListboxOption', "class">;
-  @NgInput() declare "command"?: AngularInput<'ListboxOption', "command">;
-  @NgInput() declare "commandFor"?: AngularInput<'ListboxOption', "commandFor">;
-  @NgInput() declare "commandfor"?: AngularInput<'ListboxOption', "commandfor">;
-  @NgInput() declare "contentClassNames"?: AngularInput<'ListboxOption', "contentClassNames">;
-  @NgInput() declare "description"?: AngularInput<'ListboxOption', "description">;
-  @NgInput() declare "disabled"?: AngularInput<'ListboxOption', "disabled">;
-  @NgInput() declare "form"?: AngularInput<'ListboxOption', "form">;
-  @NgInput() declare "formAction"?: AngularInput<'ListboxOption', "formAction">;
-  @NgInput() declare "formEncType"?: AngularInput<'ListboxOption', "formEncType">;
-  @NgInput() declare "formMethod"?: AngularInput<'ListboxOption', "formMethod">;
-  @NgInput() declare "formNoValidate"?: AngularInput<'ListboxOption', "formNoValidate">;
-  @NgInput() declare "formTarget"?: AngularInput<'ListboxOption', "formTarget">;
-  @NgInput() declare "formaction"?: AngularInput<'ListboxOption', "formaction">;
-  @NgInput() declare "formenctype"?: AngularInput<'ListboxOption', "formenctype">;
-  @NgInput() declare "formmethod"?: AngularInput<'ListboxOption', "formmethod">;
-  @NgInput() declare "formnovalidate"?: AngularInput<'ListboxOption', "formnovalidate">;
-  @NgInput() declare "formtarget"?: AngularInput<'ListboxOption', "formtarget">;
-  @NgInput() declare "icon"?: AngularInput<'ListboxOption', "icon">;
-  @NgInput() declare "label"?: AngularInput<'ListboxOption', "label">;
-  @NgInput() declare "name"?: AngularInput<'ListboxOption', "name">;
-  @NgInput() declare "onChange"?: AngularInput<'ListboxOption', "onChange">;
-  @NgInput() declare "popoverTarget"?: AngularInput<'ListboxOption', "popoverTarget">;
-  @NgInput() declare "popoverTargetAction"?: AngularInput<'ListboxOption', "popoverTargetAction">;
-  @NgInput() declare "popovertarget"?: AngularInput<'ListboxOption', "popovertarget">;
-  @NgInput() declare "popovertargetaction"?: AngularInput<'ListboxOption', "popovertargetaction">;
-  @NgInput({ required: true }) declare "selected": AngularInput<'ListboxOption', "selected">;
-  @NgInput() declare "title"?: AngularInput<'ListboxOption', "title">;
-  @NgInput() declare "type"?: AngularInput<'ListboxOption', "type">;
-  @NgInput({ required: true }) declare "value": AngularInput<'ListboxOption', "value">;
-  @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ListboxOption', 'onChange'>>>('onChange'); }
-  protected rvResolveProps() { return this.rvInputValues; }
+  protected rvResolveComponent() {
+    return Control;
+  }
+  @NgInput() declare 'aria-label'?: AngularInput<'ListboxOption', 'aria-label'>;
+  @NgInput() declare 'class'?: AngularInput<'ListboxOption', 'class'>;
+  @NgInput() declare 'command'?: AngularInput<'ListboxOption', 'command'>;
+  @NgInput() declare 'commandFor'?: AngularInput<'ListboxOption', 'commandFor'>;
+  @NgInput() declare 'commandfor'?: AngularInput<'ListboxOption', 'commandfor'>;
+  @NgInput() declare 'contentClassNames'?: AngularInput<
+    'ListboxOption',
+    'contentClassNames'
+  >;
+  @NgInput() declare 'description'?: AngularInput<
+    'ListboxOption',
+    'description'
+  >;
+  @NgInput() declare 'disabled'?: AngularInput<'ListboxOption', 'disabled'>;
+  @NgInput() declare 'form'?: AngularInput<'ListboxOption', 'form'>;
+  @NgInput() declare 'formAction'?: AngularInput<'ListboxOption', 'formAction'>;
+  @NgInput() declare 'formEncType'?: AngularInput<
+    'ListboxOption',
+    'formEncType'
+  >;
+  @NgInput() declare 'formMethod'?: AngularInput<'ListboxOption', 'formMethod'>;
+  @NgInput() declare 'formNoValidate'?: AngularInput<
+    'ListboxOption',
+    'formNoValidate'
+  >;
+  @NgInput() declare 'formTarget'?: AngularInput<'ListboxOption', 'formTarget'>;
+  @NgInput() declare 'formaction'?: AngularInput<'ListboxOption', 'formaction'>;
+  @NgInput() declare 'formenctype'?: AngularInput<
+    'ListboxOption',
+    'formenctype'
+  >;
+  @NgInput() declare 'formmethod'?: AngularInput<'ListboxOption', 'formmethod'>;
+  @NgInput() declare 'formnovalidate'?: AngularInput<
+    'ListboxOption',
+    'formnovalidate'
+  >;
+  @NgInput() declare 'formtarget'?: AngularInput<'ListboxOption', 'formtarget'>;
+  @NgInput() declare 'icon'?: AngularInput<'ListboxOption', 'icon'>;
+  @NgInput() declare 'label'?: AngularInput<'ListboxOption', 'label'>;
+  @NgInput() declare 'name'?: AngularInput<'ListboxOption', 'name'>;
+  @NgInput() declare 'onChange'?: AngularInput<'ListboxOption', 'onChange'>;
+  @NgInput() declare 'popoverTarget'?: AngularInput<
+    'ListboxOption',
+    'popoverTarget'
+  >;
+  @NgInput() declare 'popoverTargetAction'?: AngularInput<
+    'ListboxOption',
+    'popoverTargetAction'
+  >;
+  @NgInput() declare 'popovertarget'?: AngularInput<
+    'ListboxOption',
+    'popovertarget'
+  >;
+  @NgInput() declare 'popovertargetaction'?: AngularInput<
+    'ListboxOption',
+    'popovertargetaction'
+  >;
+  @NgInput({ required: true }) declare 'selected': AngularInput<
+    'ListboxOption',
+    'selected'
+  >;
+  @NgInput() declare 'title'?: AngularInput<'ListboxOption', 'title'>;
+  @NgInput() declare 'type'?: AngularInput<'ListboxOption', 'type'>;
+  @NgInput({ required: true }) declare 'value': AngularInput<
+    'ListboxOption',
+    'value'
+  >;
+  @Output() get changeEvent() {
+    return this.rvOutput<
+      AngularCallbackValue<AngularInput<'ListboxOption', 'onChange'>>
+    >('onChange');
+  }
+  protected rvResolveProps() {
+    return this.rvInputValues;
+  }
 }

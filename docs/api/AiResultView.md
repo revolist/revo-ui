@@ -16,10 +16,10 @@ Angular/Svelte: pass `component="AiResultView"` to the framework's `UiComponent`
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `result` | `AiResultContent` | Yes |  |
-| `renderTable` | `AiTableRenderer \| undefined` | No |  |
+| Prop          | Type                           | Required | Description |
+| ------------- | ------------------------------ | -------- | ----------- |
+| `result`      | `AiResultContent`              | Yes      |             |
+| `renderTable` | `AiTableRenderer \| undefined` | No       |             |
 
 ## Composition
 

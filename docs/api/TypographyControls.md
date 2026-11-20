@@ -16,13 +16,13 @@ Angular/Svelte: pass `component="TypographyControls"` to the framework's `UiComp
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `value` | `TypographyValue` | Yes |  |
-| `fonts` | `readonly string[] \| undefined` | No |  |
-| `labels` | `{ readonly fontFamily: string; readonly defaultFont: string; readonly fontSize: string; readonly typographySection: string; readonly bold: string; readonly italic: string; readonly underline: string; readonly strike: string; }` | Yes |  |
-| `icons` | `Record<"bold" \| "italic" \| "underline" \| "strike", string>` | Yes |  |
-| `onChange` | `(patch: Partial<TypographyValue>) => void` | Yes |  |
+| Prop       | Type                                                                                                                                                                                                                                 | Required | Description |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- | ----------- |
+| `value`    | `TypographyValue`                                                                                                                                                                                                                    | Yes      |             |
+| `fonts`    | `readonly string[] \| undefined`                                                                                                                                                                                                     | No       |             |
+| `labels`   | `{ readonly fontFamily: string; readonly defaultFont: string; readonly fontSize: string; readonly typographySection: string; readonly bold: string; readonly italic: string; readonly underline: string; readonly strike: string; }` | Yes      |             |
+| `icons`    | `Record<"bold" \| "italic" \| "underline" \| "strike", string>`                                                                                                                                                                      | Yes      |             |
+| `onChange` | `(patch: Partial<TypographyValue>) => void`                                                                                                                                                                                          | Yes      |             |
 
 ## Composition
 

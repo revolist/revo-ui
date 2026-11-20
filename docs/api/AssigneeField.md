@@ -16,15 +16,15 @@ Angular/Svelte: pass `component="AssigneeField"` to the framework's `UiComponent
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `value` | `unknown` | Yes |  |
-| `options` | `AssigneeFieldOptions` | Yes |  |
-| `theme` | `string \| undefined` | No |  |
-| `renderPicker` | `((props: AssigneePickerProps) => ComponentChildren) \| undefined` | No |  |
-| `renderValue` | `((h: Parameters<NonNullable<DropdownProps<AssigneeId>["renderValue"]>>[0], option: AssigneeOption, units: number) => any) \| undefined` | No |  |
-| `save` | `(value: AssigneeAssignment[]) => void` | Yes |  |
-| `cancel` | `() => void` | Yes |  |
+| Prop           | Type                                                                                                                                     | Required | Description |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | -------- | ----------- |
+| `value`        | `unknown`                                                                                                                                | Yes      |             |
+| `options`      | `AssigneeFieldOptions`                                                                                                                   | Yes      |             |
+| `theme`        | `string \| undefined`                                                                                                                    | No       |             |
+| `renderPicker` | `((props: AssigneePickerProps) => ComponentChildren) \| undefined`                                                                       | No       |             |
+| `renderValue`  | `((h: Parameters<NonNullable<DropdownProps<AssigneeId>["renderValue"]>>[0], option: AssigneeOption, units: number) => any) \| undefined` | No       |             |
+| `save`         | `(value: AssigneeAssignment[]) => void`                                                                                                  | Yes      |             |
+| `cancel`       | `() => void`                                                                                                                             | Yes      |             |
 
 ## Composition
 

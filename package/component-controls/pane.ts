@@ -3,5 +3,7 @@ import { EditorPane as Control } from '../editor-layout/index';
 import { registerComponentStyles } from '../core/component-styles';
 import { layoutStyles } from '../component-style-families';
 
-export const Pane: typeof Control =
-  /* @__PURE__ */ registerComponentStyles(Control, layoutStyles);
+export const Pane: typeof Control = /* @__PURE__ */ registerComponentStyles(
+  Control,
+  layoutStyles,
+);

@@ -41,10 +41,7 @@ export function getBrowserTimeZone() {
 }
 
 /** Projects an instant into Gregorian civil fields in an IANA timezone. */
-export function getCivilParts(
-  instant: Date,
-  timeZone: string,
-): CivilDateTime {
+export function getCivilParts(instant: Date, timeZone: string): CivilDateTime {
   const parts = new Map(
     civilFormatter(timeZone)
       .formatToParts(instant)
@@ -156,10 +153,7 @@ export function resolveExactCivilInstant(
   return possible.length === 1 ? possible[0] : undefined;
 }
 
-function addCivilSeconds(
-  value: CivilDateTime,
-  seconds: number,
-): CivilDateTime {
+function addCivilSeconds(value: CivilDateTime, seconds: number): CivilDateTime {
   const date = new Date(civilEpoch(value) + seconds * 1000);
   return {
     year: date.getUTCFullYear(),

@@ -16,23 +16,23 @@ Angular/Svelte: pass `component="SearchInput"` to the framework's `UiComponent` 
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `value` | `string \| undefined` | No |  |
-| `inputRef` | `SearchInputRef<HTMLInputElement> \| undefined` | No |  |
-| `rootClassName` | `string \| undefined` | No |  |
-| `inputClassName` | `string \| undefined` | No |  |
-| `iconClassName` | `string \| undefined` | No |  |
-| `shortcutClassName` | `string \| undefined` | No |  |
-| `shortcut` | `any` | No |  |
-| `icon` | `any` | No |  |
-| `leading` | `any` | No |  |
-| `hideIcon` | `boolean \| undefined` | No |  |
-| `trailing` | `any` | No |  |
-| `testId` | `string \| undefined` | No |  |
-| `onValueChange` | `((value: string, event: SearchInputEvent<HTMLInputElement>) => void) \| undefined` | No |  |
-| `onInput` | `((event: SearchInputEvent<HTMLInputElement>) => void) \| undefined` | No |  |
-| `type` | `"search" \| "text" \| undefined` | No |  |
+| Prop                | Type                                                                                | Required | Description |
+| ------------------- | ----------------------------------------------------------------------------------- | -------- | ----------- |
+| `value`             | `string \| undefined`                                                               | No       |             |
+| `inputRef`          | `SearchInputRef<HTMLInputElement> \| undefined`                                     | No       |             |
+| `rootClassName`     | `string \| undefined`                                                               | No       |             |
+| `inputClassName`    | `string \| undefined`                                                               | No       |             |
+| `iconClassName`     | `string \| undefined`                                                               | No       |             |
+| `shortcutClassName` | `string \| undefined`                                                               | No       |             |
+| `shortcut`          | `any`                                                                               | No       |             |
+| `icon`              | `any`                                                                               | No       |             |
+| `leading`           | `any`                                                                               | No       |             |
+| `hideIcon`          | `boolean \| undefined`                                                              | No       |             |
+| `trailing`          | `any`                                                                               | No       |             |
+| `testId`            | `string \| undefined`                                                               | No       |             |
+| `onValueChange`     | `((value: string, event: SearchInputEvent<HTMLInputElement>) => void) \| undefined` | No       |             |
+| `onInput`           | `((event: SearchInputEvent<HTMLInputElement>) => void) \| undefined`                | No       |             |
+| `type`              | `"search" \| "text" \| undefined`                                                   | No       |             |
 
 ## Composition
 

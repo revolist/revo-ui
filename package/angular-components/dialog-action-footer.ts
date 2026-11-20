@@ -7,23 +7,47 @@ import type { AngularInput, AngularCallbackValue } from '../angular-adapter';
 @Component({
   selector: 'rv-dialog-action-footer',
   standalone: true,
-  template: '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
+  template:
+    '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
   host: { style: 'display: contents', ngSkipHydration: 'true' },
 })
-export class DialogActionFooter extends AngularNativeAdapter<'DialogActionFooter', never> {
+export class DialogActionFooter extends AngularNativeAdapter<
+  'DialogActionFooter',
+  never
+> {
   protected readonly rvComponentName = 'DialogActionFooter';
-  protected rvResolveComponent() { return Control; }
-  @NgInput() declare "actionsClass"?: AngularInput<'DialogActionFooter', "actionsClass">;
-  @NgInput() declare "aria-label"?: AngularInput<'DialogActionFooter', "aria-label">;
-  @NgInput() declare "cancel"?: AngularInput<'DialogActionFooter', "cancel">;
-  @NgInput() declare "class"?: AngularInput<'DialogActionFooter', "class">;
-  @NgInput() declare "deleteAction"?: AngularInput<'DialogActionFooter', "deleteAction">;
-  @NgInput() declare "end"?: AngularInput<'DialogActionFooter', "end">;
-  @NgInput() declare "onChange"?: AngularInput<'DialogActionFooter', "onChange">;
-  @NgInput() declare "reset"?: AngularInput<'DialogActionFooter', "reset">;
-  @NgInput() declare "save"?: AngularInput<'DialogActionFooter', "save">;
-  @NgInput() declare "start"?: AngularInput<'DialogActionFooter', "start">;
-  @NgInput() declare "title"?: AngularInput<'DialogActionFooter', "title">;
-  @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogActionFooter', 'onChange'>>>('onChange'); }
-  protected rvResolveProps() { return this.rvInputValues; }
+  protected rvResolveComponent() {
+    return Control;
+  }
+  @NgInput() declare 'actionsClass'?: AngularInput<
+    'DialogActionFooter',
+    'actionsClass'
+  >;
+  @NgInput() declare 'aria-label'?: AngularInput<
+    'DialogActionFooter',
+    'aria-label'
+  >;
+  @NgInput() declare 'cancel'?: AngularInput<'DialogActionFooter', 'cancel'>;
+  @NgInput() declare 'class'?: AngularInput<'DialogActionFooter', 'class'>;
+  @NgInput() declare 'deleteAction'?: AngularInput<
+    'DialogActionFooter',
+    'deleteAction'
+  >;
+  @NgInput() declare 'end'?: AngularInput<'DialogActionFooter', 'end'>;
+  @NgInput() declare 'onChange'?: AngularInput<
+    'DialogActionFooter',
+    'onChange'
+  >;
+  @NgInput() declare 'reset'?: AngularInput<'DialogActionFooter', 'reset'>;
+  @NgInput() declare 'save'?: AngularInput<'DialogActionFooter', 'save'>;
+  @NgInput() declare 'start'?: AngularInput<'DialogActionFooter', 'start'>;
+  @NgInput() declare 'title'?: AngularInput<'DialogActionFooter', 'title'>;
+  @Output() get changeEvent() {
+    return this.rvOutput<
+      AngularCallbackValue<AngularInput<'DialogActionFooter', 'onChange'>>
+    >('onChange');
+  }
+  protected rvResolveProps() {
+    return this.rvInputValues;
+  }
 }

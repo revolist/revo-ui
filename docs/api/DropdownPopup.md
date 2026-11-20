@@ -16,22 +16,22 @@ Angular/Svelte: pass `component="DropdownPopup"` to the framework's `UiComponent
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `onPointerRelease` | `((event: MouseEvent \| TouchEvent) => void) \| undefined` | No |  |
-| `triggerRef` | `RefObject<HTMLDivElement>` | Yes |  |
-| `children` | `ComponentChildren` | Yes |  |
-| `portalTarget` | `HTMLElement \| null \| undefined` | No |  |
-| `theme` | `string \| null \| undefined` | No |  |
-| `dropdownMenuId` | `string \| undefined` | No |  |
-| `popupClassName` | `string \| undefined` | No |  |
-| `closeOnClickOutside` | `boolean \| undefined` | No |  |
-| `onClose` | `(() => void) \| undefined` | No |  |
-| `align` | `"start" \| "end" \| undefined` | No |  |
-| `matchTriggerWidth` | `boolean \| undefined` | No |  |
-| `maxHeight` | `number \| undefined` | No |  |
-| `observePopupResize` | `boolean \| undefined` | No |  |
-| `topLayer` | `boolean \| undefined` | No | Promotes the popup above modal dialogs without joining an ancestor's scroll context. |
+| Prop                  | Type                                                       | Required | Description                                                                          |
+| --------------------- | ---------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------ |
+| `onPointerRelease`    | `((event: MouseEvent \| TouchEvent) => void) \| undefined` | No       |                                                                                      |
+| `triggerRef`          | `RefObject<HTMLDivElement>`                                | Yes      |                                                                                      |
+| `children`            | `ComponentChildren`                                        | Yes      |                                                                                      |
+| `portalTarget`        | `HTMLElement \| null \| undefined`                         | No       |                                                                                      |
+| `theme`               | `string \| null \| undefined`                              | No       |                                                                                      |
+| `dropdownMenuId`      | `string \| undefined`                                      | No       |                                                                                      |
+| `popupClassName`      | `string \| undefined`                                      | No       |                                                                                      |
+| `closeOnClickOutside` | `boolean \| undefined`                                     | No       |                                                                                      |
+| `onClose`             | `(() => void) \| undefined`                                | No       |                                                                                      |
+| `align`               | `"start" \| "end" \| undefined`                            | No       |                                                                                      |
+| `matchTriggerWidth`   | `boolean \| undefined`                                     | No       |                                                                                      |
+| `maxHeight`           | `number \| undefined`                                      | No       |                                                                                      |
+| `observePopupResize`  | `boolean \| undefined`                                     | No       |                                                                                      |
+| `topLayer`            | `boolean \| undefined`                                     | No       | Promotes the popup above modal dialogs without joining an ancestor's scroll context. |
 
 ## Composition
 

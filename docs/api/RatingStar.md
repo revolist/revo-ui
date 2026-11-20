@@ -16,9 +16,9 @@ Angular/Svelte: pass `component="RatingStar"` to the framework's `UiComponent` h
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `filled` | `boolean` | Yes |  |
+| Prop     | Type      | Required | Description |
+| -------- | --------- | -------- | ----------- |
+| `filled` | `boolean` | Yes      |             |
 
 ## Composition
 

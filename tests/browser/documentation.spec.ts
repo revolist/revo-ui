@@ -133,33 +133,38 @@ for (const [hash, target] of [
 }
 
 for (const [route, title] of [
-  ["ssr-nextjs", "Next.js App Router and Revo UI"],
-  ["ssr-nuxt", "Nuxt and Revo UI"],
-  ["ssr-sveltekit", "SvelteKit and Revo UI"],
-  ["ssr-astro", "Astro and Revo UI"],
-  ["ssr-angular", "Angular SSR and Revo UI"],
-  ["ssr-react-router", "React Router and Revo UI"],
-  ["ssr-tanstack-start", "TanStack Start and Revo UI"],
-  ["ssr-nestjs", "NestJS and Revo UI"],
-  ["integration-refine", "Refine and Revo UI"],
-  ["integration-lovable", "Lovable and Revo UI"],
+  ['ssr-nextjs', 'Next.js App Router and Revo UI'],
+  ['ssr-nuxt', 'Nuxt and Revo UI'],
+  ['ssr-sveltekit', 'SvelteKit and Revo UI'],
+  ['ssr-astro', 'Astro and Revo UI'],
+  ['ssr-angular', 'Angular SSR and Revo UI'],
+  ['ssr-react-router', 'React Router and Revo UI'],
+  ['ssr-tanstack-start', 'TanStack Start and Revo UI'],
+  ['ssr-nestjs', 'NestJS and Revo UI'],
+  ['integration-refine', 'Refine and Revo UI'],
+  ['integration-lovable', 'Lovable and Revo UI'],
 ]) {
   test(`${route} starter guide is discoverable and readable`, async ({
     page,
   }) => {
-    await page.goto("/frameworks/ssr/");
-    await page.locator(`article a[href="/frameworks/${route}/"]`).first().click();
+    await page.goto('/frameworks/ssr/');
+    await page
+      .locator(`article a[href="/frameworks/${route}/"]`)
+      .first()
+      .click();
     await expect(
-      page.getByRole("heading", { level: 1, name: title, exact: true }),
+      page.getByRole('heading', { level: 1, name: title, exact: true }),
     ).toBeVisible();
-    await expect(page).toHaveTitle(`${documentation[route as keyof typeof documentation].seoTitle} · Revo UI`);
-    await expect(page.locator("article pre code").first()).toBeVisible();
+    await expect(page).toHaveTitle(
+      `${documentation[route as keyof typeof documentation].seoTitle} · Revo UI`,
+    );
+    await expect(page.locator('article pre code').first()).toBeVisible();
     const source = page
       .locator(
         'article a[href*="github.com/revolist/revo-ui/tree/main/examples/ssr/"]',
       )
       .first();
-    await expect(source).toHaveAttribute("href", /examples\/ssr\//);
+    await expect(source).toHaveAttribute('href', /examples\/ssr\//);
     await page.setViewportSize({ width: 390, height: 844 });
     expect(
       await page.evaluate(
@@ -170,7 +175,9 @@ for (const [route, title] of [
 }
 
 for (const framework of ['angular', 'svelte']) {
-  test(`${framework} guide teaches a selective named component import`, async ({ page }) => {
+  test(`${framework} guide teaches a selective named component import`, async ({
+    page,
+  }) => {
     await page.goto(`/frameworks/${framework}/`);
     const example = page.locator('.framework-card pre');
     await expect(example).toContainText(`@revolist/ui/${framework}/svg-button`);
@@ -211,10 +218,14 @@ test('guide search metadata follows navigation without leaking to other pages', 
   await expect(page).toHaveTitle(
     `${documentation['ssr-sveltekit'].seoTitle} · Revo UI`,
   );
-  await expect.poll(async () => {
-    const data = JSON.parse((await schema.textContent())!);
-    return data['@graph'].find((item: { '@type': string }) => item['@type'] === 'TechArticle').headline;
-  }).toBe('SvelteKit and Revo UI');
+  await expect
+    .poll(async () => {
+      const data = JSON.parse((await schema.textContent())!);
+      return data['@graph'].find(
+        (item: { '@type': string }) => item['@type'] === 'TechArticle',
+      ).headline;
+    })
+    .toBe('SvelteKit and Revo UI');
   await page
     .getByRole('navigation', { name: 'Library pages' })
     .getByRole('link', { name: 'Overview', exact: true })

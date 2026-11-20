@@ -11,4 +11,9 @@
   }
 </script>
 
-<Mount bind:this={mount} {component} control={uiComponents[component]} {...props} />
+<Mount
+  bind:this={mount}
+  {component}
+  control={uiComponents[component]}
+  {...props}
+/>

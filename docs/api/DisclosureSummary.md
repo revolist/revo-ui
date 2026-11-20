@@ -16,13 +16,13 @@ Angular/Svelte: pass `component="DisclosureSummary"` to the framework's `UiCompo
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `children` | `ComponentChildren` | Yes |  |
-| `className` | `string \| undefined` | No |  |
-| `icon` | `ComponentChildren` | No |  |
-| `iconClassName` | `string \| undefined` | No |  |
-| `iconPosition` | `"before" \| "after" \| undefined` | No |  |
+| Prop            | Type                               | Required | Description |
+| --------------- | ---------------------------------- | -------- | ----------- |
+| `children`      | `ComponentChildren`                | Yes      |             |
+| `className`     | `string \| undefined`              | No       |             |
+| `icon`          | `ComponentChildren`                | No       |             |
+| `iconClassName` | `string \| undefined`              | No       |             |
+| `iconPosition`  | `"before" \| "after" \| undefined` | No       |             |
 
 ## Composition
 

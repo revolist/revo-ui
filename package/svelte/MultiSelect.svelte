@@ -5,10 +5,20 @@
   import type { SvelteComponentProps } from '../svelte-props';
   import type { UiComponentProps } from '../component-catalog';
 
-  let { children, slots, onUiEvent, value = $bindable(), ...props }: SvelteComponentProps<'MultiSelect'> = $props();
+  let {
+    children,
+    slots,
+    onUiEvent,
+    value = $bindable(),
+    ...props
+  }: SvelteComponentProps<'MultiSelect'> = $props();
   let mount: Mount;
 
-  function updateModel(...args: Parameters<NonNullable<UiComponentProps<'MultiSelect'>['onChange']>>) {
+  function updateModel(
+    ...args: Parameters<
+      NonNullable<UiComponentProps<'MultiSelect'>['onChange']>
+    >
+  ) {
     value = args[0];
     if (props.onChange) return Reflect.apply(props.onChange, undefined, args);
   }

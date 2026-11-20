@@ -10,12 +10,23 @@ import {
 import { Example } from './catalog';
 import { withThemePreview } from './theme-preview';
 
-const AiAssistant = withThemePreview(__themeOriginal_AiAssistant, 'AiAssistant');
-const AiChatComposer = withThemePreview(__themeOriginal_AiChatComposer, 'AiChatComposer');
-const AiSuggestions = withThemePreview(__themeOriginal_AiSuggestions, 'AiSuggestions');
-const AiActionStatus = withThemePreview(__themeOriginal_AiActionStatus, 'AiActionStatus');
+const AiAssistant = withThemePreview(
+  __themeOriginal_AiAssistant,
+  'AiAssistant',
+);
+const AiChatComposer = withThemePreview(
+  __themeOriginal_AiChatComposer,
+  'AiChatComposer',
+);
+const AiSuggestions = withThemePreview(
+  __themeOriginal_AiSuggestions,
+  'AiSuggestions',
+);
+const AiActionStatus = withThemePreview(
+  __themeOriginal_AiActionStatus,
+  'AiActionStatus',
+);
 const AiResult = withThemePreview(__themeOriginal_AiResult, 'AiResult');
-
 
 export function AiExamples() {
   const [value, setValue] = useState('');

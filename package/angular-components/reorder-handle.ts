@@ -7,38 +7,74 @@ import type { AngularInput, AngularCallbackValue } from '../angular-adapter';
 @Component({
   selector: 'rv-reorder-handle',
   standalone: true,
-  template: '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
+  template:
+    '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
   host: { style: 'display: contents', ngSkipHydration: 'true' },
 })
-export class ReorderHandle extends AngularNativeAdapter<'ReorderHandle', never> {
+export class ReorderHandle extends AngularNativeAdapter<
+  'ReorderHandle',
+  never
+> {
   protected readonly rvComponentName = 'ReorderHandle';
-  protected rvResolveComponent() { return Control; }
-  @NgInput() declare "aria-label"?: AngularInput<'ReorderHandle', "aria-label">;
-  @NgInput() declare "class"?: AngularInput<'ReorderHandle', "class">;
-  @NgInput() declare "command"?: AngularInput<'ReorderHandle', "command">;
-  @NgInput() declare "commandFor"?: AngularInput<'ReorderHandle', "commandFor">;
-  @NgInput() declare "commandfor"?: AngularInput<'ReorderHandle', "commandfor">;
-  @NgInput() declare "disabled"?: AngularInput<'ReorderHandle', "disabled">;
-  @NgInput() declare "form"?: AngularInput<'ReorderHandle', "form">;
-  @NgInput() declare "formAction"?: AngularInput<'ReorderHandle', "formAction">;
-  @NgInput() declare "formEncType"?: AngularInput<'ReorderHandle', "formEncType">;
-  @NgInput() declare "formMethod"?: AngularInput<'ReorderHandle', "formMethod">;
-  @NgInput() declare "formNoValidate"?: AngularInput<'ReorderHandle', "formNoValidate">;
-  @NgInput() declare "formTarget"?: AngularInput<'ReorderHandle', "formTarget">;
-  @NgInput() declare "formaction"?: AngularInput<'ReorderHandle', "formaction">;
-  @NgInput() declare "formenctype"?: AngularInput<'ReorderHandle', "formenctype">;
-  @NgInput() declare "formmethod"?: AngularInput<'ReorderHandle', "formmethod">;
-  @NgInput() declare "formnovalidate"?: AngularInput<'ReorderHandle', "formnovalidate">;
-  @NgInput() declare "formtarget"?: AngularInput<'ReorderHandle', "formtarget">;
-  @NgInput() declare "name"?: AngularInput<'ReorderHandle', "name">;
-  @NgInput() declare "onChange"?: AngularInput<'ReorderHandle', "onChange">;
-  @NgInput() declare "popoverTarget"?: AngularInput<'ReorderHandle', "popoverTarget">;
-  @NgInput() declare "popoverTargetAction"?: AngularInput<'ReorderHandle', "popoverTargetAction">;
-  @NgInput() declare "popovertarget"?: AngularInput<'ReorderHandle', "popovertarget">;
-  @NgInput() declare "popovertargetaction"?: AngularInput<'ReorderHandle', "popovertargetaction">;
-  @NgInput() declare "title"?: AngularInput<'ReorderHandle', "title">;
-  @NgInput() declare "type"?: AngularInput<'ReorderHandle', "type">;
-  @NgInput() declare "value"?: AngularInput<'ReorderHandle', "value">;
-  @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ReorderHandle', 'onChange'>>>('onChange'); }
-  protected rvResolveProps() { return this.rvInputValues; }
+  protected rvResolveComponent() {
+    return Control;
+  }
+  @NgInput() declare 'aria-label'?: AngularInput<'ReorderHandle', 'aria-label'>;
+  @NgInput() declare 'class'?: AngularInput<'ReorderHandle', 'class'>;
+  @NgInput() declare 'command'?: AngularInput<'ReorderHandle', 'command'>;
+  @NgInput() declare 'commandFor'?: AngularInput<'ReorderHandle', 'commandFor'>;
+  @NgInput() declare 'commandfor'?: AngularInput<'ReorderHandle', 'commandfor'>;
+  @NgInput() declare 'disabled'?: AngularInput<'ReorderHandle', 'disabled'>;
+  @NgInput() declare 'form'?: AngularInput<'ReorderHandle', 'form'>;
+  @NgInput() declare 'formAction'?: AngularInput<'ReorderHandle', 'formAction'>;
+  @NgInput() declare 'formEncType'?: AngularInput<
+    'ReorderHandle',
+    'formEncType'
+  >;
+  @NgInput() declare 'formMethod'?: AngularInput<'ReorderHandle', 'formMethod'>;
+  @NgInput() declare 'formNoValidate'?: AngularInput<
+    'ReorderHandle',
+    'formNoValidate'
+  >;
+  @NgInput() declare 'formTarget'?: AngularInput<'ReorderHandle', 'formTarget'>;
+  @NgInput() declare 'formaction'?: AngularInput<'ReorderHandle', 'formaction'>;
+  @NgInput() declare 'formenctype'?: AngularInput<
+    'ReorderHandle',
+    'formenctype'
+  >;
+  @NgInput() declare 'formmethod'?: AngularInput<'ReorderHandle', 'formmethod'>;
+  @NgInput() declare 'formnovalidate'?: AngularInput<
+    'ReorderHandle',
+    'formnovalidate'
+  >;
+  @NgInput() declare 'formtarget'?: AngularInput<'ReorderHandle', 'formtarget'>;
+  @NgInput() declare 'name'?: AngularInput<'ReorderHandle', 'name'>;
+  @NgInput() declare 'onChange'?: AngularInput<'ReorderHandle', 'onChange'>;
+  @NgInput() declare 'popoverTarget'?: AngularInput<
+    'ReorderHandle',
+    'popoverTarget'
+  >;
+  @NgInput() declare 'popoverTargetAction'?: AngularInput<
+    'ReorderHandle',
+    'popoverTargetAction'
+  >;
+  @NgInput() declare 'popovertarget'?: AngularInput<
+    'ReorderHandle',
+    'popovertarget'
+  >;
+  @NgInput() declare 'popovertargetaction'?: AngularInput<
+    'ReorderHandle',
+    'popovertargetaction'
+  >;
+  @NgInput() declare 'title'?: AngularInput<'ReorderHandle', 'title'>;
+  @NgInput() declare 'type'?: AngularInput<'ReorderHandle', 'type'>;
+  @NgInput() declare 'value'?: AngularInput<'ReorderHandle', 'value'>;
+  @Output() get changeEvent() {
+    return this.rvOutput<
+      AngularCallbackValue<AngularInput<'ReorderHandle', 'onChange'>>
+    >('onChange');
+  }
+  protected rvResolveProps() {
+    return this.rvInputValues;
+  }
 }

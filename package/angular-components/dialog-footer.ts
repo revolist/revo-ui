@@ -7,16 +7,25 @@ import type { AngularInput, AngularCallbackValue } from '../angular-adapter';
 @Component({
   selector: 'rv-dialog-footer',
   standalone: true,
-  template: '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
+  template:
+    '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
   host: { style: 'display: contents', ngSkipHydration: 'true' },
 })
 export class DialogFooter extends AngularNativeAdapter<'DialogFooter', never> {
   protected readonly rvComponentName = 'DialogFooter';
-  protected rvResolveComponent() { return Control; }
-  @NgInput() declare "aria-label"?: AngularInput<'DialogFooter', "aria-label">;
-  @NgInput() declare "class"?: AngularInput<'DialogFooter', "class">;
-  @NgInput() declare "onChange"?: AngularInput<'DialogFooter', "onChange">;
-  @NgInput() declare "title"?: AngularInput<'DialogFooter', "title">;
-  @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogFooter', 'onChange'>>>('onChange'); }
-  protected rvResolveProps() { return this.rvInputValues; }
+  protected rvResolveComponent() {
+    return Control;
+  }
+  @NgInput() declare 'aria-label'?: AngularInput<'DialogFooter', 'aria-label'>;
+  @NgInput() declare 'class'?: AngularInput<'DialogFooter', 'class'>;
+  @NgInput() declare 'onChange'?: AngularInput<'DialogFooter', 'onChange'>;
+  @NgInput() declare 'title'?: AngularInput<'DialogFooter', 'title'>;
+  @Output() get changeEvent() {
+    return this.rvOutput<
+      AngularCallbackValue<AngularInput<'DialogFooter', 'onChange'>>
+    >('onChange');
+  }
+  protected rvResolveProps() {
+    return this.rvInputValues;
+  }
 }

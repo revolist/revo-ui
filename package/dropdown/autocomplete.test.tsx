@@ -265,8 +265,21 @@ it('hands persisted tags back to the controlled source instead of restoring remo
 it('applies dropdown presets to editable controls and marks the popup as a secondary surface', async () => {
   const host = document.body.appendChild(document.createElement('div'));
   hosts.push(host);
-  act(() => render(<Dropdown source={source} config={{ autocomplete: true }} preset={{ className: 'editable-theme' }} />, host));
-  expect(host.querySelector('.dropdown-container')?.classList.contains('editable-theme')).toBe(true);
+  act(() =>
+    render(
+      <Dropdown
+        source={source}
+        config={{ autocomplete: true }}
+        preset={{ className: 'editable-theme' }}
+      />,
+      host,
+    ),
+  );
+  expect(
+    host
+      .querySelector('.dropdown-container')
+      ?.classList.contains('editable-theme'),
+  ).toBe(true);
   await type(host, 'r');
   await vi.waitFor(() => {
     const popup = document.querySelector('.revo-dropdown-menu.editable-theme');

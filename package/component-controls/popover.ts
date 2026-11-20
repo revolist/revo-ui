@@ -3,5 +3,7 @@ import { Popover as Control } from '../pickers';
 import { registerComponentStyles } from '../core/component-styles';
 import { layoutStyles } from '../component-style-families';
 
-export const Popover: typeof Control =
-  /* @__PURE__ */ registerComponentStyles(Control, layoutStyles);
+export const Popover: typeof Control = /* @__PURE__ */ registerComponentStyles(
+  Control,
+  layoutStyles,
+);

@@ -37,7 +37,15 @@ createApp({
     };
     return () =>
       h('main', [
-        h(Switch, { ...presetProps(theme.components.Switch?.shared), label: 'Vue shared theme', modelValue: themed.value, disabled: false, 'onUpdate:modelValue': (value: boolean) => { themed.value = value; } }),
+        h(Switch, {
+          ...presetProps(theme.components.Switch?.shared),
+          label: 'Vue shared theme',
+          modelValue: themed.value,
+          disabled: false,
+          'onUpdate:modelValue': (value: boolean) => {
+            themed.value = value;
+          },
+        }),
         h(
           'button',
           {

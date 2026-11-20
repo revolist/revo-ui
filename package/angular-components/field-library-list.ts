@@ -7,16 +7,31 @@ import type { AngularInput, AngularCallbackValue } from '../angular-adapter';
 @Component({
   selector: 'rv-field-library-list',
   standalone: true,
-  template: '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
+  template:
+    '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
   host: { style: 'display: contents', ngSkipHydration: 'true' },
 })
-export class FieldLibraryList extends AngularNativeAdapter<'FieldLibraryList', never> {
+export class FieldLibraryList extends AngularNativeAdapter<
+  'FieldLibraryList',
+  never
+> {
   protected readonly rvComponentName = 'FieldLibraryList';
-  protected rvResolveComponent() { return Control; }
-  @NgInput() declare "aria-label"?: AngularInput<'FieldLibraryList', "aria-label">;
-  @NgInput() declare "class"?: AngularInput<'FieldLibraryList', "class">;
-  @NgInput() declare "onChange"?: AngularInput<'FieldLibraryList', "onChange">;
-  @NgInput() declare "title"?: AngularInput<'FieldLibraryList', "title">;
-  @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'FieldLibraryList', 'onChange'>>>('onChange'); }
-  protected rvResolveProps() { return this.rvInputValues; }
+  protected rvResolveComponent() {
+    return Control;
+  }
+  @NgInput() declare 'aria-label'?: AngularInput<
+    'FieldLibraryList',
+    'aria-label'
+  >;
+  @NgInput() declare 'class'?: AngularInput<'FieldLibraryList', 'class'>;
+  @NgInput() declare 'onChange'?: AngularInput<'FieldLibraryList', 'onChange'>;
+  @NgInput() declare 'title'?: AngularInput<'FieldLibraryList', 'title'>;
+  @Output() get changeEvent() {
+    return this.rvOutput<
+      AngularCallbackValue<AngularInput<'FieldLibraryList', 'onChange'>>
+    >('onChange');
+  }
+  protected rvResolveProps() {
+    return this.rvInputValues;
+  }
 }

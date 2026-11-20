@@ -17,8 +17,15 @@ export function PageContents({
       const headings = items
         .map((item) => document.getElementById(item.id))
         .filter((element): element is HTMLElement => !!element);
-      const fragment = headings.find(element => `#${element.id}` === location.hash);
-      if (fragment && window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4 && fragment.getBoundingClientRect().top < window.innerHeight) {
+      const fragment = headings.find(
+        (element) => `#${element.id}` === location.hash,
+      );
+      if (
+        fragment &&
+        window.scrollY + window.innerHeight >=
+          document.documentElement.scrollHeight - 4 &&
+        fragment.getBoundingClientRect().top < window.innerHeight
+      ) {
         setActive(fragment.id);
         return;
       }

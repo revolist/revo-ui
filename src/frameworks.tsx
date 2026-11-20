@@ -1,5 +1,10 @@
 import { DocumentationPage, documentationPage } from './documentation';
-import { frameworkHref, currentRoute, siteHref, componentHref } from './routing';
+import {
+  frameworkHref,
+  currentRoute,
+  siteHref,
+  componentHref,
+} from './routing';
 import { useEffect, useState } from 'preact/hooks';
 import { CdnGuide } from './cdn-guide';
 import { Highlight } from './example-source';
@@ -180,7 +185,8 @@ export function FrameworksPage() {
               automatically. See{' '}
               <a href={frameworkHref('bundle-size')}>Bundle size</a> for
               extracted CSS and selective stylesheets. To customize and share a
-              design, see <a href={frameworkHref('presets')}>Themes and presets</a>.
+              design, see{' '}
+              <a href={frameworkHref('presets')}>Themes and presets</a>.
             </p>
           </section>
           <nav class="framework-jump-links" aria-label="Framework guides">
@@ -215,9 +221,14 @@ export function FrameworksPage() {
                 <Highlight code={guide.code} />
               </pre>
             </details>
-            <nav class="framework-jump-links" aria-label={`${guide.name} related guides`}>
+            <nav
+              class="framework-jump-links"
+              aria-label={`${guide.name} related guides`}
+            >
               {guide.relatedGuides.map((id) => (
-                <a key={id} href={frameworkHref(id)}>{documentationPage(id)?.label}</a>
+                <a key={id} href={frameworkHref(id)}>
+                  {documentationPage(id)?.label}
+                </a>
               ))}
               <a href={frameworkHref('bundle-size')}>Styles and bundle size</a>
               <a href={componentHref('buttons')}>Button examples</a>
