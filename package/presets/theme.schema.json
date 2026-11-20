@@ -1175,7 +1175,7 @@
               ]
             },
             "size": {
-              "enum": ["compact", "default"]
+              "enum": ["compact", "default", "large"]
             },
             "rounded": {
               "type": "boolean"

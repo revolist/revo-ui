@@ -230,3 +230,17 @@ test('pane preview gives its content room inside the frame', async ({
   expect(spacing.left).toBeGreaterThanOrEqual(16);
   expect(spacing.top).toBeGreaterThanOrEqual(16);
 });
+
+test('button size offers one default and a working large option', async ({
+  page,
+}) => {
+  await page.goto('/customize/?component=Button');
+  const editor = page.locator('.theme-editor--standalone');
+  await editor.getByRole('combobox', { name: 'Size', exact: true }).click();
+  await expect(page.getByRole('option', { name: /^default$/i })).toHaveCount(1);
+  await page.getByRole('option', { name: 'large', exact: true }).click();
+  const button = page
+    .getByRole('region', { name: 'Button preview' })
+    .getByRole('button', { name: 'Save', exact: true });
+  await expect(button).toHaveCSS('min-height', '40px');
+});

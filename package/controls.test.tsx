@@ -408,3 +408,10 @@ it('uses rating preset options while honoring explicit values', () => {
   ).toBe(false);
   expect(host.querySelector('.rating-theme')).not.toBeNull();
 });
+
+it('renders large buttons through the shared size contract', () => {
+  const host = mount(<Button size="large">Large action</Button>);
+  expect(host.querySelector('button')?.classList.contains('rv-btn-lg')).toBe(
+    true,
+  );
+});
