@@ -12,19 +12,48 @@
   --rv-ui-radius: 12px;
   --rv-control-radius: 12px;
 }
+// Only the shared action component receives button elevation. Selection and
+// option controls can also carry rv-btn and must retain their own presentation.
 [data-rv-style='raised']
-  :is(.rv-btn, .rv-btn-primary, .rv-btn-secondary, .rv-control):not(
-    :focus-visible
-  ) {
+  .rv-style-action:not(.rv-btn-ghost, .rv-btn-link, :focus-visible) {
   box-shadow:
     inset 0 1px 0 color-mix(in srgb, white 36%, transparent),
     0 2px 3px var(--rv-ui-shadow);
 }
 [data-rv-style='glass']
-  :is(.rv-btn, .rv-btn-secondary, .rv-control):not(:focus-visible) {
-  background-color: color-mix(in srgb, var(--rv-ui-surface) 76%, transparent);
+  .rv-style-action:not(.rv-btn-ghost, .rv-btn-link, :focus-visible) {
   box-shadow:
     inset 0 1px 0 color-mix(in srgb, white 35%, transparent),
     0 2px 8px var(--rv-ui-shadow);
+  backdrop-filter: blur(12px);
+}
+// Keep filled variants' original foreground/background pairs.
+[data-rv-style='glass']
+  .rv-style-action:not(
+    .rv-btn-primary,
+    .rv-btn-solid,
+    .rv-btn-secondary,
+    .rv-btn-danger,
+    .rv-btn-danger-outline,
+    .rv-btn-danger-ghost,
+    .rv-btn-ghost,
+    .rv-btn-link,
+    .rv-btn-tab,
+    :hover,
+    :active,
+    :focus-visible
+  ) {
+  background-color: color-mix(in srgb, var(--rv-ui-surface) 76%, transparent);
+}
+// A muted translucent well reads as inset glass while retaining the focus ring.
+[data-rv-style='glass'] .rv-control:not(:focus) {
+  background-color: color-mix(
+    in srgb,
+    var(--rv-ui-text) 6%,
+    var(--rv-ui-surface)
+  );
+  border-color: color-mix(in srgb, var(--rv-ui-text) 8%, transparent);
+  box-shadow: inset 0 1px 2px
+    color-mix(in srgb, var(--rv-ui-text) 12%, transparent);
   backdrop-filter: blur(12px);
 }
