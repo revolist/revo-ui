@@ -5,6 +5,8 @@ import { attachDateInputMask, parseDateInput } from './keyboard-input';
 import { Input } from '../native-control';
 import {
   formatDateEntry,
+  isValidIsoDate,
+  type ISODateString,
   dateEntryPlaceholder,
   type DateEntryOptions,
 } from '@revolist/ui-dates';
@@ -21,11 +23,13 @@ export function DateControl({
   options = {},
   multiple,
   invalid,
+  required,
   errorId,
   disabled,
   readOnly,
   minDate,
   maxDate,
+  acceptDate,
   onChange,
   onFocus,
 }: {
@@ -34,11 +38,13 @@ export function DateControl({
   options?: DateInputOptions;
   multiple?: boolean;
   invalid?: boolean;
+  required?: boolean;
   disabled?: boolean;
   readOnly?: boolean;
   minDate?: string;
   maxDate?: string;
   errorId?: string;
+  acceptDate?: (date: ISODateString) => boolean;
   onFocus?: () => void;
   onChange: (date: string | string[]) => void;
 }) {
@@ -59,6 +65,7 @@ export function DateControl({
     };
   const [editing, setEditing] = useState(false),
     [draft, setDraft] = useState('');
+  const [rejected, setRejected] = useState(false);
   if (multiple && options.inputMask)
     options = { ...options, inputMask: undefined };
   const separator = options.multipleSeparator?.trim() || ';';
@@ -85,13 +92,15 @@ export function DateControl({
       autoComplete="off"
       spellcheck={false}
       aria-label={label}
-      aria-invalid={invalid || invalidEntry}
+      aria-required={required || undefined}
+      aria-invalid={invalid || invalidEntry || (editing && rejected)}
       aria-describedby={invalid ? errorId : undefined}
       placeholder={options.placeholder ?? dateEntryPlaceholder(options)}
       value={editing ? draft : display}
       onFocus={() => {
         setEditing(true);
         setDraft(display);
+        setRejected(false);
         onFocus?.();
       }}
       onBlur={() => setEditing(false)}
@@ -101,13 +110,18 @@ export function DateControl({
         setDraft(text);
         const parse = (text: string) =>
           parseDateInput(text, options) ?? text.trim();
-        onChange(
-          multiple
-            ? text.trim()
-              ? text.split(separator).map(parse)
-              : []
-            : parse(text),
-        );
+        const next = multiple
+          ? text.trim()
+            ? text.split(separator).map(parse)
+            : []
+          : parse(text);
+        const rejected =
+          acceptDate !== undefined &&
+          typeof next === 'string' &&
+          isValidIsoDate(next) &&
+          !acceptDate(next);
+        setRejected(rejected);
+        if (!rejected) onChange(next);
       }}
     />
   );

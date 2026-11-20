@@ -77,23 +77,13 @@ export const ButtonControl = /* @__PURE__ */ registerControl(
       rounded?: boolean;
     }
   >(({ children, title, preset, ...props }, ref) => {
-    const tooltip = useTitleTooltip<HTMLButtonElement>(
-      typeof title === 'string' ? title : undefined,
-    );
-    const setRef = useCallback(
-      (element: HTMLButtonElement | null) => {
-        tooltip.current = element;
-        if (typeof ref === 'function') ref(element);
-        else if (ref) ref.current = element;
-      },
-      [ref],
-    );
     return nativeNode(
       'button',
       {
         ...props,
         className: [preset?.className, props.className].filter(Boolean).join(' '),
-        ref: setRef,
+        ref,
+        title,
         'aria-label':
           props['aria-label'] ??
           (!children && typeof title === 'string' ? title : undefined),

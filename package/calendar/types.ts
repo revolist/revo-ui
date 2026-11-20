@@ -88,8 +88,9 @@ export interface CalendarProps {
     readonly date: ISODateString;
   }[];
   readonly cellSize?: number;
-  /** Optional instant used only to resolve Today in the requested zone. ISO date values never shift. */
+  /** Overrides the current instant used to resolve Today and the initial month of an empty picker. Defaults to UTC when no timezone is supplied. */
   readonly referenceInstant?: Date;
+  /** IANA timezone used to resolve Today. Uses the current instant by default and leaves ISO selections unchanged. */
   readonly timeZone?: string;
   readonly locale?: string;
   readonly weekStartsOn?: CalendarWeekStart;

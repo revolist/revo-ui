@@ -30,7 +30,7 @@ const defaultSortFunction: SortFunction = (a, b, direction) => {
   return direction === 'asc' ? comparison : -comparison;
 };
 
-function getSelectedOptions<T>(
+export function getSelectedOptions<T>(
   options: DropdownOption<T>[],
   value: T | T[] | undefined,
   multiSelect: boolean,
@@ -59,7 +59,12 @@ export function useDropdownService<T = any>(
   onChange: (value: T | T[]) => void,
   config: DropdownConfig<T> = {},
   onClose?: () => void,
-  remote?: { selected: DropdownOption<T>[]; search: (query: string) => void },
+  remote?: {
+    selected: DropdownOption<T>[];
+    search: (query: string) => void;
+    loading?: boolean;
+  },
+  onCreateOption?: (option: DropdownOption<T>) => void,
 ) {
   // Default configuration
   const {
@@ -87,22 +92,34 @@ export function useDropdownService<T = any>(
     );
   }, [value, options, multiSelect, remote?.selected]);
 
-  // Filter and sort options
+  const createOption = useMemo(() => {
+    const text = searchValue.trim();
+    if (!config.tags || !text || remote?.loading) return undefined;
+    const candidate = config.tags(text);
+    if (
+      !candidate ||
+      candidate.disabled ||
+      options.some(
+        (option) =>
+          option.label.trim().toLocaleLowerCase() ===
+            text.toLocaleLowerCase() ||
+          JSON.stringify(option.value) === JSON.stringify(candidate.value),
+      )
+    )
+      return undefined;
+    return candidate;
+  }, [config.tags, searchValue, options, remote?.loading]);
+
+  // Keep filtering/selection shared by select-only and editable fields.
   const filteredOptions = useMemo(() => {
-    if (remote) return options;
-    let result = [...options];
-
-    // Apply filtering if search is enabled and there's a search value
-    if (search && searchValue) {
-      result = result.filter((option) => filterFunction(option, searchValue));
+    let result = remote ? options : [...options];
+    if (!remote && search && searchValue) {
+      const query = config.tags ? searchValue.trim() : searchValue;
+      result = result.filter((option) => filterFunction(option, query));
     }
-
-    // Apply sorting
-    if (sortDirection !== 'none') {
+    if (!remote && sortDirection !== 'none')
       result.sort((a, b) => sortFunction(a, b, sortDirection));
-    }
-
-    return result;
+    return createOption ? [...result, createOption] : result;
   }, [
     options,
     search,
@@ -111,6 +128,8 @@ export function useDropdownService<T = any>(
     sortDirection,
     sortFunction,
     !!remote,
+    config.tags,
+    createOption,
   ]);
 
   // Reset before the mounted search field can receive its first input.
@@ -119,7 +138,7 @@ export function useDropdownService<T = any>(
     setSearchValue(initialSearch);
   }, [initialSearch]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!filteredOptions.length) {
       setFocusedIndex(-1);
       return;
@@ -173,6 +192,7 @@ export function useDropdownService<T = any>(
   const handleSelect = useCallback(
     (option: DropdownOption<T>) => {
       if (option.disabled) return;
+      if (option === createOption) onCreateOption?.(option);
 
       if (multiSelect) {
         const isSelected = selectedOptions.some(
@@ -197,6 +217,7 @@ export function useDropdownService<T = any>(
         // Don't close dropdown in multiselect mode
         if (autocomplete) {
           setSearchValue('');
+          remote?.search('');
         }
       } else {
         setSelectedOptions([option]);
@@ -207,7 +228,16 @@ export function useDropdownService<T = any>(
         }
       }
     },
-    [multiSelect, selectedOptions, onChange, autocomplete, onClose],
+    [
+      multiSelect,
+      selectedOptions,
+      onChange,
+      autocomplete,
+      onClose,
+      createOption,
+      onCreateOption,
+      remote,
+    ],
   );
 
   // Handle keyboard navigation
@@ -259,12 +289,8 @@ export function useDropdownService<T = any>(
     [filteredOptions, focusedIndex, handleSelect],
   );
 
-  // Handle search input change
-  const handleSearchChange = useCallback(
-    (e: DropdownInputEvent) => {
-      const value = e.currentTarget.value;
-      // Native change can repeat the last input on Enter/blur. Keep the active
-      // result and remote query intact when the text has not changed.
+  const setSearchQuery = useCallback(
+    (value: string) => {
       if (value === searchValue) return;
       userNavigatedRef.current = false;
       setSearchValue(value);
@@ -272,6 +298,12 @@ export function useDropdownService<T = any>(
       setFocusedIndex(-1);
     },
     [remote, searchValue],
+  );
+  const handleSearchChange = useCallback(
+    (event: DropdownInputEvent) => {
+      setSearchQuery(event.currentTarget.value);
+    },
+    [setSearchQuery],
   );
 
   // Check if an option is selected
@@ -288,6 +320,7 @@ export function useDropdownService<T = any>(
   return {
     // State
     searchValue,
+    createOption,
     focusedIndex,
     selectedOptions,
     filteredOptions,
@@ -296,6 +329,7 @@ export function useDropdownService<T = any>(
     handleSelect,
     handleKeyDown,
     handleSearchChange,
+    setSearchQuery,
     isOptionSelected,
     setFocusedIndex,
   };

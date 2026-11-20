@@ -506,3 +506,6 @@ export type {
   TooltipContentContext,
   TooltipPositionOptions,
 } from './core/tooltip-options';
+
+export const LookupField: ReactUiComponent<typeof ui.LookupField> =
+  /* @__PURE__ */ createReactAdapter(ui.LookupField, 'LookupField');

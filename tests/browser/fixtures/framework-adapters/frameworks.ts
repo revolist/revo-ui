@@ -9,6 +9,7 @@ import {
   FieldGroupHeading,
   FieldGroup,
   FieldList,
+  DatePicker,
   Switch,
 } from '@revolist/ui/react';
 import { presetProps } from '@revolist/ui/presets';
@@ -30,6 +31,13 @@ function ReactHarness() {
     h('button', { onClick: () => setMounted(!mounted) }, 'Toggle React'),
     h(Switch, { ...presetProps(theme.components.Switch?.shared), label: 'React shared theme', checked: themed, disabled: false, onChange: setThemed }),
     h('output', { 'data-react-value': '' }, value),
+    h(DatePicker, {
+      label: 'React custom date',
+      openLabel: 'Choose React custom date',
+      defaultValue: '2024-03-01',
+      dateInput: false,
+      renderTrigger: (props) => h('button', props),
+    }),
     h(
       FieldGroup,
       { heading: h('strong', null, 'React configurator heading') },

@@ -1,0 +1,31 @@
+{
+  "name": "revo-ui-react-router-example",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "react-router dev --host 127.0.0.1",
+    "build": "react-router build",
+    "start": "react-router-serve build/server/index.js",
+    "check": "react-router typegen && tsc --noEmit"
+  },
+  "dependencies": {
+    "@revolist/ui": "4.0.25",
+    "react": "19.2.5",
+    "react-dom": "19.2.5",
+    "react-router": "8.5.1",
+    "@react-router/node": "8.5.1",
+    "@react-router/serve": "8.5.1",
+    "isbot": "5.2.3"
+  },
+  "devDependencies": {
+    "typescript": "6.0.3",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.3",
+    "@types/node": "22.19.17",
+    "@react-router/dev": "8.5.1",
+    "vite": "8.3.8"
+  },
+  "engines": {
+    "node": ">=24.15.0"
+  }
+}

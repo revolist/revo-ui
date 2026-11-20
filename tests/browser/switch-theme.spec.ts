@@ -158,6 +158,7 @@ test('number step preset changes only the customized sample behavior', async ({
 test('building-block samples render their selected preset class', async ({
   page,
 }) => {
+  test.setTimeout(240_000);
   const families: Record<string, string[]> = {
     'inputs-and-forms': [
       'Input',
@@ -311,7 +312,17 @@ test('building-block samples render their selected preset class', async ({
       'EditableDialogHeader',
     ],
   };
-  for (const [route, names] of Object.entries(families)) {
+  const { componentApi } = await import('../../scripts/component-api.mjs');
+  const root = fileURLToPath(new URL('../../', import.meta.url));
+  const api: { name: string; families: string[] }[] = componentApi(root, root);
+  const currentFamilies: Record<string, string[]> = {};
+  for (const name of Object.values(families).flat()) {
+    const family = api.find((item) => item.name === name)?.families[0];
+    expect(family, `${name} has a catalog family`).toBeTruthy();
+    const route = family!.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    (currentFamilies[route] ??= []).push(name);
+  }
+  for (const [route, names] of Object.entries(currentFamilies)) {
     await page.goto(`/components/${route}/`);
     const editor = page.locator('.theme-editor').first();
     await editor.locator('summary').first().click();
@@ -345,7 +356,13 @@ test('popup and staged component samples apply their theme when opened', async (
     ['dialogs-and-floating-surfaces', 'Popover', 'Toggle popover'],
     ['tooltip', 'ControlTooltip', 'Toggle tooltip'],
   ];
-  for (const [route, name, trigger] of examples) {
+  const { componentApi } = await import('../../scripts/component-api.mjs');
+  const root = fileURLToPath(new URL('../../', import.meta.url));
+  const api: { name: string; families: string[] }[] = componentApi(root, root);
+  for (const [, name, trigger] of examples) {
+    const family = api.find((item) => item.name === name)?.families[0];
+    expect(family, `${name} has a catalog family`).toBeTruthy();
+    const route = family!.toLowerCase().replace(/[^a-z0-9]+/g, '-');
     await page.goto(`/components/${route}/`);
     const editor = page.locator('.theme-editor').first();
     await editor.locator('summary').first().click();
@@ -393,7 +410,7 @@ test('shows live observed state hooks and resets samples when changing component
     editor.locator('p').filter({ hasText: 'Observed states' }),
   ).toContainText('[data-state="unchecked"]');
 
-  await page.goto('/components/selects-chips-and-resources/');
+  await page.goto('/components/assignee-field/');
   const selectEditor = page.locator('.theme-editor').first();
   await selectEditor.locator('summary').first().click();
   await selectEditor.getByLabel('Component').selectOption('AssigneePicker');

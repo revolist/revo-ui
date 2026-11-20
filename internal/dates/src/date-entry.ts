@@ -1,5 +1,4 @@
-import { isValidIsoDate, type ISODateString } from './iso';
-import { formatDisplayCalendarDate } from './display-calendar';
+import { isValidIsoDate, parseIsoDate, type ISODateString } from './iso';
 export interface DateEntryOptions {
   /** Numeric Gregorian input; ISO is accepted in every mode. */
   format?: 'iso' | 'eu' | 'us' | 'locale';
@@ -14,14 +13,27 @@ function localeFor(options: DateEntryOptions) {
       ? 'en-US'
       : options.locale;
 }
-function parts(options: DateEntryOptions) {
-  return new Intl.DateTimeFormat(localeFor(options), {
+function parts(options: DateEntryOptions, date = '2006-11-22') {
+  const fields = new Intl.DateTimeFormat(localeFor(options), {
     calendar: 'gregory',
     timeZone: 'UTC',
     day: '2-digit',
     month: '2-digit',
     year: 'numeric',
-  }).formatToParts(new Date('2006-11-22T00:00:00Z'));
+  }).formatToParts(parseIsoDate(date));
+  // Keep ISO unambiguous where the locale uses the same dash pattern with day first.
+  if (
+    fields
+      .map((part) => (part.type === 'literal' ? part.value : part.type))
+      .join('') === 'year-day-month'
+  )
+    return fields.map((part) =>
+      part.type === 'literal' ? { ...part, value: '/' } : part,
+    );
+  return fields;
+}
+function normalizeEntry(value: string): string {
+  return value.normalize('NFKC').replace(/[\u200e\u200f\u061c]/g, '');
 }
 export function dateEntryPlaceholder(options: DateEntryOptions = {}): string {
   if (!options.format || options.format === 'iso') return 'YYYY-MM-DD';
@@ -44,15 +56,15 @@ export function formatDateEntry(
   if (!isValidIsoDate(date)) return date;
   if (options.formatValue) return options.formatValue(date);
   if (!options.format || options.format === 'iso') return date;
-  return formatDisplayCalendarDate(
-    date,
-    localeFor(options) ?? new Intl.DateTimeFormat().resolvedOptions().locale,
-    {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-    },
-  );
+  const fields = parts(options, date);
+  if (!date.startsWith('0')) return fields.map((part) => part.value).join('');
+  const year = new Intl.NumberFormat(localeFor(options), {
+    useGrouping: false,
+    minimumIntegerDigits: 4,
+  }).format(Number(date.slice(0, 4)));
+  return fields
+    .map((part) => (part.type === 'year' ? year : part.value))
+    .join('');
 }
 /** Strict civil parsing; never rely on Date's rollover or ambiguous string parser. */
 export function parseDateEntry(
@@ -66,14 +78,27 @@ export function parseDateEntry(
     return isValidIsoDate(parsed) ? parsed : undefined;
   }
   if (!options.format || options.format === 'iso') return;
-  let normalized = value.normalize('NFKC').replace(/[\u200e\u200f\u061c]/g, '');
+  let normalized = normalizeEntry(value).trim();
   const numbers = new Intl.NumberFormat(localeFor(options), {
     useGrouping: false,
   });
   for (let digit = 0; digit < 10; digit++)
-    normalized = normalized.split(numbers.format(digit)).join(String(digit));
-  const values = normalized.split(/[./\-\s]+/);
-  const order = parts(options).filter((part) =>
+    normalized = normalized
+      .split(normalizeEntry(numbers.format(digit)))
+      .join(String(digit));
+  const pattern = parts(options);
+  const localizedPattern = pattern
+    .map((part) => {
+      if (part.type !== 'literal') return '(\\d{1,4})';
+      return normalizeEntry(part.value)
+        .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+        .replace(/\s+/g, '\\s*');
+    })
+    .join('');
+  const values =
+    new RegExp(`^${localizedPattern}$`).exec(normalized)?.slice(1) ??
+    normalized.split(/[./\-\s]+/);
+  const order = pattern.filter((part) =>
     ['year', 'month', 'day'].includes(part.type),
   );
   if (values.length !== 3 || values.some((value) => !/^\d{1,4}$/.test(value)))

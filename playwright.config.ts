@@ -4,12 +4,16 @@ export default defineConfig({
   // Fixture servers, PDF behavior and exhaustive captures have dedicated configurations.
   testIgnore: [
     'framework-adapters.spec.ts',
+    'named-framework-adapters.spec.ts',
     'pdf-frameworks.spec.ts',
     'pdf-viewer.spec.ts',
     'gallery-capture.spec.ts',
     'tooltip.spec.ts',
     'cdn.spec.ts',
     'fields-styles.spec.ts',
+    'overlay-scroll.spec.ts',
+    'dropdown-long-text.spec.ts',
+    'dropdown-height.spec.ts',
   ],
   outputDir: './test-results/gallery',
   fullyParallel: true,

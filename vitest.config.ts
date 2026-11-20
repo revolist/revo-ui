@@ -8,6 +8,8 @@ export default defineConfig({
     fs: {
       allow: [
         searchForWorkspaceRoot(import.meta.dirname),
+        // Worker URL imports resolve through pnpm's shared dependency store.
+        realpathSync(resolve(import.meta.dirname, 'node_modules/pdfjs-dist')),
         realpathSync(
           resolve(
             import.meta.dirname,

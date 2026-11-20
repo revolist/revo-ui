@@ -42,6 +42,7 @@ jobs:
         run: |
           node --test scripts/browser-ci.test.mjs
           pnpm test:api
+          pnpm check:framework-components
           pnpm test:docs
           pnpm test:discovery
       - name: Build gallery fixtures
@@ -53,6 +54,7 @@ jobs:
       - name: Test framework adapters and tooltip behavior
         run: |
           pnpm test:frameworks
+          pnpm test:named-frameworks
           pnpm test:tooltips
           pnpm test:cdn
           pnpm test:fields-styles

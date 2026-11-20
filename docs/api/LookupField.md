@@ -1,8 +1,8 @@
 # LookupField
 
-Search remote records and apply linked-record selections.
+Single and multiple selects, editable autocomplete, optional tags and remote record lookup.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/components/remote-lookup-field/) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/multi-selects-autocomplete/) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { LookupField } from '@revolist/ui/dropdown/lookup-field'`
 

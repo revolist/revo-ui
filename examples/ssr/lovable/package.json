@@ -1,0 +1,27 @@
+{
+  "name": "revo-ui-lovable-example",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc --noEmit && vite build",
+    "start": "vite preview --host 127.0.0.1",
+    "check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@revolist/ui": "4.0.25",
+    "react": "19.2.5",
+    "react-dom": "19.2.5"
+  },
+  "devDependencies": {
+    "typescript": "6.0.3",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.3",
+    "@types/node": "22.19.17",
+    "vite": "8.3.8",
+    "@vitejs/plugin-react": "6.3.0"
+  },
+  "engines": {
+    "node": ">=24.15.0"
+  }
+}

@@ -71,9 +71,18 @@ test('fixture suites retain dedicated, disjoint browser ownership', () => {
       'playwright.framework-adapters.config.ts',
       ['framework-adapters.spec.ts', 'pdf-frameworks.spec.ts'],
     ],
+    ['playwright.named-frameworks.config.ts', ['named-framework-adapters.spec.ts']],
     ['playwright.tooltip.config.ts', ['tooltip.spec.ts']],
     ['playwright.cdn.config.ts', ['cdn.spec.ts']],
-    ['playwright.fields-styles.config.ts', ['fields-styles.spec.ts']],
+    [
+      'playwright.fields-styles.config.ts',
+      [
+        'fields-styles.spec.ts',
+        'overlay-scroll.spec.ts',
+        'dropdown-long-text.spec.ts',
+        'dropdown-height.spec.ts',
+      ],
+    ],
   ];
   for (const [config, names] of fixtures) {
     const cases = inventory(config);

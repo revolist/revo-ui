@@ -27,7 +27,7 @@ test('documents every catalog component and maps it to a live family', () => {
   }
   assert.ok(component('HtmlEditor').families.includes('HTML Editor'));
   assert.ok(
-    component('Select').families.includes('Selects, chips and resources'),
+    component('Select').families.includes('Multi/selects, autocomplete'),
   );
 });
 
@@ -237,6 +237,22 @@ test('registered Select preserves documented value and selection contracts', () 
   );
 });
 
+test('date/time APIs use their field family as canonical and also expose time pickers', () => {
+  for (const name of ['DateTimeField', 'TemporalPicker', 'TemporalDraft']) {
+    assert.deepEqual(component(name).families, [
+      'Date and time fields',
+      'Time pickers',
+    ]);
+    const reference = readFileSync(
+      resolve(gallery, `docs/api/${name}.md`),
+      'utf8',
+    );
+    assert.match(
+      reference,
+      /\[Live examples and formatted usage\]\(https:\/\/ui\.rv-grid\.com\/components\/date-and-time-fields\/\)/,
+    );
+  }
+});
 test('every documented component has a portable preset contract and schema entry', () => {
   const schema = JSON.parse(
     readFileSync(resolve(gallery, 'package/presets/theme.schema.json'), 'utf8'),

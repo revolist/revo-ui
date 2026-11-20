@@ -61,3 +61,24 @@ describe('popup content ownership', () => {
     }
   });
 });
+
+it.each(['popover', 'fallback'] as const)(
+  'uses shared viewport positioning for %s surfaces',
+  (mode) => {
+    const popup = Object.assign(document.createElement('div'), {
+      showPopover: vi.fn(() => {
+        if (mode === 'fallback') throw new Error('unsupported');
+      }),
+    });
+    popup.style.cssText =
+      'position:absolute;margin:20px;right:0;bottom:0;top:123px;left:45px';
+    expect(showTopLayerPopup(popup)).toBe(mode);
+    expect(popup.style.position).toBe('fixed');
+    expect(popup.style.margin).toBe('0px');
+    expect(popup.style.right).toBe('auto');
+    expect(popup.style.bottom).toBe('auto');
+    expect(popup.style.top).toBe('123px');
+    expect(popup.style.left).toBe('45px');
+    hideTopLayerPopup(popup, mode);
+  },
+);

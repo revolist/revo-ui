@@ -130,3 +130,42 @@ test('prompt icon controls expose busy, stop and disabled states', async ({
     .poll(async () => (await cancellable.boundingBox())!.height)
     .toBe(initialHeight);
 });
+
+test('long suggestions stay inside the composer and remain usable', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 900 });
+  await page.goto('/#ai-assistant');
+  const example = page.locator('.catalog-example').filter({
+    has: page.getByRole('heading', { name: 'Chat UI', exact: true }),
+  });
+  const composer = example.locator('.rv-ai-prompt-composer');
+  const buttons = composer.locator('.rv-ai-suggestion');
+  const originalLabel = await buttons.first().textContent();
+  const labels = [
+    'Leave any unspecified fields blank; provide only the values that were explicitly supplied in the request.',
+    'A'.repeat(160),
+  ];
+  for (let i = 0; i < labels.length; i++) {
+    await buttons.nth(i).evaluate((button, label) => {
+      button.textContent = label;
+    }, labels[i]);
+  }
+  for (const button of await buttons.all()) {
+    const box = (await button.boundingBox())!;
+    const container = (await composer.boundingBox())!;
+    expect(box.x).toBeGreaterThanOrEqual(container.x);
+    expect(box.x + box.width).toBeLessThanOrEqual(
+      container.x + container.width,
+    );
+    expect(
+      await button.evaluate(
+        (element) => element.scrollWidth <= element.clientWidth,
+      ),
+    ).toBe(true);
+  }
+  await buttons.first().click();
+  await expect(example.locator('.rv-ai-message--user').last()).toHaveText(
+    originalLabel!,
+  );
+});

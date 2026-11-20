@@ -1,5 +1,4 @@
 import { expect, test } from '@playwright/test';
-import { chooseOption } from './choose-option';
 
 for (const width of [390, 1280]) {
   for (const theme of ['light', 'dark']) {
@@ -8,15 +7,23 @@ for (const width of [390, 1280]) {
     }) => {
       await page.setViewportSize({ width, height: 1000 });
       await page.goto('/');
-      await chooseOption(
-        page.getByRole('button', { name: 'Theme', exact: true }),
-        theme === 'dark' ? 'Dark' : 'Light',
-      );
+      if (theme === 'dark') {
+        if (width <= 1200)
+          await page
+            .getByRole('button', { name: 'More gallery options' })
+            .click();
+        await page.getByRole('button', { name: 'Theme', exact: true }).click();
+        if (width <= 1200)
+          await page
+            .getByRole('button', { name: 'More gallery options' })
+            .click();
+      }
       const invitation = page.locator('.home-star-invitation');
       await expect(invitation).toBeVisible();
-      await expect(invitation).toContainText('Revo UI is new here.');
+      await expect(invitation.locator('video')).toHaveCount(1);
+      await expect(page.getByText('Revo UI is new here.')).toHaveCount(0);
       const link = invitation.getByRole('link', {
-        name: 'Star on GitHub',
+        name: 'Star me',
         exact: true,
       });
       await expect(link).toHaveAttribute(

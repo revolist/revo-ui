@@ -210,15 +210,9 @@ test('compact header keeps settings behind an overflow button', async ({
   await expect(
     page.getByRole('button', { name: 'Theme', exact: true }),
   ).toHaveAttribute('aria-pressed', 'true');
-  // Escape dismisses the innermost layer before the containing menu.
-  const tooltip = page.getByRole('tooltip');
-  await expect(tooltip).toBeVisible();
-  await page.keyboard.press('Escape');
-  await expect(tooltip).toBeHidden();
-  await expect(more).toHaveAttribute('aria-expanded', 'true');
-  await expect(
-    page.getByRole('button', { name: 'Theme', exact: true }),
-  ).toBeVisible();
+  // An explicit native title does not add a custom tooltip layer.
+  await expect(page.getByRole('button', { name: 'Theme', exact: true })).toHaveAttribute('title', 'Switch to light theme');
+  await expect(page.getByRole('tooltip')).toHaveCount(0);
   await page.keyboard.press('Escape');
   await expect(more).toHaveAttribute('aria-expanded', 'false');
   await expect(more).toBeFocused();
@@ -309,12 +303,12 @@ test('Weekly time grid is a standalone gallery component', async ({ page }) => {
   ).toHaveCount(0);
 });
 
-test('duration and remote lookup have independent gallery pages', async ({
+test('duration has its own page and remote lookup belongs with selects', async ({
   page,
 }) => {
-  for (const [route, title, component] of [
-    ['duration-and-effort', 'Duration and effort', 'DurationField'],
-    ['remote-lookup-field', 'Remote lookup field', 'LookupField'],
+  for (const [route, title, component, example] of [
+    ['duration-and-effort', 'Duration and effort', 'DurationField', 'Duration and effort'],
+    ['multi-selects-autocomplete', 'Multi/selects, autocomplete', 'LookupField', 'Remote lookup field'],
   ]) {
     await page.goto(`/components/${route}/`);
     await expect(
@@ -323,7 +317,7 @@ test('duration and remote lookup have independent gallery pages', async ({
     await expect(
       page
         .getByRole('navigation', { name: 'Component page contents' })
-        .getByRole('link', { name: title, exact: true }),
+        .getByRole('link', { name: example, exact: true }),
     ).toBeVisible();
     await page.goto(`/api/${component.toLowerCase()}/`);
     await expect(

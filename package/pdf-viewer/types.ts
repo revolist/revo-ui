@@ -1,4 +1,4 @@
-import type { DocumentInitParameters } from 'pdfjs-dist/types/src/display/api';
+import type { DocumentInitParameters } from 'pdfjs-dist/types/src/display/api.js';
 
 export type PdfSource = string | Uint8Array | ArrayBuffer | Blob;
 export type PdfZoom = number | 'page-width' | 'page-fit';
@@ -26,8 +26,8 @@ export interface PdfViewerState {
   error: Error | null;
 }
 export interface PdfViewerOptions {
-  /** URL of the matching pdfjs-dist/build/pdf.worker.min.mjs, served by your app. */
-  workerSrc: string;
+  /** Override the bundled matching PDF.js worker with a module worker URL. */
+  workerSrc?: string;
   /** PDF.js localization service for page accessibility and annotation content. */
   l10n?: ConstructorParameters<
     typeof import('pdfjs-dist/web/pdf_viewer.mjs').PDFViewer

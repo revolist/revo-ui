@@ -1,3 +1,4 @@
+import { applyPopupPosition } from '../core/popup-position';
 import { inheritUiMotion } from '../core/motion';
 import { statusFeedbackSize } from './placement';
 import { animateStatusFeedback } from './motion';
@@ -67,7 +68,10 @@ export class StatusFeedbackPopoverController {
   private readonly onToggle = (event: Event): void => {
     // Moving a live host during a framework/grid patch can close its native
     // popover. Restore promotion while the owner still wants the panel open.
-    if (this.mode === 'popover' && (event as ToggleEvent).newState === 'closed') {
+    if (
+      this.mode === 'popover' &&
+      (event as ToggleEvent).newState === 'closed'
+    ) {
       this.mode = undefined;
       this.refresh();
     }
@@ -172,14 +176,14 @@ export class StatusFeedbackPopoverController {
       { width: view.innerWidth, height: view.innerHeight },
       0,
     );
-    panel.style.left = `${location.left}px`;
-    const top = this.options.placement === 'above'
-      ? Math.min(
-          Math.max(8, target.top - panel.offsetHeight),
-          Math.max(8, view.innerHeight - panel.offsetHeight - 8),
-        )
-      : location.top;
-    panel.style.top = `${top}px`;
+    const top =
+      this.options.placement === 'above'
+        ? Math.min(
+            Math.max(8, target.top - panel.offsetHeight),
+            Math.max(8, view.innerHeight - panel.offsetHeight - 8),
+          )
+        : location.top;
+    applyPopupPosition(panel, { left: location.left, top });
     if (opening) {
       this.animation?.cancel();
       this.animation = animateStatusFeedback(

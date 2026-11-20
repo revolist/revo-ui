@@ -1,12 +1,14 @@
 /** @jsxImportSource preact */
 import { h } from 'preact';
-import { useMemo, useRef, useState } from 'preact/hooks';
+import { useLayoutEffect, useMemo, useRef, useState } from 'preact/hooks';
 import {
   addDays,
   addDisplayMonths,
+  compareIsoDates,
+  displayYearMonths,
+  isValidIsoDate,
   startOfDisplayMonth,
   formatDisplayCalendarDate,
-  formatIsoDateInTimeZone,
   displayWeekNumber,
   getUtcWeekday,
   type ISODateString,
@@ -22,10 +24,28 @@ import {
   moveCalendarFocus,
 } from './model';
 import { CalendarMonthGrid } from './month-grid';
+import {
+  MAX_CALENDAR_DATE,
+  MIN_CALENDAR_DATE,
+  resolveCalendarReferenceDate,
+} from './reference-date';
+import {
+  getCalendarSelectionError,
+  getCalendarViews,
+} from './selection-validation';
 import { DEFAULT_CALENDAR_TRANSLATIONS } from './translations';
 import type { CalendarProps, CalendarView } from './types';
 import { CalendarYearGrid } from './year-grid';
-const SUNDAY = '2026-08-02' as ISODateString;
+const DAY_NAVIGATION_KEYS = [
+  'ArrowLeft',
+  'ArrowRight',
+  'ArrowUp',
+  'ArrowDown',
+  'Home',
+  'End',
+  'PageUp',
+  'PageDown',
+];
 
 export function Calendar(input: CalendarProps) {
   const defaults = input.preset?.props;
@@ -64,20 +84,10 @@ function renderCalendar({
     1,
     Math.min(12, Math.trunc(props.numberOfMonths || 1)),
   );
-  const availableViews = useMemo<readonly CalendarView[]>(() => {
-    const values = props.views
-      ? [
-          ...new Set(
-            props.views.filter(
-              (value) => value === 'month' || value === 'year',
-            ),
-          ),
-        ]
-      : enableYearView
-        ? (['month', 'year'] as const)
-        : (['month'] as const);
-    return values.length ? values : ['month'];
-  }, [props.views, enableYearView]);
+  const availableViews = useMemo(
+    () => getCalendarViews({ views: props.views, enableYearView }),
+    [props.views, enableYearView],
+  );
   const [requestedView, setView] = useState<CalendarView>(
     props.defaultView && availableViews.includes(props.defaultView)
       ? props.defaultView
@@ -87,28 +97,36 @@ function renderCalendar({
     ? requestedView
     : availableViews[0];
   const month = startOfDisplayMonth(props.month, system);
+  const [domainStart, domainEnd] = useMemo(
+    () => [
+      startOfDisplayMonth(MIN_CALENDAR_DATE, system),
+      startOfDisplayMonth(MAX_CALENDAR_DATE, system),
+    ],
+    [system],
+  );
   const months = useMemo(
     () =>
       Array.from({ length: count }, (_, index) =>
         addDisplayMonths(month, index, system),
-      ),
-    [month, count, system],
+      ).filter((date) => compareIsoDates(date, domainEnd) <= 0),
+    [month, count, system, domainEnd],
   );
   const displayed = props.reverseMonths ? [...months].reverse() : months;
-  const weekdays = useMemo(
-    () =>
-      Array.from({ length: 7 }, (_, index) =>
-        addDays(SUNDAY, (weekStartsOn + index) % 7),
-      ),
-    [weekStartsOn],
-  );
-  const referenceDate =
-    props.referenceDate ??
-    (props.referenceInstant
-      ? formatIsoDateInTimeZone(props.referenceInstant, props.timeZone ?? 'UTC')
-      : undefined);
+  const weekdays = useMemo(() => {
+    const firstDay = isValidIsoDate(month) ? month : MIN_CALENDAR_DATE;
+    const offset = (weekStartsOn - getUtcWeekday(firstDay) + 7) % 7;
+    return Array.from({ length: 7 }, (_, index) =>
+      addDays(firstDay, offset + index),
+    );
+  }, [month, weekStartsOn]);
+  const referenceDate = resolveCalendarReferenceDate(props);
   const dayRefs = useRef(new Map<ISODateString, HTMLButtonElement>());
+  const calendarRoot = useRef<HTMLDivElement>(null);
+  const focusedDay = useRef<HTMLButtonElement | null>(null);
   const requestFocus = useRef(false);
+  const monthCaptionRefs = useRef(new Map<number, HTMLButtonElement>());
+  const viewTriggerIndex = useRef<number>();
+  const requestViewFocus = useRef<'caption' | 'day'>();
   const text = { ...DEFAULT_CALENDAR_TRANSLATIONS, ...translations };
   const monthDisabled = (candidate: ISODateString) =>
     isCalendarMonthDisabled(candidate, {
@@ -120,29 +138,27 @@ function renderCalendar({
   const navigationStart = [props.startMonth, props.minDate]
     .filter((date): date is ISODateString => Boolean(date))
     .map((date) => startOfDisplayMonth(date, system))
-    .sort()
+    .sort(compareIsoDates)
     .at(-1);
   const navigationEnd = [props.endMonth, props.maxDate]
     .filter((date): date is ISODateString => Boolean(date))
     .map((date) => startOfDisplayMonth(date, system))
-    .sort()
+    .sort(compareIsoDates)
     .at(0);
+  const firstMonth = navigationStart ?? domainStart;
+  const lastMonth = navigationEnd ?? domainEnd;
   const navDisabled = (candidate: ISODateString) =>
     Boolean(
       props.disableNavigation ||
-      monthDisabled(candidate) ||
-      (navigationStart && candidate < navigationStart) ||
-      (navigationEnd && candidate > navigationEnd),
+      compareIsoDates(candidate, firstMonth) < 0 ||
+      compareIsoDates(candidate, lastMonth) > 0,
     );
+  const yearMonthDisabled = (candidate: ISODateString) =>
+    navDisabled(candidate) || monthDisabled(candidate);
   const navigationMonth = (candidate: ISODateString, windowCount = count) => {
-    let last = navigationEnd
-      ? addDisplayMonths(navigationEnd, 1 - windowCount, system)
-      : undefined;
-    if (last && navigationStart && last < navigationStart)
-      last = navigationStart;
-    if (last && candidate > last) candidate = last;
-    if (navigationStart && candidate < navigationStart)
-      candidate = navigationStart;
+    const last = addDisplayMonths(lastMonth, 1 - windowCount, system);
+    if (compareIsoDates(candidate, last) > 0) candidate = last;
+    if (compareIsoDates(candidate, firstMonth) < 0) candidate = firstMonth;
     return candidate;
   };
   // One evaluation per date per render, shared by focus fallback and visible cells.
@@ -161,6 +177,7 @@ function renderCalendar({
     return disabled;
   };
   const focusTarget =
+    isValidIsoDate(props.focusedDate) &&
     months.includes(startOfDisplayMonth(props.focusedDate, system)) &&
     !isDisabled(props.focusedDate)
       ? props.focusedDate
@@ -170,9 +187,48 @@ function renderCalendar({
           )
           .find(
             (date) =>
+              isValidIsoDate(date) &&
               months.includes(startOfDisplayMonth(date, system)) &&
               !isDisabled(date),
           ) ?? props.focusedDate);
+  useLayoutEffect(() => {
+    // A constraint can disable the focused outside day without moving the tab stop.
+    const previous = focusedDay.current;
+    if (
+      !previous ||
+      view !== 'month' ||
+      (previous.isConnected && !previous.disabled)
+    )
+      return;
+    const document = previous.ownerDocument;
+    if (
+      document.activeElement !== previous &&
+      document.activeElement !== document.body
+    )
+      return;
+    const next = dayRefs.current.get(focusTarget);
+    const target =
+      next && !next.disabled
+        ? next
+        : (calendarRoot.current?.querySelector<HTMLButtonElement>(
+            '.revo-calendar__header button:not([disabled])',
+          ) ?? calendarRoot.current);
+    target?.focus({ preventScroll: true });
+  });
+  useLayoutEffect(() => {
+    const requested = requestViewFocus.current;
+    if (view !== 'month' || !requested) return;
+    requestViewFocus.current = undefined;
+    const caption = monthCaptionRefs.current.get(viewTriggerIndex.current ?? 0);
+    viewTriggerIndex.current = undefined;
+    const day = dayRefs.current.get(focusTarget);
+    const enabledDay = day && !day.disabled ? day : undefined;
+    const target =
+      requested === 'day' ? (enabledDay ?? caption) : (caption ?? enabledDay);
+    target?.focus({
+      preventScroll: true,
+    });
+  }, [view, focusTarget]);
   const changeView = (next: CalendarView) => {
     if (next !== view && availableViews.includes(next)) {
       setView(next);
@@ -180,22 +236,20 @@ function renderCalendar({
     }
   };
   const selectDate = (date: ISODateString, commit = props.onSelect) => {
-    if (isDisabled(date)) {
-      props.onInvalidSelection?.(text.invalidSelection, date);
-      return false;
-    }
-    const result = props.validateSelection?.(date, {
-      month,
-      view,
-      selection: props.selection,
-      preview: props.preview,
-      referenceDate,
-    });
-    if (result === false || typeof result === 'string') {
-      props.onInvalidSelection?.(
-        typeof result === 'string' ? result : text.invalidSelection,
-        date,
-      );
+    const error = getCalendarSelectionError(
+      { translations, validateSelection: props.validateSelection },
+      date,
+      {
+        month,
+        view,
+        selection: props.selection,
+        preview: props.preview,
+        referenceDate,
+      },
+      isDisabled(date),
+    );
+    if (error !== undefined) {
+      props.onInvalidSelection?.(error, date);
       return false;
     }
     commit(date);
@@ -216,6 +270,8 @@ function renderCalendar({
     event: h.JSX.TargetedKeyboardEvent<HTMLButtonElement>,
     date: ISODateString,
   ) => {
+    if (!DAY_NAVIGATION_KEYS.includes(event.key)) return;
+    event.preventDefault();
     const direction =
       props.dir ??
       (event.currentTarget.ownerDocument.defaultView?.getComputedStyle(
@@ -235,7 +291,6 @@ function renderCalendar({
       calendarSystem: system,
     });
     if (!next) return;
-    event.preventDefault();
     const target = startOfDisplayMonth(next, system);
     if (!months.includes(target) && navDisabled(target)) return;
     requestFocus.current = true;
@@ -258,15 +313,24 @@ function renderCalendar({
       system,
     );
   const isYearView = view === 'year';
-  const step = isYearView ? 12 : props.pagedNavigation ? count : 1;
-  const previousMonth = navigationMonth(
-      addDisplayMonths(month, -step, system),
-      isYearView ? 1 : count,
-    ),
-    nextMonth = navigationMonth(
-      addDisplayMonths(month, step, system),
-      isYearView ? 1 : count,
+  const yearNavigationTarget = (offset: number) => {
+    const candidate = navigationMonth(
+      addDisplayMonths(month, offset, system),
+      1,
     );
+    const yearMonths = displayYearMonths(candidate, system);
+    if (yearMonths.includes(month)) return;
+    return yearMonthDisabled(candidate)
+      ? (yearMonths.find((date) => !yearMonthDisabled(date)) ?? candidate)
+      : candidate;
+  };
+  const step = props.pagedNavigation ? count : 1;
+  const previousMonth = isYearView
+    ? yearNavigationTarget(-12)
+    : navigationMonth(addDisplayMonths(month, -step, system));
+  const nextMonth = isYearView
+    ? yearNavigationTarget(12)
+    : navigationMonth(addDisplayMonths(month, step, system));
   const navigateTo = (
     date: ISODateString,
     windowCount = isYearView ? 1 : count,
@@ -283,7 +347,28 @@ function renderCalendar({
   };
   return (
     <div
+      ref={calendarRoot}
+      tabIndex={-1}
       class={`revo-calendar${props.showWeekNumber ? ' revo-calendar--week-numbers' : ''}${props.className ? ` ${props.className}` : ''}${props.preset?.className ? ` ${props.preset.className}` : ''}`}
+      onFocusCapture={(event) => {
+        const element = event.target as HTMLButtonElement;
+        focusedDay.current = element.hasAttribute('data-calendar-date')
+          ? element
+          : null;
+      }}
+      onBlurCapture={(event) => {
+        const element = focusedDay.current;
+        if (!element || element !== event.target) return;
+        if (event.relatedTarget) focusedDay.current = null;
+        else
+          queueMicrotask(() => {
+            if (
+              focusedDay.current === element &&
+              element.ownerDocument.activeElement !== element
+            )
+              focusedDay.current = null;
+          });
+      }}
       data-part="root"
       dir={props.dir}
       style={
@@ -294,11 +379,7 @@ function renderCalendar({
     >
       <div class="revo-calendar__months" data-part="months">
         {(isYearView ? [month] : displayed).map((candidate, index) => (
-          <section
-            class="revo-calendar__month-panel"
-            data-part="month"
-            key={candidate}
-          >
+          <section class="revo-calendar__month-panel" data-part="month" key={index}>
             {showHeader && (
               <CalendarHeader
                 label={
@@ -346,21 +427,36 @@ function renderCalendar({
                   availableViews.includes('year')
                     ? {
                         ariaLabel: `${text.chooseMonth}: ${monthLabel(candidate)}`,
-                        onClick: () => changeView('year'),
+                        onClick: () => {
+                          viewTriggerIndex.current = index;
+                          changeView('year');
+                        },
+                        ref: (element) => {
+                          if (element)
+                            monthCaptionRefs.current.set(index, element);
+                          else monthCaptionRefs.current.delete(index);
+                        },
                       }
                     : undefined
                 }
                 showLabel={showMonthLabel}
                 showPrevious={showPreviousButton && index === 0}
                 showNext={
-                  showNextButton && index === (isYearView ? 0 : count - 1)
+                  showNextButton &&
+                  index === (isYearView ? 0 : displayed.length - 1)
                 }
                 previousDisabled={
-                  previousMonth >= month || navDisabled(previousMonth)
+                  !previousMonth ||
+                  compareIsoDates(previousMonth, month) >= 0 ||
+                  navDisabled(previousMonth)
                 }
-                nextDisabled={nextMonth <= month || navDisabled(nextMonth)}
-                onPrevious={() => navigateTo(previousMonth)}
-                onNext={() => navigateTo(nextMonth)}
+                nextDisabled={
+                  !nextMonth ||
+                  compareIsoDates(nextMonth, month) <= 0 ||
+                  navDisabled(nextMonth)
+                }
+                onPrevious={() => previousMonth && navigateTo(previousMonth)}
+                onNext={() => nextMonth && navigateTo(nextMonth)}
               />
             )}
             {isYearView ? (
@@ -368,15 +464,25 @@ function renderCalendar({
                 month={month}
                 system={system}
                 referenceDate={referenceDate}
-                minDate={props.minDate}
-                maxDate={props.maxDate}
-                isMonthDisabled={props.isMonthDisabled}
+                isMonthDisabled={yearMonthDisabled}
+                focusOnMount={viewTriggerIndex.current !== undefined}
                 locale={locale}
                 ariaLabel={`${text.chooseMonth} ${formatDisplayCalendarDate(month, locale, { year: 'numeric' }, system)}`}
-                onEscape={() => changeView('month')}
+                onEscape={
+                  availableViews.includes('month')
+                    ? () => {
+                        requestViewFocus.current = 'caption';
+                        changeView('month');
+                      }
+                    : undefined
+                }
                 onSelect={(next) => {
-                  navigateTo(next, count);
-                  changeView('month');
+                  if (availableViews.includes('month')) {
+                    requestViewFocus.current = 'day';
+                    props.onFocusedDateChange(next);
+                    props.onMonthChange(navigationMonth(next));
+                    changeView('month');
+                  } else navigateTo(next, 1);
                 }}
               />
             ) : (
@@ -496,7 +602,7 @@ function renderCalendar({
           {props.presets.map((preset) => (
             <ButtonControl
               key={preset.label}
-              disabled={isDisabled(preset.date)}
+              disabled={!isValidIsoDate(preset.date) || isDisabled(preset.date)}
               onClick={() => selectPreset(preset.date)}
             >
               {preset.label}

@@ -3,6 +3,7 @@ import { h } from 'preact';
 import { useMemo } from 'preact/hooks';
 import {
   addDisplayMonths,
+  compareIsoDates,
   displayYearMonths,
   formatDisplayCalendarDate,
   getDisplayCalendarParts,
@@ -11,6 +12,7 @@ import {
   type DisplayCalendarSystem,
 } from '@revolist/ui-dates';
 import { Dropdown } from '../dropdown';
+import { MAX_CALENDAR_DATE, MIN_CALENDAR_DATE } from './reference-date';
 import type { CalendarProps, CalendarTranslations } from './types';
 
 export function CalendarCaption({
@@ -36,25 +38,36 @@ export function CalendarCaption({
 }) {
   const yearMonths = displayYearMonths(month, system);
   const parts = getDisplayCalendarParts(month, system);
+  const domainStart = startOfDisplayMonth(MIN_CALENDAR_DATE, system);
+  const domainEnd = startOfDisplayMonth(MAX_CALENDAR_DATE, system);
+  const firstMonth = start ?? domainStart;
+  const lastMonth = end ?? domainEnd;
   const years = useMemo(() => {
     const currentStart = displayYearMonths(month, system)[0];
+    const firstSupportedYear = displayYearMonths(domainStart, system)[0];
+    const lastSupportedYear = displayYearMonths(domainEnd, system)[0];
     const first = start
       ? displayYearMonths(start, system)[0]
-      : addDisplayMonths(currentStart, -600, system);
+      : [
+          firstSupportedYear,
+          addDisplayMonths(currentStart, -600, system),
+        ].sort(compareIsoDates)[1];
     const last = end
       ? displayYearMonths(end, system)[0]
-      : addDisplayMonths(currentStart, 120, system);
+      : [lastSupportedYear, addDisplayMonths(currentStart, 120, system)].sort(
+          compareIsoDates,
+        )[0];
     const result: ISODateString[] = [];
     for (
       let year = first;
-      year <= last;
+      compareIsoDates(year, last) <= 0;
       year = addDisplayMonths(year, 12, system)
     )
       result.push(year);
     // An explicitly navigated year remains selectable even outside the default window.
     if (!result.includes(currentStart)) result.push(currentStart);
-    return result.sort();
-  }, [month, system, start, end]);
+    return result.sort(compareIsoDates);
+  }, [month, system, start, end, domainStart, domainEnd]);
   return (
     <div class="revo-calendar__caption">
       {layout !== 'dropdown-years' ? (
@@ -76,15 +89,20 @@ export function CalendarCaption({
               system,
             ),
             disabled: Boolean(
-              (start && date < startOfDisplayMonth(start, system)) ||
-              (end && date > startOfDisplayMonth(end, system)),
+              compareIsoDates(date, firstMonth) < 0 ||
+              compareIsoDates(date, lastMonth) > 0,
             ),
           }))}
           onChange={(value) => onChange(yearMonths[Number(value) - 1])}
         />
       ) : (
         <span>
-          {formatDisplayCalendarDate(month, locale, { month: 'long' }, system)}
+          {formatDisplayCalendarDate(
+            month,
+            locale,
+            { month: 'long' },
+            system,
+          )}
         </span>
       )}
       {layout !== 'dropdown-months' ? (
@@ -109,10 +127,8 @@ export function CalendarCaption({
           onChange={(value) => {
             const year = value as ISODateString;
             let next = addDisplayMonths(year, parts.month - 1, system);
-            if (start && next < startOfDisplayMonth(start, system))
-              next = startOfDisplayMonth(start, system);
-            if (end && next > startOfDisplayMonth(end, system))
-              next = startOfDisplayMonth(end, system);
+            if (compareIsoDates(next, firstMonth) < 0) next = firstMonth;
+            if (compareIsoDates(next, lastMonth) > 0) next = lastMonth;
             onChange(next);
           }}
         />

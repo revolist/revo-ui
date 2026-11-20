@@ -119,7 +119,10 @@ beforeEach(() => {
     'Worker',
     class extends EventTarget {
       terminate = mock.terminate;
-      constructor() {
+      constructor(
+        public url: string | URL,
+        public options?: WorkerOptions,
+      ) {
         super();
         mock.ports.push(this);
       }
@@ -139,6 +142,40 @@ afterEach(() => {
 });
 
 describe('PDF viewer lifecycle', () => {
+  it('loads a PDF with the bundled default worker when workerSrc is omitted', async () => {
+    const controller = new PdfViewerController({});
+    controllers.push(controller);
+    await controller.attach(document.createElement('div'));
+    expect(mock.ports).toHaveLength(0);
+    const loading = controller.load('/report.pdf');
+    await vi.waitFor(() => expect(mock.tasks).toHaveLength(1));
+    expect(mock.ports).toHaveLength(1);
+    mock.tasks[0].resolve(documentWithPages());
+    await loading;
+    expect(controller.snapshot.status).toBe('ready');
+  });
+
+  it('starts no worker while empty and creates one only when a PDF is loaded', async () => {
+    const { controller } = await mount();
+    await controller.load(null);
+    expect(controller.snapshot.status).toBe('empty');
+    expect(mock.ports).toHaveLength(0);
+    expect(mock.getDocument).not.toHaveBeenCalled();
+
+    const loading = controller.load('/report.pdf');
+    await vi.waitFor(() => expect(mock.tasks).toHaveLength(1));
+    expect(mock.ports).toHaveLength(1);
+    expect(mock.ports[0].url).toBe('/worker.mjs');
+    expect(mock.ports[0].options).toEqual({ type: 'module' });
+    mock.tasks[0].resolve(documentWithPages());
+    await loading;
+
+    await controller.load(null);
+    await vi.waitFor(() => expect(mock.terminate).toHaveBeenCalledOnce());
+    expect(controller.snapshot.status).toBe('empty');
+    expect(mock.ports).toHaveLength(1);
+  });
+
   it('publishes loaded state and delegates bounded page/zoom, rotation and search commands', async () => {
     const { controller, load, page } = await mount();
     const pending = controller.load(new Uint8Array([1]), 'report.pdf');

@@ -18,6 +18,7 @@ export * from './resource-picker/index';
 export * from './color-palette/color-palette';
 export * from './color-palette/color-picker';
 export * from './dropdown/index';
+export * from './dropdown/lookup-field';
 export * from './dialog/dialog.preact';
 export * from './filter/filters/slider/preact';
 export * from './filter/filters/slider/single';
