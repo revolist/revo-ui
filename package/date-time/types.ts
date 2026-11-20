@@ -80,6 +80,8 @@ export interface TemporalPickerOptions extends EditorCommitOptions {
   endpoint?: 'from' | 'to';
 }
 export interface TemporalPickerProps extends TemporalPickerOptions {
+  /** Internal: rendered as part of another preset-owning control. */
+  presetSurface?: boolean;
   preset?: ClassPreset;
   value: TemporalControlValue;
   onChange: (value: TemporalControlValue) => void;

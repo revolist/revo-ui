@@ -91,6 +91,7 @@ export function Checkbox({
     disabled: attributes.disabled ?? preset?.props?.disabled,
     checked,
     'data-part': 'input',
+    'data-preset-scope': label === undefined && description === undefined ? 'root' : undefined,
     'aria-label': ariaLabel,
     'aria-checked': indeterminate ? 'mixed' : !!checked,
     ref: (element: HTMLInputElement | null) => {

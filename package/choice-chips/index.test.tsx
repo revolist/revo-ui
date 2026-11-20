@@ -189,3 +189,11 @@ it('applies the info button preset to its rendered button', () => {
   expect(button.getAttribute('data-part')).toBe('root');
   expect(button.hasAttribute('preset')).toBe(false);
 });
+
+it('exposes composite item parts to the choice group preset', () => {
+  const host = document.createElement('div');
+  render(<ChoiceChips value="a" options={[{ value: 'a', label: 'A', onRemove: () => {} }]} ariaLabel="Choices" onChange={() => {}} />, host);
+  const item = host.querySelector('[data-part="item"]')!;
+  expect(item.closest('[data-part="root"][data-preset-scope="inherit"]')).not.toBeNull();
+  render(null, host);
+});

@@ -1,6 +1,43 @@
 import { chooseOption } from './choose-option';
 import { expect, test } from '@playwright/test';
 
+test('React can spread custom date trigger props including children', async ({
+  page,
+}) => {
+  await page.goto('/');
+  const trigger = page.getByRole('button', {
+    name: 'Choose React custom date',
+  });
+  await expect(trigger).toHaveText('2024-03-01');
+  await trigger.click();
+  await page
+    .getByRole('dialog', { name: 'React custom date' })
+    .locator('[data-calendar-date="2024-03-02"]')
+    .click();
+  await expect(trigger).toHaveText('2024-03-02');
+  await expect(trigger).toBeFocused();
+});
+
+test('Vue bare date-picker boolean attributes enable clear and disabled-interior checks', async ({
+  page,
+}) => {
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Clear date', exact: true }).click();
+  await expect(
+    page.getByRole('textbox', { name: 'Vue clearable date' }),
+  ).toHaveValue('');
+  await page
+    .getByRole('button', { name: 'Choose Vue restricted range' })
+    .click();
+  const popup = page.getByRole('dialog', { name: 'Vue restricted range' });
+  await popup.locator('[data-calendar-date="2024-03-02"]').click();
+  await popup.locator('[data-calendar-date="2024-03-04"]').click();
+  await expect(popup).toBeVisible();
+  await expect(
+    page.getByRole('textbox', { name: 'From', exact: true }),
+  ).toHaveValue('');
+});
+
 test('Vue controls preserve keyboard selection, dialog slots and overlay cleanup', async ({
   page,
 }) => {

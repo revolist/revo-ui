@@ -220,6 +220,7 @@ export function SharedResourcePicker<
       ref={tooltipRef}
       class={`rv-resource-picker__popover ${preset?.className ?? ''}`}
       data-part="popup"
+      data-preset-surface=""
       onKeyDown={dropdown ? handleDropdownKeyDown : undefined}
     >
       {showSearch && (

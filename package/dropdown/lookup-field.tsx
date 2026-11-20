@@ -92,6 +92,7 @@ export function LookupField({
     >
       <Dropdown
         preset={preset}
+        presetSurface
         className="rv-select"
         source={options.source ?? []}
         dataSource={options.dataSource}

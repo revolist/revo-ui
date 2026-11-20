@@ -8,6 +8,7 @@ import { Alert, Button } from '../controls';
 import { TimeControl } from './time-control';
 import { TimeSelection } from './time-selection';
 import { CalendarPicker, type CalendarPickerProps } from '../calendar/picker';
+import { getCalendarInitialDate } from '../calendar/reference-date';
 import {
   isValidIsoDate,
   temporalDatePart,
@@ -15,7 +16,6 @@ import {
   withTemporalDate,
   withTemporalTime,
   startOfDisplayMonth,
-  todayIsoDate,
   type ISODateString,
   type TemporalControlValue,
 } from '@revolist/ui-dates';
@@ -52,19 +52,16 @@ export function TemporalPicker(props: TemporalPickerProps) {
   const from = range?.from ?? '',
     to = range?.to ?? '';
   const initialDay = temporalDatePart(
-    kind === 'time'
-      ? todayIsoDate()
-      : props.endpoint === 'to'
-        ? to
-        : from || single || selectedDates[0] || '',
+    props.endpoint === 'to' ? to : from || single || selectedDates[0] || '',
   );
   const [month, setMonth] = useState<ISODateString>(
     () =>
       calendar.defaultMonth ??
       startOfDisplayMonth(
-        (isValidIsoDate(initialDay)
-          ? initialDay
-          : todayIsoDate()) as ISODateString,
+        getCalendarInitialDate(
+          calendar,
+          isValidIsoDate(initialDay) ? initialDay : undefined,
+        ),
         calendar.calendarSystem,
       ),
   );
@@ -177,7 +174,9 @@ export function TemporalPicker(props: TemporalPickerProps) {
           next
             ? {
                 from: withTemporalDate(next.from, from, kind),
-                ...(next.to ? { to: withTemporalDate(next.to, to, kind) } : {}),
+                ...(next.to
+                  ? { to: withTemporalDate(next.to, to, kind) }
+                  : {}),
               }
             : null,
         ),
@@ -211,6 +210,7 @@ export function TemporalPicker(props: TemporalPickerProps) {
     <div
       class={`rv-temporal-picker rv-temporal-picker--${kind}${multipleMonths ? ' rv-temporal-picker--multi-month' : ''} ${props.preset?.className ?? ''}`}
       data-part="root"
+      data-preset-surface={props.presetSurface ? '' : undefined}
     >
       {props.dateInput === false &&
         selection === 'range' &&
@@ -306,7 +306,10 @@ export function TemporalPicker(props: TemporalPickerProps) {
                       to,
                       text.endTime,
                       (time) =>
-                        update({ from, to: withTemporalTime(to, time, kind) }),
+                        update({
+                          from,
+                          to: withTemporalTime(to, time, kind),
+                        }),
                       false,
                     )}
                 </div>

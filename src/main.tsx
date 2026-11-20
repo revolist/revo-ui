@@ -1,4 +1,5 @@
 import { SwitchThemeEditor } from './switch-theme-editor';
+import { AutocompleteExamples } from './autocomplete';
 import { TooltipPlacementExamples, TooltipTimingExamples, TooltipStateExamples, TooltipContentExamples, TooltipBoundaryExample, TooltipControllerExample } from './tooltips';
 import { CollapsibleSection as __themeOriginal_CollapsibleSection } from '@revolist/ui/preact';
 import { AccessibilityPage } from './accessibility';
@@ -25,7 +26,7 @@ import alertCheckIcon from '@fortawesome/fontawesome-free/svgs/solid/circle-chec
 import alertWarningIcon from '@fortawesome/fontawesome-free/svgs/solid/circle-exclamation.svg?raw';
 import plusIcon from '@fortawesome/fontawesome-free/svgs/solid/plus.svg?raw';
 import { SliderLayoutExamples, TimelineTrackExample } from './sliders';
-import { CalendarExamples } from './calendars';
+import { CalendarExamples, DateTimeCalendarExample } from './calendars';
 import { Legend as __themeOriginal_Legend } from '@revolist/ui/legend';
 import { FormattingExamples } from './formatting';
 import {PaginationExamples} from './pagination';
@@ -185,7 +186,9 @@ const resources = [
   { id: 2, name: 'Alex Chen', role: 'Engineer' },
 ];
 function App() {
-  const [theme, setTheme] = useState('light'),
+  const [theme, setTheme] = useState(() =>
+    document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light',
+  ),
     [rtl, setRtl] = useState(false);
   const [togglePressed, setTogglePressed] = useState(true);
   const [selected, setSelected] = useState(true);
@@ -209,10 +212,10 @@ function App() {
   const [range, setRange] = useState({ fromValue: 20, toValue: 80 });
   const [calendarDate, setCalendarDate] = useState<ISODateString>('2026-10-24');
   const [dueDate, setDueDate] = useState<ISODateString>('2026-10-24');
+  const [dueDateOpen, setDueDateOpen] = useState(false);
   const [fieldDate, setFieldDate] = useState('2026-10-24');
   const [fieldTime, setFieldTime] = useState('09:00');
   const [fieldDateTime, setFieldDateTime] = useState('2026-10-24T09:00');
-  const [secondDate, setSecondDate] = useState<ISODateString>('2026-10-24');
   const [dateRange, setDateRange] = useState<CalendarDateRange>({
     from: '2026-10-20',
     to: '2026-10-24',
@@ -493,14 +496,11 @@ function App() {
         <HighlightedInputExample />
         <InlineFieldsExample />
       </Section>
-      <Section title="Selects, chips and resources">
+      <Section title="Multi/selects, autocomplete">
         <Example title="Select">
           <Select aria-label="View" value={selectView} onValueChange={setSelectView}>
             {options.map(option => <option value={option.value} disabled={option.disabled}>{option.label}</option>)}
           </Select>
-        </Example>
-        <Example title="User select with images">
-          <MemberDropdown label="Choose a team member" value={selectedPerson} onChange={setSelectedPerson} />
         </Example>
         <Example title="Searchable select">
           <Combobox
@@ -512,6 +512,8 @@ function App() {
             config={{ ariaLabel: 'Searchable view' }}
           />
         </Example>
+        <AutocompleteExamples />
+        <RemoteLookupExample />
         <Example title="Multiple selection">
           <MultiSelect
             source={options}
@@ -522,11 +524,14 @@ function App() {
             config={{ ariaLabel: 'Multiple views' }}
           />
         </Example>
+      </Section>
+      <Section title="Resource selection">
+        <Example title="User select with images">
+          <MemberDropdown label="Choose a team member" value={selectedPerson} onChange={setSelectedPerson} />
+        </Example>
         <Example title="Avatar">
           <Avatar value="Morgan Lee" label="Morgan Lee" />
         </Example>
-      </Section>
-      <Section title="Resource selection">
         <Example title="Resource selection">
           <SharedResourcePicker
             resources={resources}
@@ -622,24 +627,31 @@ function App() {
         </Example>
 
         <CalendarExamples />
-        <SharedEditorExamples />
         <Example title="Date pickers">
           <DatePicker
             label="Due date"
             openLabel="Choose due date"
             value={dueDate}
+            open={dueDateOpen}
+            onOpenChange={setDueDateOpen}
             onChange={(next) => {
               if (next) setDueDate(next);
             }}
           />
-          <DatePicker
-            label="Second date"
-            openLabel="Choose second date"
-            value={secondDate}
-            onChange={(next) => {
-              if (next) setSecondDate(next);
-            }}
-          />
+          <form>
+            <DatePicker
+              label="Second date"
+              openLabel="Choose second date"
+              defaultValue="2026-10-24"
+              defaultMonth="2026-10-01"
+              dateInput={{ format: 'eu' }}
+              name="secondDate"
+              required
+              clearable
+              clearLabel="Clear second date"
+              closeOnSelect={false}
+            />
+          </form>
         </Example>
         <Example title="Date range" wide>
           <DateRangePicker
@@ -651,24 +663,29 @@ function App() {
             onChange={setDateRange}
           />
         </Example>
+      </Section>
+      <Section title="Time pickers">
+        <Example title="Time field">
+          <DateTimeField aria-label="Time field" kind="time" value={fieldTime} onValueChange={setFieldTime}
+            picker={{ timeFormat: '24h', text: { chooseTime: 'Choose field time' } }} />
+        </Example>
+        <TimePickerExamples />
+      </Section>
+      <Section title="Date and time fields">
         <Example title="Date and time fields">
           <DateTimeField aria-label="Date field" value={fieldDate} onValueChange={setFieldDate}
             picker={{ text: { chooseDate: 'Choose field date' } }} />
-          <DateTimeField aria-label="Time field" kind="time" value={fieldTime} onValueChange={setFieldTime}
-            picker={{ timeFormat: '24h', text: { chooseTime: 'Choose field time' } }} />
           <DateTimeField aria-label="Date and time field" kind="datetime" value={fieldDateTime} onValueChange={setFieldDateTime}
             picker={{ timeFormat: '24h', text: { chooseDate: 'Choose field date and time' } }} />
         </Example>
-        <TimePickerExamples />
+        <SharedEditorExamples />
+        <DateTimeCalendarExample />
       </Section>
       <Section title="Duration and effort">
         <DurationEffortExample />
       </Section>
       <Section title="Assignee field">
         <AssigneeFieldExample />
-      </Section>
-      <Section title="Remote lookup field">
-        <RemoteLookupExample />
       </Section>
       <Section title="Legend">
         <Example title="Legend">
@@ -928,8 +945,9 @@ function App() {
     </CatalogShell>
   );
 }
-redirectLegacyRoute();
-const appRoot = document.getElementById('app')!;
-// The production homepage is pre-rendered; replace it before attaching live controls.
-appRoot.replaceChildren();
-render(<App />, appRoot);
+if (!redirectLegacyRoute()) {
+  const appRoot = document.getElementById('app')!;
+  // Keep prerendered content intact while a legacy URL navigates to its owner.
+  appRoot.replaceChildren();
+  render(<App />, appRoot);
+}

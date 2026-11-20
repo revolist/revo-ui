@@ -158,6 +158,7 @@ test('number step preset changes only the customized sample behavior', async ({
 test('building-block samples render their selected preset class', async ({
   page,
 }) => {
+  test.setTimeout(120_000);
   const families: Record<string, string[]> = {
     'inputs-and-forms': [
       'Input',
@@ -249,12 +250,11 @@ test('building-block samples render their selected preset class', async ({
       'BarChart',
       'LineChart',
     ],
-    'resource-selection': ['ResourcePickerAvatar', 'SharedResourcePicker'],
+    'resource-selection': ['Avatar', 'ResourcePickerAvatar', 'SharedResourcePicker'],
     color: ['ColorPalette', 'ColorPicker'],
     accordion: ['CollapsibleSection'],
     'duration-and-effort': ['DurationField', 'DurationDraft'],
     'html-editor': ['HtmlEditor'],
-    'remote-lookup-field': ['LookupField'],
     sliders: ['SliderField', 'SingleValueSlider', 'PreactRangeSlider'],
     'tabs-and-lists': [
       'EditorList',
@@ -277,17 +277,15 @@ test('building-block samples render their selected preset class', async ({
       'CalendarPicker',
       'DatePicker',
       'DateRangePicker',
-      'DateTimeField',
-      'TemporalDraft',
-      'TemporalPicker',
     ],
-    'selects-chips-and-resources': [
+    'date-and-time-fields': ['DateTimeField', 'TemporalDraft', 'TemporalPicker'],
+    'multi-selects-autocomplete': [
       'FilterChip',
       'DropdownPopupContent',
       'Select',
-      'Avatar',
       'Combobox',
       'MultiSelect',
+      'LookupField',
     ],
     'formatting-controls': [
       'FilterBadge',
@@ -335,9 +333,9 @@ test('popup and staged component samples apply their theme when opened', async (
   test.setTimeout(90_000);
   const examples = [
     ['ai-assistant', 'AiChangePreview', 'Open preview'],
-    ['selects-chips-and-resources', 'DropdownPopup', 'Toggle popup'],
-    ['selects-chips-and-resources', 'AssigneePicker', 'Open picker'],
-    ['selects-chips-and-resources', 'AssigneePickerLayout', 'Open picker'],
+    ['multi-selects-autocomplete', 'DropdownPopup', 'Toggle popup'],
+    ['assignee-field', 'AssigneePicker', 'Open picker'],
+    ['assignee-field', 'AssigneePickerLayout', 'Open picker'],
     ['assignee-field', 'AssigneeField', 'Open assignees'],
     ['inputs-and-forms', 'NumberDraft', 'Edit number'],
     ['dialogs-and-floating-surfaces', 'Dialog', 'Open dialog'],
@@ -393,7 +391,7 @@ test('shows live observed state hooks and resets samples when changing component
     editor.locator('p').filter({ hasText: 'Observed states' }),
   ).toContainText('[data-state="unchecked"]');
 
-  await page.goto('/components/selects-chips-and-resources/');
+  await page.goto('/components/assignee-field/');
   const selectEditor = page.locator('.theme-editor').first();
   await selectEditor.locator('summary').first().click();
   await selectEditor.getByLabel('Component').selectOption('AssigneePicker');

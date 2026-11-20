@@ -1,0 +1,9 @@
+node_modules/
+.next/
+build/
+dist/
+.output/
+.tanstack/
+.react-router/
+*.tsbuildinfo
+src/routeTree.gen.ts

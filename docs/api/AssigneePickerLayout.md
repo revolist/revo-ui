@@ -1,8 +1,8 @@
 # AssigneePickerLayout
 
-Single or multiple selections, searchable options, selected-value templates, avatars, resource lists and assignee fields.
+Assign people and edit their allocation units.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/components/selects-chips-and-resources/) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/assignee-field/) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { AssigneePickerLayout } from '@revolist/ui/assignee'`
 

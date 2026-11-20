@@ -3,7 +3,7 @@ import dts from 'unplugin-dts/vite';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { createBundledUtilityTypes } from './scripts/bundled-utility-types.ts';
 import { readFile } from 'node:fs/promises';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { format } from 'prettier';
 import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
@@ -13,6 +13,7 @@ export default defineConfig(({ mode }) => {
   if (mode === 'browser') {
     return {
       root: import.meta.dirname,
+      base: './',
       oxc: { jsx: { runtime: 'automatic', importSource: 'preact' } },
       build: {
         outDir: 'dist/browser',
@@ -39,11 +40,15 @@ export default defineConfig(({ mode }) => {
         .filter(
           (source) =>
             source.startsWith('./package/') &&
-            /\.tsx?$/.test(source) &&
-            !/(?:angular-control|angular)\.ts$/.test(source),
+            /\.(?:tsx?|svelte)$/.test(source) &&
+            !/^\.\/package\/(?:angular(?:-control|-adapter)?\.ts|angular-components\/)/.test(
+              source,
+            ),
         )
         .map((source) => [
-          source.replace(/^\.\/package\//, '').replace(/\.tsx?$/, ''),
+          source
+            .replace(/^\.\/package\//, '')
+            .replace(/\.(?:tsx?|svelte)$/, ''),
           resolve(root, source),
         ]),
     );
@@ -55,10 +60,33 @@ export default defineConfig(({ mode }) => {
       root,
       'package/component-style-families.ts',
     );
+    // Compiler-preserved Svelte source and Angular partial declarations use
+    // these leaf modules without importing the runtime catalog barrel.
+    for (const name of [
+      'framework-mount',
+      'component-metadata',
+      'component-catalog',
+      'svelte-adapter',
+      'pdf-viewer/translations',
+    ]) {
+      entries[name] = resolve(root, `package/${name}.ts`);
+    }
+    const leafDirectory = resolve(root, 'package/component-controls');
+    if (existsSync(leafDirectory)) {
+      for (const name of readdirSync(leafDirectory).filter((name) =>
+        name.endsWith('.ts'),
+      )) {
+        entries[`component-controls/${name.replace(/\.ts$/, '')}`] = resolve(
+          leafDirectory,
+          name,
+        );
+      }
+    }
     const utilities = createBundledUtilityTypes(root);
 
     return {
       root,
+      base: './',
       // Shared UI never injects a product watermark, including during trial builds.
       plugins: [
         {
@@ -92,26 +120,39 @@ export default defineConfig(({ mode }) => {
           },
         },
         svelte(),
-        utilities.plugin,
-        dts({
-          tsconfigPath: resolve(root, 'tsconfig.json'),
-          entryRoot: resolve(root, 'package'),
-          include: ['package'],
-          exclude: ['**/*.test.ts', '**/*.test.tsx'],
-          beforeWriteFile: (filePath, content) => ({
-            filePath,
-            content: utilities.rewrite(filePath, content),
-          }),
-        }),
+        ...(mode === 'library' ? [utilities.plugin] : []),
+        ...(mode === 'library'
+          ? [
+              dts({
+                tsconfigPath: resolve(root, 'tsconfig.json'),
+                entryRoot: resolve(root, 'package'),
+                include: ['package'],
+                exclude: [
+                  '**/*.test.ts',
+                  '**/*.test.tsx',
+                  'package/angular.ts',
+                  'package/angular-control.ts',
+                  'package/angular-adapter.ts',
+                  'package/angular-components/**',
+                ],
+                beforeWriteFile: (filePath, content) => ({
+                  filePath,
+                  content: utilities.rewrite(filePath, content),
+                }),
+              }),
+            ]
+          : []),
       ],
       oxc: { jsx: { runtime: 'automatic', importSource: 'preact' } },
       build: {
         outDir: mode === 'library-unstyled' ? 'dist/unstyled' : 'dist',
         lib: { entry: entries, formats: ['es'] },
         rolldownOptions: {
-          external: [
-            /^(?:pdfjs-dist|react|react-dom|svelte|vue|@angular\/core)(?:\/|$)/,
-          ],
+          external: (id) =>
+            !id.endsWith('?worker&url') &&
+            /^(?:pdfjs-dist|react|react-dom|svelte|vue|@angular\/core)(?:\/|$)/.test(
+              id,
+            ),
           output: {
             entryFileNames: '[name].js',
             chunkFileNames: '_chunks/[name]-[hash].js',

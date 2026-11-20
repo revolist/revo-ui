@@ -103,3 +103,10 @@ describe('Switch', () => {
     expect(onChange).not.toHaveBeenCalled();
   });
 });
+
+it('marks the switch root as a preset boundary', () => {
+  const host = document.createElement('div');
+  render(<Switch label="Enabled" checked={false} onChange={() => {}} />, host);
+  expect(host.querySelector('[role="switch"]')?.getAttribute('data-part')).toBe('root');
+  render(null, host);
+});

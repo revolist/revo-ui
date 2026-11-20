@@ -1,16 +1,25 @@
 /** @jsxImportSource preact */
 import { Fragment, h } from 'preact';
-import { useState } from 'preact/hooks';
+import {
+  useCallback,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'preact/hooks';
 import {
   addDays,
   diffInDays,
-  formatIsoDateInTimeZone,
+  isValidIsoDate,
   startOfDisplayMonth,
-  todayIsoDate,
   type ISODateString,
 } from '@revolist/ui-dates';
 import { Calendar } from './calendar';
-import { orderCalendarRange } from './model';
+import { isCalendarRangeValid, orderCalendarRange } from './model';
+import {
+  getCalendarInitialDate,
+  resolveCalendarReferenceDate,
+} from './reference-date';
 import { DEFAULT_CALENDAR_TRANSLATIONS } from './translations';
 import { ButtonControl } from '../native-control';
 import type { CalendarProps, CalendarView } from './types';
@@ -44,6 +53,30 @@ type Base = Omit<
   readonly excludeDisabled?: boolean;
 };
 type Preset<T> = { readonly label: string; readonly selection: T };
+
+function checkRangePreview(
+  anchor: ISODateString,
+  step: -1 | 1,
+  isDisabled: (date: ISODateString) => boolean,
+) {
+  let checkedThrough = anchor;
+  let firstDisabled: ISODateString | undefined;
+  const before = (a: ISODateString, b: ISODateString) =>
+    step === 1 ? a < b : a > b;
+  return (end: ISODateString) => {
+    if (firstDisabled) return !before(end, firstDisabled);
+    while (before(checkedThrough, end)) {
+      const next = addDays(checkedThrough, step);
+      if (isDisabled(next)) {
+        firstDisabled = next;
+        return true;
+      }
+      checkedThrough = next;
+    }
+    return false;
+  };
+}
+
 export type CalendarPickerProps = Base &
   (
     | {
@@ -90,9 +123,11 @@ export function CalendarPicker(props: CalendarPickerProps) {
         ? selected[0]
         : (selected as CalendarRangeSelection | undefined)?.from;
   const [localMonth, setMonth] = useState<ISODateString>(
-    defaultMonth ?? initial ?? props.referenceDate ?? todayIsoDate(),
+    () => defaultMonth ?? getCalendarInitialDate(props, initial),
   );
-  const [focused, setFocused] = useState<ISODateString>(initial ?? localMonth);
+  const [focused, setFocused] = useState<ISODateString>(() =>
+    isValidIsoDate(initial) ? initial : localMonth,
+  );
   const [hover, setHover] = useState<ISODateString>();
   const [rejectedReason, setRejectedReason] = useState<string>();
   const previewDate = (date?: ISODateString) => {
@@ -100,6 +135,23 @@ export function CalendarPicker(props: CalendarPickerProps) {
     setRejectedReason(undefined);
   };
   const month = controlledMonth ?? localMonth;
+  const previousSelection = useRef({ anchor: initial, selected });
+  useLayoutEffect(() => {
+    const previous = previousSelection.current;
+    previousSelection.current = { anchor: initial, selected };
+    // Removing an existing date from a multiple selection should not move the view.
+    if (
+      controlledMonth ||
+      initial === previous.anchor ||
+      !isValidIsoDate(initial) ||
+      (Array.isArray(previous.selected) && previous.selected.includes(initial))
+    )
+      return;
+    setMonth(startOfDisplayMonth(initial, props.calendarSystem));
+    setFocused(initial);
+    setHover(undefined);
+    setRejectedReason(undefined);
+  }, [controlledMonth, initial, props.calendarSystem, selected]);
   const availableViews = props.views?.filter(
     (view) => view === 'month' || view === 'year',
   );
@@ -127,32 +179,44 @@ export function CalendarPicker(props: CalendarPickerProps) {
     setRejectedReason(reason);
     props.onInvalidSelection?.(reason, date);
   };
+  const { calendarSystem, isDateDisabled, isMonthDisabled } = props;
+  const isDisabledByRule = useCallback(
+    (date: ISODateString) =>
+      Boolean(
+        isDateDisabled?.(date) ||
+        isMonthDisabled?.(startOfDisplayMonth(date, calendarSystem)),
+      ),
+    [calendarSystem, isDateDisabled, isMonthDisabled],
+  );
   const blocked = (date: ISODateString) =>
+    !isValidIsoDate(date) ||
     Boolean(
       (props.minDate && date < props.minDate) ||
       (props.maxDate && date > props.maxDate) ||
-      props.isDateDisabled?.(date) ||
-      props.isMonthDisabled?.(startOfDisplayMonth(date, props.calendarSystem)),
+      isDisabledByRule(date),
     );
-  const rangeValid = (range: CalendarRangeSelection) => {
-    if (!range.to) return !blocked(range.from);
-    const nights = diffInDays(range.from, range.to);
-    if (
-      nights < min ||
-      nights > max ||
-      nights < 0 ||
-      blocked(range.from) ||
-      blocked(range.to)
-    )
-      return false;
-    if (excludeDisabled) {
-      // Bounded user action, never a per-cell or pointer-move scan.
-      if (nights > 366000) return false;
-      for (let day = range.from; day <= range.to; day = addDays(day, 1))
-        if (blocked(day)) return false;
-    }
-    return true;
-  };
+  const range = props.mode === 'range' ? props.selected : undefined;
+  const rangeAnchor = range?.to ? undefined : range?.from;
+  const previewHasDisabledDate = useMemo(() => {
+    if (!rangeAnchor) return undefined;
+    // Previewing consecutive days only needs to check newly covered dates.
+    // Parent renders may supply rule data through stable callbacks.
+    const checkEarlier = checkRangePreview(rangeAnchor, -1, isDisabledByRule);
+    const checkLater = checkRangePreview(rangeAnchor, 1, isDisabledByRule);
+    return (from: ISODateString, to: ISODateString) =>
+      from < rangeAnchor ? checkEarlier(from) : checkLater(to);
+  }, [rangeAnchor, isDisabledByRule, props]);
+  const rangeValid = (range: CalendarRangeSelection, preview = false) =>
+    isCalendarRangeValid(
+      range,
+      min,
+      max,
+      blocked,
+      excludeDisabled && (isDateDisabled || isMonthDisabled)
+        ? isDisabledByRule
+        : undefined,
+      preview ? previewHasDisabledDate : undefined,
+    );
   const select = (date: ISODateString) => {
     if (props.mode === 'multiple') {
       const values = props.selected ?? [],
@@ -196,7 +260,6 @@ export function CalendarPicker(props: CalendarPickerProps) {
       props.selected === date && !required ? undefined : date,
     );
   };
-  const range = props.mode === 'range' ? props.selected : undefined;
   const selection =
     typeof selected === 'string'
       ? { from: selected, to: selected }
@@ -213,14 +276,7 @@ export function CalendarPicker(props: CalendarPickerProps) {
       view,
       selection,
       preview,
-      referenceDate:
-        props.referenceDate ??
-        (props.referenceInstant
-          ? formatIsoDateInTimeZone(
-              props.referenceInstant,
-              props.timeZone ?? 'UTC',
-            )
-          : undefined),
+      referenceDate: resolveCalendarReferenceDate(props),
     });
     if (result === false || typeof result === 'string') {
       return typeof result === 'string' ? result : invalidMessage;
@@ -228,7 +284,7 @@ export function CalendarPicker(props: CalendarPickerProps) {
     return undefined;
   };
   const candidateReason =
-    preview && !rangeValid(preview) ? invalidMessage : undefined;
+    preview && !rangeValid(preview, true) ? invalidMessage : undefined;
   const previewReason = rejectedReason ?? candidateReason;
   const validatePresetDate = (date: ISODateString) => {
     const reason = validationReason(date);
@@ -242,15 +298,14 @@ export function CalendarPicker(props: CalendarPickerProps) {
     const value = preset.selection;
     let target: ISODateString;
     if (props.mode === 'multiple') {
+      if (!Array.isArray(value)) return;
+      const unique = [...new Set(value)] as ISODateString[];
       if (
-        !Array.isArray(value) ||
-        value.length < Math.max(min, required ? 1 : 0) ||
-        value.length > max ||
-        value.some(blocked)
+        unique.length < Math.max(min, required ? 1 : 0) ||
+        unique.length > max ||
+        unique.some(blocked)
       )
         return;
-      const unique = [...new Set(value)] as ISODateString[];
-      if (unique.length < Math.max(min, required ? 1 : 0)) return;
       if (!unique.every(validatePresetDate)) return;
       props.onSelectionChange(unique);
       target = unique[0] ?? month;

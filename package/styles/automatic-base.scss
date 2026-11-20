@@ -1,5 +1,5 @@
-// Shared theme, button primitives and tooltip presentation for automatic styles.
+// Shared theme and button primitives for automatic styles.
+// Explicit tooltip surfaces install their own shared stylesheet.
 @use './tokens';
 @use './primitives';
 @use '../button';
-@use '../core/tooltip.css';

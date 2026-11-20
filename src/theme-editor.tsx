@@ -194,7 +194,7 @@ export function ThemeEditor({
           const part = root.getAttribute('data-part');
           if (part) found.add(part);
           for (const element of root.querySelectorAll('[data-part]')) {
-            const nestedRoot = element.closest(`[data-part="root"]:not(.${className}):not([data-preset-scope="inherit"])`);
+            const nestedRoot = element.closest(`:is([data-part="root"], [data-preset-scope="root"]):not(.${className}):not([data-preset-scope="inherit"])`);
             if (nestedRoot && nestedRoot !== root && root.contains(nestedRoot)) continue;
             const child = element.getAttribute('data-part');
             if (child) found.add(child);

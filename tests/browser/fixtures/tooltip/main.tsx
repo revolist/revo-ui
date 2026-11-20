@@ -18,6 +18,7 @@ import {
 } from '@revolist/ui/timeline-track';
 import { IconToolbar } from '@revolist/ui/icon-toolbar';
 import { SvgButton } from '@revolist/ui/buttons/svg-button';
+import { Tooltip } from '@revolist/ui/preact';
 import { useTooltip } from '@revolist/ui/surfaces';
 import { BarChart } from '@revolist/ui/bar-chart';
 import '@revolist/ui/styles.scss';
@@ -105,7 +106,7 @@ function Hints() {
         actions={[{ id: 'bold', label: 'Bold', text: 'B' }]}
         onAction={() => {}}
       />
-      <SvgButton label="Clear formatting" />
+      <Tooltip text="Clear formatting"><SvgButton label="Clear formatting" /></Tooltip>
       <button {...hint.triggerProps}>Help</button>
       {hint.tooltip}
     </div>

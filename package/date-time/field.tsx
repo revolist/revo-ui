@@ -72,6 +72,7 @@ export function TemporalDraft({
       <TemporalPicker
         {...options}
         preset={preset}
+        presetSurface
         value={draft}
         onChange={change}
         onValidChange={onValidChange}
@@ -217,6 +218,7 @@ export function DateTimeField({
               },
             },
           );
+          popup.current.element.setAttribute('data-preset-surface', '');
         }}
       >
         <SvgIcon svg={kind === 'time' ? clockIcon : calendarIcon} />

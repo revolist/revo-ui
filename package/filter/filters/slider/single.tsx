@@ -6,6 +6,8 @@ import { Input } from '../../../native-control';
 export type SingleSliderPreset = ClassPreset & { props?: { step?: number; disabled?: boolean } };
 export type SliderFieldPreset = ClassPreset & { props?: { step?: number; disabled?: boolean; layout?: 'inline' | 'stacked'; valuePlacement?: 'end' | 'thumb' | 'none'; ticks?: number; accentColor?: string } };
 export type SingleValueSliderProps = {
+  /** Internal composition hook for SliderField. */
+  inheritPresetScope?: boolean;
   preset?: SingleSliderPreset;
   min: number;
   max: number;
@@ -31,6 +33,7 @@ export type SingleValueSliderProps = {
 /** Shared native single-thumb slider for scalar thresholds and tolerances. */
 export function SingleValueSlider({
   preset,
+  inheritPresetScope,
   min,
   max,
   value,
@@ -55,6 +58,7 @@ export function SingleValueSlider({
     <Input
       class={`rv-single-slider ${preset?.className ?? ''} ${className}`.trim()}
       data-part="input"
+      data-preset-scope={inheritPresetScope ? undefined : 'root'}
       id={id}
       type="range"
       min={min}
@@ -129,6 +133,7 @@ export function SliderField({
       >
         <SingleValueSlider
           {...slider}
+          inheritPresetScope
           preset={slider.preset && { ...slider.preset, className: undefined }}
           ariaValueText={slider.ariaValueText ?? text}
         />

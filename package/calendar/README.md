@@ -18,7 +18,7 @@ Shared calendar controls use the product's standard blue selection, ISO civil-da
 | RTL/localization          | `dir`, locale, translated controls and custom formatters; mirrored arrows and horizontal keys; logical range corners |
 | Persian/Jalali            | `calendarSystem="persian"`, e.g. `locale="fa-IR"`, `weekStartsOn={6}`                                                |
 | Hijri                     | `calendarSystem="islamic-umalqura"`, e.g. `locale="ar-SA"`; distinct from Persian                                    |
-| Today in a timezone       | `referenceInstant` + `timeZone`, or explicit `referenceDate`                                                         |
+| Today in a timezone       | `timeZone` with an optional `referenceInstant`, or explicit `referenceDate`                                                         |
 
 Range `min` / `max` measure nights (difference between endpoints), not inclusive date count. `excludeDisabled` rejects an interval through unavailable dates and restarts its pending anchor at the clicked endpoint. Controlled range state may contain `{ from }` while awaiting the end date. Required single selection cannot be cleared by clicking itself; multiple selection can be built up to its minimum but cannot be removed below it. Presets commit complete supplied selections atomically. Selection callbacks can provide additional error presentation via `onInvalidSelection`.
 
@@ -30,7 +30,17 @@ The low-level `Calendar` remains controlled by `month`, `focusedDate`, `selectio
 
 `startMonth` / `endMonth` bound navigation. `minDate` / `maxDate` also disable dates and bound navigation. Paged windows clamp to the final valid month so an incomplete final page remains reachable. Caption dropdowns default to a window 50 years before and 10 years after the visible year; explicit bounds select a different span. Existing header/view visibility switches, natural/fixed weeks, outside-day display/selection, disabled months, render hooks and selection validation remain available.
 
-Dates owns calendar boundaries, month arithmetic, formatting and week numbering. Non-Gregorian display uses the browser's Intl/ICU calendar data, with a clear RangeError if unavailable. All selected values remain Gregorian `YYYY-MM-DD` civil dates; they do not shift when the user's timezone changes. `timeZone` only converts the optional reference instant for Today. Custom time controls do not introduce booking or scheduling semantics.
+Month navigation can pass through months disabled by `isMonthDisabled`. Their dates remain unavailable, and those months are disabled in the year overview.
+
+`DatePicker` and `DateRangePicker` accept `open` / `onOpenChange` for controlled popup visibility, or `defaultOpen` to start open. Control the visible month with `month` / `onMonthChange`, or set its initial value with `defaultMonth`. The `dateInput` options configure text entry without changing ISO output. Set `dateInput={false}` to show just the calendar trigger and any selected value.
+
+Use `defaultValue` for an uncontrolled selection and `closeOnSelect={false}` to keep the popup open. `name` on `DatePicker` and `fromName` / `toName` on `DateRangePicker` submit ISO dates even with localized text entry. `required` checks for a committed selection on form submission. Use `clearable` with a localized `clearLabel` and supply `onClear` to clear a controlled range.
+
+Omit `value` to let the picker manage selection, even when listening to `onChange`. Native form reset restores the initial selection for an uncontrolled picker. When replacing a typed range, the form keeps the previous committed ISO values until both new endpoints form a valid range.
+
+Range `min` and `max` count nights. `excludeDisabled` checks for unavailable dates inside the range. A range preset can supply a complete `{ label, selection: { from, to } }` entry or a `{ label, date }` endpoint. Use `popup` to configure mounting and dismissal. A `renderTrigger` callback can customize the button by spreading the supplied props, including its ref and accessibility attributes.
+
+Dates owns calendar boundaries, month arithmetic, formatting and week numbering. Non-Gregorian display uses the browser's Intl/ICU calendar data, with a clear RangeError if unavailable. All selected values remain Gregorian `YYYY-MM-DD` civil dates; they do not shift when the user's timezone changes. `timeZone` resolves Today and the initial month of an empty picker from the current instant. Pass `referenceInstant` to supply a different instant or `referenceDate` to supply the civil date directly. Custom time controls do not introduce booking or scheduling semantics.
 
 Week numbering uses ISO's Gregorian week-year (the row's Thursday) or local first-week rules within the chosen display system. The default week starts Monday for compatibility. Calendar systems supported here have twelve months: Gregorian, Persian and Umm al-Qura. Other Intl systems are not implicitly supported. Live locale changes can retain an explicit calendar system; formatting locale alone never changes month boundaries.
 

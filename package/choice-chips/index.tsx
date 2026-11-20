@@ -185,6 +185,8 @@ export function ChoiceChip({
   ...props
 }: Omit<JSX.IntrinsicElements['button'], 'onSelect' | 'children'> & {
   preset?: ClassPreset;
+  /** Identifies the chip's styling part when composed in a group. */
+  'data-part'?: string;
   children: ComponentChildren;
   color?: string;
   selected?: boolean;
@@ -219,6 +221,7 @@ export function ChoiceChip({
     <span
       class={`rv-choice-chip rv-choice-chip--composite ${preset?.className ?? ''} ${className}`.trim()}
       data-part="root"
+      data-preset-scope={props['data-part'] === 'item' ? 'inherit' : undefined}
       role={props.role}
       style={style}
       data-color={color ? 'true' : undefined}

@@ -325,6 +325,7 @@ export function TextInput({
       {...preset?.props}
       {...props}
       data-part="input"
+      data-preset-scope="root"
       class={`rv-control ${nativeClass ?? ''} ${preset?.className ?? ''} ${className}`}
       onInput={(event) => {
         onInput?.(event);
@@ -350,6 +351,7 @@ export function Textarea({
       {...preset?.props}
       {...props}
       data-part="input"
+      data-preset-scope="root"
       class={`rv-control ${nativeClass ?? ''} ${preset?.className ?? ''} ${className}`}
       onInput={(event) => {
         onInput?.(event);

@@ -82,7 +82,9 @@ export function getIsoWeekdayUtc(date: Date): number {
 }
 
 export function getUtcWeekday(value: string | Date): number {
-  return (typeof value === 'string' ? parseIsoDate(value) : value).getUTCDay();
+  return (
+    typeof value === 'string' ? parseIsoDate(value) : value
+  ).getUTCDay();
 }
 
 export function getIsoWeekday(value: string | Date): number {
@@ -95,11 +97,21 @@ export function isValidIsoWeekday(value: number): boolean {
 }
 
 export function formatIsoDate(date: Date): ISODateString {
-  return date.toISOString().slice(0, 10) as ISODateString;
+  return date.toISOString().split('T', 1)[0] as ISODateString;
 }
 
 const isoDateTimeZoneFormatters = new Map<string, Intl.DateTimeFormat>();
 const isoLocalDateTimeZoneFormatters = new Map<string, Intl.DateTimeFormat>();
+
+function formatZonedIsoDateParts(parts: Map<string, string>): ISODateString {
+  const year = Number(parts.get('year'));
+  const isoYear = parts.get('era') === 'BC' ? 1 - year : year;
+  const yearText =
+    isoYear >= 0 && isoYear <= 9999
+      ? String(isoYear).padStart(4, '0')
+      : `${isoYear < 0 ? '-' : '+'}${String(Math.abs(isoYear)).padStart(6, '0')}`;
+  return `${yearText}-${parts.get('month')}-${parts.get('day')}` as ISODateString;
+}
 
 /** Serializes the calendar date containing an instant in the requested IANA timezone. */
 export function formatIsoDateInTimeZone(
@@ -110,6 +122,8 @@ export function formatIsoDateInTimeZone(
   if (!formatter) {
     formatter = new Intl.DateTimeFormat('en-US', {
       timeZone,
+      calendar: 'gregory',
+      era: 'short',
       year: 'numeric',
       month: '2-digit',
       day: '2-digit',
@@ -119,7 +133,7 @@ export function formatIsoDateInTimeZone(
   const parts = new Map(
     formatter.formatToParts(date).map((part) => [part.type, part.value]),
   );
-  return `${parts.get('year')!.padStart(4, '0')}-${parts.get('month')}-${parts.get('day')}` as ISODateString;
+  return formatZonedIsoDateParts(parts);
 }
 
 /** Serializes an instant as a timezone-local value accepted by `datetime-local` controls. */
@@ -131,6 +145,7 @@ export function formatLocalIsoDateTimeInTimeZone(
   if (!formatter) {
     formatter = new Intl.DateTimeFormat('en-US-u-ca-gregory', {
       timeZone,
+      era: 'short',
       year: 'numeric',
       month: '2-digit',
       day: '2-digit',
@@ -144,7 +159,7 @@ export function formatLocalIsoDateTimeInTimeZone(
   const parts = new Map(
     formatter.formatToParts(date).map((part) => [part.type, part.value]),
   );
-  return `${parts.get('year')!.padStart(4, '0')}-${parts.get('month')}-${parts.get('day')}T${parts.get('hour')}:${parts.get('minute')}:${parts.get('second')}`;
+  return `${formatZonedIsoDateParts(parts)}T${parts.get('hour')}:${parts.get('minute')}:${parts.get('second')}`;
 }
 
 /** Serializes the local calendar fields of a valid `Date` as `YYYY-MM-DD`. */
@@ -156,7 +171,9 @@ export function formatLocalIsoDate(value: Date): ISODateString {
 }
 
 /** Returns local calendar fields as `YYYY-MM-DD`, or `null` for a missing/invalid date. */
-export function toLocalIsoDate(value: Date | undefined): ISODateString | null {
+export function toLocalIsoDate(
+  value: Date | undefined,
+): ISODateString | null {
   if (!value || Number.isNaN(value.getTime())) {
     return null;
   }

@@ -4,6 +4,8 @@ import { h, type ComponentChildren } from 'preact';
 import { parseIsoDate, type ISODateString } from '@revolist/ui-dates';
 
 export interface CalendarDayProps {
+  /** Internal composition hook for CalendarMonthGrid. */
+  readonly inheritPresetScope?: boolean;
   readonly preset?: ClassPreset;
   readonly date: ISODateString;
   readonly label: string;
@@ -59,10 +61,11 @@ export function CalendarDay(props: CalendarDayProps) {
       type="button"
       role="gridcell"
       data-part="day"
+      data-preset-scope={props.inheritPresetScope ? undefined : 'root'}
       data-calendar-date={props.date}
       class={classes}
       disabled={props.disabled || props.hidden}
-      tabIndex={!props.hidden && props.focused ? 0 : -1}
+      tabIndex={!props.hidden && !props.disabled && props.focused ? 0 : -1}
       aria-hidden={props.hidden || undefined}
       aria-selected={props.selected || undefined}
       aria-invalid={props.previewInvalid || undefined}

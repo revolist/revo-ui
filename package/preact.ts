@@ -448,3 +448,9 @@ export const AiTaskItem: typeof ui.AiTaskItem =
   /* @__PURE__ */ registerComponentStyles(ui.AiTaskItem, aiStyles);
 export const IconToolbar: typeof ui.IconToolbar =
   /* @__PURE__ */ registerComponentStyles(ui.IconToolbar, layoutStyles);
+
+export const LookupField: typeof ui.LookupField =
+  /* @__PURE__ */ registerComponentStyles(ui.LookupField, fieldsStyles);
+
+export const CollapsibleSection: typeof ui.CollapsibleSection =
+  /* @__PURE__ */ registerComponentStyles(ui.CollapsibleSection, fieldsStyles);

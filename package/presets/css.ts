@@ -44,7 +44,12 @@ export function themeToCss(theme: UiTheme): string {
           'Structured styles require one valid CSS class name',
         );
       const selector = `.${preset.className}`;
-      if (preset.styles.root) emit(selector, preset.styles.root);
+      const rootSelector = `${selector}:not([data-preset-surface])`;
+      if (preset.styles.root) {
+        const entries = Object.entries(preset.styles.root);
+        emit(selector, Object.fromEntries(entries.filter(([name]) => name.startsWith('--'))));
+        emit(rootSelector, Object.fromEntries(entries.filter(([name]) => !name.startsWith('--'))));
+      }
       for (const [part, declarations] of Object.entries(
         preset.styles.parts ?? {},
       )) {
@@ -54,8 +59,8 @@ export function themeToCss(theme: UiTheme): string {
         // A descendant component's root starts a new part scope. The root
         // itself is addressed only on the preset element, not its children.
         const scopedPart = part === 'root'
-          ? `${selector}${attribute}`
-          : `${selector}${attribute}, ${selector} ${attribute}:not(:where(${selector} [data-part="root"]:not(${selector}):not([data-preset-scope="inherit"]) *))`;
+          ? rootSelector
+          : `${selector}${attribute}, ${selector} ${attribute}:not([data-preset-scope="root"]):not(:where(${selector} :is([data-part="root"], [data-preset-scope="root"]):not(${selector}):not([data-preset-scope="inherit"]) *))`;
         emit(scopedPart, declarations);
       }
     }

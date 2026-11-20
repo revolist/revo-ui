@@ -116,3 +116,94 @@ it('previews disabled spans and preserves commit-time custom validation messages
   );
   expect(validate).toHaveBeenCalledTimes(2);
 });
+
+it('reuses checked days when previewing nearby endpoints of a long range', () => {
+  const isDateDisabled = vi.fn((date: string) => date === '2026-10-14');
+  const { day, hover } = setup({
+    selected: { from: '2020-01-01' },
+    min: 0,
+    max: Infinity,
+    excludeDisabled: true,
+    isDateDisabled,
+  });
+  hover('2026-10-11');
+  expect(day('2026-10-11').hasAttribute('aria-invalid')).toBe(false);
+
+  isDateDisabled.mockClear();
+  hover('2026-10-15');
+  expect(day('2026-10-15').getAttribute('aria-invalid')).toBe('true');
+  expect(isDateDisabled.mock.calls.length).toBeLessThan(60);
+
+  isDateDisabled.mockClear();
+  hover('2026-10-13');
+  expect(day('2026-10-13').hasAttribute('aria-invalid')).toBe(false);
+  expect(isDateDisabled.mock.calls.length).toBeLessThan(60);
+});
+
+it('reuses checked days for earlier endpoints and rechecks current rules on click', () => {
+  let blocked: string | undefined;
+  const isDateDisabled = vi.fn((date: string) => date === blocked);
+  const { day, hover, change, invalid } = setup({
+    selected: { from: '2030-01-01' },
+    min: 0,
+    max: Infinity,
+    excludeDisabled: true,
+    isDateDisabled,
+  });
+  hover('2026-10-15');
+  isDateDisabled.mockClear();
+  hover('2026-10-13');
+  expect(isDateDisabled.mock.calls.length).toBeLessThan(60);
+
+  blocked = '2027-01-01';
+  act(() => day('2026-10-13').click());
+  expect(invalid).toHaveBeenCalled();
+  expect(change).toHaveBeenCalledWith({ from: '2026-10-13' });
+  expect(change).not.toHaveBeenCalledWith({
+    from: '2026-10-13',
+    to: '2030-01-01',
+  });
+});
+
+it('counts distinct dates before enforcing multiple preset limits', () => {
+  const host = document.createElement('div');
+  document.body.append(host);
+  hosts.push(host);
+  const change = vi.fn();
+  act(() =>
+    render(
+      <CalendarPicker
+        mode="multiple"
+        defaultMonth="2026-10-01"
+        max={1}
+        presets={[
+          { label: 'Dates', selection: ['2026-10-12', '2026-10-12'] },
+        ]}
+        onSelectionChange={change}
+      />,
+      host,
+    ),
+  );
+  const preset = host.querySelector<HTMLButtonElement>(
+    '.revo-calendar__presets button',
+  )!;
+  act(() => preset.click());
+  expect(change).toHaveBeenCalledWith(['2026-10-12']);
+});
+
+it('never commits an impossible date supplied by a range preset', () => {
+  const { host, change } = setup({
+    presets: [
+      {
+        label: 'Invalid date',
+        selection: { from: '2026-02-30', to: '2026-03-04' },
+      },
+    ],
+  });
+  act(() =>
+    host
+      .querySelector<HTMLButtonElement>('.revo-calendar__presets button')!
+      .click(),
+  );
+  expect(change).not.toHaveBeenCalled();
+});

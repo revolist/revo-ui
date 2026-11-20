@@ -1,17 +1,22 @@
-# Revo UI — Open-source components for data-rich applications
+<a href="https://ui.rv-grid.com/">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="public/logo-dark.svg" />
+    <img src="public/logo.svg" alt="Revo UI" width="320" />
+  </picture>
+</a>
+
+# Open-source components for data-rich applications
 
 [![npm version](https://img.shields.io/npm/v/%40revolist%2Fui?style=flat&color=2563eb)](https://www.npmjs.com/package/@revolist/ui)
 [![MIT license](https://img.shields.io/github/license/revolist/revo-ui?style=flat&color=16a34a)](LICENSE)
 [![Build status](https://img.shields.io/github/actions/workflow/status/revolist/revo-ui/pages.yml?branch=main&style=flat&label=build)](https://github.com/revolist/revo-ui/actions/workflows/pages.yml)
 [![0 runtime dependencies](https://img.shields.io/badge/dependencies-0-16a34a?style=flat)](https://www.npmjs.com/package/@revolist/ui?activeTab=dependencies)
 [![Tree-shakeable ESM](https://img.shields.io/badge/tree%20shaking-supported-16a34a?style=flat)](https://github.com/revolist/revo-ui/blob/main/package.json)
-[![Component + styles (4.0.12): 25.4 KiB gzip](https://img.shields.io/badge/Component%20%2B%20styles%20(4.0.12)-25.4%20KiB%20gzip-16a34a?style=flat)](docs/bundle-size.md)
+[![Component + styles: 15.4 KiB gzip](https://img.shields.io/badge/Component%20%2B%20styles-15.4%20KiB%20gzip-16a34a?style=flat)](docs/bundle-size.md)
 
 **Build data-rich applications with charts, AI chat, a PDF viewer, editable timelines, date controls, and more.**
 
 Revo UI brings these components to React, Vue, Angular, Svelte, Preact, and vanilla TypeScript, alongside the controls and layouts needed to compose complete workflows.
-
-Lightweight and tree-shakeable: import only the controls you use. The bundle-size badge measures the published 4.0.12 React `SvgButton` import, including automatic styles and bundled Preact; React is excluded as a peer dependency.
 
 [Live components](https://ui.rv-grid.com/components/buttons/) · [Interactive overview](https://ui.rv-grid.com/) · [Framework guides](https://ui.rv-grid.com/frameworks/) · [RevoGrid](https://rv-grid.com/) · [Pro documentation](https://pro.rv-grid.com/)
 
@@ -53,51 +58,22 @@ For smaller extracted stylesheets, use `styles/base.css` and only the required f
 
 For server-rendered applications, see the [SSR and hydration guide](docs/ssr.md) for framework recipes, initial CSS delivery, fallbacks and CSP.
 
-## Browser JavaScript / CDN (no build step)
-
-The standalone browser builds below use the published **4.0.12** release. Pin CSS and JavaScript to the same released version.
-
-```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@revolist/ui@4.0.12/styles.css">
-<div id="report-action" class="rv-ui"></div>
-<script type="module">
-import { createFrameworkMount, uiComponents } from
-  'https://cdn.jsdelivr.net/npm/@revolist/ui@4.0.12/browser/revo-ui.js';
-
-const mount = createFrameworkMount(document.querySelector('#report-action'), () => {});
-let count = 0;
-function update() {
-  mount.render(uiComponents.Button, {
-    variant: 'primary',
-    children: 'Create report · ' + count,
-    onClick: () => { count++; update(); },
-  });
-}
-update();
-// Call mount.destroy() before removing the host view.
-</script>
-```
-
-For a classic script, load `https://cdn.jsdelivr.net/npm/@revolist/ui@4.0.12/browser/revo-ui.global.js` and use `const { createFrameworkMount, uiComponents } = RevoUI` instead of the import. Both builds bundle their renderer and shared utilities; no import map or framework runtime is needed. Serve your HTML over HTTP(S) in a modern browser.
-
-You can replace the CDN prefix with `https://unpkg.com/@revolist/ui@4.0.12`, or self-host the package files. The `unpkg` and `jsdelivr` package defaults point to the classic script. The `@revolist/ui/browser` export points to the standalone ES module. Existing npm/framework ESM entries remain available for tree-shaking; host-framework adapters still require their respective frameworks.
-
-The complete browser bundles include the component catalog and PDF engine. PDF viewers also need `browser/pdf-viewer.css` and the matching `browser/pdf.worker.min.mjs` served from **your own origin**, with its URL supplied as `workerSrc`. Direct cross-origin CDN Worker URLs are not supported by the browser Worker constructor. Configure PDF document/asset access for your application.
-
-See the [CDN examples in Docs](https://ui.rv-grid.com/frameworks/javascript-cdn/) for complete module and classic-script HTML and lifecycle guidance.
+For browser use without a build step, see the [JavaScript / CDN guide](https://ui.rv-grid.com/frameworks/javascript-cdn/).
 
 ## Framework support
 
-Use the same component library and shared styles across frameworks, while keeping application state in your chosen stack.
+Use the same component library and shared styles across frameworks, while keeping application state in your chosen stack. The new named Angular/Svelte exports are a source preview for the next release; the [Angular](docs/ssr-angular.md) and [SvelteKit](docs/ssr-sveltekit.md) guides show how to build and run the local public package.
 
 | Framework | Integration |
 | --- | --- |
 | <img src="src/assets/frameworks/react.svg" width="24" height="24" alt=""> React | Named components from `@revolist/ui/react`, with React state, children, and callbacks. |
 | <img src="src/assets/frameworks/vue.svg" width="24" height="24" alt=""> Vue | Named components from `@revolist/ui/vue`, with events, slots, and `v-model` for controls with a declared model. |
-| <img src="src/assets/frameworks/angular.svg" width="24" height="24" alt=""> Angular | Standalone `UiComponent` from `@revolist/ui/angular`, with props, events, and templates for custom content. |
-| <img src="src/assets/frameworks/svelte.svg" width="24" height="24" alt=""> Svelte | Svelte 5 `UiComponent` from `@revolist/ui/svelte`, with reactive props, callbacks, and snippets. |
+| <img src="src/assets/frameworks/angular.svg" width="24" height="24" alt=""> Angular | Named standalone components from `@revolist/ui/angular`, with typed inputs, events and `rvUiSlot` templates. |
+| <img src="src/assets/frameworks/svelte.svg" width="24" height="24" alt=""> Svelte | Named Svelte 5 components from `@revolist/ui/svelte`, with typed props, model bindings, callbacks and snippets. |
 | <img src="src/assets/frameworks/preact.svg" width="24" height="24" alt=""> Preact | Components from `@revolist/ui/preact`, with Preact hooks and JSX. |
 | <img src="src/assets/frameworks/typescript.svg" width="24" height="24" alt=""> Vanilla TypeScript | Mount components into a DOM element with `createFrameworkMount` from `@revolist/ui/framework`. |
+
+For a narrow dependency graph, import the matching component entry, for example `@revolist/ui/angular/svg-button` or `@revolist/ui/svelte/svg-button`. Each exports `SvgButton`; `/unstyled` variants use application-managed CSS.
 
 ## Components
 
@@ -105,12 +81,15 @@ Explore live previews, variants, and expandable code examples on the website.
 
 - [Buttons](https://ui.rv-grid.com/components/buttons/) — Actions, icon buttons, toggles, and button groups.
 - [Inputs and forms](https://ui.rv-grid.com/components/inputs-and-forms/) — Text, search, numbers, validation, and field layouts.
-- [Selects and pickers](https://ui.rv-grid.com/components/selects-chips-and-resources/) — Searchable dropdowns, multiple selections, user images, and assignees.
+- [Multi/selects, autocomplete](https://ui.rv-grid.com/components/multi-selects-autocomplete/) — Single/multi-select, input autocomplete, optional tags and remote lookup.
+- [Resource selection](https://ui.rv-grid.com/components/resource-selection/) — People and resource pickers, user images and avatars.
 - [Selection controls](https://ui.rv-grid.com/components/selection-controls/) — Checkboxes, switches, radio buttons, and choice chips.
 - [Tabs and lists](https://ui.rv-grid.com/components/tabs-and-lists/) — Tabs, segmented controls, and selectable lists.
 - [Sliders](https://ui.rv-grid.com/components/sliders/) — Single values and ranges with labels and value badges.
 - [Timeline](https://ui.rv-grid.com/components/timeline-track/) — Draggable, resizable events with colors and tooltips.
-- [Calendars and dates](https://ui.rv-grid.com/components/calendar-and-dates/) — Date and time pickers, ranges, and weekly planning.
+- [Calendars and dates](https://ui.rv-grid.com/components/calendar-and-dates/) — Calendars, date selection, ranges, and weekly planning.
+- [Time pickers](https://ui.rv-grid.com/components/time-pickers/) — Time-only fields, business hours, seconds, and clock formats.
+- [Date and time fields](https://ui.rv-grid.com/components/date-and-time-fields/) — DateTimeField inputs and configurable date/time editors.
 - [Charts](https://ui.rv-grid.com/components/charts-and-range-selection/) — Bar, line, and area charts with tooltips and range selection.
 - [Tooltip API and behavior](docs/tooltip.md) — Placement, timing groups, controlled state, rich/async content, delegation, events, and imperative methods.
 - [Dialogs and tooltips](https://ui.rv-grid.com/components/dialogs-and-floating-surfaces/) — Dialogs, confirmations, popovers, and tooltips.
@@ -158,6 +137,33 @@ pnpm --filter @revolist/ui pack:public
 pnpm --filter @revolist/ui test:public
 pnpm build:demo
 ```
+
+Framework-independent date helpers are available from `@revolist/ui/dates`:
+
+```ts
+import {
+  addDays, diffInCalendarDays, formatCalendarDateDisplay,
+  isValidIsoDate, startOfMonth,
+} from '@revolist/ui/dates';
+
+const to = '2026-11-16';
+if (isValidIsoDate(to)) {
+  const from = addDays(to, -6);
+  const inclusiveDays = diffInCalendarDays(from, to) + 1; // 7
+  const monthStart = startOfMonth(to); // 2026-11-01
+  const label = formatCalendarDateDisplay(from, 'en-GB'); // 10 Nov 2026
+}
+```
+
+Validate untrusted strings with `isValidIsoDate` before date arithmetic. It accepts
+strict `YYYY-MM-DD` calendar dates and rejects impossible dates and timestamps.
+`addDays` uses UTC arithmetic and preserves date-only versus datetime output;
+`diffInCalendarDays` returns the signed day difference, so inclusive ranges add one.
+`formatCalendarDateDisplay` accepts a locale and optional timezone; date-only
+strings retain their civil date regardless of timezone. It returns `undefined`
+for invalid values. The entry point also exports ISO types, parsing and
+serialization helpers, `subtractDays`, `endOfMonth`, and `compareIsoDates`.
+These utilities do not require a framework, DOM, or stylesheet.
 
 Library source lives directly in `package/`; the root manifest owns its public exports. The internal workspace packages in `internal/` provide date and chart utilities that are bundled into the public distribution. Gallery source lives in `src/`.
 

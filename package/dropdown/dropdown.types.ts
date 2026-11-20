@@ -63,7 +63,12 @@ export type DropdownConfig<T = any> = {
   autoFocus?: boolean;
   autoOpen?: boolean;
   multiSelect?: boolean;
+  /** Search directly in the field instead of a separate popup search input. */
   autocomplete?: boolean;
+  /** Optional tags mode. Pure factory for a typed new option; null/undefined rejects it.
+   * Enables editable input. Only committed options trigger onCreateOption.
+   */
+  tags?: (text: string) => DropdownOption<T> | null | undefined;
   /** Initial text for searchable dropdowns, used by grid quick-edit. */
   initialSearch?: string;
   /** Close the dropdown when Tab is pressed inside the open popup. */
@@ -111,6 +116,8 @@ export type DropdownPreset = {
 };
 
 export type DropdownProps<T = any> = {
+  /** Internal: rendered as part of another preset-owning control. */
+  presetSurface?: boolean;
   preset?: DropdownPreset;
   environment?: DropdownEnvironment;
   triggerAttributes?: JSX.HTMLAttributes<HTMLDivElement>;
@@ -140,6 +147,8 @@ export type DropdownProps<T = any> = {
 
   onChange?: (value: T | T[]) => void;
   onClose?: (focusNext?: boolean) => void;
+  /** Persist a newly committed tag in the application's option source, if needed. */
+  onCreateOption?: (option: DropdownOption<T>) => void;
   /** Validate or save a draft before outside-pointer dismissal. False keeps it open.
    * Escape, selection and programmatic closure never invoke this callback.
    */

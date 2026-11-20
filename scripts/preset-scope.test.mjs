@@ -56,3 +56,36 @@ test('calendar presets style days inside the composed month grid', async () => {
     await browser.close();
   }
 });
+
+
+test('preset roots, nested controls and composed parts stay scoped', async () => {
+  const source = await readFile(new URL('../package/presets/css.ts', import.meta.url), 'utf8');
+  const { code } = await transform(source, { loader: 'ts', format: 'esm' });
+  const { themeToCss } = await import(`data:text/javascript,${encodeURIComponent(code)}`);
+  const theme = { version: 1, components: {
+    Panel: { p: { className: 'panel', styles: { parts: { track: { color: 'red' } } } } },
+    ChoiceChips: { p: { className: 'chips', styles: { parts: { item: { color: 'red' } } } } },
+    EditorListItem: { p: { className: 'row', styles: { parts: { label: { color: 'red' } } } } },
+    Dropdown: { p: { className: 'dropdown-theme', styles: { root: { padding: '11px', '--brand': 'green' } } } },
+    TextInput: { p: { className: 'field', styles: { parts: { root: { color: 'red' } } } } },
+  } };
+  const browser = await chromium.launch({ headless: true });
+  try {
+    const page = await browser.newPage();
+    await page.setContent(`<style>${themeToCss(theme)}</style>
+      <div class="panel" data-part="root"><button data-part="root"><span data-part="track" id="switch-track">Track</span></button></div>
+      <div class="chips" data-part="root"><span data-part="root" data-preset-scope="inherit"><button data-part="item" id="item">Item</button></span></div>
+      <div class="row" data-part="root"><span data-part="root" data-preset-scope="inherit"><span data-part="label" id="label">Label</span></span></div>
+      <div class="dropdown-theme" data-part="root" id="dropdown"><div class="dropdown-theme" data-part="root" id="nested-dropdown"></div></div><div class="dropdown-theme" data-part="popup" data-preset-surface id="popup"></div>
+      <input class="field" data-part="input" id="input">`);
+    const style = (id, property) => page.locator(`#${id}`).evaluate((el, key) => getComputedStyle(el)[key], property);
+    assert.notEqual(await style('switch-track', 'color'), 'rgb(255, 0, 0)');
+    assert.equal(await style('item', 'color'), 'rgb(255, 0, 0)');
+    assert.equal(await style('label', 'color'), 'rgb(255, 0, 0)');
+    assert.equal(await style('dropdown', 'padding'), '11px');
+    assert.equal(await style('nested-dropdown', 'padding'), '11px');
+    assert.equal(await style('popup', 'padding'), '0px');
+    assert.equal(await page.locator('#popup').evaluate((el) => getComputedStyle(el).getPropertyValue('--brand').trim()), 'green');
+    assert.equal(await style('input', 'color'), 'rgb(255, 0, 0)');
+  } finally { await browser.close(); }
+});

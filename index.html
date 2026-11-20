@@ -3,6 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      try {
+        const theme = localStorage.getItem('revo-ui-theme');
+        if (theme === 'light' || theme === 'dark') {
+          document.documentElement.dataset.theme = theme;
+        }
+      } catch {
+        // The gallery remains usable when browser storage is unavailable.
+      }
+    </script>
     <title>Revo UI — Components for Data-Rich Applications</title>
     <meta name="description" content="Charts, AI chat, PDF viewing, editable timelines, and date controls for React, Vue, Angular, Svelte, Preact, and TypeScript." />
     <meta name="robots" content="index, follow, max-image-preview:large" />

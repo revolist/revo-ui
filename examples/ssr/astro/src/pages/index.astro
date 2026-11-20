@@ -1,0 +1,20 @@
+---
+import '@revolist/ui/styles/base.css';
+import SaveButton from '../components/SaveButton.vue';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Astro report</title>
+  </head>
+  <body>
+    <main>
+      <h1>Astro report</h1>
+      <p>This page content is rendered on the server.</p>
+      <SaveButton client:load />
+    </main>
+  </body>
+</html>

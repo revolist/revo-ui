@@ -72,6 +72,7 @@ export function Switch({
         .filter(Boolean)
         .join(' ')}
       style={presetStyle}
+      data-part="root"
       data-state={checked ? 'checked' : 'unchecked'}
       role="switch"
       aria-checked={checked}

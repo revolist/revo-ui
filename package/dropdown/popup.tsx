@@ -1,19 +1,16 @@
 import type { ClassPreset } from '../presets/types';
 /** @jsxImportSource preact */
+import { getPopupCoordinates, getPopupViewport } from '../core/popup-position';
 import { ownsPopupTarget } from '../core/popup-ownership';
 import { h, type ComponentChildren, type RefObject, render } from 'preact';
 import { inheritUiMotion } from '../core/motion';
-import {
-  createPortal,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'preact/compat';
+import { createPortal, useLayoutEffect, useRef, useState } from 'preact/compat';
 import { hideTopLayerPopup, showTopLayerPopup } from '../core/top-layer-popup';
 
 // DropdownPopup component - Handles positioning and portal rendering
 export type DropdownPopupProps = {
+  /** Internal: the class belongs to the owning dropdown. */
+  inheritedPresetSurface?: boolean;
   preset?: ClassPreset;
   onPointerRelease?: (event: MouseEvent | TouchEvent) => void;
   triggerRef: RefObject<HTMLDivElement>;
@@ -44,71 +41,6 @@ const VIEWPORT_GUTTER = 5;
 const POPUP_GAP = 4;
 
 /**
- * Converts viewport coordinates into the coordinate space used by the popup's
- * actual CSS containing block. A custom portal is only a DOM mount point: when
- * it is statically positioned, an ancestor (or the initial containing block)
- * still owns `top` and `left` for the absolutely positioned popup.
- */
-function toPopupCoordinates(
-  popup: HTMLElement,
-  viewportTop: number,
-  viewportLeft: number,
-) {
-  const ownerWindow = popup.ownerDocument.defaultView;
-  if (!ownerWindow) {
-    return { top: viewportTop, left: viewportLeft, scaleX: 1, scaleY: 1 };
-  }
-  if (ownerWindow.getComputedStyle(popup).position === 'fixed') {
-    // Painted viewport rectangles include inherited CSS zoom. Fixed-position
-    // offsets and dimensions still use the popup's unzoomed CSS coordinates.
-    const zoom = popup.currentCSSZoom;
-    const scale = Number.isFinite(zoom) && zoom > 0 ? zoom : 1;
-    return {
-      top: viewportTop / scale,
-      left: viewportLeft / scale,
-      scaleX: scale,
-      scaleY: scale,
-    };
-  }
-
-  const offsetParent = popup.offsetParent;
-  const document = popup.ownerDocument;
-  if (
-    !offsetParent ||
-    offsetParent === document.body ||
-    offsetParent === document.documentElement
-  ) {
-    return {
-      top: viewportTop + ownerWindow.scrollY,
-      left: viewportLeft + ownerWindow.scrollX,
-      scaleX: 1,
-      scaleY: 1,
-    };
-  }
-
-  const parentRect = offsetParent.getBoundingClientRect();
-  const parent = offsetParent as HTMLElement;
-  const scaleX =
-    parent.offsetWidth > 0 ? parentRect.width / parent.offsetWidth : 1;
-  const scaleY =
-    parent.offsetHeight > 0 ? parentRect.height / parent.offsetHeight : 1;
-  const safeScaleX = Number.isFinite(scaleX) && scaleX > 0 ? scaleX : 1;
-  const safeScaleY = Number.isFinite(scaleY) && scaleY > 0 ? scaleY : 1;
-  return {
-    top:
-      (viewportTop - parentRect.top) / safeScaleY -
-      parent.clientTop +
-      parent.scrollTop,
-    left:
-      (viewportLeft - parentRect.left) / safeScaleX -
-      parent.clientLeft +
-      parent.scrollLeft,
-    scaleX: safeScaleX,
-    scaleY: safeScaleY,
-  };
-}
-
-/**
  * Dropdown popup component
  * @param triggerRef - The reference to the trigger element
  * @param children - The children of the dropdown
@@ -118,6 +50,7 @@ function toPopupCoordinates(
  */
 export function DropdownPopup({
   preset,
+  inheritedPresetSurface,
   onPointerRelease,
   triggerRef,
   children,
@@ -148,49 +81,66 @@ export function DropdownPopup({
     return inheritUiMotion(trigger, popup);
   }, [portalTarget, triggerRef]);
 
-  // Update dropdown position when opened
-  useEffect(() => {
+  // Measure and position before the first visible paint, including top-layer promotion.
+  useLayoutEffect(() => {
     const trigger = triggerRef.current;
-    if (!trigger) return;
+    const popup = dropdownRef.current;
+    if (!trigger || !popup) return;
     const ownerWindow = trigger.ownerDocument.defaultView ?? window;
-
-    const showForMeasurement = () => {
-      const popup = dropdownRef.current;
-      if (!popup) return;
-      const triggerRect = trigger.getBoundingClientRect();
-      const position = toPopupCoordinates(
-        popup,
-        triggerRect.bottom + POPUP_GAP,
-        triggerRect.left,
-      );
-
-      setDropdownPosition({
-        top: position.top,
-        left: position.left,
-        display: 'flex',
-        ...(matchTriggerWidth
-          ? { width: triggerRect.width / position.scaleX }
-          : {}),
-      });
-    };
 
     const updatePosition = () => {
       const popup = dropdownRef.current;
       if (!popup) return;
       const triggerRect = trigger.getBoundingClientRect();
+      const optionList = popup.querySelector<HTMLElement>('.dropdown-options');
+      const optionScrollTop = optionList?.scrollTop ?? 0;
+      const optionScrollLeft = optionList?.scrollLeft ?? 0;
+      const viewport = getPopupViewport(ownerWindow);
+      const coordinateSpace = getPopupCoordinates(popup, 0, 0);
+      // Preserve authored width limits while allowing a narrow or zoomed
+      // visible viewport to take precedence over the menu's minimum width.
+      popup.style.maxWidth = '';
+      popup.style.minWidth = '';
+      popup.style.direction = ownerWindow.getComputedStyle(trigger).direction;
+      const authored = ownerWindow.getComputedStyle(popup);
+      const chrome =
+        authored.boxSizing === 'border-box'
+          ? 0
+          : [
+              authored.paddingLeft,
+              authored.paddingRight,
+              authored.borderLeftWidth,
+              authored.borderRightWidth,
+            ].reduce((sum, value) => sum + (Number.parseFloat(value) || 0), 0);
+      const availableWidth = Math.max(
+        0,
+        (viewport.right - viewport.left - 2 * VIEWPORT_GUTTER) /
+          coordinateSpace.scaleX -
+          chrome,
+      );
+      popup.style.maxWidth =
+        !authored.maxWidth || authored.maxWidth === 'none'
+          ? `${availableWidth}px`
+          : `min(${authored.maxWidth}, ${availableWidth}px)`;
+      popup.style.minWidth = `min(${!authored.minWidth || authored.minWidth === 'auto' ? '0px' : authored.minWidth}, ${availableWidth}px)`;
       // Measure against the authored CSS cap, not the inline viewport cap from
       // a previous positioning pass. Otherwise ResizeObserver can turn a
       // temporary constraint into the popup's permanent desired height.
       const constrainedMaxHeight = popup.style.maxHeight;
       popup.style.maxHeight = '';
       const menuRect = popup.getBoundingClientRect();
-      const coordinateSpace = toPopupCoordinates(popup, 0, 0);
+      // Overflowing custom content does not override the authored CSS height cap.
       const measuredHeight = Math.max(
         menuRect.height,
         popup.offsetHeight * coordinateSpace.scaleY,
-        popup.scrollHeight * coordinateSpace.scaleY,
       );
       popup.style.maxHeight = constrainedMaxHeight;
+      // WebKit clamps native scroll when the temporary natural-height measure
+      // expands the list. Restore its offset under the original constraint.
+      if (optionList) {
+        optionList.scrollTop = optionScrollTop;
+        optionList.scrollLeft = optionScrollLeft;
+      }
       // Entry animation may shrink the rectangle; clamp the settled box too.
       const menuWidth = Math.max(
         menuRect.width,
@@ -202,15 +152,13 @@ export function DropdownPopup({
           ? Math.max(0, maxHeight * coordinateSpace.scaleY)
           : Number.POSITIVE_INFINITY,
       );
-      const viewportHeight = ownerWindow.innerHeight;
-      const viewportWidth = ownerWindow.innerWidth;
       const availableAbove = Math.max(
         0,
-        triggerRect.top - POPUP_GAP - VIEWPORT_GUTTER,
+        triggerRect.top - viewport.top - POPUP_GAP - VIEWPORT_GUTTER,
       );
       const availableBelow = Math.max(
         0,
-        viewportHeight - triggerRect.bottom - POPUP_GAP - VIEWPORT_GUTTER,
+        viewport.bottom - triggerRect.bottom - POPUP_GAP - VIEWPORT_GUTTER,
       );
       const opensAbove =
         desiredHeight > availableBelow && availableAbove > availableBelow;
@@ -223,14 +171,14 @@ export function DropdownPopup({
         align === 'end' ? triggerRect.right - menuWidth : triggerRect.left;
 
       viewportTop = Math.max(
-        VIEWPORT_GUTTER,
-        Math.min(viewportTop, viewportHeight - VIEWPORT_GUTTER - menuHeight),
+        viewport.top + VIEWPORT_GUTTER,
+        Math.min(viewportTop, viewport.bottom - VIEWPORT_GUTTER - menuHeight),
       );
       viewportLeft = Math.max(
-        VIEWPORT_GUTTER,
-        Math.min(viewportLeft, viewportWidth - menuWidth - VIEWPORT_GUTTER),
+        viewport.left + VIEWPORT_GUTTER,
+        Math.min(viewportLeft, viewport.right - menuWidth - VIEWPORT_GUTTER),
       );
-      const position = toPopupCoordinates(popup, viewportTop, viewportLeft);
+      const position = getPopupCoordinates(popup, viewportTop, viewportLeft);
       setDropdownPosition({
         top: position.top,
         left: position.left,
@@ -253,8 +201,20 @@ export function DropdownPopup({
       updatePosition();
     };
 
-    showForMeasurement();
-    const timer = ownerWindow.setTimeout(updatePosition, 0);
+    // The initial render is visibility:hidden so native promotion can make the
+    // panel measurable without exposing its placeholder coordinates. Width must
+    // be applied before measuring wrapping and the above/below placement.
+    const mode = topLayer ? showTopLayerPopup(popup) : undefined;
+    popup.style.display = 'flex';
+    if (matchTriggerWidth) {
+      const triggerRect = trigger.getBoundingClientRect();
+      const coordinateSpace = getPopupCoordinates(popup, 0, 0);
+      popup.style.width = `${triggerRect.width / coordinateSpace.scaleX}px`;
+    }
+    updatePosition();
+    const visualViewport = ownerWindow.visualViewport;
+    visualViewport?.addEventListener('scroll', updatePosition);
+    visualViewport?.addEventListener('resize', updatePosition);
     ownerWindow.addEventListener('resize', updatePosition);
     ownerWindow.addEventListener('scroll', handleScroll, true);
     const ResizeObserverCtor = ownerWindow.ResizeObserver;
@@ -262,17 +222,36 @@ export function DropdownPopup({
       ? new ResizeObserverCtor(updatePosition)
       : undefined;
     resizeObserver?.observe(trigger);
-    // Validation and selection content can move a trigger without resizing it.
-    const dialogSurface = trigger.closest('.rv-dialog__surface, dialog');
-    if (dialogSurface) resizeObserver?.observe(dialogSurface);
+    // Surrounding content can move the field without changing its own size.
+    // Observe its layout ancestors only while open, using the same observer.
+    for (
+      let parent = trigger.parentElement;
+      parent;
+      parent = parent.parentElement
+    )
+      resizeObserver?.observe(parent);
     if (observePopupResize && dropdownRef.current) {
       resizeObserver?.observe(dropdownRef.current);
     }
+    // Filtered or remote results can grow inside an unchanged clipped box.
+    // Content mutations must refresh the natural height even without a resize.
+    const mutationObserver =
+      observePopupResize && ownerWindow.MutationObserver
+        ? new ownerWindow.MutationObserver(updatePosition)
+        : undefined;
+    mutationObserver?.observe(popup, {
+      childList: true,
+      characterData: true,
+      subtree: true,
+    });
     return () => {
-      ownerWindow.clearTimeout(timer);
+      visualViewport?.removeEventListener('scroll', updatePosition);
+      visualViewport?.removeEventListener('resize', updatePosition);
       ownerWindow.removeEventListener('resize', updatePosition);
       ownerWindow.removeEventListener('scroll', handleScroll, true);
       resizeObserver?.disconnect();
+      mutationObserver?.disconnect();
+      if (mode) hideTopLayerPopup(popup, mode);
     };
   }, [
     align,
@@ -280,17 +259,9 @@ export function DropdownPopup({
     maxHeight,
     observePopupResize,
     portalTarget,
+    topLayer,
     triggerRef,
   ]);
-
-  useLayoutEffect(() => {
-    const popup = dropdownRef.current;
-    if (!topLayer || !popup) return;
-    const mode = showTopLayerPopup(popup);
-    return () => {
-      hideTopLayerPopup(popup, mode);
-    };
-  }, [portalTarget, topLayer]);
 
   useLayoutEffect(() => {
     if (!closeOnClickOutside || !onClose) return;
@@ -341,7 +312,9 @@ export function DropdownPopup({
       id={dropdownMenuId}
       className={`revo-dropdown-menu ${preset?.className ?? ''} ${popupClassName || ''}`}
       data-part="popup"
+      data-preset-surface={inheritedPresetSurface ? '' : undefined}
       data-theme={theme ?? 'default'}
+      data-rv-match-trigger-width={matchTriggerWidth ? '' : undefined}
       onMouseUp={onPointerRelease}
       onTouchEnd={onPointerRelease}
       style={{
@@ -349,6 +322,7 @@ export function DropdownPopup({
         left: `${dropdownPosition.left}px`,
         ...(topLayer ? { right: 'auto', bottom: 'auto', margin: '0' } : {}),
         display: dropdownPosition.display,
+        visibility: dropdownPosition.display === 'none' ? 'hidden' : undefined,
         maxHeight:
           dropdownPosition.maxHeight === undefined
             ? undefined

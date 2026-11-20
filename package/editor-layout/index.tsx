@@ -146,6 +146,7 @@ export function EditorListItem({
     >
       {label !== undefined ? (
         <EditorListItemContent
+          inheritPresetScope
           icon={icon}
           label={label}
           description={description}
@@ -159,6 +160,8 @@ export function EditorListItem({
 }
 
 export interface EditorListItemContentProps {
+  /** Internal composition hook for EditorListItem. */
+  readonly inheritPresetScope?: boolean;
   readonly preset?: ClassPreset;
   readonly className?: string;
   readonly icon?: ComponentChildren;
@@ -173,6 +176,7 @@ export interface EditorListItemContentProps {
 }
 /** Reusable row presentation; the enclosing list item owns selection and focus. */
 export function EditorListItemContent({
+  inheritPresetScope,
   preset,
   className = '',
   icon,
@@ -184,6 +188,7 @@ export function EditorListItemContent({
     <span
       class={`rv-editor-list__content${icon ? '' : ' rv-editor-list__content--text'} ${preset?.className ?? ''} ${className}`}
       data-part="root"
+      data-preset-scope={inheritPresetScope ? 'inherit' : undefined}
     >
       {icon && (
         <span
