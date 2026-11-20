@@ -84,7 +84,7 @@ Every component in the shared adapter catalog is listed below. Each name links t
 
 Actions, grouped commands, toggled state, icons, compact sizing, busy states and pill corners.
 
-[Button](api/Button.md) ([examples](https://ui.rv-grid.com/components/buttons/)) | [IconButton](api/IconButton.md) ([examples](https://ui.rv-grid.com/components/buttons/)) | [SvgButton](api/SvgButton.md) ([examples](https://ui.rv-grid.com/components/buttons/)) | [ToggleButton](api/ToggleButton.md) ([examples](https://ui.rv-grid.com/components/buttons/)) | [ButtonGroup](api/ButtonGroup.md) ([examples](https://ui.rv-grid.com/components/buttons/)) | [DeleteButton](api/DeleteButton.md) ([examples](https://ui.rv-grid.com/components/buttons/)) | [RemoveButton](api/RemoveButton.md) ([examples](https://ui.rv-grid.com/components/buttons/)) | [SvgIcon](api/SvgIcon.md) ([examples](https://ui.rv-grid.com/components/buttons/))
+[Button](api/Button.md) ([examples](https://ui.rv-grid.com/components/buttons/)) | [IconButton](api/IconButton.md) ([examples](https://ui.rv-grid.com/components/buttons/)) | [SvgButton](api/SvgButton.md) ([examples](https://ui.rv-grid.com/components/buttons/)) | [ToggleButton](api/ToggleButton.md) ([examples](https://ui.rv-grid.com/components/buttons/)) | [ButtonGroup](api/ButtonGroup.md) ([examples](https://ui.rv-grid.com/components/buttons/)) | [RemoveButton](api/RemoveButton.md) ([examples](https://ui.rv-grid.com/components/buttons/)) | [SvgIcon](api/SvgIcon.md) ([examples](https://ui.rv-grid.com/components/buttons/))
 
 ### Selection controls
 
@@ -449,7 +449,7 @@ Events support single colors or weighted color segments. Moving/resizing preserv
 
 ## Theming, sizing, and motion
 
-Load shared styles once, then configure semantic tokens rather than duplicating control styles. The gallery demonstrates light/dark themes and right-to-left layouts. [Explore interface colors](https://ui.rv-grid.com/colors/).
+Load shared styles once, then configure semantic tokens rather than duplicating control styles. The gallery demonstrates light/dark themes and right-to-left layouts. [Explore interface colors](https://ui.rv-grid.com/customize/).
 
 ```css
 .my-workspace {

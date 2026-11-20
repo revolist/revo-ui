@@ -7,7 +7,7 @@ import { resolve } from 'node:path';
 const pages = JSON.parse(await readFile(new URL('../src/pages.json', import.meta.url), 'utf8'));
 const documentation = JSON.parse(await readFile(new URL('../src/documentation.json', import.meta.url), 'utf8'));
 const slug = title => title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-const routes = [...apiRoutes, '', 'components/', ...pages.components.map(page => `components/${slug(page.title)}/`), 'colors/', 'accessibility/', 'frameworks/', ...Object.keys(documentation).map(id => `frameworks/${id}/`), ...pages.frameworks.map(name => `frameworks/${slug(name)}/`)];
+const routes = [...apiRoutes, '', 'components/', ...pages.components.map(page => `components/${slug(page.title)}/`), 'customize/', 'accessibility/', 'frameworks/', ...Object.keys(documentation).map(id => `frameworks/${id}/`), ...pages.frameworks.map(name => `frameworks/${slug(name)}/`)];
 const origin = 'https://ui.rv-grid.com';
 const root = resolve(import.meta.dirname, '..');
 const baseFlag = process.argv.indexOf('--base');
@@ -40,6 +40,10 @@ try {
     await mkdir(destination, { recursive: true });
     await writeFile(resolve(destination, 'index.html'), html);
   }
+  // Keep published Colors links working while the customization workspace owns the content.
+  const oldColors = resolve(root, 'dist-gallery/colors');
+  await mkdir(oldColors, { recursive: true });
+  await writeFile(resolve(oldColors, 'index.html'), await readFile(resolve(root, 'dist-gallery/customize/index.html')));
   const componentAliases = JSON.parse(await readFile(new URL('../src/component-aliases.json', import.meta.url), 'utf8'));
   for (const [legacy, target] of Object.entries(componentAliases)) {
     const canonical = target.split('#')[0];

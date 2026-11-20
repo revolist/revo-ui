@@ -23,7 +23,6 @@ export { AiRequestTrail } from './ai-request-trail';
 export { Input } from './input';
 export { SvgIcon } from './svg-icon';
 export { SvgButton } from './svg-button';
-export { DeleteButton } from './delete-button';
 export { RemoveButton } from './remove-button';
 export { Checkbox } from './checkbox';
 export { Switch } from './switch';

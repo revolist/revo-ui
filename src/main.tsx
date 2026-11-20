@@ -1,5 +1,4 @@
 import { AutocompleteExamples } from './autocomplete';
-import { SwitchThemeEditor } from './switch-theme-editor';
 import { TooltipPlacementExamples, TooltipTimingExamples, TooltipStateExamples, TooltipContentExamples, TooltipBoundaryExample, TooltipControllerExample } from './tooltips';
 import { CollapsibleSection as __themeOriginal_CollapsibleSection } from '@revolist/ui/preact';
 import { AccessibilityPage } from './accessibility';
@@ -13,7 +12,7 @@ import { PdfViewerExamples } from './pdf-viewer';
 import { DateTimeField as __themeOriginal_DateTimeField } from '@revolist/ui/date-time';
 import { SharedEditorExamples, DurationEffortExample, RemoteLookupExample, AssigneeFieldExample } from './shared-editors';
 import { RichTextEditorExample } from './rich-text';
-import { ColorsExamples } from './colors';
+import { CustomizePage } from './customize-page';
 import { AiExamples } from './ai';
 import { AiChatExample } from './ai-chat';
 import { AiResultsExample } from './ai-results';
@@ -243,15 +242,8 @@ function App() {
   if (pageKind() === 'frameworks') {
     return <CatalogShell page="frameworks" theme={theme} rtl={rtl} onThemeChange={setTheme} onRtlChange={setRtl}><FrameworksPage /></CatalogShell>;
   }
-  if (pageKind() === 'colors') {
-    return (
-      <CatalogShell page="colors" theme={theme} rtl={rtl} onThemeChange={setTheme} onRtlChange={setRtl}>
-        <section id="colors" class="catalog-section" aria-labelledby="colors-title">
-          <div class="catalog-section-heading"><div><h1 id="colors-title">Colors</h1><p>Semantic interface colors and usage across every product.</p></div></div>
-          <ColorsExamples />
-        </section>
-      </CatalogShell>
-    );
+  if (pageKind() === 'customize') {
+    return <CatalogShell page="customize" theme={theme} rtl={rtl} onThemeChange={setTheme} onRtlChange={setRtl}><CustomizePage /></CatalogShell>;
   }
   return (
     <CatalogShell
@@ -377,9 +369,6 @@ function App() {
             disabled
             onChange={() => {}}
           />
-        </Example>
-        <Example title="Customize a switch">
-          <SwitchThemeEditor />
         </Example>
         <Example title="Radio choices">
           <RadioGroup

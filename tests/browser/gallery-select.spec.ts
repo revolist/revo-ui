@@ -1,3 +1,4 @@
+import { setGalleryPreference } from './gallery-preferences';
 import { chooseOption } from './choose-option';
 import { test, expect } from './gallery-test';
 
@@ -26,7 +27,7 @@ test('gallery settings and forms use shared dropdowns throughout', async ({
     'Dark',
   );
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
-  await page.getByRole('switch', { name: 'Animations', exact: true }).uncheck();
+  await setGalleryPreference(page, 'Animations', false);
   await expect(page.locator('html')).toHaveAttribute(
     'data-rv-ui-motion',
     'off',

@@ -1,5 +1,7 @@
 import type { ClassPreset } from './presets/types';
 import { useTitleTooltip } from './core/title-tooltip';
+import { animateNumberStep } from './number-stepper-motion';
+import type { MotionPreset } from './presets/motion';
 import { RatingStar } from './rating-choice';
 import { Input, TextArea, ButtonControl } from './native-control';
 import { registerControl } from './control-presentation';
@@ -378,6 +380,7 @@ export function NumberInput({
   );
 }
 export type NumberStepperPreset = {
+  motion?: MotionPreset;
   className?: string;
   props?: { step?: number; disabled?: boolean; readOnly?: boolean };
 };
@@ -412,16 +415,30 @@ export function NumberStepper({
   const step = stepProp ?? preset?.props?.step ?? 1;
   const disabled = disabledProp ?? preset?.props?.disabled;
   const readOnly = readOnlyProp ?? preset?.props?.readOnly;
+  const root = useRef<HTMLDivElement>(null);
+  const pendingStep = useRef<{ from: number; to: number }>();
+  useLayoutEffect(() => {
+    const pending = pendingStep.current;
+    pendingStep.current = undefined;
+    if (pending && pending.to === value && root.current)
+      return animateNumberStep(root.current, pending.from, value, preset?.motion);
+  }, [value, preset?.motion]);
   const set = (next: number) => {
     if (Number.isFinite(next)) onChange(Math.max(min, Math.min(max, next)));
   };
+  const changeStep = (next: number) => {
+    const target = Math.max(min, Math.min(max, next));
+    if (Number.isFinite(target) && target !== value)
+      pendingStep.current = { from: value, to: target };
+    set(next);
+  };
   return (
-    <div class={`rv-number-stepper ${preset?.className ?? ''} ${className}`} data-part="root" role="group" aria-label={label}>
+    <div ref={root} class={`rv-number-stepper ${preset?.className ?? ''} ${className}`} data-part="root" role="group" aria-label={label}>
       <Button
         data-part="decrease"
         disabled={disabled || readOnly || value <= min}
         aria-label={decreaseLabel}
-        onClick={() => set(value - step)}
+        onClick={() => changeStep(value - step)}
       >
         −
       </Button>
@@ -434,6 +451,7 @@ export function NumberStepper({
         disabled={disabled}
         readOnly={readOnly}
         onValueChange={(next) => {
+          pendingStep.current = undefined;
           if (next !== undefined) set(next);
         }}
       />
@@ -441,7 +459,7 @@ export function NumberStepper({
         data-part="increase"
         disabled={disabled || readOnly || value >= max}
         aria-label={increaseLabel}
-        onClick={() => set(value + step)}
+        onClick={() => changeStep(value + step)}
       >
         +
       </Button>

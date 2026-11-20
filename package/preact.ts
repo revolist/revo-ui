@@ -26,8 +26,6 @@ export const SvgIcon: typeof ui.SvgIcon =
   /* @__PURE__ */ registerComponentStyles(ui.SvgIcon, baseStyles);
 export const SvgButton: typeof ui.SvgButton =
   /* @__PURE__ */ registerComponentStyles(ui.SvgButton, buttonStyles);
-export const DeleteButton: typeof ui.DeleteButton =
-  /* @__PURE__ */ registerComponentStyles(ui.DeleteButton, baseStyles);
 export const RemoveButton: typeof ui.RemoveButton =
   /* @__PURE__ */ registerComponentStyles(ui.RemoveButton, baseStyles);
 export const Checkbox: typeof ui.Checkbox =

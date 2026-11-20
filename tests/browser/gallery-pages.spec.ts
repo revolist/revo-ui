@@ -486,7 +486,7 @@ test('audit standalone field sizing across the gallery', async ({ page }) => {
   }
 });
 
-test('header uses icon theme button and animation switch', async ({ page }) => {
+test('header theme button and customize panel animation switch work', async ({ page }) => {
   await page.goto('/');
   const theme = page.getByRole('button', { name: 'Theme', exact: true });
   await expect(theme.locator('svg')).toHaveCount(1);
@@ -494,6 +494,7 @@ test('header uses icon theme button and animation switch', async ({ page }) => {
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   await theme.click();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+  await page.getByRole('button', { name: 'Customize', exact: true }).click();
   const motion = page.getByRole('switch', { name: 'Animations', exact: true });
   await motion.uncheck();
   await expect(page.locator('html')).toHaveAttribute(
@@ -652,6 +653,7 @@ for (const width of [1280, 390]) {
           'JavaScript / CDN',
           'Bundle size',
           'Themes and presets',
+          'Customize components',
           'Accessibility',
         ],
         'Framework adapters': [
@@ -716,7 +718,7 @@ for (const width of [1280, 390]) {
             groups[index].top - groups[index - 1].bottom,
           ).toBeGreaterThanOrEqual(20);
         }
-        await page.getByRole('button', { name: 'More gallery options' }).click();
+        await page.getByRole('button', { name: 'Customize', exact: true }).click();
         await page
           .getByRole('switch', { name: 'Right to left', exact: true })
           .click();
@@ -781,10 +783,11 @@ test('standalone dropdown has balanced text and caret insets', async ({
     exact: true,
   });
   for (const rtl of [false, true]) {
-    if (rtl)
-      await page
-        .getByRole('switch', { name: 'Right to left', exact: true })
-        .check();
+    if (rtl) {
+      await page.getByRole('button', { name: 'Customize', exact: true }).click();
+      await page.getByRole('switch', { name: 'Right to left', exact: true }).check();
+      await page.getByRole('button', { name: 'Customize', exact: true }).click();
+    }
     const sizes = await select.evaluate((el) => {
       const caret = el
         .querySelector('.dropdown-arrow')!
@@ -875,7 +878,7 @@ test('header navigation omits the star request on desktop and mobile', async ({ 
     await page.goto('/components/timeline-track/');
     const navigation = page.getByRole('navigation', { name: 'Library pages' });
     await expect(navigation.getByRole('link', { name: 'Star on GitHub' })).toHaveCount(0);
-    await expect(navigation.getByRole('link')).toHaveText(['Overview', 'Components', 'Colors', 'Docs', 'API']);
+    await expect(navigation.getByRole('link')).toHaveText(['Overview', 'Components', 'Docs', 'API']);
   }
 });
 

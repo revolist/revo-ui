@@ -1,3 +1,4 @@
+import { setGalleryPreference } from './gallery-preferences';
 import { test, expect, type Locator } from './gallery-test';
 
 test.use({ gallerySections: ['formatting-controls'] });
@@ -96,13 +97,9 @@ test('global and OS motion disable disclosure content even with custom timing', 
   const details = page.locator('.rv-format-inspector-section').first();
   for (const mode of ['global', 'reduce'] as const) {
     if (mode === 'global')
-      await page
-        .getByRole('switch', { name: 'Animations', exact: true })
-        .uncheck();
+      await setGalleryPreference(page, 'Animations', false);
     else {
-      await page
-        .getByRole('switch', { name: 'Animations', exact: true })
-        .check();
+      await setGalleryPreference(page, 'Animations', true);
       await page.emulateMedia({ reducedMotion: 'reduce' });
     }
     await details.evaluate((node) => {

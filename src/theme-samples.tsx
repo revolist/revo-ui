@@ -19,7 +19,6 @@ import {
   ChoiceChip,
   ChoiceChipInfoButton,
   ChoiceChips,
-  DeleteButton,
   FieldGroupHeading,
   FieldHint,
   Legend,
@@ -230,7 +229,6 @@ const names = new Set([
   'Chip',
   'ChoiceChip',
   'ChoiceChipInfoButton',
-  'DeleteButton',
   'FieldGroupHeading',
   'FieldHint',
   'Legend',
@@ -1369,7 +1367,7 @@ function Sample({
         />
       );
     case 'Pane':
-      return <Pane {...shared}>Pane content</Pane>;
+      return <Pane {...shared}><div class="theme-pane-sample-content">Pane content</div></Pane>;
     case 'Rating':
       return (
         <Rating
@@ -1388,7 +1386,7 @@ function Sample({
     case 'SplitLayout':
       return (
         <SplitLayout {...shared}>
-          <Pane>Pane content</Pane>
+          <Pane><div class="theme-pane-sample-content">Pane content</div></Pane>
         </SplitLayout>
       );
     case 'SvgButton':
@@ -1680,11 +1678,11 @@ function Sample({
         </details>
       );
     case 'EditorPane':
-      return <EditorPane {...shared}>Pane content</EditorPane>;
+      return <EditorPane {...shared}><div class="theme-pane-sample-content">Pane content</div></EditorPane>;
     case 'EditorSplitLayout':
       return (
         <EditorSplitLayout {...shared}>
-          <EditorPane>Pane content</EditorPane>
+          <EditorPane><div class="theme-pane-sample-content">Pane content</div></EditorPane>
         </EditorSplitLayout>
       );
     case 'EditorList':
@@ -1861,8 +1859,6 @@ function Sample({
           data-tooltip="More information"
         />
       );
-    case 'DeleteButton':
-      return <DeleteButton {...shared} onClick={() => setChecked(!checked)} />;
     case 'RemoveButton':
       return <RemoveButton {...shared} onClick={() => setChecked(!checked)} />;
     case 'FieldGroupHeading':
@@ -1990,10 +1986,6 @@ export function ThemeSamples({ preview }: { preview: ThemePreview }) {
   if (!hasThemeSample(preview.component)) return null;
   return (
     <div class="theme-samples">
-      <div>
-        <span>Default</span>
-        <Sample key={`${preview.component}-default`} name={preview.component} />
-      </div>
       <div>
         <span>Customized</span>
         <Sample key={`${preview.component}-custom`} name={preview.component} preset={preview.preset} />

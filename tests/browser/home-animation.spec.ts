@@ -1,3 +1,4 @@
+import { setGalleryPreference } from './gallery-preferences';
 import { expect, test } from '@playwright/test';
 
 for (const width of [390, 1280]) {
@@ -47,13 +48,13 @@ for (const width of [390, 1280]) {
         ),
       )
       .toBe('rgb(0, 0, 0)');
-    await page.getByRole('switch', { name: 'Animations', exact: true }).click();
+    await setGalleryPreference(page, 'Animations', 'toggle');
     await expect(video).toBeVisible();
     expect(
       await video.evaluate((element) => (element as HTMLVideoElement).paused),
     ).toBe(true);
     await expect(page.locator('.home-hero-animation img')).toHaveCount(0);
-    await page.getByRole('switch', { name: 'Animations', exact: true }).click();
+    await setGalleryPreference(page, 'Animations', 'toggle');
     await expect
       .poll(() =>
         video.evaluate((element) => !(element as HTMLVideoElement).paused),
@@ -76,6 +77,7 @@ for (const width of [390, 1280]) {
       path: `test-results/hero-dark-${width}.png`,
       fullPage: false,
     });
+    if (width <= 1200) await page.getByRole('button', { name: 'More gallery options' }).click();
     await page.getByRole('button', { name: 'Theme', exact: true }).click();
     await page.screenshot({
       path: `test-results/hero-light-${width}.png`,

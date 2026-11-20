@@ -151,6 +151,8 @@
 /* ─── Toggle switch ───────────────────────────────────────────────────────── */
 .rv-switch {
   appearance: none;
+  position: relative;
+  isolation: isolate;
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
@@ -164,6 +166,20 @@
   font: inherit;
   text-align: start;
   user-select: none;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -4px -8px;
+    z-index: -1;
+    border-radius: var(--rv-ui-radius, 8px);
+    background: var(--rv-ui-btn-ghost-hover-bg);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease);
+  }
+  &:hover:not(:disabled), &:active:not(:disabled) { background: transparent; }
+  &:hover:not(:disabled)::before { opacity: 1; }
 
   &:focus-visible {
     border-radius: 8px;
@@ -250,7 +266,7 @@ label.rv-switch-label {
     --rv-ui-switch-track-off-color,
     var(--rv-ui-switch-preset-track-off, var(--rv-ui-switch-track-off))
   );
-  transition: background-color var(--rv-ui-motion-fast, 120ms)
+  transition: background-color var(--rv-ui-motion-normal, 160ms)
     var(--rv-ui-motion-ease, ease);
 }
 
@@ -271,8 +287,34 @@ label.rv-switch-label {
     var(--rv-ui-switch-preset-thumb, var(--rv-ui-switch-thumb))
   );
   box-shadow: 0 1px 3px var(--rv-ui-shadow);
-  transition: inset-inline-start var(--rv-ui-motion-normal, 160ms)
-    var(--rv-ui-motion-ease, ease);
+  transform-origin: left center;
+  transition:
+    inset-inline-start var(--rv-ui-motion-normal, 160ms) cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease);
+}
+
+.rv-switch:dir(rtl) .rv-switch-thumb,
+.rv-switch-label:dir(rtl) .rv-switch-thumb {
+  transform-origin: right center;
+}
+.rv-switch[aria-checked='true'] .rv-switch-thumb,
+.rv-switch-input:checked + .rv-switch-track .rv-switch-thumb {
+  transform-origin: right center;
+}
+.rv-switch[aria-checked='true']:dir(rtl) .rv-switch-thumb,
+.rv-switch-label:dir(rtl) .rv-switch-input:checked + .rv-switch-track .rv-switch-thumb {
+  transform-origin: left center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rv-switch:not(:disabled):active .rv-switch-thumb,
+  .rv-switch-input:not(:disabled):active + .rv-switch-track .rv-switch-thumb,
+  label.rv-switch-label:active:has(.rv-switch-input:not(:disabled)) .rv-switch-thumb {
+    transform: scaleX(1.15);
+  }
+  [data-rv-ui-motion='off'] .rv-switch-thumb {
+    transform: none !important;
+  }
 }
 
 .rv-switch[aria-checked='true'] .rv-switch-track {
@@ -648,12 +690,10 @@ label.rv-switch-label {
 }
 
 .rv-segmented-switch {
-  --rv-segmented-theme-item-hover-bg: color-mix(
-    in srgb,
-    var(--rv-ui-text) 8%,
-    var(--rv-ui-surface-sunken)
-  );
+  --rv-segmented-theme-item-hover-bg: transparent;
   display: inline-flex;
+  position: relative;
+  isolation: isolate;
   box-sizing: border-box;
   height: 37px;
   align-items: center;
@@ -676,8 +716,8 @@ label.rv-switch-label {
 .rv-segmented-switch[data-theme^='dark'] {
   --rv-segmented-theme-bg: var(--rv-ui-surface-sunken);
   --rv-segmented-theme-border: var(--rv-ui-border);
-  --rv-segmented-theme-item-color: var(--rv-ui-text);
-  --rv-segmented-theme-item-hover-bg: var(--rv-ui-surface-hover);
+  --rv-segmented-theme-item-color: var(--rv-ui-text-muted);
+  --rv-segmented-theme-item-hover-bg: transparent;
   --rv-segmented-theme-item-hover-color: var(--rv-ui-text);
   --rv-segmented-theme-active-bg: var(--rv-ui-surface-elevated);
   --rv-segmented-theme-active-border: var(--rv-ui-border-strong);
@@ -687,6 +727,8 @@ label.rv-switch-label {
 
 .rv-segmented-switch-item {
   box-sizing: border-box;
+  position: relative;
+  z-index: 1;
   flex: 1 1 auto;
   display: flex;
   appearance: none;
@@ -700,7 +742,7 @@ label.rv-switch-label {
   background: transparent;
   color: var(
     --rv-segmented-item-color,
-    var(--rv-ah-text-2, var(--rv-segmented-theme-item-color, var(--rv-ui-text)))
+    var(--rv-ah-text-2, var(--rv-segmented-theme-item-color, var(--rv-ui-text-muted)))
   );
   cursor: pointer;
   font: inherit;
@@ -711,7 +753,8 @@ label.rv-switch-label {
     background-color var(--rv-ui-motion-fast, 120ms)
       var(--rv-ui-motion-ease, ease),
     color var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease),
-    opacity var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease);
+    opacity var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease),
+    transform var(--rv-ui-motion-fast, 120ms) var(--rv-ui-motion-ease, ease);
 }
 
 .rv-segmented-switch--icon-only .rv-segmented-switch-item {
@@ -730,7 +773,7 @@ label.rv-switch-label {
 .rv-segmented-switch-item:where(:not(.on)):hover:not(:disabled) {
   background: var(
     --rv-segmented-item-hover-bg,
-    var(--rv-segmented-theme-item-hover-bg, var(--rv-ui-surface-hover))
+    var(--rv-segmented-theme-item-hover-bg, transparent)
   );
   color: var(
     --rv-segmented-item-hover-color,
@@ -755,6 +798,28 @@ label.rv-switch-label {
     --rv-segmented-active-border,
     var(--rv-segmented-theme-active-border, var(--rv-ui-border))
   );
+  box-shadow: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rv-segmented-switch-item:active:not(:disabled) {
+    transform: scale(0.96);
+  }
+  [data-rv-ui-motion='off'] .rv-segmented-switch-item:active:not(:disabled) {
+    transform: none;
+  }
+}
+
+.rv-segmented-switch-indicator {
+  position: absolute;
+  z-index: 0;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  pointer-events: none;
+}
+.rv-segmented-switch[data-sliding] .rv-segmented-switch-item.on {
+  background: transparent;
+  border-color: transparent;
   box-shadow: none;
 }
 

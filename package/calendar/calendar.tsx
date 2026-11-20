@@ -1,6 +1,6 @@
 /** @jsxImportSource preact */
-import { h } from 'preact';
-import { useLayoutEffect, useMemo, useRef, useState } from 'preact/hooks';
+import { h } from "preact";
+import { useLayoutEffect, useMemo, useRef, useState } from "preact/hooks";
 import {
   addDays,
   addDisplayMonths,
@@ -12,39 +12,40 @@ import {
   displayWeekNumber,
   getUtcWeekday,
   type ISODateString,
-} from '@revolist/ui-dates';
-import { createControlId } from '../core/control-id';
-import { ButtonControl } from '../native-control';
-import { CalendarHeader, CalendarWeekdays } from './header';
-import { CalendarCaption } from './caption';
+} from "@revolist/ui-dates";
+import { createControlId } from "../core/control-id";
+import { motionAllowed, presetAnimation } from "../presets/motion";
+import { ButtonControl } from "../native-control";
+import { CalendarHeader, CalendarWeekdays } from "./header";
+import { CalendarCaption } from "./caption";
 import {
   createCalendarMonth,
   isCalendarDateDisabled,
   isCalendarMonthDisabled,
   moveCalendarFocus,
-} from './model';
-import { CalendarMonthGrid } from './month-grid';
+} from "./model";
+import { CalendarMonthGrid } from "./month-grid";
 import {
   MAX_CALENDAR_DATE,
   MIN_CALENDAR_DATE,
   resolveCalendarReferenceDate,
-} from './reference-date';
+} from "./reference-date";
 import {
   getCalendarSelectionError,
   getCalendarViews,
-} from './selection-validation';
-import { DEFAULT_CALENDAR_TRANSLATIONS } from './translations';
-import type { CalendarProps, CalendarView } from './types';
-import { CalendarYearGrid } from './year-grid';
+} from "./selection-validation";
+import { DEFAULT_CALENDAR_TRANSLATIONS } from "./translations";
+import type { CalendarProps, CalendarView } from "./types";
+import { CalendarYearGrid } from "./year-grid";
 const DAY_NAVIGATION_KEYS = [
-  'ArrowLeft',
-  'ArrowRight',
-  'ArrowUp',
-  'ArrowDown',
-  'Home',
-  'End',
-  'PageUp',
-  'PageDown',
+  "ArrowLeft",
+  "ArrowRight",
+  "ArrowUp",
+  "ArrowDown",
+  "Home",
+  "End",
+  "PageUp",
+  "PageDown",
 ];
 
 export function Calendar(input: CalendarProps) {
@@ -60,7 +61,7 @@ export function Calendar(input: CalendarProps) {
 }
 
 function renderCalendar({
-  locale = 'en-US',
+  locale = "en-US",
   weekStartsOn = 1,
   showOutsideDays = false,
   allowOutsideMonthSelection = false,
@@ -77,9 +78,9 @@ function renderCalendar({
   ...props
 }: CalendarProps) {
   const [previewDescriptionId] = useState(() =>
-    createControlId('rv-calendar-feedback'),
+    createControlId("rv-calendar-feedback"),
   );
-  const system = props.calendarSystem ?? 'gregory';
+  const system = props.calendarSystem ?? "gregory";
   const count = Math.max(
     1,
     Math.min(12, Math.trunc(props.numberOfMonths || 1)),
@@ -126,7 +127,176 @@ function renderCalendar({
   const requestFocus = useRef(false);
   const monthCaptionRefs = useRef(new Map<number, HTMLButtonElement>());
   const viewTriggerIndex = useRef<number>();
-  const requestViewFocus = useRef<'caption' | 'day'>();
+  const requestViewFocus = useRef<"caption" | "day">();
+  const singleDate = props.selectedDates?.length
+    ? props.selectedDates.length === 1 && !props.selection
+      ? props.selectedDates[0]
+      : undefined
+    : props.selection?.from && props.selection.from === props.selection.to
+      ? props.selection.from
+      : undefined;
+  const previousMotion = useRef({ month, view, singleDate });
+  useLayoutEffect(() => {
+    const previous = previousMotion.current;
+    previousMotion.current = { month, view, singleDate };
+    const root = calendarRoot.current;
+    const win = root?.ownerDocument.defaultView;
+    if (
+      !root ||
+      !win ||
+      typeof root.animate !== "function" ||
+      !motionAllowed(root)
+    )
+      return;
+
+    if (month !== previous.month || view !== previous.view) {
+      const backwards = compareIsoDates(month, previous.month) < 0;
+      const periodEvent =
+        backwards && props.preset?.motion?.periodBackward
+          ? "periodBackward"
+          : !backwards && props.preset?.motion?.periodForward
+            ? "periodForward"
+            : "period";
+      if (
+        !props.preset?.motion?.[periodEvent] &&
+        !props.preset?.motion?.caption
+      )
+        return;
+      const direction = win.getComputedStyle(root).direction === "rtl" ? -1 : 1;
+      // Keep weekdays and navigation stable while the new columns open out
+      // from the center and fade in, in the direction of navigation.
+      const animations: Animation[] = [];
+      root
+        .querySelectorAll<HTMLElement>(".revo-calendar__month-label")
+        .forEach((label) => {
+          if (!props.preset?.motion?.caption) return;
+          const content =
+            label.querySelector<HTMLElement>("[aria-live]") ?? label;
+          const config = presetAnimation(props.preset?.motion, "caption", {
+            keyframes: [{ opacity: 0 }, { opacity: 1 }],
+            options: { duration: 220, easing: "ease-out" },
+          });
+          if (config)
+            animations.push(content.animate(config.keyframes, config.options));
+        });
+      root
+        .querySelectorAll<HTMLElement>(
+          ".revo-calendar__week, .revo-calendar__year-grid",
+        )
+        .forEach((row) => {
+          if (!props.preset?.motion?.[periodEvent]) return;
+          const yearGrid = row.classList.contains("revo-calendar__year-grid");
+          const items = row.querySelectorAll<HTMLElement>(
+            yearGrid ? ".revo-calendar__month" : ".revo-calendar__day",
+          );
+          items.forEach((item, index) => {
+            if (item.getAttribute("aria-hidden") === "true") return;
+            const opacity = win.getComputedStyle(item).opacity;
+            const columns = yearGrid ? 3 : 7;
+            const column = index % columns;
+            const offset = ((columns - 1) / 2 - column) * 1.5 * direction;
+            const cascade = backwards ? columns - 1 - column : column;
+            const config = presetAnimation(
+              props.preset?.motion,
+              periodEvent,
+              {
+                keyframes: [
+                  {
+                    opacity: 0,
+                    transform: `translateX(${offset}px) scaleX(.92)`,
+                  },
+                  { opacity, transform: "translateX(0) scaleX(1)" },
+                ],
+                options: {
+                  duration: 220,
+                  easing: "cubic-bezier(.2, .8, .2, 1)",
+                  fill: "backwards",
+                },
+              },
+              { x: offset, opacity, column, direction },
+            );
+            if (config)
+              animations.push(
+                item.animate(config.keyframes, {
+                  ...config.options,
+                  delay:
+                    Number(config.options.delay ?? 0) +
+                    cascade * (config.stagger ?? 14),
+                }),
+              );
+          });
+        });
+      animations.forEach(
+        (animation) => void animation.finished.catch(() => {}),
+      );
+      return () => animations.forEach((animation) => animation.cancel());
+    }
+    if (
+      !singleDate ||
+      !previous.singleDate ||
+      singleDate === previous.singleDate ||
+      month !== previous.month ||
+      view !== "month" ||
+      previous.view !== "month"
+    )
+      return;
+    const from = dayRefs.current.get(previous.singleDate);
+    const to = dayRefs.current.get(singleDate);
+    if (
+      !from ||
+      !to ||
+      from.closest(".revo-calendar__month-grid") !==
+        to.closest(".revo-calendar__month-grid")
+    )
+      return;
+    const bounds = root.getBoundingClientRect();
+    const start = from.getBoundingClientRect();
+    const end = to.getBoundingClientRect();
+    const style = win.getComputedStyle(to);
+    const indicator = root.ownerDocument.createElement("span");
+    indicator.className = "revo-calendar__selection-indicator";
+    indicator.setAttribute("aria-hidden", "true");
+    Object.assign(indicator.style, {
+      left: `${start.left - bounds.left - root.clientLeft}px`,
+      top: `${start.top - bounds.top - root.clientTop}px`,
+      width: `${start.width}px`,
+      height: `${start.height}px`,
+      borderRadius: style.borderRadius,
+      background: style.backgroundColor,
+    });
+    root.appendChild(indicator);
+    to.classList.add("revo-calendar__day--sliding");
+    const config = presetAnimation(
+      props.preset?.motion,
+      "selection",
+      {
+        keyframes: [
+          { transform: "translate(0, 0)" },
+          {
+            transform: `translate(${end.left - start.left}px, ${end.top - start.top}px)`,
+          },
+        ],
+        options: { duration: 220, easing: "cubic-bezier(.22, 1, .36, 1)" },
+      },
+      { x: end.left - start.left, y: end.top - start.top },
+    );
+    if (!config) {
+      indicator.remove();
+      to.classList.remove("revo-calendar__day--sliding");
+      return;
+    }
+    const animation = indicator.animate(config.keyframes, config.options);
+    void animation.finished.catch(() => {});
+    const cleanup = () => {
+      indicator.remove();
+      to.classList.remove("revo-calendar__day--sliding");
+    };
+    animation.onfinish = cleanup;
+    return () => {
+      animation.cancel();
+      cleanup();
+    };
+  }, [month, view, singleDate, props.preset?.motion]);
   const text = { ...DEFAULT_CALENDAR_TRANSLATIONS, ...translations };
   const monthDisabled = (candidate: ISODateString) =>
     isCalendarMonthDisabled(candidate, {
@@ -196,7 +366,7 @@ function renderCalendar({
     const previous = focusedDay.current;
     if (
       !previous ||
-      view !== 'month' ||
+      view !== "month" ||
       (previous.isConnected && !previous.disabled)
     )
       return;
@@ -211,20 +381,20 @@ function renderCalendar({
       next && !next.disabled
         ? next
         : (calendarRoot.current?.querySelector<HTMLButtonElement>(
-            '.revo-calendar__header button:not([disabled])',
+            ".revo-calendar__header button:not([disabled])",
           ) ?? calendarRoot.current);
     target?.focus({ preventScroll: true });
   });
   useLayoutEffect(() => {
     const requested = requestViewFocus.current;
-    if (view !== 'month' || !requested) return;
+    if (view !== "month" || !requested) return;
     requestViewFocus.current = undefined;
     const caption = monthCaptionRefs.current.get(viewTriggerIndex.current ?? 0);
     viewTriggerIndex.current = undefined;
     const day = dayRefs.current.get(focusTarget);
     const enabledDay = day && !day.disabled ? day : undefined;
     const target =
-      requested === 'day' ? (enabledDay ?? caption) : (caption ?? enabledDay);
+      requested === "day" ? (enabledDay ?? caption) : (caption ?? enabledDay);
     target?.focus({
       preventScroll: true,
     });
@@ -276,9 +446,9 @@ function renderCalendar({
       props.dir ??
       (event.currentTarget.ownerDocument.defaultView?.getComputedStyle(
         event.currentTarget,
-      ).direction === 'rtl'
-        ? 'rtl'
-        : 'ltr');
+      ).direction === "rtl"
+        ? "rtl"
+        : "ltr");
     const next = moveCalendarFocus({
       date,
       key: event.key,
@@ -309,10 +479,10 @@ function renderCalendar({
     formatDisplayCalendarDate(
       date,
       locale,
-      { month: 'long', year: 'numeric' },
+      { month: "long", year: "numeric" },
       system,
     );
-  const isYearView = view === 'year';
+  const isYearView = view === "year";
   const yearNavigationTarget = (offset: number) => {
     const candidate = navigationMonth(
       addDisplayMonths(month, offset, system),
@@ -343,7 +513,7 @@ function renderCalendar({
     if (!selectDate(date, props.onPresetSelect ?? props.onSelect)) return;
     props.onMonthChange(navigationMonth(startOfDisplayMonth(date, system)));
     props.onFocusedDateChange(date);
-    changeView('month');
+    changeView("month");
   };
   return (
     <div
@@ -354,7 +524,7 @@ function renderCalendar({
       data-preset-surface={props.presetSurface ? '' : undefined}
       onFocusCapture={(event) => {
         const element = event.target as HTMLButtonElement;
-        focusedDay.current = element.hasAttribute('data-calendar-date')
+        focusedDay.current = element.hasAttribute("data-calendar-date")
           ? element
           : null;
       }}
@@ -374,13 +544,17 @@ function renderCalendar({
       dir={props.dir}
       style={
         props.cellSize
-          ? { '--revo-calendar-cell-size': `${Math.max(24, props.cellSize)}px` }
+          ? { "--revo-calendar-cell-size": `${Math.max(24, props.cellSize)}px` }
           : undefined
       }
     >
       <div class="revo-calendar__months" data-part="months">
         {(isYearView ? [month] : displayed).map((candidate, index) => (
-          <section class="revo-calendar__month-panel" data-part="month" key={index}>
+          <section
+            class="revo-calendar__month-panel"
+            data-part="month"
+            key={index}
+          >
             {showHeader && (
               <CalendarHeader
                 label={
@@ -388,7 +562,7 @@ function renderCalendar({
                     ? formatDisplayCalendarDate(
                         candidate,
                         locale,
-                        { year: 'numeric' },
+                        { year: "numeric" },
                         system,
                       )
                     : monthLabel(candidate)
@@ -400,7 +574,7 @@ function renderCalendar({
                 caption={
                   !isYearView &&
                   props.captionLayout &&
-                  props.captionLayout !== 'label' ? (
+                  props.captionLayout !== "label" ? (
                     <CalendarCaption
                       month={candidate}
                       system={system}
@@ -425,12 +599,12 @@ function renderCalendar({
                 labelAction={
                   !props.disableNavigation &&
                   !isYearView &&
-                  availableViews.includes('year')
+                  availableViews.includes("year")
                     ? {
                         ariaLabel: `${text.chooseMonth}: ${monthLabel(candidate)}`,
                         onClick: () => {
                           viewTriggerIndex.current = index;
-                          changeView('year');
+                          changeView("year");
                         },
                         ref: (element) => {
                           if (element)
@@ -468,21 +642,21 @@ function renderCalendar({
                 isMonthDisabled={yearMonthDisabled}
                 focusOnMount={viewTriggerIndex.current !== undefined}
                 locale={locale}
-                ariaLabel={`${text.chooseMonth} ${formatDisplayCalendarDate(month, locale, { year: 'numeric' }, system)}`}
+                ariaLabel={`${text.chooseMonth} ${formatDisplayCalendarDate(month, locale, { year: "numeric" }, system)}`}
                 onEscape={
-                  availableViews.includes('month')
+                  availableViews.includes("month")
                     ? () => {
-                        requestViewFocus.current = 'caption';
-                        changeView('month');
+                        requestViewFocus.current = "caption";
+                        changeView("month");
                       }
                     : undefined
                 }
                 onSelect={(next) => {
-                  if (availableViews.includes('month')) {
-                    requestViewFocus.current = 'day';
+                  if (availableViews.includes("month")) {
+                    requestViewFocus.current = "day";
                     props.onFocusedDateChange(next);
                     props.onMonthChange(navigationMonth(next));
-                    changeView('month');
+                    changeView("month");
                   } else navigateTo(next, 1);
                 }}
               />
@@ -504,8 +678,8 @@ function renderCalendar({
                           loc,
                           {
                             weekday: /^(fa|ar)(-|$)/.test(loc)
-                              ? 'narrow'
-                              : 'short',
+                              ? "narrow"
+                              : "short",
                           },
                           system,
                         ))
@@ -544,7 +718,7 @@ function renderCalendar({
                       formatDisplayCalendarDate(
                         date,
                         locale,
-                        { day: 'numeric' },
+                        { day: "numeric" },
                         system,
                       ))
                   }
@@ -555,10 +729,10 @@ function renderCalendar({
                       date,
                       locale,
                       {
-                        weekday: 'long',
-                        month: 'long',
-                        day: 'numeric',
-                        year: 'numeric',
+                        weekday: "long",
+                        month: "long",
+                        day: "numeric",
+                        year: "numeric",
                       },
                       system,
                     )
@@ -567,17 +741,17 @@ function renderCalendar({
                     props.showWeekNumber
                       ? (date) => {
                           const number = displayWeekNumber(
-                            props.weekNumbering === 'local'
+                            props.weekNumbering === "local"
                               ? date
                               : addDays(
                                   date,
                                   (4 - getUtcWeekday(date) + 7) % 7,
                                 ),
-                            props.weekNumbering === 'local' ? weekStartsOn : 1,
-                            props.weekNumbering === 'local' ? 1 : 4,
-                            props.weekNumbering === 'local'
+                            props.weekNumbering === "local" ? weekStartsOn : 1,
+                            props.weekNumbering === "local" ? 1 : 4,
+                            props.weekNumbering === "local"
                               ? system
-                              : 'gregory',
+                              : "gregory",
                           );
                           return (
                             props.formatWeekNumber?.(number) ??

@@ -23,10 +23,6 @@ export const SvgButton = /* @__PURE__ */ createVueAdapter(
   ui.SvgButton,
   'SvgButton',
 );
-export const DeleteButton = /* @__PURE__ */ createVueAdapter(
-  ui.DeleteButton,
-  'DeleteButton',
-);
 export const RemoveButton = /* @__PURE__ */ createVueAdapter(
   ui.RemoveButton,
   'RemoveButton',

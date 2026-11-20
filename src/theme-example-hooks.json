@@ -431,12 +431,6 @@
     ],
     "states": []
   },
-  "DeleteButton": {
-    "parts": [
-      "root"
-    ],
-    "states": []
-  },
   "Dialog": {
     "parts": [
       "root"

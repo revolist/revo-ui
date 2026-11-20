@@ -1,3 +1,4 @@
+import { setGalleryPreference } from './gallery-preferences';
 import { chooseOption } from './choose-option';
 import { expect, test } from './gallery-test';
 
@@ -70,35 +71,9 @@ for (const theme of ['light', 'dark'])
       const spinner = save.locator('.rv-button-spinner');
       await expect(spinner).toBeVisible();
       await expect(spinner).not.toHaveCSS('animation-name', 'none');
-      const animations = page.getByRole('switch', {
-        name: 'Animations',
-        exact: true,
-      });
-      const revealAnimations = async () => {
-        const options = page.getByRole('button', {
-          name: 'More gallery options',
-          exact: true,
-        });
-        if (await options.isVisible()) {
-          await expect(options).toHaveAttribute(
-            'aria-expanded',
-            /^(true|false)$/,
-          );
-          if ((await options.getAttribute('aria-expanded')) === 'false') {
-            await expect(
-              page.locator('.gallery-settings-content'),
-            ).toBeHidden();
-            await options.click();
-            await expect(options).toHaveAttribute('aria-expanded', 'true');
-          }
-        }
-        await expect(animations).toBeVisible();
-      };
-      await revealAnimations();
-      await animations.uncheck();
+      await setGalleryPreference(page, 'Animations', false);
       await expect(spinner).toHaveCSS('animation-name', 'none');
-      await revealAnimations();
-      await animations.check();
+      await setGalleryPreference(page, 'Animations', true);
       await page.emulateMedia({ reducedMotion: 'reduce' });
       await expect(spinner).toHaveCSS('animation-name', 'none');
       await expect(spinner).toBeVisible();

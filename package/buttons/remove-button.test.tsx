@@ -2,7 +2,6 @@ import { h, render } from 'preact';
 import { act } from 'preact/test-utils';
 import { afterEach, expect, it, vi } from 'vitest';
 import { RemoveButton } from './remove-button';
-import { DeleteButton } from './delete-button';
 import { FieldRemoveButton } from '../field-configurator';
 
 const host = document.createElement('div');
@@ -49,13 +48,13 @@ it('shares the neutral remove component with field actions and keeps native labe
   );
 });
 
-it('preserves disabled behavior and the DeleteButton contract', () => {
+it('preserves disabled behavior and the remove action contract', () => {
   const click = vi.fn();
   act(() =>
     render(
       <div>
         <RemoveButton disabled onClick={click} />
-        <DeleteButton onClick={click} />
+        <RemoveButton onClick={click} />
       </div>,
       host,
     ),
@@ -64,7 +63,7 @@ it('preserves disabled behavior and the DeleteButton contract', () => {
   buttons[0].click();
   expect(click).not.toHaveBeenCalled();
   expect(buttons[1].classList.contains('rv-chip-remove')).toBe(true);
-  expect(buttons[1].classList.contains('rv-remove-button')).toBe(false);
+  expect(buttons[1].classList.contains('rv-remove-button')).toBe(true);
   buttons[1].click();
   expect(click).toHaveBeenCalledOnce();
 });

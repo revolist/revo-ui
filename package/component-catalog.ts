@@ -26,7 +26,6 @@ export const uiComponents = {
   Input: ui.Input,
   SvgIcon: ui.SvgIcon,
   SvgButton: ui.SvgButton,
-  DeleteButton: ui.DeleteButton,
   RemoveButton: ui.RemoveButton,
   Checkbox: ui.Checkbox,
   Switch: ui.Switch,

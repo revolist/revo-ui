@@ -1,3 +1,4 @@
+import { setGalleryPreference } from './gallery-preferences';
 import { expect, test } from './gallery-test';
 
 test.use({ gallerySections: ['menus-and-toolbars'] });
@@ -11,9 +12,7 @@ test('history buttons keep square controls and compact badges in RTL and LTR', a
     exact: true,
   });
   for (const rtl of [false, true]) {
-    await page
-      .getByRole('switch', { name: 'Right to left', exact: true })
-      .setChecked(rtl);
+    await setGalleryPreference(page, 'Right to left', rtl);
     for (const name of ['Undo', 'Redo']) {
       const button = toolbar.getByRole('button', { name: new RegExp(name) });
       const geometry = await button.evaluate((element) => {

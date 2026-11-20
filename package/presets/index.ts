@@ -15,6 +15,8 @@ export type { ComponentDefaults, JsonValue } from './defaults';
 export { themeToCss } from './css';
 export type { PresetStyles } from './css';
 export type { ClassPreset } from './types';
+export { validateMotionPreset } from './motion';
+export type { MotionEvent, MotionFrame, MotionPreset } from './motion';
 import type { DialogPreset, PopoverPreset, TooltipPreset } from '../pickers';
 import type { BadgePreset } from '../badge.view';
 import type { ProgressBarPreset } from '../progress/bar';
@@ -107,7 +109,6 @@ export interface UiTheme {
     ListboxOptionContent?: NamedPresets<ClassPreset>;
     SvgIcon?: NamedPresets<ClassPreset>;
     SvgButton?: NamedPresets<ClassPreset>;
-    DeleteButton?: NamedPresets<ClassPreset>;
     RemoveButton?: NamedPresets<ClassPreset>;
     Input?: NamedPresets<ClassPreset>;
     Calendar?: NamedPresets<CalendarPreset>;

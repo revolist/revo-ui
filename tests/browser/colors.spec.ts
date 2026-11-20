@@ -15,14 +15,11 @@ test('header library links support pointer and keyboard navigation', async ({
     exact: true,
   });
   await expect(components).toHaveAttribute('aria-current', 'page');
-  await navigation.getByRole('link', { name: 'Colors', exact: true }).click();
-  await expect(page).toHaveURL(/\/colors\/$/);
-  await expect(page.locator('#colors')).toBeVisible();
-  const colors = navigation.getByRole('link', { name: 'Colors', exact: true });
-  await expect(colors).toHaveAttribute('aria-current', 'page');
-  await colors.focus();
-  await page.keyboard.press('Shift+Tab');
-  await expect(components).toBeFocused();
+  await navigation.getByRole('button', { name: 'Customize', exact: true }).click();
+  await page.getByRole('link', { name: 'Component presets' }).click();
+  await expect(page).toHaveURL(/\/customize\/$/);
+  await expect(page.getByRole('heading', { name: 'Make it yours.' })).toBeVisible();
+  await components.focus();
   await page.keyboard.press('Enter');
   await expect(page).toHaveURL(/\/components\/buttons\/$/);
   await expect(
@@ -34,6 +31,7 @@ test('color reference resolves semantic roles in both themes and supports search
   page,
 }) => {
   await page.goto('/?page=colors');
+  await page.getByText('Explore semantic colors and palettes').click();
   const section = page.locator('#colors');
   await expect(section).toBeVisible();
   for (const theme of ['light', 'dark']) {
@@ -96,8 +94,8 @@ test('color reference resolves semantic roles in both themes and supports search
   await expect(
     page
       .getByRole('navigation', { name: 'Library pages' })
-      .getByRole('link', { name: 'Colors', exact: true }),
-  ).toHaveAttribute('aria-current', 'page');
+      .getByRole('button', { name: 'Customize', exact: true }),
+  ).toBeVisible();
   await expect(
     page.getByRole('navigation', { name: 'Component sections' }),
   ).toHaveCount(0);
@@ -108,6 +106,7 @@ test('palette samples retain explicit theme scopes and fit narrow viewports', as
   page,
 }) => {
   await page.goto('/?page=colors');
+  await page.getByText('Explore semantic colors and palettes').click();
   await chooseOption(
     page.getByRole('button', { name: 'Theme', exact: true }),
     'Dark',
@@ -132,6 +131,7 @@ test('custom accent and control overrides take precedence over semantic defaults
   page,
 }) => {
   await page.goto('/?page=colors');
+  await page.getByText('Explore semantic colors and palettes').click();
   const palette = page.getByLabel('light color palette');
   await palette.evaluate((element) => {
     const host = element as HTMLElement;
@@ -158,6 +158,7 @@ test('native stylesheet uses the same explicit dark colors and detached dialogs 
   page,
 }) => {
   await page.goto('/?page=colors');
+  await page.getByText('Explore semantic colors and palettes').click();
   const sass = createRequire(
     new URL('../../package.json', import.meta.url),
   )('sass-embedded');
@@ -237,6 +238,7 @@ test('native stylesheet uses the same explicit dark colors and detached dialogs 
 
 test('palette visual reference', async ({ page }) => {
   await page.goto('/?page=colors');
+  await page.getByText('Explore semantic colors and palettes').click();
   await page.screenshot({
     path: test.info().outputPath('revogrid-colors.png'),
     fullPage: true,
@@ -247,9 +249,10 @@ test('standalone checkboxes keep semantic borders and checked marks in both pale
   page,
 }) => {
   await page.goto('/?page=colors');
+  await page.getByText('Explore semantic colors and palettes').click();
   await expect(
-    page.getByRole('link', { name: 'Skip to colors', exact: true }),
-  ).toHaveAttribute('href', '#colors-title');
+    page.getByRole('link', { name: 'Skip to customization', exact: true }),
+  ).toHaveAttribute('href', '#customize-title');
   for (const theme of ['light', 'dark']) {
     const palette = page.getByLabel(`${theme} color palette`);
     await palette.evaluate((host, name) => {
@@ -290,6 +293,7 @@ test('selectable swatches show the shared names and hexadecimal values', async (
   page,
 }) => {
   await page.goto('/?page=colors');
+  await page.getByText('Explore semantic colors and palettes').click();
   const swatches = page.getByLabel('Selectable color swatch values');
   await expect(swatches.locator('.colors-role')).toHaveCount(
     DEFAULT_COLOR_PALETTE_OPTIONS.length,
@@ -315,6 +319,7 @@ test('built-in product palettes expose preserved values and their usage', async 
   page,
 }, testInfo) => {
   await page.goto('/?page=colors');
+  await page.getByText('Explore semantic colors and palettes').click();
   const { builtInColorPalettes } =
     await import('@revolist/ui/color-palette/built-in-palettes');
   await expect(page.locator('[data-built-in-palette]')).toHaveCount(

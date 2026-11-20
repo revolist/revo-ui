@@ -41,6 +41,8 @@
 
 @use './view-switcher';
 
+@use './styles/ready-styles';
+
 @include slider.styles;
 
 @include field-configurator.presentation;

@@ -39,10 +39,20 @@ test('themes guide displays diagrams, instructions and navigation on desktop and
       () => document.documentElement.scrollWidth <= innerWidth,
     ),
   ).toBe(true);
-  await page.goto('/components/buttons/');
+  await page.goto('/customize/');
   const editor = page.locator('.theme-editor').first();
-  await editor.locator('summary').first().click();
   await expect(
     editor.getByRole('link', { name: 'Read the themes and presets guide' }),
   ).toHaveAttribute('href', '/frameworks/presets/');
+});
+
+
+test('documentation navigation opens the customization workspace', async ({ page }) => {
+  await page.goto('/frameworks/presets/');
+  const link = page.getByRole('navigation', { name: 'Documentation navigation' })
+    .getByRole('link', { name: 'Customize components', exact: true });
+  await expect(link).toHaveAttribute('href', '/customize/');
+  await link.click();
+  await expect(page).toHaveURL(/\/customize\/$/);
+  await expect(page.getByRole('heading', { name: 'Make it yours.' })).toBeVisible();
 });

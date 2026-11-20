@@ -1,6 +1,4 @@
-import { ThemeSamples, hasThemeSample } from './theme-samples';
-import { ThemeEditor, type ThemePreview } from './theme-editor';
-import { ThemePreviewContext } from './theme-preview';
+import { GlobalThemePanel, readGalleryTheme, saveGalleryTheme } from './global-theme';
 import documentation from './documentation.json';
 import { documentationPage } from './documentation';
 import { accessibilityArticle } from './accessibility';
@@ -20,8 +18,8 @@ import {
   toChildArray,
   type ComponentChildren,
 } from 'preact';
-import { useCallback, useContext, useEffect, useRef, useState } from 'preact/hooks';
-import { Button, DialogCloseButton, SearchInput, Switch, Toolbar } from '@revolist/ui/preact';
+import { useContext, useEffect, useRef, useState } from 'preact/hooks';
+import { Button, DialogCloseButton, SearchInput, Toolbar } from '@revolist/ui/preact';
 
 import pages from './pages.json';
 import { currentRoute, componentHref, frameworkHref, siteHref } from './routing';
@@ -37,6 +35,7 @@ const documentationGroups = [
     entries: [
       { id: '', label: 'Getting started', href: siteHref('frameworks/') },
       ...documentationEntries('Essentials'),
+      { id: 'customize-workspace', label: 'Customize components', href: siteHref('customize/') },
       {
         id: 'accessibility',
         label: 'Accessibility',
@@ -75,9 +74,6 @@ export function Section({
   columns?: number;
 }) {
   const route = useContext(Route);
-  const [themePreview, setThemePreview] = useState<ThemePreview>();
-  const [previewMatches, setPreviewMatches] = useState(0);
-  const reportPreview = useCallback((change: number) => setPreviewMatches((count) => count + change), []);
   if (
     route &&
     route !== 'components' &&
@@ -110,22 +106,8 @@ export function Section({
           ↗
         </a>
       </div>
-      <ThemeEditor family={title} onPreview={setThemePreview} />
-      {themePreview && <style>{themePreview.css}</style>}
-      {themePreview && <ThemeSamples preview={themePreview} />}
-      {themePreview && !previewMatches && !hasThemeSample(themePreview.component) && (
-        <p class="theme-preview-note">
-          Shared colors and radius are previewed across these examples. Component
-          options apply when you use the downloaded preset in your project.
-        </p>
-      )}
-      <div
-        class={`examples ${themePreview && !previewMatches ? themePreview.preset.className : ''}`}
-        style={{ '--catalog-columns': Math.min(3, columns ?? cardCount) }}
-      >
-        <ThemePreviewContext.Provider value={{ preview: themePreview, report: reportPreview }}>
-          {children}
-        </ThemePreviewContext.Provider>
+      <div class="examples" style={{ '--catalog-columns': Math.min(3, columns ?? cardCount) }}>
+        {children}
       </div>
       <ApiReference family={title} />
     </section>
@@ -149,7 +131,7 @@ export function Example({
       <div class="catalog-example-heading">
         <h3>
           <a
-            href={/^(colors|built-in-palettes)\.tsx$/.test(examples.find((item) => item.title === title)?.file ?? '') ? siteHref('colors/') : componentHref(sectionId(examples.find((item) => item.title === title)?.family ?? title))}
+            href={/^(colors|built-in-palettes)\.tsx$/.test(examples.find((item) => item.title === title)?.file ?? '') ? siteHref('customize/') : componentHref(sectionId(examples.find((item) => item.title === title)?.family ?? title))}
           >
             {title}
           </a>
@@ -170,13 +152,36 @@ export function CatalogShell({
   onRtlChange,
 }: {
   children: ComponentChildren;
-  page?: 'components' | 'colors' | 'frameworks' | 'api' | 'accessibility';
+  page?: 'components' | 'customize' | 'frameworks' | 'api' | 'accessibility';
   theme: string;
   rtl: boolean;
   onThemeChange: (value: string) => void;
   onRtlChange: (value: boolean) => void;
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [themeOpen, setThemeOpen] = useState(false);
+  const [galleryTheme, setGalleryTheme] = useState(readGalleryTheme);
+  useEffect(() => {
+    const style = document.documentElement.style;
+    if (galleryTheme.radius === undefined) style.removeProperty('--rv-gallery-preview-radius');
+    else style.setProperty('--rv-gallery-preview-radius', `${galleryTheme.radius}px`);
+    return () => style.removeProperty('--rv-gallery-preview-radius');
+  }, [galleryTheme.radius]);
+  useEffect(() => {
+    const style = document.documentElement.style;
+    if (galleryTheme.accent) style.setProperty('--rv-gallery-preview-accent', galleryTheme.accent);
+    else style.removeProperty('--rv-gallery-preview-accent');
+    return () => style.removeProperty('--rv-gallery-preview-accent');
+  }, [galleryTheme.accent]);
+  const customizeButton = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (!themeOpen) return;
+    const dismiss = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') { setThemeOpen(false); customizeButton.current?.focus(); }
+    };
+    window.addEventListener('keydown', dismiss);
+    return () => window.removeEventListener('keydown', dismiss);
+  }, [themeOpen]);
   const mobileNavButton = useRef<HTMLButtonElement>(null);
   const [motion, setMotion] = useState('system');
   const content = useRef<HTMLDivElement>(null);
@@ -219,10 +224,10 @@ export function CatalogShell({
   const frameworkName = page === 'frameworks' ? pages.frameworks.find(name => sectionId(name) === active) : undefined;
   useEffect(() => {
     const doc = page === 'frameworks' ? documentationPage(active) : undefined;
-    const title = doc ? `${doc.seoTitle} · Revo UI` : page === 'accessibility' ? accessibilityArticle.title : home ? 'Revo UI — Components for Data-Rich Applications' : `${component?.title ?? (page === 'frameworks' ? (frameworkName ? `${frameworkName} UI components and integration` : 'Getting started') : page === 'colors' ? 'Design system colors' : 'UI components')} · Revo UI`;
+    const title = doc ? `${doc.seoTitle} · Revo UI` : page === 'accessibility' ? accessibilityArticle.title : home ? 'Revo UI — Components for Data-Rich Applications' : `${component?.title ?? (page === 'frameworks' ? (frameworkName ? `${frameworkName} UI components and integration` : 'Getting started') : page === 'customize' ? 'Customize components' : 'UI components')} · Revo UI`;
     document.title = title;
     document.querySelector('meta[property="og:type"]')?.setAttribute('content', page === 'accessibility' || (page === 'frameworks' && knownRoute && !!active) ? 'article' : 'website');
-    const description = doc ? doc.description : page === 'accessibility' ? accessibilityArticle.description : frameworkName ? `Integrate Revo UI components with ${frameworkName}. Start with a small typed example, then follow the linked SSR, styling and bundle-size guides.` : home ? 'Build data-rich applications with charts, AI chat, PDF viewing, timelines and date controls for React, Vue, Angular, Svelte, Preact and TypeScript.' : component?.description ?? (page === 'colors' ? 'Explore Revo UI semantic colors, palettes, and theme tokens for consistent application interfaces.' : page === 'frameworks' ? 'Integrate Revo UI with React, Vue, Angular, Svelte, Preact, or vanilla TypeScript. Follow installation and usage guides for your stack.' : 'Browse Revo UI controls, pickers, layouts, and compositions with interactive variants and formatted usage examples.');
+    const description = doc ? doc.description : page === 'accessibility' ? accessibilityArticle.description : frameworkName ? `Integrate Revo UI components with ${frameworkName}. Start with a small typed example, then follow the linked SSR, styling and bundle-size guides.` : home ? 'Build data-rich applications with charts, AI chat, PDF viewing, timelines and date controls for React, Vue, Angular, Svelte, Preact and TypeScript.' : component?.description ?? (page === 'customize' ? 'Create and share reusable component presets with live previews.' : page === 'frameworks' ? 'Integrate Revo UI with React, Vue, Angular, Svelte, Preact, or vanilla TypeScript. Follow installation and usage guides for your stack.' : 'Browse Revo UI controls, pickers, layouts, and compositions with interactive variants and formatted usage examples.');
     document.querySelector('meta[name="description"]')?.setAttribute('content', description);
     document.querySelector('meta[property="og:title"]')?.setAttribute('content', title);
     document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
@@ -286,16 +291,19 @@ export function CatalogShell({
   }, [active, home, page, component?.title]);
   return (
     <PublishedVersionProvider>
-    <div class="rv-ui catalog" dir={rtl ? 'rtl' : 'ltr'}>
+    <div class="rv-ui catalog" dir={rtl ? 'rtl' : 'ltr'} data-rv-style={galleryTheme.style ?? "standard"} data-custom-accent={galleryTheme.accent ? '' : undefined} data-custom-radius={galleryTheme.radius !== undefined ? '' : undefined} style={{
+      ...(galleryTheme.accent ? { '--rv-ui-accent': galleryTheme.accent, '--gallery-accent-fg': ['#0891b2', '#059669', '#65a30d', '#d97706'].includes(galleryTheme.accent) ? '#111' : '#fff' } : {}),
+      ...(galleryTheme.radius !== undefined ? { '--rv-ui-radius': `${galleryTheme.radius}px`, '--rv-control-radius': `${galleryTheme.radius}px`, '--rv-ui-checkbox-radius': `${galleryTheme.radius / 2}px` } : {}),
+    }}>
       <a
         class="catalog-skip"
         onClick={(event) => {
           event.preventDefault();
           document.getElementById('components')?.focus();
         }}
-        href={page === 'colors' ? '#colors-title' : '#components'}
+        href={page === 'customize' ? '#customize-title' : '#components'}
       >
-        {page === 'accessibility' ? 'Skip to accessibility guide' : page === 'colors' ? 'Skip to colors' : 'Skip to components'}
+        {page === 'accessibility' ? 'Skip to accessibility guide' : page === 'customize' ? 'Skip to customization' : 'Skip to components'}
       </a>
       <header class="catalog-topbar">
         <div class="catalog-topbar-inner">
@@ -322,18 +330,15 @@ export function CatalogShell({
               Components
             </a>
             <a
-              href={siteHref('colors/')}
-              aria-current={page === 'colors' ? 'page' : undefined}
-            >
-              Colors
-            </a>
-            <a
               href={siteHref('frameworks/')}
               aria-current={page === 'frameworks' || page === 'accessibility' ? 'page' : undefined}
             >
               Docs
             </a>
             <a href={siteHref("api/")} aria-current={page === "api" ? "page" : undefined}>API</a>
+            <button ref={customizeButton} class="catalog-customize-trigger" type="button" aria-expanded={themeOpen} aria-controls="global-theme-panel" onClick={() => setThemeOpen(!themeOpen)}>
+              Customize
+            </button>
           </nav>
           <GallerySettings><Toolbar label="Gallery settings">
             <a class="rv-btn rv-btn-ghost rv-btn-icon catalog-github-link" href="https://github.com/revolist/revo-ui" target="_blank" rel="noopener noreferrer" aria-label="Revo UI on GitHub" title="Revo UI on GitHub">
@@ -381,31 +386,18 @@ export function CatalogShell({
                 )}
               </svg>
             </Button>
-            <Switch
-              label="Animations"
-              checked={motion !== 'off'}
-              onChange={(enabled) => {
-                setMotion(enabled ? 'system' : 'off');
-                if (enabled)
-                  document.documentElement.removeAttribute('data-rv-ui-motion');
-                else
-                  document.documentElement.setAttribute(
-                    'data-rv-ui-motion',
-                    'off',
-                  );
-              }}
-            />
-            <Switch
-              label="Right to left"
-              checked={rtl}
-              onChange={onRtlChange}
-            />
           </Toolbar></GallerySettings>
         </div>
+        {themeOpen && <GlobalThemePanel value={galleryTheme} onChange={(value) => { setGalleryTheme(value); saveGalleryTheme(value); }}
+          motion={motion !== 'off'} onMotionChange={(enabled) => {
+            setMotion(enabled ? 'system' : 'off');
+            if (enabled) document.documentElement.removeAttribute('data-rv-ui-motion');
+            else document.documentElement.setAttribute('data-rv-ui-motion', 'off');
+          }} rtl={rtl} onRtlChange={onRtlChange} />}
       </header>
       <main
         id="components"
-        class={`catalog-workspace${page === 'api' ? ' catalog-workspace--api' : ''}${page === 'colors' || page === 'accessibility' ? ' catalog-workspace--colors' : ''}${home ? ' catalog-workspace--home' : ''}${component ? ' catalog-workspace--component' : ''}`}
+        class={`catalog-workspace${page === 'api' ? ' catalog-workspace--api' : ''}${page === 'customize' || page === 'accessibility' ? ' catalog-workspace--colors' : ''}${home ? ' catalog-workspace--home' : ''}${component ? ' catalog-workspace--component' : ''}`}
         dir={rtl ? 'rtl' : 'ltr'}
         tabIndex={-1}
       >

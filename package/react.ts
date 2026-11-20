@@ -11,8 +11,6 @@ export const SvgIcon: ReactUiComponent<typeof ui.SvgIcon> =
   /* @__PURE__ */ createReactAdapter(ui.SvgIcon, 'SvgIcon');
 export const SvgButton: ReactUiComponent<typeof ui.SvgButton> =
   /* @__PURE__ */ createReactAdapter(ui.SvgButton, 'SvgButton');
-export const DeleteButton: ReactUiComponent<typeof ui.DeleteButton> =
-  /* @__PURE__ */ createReactAdapter(ui.DeleteButton, 'DeleteButton');
 export const RemoveButton: ReactUiComponent<typeof ui.RemoveButton> =
   /* @__PURE__ */ createReactAdapter(ui.RemoveButton, 'RemoveButton');
 export const Checkbox: ReactUiComponent<typeof ui.Checkbox> =

@@ -28,7 +28,7 @@ for (const width of [1280, 390]) {
       await expect(theme).toHaveAttribute('aria-pressed', String(dark));
     };
     await expectTheme(true);
-    for (const name of ['Components', 'Colors', 'Docs', 'API', 'Overview']) {
+    for (const name of ['Components', 'Docs', 'API', 'Overview']) {
       await page
         .getByRole('navigation', { name: 'Library pages' })
         .getByRole('link', { name, exact: true })
@@ -40,7 +40,7 @@ for (const width of [1280, 390]) {
     await page.goto('/accessibility/');
     await expectTheme(true);
     await chooseOption(theme, 'Light');
-    await page.goto('/colors/');
+    await page.goto('/customize/');
     await expectTheme(false);
     await page.reload();
     await expectTheme(false);
@@ -72,7 +72,7 @@ test('stored dark theme applies before the gallery application starts', async ({
       ? route.abort()
       : route.continue(),
   );
-  await page.goto('/colors/');
+  await page.goto('/customize/');
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   // Production pages already contain static gallery markup before JS starts.
   if (await page.locator('.catalog').count()) {

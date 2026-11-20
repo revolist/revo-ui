@@ -141,7 +141,7 @@ export function GalleryHome({
           <div class="home-actions">
             <Button
               rounded
-              variant="solid"
+              variant="primary"
               className="home-primary"
               href={componentHref('buttons')}
             >
@@ -150,9 +150,9 @@ export function GalleryHome({
             <Button
               rounded
               className="home-secondary"
-              href={siteHref('colors/')}
+              href={siteHref('customize/')}
             >
-              Discover the palette
+              Customize components
             </Button>
           </div>
           <nav class="home-framework-links" aria-label="Supported frameworks">
@@ -428,8 +428,8 @@ export function GalleryHome({
             ['Preact', 'Direct components with Preact hooks.'],
             ['Vanilla TypeScript', 'Mount, update, and dispose in the DOM.'],
           ].map(([name, description]) => (
-            <a
-              class="home-framework-card"
+            <Button
+              className="home-framework-card"
               href={frameworkHref(name.toLowerCase().replaceAll(' ', '-'))}
             >
               <strong>
@@ -440,7 +440,7 @@ export function GalleryHome({
                 <span aria-hidden="true">↗</span>
               </strong>
               <span>{description}</span>
-            </a>
+            </Button>
           ))}
         </div>
       </section>

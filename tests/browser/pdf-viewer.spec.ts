@@ -1,3 +1,4 @@
+import { setGalleryPreference } from './gallery-preferences';
 import { chooseOption } from './choose-option';
 import { createRequire } from 'node:module';
 
@@ -361,9 +362,7 @@ test('keeps mobile tools in the viewer direction and scoped theme', async ({
   await expect(
     viewer.getByRole('button', { name: 'More PDF tools', exact: true }),
   ).toBeEnabled();
-  await page
-    .getByRole('switch', { name: 'Right to left', exact: true })
-    .click();
+  await setGalleryPreference(page, 'Right to left', 'toggle');
   await page.addStyleTag({
     content: '.rv-pdf-viewer { --rv-ui-surface-elevated: rgb(12, 34, 56); }',
   });
