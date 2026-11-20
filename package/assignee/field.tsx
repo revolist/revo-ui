@@ -1,4 +1,5 @@
 /** @jsxImportSource preact */
+import type { ClassPreset } from '../presets/types';
 import type { ComponentChildren } from 'preact';
 import { useRef, useState } from 'preact/hooks';
 import { Dropdown } from '../dropdown';
@@ -19,6 +20,7 @@ import type {
 import './assignee.scss';
 
 export function AssigneeField({
+  preset,
   value,
   options,
   theme,
@@ -27,6 +29,7 @@ export function AssigneeField({
   save,
   cancel,
 }: {
+  preset?: ClassPreset;
   value: unknown;
   options: AssigneeFieldOptions;
   theme?: string;
@@ -66,6 +69,7 @@ export function AssigneeField({
     : 100;
   return (
     <Dropdown
+      preset={preset}
       source={source}
       value={draft.map((item) => item.value)}
       className="rv-assignee-editor"
@@ -112,6 +116,7 @@ export function AssigneeField({
       }}
       renderContent={({ id, close }) => {
         const props: AssigneePickerProps = {
+          preset,
           id,
           options: options.source,
           value: draft,

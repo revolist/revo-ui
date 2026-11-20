@@ -1,4 +1,5 @@
 /** @jsxImportSource preact */
+import type { ClassPreset } from './presets/types';
 import { h, type ComponentChildren, type JSX } from 'preact';
 import { fieldDropIndex, fieldListDropIndex } from './field-reorder';
 import { ButtonControl } from './native-control';
@@ -6,6 +7,7 @@ import gripIcon from '@fortawesome/fontawesome-free/svgs/solid/grip-vertical.svg
 import './reorder-list.scss';
 
 export interface ReorderListProps<T> {
+  preset?: ClassPreset;
   items: readonly T[];
   itemKey(item: T): string | number;
   renderItem(item: T, index: number): ComponentChildren;
@@ -26,6 +28,7 @@ export interface ReorderListProps<T> {
 
 /** Shared list geometry, event routing and insertion markers. Consumers own move policy and data. */
 export function ReorderList<T>({
+  preset,
   items,
   itemKey,
   renderItem,
@@ -66,7 +69,8 @@ export function ReorderList<T>({
   };
   return (
     <div
-      class={`rv-reorder-list ${className}${dropIndex === items.length ? ' drop-at-end' : ''}`}
+      class={`rv-reorder-list ${preset?.className ?? ''} ${className}${dropIndex === items.length ? ' drop-at-end' : ''}`}
+      data-part="root"
       onDragOver={(event) => {
         const row = (event.target as Element).closest('.rv-reorder-row');
         if (row?.parentElement === event.currentTarget) return;
@@ -106,14 +110,17 @@ export function ReorderList<T>({
 
 /** Native drag source; product adapters supply stable IDs, announcements and keyboard move policy. */
 export function ReorderHandle({
+  preset,
   className = '',
   children,
   ...props
-}: JSX.IntrinsicElements['button']) {
+}: JSX.IntrinsicElements['button'] & { preset?: ClassPreset }) {
   return (
     <ButtonControl
       type="button"
       {...props}
+      preset={preset}
+      data-part="root"
       class={`rv-btn-ghost rv-reorder-handle ${className}`}
     >
       <span aria-hidden="true" dangerouslySetInnerHTML={{ __html: gripIcon }} />

@@ -1,3 +1,4 @@
+import type { ClassPreset } from '../presets/types';
 import type { EditorCommitOptions } from '../editor-actions';
 import type { DropdownOption } from '../dropdown/dropdown.types';
 import type { AssigneeAssignment, AssigneeId } from './model';
@@ -32,6 +33,7 @@ export interface AssigneeFieldOptions extends EditorCommitOptions {
   text?: AssigneeText;
 }
 export interface AssigneePickerProps extends EditorCommitOptions {
+  preset?: ClassPreset;
   id: string;
   options: AssigneeOption[];
   value: AssigneeAssignment[];

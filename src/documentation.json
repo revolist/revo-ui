@@ -15,5 +15,11 @@
     "title": "Bundle size and selective styles",
     "description": "Keep Revo UI bundles small with tree-shaken imports, automatic or extracted CSS, selective stylesheets and reproducible size budgets.",
     "source": "bundle-size.md"
+  },
+  "presets": {
+    "label": "Themes and presets",
+    "title": "Themes and presets",
+    "description": "Create reusable JSON and CSS themes, customize component behavior, and share presets across projects.",
+    "source": "presets.md"
   }
 }

@@ -1,5 +1,6 @@
 /** @jsxImportSource preact */
 import type { JSX } from 'preact';
+import type { ClassPreset } from '../presets/types';
 import { useControlTooltip } from '../core/tooltip';
 import { useRef } from 'preact/hooks';
 import { ButtonControl as UiButton } from '../native-control';
@@ -55,6 +56,8 @@ interface PointerSession<T extends TimelineTrackEvent> {
 }
 
 export interface TimelineTrackProps<T extends TimelineTrackEvent> {
+  readonly preset?: ClassPreset;
+  readonly className?: string;
   readonly rows: readonly TimelineTrackItem<T>[];
   readonly tooltip?: boolean;
   /** Show click/tap alternatives to dragging. Hosts hiding these must supply equivalent controls. */
@@ -71,6 +74,8 @@ export interface TimelineTrackProps<T extends TimelineTrackEvent> {
 
 /** Controlled numeric timeline. Changes preserve event metadata; consumers own commits. */
 export function TimelineTrack<T extends TimelineTrackEvent>({
+  preset,
+  className = '',
   rows,
   tooltip = true,
   showActions = true,
@@ -144,7 +149,8 @@ export function TimelineTrack<T extends TimelineTrackEvent>({
   return (
     <>
       <div
-        class="rv-timeline-editor__track rv-timeline-control__track"
+        class={`rv-timeline-editor__track rv-timeline-control__track ${preset?.className ?? ''} ${className}`}
+        data-part="track"
         role="group"
         aria-label={locale.preview}
         style={{
@@ -282,7 +288,7 @@ export function TimelineTrack<T extends TimelineTrackEvent>({
           })}
       </div>
       {showActions && (
-        <details class="rv-timeline-control__actions">
+        <details class={`rv-timeline-control__actions ${preset?.className ?? ''} ${className}`} data-part="actions">
           <summary>{locale.editEvents}</summary>
           {rows
             .filter(

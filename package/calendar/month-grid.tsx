@@ -1,4 +1,5 @@
 /** @jsxImportSource preact */
+import type { ClassPreset } from '../presets/types';
 import { h, type ComponentChildren } from 'preact';
 import {
   startOfDisplayMonth,
@@ -11,6 +12,8 @@ import { isDateInCalendarRange } from './model';
 import type { CalendarDateRange, CalendarDayContext } from './types';
 
 export function CalendarMonthGrid({
+  preset,
+  className = '',
   dates,
   system = 'gregory',
   selectedDates,
@@ -36,6 +39,8 @@ export function CalendarMonthGrid({
   onKeyDown,
   onSelect,
 }: {
+  preset?: ClassPreset;
+  className?: string;
   dates: readonly ISODateString[];
   system?: DisplayCalendarSystem;
   selectedDates?: readonly ISODateString[];
@@ -73,7 +78,7 @@ export function CalendarMonthGrid({
   onSelect: (date: ISODateString) => void;
 }) {
   return (
-    <div class="revo-calendar__month-grid">
+    <div class={`revo-calendar__month-grid ${preset?.className ?? ''} ${className}`} data-part="root">
       {Array.from({ length: dates.length / 7 }, (_, week) => (
         <div
           class="revo-calendar__week"

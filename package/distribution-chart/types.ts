@@ -1,4 +1,5 @@
 import type { ComponentChildren } from 'preact';
+import type { ClassPreset } from '../presets/types';
 
 export type DistributionChartType = 'bar' | 'line' | 'area';
 
@@ -15,6 +16,7 @@ export interface DistributionChartDatum {
 }
 
 export interface DistributionChartProps {
+  readonly preset?: ClassPreset;
   readonly data: readonly DistributionChartDatum[];
   readonly ariaLabel: string;
   readonly type?: DistributionChartType;

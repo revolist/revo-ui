@@ -46,6 +46,8 @@ function copyStyles(directory) {
   }
 }
 copyStyles(resolve(root, 'package'));
+mkdirSync(resolve(output, 'presets'), { recursive: true });
+cpSync(resolve(root, 'package/presets/theme.schema.json'), resolve(output, 'presets/theme.schema.json'));
 for (const name of [
   'styles',
   'native-styles',
@@ -292,6 +294,7 @@ exports['./browser/pdf-viewer.css'] = './browser/pdf-viewer.css';
 exports['./browser/pdf.worker.min.mjs'] = './browser/pdf.worker.min.mjs';
 exports['./styles.css'] = './styles.css';
 exports['./native-styles.css'] = './native-styles.css';
+exports['./presets/theme.schema.json'] = './presets/theme.schema.json';
 exports['./package.json'] = './package.json';
 const dependencies = Object.fromEntries(
   Object.entries(source.dependencies).filter(

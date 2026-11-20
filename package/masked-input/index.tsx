@@ -1,5 +1,6 @@
 /** @jsxRuntime automatic */
 /** @jsxImportSource preact */
+import type { ClassPreset } from '../presets/types';
 import { useId, useRef, useState } from 'preact/hooks';
 import { Input } from '../native-control';
 import { EditorActions } from '../editor-actions';
@@ -28,11 +29,13 @@ const defaultText: MaskedInputText = {
 
 /** Fixed-slot identifier field with immutable separators and staged string saves. */
 export function MaskedDraft({
+  preset,
   value,
   options,
   apply,
   cancel,
 }: {
+  preset?: ClassPreset;
   value: unknown;
   options: MaskedInputOptions;
   apply: (value: string | null) => void;
@@ -55,7 +58,8 @@ export function MaskedDraft({
   };
   return (
     <div
-      class="rv-masked-draft"
+      class={`rv-masked-draft ${preset?.className ?? ''}`}
+      data-part="root"
       onKeyDown={(event) => {
         if (
           !composition.current &&

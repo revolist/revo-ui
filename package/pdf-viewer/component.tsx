@@ -1,3 +1,4 @@
+import type { ClassPreset } from '../presets/types';
 import { h, type ComponentChildren } from 'preact';
 import { useLayoutEffect, useMemo, useRef, useState } from 'preact/hooks';
 import { Alert } from '../alert';
@@ -19,6 +20,7 @@ import './style.scss';
 export { defaultPdfViewerText, type PdfViewerText } from './translations';
 
 export interface PdfViewerProps extends PdfViewerOptions {
+  preset?: ClassPreset;
   className?: string;
   height?: number | string;
   text?: Partial<PdfViewerText>;
@@ -119,7 +121,8 @@ export function PdfViewerView(
   return (
     <section
       ref={root}
-      class={`rv-pdf-viewer ${props.className ?? ''}`}
+      class={`rv-pdf-viewer ${props.preset?.className ?? ''} ${props.className ?? ''}`}
+      data-part="root"
       style={{ height: props.height ?? 640 }}
       aria-label={text.viewer}
       onKeyDown={(event) => {

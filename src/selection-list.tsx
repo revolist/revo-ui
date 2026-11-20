@@ -1,11 +1,18 @@
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
-import { Listbox, ListboxOption, ListboxGroup } from '@revolist/ui/selection-list';
-import { SvgIcon } from '@revolist/ui/icons/icon';
+import { Listbox as __themeOriginal_Listbox, ListboxOption as __themeOriginal_ListboxOption, ListboxGroup as __themeOriginal_ListboxGroup } from '@revolist/ui/selection-list';
+import { SvgIcon as __themeOriginal_SvgIcon } from '@revolist/ui/icons/icon';
 import numberIcon from '@fortawesome/fontawesome-free/svgs/solid/hashtag.svg?raw';
 import userIcon from '@fortawesome/fontawesome-free/svgs/solid/user.svg?raw';
 import sliders from '@fortawesome/fontawesome-free/svgs/solid/sliders.svg?raw';
 import { Example } from './catalog';
+import { withThemePreview } from './theme-preview';
+
+const Listbox = withThemePreview(__themeOriginal_Listbox, 'Listbox');
+const ListboxOption = withThemePreview(__themeOriginal_ListboxOption, 'ListboxOption');
+const ListboxGroup = withThemePreview(__themeOriginal_ListboxGroup, 'ListboxGroup');
+const SvgIcon = withThemePreview(__themeOriginal_SvgIcon, 'SvgIcon');
+
 
 export function SelectionListExamples() {
   const [view, setView] = useState('table');

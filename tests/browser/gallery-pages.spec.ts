@@ -232,6 +232,20 @@ test('UI-only finance previews, portfolio breakdown and invoice table work toget
   await expect(holdings.getByRole('row')).toHaveCount(4);
   await expect(holdings).toContainText('$21,000.00');
   const invoiceTable = page.getByRole('table', { name: 'Invoice details' });
+  for (const table of [holdings, invoiceTable]) {
+    await expect(table.locator('tbody tr:first-child > :first-child')).toHaveCSS(
+      'padding-inline-start',
+      '10px',
+    );
+    await expect(table.locator('thead th:first-child')).toHaveCSS(
+      'padding-inline-start',
+      '10px',
+    );
+    await expect(table.locator('tbody tr:first-child > :last-child')).toHaveCSS(
+      'padding-inline-end',
+      '10px',
+    );
+  }
   await chooseOption(
     page.getByRole('combobox', { name: 'Sort invoices', exact: true }),
     'Amount: high to low',

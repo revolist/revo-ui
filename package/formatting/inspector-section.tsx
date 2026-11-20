@@ -1,4 +1,5 @@
 /** @jsxImportSource preact */
+import type { ClassPreset } from '../presets/types';
 import { Summary as UiSummary } from '../native-control';
 
 import { h, type ComponentChildren } from 'preact';
@@ -8,6 +9,7 @@ import { SvgIcon } from '../icons/icon';
 import chevronDown from '@fortawesome/fontawesome-free/svgs/solid/chevron-down.svg?raw';
 
 export function InspectorSection({
+  preset,
   title,
   icon,
   expandLabel,
@@ -15,6 +17,7 @@ export function InspectorSection({
   open = false,
   children,
 }: {
+  readonly preset?: ClassPreset;
   readonly title: string;
   readonly icon: string;
   readonly expandLabel: string;
@@ -27,7 +30,7 @@ export function InspectorSection({
   const tooltip = useControlTooltip(tooltipText, true);
   return (
     <details
-      class="rv-format-inspector-section"
+      class={`rv-format-inspector-section ${preset?.className ?? ''}`} data-part="root"
       open={expanded}
       onToggle={(event) => setExpanded(event.currentTarget.open)}
     >

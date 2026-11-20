@@ -1,7 +1,11 @@
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
-import { DateTimeField } from '@revolist/ui/date-time';
+import { DateTimeField as __themeOriginal_DateTimeField } from '@revolist/ui/date-time';
 import { Example } from './catalog';
+import { withThemePreview } from './theme-preview';
+
+const DateTimeField = withThemePreview(__themeOriginal_DateTimeField, 'DateTimeField');
+
 
 export function TimePickerExamples() {
   const [appointment, setAppointment] = useState('09:10');

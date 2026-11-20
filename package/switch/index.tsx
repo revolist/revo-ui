@@ -3,7 +3,22 @@ import { h } from 'preact';
 
 export type SwitchRenderable = any;
 
+export type SwitchPreset = {
+  props?: { labelPosition?: 'before' | 'after' };
+  className?: string;
+  tokens?: {
+    trackWidth?: string;
+    trackHeight?: string;
+    trackPadding?: string;
+    thumbSize?: string;
+    trackOff?: string;
+    trackOn?: string;
+    thumb?: string;
+  };
+};
+
 export type SwitchProps = {
+  preset?: SwitchPreset;
   checked: boolean;
   onChange: (checked: boolean) => void;
   label: SwitchRenderable;
@@ -17,27 +32,47 @@ export type SwitchProps = {
 
 /** Shared compact binary control for Pro UI. */
 export function Switch({
+  preset,
   checked,
   onChange,
   label,
   ariaLabel,
   className = '',
   disabled = false,
-  labelPosition = 'before',
+  labelPosition,
   title,
   testId,
 }: SwitchProps): any {
-  const copy = <span class="rv-switch-label">{label}</span>;
+  const tokens = preset?.tokens;
+  const presetStyle = tokens && {
+    '--rv-ui-switch-preset-track-width': tokens.trackWidth,
+    '--rv-ui-switch-preset-track-height': tokens.trackHeight,
+    '--rv-ui-switch-preset-track-padding': tokens.trackPadding,
+    '--rv-ui-switch-preset-thumb-size': tokens.thumbSize,
+    '--rv-ui-switch-preset-track-off': tokens.trackOff,
+    '--rv-ui-switch-preset-track-on': tokens.trackOn,
+    '--rv-ui-switch-preset-thumb': tokens.thumb,
+  };
+  const position = labelPosition ?? preset?.props?.labelPosition ?? 'before';
+  const copy = (
+    <span class="rv-switch-label" data-part="label">
+      {label}
+    </span>
+  );
   const track = (
-    <span class="rv-switch-track" aria-hidden="true">
-      <span class="rv-switch-thumb" />
+    <span class="rv-switch-track" data-part="track" aria-hidden="true">
+      <span class="rv-switch-thumb" data-part="thumb" />
     </span>
   );
 
   return (
     <ButtonControl
       type="button"
-      class={`rv-switch ${className}`.trim()}
+      class={['rv-switch', preset?.className, className]
+        .filter(Boolean)
+        .join(' ')}
+      style={presetStyle}
+      data-state={checked ? 'checked' : 'unchecked'}
       role="switch"
       aria-checked={checked}
       aria-label={ariaLabel ?? (typeof label === 'string' ? label : undefined)}
@@ -46,8 +81,8 @@ export function Switch({
       data-testid={testId}
       onClick={() => onChange(!checked)}
     >
-      {labelPosition === 'before' ? copy : track}
-      {labelPosition === 'before' ? track : copy}
+      {position === 'before' ? copy : track}
+      {position === 'before' ? track : copy}
     </ButtonControl>
   );
 }

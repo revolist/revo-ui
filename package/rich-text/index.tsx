@@ -1,5 +1,6 @@
 /** @jsxRuntime automatic */
 /** @jsxImportSource preact */
+import type { ClassPreset } from '../presets/types';
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import { createControlId } from '../core/control-id';
 import { Button } from '../controls';
@@ -25,6 +26,7 @@ import { defaultHtmlEditorText, type HtmlEditorText } from './translations';
 import './style.scss';
 export { defaultHtmlEditorText, type HtmlEditorText } from './translations';
 export interface HtmlEditorProps extends EditorCommitOptions {
+  preset?: ClassPreset;
   /** Override formatRichTextHtml for source presentation on entry, never while typing. */
   formatSource?: (html: string) => string;
   value: string;
@@ -109,7 +111,8 @@ export function HtmlEditor(props: HtmlEditorProps) {
   const disabled = !!validate(normalized);
   return (
     <div
-      class="rv-rich-text-editor"
+      class={`rv-rich-text-editor ${props.preset?.className ?? ''}`}
+      data-part="root"
       onKeyDown={(event) => {
         if (event.altKey && event.key === 'F10' && mode === 'visual') {
           event.preventDefault();

@@ -174,7 +174,8 @@ export function FrameworksPage() {
               React, Vue, Angular and Svelte adapters load their styles
               automatically. See{' '}
               <a href={frameworkHref('bundle-size')}>Bundle size</a> for
-              extracted CSS and selective stylesheets.
+              extracted CSS and selective stylesheets. To customize and share a
+              design, see <a href={frameworkHref('presets')}>Themes and presets</a>.
             </p>
           </section>
           <nav class="framework-jump-links" aria-label="Framework guides">

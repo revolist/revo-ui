@@ -1,8 +1,13 @@
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
-import { SliderField } from '@revolist/ui/filter/filters/slider/single';
-import { TimelineTrack, type TimelineTrackEvent, type TimelineTrackItem } from '@revolist/ui/timeline-track';
+import { SliderField as __themeOriginal_SliderField } from '@revolist/ui/filter/filters/slider/single';
+import { TimelineTrack as __themeOriginal_TimelineTrack, type TimelineTrackEvent, type TimelineTrackItem } from '@revolist/ui/timeline-track';
 import { Example } from './catalog';
+import { withThemePreview } from './theme-preview';
+
+const SliderField = withThemePreview(__themeOriginal_SliderField, 'SliderField');
+const TimelineTrack = withThemePreview(__themeOriginal_TimelineTrack, 'TimelineTrack');
+
 
 export function SliderLayoutExamples() {
   const [volume, setVolume] = useState(7);

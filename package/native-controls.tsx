@@ -19,11 +19,18 @@ export function renderLoadingIndicator<H extends ElementFactory>(
     {
       class: options.className ?? 'rv-spinner',
       role: 'status',
+      'data-part': 'root',
       'aria-label': options.label,
       ref: options.ref,
     },
     options.showSpinner
-      ? [h('span', { class: 'rv-spinner__ring', 'aria-hidden': 'true' })]
+      ? [
+          h('span', {
+            class: 'rv-spinner__ring',
+            'data-part': 'ring',
+            'aria-hidden': 'true',
+          }),
+        ]
       : [],
   );
 }

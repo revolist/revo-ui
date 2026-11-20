@@ -1,3 +1,4 @@
+import type { ClassPreset } from '../presets/types';
 import { AiTranslationProvider, useAiText } from './translation-context';
 import { translateAiText, type AiUiTranslations } from './translations';
 import {
@@ -27,6 +28,8 @@ export type AiActionPhase =
   | 'error'
   | 'cancelled';
 export interface AiPromptInputProps {
+  preset?: ClassPreset;
+  className?: string;
   translations?: AiUiTranslations;
   value: string;
   onValueChange(value: string): void;
@@ -55,6 +58,8 @@ export interface AiPromptInputProps {
 
 /** Shared composer: Enter submits, Shift+Enter inserts a line; IME never submits. */
 export function AiPromptInput({
+  preset,
+  className = '',
   translations,
   value,
   onValueChange,
@@ -94,7 +99,8 @@ export function AiPromptInput({
   };
   return (
     <form
-      class="rv-ai-prompt"
+      class={`rv-ai-prompt ${preset?.className ?? ''} ${className}`}
+      data-part="root"
       aria-busy={busy || undefined}
       onSubmit={(event) => {
         event.preventDefault();
@@ -212,6 +218,8 @@ export interface AiSuggestionChoice {
   prompt: string;
 }
 export interface AiSuggestionsProps {
+  preset?: ClassPreset;
+  className?: string;
   /** Number of inline choices; remaining choices are available under More. Default: 2. */
   maxVisible?: number;
   translations?: AiUiTranslations;
@@ -221,6 +229,8 @@ export interface AiSuggestionsProps {
   label?: string;
 }
 export function AiSuggestions({
+  preset,
+  className = '',
   translations,
   items,
   onSelect,
@@ -237,7 +247,12 @@ export function AiSuggestions({
     typeof item === 'string' ? { label: item, prompt: item } : item,
   );
   return (
-    <div class="rv-ai-suggestions" role="group" aria-label={t(label)}>
+    <div
+      class={`rv-ai-suggestions ${preset?.className ?? ''} ${className}`}
+      data-part="root"
+      role="group"
+      aria-label={t(label)}
+    >
       {choices.slice(0, visible).map((item, index) => (
         <Button
           key={`${index}:${item.prompt}`}
@@ -276,11 +291,15 @@ export function AiSuggestions({
 }
 
 export interface AiActionStatusProps {
+  preset?: ClassPreset;
+  className?: string;
   translations?: AiUiTranslations;
   phase: AiActionPhase;
   message: string;
 }
 export function AiActionStatus({
+  preset,
+  className = '',
   translations,
   phase,
   message,
@@ -288,7 +307,8 @@ export function AiActionStatus({
   const t = useAiText(translations);
   return (
     <div
-      class="rv-ai-status"
+      class={`rv-ai-status ${preset?.className ?? ''} ${className}`}
+      data-part="root"
       data-state={phase}
       role="status"
       aria-live="polite"
@@ -305,6 +325,8 @@ export function AiActionStatus({
 }
 
 export interface AiResultProps {
+  preset?: ClassPreset;
+  className?: string;
   translations?: AiUiTranslations;
   summary: string;
   matchedRows?: number;
@@ -313,6 +335,8 @@ export interface AiResultProps {
   children?: ComponentChildren;
 }
 export function AiResult({
+  preset,
+  className = '',
   translations,
   summary,
   matchedRows,
@@ -322,7 +346,12 @@ export function AiResult({
 }: AiResultProps) {
   const t = useAiText(translations);
   return (
-    <div class="rv-ai-result" role="status" aria-live="polite">
+    <div
+      class={`rv-ai-result ${preset?.className ?? ''} ${className}`}
+      data-part="root"
+      role="status"
+      aria-live="polite"
+    >
       <p class="rv-ai-result-summary">{summary}</p>
       {matchedRows !== undefined && (
         <p class="rv-ai-result-count">
@@ -340,6 +369,8 @@ export function AiResult({
 }
 
 export interface AiAssistantProps {
+  preset?: ClassPreset;
+  className?: string;
   /** Fill a bounded parent, with messages scrolling above the composer. */
   layout?: 'flow' | 'fill';
   translations?: AiUiTranslations;
@@ -350,6 +381,8 @@ export interface AiAssistantProps {
 }
 /** Neutral composition; grid/model/query policy remains in the consuming product. */
 export function AiAssistant({
+  preset,
+  className = '',
   layout = 'flow',
   translations = {},
   label = 'AI view assistant',
@@ -361,7 +394,8 @@ export function AiAssistant({
   return (
     <AiTranslationProvider translations={translations}>
       <section
-        class={`rv-ai-assistant${layout === 'fill' ? ' rv-ai-assistant--fill' : ''}`}
+        class={`rv-ai-assistant${layout === 'fill' ? ' rv-ai-assistant--fill' : ''} ${preset?.className ?? ''} ${className}`}
+        data-part="root"
         aria-label={t(label)}
         aria-busy={busy || undefined}
         onKeyDown={(event) => event.stopPropagation()}
@@ -382,6 +416,8 @@ export interface AiPreviewChange {
   after?: string;
 }
 export interface AiChangePreviewProps {
+  preset?: ClassPreset;
+  className?: string;
   translations?: AiUiTranslations;
   summary: string;
   details?: string;
@@ -393,6 +429,8 @@ export interface AiChangePreviewProps {
 }
 /** Generic approval surface; the host retains the prepared command and its mutation policy. */
 export function AiChangePreview({
+  preset,
+  className = '',
   translations,
   summary,
   details,
@@ -409,7 +447,8 @@ export function AiChangePreview({
   }, []);
   return (
     <section
-      class="rv-ai-change-preview"
+      class={`rv-ai-change-preview ${preset?.className ?? ''} ${className}`}
+      data-part="root"
       aria-label={t('Review changes')}
       onKeyDown={(event) => {
         if (event.key === 'Escape' && !disabled) {

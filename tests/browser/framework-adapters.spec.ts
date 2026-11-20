@@ -279,3 +279,21 @@ test('Vue popover retains input focus and selection when dismissal policy change
   await expect(draft).toBeFocused();
   await expect(draft).toBeVisible();
 });
+
+test('React and Vue share JSON theme styles and allow explicit behavior overrides', async ({
+  page,
+}) => {
+  await page.goto('/#components');
+  for (const name of ['Vue shared theme', 'React shared theme']) {
+    const control = page.getByRole('switch', { name });
+    await expect(control).toBeEnabled();
+    await expect(control).toHaveClass(/shared-browser-switch/);
+    await expect(control.locator('[data-part="thumb"]')).toHaveCSS(
+      'background-color',
+      'rgb(255, 0, 0)',
+    );
+    await expect(control).toHaveAttribute('aria-checked', 'true');
+    await control.click();
+    await expect(control).toHaveAttribute('aria-checked', 'false');
+  }
+});

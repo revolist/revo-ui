@@ -22,7 +22,8 @@ export function AssigneePickerLayout({
   return (
     <div
       id={props.id}
-      class="rv-assignee-picker"
+      class={`rv-assignee-picker ${props.preset?.className ?? ''}`}
+      data-part="root"
       role="dialog"
       aria-label={props.text?.dialogLabel ?? 'Assign people'}
       onKeyDown={(event) => {

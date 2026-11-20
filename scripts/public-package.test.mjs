@@ -212,9 +212,16 @@ test('an isolated TypeScript consumer resolves published declarations without wo
     allPublicTypes +
       `
     import { createControl, type ControlTag } from '@revolist/ui';
+    import { themeToCss, presetProps, type UiTheme } from '@revolist/ui/presets';
+    const theme: UiTheme = { version: 1, components: { Switch: { branded: { className: 'branded-switch', styles: { parts: { thumb: { 'border-radius': '50%' } } } } }, ProgressBar: { capacity: { defaults: { max: 200 } } } } };
+    const compiledStyles: string = themeToCss(theme);
+    void compiledStyles;
+    const switchDefaults = presetProps(theme.components.Switch?.branded);
+    void switchDefaults;
     import { Input } from '@revolist/ui/react-control';
     import { createElement } from 'react';
-    import { Dropdown, FieldGroupHeading, FieldGroup, FieldList, FieldRow, PdfViewer, PdfViewerToolbar } from '@revolist/ui/react';
+    import { Dropdown, FieldGroupHeading, FieldGroup, FieldList, FieldRow, PdfViewer, PdfViewerToolbar, ProgressBar } from '@revolist/ui/react';
+    createElement(ProgressBar, { ...presetProps(theme.components.ProgressBar?.capacity), value: 65, ariaLabel: 'Capacity' });
     createElement(PdfViewer, { workerSrc: '/worker.mjs', toolbar: { buttons: { print: false } },
       renderToolbar: (_controller, _state, props) => createElement(PdfViewerToolbar, props) });
     import type { PdfViewerProps as AngularPdfProps } from '@revolist/ui/angular';
@@ -287,4 +294,52 @@ test('archive exposes standalone module and classic browser builds with CDN defa
     'browser/pdfjs-LICENSE',
   ])
     assert.ok(existsSync(join(packageRoot, file)), file);
+});
+
+test('the same exported theme works in separate React and Vue consumers', () => {
+  const theme = JSON.stringify({ version: 1, components: { Switch: { custom: { className: 'shared-switch', props: { labelPosition: 'after' }, tokens: { trackWidth: '46px' }, defaults: { disabled: true }, styles: { parts: { thumb: { 'border-radius': '50%' } } } } } } });
+  const css = '.shared-switch { --rv-ui-switch-track-on: #6d28d9; }';
+  for (const framework of ['react', 'vue']) {
+    const project = join(fixture, `${framework}-theme-project`);
+    mkdirSync(project, { recursive: true });
+    writeFileSync(join(project, 'theme.json'), theme);
+    writeFileSync(join(project, 'theme.css'), css);
+    const script = `
+      import assert from 'node:assert/strict';
+      import { readFileSync } from 'node:fs';
+      import { Window } from 'happy-dom';
+      const window = new Window();
+      for (const name of ['window', 'document', 'HTMLElement', 'Element', 'Node', 'SVGElement', 'MutationObserver']) globalThis[name] = name === 'window' ? window : name === 'document' ? window.document : window[name];
+      const theme = JSON.parse(readFileSync(new URL('./theme.json', import.meta.url)));
+      const preset = theme.components.Switch.custom;
+      const { themeToCss, presetProps } = await import('@revolist/ui/presets');
+      const defaults = presetProps(preset);
+      const generatedCss = themeToCss(theme);
+      assert.match(generatedCss, /border-radius: 50%/);
+      const style = document.createElement('style'); style.textContent = generatedCss + readFileSync(new URL('./theme.css', import.meta.url), 'utf8'); document.head.append(style);
+      const host = document.createElement('div'); document.body.append(host);
+      if (${JSON.stringify(framework)} === 'react') {
+        const React = await import('react');
+        const { createRoot } = await import('react-dom/client');
+        const { Switch } = await import('@revolist/ui/react');
+        const root = createRoot(host);
+        root.render(React.createElement(Switch, { ...defaults, label: 'Enabled', checked: true, onChange() {}, disabled: false }));
+        await new Promise(resolve => setTimeout(resolve, 60));
+      } else {
+        const { createApp, h, nextTick } = await import('vue');
+        const { Switch } = await import('@revolist/ui/vue');
+        createApp({ render: () => h(Switch, { ...defaults, label: 'Enabled', modelValue: true, disabled: false }) }).mount(host);
+        await nextTick(); await new Promise(resolve => setTimeout(resolve, 0));
+      }
+      const button = host.querySelector('button');
+      assert.ok(button?.classList.contains('shared-switch'));
+      assert.equal(button.disabled, false);
+      assert.equal(button.style.getPropertyValue('--rv-ui-switch-preset-track-width'), '46px');
+      assert.equal(button.firstElementChild.getAttribute('data-part'), 'track');
+      assert.match(style.textContent, /shared-switch/);
+      window.happyDOM.abort();
+    `;
+    writeFileSync(join(project, 'consumer.mjs'), script);
+    execFileSync(process.execPath, [join(project, 'consumer.mjs')], { cwd: project, stdio: 'pipe' });
+  }
 });

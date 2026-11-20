@@ -1,3 +1,4 @@
+import type { ClassPreset } from '../presets/types';
 import { ActionFooterView } from './dialog-action-footer';
 /** @jsxImportSource preact */
 import { h, Fragment, type JSX } from 'preact';
@@ -8,45 +9,50 @@ import { Input, ButtonControl } from '../native-control';
 /** Composable chrome: consumers retain native dialog lifecycle and form policy. */
 export const DialogHeader = forwardRef<
   HTMLElement,
-  JSX.IntrinsicElements['header']
->(({ class: className = '', ...props }, ref) => (
-  <header {...props} ref={ref} class={`rv-dialog__header ${className}`} />
+  JSX.IntrinsicElements['header'] & { preset?: ClassPreset }
+>(({ preset, class: className = '', ...props }, ref) => (
+  <header {...props} ref={ref} class={`rv-dialog__header ${preset?.className ?? ''} ${className}`} data-part="root" />
 ));
 export function DialogForm({
+  preset,
   class: className = '',
   ...props
-}: JSX.IntrinsicElements['form']) {
-  return <form {...props} class={`rv-dialog__surface ${className}`} />;
+}: JSX.IntrinsicElements['form'] & { preset?: ClassPreset }) {
+  return <form {...props} class={`rv-dialog__surface ${preset?.className ?? ''} ${className}`} data-part="root" />;
 }
 export const DialogBody = forwardRef<
   HTMLDivElement,
-  JSX.IntrinsicElements['div']
->(({ class: className = '', ...props }, ref) => (
-  <div {...props} ref={ref} class={`rv-dialog__body ${className}`} />
+  JSX.IntrinsicElements['div'] & { preset?: ClassPreset }
+>(({ preset, class: className = '', ...props }, ref) => (
+  <div {...props} ref={ref} class={`rv-dialog__body ${preset?.className ?? ''} ${className}`} data-part="root" />
 ));
 export const DialogFooter = forwardRef<
   HTMLElement,
-  JSX.IntrinsicElements['footer']
->(({ class: className = '', ...props }, ref) => (
-  <footer {...props} ref={ref} class={`rv-dialog__footer ${className}`} />
+  JSX.IntrinsicElements['footer'] & { preset?: ClassPreset }
+>(({ preset, class: className = '', ...props }, ref) => (
+  <footer {...props} ref={ref} class={`rv-dialog__footer ${preset?.className ?? ''} ${className}`} data-part="root" />
 ));
 export const DialogActions = forwardRef<
   HTMLDivElement,
-  JSX.IntrinsicElements['div']
->(({ class: className = '', ...props }, ref) => (
-  <div {...props} ref={ref} class={`rv-dialog__actions ${className}`} />
+  JSX.IntrinsicElements['div'] & { preset?: ClassPreset }
+>(({ preset, class: className = '', ...props }, ref) => (
+  <div {...props} ref={ref} class={`rv-dialog__actions ${preset?.className ?? ''} ${className}`} data-part="root" />
 ));
 export function DialogCloseButton({
+  preset,
   class: className = '',
   iconClass = '',
   ...props
 }: Omit<JSX.IntrinsicElements['button'], 'ref'> & {
   'aria-label': string;
+  preset?: ClassPreset;
   iconClass?: string;
 }) {
   return (
     <ButtonControl
       {...props}
+      preset={preset}
+      data-part="root"
       unstyled
       type="button"
       class={`rv-dialog__close ${className}`}
@@ -62,15 +68,16 @@ export function DialogCloseButton({
 /** A native input with shared title styling; labels and commit policy stay explicit. */
 export const DialogTitleInput = forwardRef<
   HTMLInputElement,
-  Omit<JSX.IntrinsicElements['input'], 'ref'>
->(({ class: className = '', ...props }, ref) => (
-  <Input {...props} ref={ref} class={`rv-dialog__title-input ${className}`} />
+  Omit<JSX.IntrinsicElements['input'], 'ref'> & { preset?: ClassPreset }
+>(({ preset, class: className = '', ...props }, ref) => (
+  <Input {...props} preset={preset} ref={ref} class={`rv-dialog__title-input ${className}`} />
 ));
 
 export interface EditableDialogHeaderProps extends Omit<
   JSX.IntrinsicElements['header'],
   'title'
 > {
+  readonly preset?: ClassPreset;
   readonly titleId: string;
   readonly title: string;
   /** Optional dialog name above the editable item title. */
@@ -99,6 +106,7 @@ export const EditableDialogHeader = forwardRef<
 >(
   (
     {
+      preset,
       titleId,
       title,
       name,
@@ -119,6 +127,7 @@ export const EditableDialogHeader = forwardRef<
   ) => (
     <DialogHeader
       {...props}
+      preset={preset}
       ref={ref}
       class={`rv-dialog__header--editable ${className}`}
     >
@@ -164,6 +173,7 @@ export type DialogAction = Omit<
   [attribute: `data-${string}`]: unknown;
 };
 export type DialogActionFooterProps = JSX.IntrinsicElements['footer'] & {
+  readonly preset?: ClassPreset;
   readonly cancel?: DialogAction | false;
   readonly save?: DialogAction | false;
   readonly deleteAction?: DialogAction | false;

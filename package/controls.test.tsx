@@ -3,10 +3,12 @@ import { act } from 'preact/test-utils';
 import { afterEach, expect, it, vi } from 'vitest';
 import {
   Button,
+  TextInput,
   IconButton,
   MenuItem,
   NumberStepper,
   RadioGroup,
+  Rating,
   Tabs,
   TabPanel,
   ToggleButton,
@@ -331,4 +333,73 @@ it('keeps pagination gap markers decorative like the native paginator', async ()
         !gap.hasAttribute('aria-label'),
     ),
   ).toBe(true);
+});
+
+it('applies button presets with explicit options taking precedence', () => {
+  const host = mount(
+    <>
+      <Button
+        preset={{
+          className: 'shared',
+          props: { variant: 'primary', size: 'compact', rounded: true },
+        }}
+        size="default"
+      >
+        Save
+      </Button>
+      <Button
+        href="/example"
+        preset={{ className: 'shared', props: { variant: 'secondary' } }}
+      >
+        Link
+      </Button>
+    </>,
+  );
+  const button = host.querySelector('button')!;
+  expect(button.classList.contains('shared')).toBe(true);
+  expect(button.classList.contains('rv-btn-primary')).toBe(true);
+  expect(button.classList.contains('rv-btn-sm')).toBe(false);
+  expect(button.classList.contains('rv-btn-rounded')).toBe(true);
+  expect(host.querySelector('a')?.classList.contains('shared')).toBe(true);
+});
+
+it('applies text field presets and respects instance options', () => {
+  const host = mount(
+    <TextInput
+      preset={{ className: 'custom-field', props: { readOnly: true } }}
+      readOnly={false}
+    />,
+  );
+  const input = host.querySelector('input')!;
+  expect(input.classList.contains('custom-field')).toBe(true);
+  expect(input.readOnly).toBe(false);
+  expect(input.dataset.part).toBe('input');
+});
+
+it('styles a radio group from its preset while preserving explicit state', () => {
+  const host = mount(
+    <RadioGroup
+      label="Mode"
+      value="a"
+      options={[{ value: 'a', label: 'A' }]}
+      onChange={() => {}}
+      preset={{ className: 'custom-radio', props: { disabled: true } }}
+      disabled={false}
+    />,
+  );
+  expect(
+    host.querySelector('fieldset')?.classList.contains('custom-radio'),
+  ).toBe(true);
+  expect(host.querySelector('fieldset')?.disabled).toBe(false);
+  expect(
+    host.querySelector('[data-part="option"] [data-part="input"]'),
+  ).toBeTruthy();
+});
+
+
+it('uses rating preset options while honoring explicit values', () => {
+  const host = mount(<Rating label="Rating" value={1} onChange={() => {}} preset={{ className: 'rating-theme', props: { max: 3, disabled: true } }} disabled={false} />);
+  expect(host.querySelectorAll('input[type="radio"]')).toHaveLength(3);
+  expect(host.querySelector<HTMLInputElement>('input[type="radio"]')?.disabled).toBe(false);
+  expect(host.querySelector('.rating-theme')).not.toBeNull();
 });

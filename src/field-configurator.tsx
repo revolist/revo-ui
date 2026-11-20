@@ -8,21 +8,36 @@ import gearIcon from '@fortawesome/fontawesome-free/svgs/solid/gear.svg?raw';
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import {
-  FieldRemoveButton,
+  FieldRemoveButton as __themeOriginal_FieldRemoveButton,
   useFieldReorder,
-  SelectedField,
-  FieldActions,
-  FieldStatusBadge,
-  FieldList,
-  FieldItem,
-  FieldContent,
-  FieldGroup,
-  FieldIcon,
+  SelectedField as __themeOriginal_SelectedField,
+  FieldActions as __themeOriginal_FieldActions,
+  FieldStatusBadge as __themeOriginal_FieldStatusBadge,
+  FieldList as __themeOriginal_FieldList,
+  FieldItem as __themeOriginal_FieldItem,
+  FieldContent as __themeOriginal_FieldContent,
+  FieldGroup as __themeOriginal_FieldGroup,
+  FieldIcon as __themeOriginal_FieldIcon,
 } from '@revolist/ui/field-configurator';
-import { Button, Checkbox } from '@revolist/ui/preact';
+import { Button as __themeOriginal_Button, Checkbox as __themeOriginal_Checkbox } from '@revolist/ui/preact';
 import { Example } from './catalog';
-import { Select } from '@revolist/ui/select';
+import { Select as __themeOriginal_Select } from '@revolist/ui/select';
 import textIcon from '@fortawesome/fontawesome-free/svgs/solid/font.svg?raw';
+import { withThemePreview } from './theme-preview';
+
+const FieldRemoveButton = withThemePreview(__themeOriginal_FieldRemoveButton, 'FieldRemoveButton');
+const SelectedField = withThemePreview(__themeOriginal_SelectedField, 'SelectedField');
+const FieldActions = withThemePreview(__themeOriginal_FieldActions, 'FieldActions');
+const FieldStatusBadge = withThemePreview(__themeOriginal_FieldStatusBadge, 'FieldStatusBadge');
+const FieldList = withThemePreview(__themeOriginal_FieldList, 'FieldList');
+const FieldItem = withThemePreview(__themeOriginal_FieldItem, 'FieldItem');
+const FieldContent = withThemePreview(__themeOriginal_FieldContent, 'FieldContent');
+const FieldGroup = withThemePreview(__themeOriginal_FieldGroup, 'FieldGroup');
+const FieldIcon = withThemePreview(__themeOriginal_FieldIcon, 'FieldIcon');
+const Button = withThemePreview(__themeOriginal_Button, 'Button');
+const Checkbox = withThemePreview(__themeOriginal_Checkbox, 'Checkbox');
+const Select = withThemePreview(__themeOriginal_Select, 'Select');
+
 export function FieldConfiguratorExamples() {
   const [fieldToMove, setFieldToMove] = useState('Country');
   const [measures, setMeasures] = useState(['Revenue (USD)']);

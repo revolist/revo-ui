@@ -14,7 +14,13 @@ type PreactH = typeof import('preact').h;
 type PreactVNode = import('preact').VNode;
 type CheckboxRenderer = (nodeName: any, attributes: any) => unknown;
 
+export type CheckboxPreset = {
+  className?: string;
+  props?: { disabled?: boolean };
+};
+
 export type CheckboxProps = Omit<SharedCheckboxAttributes, 'onChange'> & {
+  preset?: CheckboxPreset;
   checked?: boolean;
   indeterminate?: boolean;
   label?: any;
@@ -66,6 +72,7 @@ export function renderCheckbox(
  * optional label/description composition.
  */
 export function Checkbox({
+  preset,
   checked,
   indeterminate = false,
   label,
@@ -78,7 +85,12 @@ export function Checkbox({
 }: CheckboxProps): any {
   const input = renderCheckbox(h, {
     ...attributes,
+    className: [label === undefined && description === undefined ? preset?.className : undefined, attributes.className]
+      .filter(Boolean)
+      .join(' '),
+    disabled: attributes.disabled ?? preset?.props?.disabled,
     checked,
+    'data-part': 'input',
     'aria-label': ariaLabel,
     'aria-checked': indeterminate ? 'mixed' : !!checked,
     ref: (element: HTMLInputElement | null) => {
@@ -93,17 +105,29 @@ export function Checkbox({
   if (label === undefined && description === undefined) return input;
   return h(
     'label',
-    { class: `rv-checkbox-control ${controlClassName}`.trim() },
+    {
+      class: ['rv-checkbox-control', preset?.className, controlClassName]
+        .filter(Boolean)
+        .join(' '),
+      'data-part': 'root',
+    },
     [
       input,
-      h('span', { class: 'rv-checkbox-control__copy' }, [
+      h('span', { class: 'rv-checkbox-control__copy', 'data-part': 'copy' }, [
         label !== undefined
-          ? h('span', { class: 'rv-checkbox-control__label' }, label)
+          ? h(
+              'span',
+              { class: 'rv-checkbox-control__label', 'data-part': 'label' },
+              label,
+            )
           : null,
         description !== undefined
           ? h(
               'span',
-              { class: 'rv-checkbox-control__description' },
+              {
+                class: 'rv-checkbox-control__description',
+                'data-part': 'description',
+              },
               description,
             )
           : null,

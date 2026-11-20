@@ -1,4 +1,5 @@
 import type { ComponentChildren } from 'preact';
+import type { ClassPreset } from '../presets/types';
 import type { DisplayCalendarSystem, ISODateString } from '@revolist/ui-dates';
 
 export type CalendarWeekStart = 0 | 1 | 2 | 3 | 4 | 5 | 6;
@@ -41,7 +42,18 @@ export interface CalendarSelectionValidationContext {
 
 export type CalendarSelectionValidationResult = boolean | string;
 
+export type CalendarPreset = ClassPreset & {
+  props?: {
+    showTodayButton?: boolean;
+    showOutsideDays?: boolean;
+    fixedWeeks?: boolean;
+    showWeekNumber?: boolean;
+    enableYearView?: boolean;
+  };
+};
+
 export interface CalendarProps {
+  readonly preset?: CalendarPreset;
   readonly month: ISODateString;
   readonly focusedDate: ISODateString;
   readonly referenceDate?: ISODateString;

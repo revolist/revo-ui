@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "components": {
+    "Switch": {
+      "shared": {
+        "className": "shared-browser-switch",
+        "defaults": { "disabled": true },
+        "styles": { "parts": { "thumb": { "background-color": "rgb(255, 0, 0)" } } }
+      }
+    }
+  }
+}

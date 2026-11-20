@@ -7,11 +7,15 @@ import {
   Tooltip,
   Panel,
   Popover,
+  Switch,
 } from '@revolist/ui/vue';
+import { presetProps } from '@revolist/ui/presets';
+import { theme } from './shared-theme';
 
 createApp({
   setup() {
     const status = ref('a');
+    const themed = ref(true);
     const date = ref('2026-10-28');
     const open = ref(false);
     const mounted = ref(true);
@@ -32,6 +36,7 @@ createApp({
     };
     return () =>
       h('main', [
+        h(Switch, { ...presetProps(theme.components.Switch?.shared), label: 'Vue shared theme', modelValue: themed.value, disabled: false, 'onUpdate:modelValue': (value: boolean) => { themed.value = value; } }),
         h(
           'button',
           {

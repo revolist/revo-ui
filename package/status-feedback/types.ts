@@ -1,3 +1,4 @@
+import type { ClassPreset } from '../presets/types';
 import type { StatusFeedbackPopoverController } from './popover';
 import type { BadgeOptions } from '../badge';
 import type { AvatarTemplateOptions } from '../avatar';
@@ -43,6 +44,7 @@ export interface StatusFeedbackLocaleText {
   readonly formatCount: (count: number) => string;
 }
 export interface StatusFeedbackPanelProps {
+  readonly preset?: ClassPreset;
   /** Component adapters only: dismiss settled neutral/success items after this delay. Disabled by default. */
   readonly autoDismissMs?: number;
   /** The owner removes the item after its exit animation. */
@@ -64,6 +66,7 @@ export interface StatusFeedbackPanelProps {
   readonly popover?: StatusFeedbackPopoverController;
 }
 export interface StatusBadgeProps {
+  readonly preset?: ClassPreset;
   readonly label: string;
   readonly tone?: StatusFeedbackTone;
   readonly busy?: boolean;

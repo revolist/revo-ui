@@ -67,16 +67,17 @@ export function renderRangeSlider(
   props: RangeSliderProps,
 ) {
   const {
+    preset,
     min,
     max,
     fromValue,
     toValue,
-    showTooltips = false,
-    showRangeDisplay = false,
-    showRangeInputs = false,
-    disabled = false,
+    showTooltips: showTooltipsProp,
+    showRangeDisplay: showRangeDisplayProp,
+    showRangeInputs: showRangeInputsProp,
+    disabled: disabledProp,
     scaleFactor,
-    step,
+    step: stepProp,
     className,
     controlClassName,
     fromClassName,
@@ -91,6 +92,11 @@ export function renderRangeSlider(
     formatInputValue = formatSliderInputValue,
     parseInputValue,
   } = props;
+  const showTooltips = showTooltipsProp ?? preset?.props?.showTooltips ?? false;
+  const showRangeDisplay = showRangeDisplayProp ?? preset?.props?.showRangeDisplay ?? false;
+  const showRangeInputs = showRangeInputsProp ?? preset?.props?.showRangeInputs ?? false;
+  const disabled = disabledProp ?? preset?.props?.disabled ?? false;
+  const step = stepProp ?? preset?.props?.step;
   const effectiveScaleFactor =
     Number.isFinite(scaleFactor) && Number(scaleFactor) > 0
       ? Number(scaleFactor)
@@ -145,7 +151,8 @@ export function renderRangeSlider(
   return h(
     'div',
     {
-      className: `range_container${className ? ` ${className}` : ''}`,
+      className: `range_container${preset?.className ? ` ${preset.className}` : ''}${className ? ` ${className}` : ''}`,
+      'data-part': 'root',
     },
     showRangeDisplay ? renderRangeLabels(h, runtime) : null,
     renderSliderControl(h, runtime),

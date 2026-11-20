@@ -166,3 +166,18 @@ it('passes host pointer-release integration through the portalled options', asyn
   );
   expect(release).toHaveBeenCalledOnce();
 });
+
+it('applies a portable preset and respects an explicit enabled state', () => {
+  const preset = { className: 'shared-select', props: { disabled: true } };
+  act(() => render(<Select aria-label="Status" preset={preset}><option>Open</option></Select>, document.body));
+  expect(document.querySelector('.shared-select[data-part="root"]')).toBeTruthy();
+  expect(document.querySelector('[role="combobox"]')?.getAttribute('aria-disabled')).toBe('true');
+  act(() => render(<Select aria-label="Status" preset={preset} disabled={false}><option>Open</option></Select>, document.body));
+  expect(document.querySelector('[role="combobox"]')?.getAttribute('aria-disabled')).toBe('false');
+});
+
+it('applies supported dropdown behavior from a Select preset', async () => {
+  act(() => render(<Select aria-label="Status" preset={{ props: { config: { search: true } } }}><option>Open</option><option>Closed</option></Select>, document.body));
+  await dropdownOptions(document.querySelector<HTMLElement>('[role=combobox]')!);
+  expect(document.querySelector('.dropdown-search-input')).not.toBeNull();
+});

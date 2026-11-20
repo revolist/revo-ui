@@ -2,6 +2,7 @@
  * Keep behavior in the library; these descriptions follow its implementations.
  */
 const common = {
+  preset: 'Reusable component appearance and option defaults. Explicit component props take precedence.',
   className: 'Additional CSS classes applied to the component root.',
   class:
     'CSS classes for the root; accepts the class representation declared by this control.',

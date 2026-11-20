@@ -1,3 +1,4 @@
+import type { ClassPreset } from '../presets/types';
 import { Input, ButtonControl } from '../native-control';
 import { normalizeHexColor } from './color-model';
 /** @jsxImportSource preact */
@@ -30,7 +31,13 @@ function PickerIcon({
   );
 }
 
+export type ColorPickerPreset = ClassPreset & {
+  props?: { optional?: boolean; allowHexInput?: boolean; disabled?: boolean };
+};
+
 export function ColorPicker({
+  preset,
+  className = '',
   label,
   value,
   defaultLabel,
@@ -38,11 +45,13 @@ export function ColorPicker({
   customHexLabel,
   invalidColor,
   colorLabels,
-  optional = true,
-  allowHexInput = true,
-  disabled = false,
+  optional: optionalProp,
+  allowHexInput: allowHexInputProp,
+  disabled: disabledProp,
   onChange,
 }: {
+  readonly preset?: ColorPickerPreset;
+  readonly className?: string;
   readonly label: string;
   readonly value?: string;
   readonly defaultLabel: string;
@@ -56,6 +65,9 @@ export function ColorPicker({
   readonly disabled?: boolean;
   readonly onChange: (value: string | undefined) => void;
 }) {
+  const optional = optionalProp ?? preset?.props?.optional ?? true;
+  const allowHexInput = allowHexInputProp ?? preset?.props?.allowHexInput ?? true;
+  const disabled = disabledProp ?? preset?.props?.disabled ?? false;
   const [pickerId] = useState(createColorPickerId);
   const tooltip = useControlTooltip(label, true, {
     className: 'rv-control-tooltip',
@@ -94,7 +106,8 @@ export function ColorPicker({
 
   return (
     <div
-      class="rv-format-color-picker"
+      class={`rv-format-color-picker ${preset?.className ?? ''} ${className}`}
+      data-part="root"
       onKeyDownCapture={(event) => {
         // Escape dismisses this nested chooser before its containing dialog.
         if (

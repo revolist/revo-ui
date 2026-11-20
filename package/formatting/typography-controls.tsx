@@ -1,4 +1,5 @@
 /** @jsxImportSource preact */
+import type { ClassPreset } from '../presets/types';
 import { Dropdown } from '../dropdown';
 import { h, Fragment } from 'preact';
 import { Input as UiInput } from '../native-control';
@@ -12,6 +13,7 @@ export interface TypographyValue {
   readonly strike?: boolean;
 }
 export interface TypographyControlsProps {
+  readonly preset?: ClassPreset;
   readonly value: TypographyValue;
   readonly fonts?: readonly string[];
   readonly labels: {
@@ -36,6 +38,7 @@ const DEFAULT_FONTS = [
   'Courier New',
 ];
 export function TypographyControls({
+  preset,
   value: appearance,
   fonts = DEFAULT_FONTS,
   labels: locale,
@@ -44,7 +47,7 @@ export function TypographyControls({
 }: TypographyControlsProps) {
   return (
     <>
-      <div class="rv-form-grid">
+      <div class={`rv-form-grid ${preset?.className ?? ''}`} data-part="fields">
         <label class="rv-field">
           <span class="rv-field__label">{locale.fontFamily}</span>
           <Dropdown
@@ -79,7 +82,8 @@ export function TypographyControls({
         </label>
       </div>
       <div
-        class="rv-format-segmented rv-format-typography-toolbar"
+        class={`rv-format-segmented rv-format-typography-toolbar ${preset?.className ?? ''}`}
+        data-part="toolbar"
         role="group"
         aria-label={locale.typographySection}
       >

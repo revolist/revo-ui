@@ -209,3 +209,24 @@ it('shows a status line without an empty disclosure before published text arrive
   await mount(<AiReasoning isStreaming>Published text</AiReasoning>);
   expect(host.querySelector('details')!.open).toBe(true);
 });
+
+it('applies portable presets to chat and message parts', async () => {
+  await mount(
+    <AiChat preset={{ className: 'shared-chat' }}>
+      <AiMessage from="assistant" preset={{ className: 'shared-message' }}>
+        <AiMessageContent preset={{ className: 'shared-content' }}>
+          Hello
+        </AiMessageContent>
+      </AiMessage>
+    </AiChat>,
+  );
+  expect(
+    host.querySelector('section.shared-chat[data-part="root"]'),
+  ).toBeTruthy();
+  expect(
+    host.querySelector('article.shared-message[data-part="root"]'),
+  ).toBeTruthy();
+  expect(
+    host.querySelector('.shared-content[data-part="root"]')?.textContent,
+  ).toBe('Hello');
+});

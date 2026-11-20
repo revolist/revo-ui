@@ -1,19 +1,33 @@
 import { h } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
 import {
-  AiChat,
-  AiChatContent,
-  AiChatComposer,
-  AiMessage,
-  AiMessageContent,
-  AiMessageActions,
-  AiReasoning,
-  AiTask,
-  AiTaskItem,
-  AiSuggestions,
-  Button,
+  AiChat as __themeOriginal_AiChat,
+  AiChatContent as __themeOriginal_AiChatContent,
+  AiChatComposer as __themeOriginal_AiChatComposer,
+  AiMessage as __themeOriginal_AiMessage,
+  AiMessageContent as __themeOriginal_AiMessageContent,
+  AiMessageActions as __themeOriginal_AiMessageActions,
+  AiReasoning as __themeOriginal_AiReasoning,
+  AiTask as __themeOriginal_AiTask,
+  AiTaskItem as __themeOriginal_AiTaskItem,
+  AiSuggestions as __themeOriginal_AiSuggestions,
+  Button as __themeOriginal_Button,
 } from '@revolist/ui/preact';
 import { Example } from './catalog';
+import { withThemePreview } from './theme-preview';
+
+const AiChat = withThemePreview(__themeOriginal_AiChat, 'AiChat');
+const AiChatContent = withThemePreview(__themeOriginal_AiChatContent, 'AiChatContent');
+const AiChatComposer = withThemePreview(__themeOriginal_AiChatComposer, 'AiChatComposer');
+const AiMessage = withThemePreview(__themeOriginal_AiMessage, 'AiMessage');
+const AiMessageContent = withThemePreview(__themeOriginal_AiMessageContent, 'AiMessageContent');
+const AiMessageActions = withThemePreview(__themeOriginal_AiMessageActions, 'AiMessageActions');
+const AiReasoning = withThemePreview(__themeOriginal_AiReasoning, 'AiReasoning');
+const AiTask = withThemePreview(__themeOriginal_AiTask, 'AiTask');
+const AiTaskItem = withThemePreview(__themeOriginal_AiTaskItem, 'AiTaskItem');
+const AiSuggestions = withThemePreview(__themeOriginal_AiSuggestions, 'AiSuggestions');
+const Button = withThemePreview(__themeOriginal_Button, 'Button');
+
 
 interface DemoMessage {
   id: number;

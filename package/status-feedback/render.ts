@@ -54,6 +54,7 @@ export function renderStatusFeedbackPanel<T>(
       id: popover?.id,
       class: [
         'rv-status-feedback',
+        props.preset?.className,
         className,
         props.compact ? 'rv-status-feedback--compact' : '',
         props.hideHeader ? 'rv-status-feedback--headerless' : '',
@@ -62,6 +63,7 @@ export function renderStatusFeedbackPanel<T>(
       ]
         .filter(Boolean)
         .join(' '),
+      'data-part': 'root',
       'aria-label': ariaLabel ?? title,
       'data-collapsed': String(collapsed),
     },

@@ -1,0 +1,2702 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ui.rv-grid.com/theme-v1.schema.json",
+  "title": "Revo UI theme",
+  "type": "object",
+  "required": [
+    "version",
+    "components"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "version": {
+      "const": 1
+    },
+    "components": {
+      "type": "object",
+      "properties": {
+        "Switch": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/switchPreset"
+          }
+        },
+        "Button": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/buttonPreset"
+          }
+        },
+        "Checkbox": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/checkboxPreset"
+          }
+        },
+        "SegmentedSwitch": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/segmentedSwitchPreset"
+          }
+        },
+        "SegmentedControl": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/segmentedSwitchPreset"
+          }
+        },
+        "Tabs": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/segmentedSwitchPreset"
+          }
+        },
+        "IconButton": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/buttonPreset"
+          }
+        },
+        "ToggleButton": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/buttonPreset"
+          }
+        },
+        "TextInput": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/textFieldPreset"
+          }
+        },
+        "Textarea": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/textFieldPreset"
+          }
+        },
+        "NumberInput": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/textFieldPreset"
+          }
+        },
+        "DateInput": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/textFieldPreset"
+          }
+        },
+        "TimeInput": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/textFieldPreset"
+          }
+        },
+        "DateTimeInput": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/textFieldPreset"
+          }
+        },
+        "SearchInput": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/searchInputPreset"
+          }
+        },
+        "RadioGroup": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/checkboxPreset"
+          }
+        },
+        "ChoiceChips": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/choiceChipsPreset"
+          }
+        },
+        "Badge": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/badgePreset"
+          }
+        },
+        "ProgressBar": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "Popover": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/popoverPreset"
+          }
+        },
+        "CountBadge": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "Spinner": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "LoadingOverlay": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "EmptyState": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "CircularProgress": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "Rating": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/ratingPreset"
+          }
+        },
+        "Panel": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "Toolbar": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "ToolbarGroup": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "ToolbarSeparator": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "Menu": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "MenuSeparator": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "MenuItem": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/buttonPreset"
+          }
+        },
+        "ButtonGroup": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "Chip": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "FieldHint": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "FieldError": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "FormSection": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "Disclosure": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "Submenu": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "EditorSplitLayout": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "SplitLayout": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "EditorPane": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "Pane": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "EditorList": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "EditorListItem": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "EditorListItemContent": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "EditorListGroup": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "DistributionChart": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "BarChart": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "LineChart": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "AreaChart": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "BrushRange": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "Legend": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "TabPanel": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "NumberStepper": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/numberStepperPreset"
+          }
+        },
+        "AiChat": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "AiChatContent": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "AiChatEmptyState": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "AiMessage": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "AiMessageContent": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "AiMessageActions": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "AiTask": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "AiTaskItem": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "AiReasoning": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "AiChatComposer": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "AiPromptInput": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "AiSuggestions": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "AiActionStatus": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "AiResult": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "AiAssistant": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "AiChangePreview": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "AiResultView": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "AiResultTable": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "AiResultMetrics": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "AiResultText": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "AiRequestTrail": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "Listbox": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "ListboxOption": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "ListboxGroup": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "ListboxOptionContent": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "SvgIcon": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "SvgButton": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "DeleteButton": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "RemoveButton": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "Dialog": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/dialogPreset"
+          }
+        },
+        "ConfirmDialog": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/dialogPreset"
+          }
+        },
+        "Input": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "Calendar": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/calendarPreset"
+          }
+        },
+        "CalendarDay": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "CalendarPicker": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/calendarPreset"
+          }
+        },
+        "DatePicker": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/calendarPreset"
+          }
+        },
+        "DateRangePicker": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/calendarPreset"
+          }
+        },
+        "CalendarHeader": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "CalendarWeekdays": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "CalendarMonthGrid": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "CalendarYearGrid": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "Dropdown": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/dropdownPreset"
+          }
+        },
+        "Combobox": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/comboboxPreset"
+          }
+        },
+        "MultiSelect": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/multiSelectPreset"
+          }
+        },
+        "TimelineTrack": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "OptionButton": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "HighlightedTextInput": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "InlineFieldGroup": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "FilterChip": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "FormField": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "DisclosureSummary": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "ChoiceChip": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "ChoiceChipInfoButton": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "ActivityMessage": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "TimeGrid": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "Alert": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/alertPreset"
+          }
+        },
+        "FieldIcon": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "FieldSummary": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "FieldLibrary": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "FieldGroupHeading": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "FieldGroup": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "FieldList": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "FieldRow": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "FieldContent": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "FieldItem": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "FieldLibraryList": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "SelectedField": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "FieldActions": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "FieldStatusBadge": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "FieldDropIndicator": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "FieldRemoveButton": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "FieldRemoveIcon": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "CollapsibleSection": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/collapsiblePreset"
+          }
+        },
+        "InspectorSection": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "IconChoiceGroup": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "IconToggleButton": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "TypographyControls": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "ComparisonPreview": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "FilterBadgeInfoButton": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "FilterBadge": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "RatingStar": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "RatingChoice": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "DialogHeader": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "DialogBody": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "DialogFooter": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "DialogForm": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "DialogCloseButton": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "DialogActionFooter": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "DialogActions": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "DialogTitleInput": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "EditableDialogHeader": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "SharedResourcePicker": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/resourcePickerPreset"
+          }
+        },
+        "ResourcePickerAvatar": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "ColorPalette": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/colorPalettePreset"
+          }
+        },
+        "ColorPicker": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/colorPickerPreset"
+          }
+        },
+        "PreactRangeSlider": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/rangeSliderPreset"
+          }
+        },
+        "SingleValueSlider": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/singleSliderPreset"
+          }
+        },
+        "SliderField": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/sliderFieldPreset"
+          }
+        },
+        "DropdownPopup": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "DropdownPopupContent": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "LookupField": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "StatusFeedbackPanel": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "StatusBadge": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "Avatar": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "ResizeHandle": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "Pagination": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/paginationPreset"
+          }
+        },
+        "Tooltip": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/tooltipPreset"
+          }
+        },
+        "ControlTooltip": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "ReorderList": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "ReorderHandle": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "IconToolbar": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "PdfViewer": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "PdfViewerToolbar": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "NumberDraft": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "MaskedDraft": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "DurationField": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "DurationDraft": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "HtmlEditor": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "TemporalPicker": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "TemporalDraft": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "DateTimeField": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "AssigneePicker": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "AssigneeField": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "AssigneePickerLayout": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "Select": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/selectPreset"
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "switchPreset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "props": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "labelPosition": {
+              "enum": [
+                "before",
+                "after"
+              ]
+            }
+          }
+        },
+        "tokens": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "trackWidth": {
+              "type": "string"
+            },
+            "trackHeight": {
+              "type": "string"
+            },
+            "trackPadding": {
+              "type": "string"
+            },
+            "thumbSize": {
+              "type": "string"
+            },
+            "trackOff": {
+              "type": "string"
+            },
+            "trackOn": {
+              "type": "string"
+            },
+            "thumb": {
+              "type": "string"
+            }
+          }
+        },
+        "styles": {
+          "$ref": "#/$defs/presetStyles"
+        },
+        "defaults": {
+          "$ref": "#/$defs/componentDefaults"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "styles"
+            ]
+          },
+          "then": {
+            "required": [
+              "className"
+            ],
+            "properties": {
+              "className": {
+                "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "buttonPreset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "props": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "variant": {
+              "enum": [
+                "default",
+                "primary",
+                "secondary",
+                "danger",
+                "danger-outline",
+                "ghost",
+                "link",
+                "solid"
+              ]
+            },
+            "size": {
+              "enum": [
+                "compact",
+                "default"
+              ]
+            },
+            "rounded": {
+              "type": "boolean"
+            }
+          }
+        },
+        "styles": {
+          "$ref": "#/$defs/presetStyles"
+        },
+        "defaults": {
+          "$ref": "#/$defs/componentDefaults"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "styles"
+            ]
+          },
+          "then": {
+            "required": [
+              "className"
+            ],
+            "properties": {
+              "className": {
+                "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "checkboxPreset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "props": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "disabled": {
+              "type": "boolean"
+            }
+          }
+        },
+        "styles": {
+          "$ref": "#/$defs/presetStyles"
+        },
+        "defaults": {
+          "$ref": "#/$defs/componentDefaults"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "styles"
+            ]
+          },
+          "then": {
+            "required": [
+              "className"
+            ],
+            "properties": {
+              "className": {
+                "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "segmentedSwitchPreset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "props": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "iconOnly": {
+              "type": "boolean"
+            },
+            "disabled": {
+              "type": "boolean"
+            }
+          }
+        },
+        "styles": {
+          "$ref": "#/$defs/presetStyles"
+        },
+        "defaults": {
+          "$ref": "#/$defs/componentDefaults"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "styles"
+            ]
+          },
+          "then": {
+            "required": [
+              "className"
+            ],
+            "properties": {
+              "className": {
+                "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "textFieldPreset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "props": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "disabled": {
+              "type": "boolean"
+            },
+            "readOnly": {
+              "type": "boolean"
+            }
+          }
+        },
+        "styles": {
+          "$ref": "#/$defs/presetStyles"
+        },
+        "defaults": {
+          "$ref": "#/$defs/componentDefaults"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "styles"
+            ]
+          },
+          "then": {
+            "required": [
+              "className"
+            ],
+            "properties": {
+              "className": {
+                "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "searchInputPreset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "props": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "disabled": {
+              "type": "boolean"
+            },
+            "readOnly": {
+              "type": "boolean"
+            },
+            "hideIcon": {
+              "type": "boolean"
+            },
+            "type": {
+              "enum": [
+                "search",
+                "text"
+              ]
+            }
+          }
+        },
+        "styles": {
+          "$ref": "#/$defs/presetStyles"
+        },
+        "defaults": {
+          "$ref": "#/$defs/componentDefaults"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "styles"
+            ]
+          },
+          "then": {
+            "required": [
+              "className"
+            ],
+            "properties": {
+              "className": {
+                "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "choiceChipsPreset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "props": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "appearance": {
+              "enum": [
+                "soft",
+                "outlined"
+              ]
+            },
+            "scrollable": {
+              "type": "boolean"
+            },
+            "size": {
+              "enum": [
+                "small",
+                "medium"
+              ]
+            },
+            "disabled": {
+              "type": "boolean"
+            }
+          }
+        },
+        "styles": {
+          "$ref": "#/$defs/presetStyles"
+        },
+        "defaults": {
+          "$ref": "#/$defs/componentDefaults"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "styles"
+            ]
+          },
+          "then": {
+            "required": [
+              "className"
+            ],
+            "properties": {
+              "className": {
+                "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "classPreset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "styles": {
+          "$ref": "#/$defs/presetStyles"
+        },
+        "defaults": {
+          "$ref": "#/$defs/componentDefaults"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "styles"
+            ]
+          },
+          "then": {
+            "required": [
+              "className"
+            ],
+            "properties": {
+              "className": {
+                "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "badgePreset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "props": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "variant": {
+              "enum": [
+                "neutral",
+                "accent",
+                "solid"
+              ]
+            },
+            "shape": {
+              "enum": [
+                "pill",
+                "rounded"
+              ]
+            }
+          }
+        },
+        "styles": {
+          "$ref": "#/$defs/presetStyles"
+        },
+        "defaults": {
+          "$ref": "#/$defs/componentDefaults"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "styles"
+            ]
+          },
+          "then": {
+            "required": [
+              "className"
+            ],
+            "properties": {
+              "className": {
+                "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "popoverPreset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "props": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "closeOnOutside": {
+              "type": "boolean"
+            },
+            "closeOnEscape": {
+              "type": "boolean"
+            },
+            "role": {
+              "enum": [
+                "dialog",
+                "menu"
+              ]
+            }
+          }
+        },
+        "styles": {
+          "$ref": "#/$defs/presetStyles"
+        },
+        "defaults": {
+          "$ref": "#/$defs/componentDefaults"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "styles"
+            ]
+          },
+          "then": {
+            "required": [
+              "className"
+            ],
+            "properties": {
+              "className": {
+                "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "numberStepperPreset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "props": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "step": {
+              "type": "number"
+            },
+            "disabled": {
+              "type": "boolean"
+            },
+            "readOnly": {
+              "type": "boolean"
+            }
+          }
+        },
+        "styles": {
+          "$ref": "#/$defs/presetStyles"
+        },
+        "defaults": {
+          "$ref": "#/$defs/componentDefaults"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "styles"
+            ]
+          },
+          "then": {
+            "required": [
+              "className"
+            ],
+            "properties": {
+              "className": {
+                "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "dialogPreset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "props": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "draggable": {
+              "type": "boolean"
+            }
+          }
+        },
+        "styles": {
+          "$ref": "#/$defs/presetStyles"
+        },
+        "defaults": {
+          "$ref": "#/$defs/componentDefaults"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "styles"
+            ]
+          },
+          "then": {
+            "required": [
+              "className"
+            ],
+            "properties": {
+              "className": {
+                "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "dropdownPreset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "props": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "disabled": {
+              "type": "boolean"
+            },
+            "config": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "search": {
+                  "type": "boolean"
+                },
+                "closeOnClickOutside": {
+                  "type": "boolean"
+                },
+                "autoOpen": {
+                  "type": "boolean"
+                },
+                "multiSelect": {
+                  "type": "boolean"
+                },
+                "closeOnTab": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "styles": {
+          "$ref": "#/$defs/presetStyles"
+        },
+        "defaults": {
+          "$ref": "#/$defs/componentDefaults"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "styles"
+            ]
+          },
+          "then": {
+            "required": [
+              "className"
+            ],
+            "properties": {
+              "className": {
+                "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "alertPreset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "props": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "tone": {
+              "enum": [
+                "neutral",
+                "warning",
+                "danger",
+                "success"
+              ]
+            }
+          }
+        },
+        "styles": {
+          "$ref": "#/$defs/presetStyles"
+        },
+        "defaults": {
+          "$ref": "#/$defs/componentDefaults"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "styles"
+            ]
+          },
+          "then": {
+            "required": [
+              "className"
+            ],
+            "properties": {
+              "className": {
+                "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "collapsiblePreset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "props": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "defaultOpen": {
+              "type": "boolean"
+            }
+          }
+        },
+        "styles": {
+          "$ref": "#/$defs/presetStyles"
+        },
+        "defaults": {
+          "$ref": "#/$defs/componentDefaults"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "styles"
+            ]
+          },
+          "then": {
+            "required": [
+              "className"
+            ],
+            "properties": {
+              "className": {
+                "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "paginationPreset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "props": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "variant": {
+              "enum": [
+                "compact",
+                "numbered",
+                "icons"
+              ]
+            },
+            "disabled": {
+              "type": "boolean"
+            },
+            "navigation": {
+              "type": "boolean"
+            },
+            "boundaryButtons": {
+              "type": "boolean"
+            }
+          }
+        },
+        "styles": {
+          "$ref": "#/$defs/presetStyles"
+        },
+        "defaults": {
+          "$ref": "#/$defs/componentDefaults"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "styles"
+            ]
+          },
+          "then": {
+            "required": [
+              "className"
+            ],
+            "properties": {
+              "className": {
+                "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "calendarPreset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "props": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "showTodayButton": {
+              "type": "boolean"
+            },
+            "showOutsideDays": {
+              "type": "boolean"
+            },
+            "fixedWeeks": {
+              "type": "boolean"
+            },
+            "showWeekNumber": {
+              "type": "boolean"
+            },
+            "enableYearView": {
+              "type": "boolean"
+            }
+          }
+        },
+        "styles": {
+          "$ref": "#/$defs/presetStyles"
+        },
+        "defaults": {
+          "$ref": "#/$defs/componentDefaults"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "styles"
+            ]
+          },
+          "then": {
+            "required": [
+              "className"
+            ],
+            "properties": {
+              "className": {
+                "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "resourcePickerPreset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "props": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "disabled": {
+              "type": "boolean"
+            },
+            "readOnly": {
+              "type": "boolean"
+            },
+            "showSearch": {
+              "type": "boolean"
+            },
+            "multiple": {
+              "type": "boolean"
+            },
+            "preserveOrder": {
+              "type": "boolean"
+            },
+            "presentation": {
+              "enum": [
+                "inline",
+                "dropdown"
+              ]
+            }
+          }
+        },
+        "styles": {
+          "$ref": "#/$defs/presetStyles"
+        },
+        "defaults": {
+          "$ref": "#/$defs/componentDefaults"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "styles"
+            ]
+          },
+          "then": {
+            "required": [
+              "className"
+            ],
+            "properties": {
+              "className": {
+                "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "colorPickerPreset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "props": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "optional": {
+              "type": "boolean"
+            },
+            "allowHexInput": {
+              "type": "boolean"
+            },
+            "disabled": {
+              "type": "boolean"
+            }
+          }
+        },
+        "styles": {
+          "$ref": "#/$defs/presetStyles"
+        },
+        "defaults": {
+          "$ref": "#/$defs/componentDefaults"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "styles"
+            ]
+          },
+          "then": {
+            "required": [
+              "className"
+            ],
+            "properties": {
+              "className": {
+                "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "colorPalettePreset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "props": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "disabled": {
+              "type": "boolean"
+            },
+            "includeDefault": {
+              "type": "boolean"
+            },
+            "defaultDisabled": {
+              "type": "boolean"
+            }
+          }
+        },
+        "styles": {
+          "$ref": "#/$defs/presetStyles"
+        },
+        "defaults": {
+          "$ref": "#/$defs/componentDefaults"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "styles"
+            ]
+          },
+          "then": {
+            "required": [
+              "className"
+            ],
+            "properties": {
+              "className": {
+                "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "selectPreset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "props": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "disabled": {
+              "type": "boolean"
+            },
+            "config": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "search": {
+                  "type": "boolean"
+                },
+                "closeOnClickOutside": {
+                  "type": "boolean"
+                },
+                "autoOpen": {
+                  "type": "boolean"
+                },
+                "closeOnTab": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "styles": {
+          "$ref": "#/$defs/presetStyles"
+        },
+        "defaults": {
+          "$ref": "#/$defs/componentDefaults"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "styles"
+            ]
+          },
+          "then": {
+            "required": [
+              "className"
+            ],
+            "properties": {
+              "className": {
+                "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "comboboxPreset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "props": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "disabled": {
+              "type": "boolean"
+            },
+            "config": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "closeOnClickOutside": {
+                  "type": "boolean"
+                },
+                "autoOpen": {
+                  "type": "boolean"
+                },
+                "closeOnTab": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "styles": {
+          "$ref": "#/$defs/presetStyles"
+        },
+        "defaults": {
+          "$ref": "#/$defs/componentDefaults"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "styles"
+            ]
+          },
+          "then": {
+            "required": [
+              "className"
+            ],
+            "properties": {
+              "className": {
+                "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "multiSelectPreset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "props": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "disabled": {
+              "type": "boolean"
+            },
+            "config": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "search": {
+                  "type": "boolean"
+                },
+                "closeOnClickOutside": {
+                  "type": "boolean"
+                },
+                "autoOpen": {
+                  "type": "boolean"
+                },
+                "closeOnTab": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "styles": {
+          "$ref": "#/$defs/presetStyles"
+        },
+        "defaults": {
+          "$ref": "#/$defs/componentDefaults"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "styles"
+            ]
+          },
+          "then": {
+            "required": [
+              "className"
+            ],
+            "properties": {
+              "className": {
+                "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "cssDeclarations": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^(--[a-zA-Z0-9_-]+|[a-z][a-z0-9-]*)$"
+      },
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^(?!.*(?:/\\*|\\*/))[^;{}\\\\\\r\\n]*$"
+      }
+    },
+    "presetStyles": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "root": {
+          "$ref": "#/$defs/cssDeclarations"
+        },
+        "parts": {
+          "type": "object",
+          "propertyNames": {
+            "pattern": "^[a-z][a-z0-9-]*$"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/cssDeclarations"
+          }
+        }
+      }
+    },
+    "ratingPreset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "styles": {
+          "$ref": "#/$defs/presetStyles"
+        },
+        "props": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "max": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "disabled": {
+              "type": "boolean"
+            }
+          }
+        },
+        "defaults": {
+          "$ref": "#/$defs/componentDefaults"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "styles"
+            ]
+          },
+          "then": {
+            "required": [
+              "className"
+            ],
+            "properties": {
+              "className": {
+                "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "rangeSliderPreset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "styles": {
+          "$ref": "#/$defs/presetStyles"
+        },
+        "props": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "step": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "disabled": {
+              "type": "boolean"
+            },
+            "showTooltips": {
+              "type": "boolean"
+            },
+            "showRangeDisplay": {
+              "type": "boolean"
+            },
+            "showRangeInputs": {
+              "type": "boolean"
+            }
+          }
+        },
+        "defaults": {
+          "$ref": "#/$defs/componentDefaults"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "styles"
+            ]
+          },
+          "then": {
+            "required": [
+              "className"
+            ],
+            "properties": {
+              "className": {
+                "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "singleSliderPreset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "styles": {
+          "$ref": "#/$defs/presetStyles"
+        },
+        "props": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "step": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "disabled": {
+              "type": "boolean"
+            }
+          }
+        },
+        "defaults": {
+          "$ref": "#/$defs/componentDefaults"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "styles"
+            ]
+          },
+          "then": {
+            "required": [
+              "className"
+            ],
+            "properties": {
+              "className": {
+                "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "sliderFieldPreset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "styles": {
+          "$ref": "#/$defs/presetStyles"
+        },
+        "props": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "step": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "disabled": {
+              "type": "boolean"
+            },
+            "layout": {
+              "enum": [
+                "inline",
+                "stacked"
+              ]
+            },
+            "valuePlacement": {
+              "enum": [
+                "end",
+                "thumb",
+                "none"
+              ]
+            },
+            "ticks": {
+              "type": "number",
+              "minimum": 2,
+              "maximum": 101
+            },
+            "accentColor": {
+              "type": "string"
+            }
+          }
+        },
+        "defaults": {
+          "$ref": "#/$defs/componentDefaults"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "styles"
+            ]
+          },
+          "then": {
+            "required": [
+              "className"
+            ],
+            "properties": {
+              "className": {
+                "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "tooltipPreset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "className": {
+          "type": "string"
+        },
+        "styles": {
+          "$ref": "#/$defs/presetStyles"
+        },
+        "props": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "side": {
+              "enum": [
+                "top",
+                "bottom",
+                "left",
+                "right",
+                "inline-start",
+                "inline-end"
+              ]
+            },
+            "align": {
+              "enum": [
+                "start",
+                "center",
+                "end"
+              ]
+            },
+            "trigger": {
+              "enum": [
+                "hover",
+                "focus",
+                "click",
+                "manual"
+              ]
+            },
+            "delay": {
+              "type": "number",
+              "minimum": 0
+            },
+            "arrow": {
+              "type": "boolean"
+            },
+            "disabled": {
+              "type": "boolean"
+            },
+            "closeOnEscape": {
+              "type": "boolean"
+            },
+            "closeOnOutside": {
+              "type": "boolean"
+            },
+            "autoHide": {
+              "type": "boolean"
+            }
+          }
+        },
+        "defaults": {
+          "$ref": "#/$defs/componentDefaults"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "styles"
+            ]
+          },
+          "then": {
+            "required": [
+              "className"
+            ],
+            "properties": {
+              "className": {
+                "pattern": "^-?[_a-zA-Z][_a-zA-Z0-9-]*$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "jsonValue": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/jsonValue"
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/jsonValue"
+          }
+        }
+      ]
+    },
+    "componentDefaults": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-zA-Z_$][a-zA-Z0-9_$-]*$",
+        "not": {
+          "pattern": "^(preset|key|ref|children|dangerouslySetInnerHTML|__proto__|prototype|constructor|on[A-Za-z].*)$"
+        }
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/jsonValue"
+      }
+    }
+  }
+}

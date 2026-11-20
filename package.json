@@ -54,6 +54,8 @@
     "./history-controls": "./package/history-controls.tsx",
     "./select": "./package/select.tsx",
     "./preact": "./package/preact.ts",
+    "./presets": "./package/presets/index.ts",
+    "./presets/theme.schema.json": "./package/presets/theme.schema.json",
     "./styles.scss": "./package/styles.scss",
     "./palettes.scss": "./package/styles/_built-in-palettes.scss",
     "./color-palette/platform-palettes": "./package/color-palette/platform-palettes.ts",

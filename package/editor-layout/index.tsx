@@ -1,4 +1,5 @@
 /** @jsxImportSource preact */
+import type { ClassPreset } from '../presets/types';
 import { h, type ComponentChildren, type JSX, type Ref } from 'preact';
 import './style.scss';
 import { useSelectionListTooltips } from '../core/selection-list-tooltips';
@@ -7,19 +8,33 @@ import { useCallback } from 'preact/hooks';
 type ShellProps = {
   readonly children: ComponentChildren;
   readonly className?: string;
+  readonly preset?: ClassPreset;
 };
 /** Shared editor geometry. Consumers supply column widths and feature policy. */
-export function EditorSplitLayout({ children, className = '' }: ShellProps) {
-  return <div class={`rv-editor-split ${className}`}>{children}</div>;
+export function EditorSplitLayout({
+  children,
+  className = '',
+  preset,
+}: ShellProps) {
+  return (
+    <div
+      class={`rv-editor-split ${preset?.className ?? ''} ${className}`}
+      data-part="root"
+    >
+      {children}
+    </div>
+  );
 }
 export function EditorPane({
   children,
+  preset,
   className = '',
   scrollable = false,
 }: ShellProps & { readonly scrollable?: boolean }) {
   return (
     <section
-      class={`rv-editor-pane${scrollable ? ' rv-editor-pane--scrollable' : ''} ${className}`}
+      class={`rv-editor-pane${scrollable ? ' rv-editor-pane--scrollable' : ''} ${preset?.className ?? ''} ${className}`}
+      data-part="root"
     >
       {children}
     </section>
@@ -37,6 +52,7 @@ export interface EditorListProps extends ShellProps {
 /** Single-selection listbox with one keyboard/focus owner across editors. */
 export function EditorList({
   children,
+  preset,
   className = '',
   label,
   onSelect,
@@ -56,7 +72,8 @@ export function EditorList({
   return (
     <div
       ref={ref}
-      class={`rv-editor-list${variant === 'plain' ? ' rv-editor-list--plain' : ''}${spacing === 'comfortable' ? ' rv-editor-list--comfortable' : ''} ${className}`}
+      class={`rv-editor-list${variant === 'plain' ? ' rv-editor-list--plain' : ''}${spacing === 'comfortable' ? ' rv-editor-list--comfortable' : ''} ${preset?.className ?? ''} ${className}`}
+      data-part="root"
       role="listbox"
       aria-label={label}
       onKeyDown={(event) => {
@@ -94,6 +111,7 @@ export type EditorListItemProps = Omit<
   JSX.IntrinsicElements['button'],
   'value' | 'className'
 > & {
+  readonly preset?: ClassPreset;
   readonly value: string;
   readonly selected: boolean;
   readonly className?: string;
@@ -103,6 +121,7 @@ export type EditorListItemProps = Omit<
   readonly contentClassNames?: EditorListItemContentProps['classNames'];
 };
 export function EditorListItem({
+  preset,
   value,
   selected,
   icon,
@@ -121,7 +140,9 @@ export function EditorListItem({
       data-editor-value={value}
       aria-selected={selected}
       tabIndex={props.tabIndex ?? (selected ? 0 : -1)}
-      class={`rv-editor-list__item${selected ? ' rv-editor-list__item--selected' : ''} ${className}`}
+      class={`rv-editor-list__item${selected ? ' rv-editor-list__item--selected' : ''} ${preset?.className ?? ''} ${className}`}
+      data-part="root"
+      data-state={selected ? 'selected' : 'unselected'}
     >
       {label !== undefined ? (
         <EditorListItemContent
@@ -138,6 +159,8 @@ export function EditorListItem({
 }
 
 export interface EditorListItemContentProps {
+  readonly preset?: ClassPreset;
+  readonly className?: string;
   readonly icon?: ComponentChildren;
   readonly label: ComponentChildren;
   readonly description?: ComponentChildren;
@@ -150,6 +173,8 @@ export interface EditorListItemContentProps {
 }
 /** Reusable row presentation; the enclosing list item owns selection and focus. */
 export function EditorListItemContent({
+  preset,
+  className = '',
   icon,
   label,
   description,
@@ -157,23 +182,32 @@ export function EditorListItemContent({
 }: EditorListItemContentProps) {
   return (
     <span
-      class={`rv-editor-list__content${icon ? '' : ' rv-editor-list__content--text'}`}
+      class={`rv-editor-list__content${icon ? '' : ' rv-editor-list__content--text'} ${preset?.className ?? ''} ${className}`}
+      data-part="root"
     >
       {icon && (
         <span
           class={`rv-editor-list__icon ${classNames.icon ?? ''}`}
           aria-hidden="true"
+          data-part="icon"
         >
           {icon}
         </span>
       )}
-      <span class={`rv-editor-list__copy ${classNames.copy ?? ''}`}>
-        <span class={`rv-editor-list__label ${classNames.label ?? ''}`}>
+      <span
+        class={`rv-editor-list__copy ${classNames.copy ?? ''}`}
+        data-part="copy"
+      >
+        <span
+          class={`rv-editor-list__label ${classNames.label ?? ''}`}
+          data-part="label"
+        >
           {label}
         </span>
         {description !== undefined && (
           <span
             class={`rv-editor-list__description ${classNames.description ?? ''}`}
+            data-part="description"
           >
             {description}
           </span>
@@ -183,6 +217,7 @@ export function EditorListItemContent({
   );
 }
 export function EditorListGroup({
+  preset,
   label,
   children,
   className = '',
@@ -190,11 +225,17 @@ export function EditorListGroup({
 }: ShellProps & { readonly label: string; readonly labelClassName?: string }) {
   return (
     <div
-      class={`rv-editor-list__group ${className}`}
+      class={`rv-editor-list__group ${preset?.className ?? ''} ${className}`}
+      data-part="root"
       role="group"
       aria-label={label}
     >
-      <div class={`rv-editor-list__group-label ${labelClassName}`}>{label}</div>
+      <div
+        class={`rv-editor-list__group-label ${labelClassName}`}
+        data-part="label"
+      >
+        {label}
+      </div>
       {children}
     </div>
   );

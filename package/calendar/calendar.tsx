@@ -27,7 +27,19 @@ import type { CalendarProps, CalendarView } from './types';
 import { CalendarYearGrid } from './year-grid';
 const SUNDAY = '2026-08-02' as ISODateString;
 
-export function Calendar({
+export function Calendar(input: CalendarProps) {
+  const defaults = input.preset?.props;
+  return renderCalendar({
+    ...input,
+    showTodayButton: input.showTodayButton ?? defaults?.showTodayButton,
+    showOutsideDays: input.showOutsideDays ?? defaults?.showOutsideDays,
+    fixedWeeks: input.fixedWeeks ?? defaults?.fixedWeeks,
+    showWeekNumber: input.showWeekNumber ?? defaults?.showWeekNumber,
+    enableYearView: input.enableYearView ?? defaults?.enableYearView,
+  });
+}
+
+function renderCalendar({
   locale = 'en-US',
   weekStartsOn = 1,
   showOutsideDays = false,
@@ -271,7 +283,8 @@ export function Calendar({
   };
   return (
     <div
-      class={`revo-calendar${props.showWeekNumber ? ' revo-calendar--week-numbers' : ''}${props.className ? ` ${props.className}` : ''}`}
+      class={`revo-calendar${props.showWeekNumber ? ' revo-calendar--week-numbers' : ''}${props.className ? ` ${props.className}` : ''}${props.preset?.className ? ` ${props.preset.className}` : ''}`}
+      data-part="root"
       dir={props.dir}
       style={
         props.cellSize
@@ -279,9 +292,13 @@ export function Calendar({
           : undefined
       }
     >
-      <div class="revo-calendar__months">
+      <div class="revo-calendar__months" data-part="months">
         {(isYearView ? [month] : displayed).map((candidate, index) => (
-          <section class="revo-calendar__month-panel" key={candidate}>
+          <section
+            class="revo-calendar__month-panel"
+            data-part="month"
+            key={candidate}
+          >
             {showHeader && (
               <CalendarHeader
                 label={

@@ -200,10 +200,26 @@ label.rv-switch-label {
   clip: rect(0 0 0 0);
 
   &:checked + .rv-switch-track {
-    background: var(--rv-ui-accent);
+    background: var(
+      --rv-ui-switch-track-on,
+      var(--rv-ui-switch-preset-track-on, var(--rv-ui-accent))
+    );
   }
   &:checked + .rv-switch-track .rv-switch-thumb {
-    inset-inline-start: 15px;
+    inset-inline-start: calc(
+      var(
+          --rv-ui-switch-track-width,
+          var(--rv-ui-switch-preset-track-width, 34px)
+        ) -
+        2 *
+        var(
+          --rv-ui-switch-track-padding,
+          var(--rv-ui-switch-preset-track-padding, 2px)
+        ) - var(
+          --rv-ui-switch-thumb-size,
+          var(--rv-ui-switch-preset-thumb-size, 15px)
+        )
+    );
   }
   &:focus-visible + .rv-switch-track {
     outline: 2px solid var(--rv-ui-accent);
@@ -216,12 +232,24 @@ label.rv-switch-label {
   display: inline-flex;
   align-items: center;
   flex-shrink: 0;
-  width: 34px;
-  height: 19px;
-  padding: 2px;
+  width: var(
+    --rv-ui-switch-track-width,
+    var(--rv-ui-switch-preset-track-width, 34px)
+  );
+  height: var(
+    --rv-ui-switch-track-height,
+    var(--rv-ui-switch-preset-track-height, 19px)
+  );
+  padding: var(
+    --rv-ui-switch-track-padding,
+    var(--rv-ui-switch-preset-track-padding, 2px)
+  );
   box-sizing: border-box;
   border-radius: 999px;
-  background: var(--rv-ui-switch-track-off);
+  background: var(
+    --rv-ui-switch-track-off-color,
+    var(--rv-ui-switch-preset-track-off, var(--rv-ui-switch-track-off))
+  );
   transition: background-color var(--rv-ui-motion-fast, 120ms)
     var(--rv-ui-motion-ease, ease);
 }
@@ -229,21 +257,46 @@ label.rv-switch-label {
 .rv-switch-thumb {
   position: relative;
   inset-inline-start: 0;
-  width: 15px;
-  height: 15px;
+  width: var(
+    --rv-ui-switch-thumb-size,
+    var(--rv-ui-switch-preset-thumb-size, 15px)
+  );
+  height: var(
+    --rv-ui-switch-thumb-size,
+    var(--rv-ui-switch-preset-thumb-size, 15px)
+  );
   border-radius: 50%;
-  background: var(--rv-ui-switch-thumb);
+  background: var(
+    --rv-ui-switch-thumb-color,
+    var(--rv-ui-switch-preset-thumb, var(--rv-ui-switch-thumb))
+  );
   box-shadow: 0 1px 3px var(--rv-ui-shadow);
   transition: inset-inline-start var(--rv-ui-motion-normal, 160ms)
     var(--rv-ui-motion-ease, ease);
 }
 
 .rv-switch[aria-checked='true'] .rv-switch-track {
-  background: var(--rv-ui-accent);
+  background: var(
+    --rv-ui-switch-track-on,
+    var(--rv-ui-switch-preset-track-on, var(--rv-ui-accent))
+  );
 }
 
 .rv-switch[aria-checked='true'] .rv-switch-thumb {
-  inset-inline-start: 15px;
+  inset-inline-start: calc(
+    var(
+        --rv-ui-switch-track-width,
+        var(--rv-ui-switch-preset-track-width, 34px)
+      ) -
+      2 *
+      var(
+        --rv-ui-switch-track-padding,
+        var(--rv-ui-switch-preset-track-padding, 2px)
+      ) - var(
+        --rv-ui-switch-thumb-size,
+        var(--rv-ui-switch-preset-thumb-size, 15px)
+      )
+  );
 }
 
 /* ─── Button group (segmented radio/checkbox toggle) ──────────────────────── */

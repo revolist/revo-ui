@@ -1,9 +1,13 @@
 import { h } from 'preact';
-import { PdfViewer } from '@revolist/ui/pdf-viewer';
+import { PdfViewer as __themeOriginal_PdfViewer } from '@revolist/ui/pdf-viewer';
 import workerSrc from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 import { Example } from './catalog';
 
 import { createSamplePdf } from './sample-pdf';
+import { withThemePreview } from './theme-preview';
+
+const PdfViewer = withThemePreview(__themeOriginal_PdfViewer, 'PdfViewer');
+
 export { createSamplePdf } from './sample-pdf';
 
 const sample = createSamplePdf();

@@ -295,3 +295,18 @@ it('preserves focus deliberately moved outside by a selection callback', async (
     outside.remove();
   }
 });
+
+it('applies a preset class to both trigger and detached popup', async () => {
+  const host = document.createElement('div');
+  document.body.append(host);
+  try {
+    act(() => render(<Dropdown source={[{ label: 'One', value: 1 }]} preset={{ className: 'shared-dropdown', props: { config: { search: true } } }} config={{ search: false }} />, host));
+    expect(host.querySelector('.shared-dropdown[data-part="root"]')).toBeTruthy();
+    act(() => host.querySelector<HTMLElement>('[role="combobox"]')!.click());
+    await vi.waitFor(() => expect(document.querySelector('.shared-dropdown[data-part="popup"]')).toBeTruthy());
+    expect(document.querySelector('.shared-dropdown[data-part="popup"] input')).toBeFalsy();
+  } finally {
+    act(() => render(null, host));
+    host.remove();
+  }
+});

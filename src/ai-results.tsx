@@ -1,10 +1,16 @@
 import { h } from 'preact';
 import {
-  AiResultTable,
-  AiResultMetrics,
-  AiResultText,
+  AiResultTable as __themeOriginal_AiResultTable,
+  AiResultMetrics as __themeOriginal_AiResultMetrics,
+  AiResultText as __themeOriginal_AiResultText,
 } from '@revolist/ui/preact';
 import { Example } from './catalog';
+import { withThemePreview } from './theme-preview';
+
+const AiResultTable = withThemePreview(__themeOriginal_AiResultTable, 'AiResultTable');
+const AiResultMetrics = withThemePreview(__themeOriginal_AiResultMetrics, 'AiResultMetrics');
+const AiResultText = withThemePreview(__themeOriginal_AiResultText, 'AiResultText');
+
 
 /** Independent result presentations, using explicit sample data only. */
 export function AiResultsExample() {

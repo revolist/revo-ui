@@ -1,6 +1,14 @@
 import { h } from 'preact';
 import { useLayoutEffect, useRef, useState } from 'preact/hooks';
-import { Disclosure, Pane, ResizeHandle, SplitLayout, NumberStepper } from '@revolist/ui/preact';
+import { Disclosure as __themeOriginal_Disclosure, Pane as __themeOriginal_Pane, ResizeHandle as __themeOriginal_ResizeHandle, SplitLayout as __themeOriginal_SplitLayout, NumberStepper as __themeOriginal_NumberStepper } from '@revolist/ui/preact';
+import { withThemePreview } from './theme-preview';
+
+const Disclosure = withThemePreview(__themeOriginal_Disclosure, 'Disclosure');
+const Pane = withThemePreview(__themeOriginal_Pane, 'Pane');
+const ResizeHandle = withThemePreview(__themeOriginal_ResizeHandle, 'ResizeHandle');
+const SplitLayout = withThemePreview(__themeOriginal_SplitLayout, 'SplitLayout');
+const NumberStepper = withThemePreview(__themeOriginal_NumberStepper, 'NumberStepper');
+
 
 export function ResizeExample({ rtl }: { rtl: boolean }) {
   const host = useRef<HTMLDivElement>(null);

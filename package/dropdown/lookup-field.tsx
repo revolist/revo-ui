@@ -1,4 +1,5 @@
 /** @jsxImportSource preact */
+import type { ClassPreset } from '../presets/types';
 import { useRef, useState } from 'preact/hooks';
 import { Dropdown } from './index';
 import type {
@@ -35,12 +36,14 @@ export interface LookupFieldOptions extends EditorCommitOptions {
   renderValue?: import('./dropdown.types').DropdownProps<LookupId>['renderValue'];
 }
 export function LookupField({
+  preset,
   initial,
   options,
   context,
   apply,
   cancel,
 }: {
+  preset?: ClassPreset;
   /** Initial selected record ID, multiple IDs, or null for an empty selection. */
   initial: LookupId | LookupId[] | null;
   /** Remote data source, selection mode, validation, text and commit behavior. */
@@ -74,7 +77,8 @@ export function LookupField({
   }, autoApply);
   return (
     <div
-      class="rv-lookup-editor"
+      class={`rv-lookup-editor ${preset?.className ?? ''}`}
+      data-part="root"
       onKeyDown={(event) => {
         if (
           (event.ctrlKey || event.metaKey) &&
@@ -87,6 +91,7 @@ export function LookupField({
       }}
     >
       <Dropdown
+        preset={preset}
         className="rv-select"
         source={options.source ?? []}
         dataSource={options.dataSource}

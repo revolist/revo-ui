@@ -102,7 +102,16 @@ export interface DropdownEnvironment {
   onPointerRelease?: (event: MouseEvent | TouchEvent) => void;
 }
 
+export type DropdownPreset = {
+  className?: string;
+  props?: {
+    disabled?: boolean;
+    config?: Pick<DropdownConfig, 'search' | 'closeOnClickOutside' | 'autoOpen' | 'multiSelect' | 'closeOnTab'>;
+  };
+};
+
 export type DropdownProps<T = any> = {
+  preset?: DropdownPreset;
   environment?: DropdownEnvironment;
   triggerAttributes?: JSX.HTMLAttributes<HTMLDivElement>;
   // Core props

@@ -1,4 +1,5 @@
 /** @jsxImportSource preact */
+import type { ClassPreset } from '../presets/types';
 import { h, type ComponentChildren, type JSX } from 'preact';
 import { controlClassName } from '../control-presentation';
 import { ButtonControl } from '../native-control';
@@ -9,6 +10,7 @@ export interface SvgButtonProps extends Omit<
   JSX.IntrinsicElements['button'],
   'className' | 'children'
 > {
+  readonly preset?: ClassPreset;
   readonly label: string;
   readonly rounded?: boolean;
   readonly busy?: boolean;
@@ -27,6 +29,7 @@ export interface SvgButtonProps extends Omit<
 
 /** Shared native button presentation for trusted bundled SVG controls. */
 export function SvgButton({
+  preset,
   label,
   variant,
   icon,
@@ -54,6 +57,7 @@ export function SvgButton({
   return (
     <ButtonControl
       type="button"
+      data-part="root"
       aria-label={badge !== undefined ? `${label} ${badge}` : label}
       {...attributes}
       disabled={disabled}
@@ -97,14 +101,23 @@ export function SvgButton({
         className ?? (variant ? '' : 'rv-btn-ghost'),
         variant && `rv-btn-${variant}`,
         nativeClass,
+        preset?.className,
         'rv-icon-action',
         !visibleLabel && 'rv-btn-icon',
       )}
     >
       {icon ? <SvgIcon svg={icon} className={iconClassName} /> : iconContent}
-      {visibleLabel ? <span class={labelClassName}>{visibleLabel}</span> : null}
+      {visibleLabel ? (
+        <span class={labelClassName} data-part="label">
+          {visibleLabel}
+        </span>
+      ) : null}
       {badge !== undefined && (
-        <span class={`rv-badge ${badgeClassName}`} aria-hidden="true">
+        <span
+          class={`rv-badge ${badgeClassName}`}
+          data-part="badge"
+          aria-hidden="true"
+        >
           {badge}
         </span>
       )}

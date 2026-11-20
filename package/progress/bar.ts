@@ -1,5 +1,10 @@
 import { normalizeProgressRange } from './range';
+export interface ProgressBarPreset {
+  className?: string;
+}
+
 export interface ProgressBarProps {
+  preset?: ProgressBarPreset;
   value: number;
   min?: number;
   max?: number;
@@ -29,6 +34,7 @@ function progressFillClassName(fillClass?: string | Record<string, boolean>) {
 export function renderProgressBar(
   h: ProgressHyperFunc,
   {
+    preset,
     value,
     min = 0,
     max = 100,
@@ -42,7 +48,8 @@ export function renderProgressBar(
   return h(
     'div',
     {
-      class: ['rv-progress-bar', className].filter(Boolean).join(' '),
+      class: ['rv-progress-bar', preset?.className, className].filter(Boolean).join(' '),
+      'data-part': 'root',
       role: 'progressbar',
       'aria-valuemin': normalized.min,
       'aria-valuemax': normalized.max,
@@ -57,10 +64,12 @@ export function renderProgressBar(
         'span',
         {
           class: 'rv-progress-bar__track',
+          'data-part': 'track',
         },
         [
           h('span', {
             class: progressFillClassName(fillClass),
+            'data-part': 'fill',
             style: { width: `${width}%` },
           }),
         ],

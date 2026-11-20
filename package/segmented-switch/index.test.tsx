@@ -265,3 +265,28 @@ it.each(['tablist', 'radiogroup', 'group'] as const)(
     expect(buttons.map((button) => button[state])).toEqual(['true', 'false']);
   },
 );
+
+it('uses preset defaults while preserving explicit props and item state hooks', () => {
+  const host = document.createElement('div');
+  render(
+    <SegmentedSwitch
+      value="a"
+      options={[{ value: 'a', label: 'A' }]}
+      onChange={() => {}}
+      preset={{
+        className: 'custom',
+        props: { iconOnly: true, disabled: true },
+      }}
+      disabled={false}
+    />,
+    host,
+  );
+  expect(
+    host.querySelector('[data-part="root"]')?.classList.contains('custom'),
+  ).toBe(true);
+  expect(
+    host.querySelector('[data-part="item"]')?.getAttribute('data-state'),
+  ).toBe('active');
+  expect(host.querySelector('button')?.disabled).toBe(false);
+  render(null, host);
+});

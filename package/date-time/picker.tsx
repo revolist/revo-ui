@@ -209,7 +209,8 @@ export function TemporalPicker(props: TemporalPickerProps) {
   }
   return (
     <div
-      class={`rv-temporal-picker rv-temporal-picker--${kind}${multipleMonths ? ' rv-temporal-picker--multi-month' : ''}`}
+      class={`rv-temporal-picker rv-temporal-picker--${kind}${multipleMonths ? ' rv-temporal-picker--multi-month' : ''} ${props.preset?.className ?? ''}`}
+      data-part="root"
     >
       {props.dateInput === false &&
         selection === 'range' &&

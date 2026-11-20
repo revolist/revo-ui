@@ -6,17 +6,17 @@
   -webkit-appearance: none;
   background-color: var(--rv-ui-checkbox-bg, var(--rv-ui-surface));
   border: 2px solid var(--rv-ui-checkbox-border, var(--rv-ui-border-strong));
-  border-radius: 4px;
+  border-radius: var(--rv-ui-checkbox-radius, 4px);
   box-sizing: border-box;
   color: var(--rv-ui-checkbox-check, var(--rv-ui-accent-fg));
   cursor: pointer;
   display: inline-grid;
   flex: 0 0 auto;
-  height: 17px;
+  height: var(--rv-ui-checkbox-size, 17px);
   margin: 0;
   place-content: center;
   vertical-align: middle;
-  width: 17px;
+  width: var(--rv-ui-checkbox-size, 17px);
   transition:
     background-color var(--rv-ui-motion-fast, 120ms)
       var(--rv-ui-motion-ease, ease),

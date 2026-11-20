@@ -1,5 +1,6 @@
 /** @jsxRuntime automatic */
 /** @jsxImportSource preact */
+import type { ClassPreset } from '../presets/types';
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { Input } from '../native-control';
 import { DurationControls } from './controls';
@@ -32,6 +33,7 @@ export interface DurationFieldOptions
   elapsedLabel?: string;
 }
 export interface DurationFieldProps extends DurationFieldOptions {
+  preset?: ClassPreset;
   value: ParsedDuration | string | number | null;
   onChange: (value: ParsedDuration | null) => void;
   /** A completed slider or unit/mode interaction, distinct from text entry. */
@@ -107,7 +109,7 @@ export function DurationField(props: DurationFieldProps) {
     if (commit && next.valid) props.onCommit?.(next.value);
   };
   return (
-    <span class={`rv-duration-field ${props.className ?? ''}`}>
+    <span class={`rv-duration-field ${props.preset?.className ?? ''} ${props.className ?? ''}`} data-part="root">
       <Input
         type="text"
         aria-label={props.label ?? 'Duration'}
@@ -146,11 +148,13 @@ export type { DurationControlOptions, ParsedDuration };
 
 /** Shared staged duration form for grid adapters; scheduling stays in product commands. */
 export function DurationDraft({
+  preset,
   value,
   options,
   apply,
   cancel,
 }: {
+  preset?: ClassPreset;
   value: DurationFieldProps['value'];
   options: DurationFieldOptions & {
     label?: string;
@@ -177,7 +181,7 @@ export function DurationDraft({
   };
   useEditorAutoApply(commit, autoApply);
   return (
-    <div
+    <div class={preset?.className} data-part="root"
       onKeyDown={(event) => {
         const textInput =
           event.target instanceof HTMLInputElement &&

@@ -1,3 +1,4 @@
+import type { ClassPreset } from './presets/types';
 import { Fragment, h, type ComponentChildren, type JSX } from 'preact';
 import { useId } from 'preact/hooks';
 import { ChoiceChip, ChoiceChipInfoButton } from './choice-chips';
@@ -5,7 +6,7 @@ import { type FilterChipProps } from './form-controls/presentation';
 
 /** Shared click-only details action; consumers provide localized labels. */
 export function FilterBadgeInfoButton(
-  props: Omit<JSX.IntrinsicElements['button'], 'children'>,
+  props: Omit<JSX.IntrinsicElements['button'], 'children'> & { preset?: ClassPreset },
 ) {
   return (
     <ChoiceChipInfoButton

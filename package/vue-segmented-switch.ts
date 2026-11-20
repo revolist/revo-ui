@@ -30,6 +30,7 @@ export const VueSegmentedSwitch: FunctionalComponent<SegmentedSwitchProps> = (
   );
 
 VueSegmentedSwitch.props = [
+  'preset',
   'value',
   'options',
   'onChange',

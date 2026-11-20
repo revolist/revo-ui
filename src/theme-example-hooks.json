@@ -1,0 +1,1353 @@
+{
+  "ActivityMessage": {
+    "parts": [
+      "avatar",
+      "card",
+      "header",
+      "root",
+      "time"
+    ],
+    "states": []
+  },
+  "AiActionStatus": {
+    "parts": [
+      "root"
+    ],
+    "states": [
+      "data-state"
+    ]
+  },
+  "AiAssistant": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "AiChangePreview": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "AiChat": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "AiChatComposer": {
+    "parts": [
+      "input",
+      "root"
+    ],
+    "states": [
+      "data-state"
+    ]
+  },
+  "AiChatContent": {
+    "parts": [
+      "content",
+      "root",
+      "viewport"
+    ],
+    "states": []
+  },
+  "AiChatEmptyState": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "AiMessage": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "AiMessageActions": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "AiMessageContent": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "AiPromptInput": {
+    "parts": [
+      "input",
+      "root"
+    ],
+    "states": [
+      "data-state"
+    ]
+  },
+  "AiReasoning": {
+    "parts": [
+      "content",
+      "root",
+      "summary"
+    ],
+    "states": []
+  },
+  "AiRequestTrail": {
+    "parts": [
+      "popup",
+      "root"
+    ],
+    "states": [
+      "aria-expanded"
+    ]
+  },
+  "AiResult": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "AiResultMetrics": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "AiResultTable": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "AiResultText": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "AiResultView": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "AiSuggestions": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "AiTask": {
+    "parts": [
+      "content",
+      "root",
+      "summary"
+    ],
+    "states": []
+  },
+  "AiTaskItem": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "Alert": {
+    "parts": [
+      "content",
+      "root",
+      "title"
+    ],
+    "states": []
+  },
+  "AreaChart": {
+    "parts": [
+      "data",
+      "item",
+      "region",
+      "root"
+    ],
+    "states": [
+      "data-state"
+    ]
+  },
+  "AssigneeField": {
+    "parts": [
+      "root",
+      "trigger"
+    ],
+    "states": [
+      "aria-expanded"
+    ]
+  },
+  "AssigneePicker": {
+    "parts": [
+      "icon",
+      "input",
+      "popup",
+      "root"
+    ],
+    "states": [
+      "data-selected"
+    ]
+  },
+  "AssigneePickerLayout": {
+    "parts": [
+      "icon",
+      "input",
+      "root"
+    ],
+    "states": []
+  },
+  "Avatar": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "Badge": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "BarChart": {
+    "parts": [
+      "data",
+      "item",
+      "region",
+      "root"
+    ],
+    "states": [
+      "data-state"
+    ]
+  },
+  "BrushRange": {
+    "parts": [
+      "labels",
+      "root"
+    ],
+    "states": []
+  },
+  "Button": {
+    "parts": [],
+    "states": []
+  },
+  "ButtonGroup": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "Calendar": {
+    "parts": [
+      "day",
+      "month",
+      "months",
+      "root"
+    ],
+    "states": [
+      "aria-selected"
+    ]
+  },
+  "CalendarDay": {
+    "parts": [
+      "day"
+    ],
+    "states": [
+      "aria-selected"
+    ]
+  },
+  "CalendarHeader": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "CalendarMonthGrid": {
+    "parts": [
+      "day",
+      "root"
+    ],
+    "states": []
+  },
+  "CalendarPicker": {
+    "parts": [
+      "day",
+      "month",
+      "months",
+      "root"
+    ],
+    "states": [
+      "aria-selected"
+    ]
+  },
+  "CalendarWeekdays": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "CalendarYearGrid": {
+    "parts": [
+      "root"
+    ],
+    "states": [
+      "aria-pressed"
+    ]
+  },
+  "Checkbox": {
+    "parts": [
+      "copy",
+      "input",
+      "label",
+      "root"
+    ],
+    "states": [
+      "aria-checked"
+    ]
+  },
+  "Chip": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "ChoiceChip": {
+    "parts": [
+      "root"
+    ],
+    "states": [
+      "aria-pressed"
+    ]
+  },
+  "ChoiceChipInfoButton": {
+    "parts": [
+      "root"
+    ],
+    "states": [
+      "aria-expanded"
+    ]
+  },
+  "ChoiceChips": {
+    "parts": [
+      "item",
+      "root"
+    ],
+    "states": [
+      "aria-pressed",
+      "data-state"
+    ]
+  },
+  "CircularProgress": {
+    "parts": [
+      "fill",
+      "root",
+      "track"
+    ],
+    "states": []
+  },
+  "CollapsibleSection": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "ColorPalette": {
+    "parts": [
+      "root"
+    ],
+    "states": [
+      "aria-checked",
+      "data-state"
+    ]
+  },
+  "ColorPicker": {
+    "parts": [
+      "root"
+    ],
+    "states": [
+      "aria-checked",
+      "aria-expanded",
+      "data-state"
+    ]
+  },
+  "Combobox": {
+    "parts": [
+      "root",
+      "trigger"
+    ],
+    "states": [
+      "aria-expanded"
+    ]
+  },
+  "ComparisonPreview": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "ConfirmDialog": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "ControlTooltip": {
+    "parts": [
+      "root"
+    ],
+    "states": [
+      "data-state"
+    ]
+  },
+  "CountBadge": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "DateInput": {
+    "parts": [
+      "input"
+    ],
+    "states": []
+  },
+  "DatePicker": {
+    "parts": [
+      "picker",
+      "root"
+    ],
+    "states": [
+      "aria-expanded"
+    ]
+  },
+  "DateRangePicker": {
+    "parts": [
+      "picker",
+      "root"
+    ],
+    "states": [
+      "aria-expanded"
+    ]
+  },
+  "DateTimeField": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "DateTimeInput": {
+    "parts": [
+      "input"
+    ],
+    "states": []
+  },
+  "DeleteButton": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "Dialog": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "DialogActionFooter": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "DialogActions": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "DialogBody": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "DialogCloseButton": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "DialogFooter": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "DialogForm": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "DialogHeader": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "DialogTitleInput": {
+    "parts": [],
+    "states": []
+  },
+  "Disclosure": {
+    "parts": [
+      "root",
+      "summary"
+    ],
+    "states": []
+  },
+  "DisclosureSummary": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "DistributionChart": {
+    "parts": [
+      "data",
+      "item",
+      "region",
+      "root"
+    ],
+    "states": [
+      "data-state"
+    ]
+  },
+  "Dropdown": {
+    "parts": [
+      "root",
+      "trigger"
+    ],
+    "states": [
+      "aria-expanded"
+    ]
+  },
+  "DropdownPopup": {
+    "parts": [
+      "popup"
+    ],
+    "states": []
+  },
+  "DropdownPopupContent": {
+    "parts": [
+      "root"
+    ],
+    "states": [
+      "aria-selected"
+    ]
+  },
+  "DurationDraft": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "DurationField": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "EditableDialogHeader": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "EditorList": {
+    "parts": [
+      "copy",
+      "label",
+      "root"
+    ],
+    "states": [
+      "aria-selected",
+      "data-state"
+    ]
+  },
+  "EditorListGroup": {
+    "parts": [
+      "copy",
+      "label",
+      "root"
+    ],
+    "states": [
+      "aria-selected",
+      "data-state"
+    ]
+  },
+  "EditorListItem": {
+    "parts": [
+      "copy",
+      "label",
+      "root"
+    ],
+    "states": [
+      "aria-selected",
+      "data-state"
+    ]
+  },
+  "EditorListItemContent": {
+    "parts": [
+      "copy",
+      "description",
+      "label",
+      "root"
+    ],
+    "states": []
+  },
+  "EditorPane": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "EditorSplitLayout": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "EmptyState": {
+    "parts": [
+      "description",
+      "root",
+      "title"
+    ],
+    "states": []
+  },
+  "FieldActions": {
+    "parts": [],
+    "states": []
+  },
+  "FieldContent": {
+    "parts": [],
+    "states": []
+  },
+  "FieldDropIndicator": {
+    "parts": [],
+    "states": []
+  },
+  "FieldError": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "FieldGroup": {
+    "parts": [],
+    "states": []
+  },
+  "FieldGroupHeading": {
+    "parts": [],
+    "states": []
+  },
+  "FieldHint": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "FieldIcon": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "FieldItem": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "FieldLibrary": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "FieldLibraryList": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "FieldList": {
+    "parts": [],
+    "states": []
+  },
+  "FieldRemoveButton": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "FieldRemoveIcon": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "FieldRow": {
+    "parts": [],
+    "states": []
+  },
+  "FieldStatusBadge": {
+    "parts": [],
+    "states": [
+      "data-active"
+    ]
+  },
+  "FieldSummary": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "FilterBadge": {
+    "parts": [
+      "root"
+    ],
+    "states": [
+      "data-selected"
+    ]
+  },
+  "FilterBadgeInfoButton": {
+    "parts": [
+      "root"
+    ],
+    "states": [
+      "aria-expanded"
+    ]
+  },
+  "FilterChip": {
+    "parts": [
+      "remove",
+      "root"
+    ],
+    "states": []
+  },
+  "FormField": {
+    "parts": [
+      "input",
+      "root"
+    ],
+    "states": []
+  },
+  "FormSection": {
+    "parts": [
+      "input",
+      "root",
+      "title"
+    ],
+    "states": []
+  },
+  "HighlightedTextInput": {
+    "parts": [
+      "highlight",
+      "input",
+      "root"
+    ],
+    "states": []
+  },
+  "HtmlEditor": {
+    "parts": [
+      "item",
+      "label",
+      "root"
+    ],
+    "states": [
+      "aria-pressed",
+      "aria-selected",
+      "data-state"
+    ]
+  },
+  "IconButton": {
+    "parts": [
+      "root"
+    ],
+    "states": [
+      "data-state"
+    ]
+  },
+  "IconChoiceGroup": {
+    "parts": [
+      "root"
+    ],
+    "states": [
+      "aria-pressed",
+      "data-state"
+    ]
+  },
+  "IconToggleButton": {
+    "parts": [
+      "root"
+    ],
+    "states": [
+      "aria-pressed",
+      "data-state"
+    ]
+  },
+  "IconToolbar": {
+    "parts": [
+      "root"
+    ],
+    "states": [
+      "aria-pressed"
+    ]
+  },
+  "InlineFieldGroup": {
+    "parts": [
+      "input",
+      "root"
+    ],
+    "states": []
+  },
+  "Input": {
+    "parts": [],
+    "states": []
+  },
+  "InspectorSection": {
+    "parts": [
+      "root"
+    ],
+    "states": [
+      "aria-expanded",
+      "data-state"
+    ]
+  },
+  "Legend": {
+    "parts": [
+      "item",
+      "label",
+      "marker",
+      "root"
+    ],
+    "states": [
+      "data-tone"
+    ]
+  },
+  "LineChart": {
+    "parts": [
+      "data",
+      "item",
+      "region",
+      "root"
+    ],
+    "states": [
+      "data-state"
+    ]
+  },
+  "Listbox": {
+    "parts": [
+      "copy",
+      "label",
+      "root"
+    ],
+    "states": [
+      "aria-selected",
+      "data-state"
+    ]
+  },
+  "ListboxGroup": {
+    "parts": [
+      "copy",
+      "label",
+      "root"
+    ],
+    "states": [
+      "aria-selected",
+      "data-state"
+    ]
+  },
+  "ListboxOption": {
+    "parts": [
+      "copy",
+      "label",
+      "root"
+    ],
+    "states": [
+      "aria-selected",
+      "data-state"
+    ]
+  },
+  "ListboxOptionContent": {
+    "parts": [
+      "copy",
+      "description",
+      "label",
+      "root"
+    ],
+    "states": []
+  },
+  "LoadingOverlay": {
+    "parts": [
+      "overlay",
+      "ring",
+      "root"
+    ],
+    "states": [
+      "aria-busy"
+    ]
+  },
+  "LookupField": {
+    "parts": [
+      "root",
+      "trigger"
+    ],
+    "states": [
+      "aria-expanded"
+    ]
+  },
+  "MaskedDraft": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "Menu": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "MenuItem": {
+    "parts": [],
+    "states": []
+  },
+  "MenuSeparator": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "MultiSelect": {
+    "parts": [
+      "root",
+      "trigger"
+    ],
+    "states": [
+      "aria-expanded"
+    ]
+  },
+  "NumberDraft": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "NumberInput": {
+    "parts": [
+      "input"
+    ],
+    "states": []
+  },
+  "NumberStepper": {
+    "parts": [
+      "decrease",
+      "increase",
+      "input",
+      "root"
+    ],
+    "states": []
+  },
+  "OptionButton": {
+    "parts": [
+      "detail",
+      "label",
+      "root"
+    ],
+    "states": [
+      "aria-pressed"
+    ]
+  },
+  "Pagination": {
+    "parts": [
+      "root"
+    ],
+    "states": [
+      "data-state"
+    ]
+  },
+  "Pane": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "Panel": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "PdfViewer": {
+    "parts": [
+      "ring",
+      "root",
+      "trigger"
+    ],
+    "states": [
+      "aria-busy",
+      "aria-expanded",
+      "data-state"
+    ]
+  },
+  "PdfViewerToolbar": {
+    "parts": [
+      "root",
+      "trigger"
+    ],
+    "states": [
+      "aria-expanded",
+      "data-state"
+    ]
+  },
+  "Popover": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "PreactRangeSlider": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "ProgressBar": {
+    "parts": [
+      "fill",
+      "root",
+      "track"
+    ],
+    "states": []
+  },
+  "RadioGroup": {
+    "parts": [
+      "input",
+      "label",
+      "option",
+      "root"
+    ],
+    "states": []
+  },
+  "Rating": {
+    "parts": [
+      "input",
+      "label",
+      "option",
+      "root"
+    ],
+    "states": [
+      "data-filled"
+    ]
+  },
+  "RatingChoice": {
+    "parts": [
+      "root"
+    ],
+    "states": [
+      "aria-checked",
+      "data-filled"
+    ]
+  },
+  "RatingStar": {
+    "parts": [
+      "root"
+    ],
+    "states": [
+      "data-filled"
+    ]
+  },
+  "RemoveButton": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "ReorderHandle": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "ReorderList": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "ResizeHandle": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "ResourcePickerAvatar": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "SearchInput": {
+    "parts": [
+      "icon",
+      "input",
+      "root"
+    ],
+    "states": []
+  },
+  "SegmentedControl": {
+    "parts": [
+      "item",
+      "label",
+      "root"
+    ],
+    "states": [
+      "aria-checked",
+      "data-state"
+    ]
+  },
+  "SegmentedSwitch": {
+    "parts": [
+      "item",
+      "label",
+      "root"
+    ],
+    "states": [
+      "aria-selected",
+      "data-state"
+    ]
+  },
+  "Select": {
+    "parts": [
+      "root",
+      "trigger"
+    ],
+    "states": [
+      "aria-expanded"
+    ]
+  },
+  "SelectedField": {
+    "parts": [],
+    "states": []
+  },
+  "SharedResourcePicker": {
+    "parts": [
+      "icon",
+      "input",
+      "popup",
+      "root"
+    ],
+    "states": [
+      "data-selected"
+    ]
+  },
+  "SingleValueSlider": {
+    "parts": [
+      "input"
+    ],
+    "states": []
+  },
+  "SliderField": {
+    "parts": [
+      "input",
+      "root"
+    ],
+    "states": []
+  },
+  "Spinner": {
+    "parts": [
+      "ring",
+      "root"
+    ],
+    "states": []
+  },
+  "SplitLayout": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "StatusBadge": {
+    "parts": [
+      "root"
+    ],
+    "states": [
+      "data-tone"
+    ]
+  },
+  "StatusFeedbackPanel": {
+    "parts": [
+      "root"
+    ],
+    "states": [
+      "data-tone"
+    ]
+  },
+  "Submenu": {
+    "parts": [
+      "root"
+    ],
+    "states": [
+      "aria-expanded"
+    ]
+  },
+  "SvgButton": {
+    "parts": [
+      "root"
+    ],
+    "states": [
+      "data-state"
+    ]
+  },
+  "SvgIcon": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "Switch": {
+    "parts": [
+      "label",
+      "thumb",
+      "track"
+    ],
+    "states": [
+      "aria-checked",
+      "data-state"
+    ]
+  },
+  "TabPanel": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "Tabs": {
+    "parts": [
+      "item",
+      "label",
+      "root"
+    ],
+    "states": [
+      "aria-selected",
+      "data-state"
+    ]
+  },
+  "TemporalDraft": {
+    "parts": [
+      "day",
+      "month",
+      "months",
+      "root"
+    ],
+    "states": [
+      "aria-selected"
+    ]
+  },
+  "TemporalPicker": {
+    "parts": [
+      "day",
+      "month",
+      "months",
+      "root"
+    ],
+    "states": [
+      "aria-selected"
+    ]
+  },
+  "TextInput": {
+    "parts": [
+      "input"
+    ],
+    "states": []
+  },
+  "Textarea": {
+    "parts": [
+      "input"
+    ],
+    "states": []
+  },
+  "TimeGrid": {
+    "parts": [
+      "cell",
+      "matrix",
+      "root"
+    ],
+    "states": [
+      "aria-selected"
+    ]
+  },
+  "TimeInput": {
+    "parts": [
+      "input"
+    ],
+    "states": []
+  },
+  "TimelineTrack": {
+    "parts": [
+      "actions",
+      "track"
+    ],
+    "states": [
+      "data-state"
+    ]
+  },
+  "ToggleButton": {
+    "parts": [],
+    "states": [
+      "aria-pressed"
+    ]
+  },
+  "Toolbar": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "ToolbarGroup": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "ToolbarSeparator": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "Tooltip": {
+    "parts": [
+      "root"
+    ],
+    "states": []
+  },
+  "TypographyControls": {
+    "parts": [
+      "fields",
+      "root",
+      "toolbar",
+      "trigger"
+    ],
+    "states": [
+      "aria-expanded",
+      "aria-pressed",
+      "data-state"
+    ]
+  }
+}

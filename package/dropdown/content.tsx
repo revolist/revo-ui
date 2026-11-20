@@ -1,3 +1,4 @@
+import type { ClassPreset } from '../presets/types';
 /** @jsxRuntime automatic */
 /** @jsxImportSource preact */
 import { Fragment, h, type ComponentChildren, type RefObject } from 'preact';
@@ -32,6 +33,7 @@ type DropdownContentProps<T = any> = {
 };
 // DropdownPopupContent component that includes the service
 export function DropdownPopupContent<T = any>({
+  preset,
   options,
   selectedValues,
   remote,
@@ -49,6 +51,7 @@ export function DropdownPopupContent<T = any>({
   onTabNavigation,
   theme,
 }: {
+  preset?: ClassPreset;
   options: DropdownOption<T>[];
   selectedValues?: DropdownOption<T>[];
   remote?: RemoteDropdownState<T> & {
@@ -162,7 +165,8 @@ export function DropdownPopupContent<T = any>({
   return (
     <div
       ref={setListboxRef}
-      className={`dropdown-listbox`}
+      className={`dropdown-listbox ${preset?.className ?? ''}`}
+      data-part="root"
       data-theme={theme ?? 'default'}
       onScrollCapture={(event) => {
         const target = event.target as HTMLElement;

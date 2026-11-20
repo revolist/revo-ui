@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { h, render } from 'preact';
 import { useState } from 'preact/hooks';
 import { act } from 'preact/test-utils';
-import { DatePicker, DateRangePicker, Popover } from './pickers';
+import { DatePicker, DateRangePicker, Dialog, Popover, Tooltip } from './pickers';
 import type { ISODateString } from '@revolist/ui-dates';
 
 let host: HTMLDivElement;
@@ -224,4 +224,60 @@ describe('popover dismissal policy', () => {
       anchor.remove();
     }
   });
+});
+
+it('applies popover presets and lets explicit dismissal options override them', () => {
+  const anchor = document.createElement('button');
+  document.body.append(anchor);
+  const close = vi.fn();
+  mount(
+    <Popover
+      open
+      anchor={anchor}
+      onClose={close}
+      preset={{ className: 'custom-popover', props: { closeOnEscape: false } }}
+      closeOnEscape
+    >
+      <span>Content</span>
+    </Popover>,
+  );
+  expect(
+    document.querySelector('[data-part="root"].custom-popover'),
+  ).toBeTruthy();
+  act(() =>
+    document.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }),
+    ),
+  );
+  expect(close).toHaveBeenCalledTimes(1);
+  anchor.remove();
+});
+
+it('updates dialog preset classes without reopening the dialog', () => {
+  const close = vi.fn();
+  const view = (className: string) => (
+    <Dialog
+      open
+      title="Settings"
+      closeLabel="Close"
+      onClose={close}
+      preset={{ className }}
+    >
+      Body
+    </Dialog>
+  );
+  mount(view('first-theme'));
+  const surface = document.querySelector<HTMLElement>('.first-theme')!;
+  expect(surface?.dataset.part).toBe('root');
+  act(() => render(view('second-theme'), host));
+  expect(document.querySelector('.second-theme')).toBe(surface);
+  expect(surface.classList.contains('first-theme')).toBe(false);
+  expect(close).not.toHaveBeenCalled();
+});
+
+
+it('lets explicit tooltip behavior override preset defaults', async () => {
+  const root = mount(<Tooltip text="Details" trigger="click" preset={{ className: 'tooltip-theme', props: { trigger: 'manual' } }}><button>Open</button></Tooltip>);
+  act(() => root.querySelector('button')!.click());
+  await vi.waitFor(() => expect(document.querySelector('.rv-tooltip.tooltip-theme[data-visible="true"]')).not.toBeNull());
 });

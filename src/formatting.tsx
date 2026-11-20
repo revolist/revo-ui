@@ -9,14 +9,22 @@ import center from '@fortawesome/fontawesome-free/svgs/solid/align-center.svg?ra
 import right from '@fortawesome/fontawesome-free/svgs/solid/align-right.svg?raw';
 import sliders from '@fortawesome/fontawesome-free/svgs/solid/sliders.svg?raw';
 import {
-  TypographyControls,
-  IconChoiceGroup,
-  InspectorSection,
-  ComparisonPreview,
+  TypographyControls as __themeOriginal_TypographyControls,
+  IconChoiceGroup as __themeOriginal_IconChoiceGroup,
+  InspectorSection as __themeOriginal_InspectorSection,
+  ComparisonPreview as __themeOriginal_ComparisonPreview,
   type TypographyValue,
 } from '@revolist/ui/formatting';
-import { Input } from '@revolist/ui/native-control';
+import { Input as __themeOriginal_Input } from '@revolist/ui/native-control';
 import { Example } from './catalog';
+import { withThemePreview } from './theme-preview';
+
+const TypographyControls = withThemePreview(__themeOriginal_TypographyControls, 'TypographyControls');
+const IconChoiceGroup = withThemePreview(__themeOriginal_IconChoiceGroup, 'IconChoiceGroup');
+const InspectorSection = withThemePreview(__themeOriginal_InspectorSection, 'InspectorSection');
+const ComparisonPreview = withThemePreview(__themeOriginal_ComparisonPreview, 'ComparisonPreview');
+const Input = withThemePreview(__themeOriginal_Input, 'Input');
+
 export function FormattingExamples() {
   const [typography, setTypography] = useState<TypographyValue>({});
   const [alignment, setAlignment] = useState('left');

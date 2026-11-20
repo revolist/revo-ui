@@ -1,8 +1,10 @@
+import type { ClassPreset } from '../presets/types';
 import { TooltipText } from '../core/tooltip-text';
 /** @jsxImportSource preact */
 import { h, type ComponentChildren, type JSX } from 'preact';
 /** Pure comparison presentation; the caller formats values and styles. */
 export function ComparisonPreview({
+  preset,
   originalValue,
   formatted,
   formattedStyle,
@@ -10,6 +12,7 @@ export function ComparisonPreview({
   formattedClassName = '',
   labels,
 }: {
+  readonly preset?: ClassPreset;
   readonly originalValue: string;
   readonly formatted: ComponentChildren;
   readonly formattedStyle?: JSX.CSSProperties;
@@ -24,7 +27,8 @@ export function ComparisonPreview({
 }) {
   return (
     <section
-      class={`rv-format-preview${visual ? ' rv-format-preview--visual' : ''}`}
+      class={`rv-format-preview${visual ? ' rv-format-preview--visual' : ''} ${preset?.className ?? ''}`}
+      data-part="root"
     >
       <h3 class="rv-format-pane-title">{labels.title}</h3>
       <div

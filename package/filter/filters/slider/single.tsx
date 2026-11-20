@@ -1,8 +1,12 @@
 /** @jsxImportSource preact */
+import type { ClassPreset } from '../../../presets/types';
 import { h } from 'preact';
 import { Input } from '../../../native-control';
 
+export type SingleSliderPreset = ClassPreset & { props?: { step?: number; disabled?: boolean } };
+export type SliderFieldPreset = ClassPreset & { props?: { step?: number; disabled?: boolean; layout?: 'inline' | 'stacked'; valuePlacement?: 'end' | 'thumb' | 'none'; ticks?: number; accentColor?: string } };
 export type SingleValueSliderProps = {
+  preset?: SingleSliderPreset;
   min: number;
   max: number;
   value: number;
@@ -26,11 +30,12 @@ export type SingleValueSliderProps = {
 
 /** Shared native single-thumb slider for scalar thresholds and tolerances. */
 export function SingleValueSlider({
+  preset,
   min,
   max,
   value,
-  step = 1,
-  disabled = false,
+  step: stepProp,
+  disabled: disabledProp,
   id,
   className = '',
   ariaLabel,
@@ -40,13 +45,16 @@ export function SingleValueSlider({
   onCommit,
   onKeyDown,
 }: SingleValueSliderProps): any {
+  const step = stepProp ?? preset?.props?.step ?? 1;
+  const disabled = disabledProp ?? preset?.props?.disabled ?? false;
   const span = max - min;
   const percent =
     span > 0 ? Math.max(0, Math.min(100, ((value - min) / span) * 100)) : 0;
 
   return (
     <Input
-      class={`rv-single-slider ${className}`.trim()}
+      class={`rv-single-slider ${preset?.className ?? ''} ${className}`.trim()}
+      data-part="input"
       id={id}
       type="range"
       min={min}
@@ -66,6 +74,7 @@ export function SingleValueSlider({
 }
 
 export interface SliderFieldProps extends SingleValueSliderProps {
+  preset?: SliderFieldPreset;
   label: string;
   layout?: 'inline' | 'stacked';
   valuePlacement?: 'end' | 'thumb' | 'none';
@@ -78,13 +87,18 @@ export interface SliderFieldProps extends SingleValueSliderProps {
 /** Label/value composition over the same native single-thumb input. */
 export function SliderField({
   label,
-  layout = 'inline',
-  valuePlacement = 'end',
+  layout: layoutProp,
+  valuePlacement: valuePlacementProp,
   formatValue = String,
-  ticks,
-  accentColor,
+  ticks: ticksProp,
+  accentColor: accentColorProp,
   ...slider
 }: SliderFieldProps) {
+  const layout = layoutProp ?? slider.preset?.props?.layout ?? 'inline';
+  const valuePlacement = valuePlacementProp ?? slider.preset?.props?.valuePlacement ?? 'end';
+  const ticks = ticksProp ?? slider.preset?.props?.ticks;
+  const accentColor = accentColorProp ?? slider.preset?.props?.accentColor;
+  const disabled = slider.disabled ?? slider.preset?.props?.disabled;
   const text = formatValue(slider.value);
   const percent =
     slider.max > slider.min
@@ -102,7 +116,8 @@ export function SliderField({
       : 0;
   return (
     <label
-      class={`rv-slider-field rv-slider-field--${layout} rv-slider-field--${valuePlacement}${slider.disabled ? ' is-disabled' : ''}`}
+      class={`rv-slider-field rv-slider-field--${layout} rv-slider-field--${valuePlacement}${disabled ? ' is-disabled' : ''} ${slider.preset?.className ?? ''}`}
+      data-part="root"
       style={
         accentColor ? { '--rv-slider-field-accent': accentColor } : undefined
       }
@@ -114,6 +129,7 @@ export function SliderField({
       >
         <SingleValueSlider
           {...slider}
+          preset={slider.preset && { ...slider.preset, className: undefined }}
           ariaValueText={slider.ariaValueText ?? text}
         />
         {tickCount > 0 && (

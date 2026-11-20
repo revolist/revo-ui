@@ -10,7 +10,18 @@ export type SearchInputEvent<T extends EventTarget> = Event & {
   currentTarget: T;
 };
 
+export type SearchInputPreset = {
+  className?: string;
+  props?: {
+    hideIcon?: boolean;
+    type?: 'search' | 'text';
+    disabled?: boolean;
+    readOnly?: boolean;
+  };
+};
+
 export type SearchInputProps = {
+  preset?: SearchInputPreset;
   value?: string;
   inputRef?: SearchInputRef<HTMLInputElement>;
   rootClassName?: string;
@@ -49,6 +60,7 @@ function DefaultSearchIcon(): any {
 }
 
 export function SearchInput({
+  preset,
   value = '',
   inputRef,
   rootClassName = '',
@@ -58,12 +70,12 @@ export function SearchInput({
   shortcut,
   icon,
   leading,
-  hideIcon = false,
+  hideIcon,
   trailing,
   testId,
   onValueChange,
   onInput,
-  type = 'search',
+  type,
   ...inputProps
 }: SearchInputProps): any {
   const handleInput = (event: SearchInputEvent<HTMLInputElement>) => {
@@ -71,20 +83,22 @@ export function SearchInput({
     onValueChange?.(event.currentTarget.value, event);
   };
   return renderSearchInput(h, {
-    rootClassName,
+    rootClassName: [preset?.className, rootClassName].filter(Boolean).join(' '),
     inputClassName,
     iconClassName,
     shortcutClassName,
     shortcut,
     icon: icon ?? <DefaultSearchIcon />,
-    hideIcon,
+    hideIcon: hideIcon ?? preset?.props?.hideIcon ?? false,
     leading,
     trailing,
     testId,
     inputAttributes: {
+      disabled: preset?.props?.disabled,
+      readOnly: preset?.props?.readOnly,
       ...inputProps,
       ref: inputRef,
-      type,
+      type: type ?? preset?.props?.type ?? 'search',
       value,
       onInput: handleInput,
     },

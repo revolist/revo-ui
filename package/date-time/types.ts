@@ -1,3 +1,4 @@
+import type { ClassPreset } from '../presets/types';
 import type { DateInputOptions } from './date-control';
 export type { DateInputOptions } from './date-control';
 import type { JSX } from 'preact';
@@ -79,6 +80,7 @@ export interface TemporalPickerOptions extends EditorCommitOptions {
   endpoint?: 'from' | 'to';
 }
 export interface TemporalPickerProps extends TemporalPickerOptions {
+  preset?: ClassPreset;
   value: TemporalControlValue;
   onChange: (value: TemporalControlValue) => void;
   onValidityChange?: (valid: boolean) => void;
@@ -91,6 +93,7 @@ export interface DateTimeFieldProps extends Omit<
   JSX.InputHTMLAttributes<HTMLInputElement>,
   'type' | 'value' | 'onChange' | 'required' | 'disabled' | 'readOnly'
 > {
+  preset?: ClassPreset;
   kind?: LocalDateControlKind;
   value: string;
   required?: boolean;

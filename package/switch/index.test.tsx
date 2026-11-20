@@ -9,6 +9,33 @@ afterEach(() => {
 });
 
 describe('Switch', () => {
+  it('applies a portable preset while explicit props take precedence', () => {
+    const host = document.createElement('div');
+    document.body.append(host);
+    render(
+      <Switch
+        checked
+        label="Enabled"
+        onChange={() => {}}
+        preset={{
+          className: 'custom-switch',
+          props: { labelPosition: 'after' },
+        }}
+        className="instance"
+        labelPosition="before"
+      />,
+      host,
+    );
+    const control = host.querySelector<HTMLButtonElement>('.rv-switch');
+    expect(control?.classList.contains('custom-switch')).toBe(true);
+    expect(control?.classList.contains('instance')).toBe(true);
+    expect(control?.getAttribute('data-state')).toBe('checked');
+    expect(control?.firstElementChild?.getAttribute('data-part')).toBe('label');
+    expect(
+      control?.querySelector('[data-part="track"] [data-part="thumb"]'),
+    ).toBeTruthy();
+  });
+
   it('owns the shared accessible switch markup and state', () => {
     const host = document.createElement('div');
     const onChange = vi.fn();

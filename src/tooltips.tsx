@@ -1,14 +1,20 @@
 import { h } from 'preact';
 import { useLayoutEffect, useRef, useState } from 'preact/hooks';
 import {
-  Button,
-  Checkbox,
-  Tooltip,
+  Button as __themeOriginal_Button,
+  Checkbox as __themeOriginal_Checkbox,
+  Tooltip as __themeOriginal_Tooltip,
   createTooltipGroup,
 } from '@revolist/ui/preact';
 import { TooltipController } from '@revolist/ui/native';
 import type { TooltipSide } from '@revolist/ui/native';
 import { Example } from './catalog';
+import { withThemePreview } from './theme-preview';
+
+const Button = withThemePreview(__themeOriginal_Button, 'Button');
+const Checkbox = withThemePreview(__themeOriginal_Checkbox, 'Checkbox');
+const Tooltip = withThemePreview(__themeOriginal_Tooltip, 'Tooltip');
+
 
 export function TooltipPlacementExamples() {
   const sides: TooltipSide[] = [

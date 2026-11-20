@@ -1,4 +1,5 @@
 /** @jsxImportSource preact */
+import type { ClassPreset } from '../presets/types';
 import { h } from 'preact';
 import {
   displayYearMonths,
@@ -11,6 +12,8 @@ import {
 import { isCalendarMonthDisabled } from './model';
 
 export function CalendarYearGrid({
+  preset,
+  className = '',
   month,
   system = 'gregory',
   referenceDate,
@@ -22,6 +25,8 @@ export function CalendarYearGrid({
   onSelect,
   onEscape,
 }: {
+  preset?: ClassPreset;
+  className?: string;
   month: ISODateString;
   system?: DisplayCalendarSystem;
   referenceDate?: ISODateString;
@@ -36,7 +41,7 @@ export function CalendarYearGrid({
   const months = displayYearMonths(month, system);
   return (
     <div
-      class="revo-calendar__year-grid"
+      class={`revo-calendar__year-grid ${preset?.className ?? ''} ${className}`} data-part="root"
       role="group"
       aria-label={ariaLabel}
       onKeyDown={(event) => {
