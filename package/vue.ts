@@ -224,21 +224,6 @@ export const NumberStepper = /* @__PURE__ */ createVueAdapter(
   'NumberStepper',
   { model: { prop: 'value', callback: 'onChange' } },
 );
-export const DateInput = /* @__PURE__ */ createVueAdapter(
-  ui.DateInput,
-  'DateInput',
-  { model: { prop: 'value', callback: 'onValueChange' } },
-);
-export const TimeInput = /* @__PURE__ */ createVueAdapter(
-  ui.TimeInput,
-  'TimeInput',
-  { model: { prop: 'value', callback: 'onValueChange' } },
-);
-export const DateTimeInput = /* @__PURE__ */ createVueAdapter(
-  ui.DateTimeInput,
-  'DateTimeInput',
-  { model: { prop: 'value', callback: 'onValueChange' } },
-);
 export const Chip = /* @__PURE__ */ createVueAdapter(ui.Chip, 'Chip');
 export const FieldHint = /* @__PURE__ */ createVueAdapter(
   ui.FieldHint,
@@ -262,10 +247,9 @@ export const ToolbarGroup = /* @__PURE__ */ createVueAdapter(
   ui.ToolbarGroup,
   'ToolbarGroup',
 );
-export const ToolbarSeparator = /* @__PURE__ */ createVueAdapter(
-  ui.ToolbarSeparator,
-  'ToolbarSeparator',
-);
+export const ToolbarSeparator = /* @__PURE__ */ createVueAdapter<
+  NonNullable<Parameters<typeof ui.ToolbarSeparator>[0]>
+>(ui.ToolbarSeparator, 'ToolbarSeparator');
 export const Badge = /* @__PURE__ */ createVueAdapter(ui.Badge, 'Badge');
 export const CountBadge = /* @__PURE__ */ createVueAdapter(
   ui.CountBadge,
@@ -283,10 +267,9 @@ export const EmptyState = /* @__PURE__ */ createVueAdapter(
 export const Menu = /* @__PURE__ */ createVueAdapter(ui.Menu, 'Menu');
 export const MenuItem: VueUiComponent<typeof ui.MenuItem> =
   /* @__PURE__ */ createVueAdapter(ui.MenuItem, 'MenuItem');
-export const MenuSeparator = /* @__PURE__ */ createVueAdapter(
-  ui.MenuSeparator,
-  'MenuSeparator',
-);
+export const MenuSeparator = /* @__PURE__ */ createVueAdapter<
+  NonNullable<Parameters<typeof ui.MenuSeparator>[0]>
+>(ui.MenuSeparator, 'MenuSeparator');
 export const Submenu = /* @__PURE__ */ createVueAdapter(ui.Submenu, 'Submenu');
 export const ResizeHandle = /* @__PURE__ */ createVueAdapter(
   ui.ResizeHandle,
@@ -476,7 +459,7 @@ export const FieldRemoveButton = /* @__PURE__ */ createVueAdapter(
   ui.FieldRemoveButton,
   'FieldRemoveButton',
 );
-export const FieldRemoveIcon = /* @__PURE__ */ createVueAdapter(
+export const FieldRemoveIcon = /* @__PURE__ */ createVueAdapter<NonNullable<Parameters<typeof ui.FieldRemoveIcon>[0]>>(
   ui.FieldRemoveIcon,
   'FieldRemoveIcon',
 );

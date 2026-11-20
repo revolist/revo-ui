@@ -1,4 +1,5 @@
 /** @jsxImportSource preact */
+import type { ClassPreset } from '../presets/types';
 import { h } from 'preact';
 import { useLayoutEffect, useRef } from 'preact/hooks';
 import {
@@ -13,6 +14,8 @@ import { isCalendarMonthDisabled } from './model';
 import { MAX_CALENDAR_DATE, MIN_CALENDAR_DATE } from './reference-date';
 
 export function CalendarYearGrid({
+  preset,
+  className = '',
   month,
   system = 'gregory',
   referenceDate,
@@ -25,6 +28,8 @@ export function CalendarYearGrid({
   onSelect,
   onEscape,
 }: {
+  preset?: ClassPreset;
+  className?: string;
   month: ISODateString;
   system?: DisplayCalendarSystem;
   referenceDate?: ISODateString;
@@ -55,7 +60,7 @@ export function CalendarYearGrid({
   return (
     <div
       ref={buttons}
-      class="revo-calendar__year-grid"
+      class={`revo-calendar__year-grid ${preset?.className ?? ''} ${className}`} data-part="root"
       role="group"
       aria-label={ariaLabel}
       tabIndex={-1}

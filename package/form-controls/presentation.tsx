@@ -1,3 +1,4 @@
+import type { ClassPreset } from '../presets/types';
 import { FormFieldContext } from './field-context';
 import { nativeControlTag } from '../control-presentation';
 import {
@@ -13,6 +14,7 @@ import { useContext, useState } from 'preact/hooks';
 import { createControlId } from '../core/control-id';
 
 export type FilterChipProps = {
+  readonly preset?: ClassPreset;
   readonly children: ComponentChildren;
   readonly removeLabel?: string;
   readonly onRemove?: () => void;
@@ -23,6 +25,7 @@ export type FilterChipProps = {
 
 /** Removable chip shell; consumers retain filter policy and label/detail slots. */
 export function FilterChip({
+  preset,
   children,
   removeLabel,
   onRemove,
@@ -31,12 +34,13 @@ export function FilterChip({
   role,
 }: FilterChipProps) {
   return (
-    <span class={`rv-btn-pill ${className}`.trim()} role={role}>
+    <span class={`rv-btn-pill ${preset?.className ?? ''} ${className}`.trim()} data-part="root" role={role}>
       {children}
       {onRemove && (
         <button
           type="button"
           class={`rv-chip-remove ${removeClassName}`.trim()}
+          data-part="remove"
           aria-label={removeLabel}
           onClick={onRemove}
         >
@@ -83,12 +87,14 @@ export function renderFormFieldContent({
 export type FormFieldProps = FormFieldContentOptions &
   Omit<JSX.IntrinsicElements['label'], 'children' | 'className'> & {
     readonly className?: string;
+    readonly preset?: ClassPreset;
     /** Associates a separately identified control; implicit labels need no ID. */
     readonly controlId?: string;
   };
 
 /** Preact adapter over the existing framework-neutral form presentation. */
 export function FormField({
+  preset,
   label,
   children,
   hint,
@@ -114,7 +120,8 @@ export function FormField({
       <label
         {...attributes}
         htmlFor={controlId ?? attributes.htmlFor}
-        class={['rv-field', className, nativeClass].filter(Boolean).join(' ')}
+        class={['rv-field', preset?.className, className, nativeClass].filter(Boolean).join(' ')}
+        data-part="root"
       >
         {renderFormFieldContent({
           label,
@@ -172,6 +179,7 @@ export type DisclosureSummaryProps = Omit<
 > & {
   readonly children: ComponentChildren;
   readonly className?: string;
+  readonly preset?: ClassPreset;
   readonly icon?: ComponentChildren;
   readonly iconClassName?: string;
   readonly iconPosition?: 'before' | 'after';
@@ -179,6 +187,7 @@ export type DisclosureSummaryProps = Omit<
 
 /** Presentation only: native details remains the open-state and keyboard owner. */
 export function DisclosureSummary({
+  preset,
   children,
   icon,
   iconClassName = '',
@@ -201,9 +210,10 @@ export function DisclosureSummary({
   return (
     <summary
       {...attributes}
-      class={['rv-disclosure-summary', className, nativeClass]
+      class={['rv-disclosure-summary', preset?.className, className, nativeClass]
         .filter(Boolean)
         .join(' ')}
+      data-part="root"
     >
       {iconPosition === 'before' && decoration}
       <span class="rv-disclosure-summary__label">{children}</span>

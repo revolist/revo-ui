@@ -15,6 +15,7 @@ export class EditorListGroup extends AngularComponentAdapter<never> {
   @NgInput() declare "className"?: AngularInput<'EditorListGroup', "className">;
   @NgInput({ required: true }) declare "label": AngularInput<'EditorListGroup', "label">;
   @NgInput() declare "labelClassName"?: AngularInput<'EditorListGroup', "labelClassName">;
+  @NgInput() declare "preset"?: AngularInput<'EditorListGroup', "preset">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

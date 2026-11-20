@@ -32,22 +32,31 @@ export function SharedResourcePicker<
   Id extends ResourcePickerId,
   Resource extends ResourcePickerItem<Id>,
 >({
+  preset,
   resources,
   selectedResourceIds,
   text,
   onChange,
   classNames,
-  disabled = false,
-  readOnly = false,
-  showSearch = true,
-  presentation = 'inline',
-  multiple = true,
-  preserveOrder = false,
+  disabled: disabledProp,
+  readOnly: readOnlyProp,
+  showSearch: showSearchProp,
+  presentation: presentationProp,
+  multiple: multipleProp,
+  preserveOrder: preserveOrderProp,
   unassigned,
   resourceDataAttribute,
   isResourceDisabled,
   getAvatarColor,
 }: SharedResourcePickerProps<Id, Resource>) {
+  const disabled = disabledProp ?? preset?.props?.disabled ?? false;
+  const readOnly = readOnlyProp ?? preset?.props?.readOnly ?? false;
+  const showSearch = showSearchProp ?? preset?.props?.showSearch ?? true;
+  const presentation =
+    presentationProp ?? preset?.props?.presentation ?? 'inline';
+  const multiple = multipleProp ?? preset?.props?.multiple ?? true;
+  const preserveOrder =
+    preserveOrderProp ?? preset?.props?.preserveOrder ?? false;
   const rootRef = useRef<HTMLDivElement>(null);
   const controlRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLInputElement>(null);
@@ -209,7 +218,9 @@ export function SharedResourcePicker<
   const popover = (
     <div
       ref={tooltipRef}
-      class="rv-resource-picker__popover"
+      class={`rv-resource-picker__popover ${preset?.className ?? ''}`}
+      data-part="popup"
+      data-preset-surface=""
       onKeyDown={dropdown ? handleDropdownKeyDown : undefined}
     >
       {showSearch && (
@@ -314,8 +325,10 @@ export function SharedResourcePicker<
   return (
     <div
       ref={rootRef}
+      data-part="root"
       class={resourcePickerClasses(
         'rv-resource-picker',
+        preset?.className,
         dropdown ? 'rv-resource-picker--dropdown' : undefined,
         open ? 'rv-resource-picker--open' : undefined,
         classNames?.root,

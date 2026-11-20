@@ -1,3 +1,4 @@
+import type { ClassPreset } from '../presets/types';
 import { handleColorPaletteKeyDown } from './color-model';
 /** @jsxImportSource preact */
 import checkIcon from '@fortawesome/fontawesome-free/svgs/solid/check.svg?raw';
@@ -11,7 +12,13 @@ import {
 
 export * from './palette';
 
+export type ColorPalettePreset = ClassPreset & {
+  props?: { disabled?: boolean; includeDefault?: boolean; defaultDisabled?: boolean };
+};
+
 export interface ColorPaletteProps {
+  readonly preset?: ColorPalettePreset;
+  readonly className?: string;
   readonly value: ColorPaletteValue;
   readonly options?: readonly ColorPaletteOption[];
   readonly ariaLabel: string;
@@ -24,16 +31,21 @@ export interface ColorPaletteProps {
 }
 
 export function ColorPalette({
+  preset,
+  className = '',
   value,
   options = DEFAULT_COLOR_PALETTE_OPTIONS,
   ariaLabel,
   defaultLabel,
   colorAriaLabel,
-  disabled = false,
-  includeDefault = true,
-  defaultDisabled = false,
+  disabled: disabledProp,
+  includeDefault: includeDefaultProp,
+  defaultDisabled: defaultDisabledProp,
   onChange,
 }: ColorPaletteProps) {
+  const disabled = disabledProp ?? preset?.props?.disabled ?? false;
+  const includeDefault = includeDefaultProp ?? preset?.props?.includeDefault ?? true;
+  const defaultDisabled = defaultDisabledProp ?? preset?.props?.defaultDisabled ?? false;
   const selectedEnabledIndex = options.findIndex(
     (option) => option.value === value && !option.disabled,
   );
@@ -42,7 +54,7 @@ export function ColorPalette({
   const handleKeyDown = handleColorPaletteKeyDown;
 
   return (
-    <div class="rv-color-palette" role="radiogroup" aria-label={ariaLabel}>
+    <div class={`rv-color-palette ${preset?.className ?? ''} ${className}`} data-part="root" role="radiogroup" aria-label={ariaLabel}>
       <div class="rv-color-palette__swatches">
         {options.map((option, index) => {
           const selected = option.value === value;

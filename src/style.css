@@ -1921,14 +1921,6 @@ body {
 .finance-detail-table th {
   padding-inline: 10px;
 }
-.finance-detail-table th:first-child,
-.finance-detail-table td:first-child {
-  padding-inline-start: 0;
-}
-.finance-detail-table th:last-child,
-.finance-detail-table td:last-child {
-  padding-inline-end: 0;
-}
 .finance-detail-table tbody tr:last-child > * {
   border-bottom: 0;
 }
@@ -2554,3 +2546,97 @@ body {
 .markdown-guide a { color: var(--rv-ui-accent-text); text-decoration: underline; text-underline-offset: 3px; }
 .documentation-table :is(th, td):first-child { min-width: 180px; }
 .documentation-table code { white-space: nowrap; overflow-wrap: normal; }
+
+.catalog-pages .catalog-star-link {
+  color: var(--rv-ui-accent-text);
+  font-weight: 650;
+  white-space: nowrap;
+}
+.catalog-pages .catalog-star-link:focus-visible {
+  outline: 2px solid var(--rv-ui-accent-text);
+  outline-offset: 3px;
+}
+
+.switch-theme-editor {
+  display: grid;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.switch-theme-editor label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.switch-theme-editor p {
+  margin: 0;
+}
+
+.theme-editor {
+  margin: 0 0 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--rv-ui-border);
+  border-radius: var(--rv-ui-radius);
+}
+
+.theme-editor summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.theme-editor-controls {
+  display: grid;
+  gap: 0.75rem;
+  padding-top: 1rem;
+}
+
+.theme-editor-controls label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.theme-editor-controls textarea {
+  width: min(100%, 32rem);
+  font-family: monospace;
+}
+
+.theme-editor-controls p,
+.theme-preview-note {
+  margin: 0;
+  color: var(--rv-ui-text-muted);
+}
+
+.theme-samples {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 1rem;
+  margin: 0 0 1rem;
+}
+
+.theme-samples > div {
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 1px solid var(--rv-ui-border);
+  border-radius: var(--rv-ui-radius);
+}
+
+.theme-samples > div > span:first-child {
+  color: var(--rv-ui-text-muted);
+  font-size: 0.85rem;
+}
+
+.documentation-figure { display: block; margin: 24px 0; }
+.documentation-figure-scroll { display: block; overflow-x: auto; border-radius: 14px; }
+.markdown-guide .documentation-figure img { display: block; width: 100%; max-width: none; height: auto; }
+.documentation-figure-hint { display: none; }
+@media (max-width: 700px) {
+  .markdown-guide .documentation-figure img { min-width: 760px; }
+  .documentation-figure-hint { display: block; margin-top: 6px; color: var(--rv-ui-text-muted); font-size: 12px; }
+}

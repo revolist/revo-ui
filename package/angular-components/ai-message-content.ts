@@ -13,6 +13,7 @@ export class AiMessageContent extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'AiMessageContent';
   protected rvResolveComponent() { return Control; }
   @NgInput() declare "className"?: AngularInput<'AiMessageContent', "className">;
+  @NgInput() declare "preset"?: AngularInput<'AiMessageContent', "preset">;
   @NgInput() declare "translations"?: AngularInput<'AiMessageContent', "translations">;
 
   protected rvResolveProps() { return this.rvInputValues; }

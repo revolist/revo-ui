@@ -33,6 +33,7 @@ function defaultTooltip({ title, details = [] }: DistributionChartTooltip) {
 
 /** Shared accessibility, focus and tooltip lifecycle for the chart primitives. */
 export function ChartFrame({
+  preset,
   data,
   ariaLabel,
   variant,
@@ -74,24 +75,30 @@ export function ChartFrame({
 
   return (
     <div
-      class={`rv-distribution-chart rv-distribution-chart--${variant} ${className}`.trim()}
+      class={`rv-distribution-chart rv-distribution-chart--${variant} ${preset?.className ?? ''} ${className}`.trim()}
+      data-part="root"
       role="group"
       aria-label={ariaLabel}
       data-empty={data.length ? undefined : 'true'}
     >
       <div
         class="rv-distribution-chart__region"
+        data-part="region"
         style={{ height: `${Math.max(40, Math.min(240, height))}px` }}
       >
         {showGrid && (
-          <div class="rv-distribution-chart__grid" aria-hidden="true">
+          <div
+            class="rv-distribution-chart__grid"
+            data-part="grid"
+            aria-hidden="true"
+          >
             {[0, 1, 2, 3, 4].map((tick) => (
               <span key={tick} />
             ))}
           </div>
         )}
         {children}
-        <div class="rv-distribution-chart__data" role="list">
+        <div class="rv-distribution-chart__data" data-part="data" role="list">
           {data.map((datum, index) => {
             const point = positions?.[index];
             const isBar = !point;
@@ -110,6 +117,8 @@ export function ChartFrame({
                 }}
                 class={`rv-distribution-chart__datum${datum.selected ? ' is-selected' : ''}${isBar ? ' is-bar' : ' is-point'}`}
                 role="listitem"
+                data-part="item"
+                data-state={datum.selected ? 'selected' : 'unselected'}
                 tabIndex={index === activeIndex ? 0 : -1}
                 aria-label={tooltipText(datum.tooltip)}
                 style={{

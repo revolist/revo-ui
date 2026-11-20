@@ -14,6 +14,7 @@ export class Chip extends AngularComponentAdapter<never> {
   protected rvResolveComponent() { return Control; }
   @NgInput() declare "className"?: AngularInput<'Chip', "className">;
   @NgInput() declare "label"?: AngularInput<'Chip', "label">;
+  @NgInput() declare "preset"?: AngularInput<'Chip', "preset">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

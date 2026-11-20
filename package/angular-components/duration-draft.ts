@@ -15,6 +15,7 @@ export class DurationDraft extends AngularComponentAdapter<never> {
   @NgInput({ required: true }) declare "apply": AngularInput<'DurationDraft', "apply">;
   @NgInput({ required: true }) declare "cancel": AngularInput<'DurationDraft', "cancel">;
   @NgInput({ required: true }) declare "options": AngularInput<'DurationDraft', "options">;
+  @NgInput() declare "preset"?: AngularInput<'DurationDraft', "preset">;
   @NgInput({ required: true }) declare "value": AngularInput<'DurationDraft', "value">;
 
   protected rvResolveProps() { return this.rvInputValues; }

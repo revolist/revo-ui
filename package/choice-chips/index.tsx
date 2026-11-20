@@ -1,3 +1,4 @@
+import type { ClassPreset } from '../presets/types';
 import { h, type ComponentChildren, type JSX } from 'preact';
 import { ButtonControl } from '../native-control';
 import { useLayoutEffect, useRef, useState } from 'preact/hooks';
@@ -23,7 +24,18 @@ export type ChoiceChipOption<T extends ChoiceChipValue = ChoiceChipValue> = {
   removeLabel?: string;
 };
 
+export type ChoiceChipsPreset = {
+  className?: string;
+  props?: {
+    appearance?: 'soft' | 'outlined';
+    scrollable?: boolean;
+    size?: 'small' | 'medium';
+    disabled?: boolean;
+  };
+};
+
 export type ChoiceChipsProps<T extends ChoiceChipValue = ChoiceChipValue> = {
+  preset?: ChoiceChipsPreset;
   value?: T | readonly T[];
   options: readonly ChoiceChipOption<T>[];
   onChange: (value: T, option: ChoiceChipOption<T>) => void;
@@ -40,18 +52,23 @@ export type ChoiceChipsProps<T extends ChoiceChipValue = ChoiceChipValue> = {
 
 /** Shared wrapping choice control for compact presets and granularities. */
 export function ChoiceChips<T extends ChoiceChipValue = ChoiceChipValue>({
+  preset,
   value,
   options,
   onChange,
   ariaLabel,
-  appearance = 'soft',
-  scrollable = false,
-  size = 'medium',
+  appearance: appearanceProp,
+  scrollable: scrollableProp,
+  size: sizeProp,
   className = '',
   itemClassName = '',
-  disabled = false,
+  disabled: disabledProp,
   testId,
 }: ChoiceChipsProps<T>): any {
+  const appearance = appearanceProp ?? preset?.props?.appearance ?? 'soft';
+  const scrollable = scrollableProp ?? preset?.props?.scrollable ?? false;
+  const size = sizeProp ?? preset?.props?.size ?? 'medium';
+  const disabled = disabledProp ?? preset?.props?.disabled ?? false;
   const root = useRef<HTMLDivElement>(null);
   const [scrollEdges, setScrollEdges] = useState('');
   const updateScrollEdges = () => {
@@ -82,8 +99,9 @@ export function ChoiceChips<T extends ChoiceChipValue = ChoiceChipValue>({
       ref={root}
       onScroll={scrollable ? updateScrollEdges : undefined}
       data-scroll-edges={scrollable ? scrollEdges : undefined}
-      class={`rv-choice-chips rv-choice-chips--${appearance} rv-choice-chips--${size}${scrollable ? ' rv-choice-chips--scrollable' : ''} ${className}`.trim()}
+      class={`rv-choice-chips rv-choice-chips--${appearance} rv-choice-chips--${size}${scrollable ? ' rv-choice-chips--scrollable' : ''} ${preset?.className ?? ''} ${className}`.trim()}
       role="group"
+      data-part="root"
       aria-label={ariaLabel}
       data-testid={testId}
     >
@@ -100,6 +118,8 @@ export function ChoiceChips<T extends ChoiceChipValue = ChoiceChipValue>({
             aria-label={option.ariaLabel}
             title={option.title}
             disabled={itemDisabled}
+            data-part="item"
+            data-state={active ? 'selected' : 'unselected'}
             data-value={String(option.value)}
             data-testid={option.testId}
             onSelect={() => {
@@ -118,11 +138,12 @@ export function ChoiceChips<T extends ChoiceChipValue = ChoiceChipValue>({
 }
 
 export function ChoiceChipInfoButton({
+  preset,
   'data-tooltip': details,
   title,
   ref: forwardedRef,
   ...props
-}: JSX.IntrinsicElements['button'] & { 'data-tooltip'?: string }) {
+}: JSX.IntrinsicElements['button'] & { 'data-tooltip'?: string; preset?: ClassPreset }) {
   const anchor = useRef<HTMLButtonElement | null>(null);
   const text = details ?? (typeof title === 'object' ? title.value : title);
   useLayoutEffect(() => {
@@ -140,7 +161,8 @@ export function ChoiceChipInfoButton({
         if (typeof forwardedRef === 'function') forwardedRef(node);
         else if (forwardedRef) forwardedRef.current = node;
       }}
-      class={`rv-choice-chip-info ${props.className ?? props.class ?? ''}`.trim()}
+      class={`rv-choice-chip-info ${preset?.className ?? ''} ${props.className ?? props.class ?? ''}`.trim()}
+      data-part="root"
     >
       <SvgIcon svg={circleInfoIcon} size={12} />
     </ButtonControl>
@@ -149,6 +171,7 @@ export function ChoiceChipInfoButton({
 
 /** Optional actions are siblings of the selection button, never nested buttons. */
 export function ChoiceChip({
+  preset,
   children,
   color,
   selected,
@@ -161,6 +184,9 @@ export function ChoiceChip({
   disabled,
   ...props
 }: Omit<JSX.IntrinsicElements['button'], 'onSelect' | 'children'> & {
+  preset?: ClassPreset;
+  /** Identifies the chip's styling part when composed in a group. */
+  'data-part'?: string;
   children: ComponentChildren;
   color?: string;
   selected?: boolean;
@@ -178,11 +204,12 @@ export function ChoiceChip({
   if (!info && !onRemove && onSelect)
     return (
       <button
+        data-part="root"
         {...props}
         style={style}
         data-color={color ? 'true' : undefined}
         type="button"
-        class={`rv-choice-chip ${className}`.trim()}
+        class={`rv-choice-chip ${preset?.className ?? ''} ${className}`.trim()}
         aria-pressed={selected}
         disabled={disabled}
         onClick={onSelect}
@@ -192,7 +219,9 @@ export function ChoiceChip({
     );
   return (
     <span
-      class={`rv-choice-chip rv-choice-chip--composite ${className}`.trim()}
+      class={`rv-choice-chip rv-choice-chip--composite ${preset?.className ?? ''} ${className}`.trim()}
+      data-part="root"
+      data-preset-scope={props['data-part'] === 'item' ? 'inherit' : undefined}
       role={props.role}
       style={style}
       data-color={color ? 'true' : undefined}

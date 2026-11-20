@@ -15,6 +15,7 @@ export class AiPromptInput extends AngularComponentAdapter<AngularCallbackValue<
   protected override readonly rvRequiredCallbacks = ["onSubmit","onValueChange"];
   @NgInput() declare "actions"?: AngularInput<'AiPromptInput', "actions">;
   @NgInput() declare "busy"?: AngularInput<'AiPromptInput', "busy">;
+  @NgInput() declare "className"?: AngularInput<'AiPromptInput', "className">;
   @NgInput() declare "disabled"?: AngularInput<'AiPromptInput', "disabled">;
   @NgInput() declare "footer"?: AngularInput<'AiPromptInput', "footer">;
   @NgInput() declare "hint"?: AngularInput<'AiPromptInput', "hint">;
@@ -23,6 +24,7 @@ export class AiPromptInput extends AngularComponentAdapter<AngularCallbackValue<
   @NgInput() declare "onSubmit"?: AngularInput<'AiPromptInput', "onSubmit">;
   @NgInput() declare "onValueChange"?: AngularInput<'AiPromptInput', "onValueChange">;
   @NgInput() declare "placeholder"?: AngularInput<'AiPromptInput', "placeholder">;
+  @NgInput() declare "preset"?: AngularInput<'AiPromptInput', "preset">;
   @NgInput() declare "promptHistory"?: AngularInput<'AiPromptInput', "promptHistory">;
   @NgInput() declare "stopLabel"?: AngularInput<'AiPromptInput', "stopLabel">;
   @NgInput() declare "submitLabel"?: AngularInput<'AiPromptInput', "submitLabel">;

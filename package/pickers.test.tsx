@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { h, render } from 'preact';
 import { useState } from 'preact/hooks';
 import { act } from 'preact/test-utils';
-import { DatePicker, DateRangePicker, Popover } from './pickers';
+import { DatePicker, DateRangePicker, Dialog, Popover, Tooltip } from './pickers';
 import type { ISODateString } from '@revolist/ui-dates';
 
 let host: HTMLDivElement;
@@ -968,4 +968,88 @@ describe('popover dismissal policy', () => {
       anchor.remove();
     }
   });
+});
+
+it('applies popover presets and lets explicit dismissal options override them', () => {
+  const anchor = document.createElement('button');
+  document.body.append(anchor);
+  const close = vi.fn();
+  mount(
+    <Popover
+      open
+      anchor={anchor}
+      onClose={close}
+      preset={{ className: 'custom-popover', props: { closeOnEscape: false } }}
+      closeOnEscape
+    >
+      <span>Content</span>
+    </Popover>,
+  );
+  expect(
+    document.querySelector('[data-part="root"].custom-popover'),
+  ).toBeTruthy();
+  act(() =>
+    document.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }),
+    ),
+  );
+  expect(close).toHaveBeenCalledTimes(1);
+  anchor.remove();
+});
+
+it('updates dialog preset classes without reopening the dialog', () => {
+  const close = vi.fn();
+  const view = (className: string) => (
+    <Dialog
+      open
+      title="Settings"
+      closeLabel="Close"
+      onClose={close}
+      preset={{ className }}
+    >
+      Body
+    </Dialog>
+  );
+  mount(view('first-theme'));
+  const surface = document.querySelector<HTMLElement>('.first-theme')!;
+  expect(surface?.dataset.part).toBe('root');
+  act(() => render(view('second-theme'), host));
+  expect(document.querySelector('.second-theme')).toBe(surface);
+  expect(surface.classList.contains('first-theme')).toBe(false);
+  expect(close).not.toHaveBeenCalled();
+});
+
+
+it('lets explicit tooltip behavior override preset defaults', async () => {
+  const root = mount(<Tooltip text="Details" trigger="click" preset={{ className: 'tooltip-theme', props: { trigger: 'manual' } }}><button>Open</button></Tooltip>);
+  act(() => root.querySelector('button')!.click());
+  await vi.waitFor(() => expect(document.querySelector('.rv-tooltip.tooltip-theme[data-visible="true"]')).not.toBeNull());
+  expect(document.querySelector('.rv-tooltip.tooltip-theme')?.hasAttribute('data-preset-surface')).toBe(true);
+});
+
+it('keeps date picker preset roots separate from calendar surfaces', async () => {
+  const host = document.body.appendChild(document.createElement('div'));
+  try {
+    act(() => render(<DatePicker label="Date" openLabel="Choose date" preset={{ className: 'picker-theme' }} />, host));
+    expect(host.querySelector('.rv-date-picker')?.classList.contains('picker-theme')).toBe(true);
+    act(() => host.querySelector<HTMLButtonElement>('[aria-label="Choose date"]')!.click());
+    await vi.waitFor(() => expect(document.querySelector('.revo-calendar.picker-theme')?.hasAttribute('data-preset-surface')).toBe(true));
+  } finally {
+    act(() => render(null, host));
+    host.remove();
+  }
+});
+
+it('keeps date picker preset styling alongside uncontrolled form values', () => {
+  mount(
+    <DatePicker
+      defaultValue="2026-11-20"
+      name="delivery"
+      label="Delivery"
+      openLabel="Choose date"
+      preset={{ className: 'delivery-theme' }}
+    />,
+  );
+  expect(host.querySelector('.rv-date-picker.delivery-theme')?.getAttribute('data-part')).toBe('picker');
+  expect((host.querySelector('input[name="delivery"]') as HTMLInputElement).value).toBe('2026-11-20');
 });

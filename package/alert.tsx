@@ -1,8 +1,12 @@
 /** @jsxRuntime classic */
 /** @jsx h */
+import type { ClassPreset } from './presets/types';
 import { h as preactH, type ComponentChildren, type JSX } from 'preact';
 
+export type AlertPreset = ClassPreset & { props?: { tone?: 'neutral' | 'warning' | 'danger' | 'success' } };
+
 export type AlertProps = Omit<JSX.IntrinsicElements['div'], 'title'> & {
+  preset?: AlertPreset;
   tone?: 'neutral' | 'warning' | 'danger' | 'success';
   label?: string;
   icon?: ComponentChildren;
@@ -15,8 +19,9 @@ export type AlertProps = Omit<JSX.IntrinsicElements['div'], 'title'> & {
 export function renderAlert<T>(
   renderer: (tag: string, attributes: any, children?: any) => T,
   {
+    preset,
     children,
-    tone = 'neutral',
+    tone: toneProp,
     label,
     icon,
     title,
@@ -27,26 +32,28 @@ export function renderAlert<T>(
     ...attributes
   }: AlertProps,
 ): T {
+  const tone = toneProp ?? preset?.props?.tone ?? 'neutral';
   const h = (tag: string, attributes: any, ...children: any[]) =>
     renderer(tag, attributes, children);
   return (
     <div
       {...attributes}
-      class={`rv-alert rv-alert--${tone}${icon ? ' rv-alert--with-icon' : ''}${actions ? ' rv-alert--with-actions' : ''} ${className} ${htmlClass}`.trim()}
+      class={`rv-alert rv-alert--${tone}${icon ? ' rv-alert--with-icon' : ''}${actions ? ' rv-alert--with-actions' : ''} ${preset?.className ?? ''} ${className} ${htmlClass}`.trim()}
+      data-part="root"
       role={tone === 'danger' ? 'alert' : 'status'}
       aria-label={label ?? attributes['aria-label']}
     >
       {icon && (
-        <span class="rv-alert__icon" aria-hidden="true">
+        <span class="rv-alert__icon" data-part="icon" aria-hidden="true">
           {icon}
         </span>
       )}
-      <div class="rv-alert__content">
-        {title && <div class="rv-alert__title">{title}</div>}
-        {description && <div class="rv-alert__description">{description}</div>}
+      <div class="rv-alert__content" data-part="content">
+        {title && <div class="rv-alert__title" data-part="title">{title}</div>}
+        {description && <div class="rv-alert__description" data-part="description">{description}</div>}
         {children}
       </div>
-      {actions && <div class="rv-alert__actions">{actions}</div>}
+      {actions && <div class="rv-alert__actions" data-part="actions">{actions}</div>}
     </div>
   ) as T;
 }

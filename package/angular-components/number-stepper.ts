@@ -13,6 +13,7 @@ export class NumberStepper extends AngularComponentAdapter<AngularCallbackValue<
   protected readonly rvComponentName = 'NumberStepper';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onChange"];
+  @NgInput() declare "className"?: AngularInput<'NumberStepper', "className">;
   @NgInput({ required: true }) declare "decreaseLabel": AngularInput<'NumberStepper', "decreaseLabel">;
   @NgInput() declare "disabled"?: AngularInput<'NumberStepper', "disabled">;
   @NgInput({ required: true }) declare "increaseLabel": AngularInput<'NumberStepper', "increaseLabel">;
@@ -20,6 +21,7 @@ export class NumberStepper extends AngularComponentAdapter<AngularCallbackValue<
   @NgInput() declare "max"?: AngularInput<'NumberStepper', "max">;
   @NgInput() declare "min"?: AngularInput<'NumberStepper', "min">;
   @NgInput() declare "onChange"?: AngularInput<'NumberStepper', "onChange">;
+  @NgInput() declare "preset"?: AngularInput<'NumberStepper', "preset">;
   @NgInput() declare "readOnly"?: AngularInput<'NumberStepper', "readOnly">;
   @NgInput() declare "step"?: AngularInput<'NumberStepper', "step">;
   @NgInput({ required: true }) declare "value": AngularInput<'NumberStepper', "value">;

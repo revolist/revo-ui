@@ -15,6 +15,7 @@ export class DropdownPopup extends AngularComponentAdapter<never> {
   @NgInput() declare "align"?: AngularInput<'DropdownPopup', "align">;
   @NgInput() declare "closeOnClickOutside"?: AngularInput<'DropdownPopup', "closeOnClickOutside">;
   @NgInput() declare "dropdownMenuId"?: AngularInput<'DropdownPopup', "dropdownMenuId">;
+  @NgInput() declare "inheritedPresetSurface"?: AngularInput<'DropdownPopup', "inheritedPresetSurface">;
   @NgInput() declare "matchTriggerWidth"?: AngularInput<'DropdownPopup', "matchTriggerWidth">;
   @NgInput() declare "maxHeight"?: AngularInput<'DropdownPopup', "maxHeight">;
   @NgInput() declare "observePopupResize"?: AngularInput<'DropdownPopup', "observePopupResize">;
@@ -22,6 +23,7 @@ export class DropdownPopup extends AngularComponentAdapter<never> {
   @NgInput() declare "onPointerRelease"?: AngularInput<'DropdownPopup', "onPointerRelease">;
   @NgInput() declare "popupClassName"?: AngularInput<'DropdownPopup', "popupClassName">;
   @NgInput() declare "portalTarget"?: AngularInput<'DropdownPopup', "portalTarget">;
+  @NgInput() declare "preset"?: AngularInput<'DropdownPopup', "preset">;
   @NgInput() declare "theme"?: AngularInput<'DropdownPopup', "theme">;
   @NgInput() declare "topLayer"?: AngularInput<'DropdownPopup', "topLayer">;
   @NgInput({ required: true }) declare "triggerRef": AngularInput<'DropdownPopup', "triggerRef">;

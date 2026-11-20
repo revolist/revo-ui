@@ -16,6 +16,7 @@ export interface NativeDialogActionFooterProps {
 
 /** One TSX composition for Preact consumers and element-returning host adapters. */
 export function ActionFooterView({
+  preset,
   cancel = {},
   save = {},
   deleteAction = false,
@@ -54,7 +55,8 @@ export function ActionFooterView({
   return (
     <footer
       {...props}
-      class={`rv-dialog__footer rv-dialog__action-footer ${className}`}
+      class={`rv-dialog__footer rv-dialog__action-footer ${preset?.className ?? ''} ${className}`}
+      data-part="root"
     >
       {children}
       <div class="rv-dialog__action-panel">

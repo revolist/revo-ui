@@ -1,5 +1,6 @@
 /** @jsxRuntime automatic */
 /** @jsxImportSource preact */
+import type { ClassPreset } from '../presets/types';
 import { useLayoutEffect, useRef, useState } from 'preact/hooks';
 import { Input } from '../native-control';
 import { Alert, Button } from '../controls';
@@ -18,6 +19,7 @@ import {
 import type { TemporalControlValue } from '@revolist/ui-dates';
 
 export function TemporalDraft({
+  preset,
   value,
   options,
   apply,
@@ -25,6 +27,7 @@ export function TemporalDraft({
   onValidChange,
   clearable = true,
 }: {
+  preset?: ClassPreset;
   clearable?: boolean;
   value: TemporalControlValue;
   options: TemporalPickerOptions;
@@ -51,7 +54,8 @@ export function TemporalDraft({
   useEditorAutoApply(() => (changed ? commit() : true), autoApply);
   return (
     <div
-      class={`rv-temporal-draft${options.kind === 'time' ? ' rv-temporal-draft--time' : ''}`}
+      class={`rv-temporal-draft${options.kind === 'time' ? ' rv-temporal-draft--time' : ''} ${preset?.className ?? ''}`}
+      data-part="root"
       onKeyDown={(event) => {
         if (
           event.key === 'Enter' &&
@@ -67,6 +71,8 @@ export function TemporalDraft({
     >
       <TemporalPicker
         {...options}
+        preset={preset}
+        presetSurface
         value={draft}
         onChange={change}
         onValidChange={onValidChange}
@@ -95,6 +101,7 @@ export function TemporalDraft({
 }
 /** Native text entry plus the original shared CalendarPicker, usable in any product form. */
 export function DateTimeField({
+  preset,
   value,
   kind = 'date',
   picker,
@@ -107,6 +114,14 @@ export function DateTimeField({
 }: DateTimeFieldProps) {
   const anchor = useRef<HTMLButtonElement>(null);
   const popup = useRef<EditorPopupHandle>();
+  const popupPreset = useRef<string[]>([]);
+  useLayoutEffect(() => {
+    const panel = popup.current?.element;
+    if (!panel) return;
+    panel.classList.remove(...popupPreset.current);
+    popupPreset.current = (preset?.className ?? '').split(/\s+/).filter(Boolean);
+    panel.classList.add(...popupPreset.current);
+  }, [preset?.className]);
   const current = useRef({ value, kind, picker, onValueChange, input });
   current.current = { value, kind, picker, onValueChange, input };
   useLayoutEffect(() => () => popup.current?.close(), []);
@@ -114,7 +129,7 @@ export function DateTimeField({
     if (input.disabled || input.readOnly) popup.current?.close();
   }, [input.disabled, input.readOnly]);
   return (
-    <span class="rv-date-time-field">
+    <span class={`rv-date-time-field ${preset?.className ?? ''}`} data-part="root">
       <Input
         {...input}
         type="text"
@@ -158,6 +173,7 @@ export function DateTimeField({
             lastApplied = value;
             current.current.onValueChange?.(value);
           };
+          popupPreset.current = (preset?.className ?? '').split(/\s+/).filter(Boolean);
           popup.current = mountEditorPopup(
             anchor.current,
             (close) => (
@@ -189,17 +205,20 @@ export function DateTimeField({
             {
               label: temporalPickerLabel(kind, picker?.text),
               fitViewport: kind === 'datetime',
-              className:
+              className: [
+                preset?.className,
                 kind === 'time'
                   ? 'rv-editor-popup--time'
                   : kind === 'datetime'
                     ? 'rv-editor-popup--datetime'
                     : undefined,
+              ].filter(Boolean).join(' '),
               onClose: () => {
                 popup.current = undefined;
               },
             },
           );
+          popup.current.element.setAttribute('data-preset-surface', '');
         }}
       >
         <SvgIcon svg={kind === 'time' ? clockIcon : calendarIcon} />

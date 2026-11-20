@@ -2,6 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import ts from 'typescript';
 import { componentApi, apiModule } from './component-api.mjs';
 
 const gallery = resolve(import.meta.dirname, '..');
@@ -250,5 +251,68 @@ test('date/time APIs use their field family as canonical and also expose time pi
       reference,
       /\[Live examples and formatted usage\]\(https:\/\/ui\.rv-grid\.com\/components\/date-and-time-fields\/\)/,
     );
+  }
+});
+test('every documented component has a portable preset contract and schema entry', () => {
+  const schema = JSON.parse(
+    readFileSync(resolve(gallery, 'package/presets/theme.schema.json'), 'utf8'),
+  );
+  const names = Object.keys(schema.properties.components.properties).sort();
+  assert.deepEqual(names, api.map((item) => item.name).sort());
+  const file = ts.createSourceFile(
+    'presets.ts',
+    readFileSync(resolve(gallery, 'package/presets/index.ts'), 'utf8'),
+    ts.ScriptTarget.Latest,
+    true,
+  );
+  const theme = file.statements.find(
+    (node) => ts.isInterfaceDeclaration(node) && node.name.text === 'UiTheme',
+  );
+  const components = theme.members.find(
+    (node) => node.name?.getText(file) === 'components',
+  );
+  assert.deepEqual(
+    components.type.members.map((node) => node.name.getText(file)).sort(),
+    names,
+  );
+  for (const item of api) {
+    assert.ok(
+      item.props.some((prop) => prop.name === 'preset'),
+      `${item.name}.preset`,
+    );
+  }
+});
+
+test('selection wrappers advertise only preset options they can honor', () => {
+  const schema = JSON.parse(readFileSync(resolve(gallery, 'package/presets/theme.schema.json'), 'utf8'));
+  const config = (component) => {
+    const ref = schema.properties.components.properties[component].additionalProperties.$ref.split('/').pop();
+    return schema.$defs[ref].properties.props.properties.config.properties;
+  };
+  assert.equal('multiSelect' in config('Select'), false);
+  assert.equal('multiSelect' in config('MultiSelect'), false);
+  assert.equal('multiSelect' in config('Combobox'), false);
+  assert.equal('search' in config('Combobox'), false);
+  assert.equal('search' in config('Select'), true);
+  assert.equal('search' in config('MultiSelect'), true);
+});
+
+test('each documented component has a gallery comparison sample', () => {
+  const source = readFileSync(resolve(gallery, 'src/theme-samples.tsx'), 'utf8');
+  const list = source.match(/const names = new Set\(\[([\s\S]*?)\]\)/)?.[1];
+  assert.ok(list, 'Sample name list must be present');
+  const names = [...list.matchAll(/'([^']+)'/g)].map((match) => match[1]);
+  const cases = [...source.matchAll(/case '([^']+)':/g)].map((match) => match[1]);
+  assert.deepEqual(names.sort(), api.map((item) => item.name).sort());
+  assert.deepEqual(cases.sort(), names);
+});
+
+
+test('every documented component has example CSS hook metadata', () => {
+  const hooks = JSON.parse(readFileSync(resolve(gallery, 'src/theme-example-hooks.json'), 'utf8'));
+  assert.deepEqual(Object.keys(hooks).sort(), api.map((item) => item.name).sort());
+  for (const [name, value] of Object.entries(hooks)) {
+    assert.ok(Array.isArray(value.parts), name);
+    assert.ok(Array.isArray(value.states), name);
   }
 });

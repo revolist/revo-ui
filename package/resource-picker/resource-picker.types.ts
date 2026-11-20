@@ -1,3 +1,4 @@
+import type { ClassPreset } from '../presets/types';
 type ResourceIdentityId = string | number;
 interface ResourceIdentity<Id extends ResourceIdentityId> {
   readonly id: Id;
@@ -41,10 +42,22 @@ export interface ResourcePickerUnassignedOption {
   readonly dataAttribute?: string;
 }
 
+export type ResourcePickerPreset = ClassPreset & {
+  props?: {
+    disabled?: boolean;
+    readOnly?: boolean;
+    showSearch?: boolean;
+    presentation?: 'inline' | 'dropdown';
+    multiple?: boolean;
+    preserveOrder?: boolean;
+  };
+};
+
 export interface SharedResourcePickerProps<
   Id extends ResourcePickerId,
   Resource extends ResourcePickerItem<Id>,
 > {
+  readonly preset?: ResourcePickerPreset;
   readonly resources: readonly Resource[];
   readonly selectedResourceIds: readonly Id[];
   readonly text: ResourcePickerText;

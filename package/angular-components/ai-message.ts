@@ -16,6 +16,7 @@ export class AiMessage extends AngularComponentAdapter<never> {
   @NgInput({ required: true }) declare "from": AngularInput<'AiMessage', "from">;
   @NgInput() declare "isStreaming"?: AngularInput<'AiMessage', "isStreaming">;
   @NgInput() declare "label"?: AngularInput<'AiMessage', "label">;
+  @NgInput() declare "preset"?: AngularInput<'AiMessage', "preset">;
   @NgInput() declare "translations"?: AngularInput<'AiMessage', "translations">;
 
   protected rvResolveProps() { return this.rvInputValues; }

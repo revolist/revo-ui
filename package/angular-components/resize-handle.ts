@@ -14,11 +14,13 @@ export class ResizeHandle extends AngularComponentAdapter<never> {
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onChange"];
   @NgInput() declare "acceptValue"?: AngularInput<'ResizeHandle', "acceptValue">;
+  @NgInput() declare "className"?: AngularInput<'ResizeHandle', "className">;
   @NgInput() declare "direction"?: AngularInput<'ResizeHandle', "direction">;
   @NgInput({ required: true }) declare "label": AngularInput<'ResizeHandle', "label">;
   @NgInput() declare "max"?: AngularInput<'ResizeHandle', "max">;
   @NgInput() declare "min"?: AngularInput<'ResizeHandle', "min">;
   @NgInput() declare "onChange"?: AngularInput<'ResizeHandle', "onChange">;
+  @NgInput() declare "preset"?: AngularInput<'ResizeHandle', "preset">;
   @NgInput() declare "step"?: AngularInput<'ResizeHandle', "step">;
   @NgInput({ required: true }) declare "value": AngularInput<'ResizeHandle', "value">;
   @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ResizeHandle', 'onChange'>>>('onChange'); }

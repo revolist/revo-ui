@@ -14,6 +14,7 @@ export class Panel extends AngularComponentAdapter<never> {
   protected rvResolveComponent() { return Control; }
   @NgInput() declare "className"?: AngularInput<'Panel', "className">;
   @NgInput() declare "label"?: AngularInput<'Panel', "label">;
+  @NgInput() declare "preset"?: AngularInput<'Panel', "preset">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

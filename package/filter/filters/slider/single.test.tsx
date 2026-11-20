@@ -8,6 +8,7 @@ afterEach(() => {
 it('retains the bare slider contract without composition markup', () => {
   render(
     <SingleValueSlider
+      preset={{ className: 'bare-slider' }}
       min={0}
       max={100}
       value={50}
@@ -17,6 +18,7 @@ it('retains the bare slider contract without composition markup', () => {
     document.body,
   );
   expect(document.body.firstElementChild?.tagName).toBe('INPUT');
+  expect(document.body.firstElementChild?.classList.contains('bare-slider')).toBe(true);
 });
 it('formats accessible values and reports native input and commit independently', () => {
   const change = vi.fn(),
@@ -76,4 +78,41 @@ it('supports disabled thumb values, stacked labels and bounded ticks', () => {
   expect(
     document.querySelector('.rv-slider-field--stacked.is-disabled'),
   ).not.toBeNull();
+});
+it('uses slider preset defaults while explicit props win', () => {
+  render(
+    <SliderField
+      label="Volume"
+      ariaLabel="Volume"
+      min={0}
+      max={10}
+      value={5}
+      onChange={() => {}}
+      preset={{
+        className: 'slider-theme',
+        props: {
+          layout: 'stacked',
+          valuePlacement: 'thumb',
+          ticks: 3,
+          disabled: true,
+          step: 2,
+        },
+      }}
+      disabled={false}
+    />,
+    document.body,
+  );
+  const input = document.querySelector<HTMLInputElement>('input')!;
+  expect(input.disabled).toBe(false);
+  expect(input.step).toBe('2');
+  expect(input.classList.contains('slider-theme')).toBe(false);
+  expect(
+    document.querySelector('.slider-theme.rv-slider-field--stacked'),
+  ).not.toBeNull();
+  expect(
+    document.querySelector('.rv-slider-field__thumb-value'),
+  ).not.toBeNull();
+  expect(document.querySelectorAll('.rv-slider-field__ticks i')).toHaveLength(
+    3,
+  );
 });

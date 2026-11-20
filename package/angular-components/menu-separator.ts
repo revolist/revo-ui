@@ -12,7 +12,8 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class MenuSeparator extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'MenuSeparator';
   protected rvResolveComponent() { return Control; }
-
+  @NgInput() declare "className"?: AngularInput<'MenuSeparator', "className">;
+  @NgInput() declare "preset"?: AngularInput<'MenuSeparator', "preset">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

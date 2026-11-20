@@ -19,6 +19,7 @@ export class DeleteButton extends AngularComponentAdapter<never> {
   @NgInput() declare "onClick"?: AngularInput<'DeleteButton', "onClick">;
   @NgInput() declare "onDblClick"?: AngularInput<'DeleteButton', "onDblClick">;
   @NgInput() declare "onMouseDown"?: AngularInput<'DeleteButton', "onMouseDown">;
+  @NgInput() declare "preset"?: AngularInput<'DeleteButton', "preset">;
   @NgInput() declare "rounded"?: AngularInput<'DeleteButton', "rounded">;
   @Output() get clickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DeleteButton', 'onClick'>>>('onClick'); }
   @Output() get dblClick() { return this.rvOutput<AngularCallbackValue<AngularInput<'DeleteButton', 'onDblClick'>>>('onDblClick'); }

@@ -1,3 +1,4 @@
+import type { ClassPreset } from '../presets/types';
 import { TooltipText } from '../core/tooltip-text';
 import { h } from 'preact';
 import { AVATAR_CELL_BACKGROUNDS } from '../color-palette/common-palettes';
@@ -8,6 +9,7 @@ import { createPreactElement } from '../preact-mount';
 export { AVATAR_CELL_BACKGROUNDS } from '../color-palette/common-palettes';
 
 export type AvatarTemplateOptions = {
+  preset?: ClassPreset;
   ariaLabel?: string;
   className?: string;
   index?: number;
@@ -34,6 +36,7 @@ export function AvatarElement({
     `avatar-cell--${Math.max(index, 0) % AVATAR_CELL_BACKGROUNDS.length}`,
     rectangular ? 'avatar-cell--rectangular rectangular' : '',
     getAvatarSizeClass(size),
+    options.preset?.className,
     options.className,
   ]
     .filter(Boolean)
@@ -41,6 +44,7 @@ export function AvatarElement({
   return (
     <TooltipText
       class={className}
+      data-part="root"
       title={decorative ? undefined : options.label || String(value ?? '')}
       role="img"
       aria-hidden={decorative || undefined}
@@ -130,12 +134,14 @@ export function avatarTemplate(h: any, options: AvatarTemplateOptions = {}) {
     toneClass,
     rectangular ? 'avatar-cell--rectangular rectangular' : '',
     sizeClass,
+    options.preset?.className,
     options.className,
   ]
     .filter(Boolean)
     .join(' ');
   const props: Record<string, unknown> = {
     role: 'img',
+    'data-part': 'root',
     class: className,
     title: decorative ? undefined : options.label || String(value ?? ''),
     'aria-hidden': decorative || undefined,

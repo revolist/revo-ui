@@ -1,3 +1,4 @@
+import type { ClassPreset } from '../presets/types';
 /** @jsxImportSource preact */
 import { getPopupCoordinates, getPopupViewport } from '../core/popup-position';
 import { ownsPopupTarget } from '../core/popup-ownership';
@@ -8,6 +9,9 @@ import { hideTopLayerPopup, showTopLayerPopup } from '../core/top-layer-popup';
 
 // DropdownPopup component - Handles positioning and portal rendering
 export type DropdownPopupProps = {
+  /** Internal: the class belongs to the owning dropdown. */
+  inheritedPresetSurface?: boolean;
+  preset?: ClassPreset;
   onPointerRelease?: (event: MouseEvent | TouchEvent) => void;
   triggerRef: RefObject<HTMLDivElement>;
   children: ComponentChildren;
@@ -45,6 +49,8 @@ const POPUP_GAP = 4;
  * @param dropdownMenuId - The id of the dropdown menu
  */
 export function DropdownPopup({
+  preset,
+  inheritedPresetSurface,
   onPointerRelease,
   triggerRef,
   children,
@@ -304,7 +310,9 @@ export function DropdownPopup({
     <div
       ref={dropdownRef}
       id={dropdownMenuId}
-      className={`revo-dropdown-menu ${popupClassName || ''}`}
+      className={`revo-dropdown-menu ${preset?.className ?? ''} ${popupClassName || ''}`}
+      data-part="popup"
+      data-preset-surface={inheritedPresetSurface ? '' : undefined}
       data-theme={theme ?? 'default'}
       data-rv-match-trigger-width={matchTriggerWidth ? '' : undefined}
       onMouseUp={onPointerRelease}

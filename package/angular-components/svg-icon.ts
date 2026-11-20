@@ -13,6 +13,7 @@ export class SvgIcon extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'SvgIcon';
   protected rvResolveComponent() { return Control; }
   @NgInput() declare "className"?: AngularInput<'SvgIcon', "className">;
+  @NgInput() declare "preset"?: AngularInput<'SvgIcon', "preset">;
   @NgInput() declare "size"?: AngularInput<'SvgIcon', "size">;
   @NgInput({ required: true }) declare "svg": AngularInput<'SvgIcon', "svg">;
 

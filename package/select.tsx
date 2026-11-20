@@ -11,9 +11,18 @@ import { FormFieldContext } from './form-controls/field-context';
 import { useContext, useState } from 'preact/hooks';
 import { Dropdown } from './dropdown';
 import type {
+  DropdownPreset,
   DropdownEnvironment,
   DropdownOption,
 } from './dropdown/dropdown.types';
+
+export type SelectPreset = {
+  className?: string;
+  props?: {
+    disabled?: boolean;
+    config?: Omit<NonNullable<NonNullable<DropdownPreset['props']>['config']>, 'multiSelect'>;
+  };
+};
 
 export type SelectOptionProps = JSX.IntrinsicElements['option'];
 type Attributes = Omit<
@@ -21,6 +30,7 @@ type Attributes = Omit<
   'value' | 'defaultValue' | 'onChange' | 'onInput' | 'multiple' | 'ref'
 >;
 export type SelectProps = Attributes & {
+  preset?: SelectPreset;
   /** Optional host integration for portalled popup lifecycle and pointer releases. */
   environment?: DropdownEnvironment;
   value?: string | number | readonly string[];
@@ -90,6 +100,7 @@ export const Select = /* @__PURE__ */ registerControl(function Select(
 ) {
   const {
     children,
+    preset,
     environment,
     value,
     defaultValue,
@@ -104,7 +115,7 @@ export const Select = /* @__PURE__ */ registerControl(function Select(
     ...attributes
   } = props;
   const field = useContext(FormFieldContext);
-  const disabled = field.disabled || !!ownDisabled;
+  const disabled = field.disabled || (ownDisabled ?? preset?.props?.disabled ?? false);
   const source = selectOptions(children, optionPolicy);
   const [draft, setDraft] = useState<string | string[]>(() => {
     const initial =
@@ -135,6 +146,7 @@ export const Select = /* @__PURE__ */ registerControl(function Select(
   return (
     <>
       <Dropdown
+        preset={preset}
         environment={environment}
         renderOption={(_h, option) => (
           <span data-select-option={option.value}>{option.label}</span>

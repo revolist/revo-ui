@@ -19,6 +19,7 @@ export class ChoiceChip extends AngularNativeAdapter<'ChoiceChip', never> {
   @NgInput() declare "command"?: AngularInput<'ChoiceChip', "command">;
   @NgInput() declare "commandFor"?: AngularInput<'ChoiceChip', "commandFor">;
   @NgInput() declare "commandfor"?: AngularInput<'ChoiceChip', "commandfor">;
+  @NgInput() declare "data-part"?: AngularInput<'ChoiceChip', "data-part">;
   @NgInput() declare "disabled"?: AngularInput<'ChoiceChip', "disabled">;
   @NgInput() declare "form"?: AngularInput<'ChoiceChip', "form">;
   @NgInput() declare "formAction"?: AngularInput<'ChoiceChip', "formAction">;

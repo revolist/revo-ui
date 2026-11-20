@@ -53,6 +53,7 @@ export class Tooltip extends AngularComponentAdapter<never> {
   @NgInput() declare "onShow"?: AngularInput<'Tooltip', "onShow">;
   @NgInput() declare "open"?: AngularInput<'Tooltip', "open">;
   @NgInput() declare "placement"?: AngularInput<'Tooltip', "placement">;
+  @NgInput() declare "preset"?: AngularInput<'Tooltip', "preset">;
   @NgInput() declare "renderContent"?: AngularInput<'Tooltip', "renderContent">;
   @NgInput() declare "side"?: AngularInput<'Tooltip', "side">;
   @NgInput() declare "sideOffset"?: AngularInput<'Tooltip', "sideOffset">;

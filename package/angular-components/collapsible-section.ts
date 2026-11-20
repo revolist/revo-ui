@@ -17,6 +17,7 @@ export class CollapsibleSection extends AngularComponentAdapter<never> {
   @NgInput() declare "defaultOpen"?: AngularInput<'CollapsibleSection', "defaultOpen">;
   @NgInput() declare "description"?: AngularInput<'CollapsibleSection', "description">;
   @NgInput() declare "descriptionClassName"?: AngularInput<'CollapsibleSection', "descriptionClassName">;
+  @NgInput() declare "preset"?: AngularInput<'CollapsibleSection', "preset">;
   @NgInput() declare "renderRoot"?: AngularInput<'CollapsibleSection', "renderRoot">;
   @NgInput() declare "summaryClassName"?: AngularInput<'CollapsibleSection', "summaryClassName">;
   @NgInput() declare "title"?: AngularInput<'CollapsibleSection', "title">;

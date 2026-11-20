@@ -1,3 +1,4 @@
+import type { ClassPreset } from '../../presets/types';
 import { h, type ComponentChildren } from 'preact';
 import { AiResultTable } from './table';
 import { AiResultMetrics } from './metrics';
@@ -10,9 +11,13 @@ export * from './metrics';
 export * from './text';
 
 export function AiResultView({
+  preset,
+  className,
   result,
   renderTable,
 }: {
+  preset?: ClassPreset;
+  className?: string;
   result: AiResultContent;
   renderTable?: AiTableRenderer;
 }) {
@@ -21,11 +26,19 @@ export function AiResultView({
       return renderTable ? (
         renderTable(result)
       ) : (
-        <AiResultTable result={result} />
+        <AiResultTable result={result} preset={preset} className={className} />
       );
     case 'metrics':
-      return <AiResultMetrics result={result} />;
+      return (
+        <AiResultMetrics
+          result={result}
+          preset={preset}
+          className={className}
+        />
+      );
     case 'text':
-      return <AiResultText result={result} />;
+      return (
+        <AiResultText result={result} preset={preset} className={className} />
+      );
   }
 }

@@ -12,8 +12,10 @@ import { AngularComponentAdapter, type AngularInput, type AngularCallbackValue }
 export class CountBadge extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'CountBadge';
   protected rvResolveComponent() { return Control; }
+  @NgInput() declare "className"?: AngularInput<'CountBadge', "className">;
   @NgInput({ required: true }) declare "count": AngularInput<'CountBadge', "count">;
   @NgInput({ required: true }) declare "label": AngularInput<'CountBadge', "label">;
+  @NgInput() declare "preset"?: AngularInput<'CountBadge', "preset">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

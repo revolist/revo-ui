@@ -20,6 +20,7 @@ export class Checkbox extends AngularComponentAdapter<AngularCallbackValue<Angul
   @NgInput() declare "inputRef"?: AngularInput<'Checkbox', "inputRef">;
   @NgInput() declare "label"?: AngularInput<'Checkbox', "label">;
   @NgInput() declare "onChange"?: AngularInput<'Checkbox', "onChange">;
+  @NgInput() declare "preset"?: AngularInput<'Checkbox', "preset">;
   @Output() get checkedChange() { return this.rvOutput<AngularCallbackValue<AngularInput<'Checkbox', 'onChange'>>>('onChange'); }
   protected rvResolveProps() { return this.rvInputValues; }
 }

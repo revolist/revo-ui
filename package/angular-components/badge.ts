@@ -14,6 +14,7 @@ export class Badge extends AngularComponentAdapter<never> {
   protected rvResolveComponent() { return Control; }
   @NgInput() declare "className"?: AngularInput<'Badge', "className">;
   @NgInput() declare "label"?: AngularInput<'Badge', "label">;
+  @NgInput() declare "preset"?: AngularInput<'Badge', "preset">;
   @NgInput() declare "shape"?: AngularInput<'Badge', "shape">;
   @NgInput() declare "variant"?: AngularInput<'Badge', "variant">;
 

@@ -15,6 +15,7 @@ export class MaskedDraft extends AngularComponentAdapter<never> {
   @NgInput({ required: true }) declare "apply": AngularInput<'MaskedDraft', "apply">;
   @NgInput({ required: true }) declare "cancel": AngularInput<'MaskedDraft', "cancel">;
   @NgInput({ required: true }) declare "options": AngularInput<'MaskedDraft', "options">;
+  @NgInput() declare "preset"?: AngularInput<'MaskedDraft', "preset">;
   @NgInput({ required: true }) declare "value": AngularInput<'MaskedDraft', "value">;
 
   protected rvResolveProps() { return this.rvInputValues; }

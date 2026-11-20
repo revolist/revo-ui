@@ -10,7 +10,10 @@ import {
   FieldGroup,
   FieldList,
   DatePicker,
+  Switch,
 } from '@revolist/ui/react';
+import { presetProps } from '@revolist/ui/presets';
+import { theme } from './shared-theme';
 import { Component } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { UiComponent, UiSlotDirective } from '@revolist/ui/angular';
@@ -19,12 +22,14 @@ import SvelteHarness from './SvelteHarness.svelte';
 
 function ReactHarness() {
   const [value, setValue] = useState('a');
+  const [themed, setThemed] = useState(true);
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(true);
   return h(
     'section',
     { 'aria-label': 'React adapters' },
     h('button', { onClick: () => setMounted(!mounted) }, 'Toggle React'),
+    h(Switch, { ...presetProps(theme.components.Switch?.shared), label: 'React shared theme', checked: themed, disabled: false, onChange: setThemed }),
     h('output', { 'data-react-value': '' }, value),
     h(DatePicker, {
       label: 'React custom date',

@@ -135,3 +135,39 @@ it('allows an explicit keyboard entry point when a list has no current selection
     render(null, host);
   }
 });
+
+it('applies independent layout and list item presets', () => {
+  const host = document.createElement('div');
+  render(
+    <EditorList
+      label="Items"
+      onSelect={() => {}}
+      preset={{ className: 'shared-list' }}
+    >
+      <EditorListItem
+        value="a"
+        selected
+        preset={{ className: 'shared-item' }}
+        label="Alpha"
+      />
+    </EditorList>,
+    host,
+  );
+  expect(
+    host.querySelector('[role="listbox"]')?.classList.contains('shared-list'),
+  ).toBe(true);
+  expect(
+    host.querySelector('[role="option"]')?.classList.contains('shared-item'),
+  ).toBe(true);
+  expect(
+    host.querySelector('[role="option"]')?.getAttribute('data-state'),
+  ).toBe('selected');
+  render(null, host);
+});
+
+it('exposes composed list item content within the item preset scope', () => {
+  render(<EditorListItem value="x" selected label="Item" description="Details" />, document.body);
+  const content = document.querySelector('.rv-editor-list__content')!;
+  expect(content.getAttribute('data-preset-scope')).toBe('inherit');
+  expect(content.querySelector('[data-part="label"]')?.textContent).toBe('Item');
+});

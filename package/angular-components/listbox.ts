@@ -17,6 +17,7 @@ export class Listbox extends AngularComponentAdapter<never> {
   @NgInput({ required: true }) declare "label": AngularInput<'Listbox', "label">;
   @NgInput() declare "listRef"?: AngularInput<'Listbox', "listRef">;
   @NgInput() declare "onSelect"?: AngularInput<'Listbox', "onSelect">;
+  @NgInput() declare "preset"?: AngularInput<'Listbox', "preset">;
   @NgInput() declare "spacing"?: AngularInput<'Listbox', "spacing">;
   @NgInput() declare "variant"?: AngularInput<'Listbox', "variant">;
   @Output() get selectEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'Listbox', 'onSelect'>>>('onSelect'); }

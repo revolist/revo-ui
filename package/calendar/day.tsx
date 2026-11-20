@@ -1,8 +1,12 @@
 /** @jsxImportSource preact */
+import type { ClassPreset } from '../presets/types';
 import { h, type ComponentChildren } from 'preact';
 import { parseIsoDate, type ISODateString } from '@revolist/ui-dates';
 
 export interface CalendarDayProps {
+  /** Internal composition hook for CalendarMonthGrid. */
+  readonly inheritPresetScope?: boolean;
+  readonly preset?: ClassPreset;
   readonly date: ISODateString;
   readonly label: string;
   readonly className?: string;
@@ -36,6 +40,7 @@ export interface CalendarDayProps {
 export function CalendarDay(props: CalendarDayProps) {
   const classes = [
     'revo-calendar__day',
+    props.preset?.className,
     props.className,
     props.outside && 'outside',
     props.disabled && 'disabled',
@@ -55,6 +60,8 @@ export function CalendarDay(props: CalendarDayProps) {
       ref={(element) => props.setRef(props.date, element)}
       type="button"
       role="gridcell"
+      data-part="day"
+      data-preset-scope={props.inheritPresetScope ? undefined : 'root'}
       data-calendar-date={props.date}
       class={classes}
       disabled={props.disabled || props.hidden}

@@ -14,6 +14,7 @@ export class CalendarYearGrid extends AngularComponentAdapter<never> {
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onSelect"];
   @NgInput({ required: true }) declare "ariaLabel": AngularInput<'CalendarYearGrid', "ariaLabel">;
+  @NgInput() declare "className"?: AngularInput<'CalendarYearGrid', "className">;
   @NgInput() declare "focusOnMount"?: AngularInput<'CalendarYearGrid', "focusOnMount">;
   @NgInput() declare "isMonthDisabled"?: AngularInput<'CalendarYearGrid', "isMonthDisabled">;
   @NgInput({ required: true }) declare "locale": AngularInput<'CalendarYearGrid', "locale">;
@@ -22,6 +23,7 @@ export class CalendarYearGrid extends AngularComponentAdapter<never> {
   @NgInput({ required: true }) declare "month": AngularInput<'CalendarYearGrid', "month">;
   @NgInput() declare "onEscape"?: AngularInput<'CalendarYearGrid', "onEscape">;
   @NgInput() declare "onSelect"?: AngularInput<'CalendarYearGrid', "onSelect">;
+  @NgInput() declare "preset"?: AngularInput<'CalendarYearGrid', "preset">;
   @NgInput() declare "referenceDate"?: AngularInput<'CalendarYearGrid', "referenceDate">;
   @NgInput() declare "system"?: AngularInput<'CalendarYearGrid', "system">;
   @Output() get escape() { return this.rvOutput<AngularCallbackValue<AngularInput<'CalendarYearGrid', 'onEscape'>>>('onEscape'); }

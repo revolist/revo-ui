@@ -23,6 +23,7 @@ export class ReorderList extends AngularComponentAdapter<never> {
   @NgInput({ required: true }) declare "items": AngularInput<'ReorderList', "items">;
   @NgInput() declare "onDragOver"?: AngularInput<'ReorderList', "onDragOver">;
   @NgInput() declare "onDrop"?: AngularInput<'ReorderList', "onDrop">;
+  @NgInput() declare "preset"?: AngularInput<'ReorderList', "preset">;
   @NgInput() declare "renderHandle"?: AngularInput<'ReorderList', "renderHandle">;
   @NgInput() declare "renderItem"?: AngularInput<'ReorderList', "renderItem">;
   @NgInput() declare "rowClassName"?: AngularInput<'ReorderList', "rowClassName">;

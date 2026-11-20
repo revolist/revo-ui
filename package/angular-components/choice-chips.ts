@@ -20,6 +20,7 @@ export class ChoiceChips extends AngularComponentAdapter<AngularCallbackValue<An
   @NgInput() declare "itemClassName"?: AngularInput<'ChoiceChips', "itemClassName">;
   @NgInput() declare "onChange"?: AngularInput<'ChoiceChips', "onChange">;
   @NgInput({ required: true }) declare "options": AngularInput<'ChoiceChips', "options">;
+  @NgInput() declare "preset"?: AngularInput<'ChoiceChips', "preset">;
   @NgInput() declare "scrollable"?: AngularInput<'ChoiceChips', "scrollable">;
   @NgInput() declare "size"?: AngularInput<'ChoiceChips', "size">;
   @NgInput() declare "testId"?: AngularInput<'ChoiceChips', "testId">;

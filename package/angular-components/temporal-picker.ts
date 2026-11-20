@@ -27,6 +27,8 @@ export class TemporalPicker extends AngularComponentAdapter<AngularCallbackValue
   @NgInput() declare "onValidChange"?: AngularInput<'TemporalPicker', "onValidChange">;
   @NgInput() declare "onValidityChange"?: AngularInput<'TemporalPicker', "onValidityChange">;
   @NgInput() declare "precision"?: AngularInput<'TemporalPicker', "precision">;
+  @NgInput() declare "preset"?: AngularInput<'TemporalPicker', "preset">;
+  @NgInput() declare "presetSurface"?: AngularInput<'TemporalPicker', "presetSurface">;
   @NgInput() declare "required"?: AngularInput<'TemporalPicker', "required">;
   @NgInput() declare "selection"?: AngularInput<'TemporalPicker', "selection">;
   @NgInput() declare "showActions"?: AngularInput<'TemporalPicker', "showActions">;

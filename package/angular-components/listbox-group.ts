@@ -15,6 +15,7 @@ export class ListboxGroup extends AngularComponentAdapter<never> {
   @NgInput() declare "className"?: AngularInput<'ListboxGroup', "className">;
   @NgInput({ required: true }) declare "label": AngularInput<'ListboxGroup', "label">;
   @NgInput() declare "labelClassName"?: AngularInput<'ListboxGroup', "labelClassName">;
+  @NgInput() declare "preset"?: AngularInput<'ListboxGroup', "preset">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

@@ -1,10 +1,13 @@
 /** @jsxImportSource preact */
+import type { ClassPreset } from '../presets/types';
 import chevronLeftIcon from '@fortawesome/fontawesome-free/svgs/solid/chevron-left.svg?raw';
 import chevronRightIcon from '@fortawesome/fontawesome-free/svgs/solid/chevron-right.svg?raw';
 import { h, type ComponentChildren } from 'preact';
 import type { ISODateString } from '@revolist/ui-dates';
 
 export function CalendarHeader({
+  preset,
+  className = '',
   label,
   previousLabel,
   nextLabel,
@@ -18,6 +21,8 @@ export function CalendarHeader({
   onPrevious,
   onNext,
 }: {
+  preset?: ClassPreset;
+  className?: string;
   label: string;
   previousLabel: string;
   nextLabel: string;
@@ -36,7 +41,7 @@ export function CalendarHeader({
   onNext: () => void;
 }) {
   return (
-    <header class="revo-calendar__header">
+    <header class={`revo-calendar__header ${preset?.className ?? ''} ${className}`} data-part="root">
       {showPrevious ? (
         <button
           type="button"
@@ -91,18 +96,22 @@ export function CalendarHeader({
 }
 
 export function CalendarWeekdays({
+  preset,
+  className = '',
   dates,
   locale,
   format,
   weekNumberLabel,
 }: {
+  preset?: ClassPreset;
+  className?: string;
   dates: readonly ISODateString[];
   weekNumberLabel?: string;
   locale: string;
   format: (date: ISODateString, locale: string) => string;
 }) {
   return (
-    <div class="revo-calendar__weekdays" role="row">
+    <div class={`revo-calendar__weekdays ${preset?.className ?? ''} ${className}`} data-part="root" role="row">
       {weekNumberLabel && (
         <span role="columnheader" aria-label={weekNumberLabel}>
           #

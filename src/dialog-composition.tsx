@@ -1,9 +1,18 @@
-import { Alert } from '@revolist/ui/controls';
+import { Alert as __themeOriginal_Alert } from '@revolist/ui/controls';
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
-import { DialogActionFooter, DialogBody, DialogForm, EditableDialogHeader } from '@revolist/ui/dialog/dialog.parts';
-import { ButtonControl, Input } from '@revolist/ui/native-control';
+import { DialogActionFooter as __themeOriginal_DialogActionFooter, DialogBody as __themeOriginal_DialogBody, DialogForm as __themeOriginal_DialogForm, EditableDialogHeader as __themeOriginal_EditableDialogHeader } from '@revolist/ui/dialog/dialog.parts';
+import { ButtonControl, Input as __themeOriginal_Input } from '@revolist/ui/native-control';
 import { Example } from './catalog';
+import { withThemePreview } from './theme-preview';
+
+const Alert = withThemePreview(__themeOriginal_Alert, 'Alert');
+const DialogActionFooter = withThemePreview(__themeOriginal_DialogActionFooter, 'DialogActionFooter');
+const DialogBody = withThemePreview(__themeOriginal_DialogBody, 'DialogBody');
+const DialogForm = withThemePreview(__themeOriginal_DialogForm, 'DialogForm');
+const EditableDialogHeader = withThemePreview(__themeOriginal_EditableDialogHeader, 'EditableDialogHeader');
+const Input = withThemePreview(__themeOriginal_Input, 'Input');
+
 
 /** The same composition consumed by Scheduler, Kanban and Gantt. */
 export function DialogCompositionExamples() {

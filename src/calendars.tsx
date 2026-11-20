@@ -1,9 +1,14 @@
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
-import { CalendarPicker, type CalendarRangeSelection } from '@revolist/ui/calendar/index';
+import { CalendarPicker as __themeOriginal_CalendarPicker, type CalendarRangeSelection } from '@revolist/ui/calendar/index';
 import { parseIsoDate, type ISODateString } from '@revolist/ui-dates';
-import { DateTimeField } from '@revolist/ui/date-time';
+import { DateTimeField as __themeOriginal_DateTimeField } from '@revolist/ui/date-time';
 import { Example } from './catalog';
+import { withThemePreview } from './theme-preview';
+
+const CalendarPicker = withThemePreview(__themeOriginal_CalendarPicker, 'CalendarPicker');
+const DateTimeField = withThemePreview(__themeOriginal_DateTimeField, 'DateTimeField');
+
 const reference = '2026-10-24' as const;
 const translations = {
   previousMonth: 'ماه قبل',

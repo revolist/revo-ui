@@ -1,4 +1,7 @@
 import { h, createContext } from 'preact';
+import themeSchema from '../package/presets/theme.schema.json';
+import { themeReferences } from './theme-reference';
+import exampleHooks from './theme-example-hooks.json';
 import { useContext, useEffect, useMemo, useState } from 'preact/hooks';
 import { Disclosure } from '@revolist/ui/preact';
 import { SvgIcon } from '@revolist/ui/icons/icon';
@@ -294,6 +297,33 @@ function MemberHeading({ title, count }: { title: string; count: number }) {
   );
 }
 
+function PresetReference({ name }: { name: string }) {
+  type Option = { properties?: Record<string, Option> };
+  type Definition = { properties?: { props?: Option; tokens?: Option } };
+  const components = themeSchema.properties.components.properties as Record<string, { additionalProperties: { $ref: string } }>;
+  const key = components[name]?.additionalProperties.$ref.split('/').pop() ?? '';
+  const definition = (themeSchema.$defs as Record<string, Definition>)[key];
+  const optionPaths = (properties: Record<string, Option>, prefix = ''): string[] => Object.entries(properties).flatMap(([name, item]) => {
+    const path = prefix ? `${prefix}.${name}` : name;
+    return item.properties ? optionPaths(item.properties, path) : [path];
+  });
+  const options = optionPaths(definition?.properties?.props?.properties ?? {});
+  const tokens = Object.keys(definition?.properties?.tokens?.properties ?? {});
+  const reference = themeReferences[name];
+  const sample = (exampleHooks as Record<string, { parts: string[]; states: string[] }>)[name];
+  const parts = [...new Set([...(reference?.parts ?? []), ...(sample?.parts ?? [])])].sort();
+  return <section class="component-preset-reference">
+    <h4>Preset and CSS</h4>
+    <p>Set <code>preset.className</code> to attach your CSS class to the component's rendered surface. Explicit component props take precedence over preset options.</p>
+    {options.length > 0 && <p>Preset options {options.map((option) => <code key={option}>{option} </code>)}</p>}
+    {tokens.length > 0 && <p>Preset tokens {tokens.map((token) => <code key={token}>{token} </code>)}</p>}
+    {parts.length > 0 && <p>CSS parts in the example {parts.map((part) => <code key={part}>{`[data-part="${part}"] `}</code>)}</p>}
+    {sample?.states.length > 0 && <p>State attributes in the example {sample.states.map((state) => <code key={state}>{state} </code>)}</p>}
+    {reference?.state && <p>{reference.state}</p>}
+    <p>Use <code>styles.root</code> and <code>styles.parts</code> in a theme and generate a CSS file with <code>themeToCss</code>. For other JSON-friendly component props, spread <code>presetProps(preset)</code> before explicit props. Parts and states depend on configuration; the gallery shows those visible in the current preview.</p>
+  </section>;
+}
+
 export function ComponentReference({
   component,
   expanded = false,
@@ -334,6 +364,7 @@ export function ComponentReference({
       >
         {open && (
           <div class="component-api-content">
+            <PresetReference name={component.name} />
             <MemberHeading title="Props" count={props.length} />
             {props.length ? (
               <MemberTable title={`${component.name} props`} members={props} />

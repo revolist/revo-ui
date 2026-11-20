@@ -144,6 +144,7 @@ describe('independent calendar', () => {
     expect(host.querySelector('.revo-calendar__header')).not.toBeNull();
     expect(host.querySelector('.revo-calendar__weekdays')).not.toBeNull();
     expect(host.querySelector('.revo-calendar__month-grid')).not.toBeNull();
+    expect(host.querySelector('.revo-calendar__month-grid')?.getAttribute('data-preset-scope')).toBe('inherit');
     expect(host.querySelectorAll('.revo-calendar__day')).toHaveLength(42);
     expect(host.querySelectorAll('.revo-calendar__day.in-range')).toHaveLength(
       5,
@@ -380,4 +381,23 @@ describe('independent calendar', () => {
     expect(props.onSelect).not.toHaveBeenCalled();
     expect(onInvalidSelection).toHaveBeenCalledTimes(2);
   });
+});
+
+it('applies the calendar preset to its root and exposes day parts', () => {
+  const { host } = mountCalendar({ preset: { className: 'custom-calendar' } });
+  expect(host.querySelector('.custom-calendar[data-part="root"]')).toBeTruthy();
+  expect(host.querySelector('[data-part="day"]')).toBeTruthy();
+});
+
+it('uses calendar preset options unless an instance overrides them', () => {
+  const { host } = mountCalendar({
+    preset: {
+      className: 'custom-calendar',
+      props: { showTodayButton: true, showWeekNumber: true },
+    },
+    showTodayButton: false,
+  });
+  expect(host.querySelector('.custom-calendar')).toBeTruthy();
+  expect(host.querySelector('.revo-calendar__today')).toBeNull();
+  expect(host.querySelector('.revo-calendar--week-numbers')).toBeTruthy();
 });

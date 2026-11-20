@@ -1,3 +1,4 @@
+import type { ClassPreset } from '../presets/types';
 import { getAvatarInitials } from '../avatar';
 /** @jsxImportSource preact */
 import { h } from 'preact';
@@ -21,6 +22,7 @@ const RESOURCE_COLORS = [
 ] as const;
 
 export interface ResourcePickerAvatarProps<Id extends ResourcePickerId> {
+  readonly preset?: ClassPreset;
   readonly resource: ResourcePickerItem<Id>;
   readonly className?: string;
   readonly color?: string;
@@ -65,6 +67,7 @@ export function getResourcePickerForegroundColor(background: string): string {
 }
 
 export function ResourcePickerAvatar<Id extends ResourcePickerId>({
+  preset,
   resource,
   className,
   color,
@@ -78,8 +81,10 @@ export function ResourcePickerAvatar<Id extends ResourcePickerId>({
 
   return (
     <span
+      data-part="root"
       class={resourcePickerClasses(
         'avatar-cell rv-resource-picker__avatar',
+        preset?.className,
         className,
       )}
       style={{

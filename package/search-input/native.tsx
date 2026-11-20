@@ -30,6 +30,7 @@ export function renderSearchInput<H extends (...args: any[]) => any>(
         shortcut === undefined && 'rv-search-input--no-shortcut',
         options.rootClassName,
       ),
+      'data-part': 'root',
       'data-testid': options.testId,
     },
     !hideIcon &&
@@ -40,6 +41,7 @@ export function renderSearchInput<H extends (...args: any[]) => any>(
             'rv-search-input-icon',
             options.iconClassName,
           ),
+          'data-part': 'icon',
           'aria-hidden': 'true',
         },
         options.icon,
@@ -47,6 +49,7 @@ export function renderSearchInput<H extends (...args: any[]) => any>(
     options.leading,
     renderControl(h, 'input', {
       type: 'search',
+      'data-part': 'input',
       ...inputAttributes,
       class: controlClassName(options.inputClassName, inputAttributes.class),
     }),
@@ -58,6 +61,7 @@ export function renderSearchInput<H extends (...args: any[]) => any>(
             'rv-search-input-shortcut',
             options.shortcutClassName,
           ),
+          'data-part': 'shortcut',
         },
         shortcut,
       ),

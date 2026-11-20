@@ -156,3 +156,44 @@ it('renders the shared chip info action with a filled decorative SVG', () => {
   button.click();
   expect(onClick).toHaveBeenCalledOnce();
 });
+
+it('applies a choice preset without replacing explicit options', () => {
+  const host = document.createElement('div');
+  render(
+    <ChoiceChips
+      value="a"
+      options={[{ value: 'a', label: 'A' }]}
+      ariaLabel="Choices"
+      onChange={() => {}}
+      preset={{
+        className: 'custom',
+        props: { appearance: 'outlined', disabled: true },
+      }}
+      disabled={false}
+    />,
+    host,
+  );
+  expect(
+    host.querySelector('[data-part="root"]')?.classList.contains('custom'),
+  ).toBe(true);
+  const item = host.querySelector<HTMLButtonElement>('[data-part="item"]');
+  expect(item?.dataset.state).toBe('selected');
+  expect(item?.disabled).toBe(false);
+  render(null, host);
+});
+
+it('applies the info button preset to its rendered button', () => {
+  render(<ChoiceChipInfoButton aria-label="Details" preset={{ className: 'info-theme' }} />, document.body);
+  const button = document.querySelector('button')!;
+  expect(button.classList.contains('info-theme')).toBe(true);
+  expect(button.getAttribute('data-part')).toBe('root');
+  expect(button.hasAttribute('preset')).toBe(false);
+});
+
+it('exposes composite item parts to the choice group preset', () => {
+  const host = document.createElement('div');
+  render(<ChoiceChips value="a" options={[{ value: 'a', label: 'A', onRemove: () => {} }]} ariaLabel="Choices" onChange={() => {}} />, host);
+  const item = host.querySelector('[data-part="item"]')!;
+  expect(item.closest('[data-part="root"][data-preset-scope="inherit"]')).not.toBeNull();
+  render(null, host);
+});

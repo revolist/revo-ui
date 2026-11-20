@@ -1,4 +1,5 @@
 /** @jsxImportSource preact */
+import type { ClassPreset } from '../presets/types';
 import { h, type ComponentChildren } from 'preact';
 import {
   isValidIsoDate,
@@ -12,6 +13,9 @@ import { isDateInCalendarRange } from './model';
 import type { CalendarDateRange, CalendarDayContext } from './types';
 
 export function CalendarMonthGrid({
+  preset,
+  inheritPresetScope,
+  className = '',
   dates,
   system = 'gregory',
   selectedDates,
@@ -37,6 +41,10 @@ export function CalendarMonthGrid({
   onKeyDown,
   onSelect,
 }: {
+  preset?: ClassPreset;
+  /** Internal composition hook: expose calendar days to the parent preset. */
+  inheritPresetScope?: boolean;
+  className?: string;
   dates: readonly ISODateString[];
   system?: DisplayCalendarSystem;
   selectedDates?: readonly ISODateString[];
@@ -74,7 +82,7 @@ export function CalendarMonthGrid({
   onSelect: (date: ISODateString) => void;
 }) {
   return (
-    <div class="revo-calendar__month-grid">
+    <div class={`revo-calendar__month-grid ${preset?.className ?? ''} ${className}`} data-part="root" data-preset-scope={inheritPresetScope ? 'inherit' : undefined}>
       {Array.from({ length: dates.length / 7 }, (_, week) => (
         <div
           class="revo-calendar__week"
@@ -134,6 +142,7 @@ export function CalendarMonthGrid({
             };
             return (
               <CalendarDay
+                inheritPresetScope
                 key={date}
                 date={date}
                 label={formatDayLabel(date)}

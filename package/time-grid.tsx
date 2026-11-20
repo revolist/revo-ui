@@ -1,3 +1,4 @@
+import type { ClassPreset } from './presets/types';
 import { TooltipText } from './core/tooltip-text';
 /** @jsxImportSource preact */
 import { ButtonControl as UiButton } from './native-control';
@@ -18,6 +19,8 @@ export interface TimeGridDayLabel {
 }
 
 export interface TimeGridProps {
+  readonly preset?: ClassPreset;
+  readonly className?: string;
   readonly disabled?: boolean;
   readonly days: readonly TimeGridDayLabel[];
   readonly cells: ReadonlySet<string>;
@@ -71,7 +74,7 @@ export function TimeGrid(props: TimeGridProps) {
   const classes = (part: string) => `rv-time-grid__${part}`;
   const hours = Array.from({ length: 12 }, (_, bucket) => bucket * 2);
   return (
-    <div class={classes('schedule')}>
+    <div class={`${classes('schedule')} ${props.preset?.className ?? ''} ${props.className ?? ''}`} data-part="root">
       <div class={classes('hours')} aria-hidden="true">
         <span />
         {hours.map((hour) => (
@@ -83,6 +86,7 @@ export function TimeGrid(props: TimeGridProps) {
       <div
         ref={props.matrixRef}
         class={classes('matrix')}
+        data-part="matrix"
         role="grid"
         aria-label={props.gridLabel}
         aria-rowcount={props.days.length}
@@ -119,6 +123,7 @@ export function TimeGrid(props: TimeGridProps) {
                     type="button"
                     disabled={props.disabled}
                     role="gridcell"
+                    data-part="cell"
                     data-time-cell={key}
                     class={cellClassName({ weekend, outsideWorkHours })}
                     aria-selected={selected}

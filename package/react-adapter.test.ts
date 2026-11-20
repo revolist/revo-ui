@@ -276,3 +276,22 @@ it('installs styles before application layout effects and supports explicit nonc
   expect(host.textContent).toContain('Styled');
   configureUiStyles({});
 });
+
+it('applies a portable Switch preset through React', async () => {
+  setup();
+  const preset = JSON.parse(
+    '{"className":"shared-switch","props":{"labelPosition":"after"},"tokens":{"trackWidth":"48px"}}',
+  );
+  await act(async () => {
+    root!.render(
+      h(Switch, { label: 'Alerts', checked: true, onChange: () => {}, preset }),
+    );
+    await settle();
+  });
+  const button = host.querySelector('button')!;
+  expect(button.classList.contains('shared-switch')).toBe(true);
+  expect(button.firstElementChild?.getAttribute('data-part')).toBe('track');
+  expect(
+    button.style.getPropertyValue('--rv-ui-switch-preset-track-width'),
+  ).toBe('48px');
+});

@@ -14,6 +14,7 @@ export class ResourcePickerAvatar extends AngularComponentAdapter<never> {
   protected rvResolveComponent() { return Control; }
   @NgInput() declare "className"?: AngularInput<'ResourcePickerAvatar', "className">;
   @NgInput() declare "color"?: AngularInput<'ResourcePickerAvatar', "color">;
+  @NgInput() declare "preset"?: AngularInput<'ResourcePickerAvatar', "preset">;
   @NgInput({ required: true }) declare "resource": AngularInput<'ResourcePickerAvatar', "resource">;
 
   protected rvResolveProps() { return this.rvInputValues; }

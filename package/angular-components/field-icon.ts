@@ -13,6 +13,7 @@ export class FieldIcon extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'FieldIcon';
   protected rvResolveComponent() { return Control; }
   @NgInput() declare "className"?: AngularInput<'FieldIcon', "className">;
+  @NgInput() declare "preset"?: AngularInput<'FieldIcon', "preset">;
   @NgInput({ required: true }) declare "svg": AngularInput<'FieldIcon', "svg">;
 
   protected rvResolveProps() { return this.rvInputValues; }

@@ -20,6 +20,7 @@ export class AreaChart extends AngularComponentAdapter<never> {
   @NgInput() declare "height"?: AngularInput<'AreaChart', "height">;
   @NgInput() declare "interpolation"?: AngularInput<'AreaChart', "interpolation">;
   @NgInput() declare "legend"?: AngularInput<'AreaChart', "legend">;
+  @NgInput() declare "preset"?: AngularInput<'AreaChart', "preset">;
   @NgInput() declare "renderTooltip"?: AngularInput<'AreaChart', "renderTooltip">;
   @NgInput() declare "showGrid"?: AngularInput<'AreaChart', "showGrid">;
   @NgInput() declare "showLabels"?: AngularInput<'AreaChart', "showLabels">;

@@ -21,6 +21,7 @@ export class SliderField extends AngularComponentAdapter<never> {
   @NgInput() declare "disabled"?: AngularInput<'SliderField', "disabled">;
   @NgInput() declare "formatValue"?: AngularInput<'SliderField', "formatValue">;
   @NgInput() declare "id"?: AngularInput<'SliderField', "id">;
+  @NgInput() declare "inheritPresetScope"?: AngularInput<'SliderField', "inheritPresetScope">;
   @NgInput({ required: true }) declare "label": AngularInput<'SliderField', "label">;
   @NgInput() declare "layout"?: AngularInput<'SliderField', "layout">;
   @NgInput({ required: true }) declare "max": AngularInput<'SliderField', "max">;
@@ -28,6 +29,7 @@ export class SliderField extends AngularComponentAdapter<never> {
   @NgInput() declare "onChange"?: AngularInput<'SliderField', "onChange">;
   @NgInput() declare "onCommit"?: AngularInput<'SliderField', "onCommit">;
   @NgInput() declare "onKeyDown"?: AngularInput<'SliderField', "onKeyDown">;
+  @NgInput() declare "preset"?: AngularInput<'SliderField', "preset">;
   @NgInput() declare "step"?: AngularInput<'SliderField', "step">;
   @NgInput() declare "ticks"?: AngularInput<'SliderField', "ticks">;
   @NgInput({ required: true }) declare "value": AngularInput<'SliderField', "value">;

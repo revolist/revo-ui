@@ -1,9 +1,15 @@
-import { Dropdown } from '@revolist/ui/dropdown/index';
+import { Dropdown as __themeOriginal_Dropdown } from '@revolist/ui/dropdown/index';
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import { Example } from './catalog';
 import { PaginationPanel } from '@revolist/ui/native';
-import { Pagination, FieldHint } from '@revolist/ui/preact';
+import { Pagination as __themeOriginal_Pagination, FieldHint as __themeOriginal_FieldHint } from '@revolist/ui/preact';
+import { withThemePreview } from './theme-preview';
+
+const Dropdown = withThemePreview(__themeOriginal_Dropdown, 'Dropdown');
+const Pagination = withThemePreview(__themeOriginal_Pagination, 'Pagination');
+const FieldHint = withThemePreview(__themeOriginal_FieldHint, 'FieldHint');
+
 
 export function PaginationExamples() {
   const [simple, setSimple] = useState(0),

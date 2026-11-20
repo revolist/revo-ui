@@ -25,3 +25,24 @@ it('preserves the solid default and supports neutral/accent badges in both shape
   }
   render(null, host);
 });
+
+it('applies a badge preset and respects explicit variants', () => {
+  const host = document.createElement('div');
+  render(
+    <Badge
+      preset={{
+        className: 'custom',
+        props: { variant: 'accent', shape: 'rounded' },
+      }}
+      variant="neutral"
+    >
+      Ready
+    </Badge>,
+    host,
+  );
+  const badge = host.querySelector('[data-part="root"]');
+  expect(badge?.classList.contains('custom')).toBe(true);
+  expect(badge?.classList.contains('rv-badge--neutral')).toBe(true);
+  expect(badge?.classList.contains('rv-badge--rounded')).toBe(true);
+  render(null, host);
+});

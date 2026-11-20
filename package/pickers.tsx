@@ -28,7 +28,7 @@ import type {
   CalendarProps,
   CalendarView,
 } from './calendar/types';
-import { Dropdown, type DropdownProps } from './dropdown';
+import { Dropdown, type DropdownProps, type DropdownPreset } from './dropdown';
 import {
   PopoverController,
   DialogController,
@@ -42,7 +42,12 @@ import { DateControl, type DateInputOptions } from './date-time/date-control';
 import { avatarTemplate, type AvatarTemplateOptions } from './avatar';
 import { renderProgressBar, type ProgressBarProps } from './progress/bar';
 
-export function Combobox<T>(props: DropdownProps<T>) {
+type DropdownPresetConfig = NonNullable<NonNullable<DropdownPreset['props']>['config']>;
+/** Search and single selection are owned by Combobox. */
+export type ComboboxPreset = { className?: string; props?: { disabled?: boolean; config?: Omit<DropdownPresetConfig, 'search' | 'multiSelect'> } };
+/** Multiple selection is owned by MultiSelect. */
+export type MultiSelectPreset = { className?: string; props?: { disabled?: boolean; config?: Omit<DropdownPresetConfig, 'multiSelect'> } };
+export function Combobox<T>(props: Omit<DropdownProps<T>, 'preset'> & { preset?: ComboboxPreset }) {
   return (
     <Dropdown
       {...props}
@@ -51,7 +56,7 @@ export function Combobox<T>(props: DropdownProps<T>) {
     />
   );
 }
-export function MultiSelect<T>(props: DropdownProps<T>) {
+export function MultiSelect<T>(props: Omit<DropdownProps<T>, 'preset'> & { preset?: MultiSelectPreset }) {
   return (
     <Dropdown
       {...props}
@@ -67,7 +72,17 @@ export function ProgressBar(props: ProgressBarProps) {
   return renderProgressBar(h, props);
 }
 
+export interface PopoverPreset {
+  className?: string;
+  props?: {
+    closeOnOutside?: boolean;
+    closeOnEscape?: boolean;
+    role?: 'dialog' | 'menu';
+  };
+}
+
 export interface PopoverProps {
+  preset?: PopoverPreset;
   open: boolean;
   anchor: HTMLElement | null;
   /** Optional mount scope for inherited theme tokens and text direction. */
@@ -87,18 +102,22 @@ export function Popover(props: PopoverProps) {
 }
 
 function PopoverSurface({
+  preset,
   open,
   anchor,
   appendTo,
-  closeOnOutside,
-  closeOnEscape,
+  closeOnOutside: closeOnOutsideProp,
+  closeOnEscape: closeOnEscapeProp,
   onClose,
   children,
   label,
   className = '',
-  role = 'dialog',
+  role: roleProp,
   requestDismissal = false,
 }: PopoverProps & { requestDismissal?: boolean }) {
+  const closeOnOutside = closeOnOutsideProp ?? preset?.props?.closeOnOutside;
+  const closeOnEscape = closeOnEscapeProp ?? preset?.props?.closeOnEscape;
+  const role = roleProp ?? preset?.props?.role ?? 'dialog';
   const ref = useRef<HTMLDivElement>(null);
   const closeRef = useRef(onClose);
   closeRef.current = onClose;
@@ -149,7 +168,8 @@ function PopoverSurface({
   return (
     <div
       ref={ref}
-      class={`rv-popover ${role === 'menu' ? 'rv-menu ' : ''}${className}`}
+      class={`rv-popover ${role === 'menu' ? 'rv-menu ' : ''}${preset?.className ?? ''} ${className}`}
+      data-part="root"
       role={role}
       aria-label={label}
       hidden={!open}
@@ -159,7 +179,9 @@ function PopoverSurface({
   );
 }
 
+export type TooltipPreset = import('./presets/types').ClassPreset & { props?: { side?: 'top' | 'bottom' | 'left' | 'right' | 'inline-start' | 'inline-end'; align?: 'start' | 'center' | 'end'; trigger?: 'hover' | 'focus' | 'click' | 'manual'; delay?: number; arrow?: boolean; disabled?: boolean; closeOnEscape?: boolean; closeOnOutside?: boolean; autoHide?: boolean } };
 export interface TooltipProps extends TooltipControllerOptions {
+  preset?: TooltipPreset;
   /** Simple text remains supported; content/renderContent can provide rich non-interactive descriptions. */
   text?: string;
   content?: import('./core/tooltip-options').TooltipContent;
@@ -170,8 +192,10 @@ export interface TooltipProps extends TooltipControllerOptions {
 }
 export function Tooltip(props: TooltipProps) {
   const ref = useRef<HTMLSpanElement>(null);
-  const latest = useRef(props);
-  latest.current = props;
+  const defaults = Object.fromEntries(Object.entries(props.preset?.props ?? {}).filter(([key]) => (props as unknown as Record<string, unknown>)[key] === undefined));
+  const options = { ...props, ...defaults, className: [props.preset?.className, props.className].filter(Boolean).join(' ') || undefined };
+  const latest = useRef(options);
+  latest.current = options;
   const [controller] = useState(() => new TooltipController());
   const initial = useRef(false);
   const reopenAfterBind = useRef(false);
@@ -202,6 +226,7 @@ export function Tooltip(props: TooltipProps) {
       const wasOpen = controller.isOpen || reopenAfterBind.current;
       reopenAfterBind.current = false;
       controller.bind(next, options.content ?? options.text ?? '', options);
+      controller.element?.setAttribute('data-preset-surface', '');
       anchor = next;
       synchronize();
       if (wasOpen && options.open === undefined) controller.setOpen(true);
@@ -227,13 +252,19 @@ export function Tooltip(props: TooltipProps) {
   }, [controller, props.anchor, props.filter]);
   useLayoutEffect(synchronize);
   return (
-    <span ref={ref} class="rv-tooltip-anchor">
+    <span ref={ref} class={`rv-tooltip-anchor ${props.preset?.className ?? ''}`} data-part="root">
       {props.children}
     </span>
   );
 }
 
+export interface DialogPreset {
+  className?: string;
+  props?: { draggable?: boolean };
+}
+
 export interface DialogProps {
+  preset?: DialogPreset;
   open: boolean;
   title: string;
   closeLabel: string;
@@ -244,15 +275,18 @@ export interface DialogProps {
   returnFocus?: HTMLElement;
 }
 export function Dialog({
+  preset,
   open,
   title,
   closeLabel,
   onClose,
   children,
   footer,
-  draggable,
+  draggable: draggableProp,
   returnFocus,
 }: DialogProps) {
+  const draggable = draggableProp ?? preset?.props?.draggable;
+  const surface = useRef<HTMLElement>();
   const placeholder = useRef<HTMLSpanElement>(null);
   const closeRef = useRef(onClose);
   closeRef.current = onClose;
@@ -278,12 +312,23 @@ export function Dialog({
         if (active) closeRef.current();
       },
     });
+    surface.current = handle.surface;
+    handle.surface.setAttribute('data-part', 'root');
     setTargets({ body: handle.body, footer: handle.footer });
     return () => {
       active = false;
       controller.destroy();
+      surface.current = undefined;
     };
   }, [open, title, closeLabel, draggable, returnFocus]);
+  useLayoutEffect(() => {
+    const element = surface.current;
+    if (!element) return;
+    const classes = (preset?.className ?? '').split(/\s+/).filter(Boolean);
+    const added = classes.filter((name) => !element.classList.contains(name));
+    element.classList.add(...added);
+    return () => element.classList.remove(...added);
+  }, [open, title, closeLabel, draggable, returnFocus, preset?.className]);
   return (
     <>
       <span ref={placeholder} hidden />
@@ -706,7 +751,7 @@ export function DatePicker(props: DatePickerProps) {
   const [id] = useState(() => createControlId('rv-date-picker'));
   const displayValue = dateInput === false ? value : undefined;
   return (
-    <div ref={root} class="rv-date-picker">
+    <div ref={root} class={`rv-date-picker ${calendarOptions.preset?.className ?? ''}`} data-part="picker" data-preset-scope="root">
       {dateInput !== false && (
         <DateControl
           key={resetKey}
@@ -775,6 +820,7 @@ export function DatePicker(props: DatePickerProps) {
         <div id={id} ref={calendar.content} tabIndex={-1}>
           <Calendar
             {...calendarOptions}
+            presetSurface
             {...calendar.calendarProps}
             selection={selection}
             onSelect={(date) => {
@@ -948,7 +994,9 @@ export function DateRangePicker(props: DateRangePickerProps) {
   return (
     <div
       ref={root}
-      class="rv-date-range-picker"
+      class={`rv-date-range-picker ${calendarOptions.preset?.className ?? ''}`}
+      data-part="picker"
+      data-preset-scope="root"
       role="group"
       aria-label={label}
     >
@@ -1041,6 +1089,7 @@ export function DateRangePicker(props: DateRangePickerProps) {
         <div id={id} ref={calendar.content} tabIndex={-1}>
           <Calendar
             {...calendarOptions}
+            presetSurface
             {...calendar.calendarProps}
             selection={selection}
             preview={preview}

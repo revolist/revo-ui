@@ -81,6 +81,8 @@ const PlaceholderValue = ({
  * Dropdown component
  */
 function DropdownSelect<T = any>({
+  preset,
+  presetSurface,
   source: localSource,
   triggerAttributes,
   dataSource,
@@ -89,12 +91,12 @@ function DropdownSelect<T = any>({
   value,
   onChange,
   placeholder = 'Select an option',
-  disabled = false,
+  disabled: disabledProp,
   name,
   id,
   className = '',
   style,
-  config = {},
+  config: configProp,
   renderContent,
   renderOption,
   renderValue,
@@ -105,6 +107,8 @@ function DropdownSelect<T = any>({
   beforeOutsideClose,
   environment,
 }: DropdownProps<T>): any {
+  const disabled = disabledProp ?? preset?.props?.disabled ?? false;
+  const config = { ...preset?.props?.config, ...configProp };
   // Default configuration
   const {
     search = false,
@@ -363,7 +367,8 @@ function DropdownSelect<T = any>({
         portalTarget={portalTarget}
         theme={theme}
         dropdownMenuId={dropdownMenuId}
-        popupClassName={popupClassName}
+        popupClassName={[preset?.className, popupClassName].filter(Boolean).join(' ')}
+        inheritedPresetSurface={!!preset?.className}
         maxHeight={maxHeight}
       >
         {renderContent ? (
@@ -418,13 +423,16 @@ function DropdownSelect<T = any>({
 
   return (
     <div
-      className={`dropdown-container ${className} ${disabled ? 'disabled' : ''}`}
+      className={`dropdown-container ${preset?.className ?? ''} ${className} ${disabled ? 'disabled' : ''}`}
+      data-part="root"
+      data-preset-surface={presetSurface ? '' : undefined}
       style={style}
     >
       <div
         {...triggerProps}
         ref={triggerRef}
         className={`dropdown-trigger ${isOpen ? 'open' : ''}`}
+        data-part="trigger"
         role="combobox"
         data-value={
           Array.isArray(value)

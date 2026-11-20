@@ -20,6 +20,7 @@ export class DropdownPopupContent extends AngularComponentAdapter<never> {
   @NgInput() declare "onClose"?: AngularInput<'DropdownPopupContent', "onClose">;
   @NgInput() declare "onTabNavigation"?: AngularInput<'DropdownPopupContent', "onTabNavigation">;
   @NgInput({ required: true }) declare "options": AngularInput<'DropdownPopupContent', "options">;
+  @NgInput() declare "preset"?: AngularInput<'DropdownPopupContent', "preset">;
   @NgInput() declare "remote"?: AngularInput<'DropdownPopupContent', "remote">;
   @NgInput() declare "renderNoResults"?: AngularInput<'DropdownPopupContent', "renderNoResults">;
   @NgInput() declare "renderOption"?: AngularInput<'DropdownPopupContent', "renderOption">;

@@ -421,3 +421,24 @@ it('forwards Vue popover dismissal props and reactive kebab-case updates', async
     anchor.remove();
   }
 });
+
+it('applies the same portable Switch preset through Vue', async () => {
+  const preset = JSON.parse(
+    '{"className":"shared-switch","props":{"labelPosition":"after"},"tokens":{"trackWidth":"48px"}}',
+  );
+  const app = createApp({
+    render: () => h(Switch, { label: 'Alerts', modelValue: true, preset }),
+  });
+  const host = document.createElement('div');
+  document.body.append(host);
+  app.mount(host);
+  await settle();
+  const button = host.querySelector('button')!;
+  expect(button.classList.contains('shared-switch')).toBe(true);
+  expect(button.firstElementChild?.getAttribute('data-part')).toBe('track');
+  expect(
+    button.style.getPropertyValue('--rv-ui-switch-preset-track-width'),
+  ).toBe('48px');
+  app.unmount();
+  host.remove();
+});

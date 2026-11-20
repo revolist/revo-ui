@@ -1,3 +1,4 @@
+import type { ClassPreset } from '../presets/types';
 import { h, toChildArray, type ComponentChildren, type JSX } from 'preact';
 import { useEffect, useLayoutEffect, useRef, useState } from 'preact/hooks';
 import { Button, Disclosure, IconButton, Spinner } from '../controls';
@@ -13,6 +14,7 @@ import { useAiText } from './translation-context';
 import type { AiUiTranslations } from './translations';
 
 export interface AiChatPartProps {
+  preset?: ClassPreset;
   children?: ComponentChildren;
   className?: string;
   translations?: AiUiTranslations;
@@ -23,6 +25,7 @@ export interface AiChatProps extends AiChatPartProps {
 }
 /** Presentation only. The host owns transcript, provider, actions and persistence. */
 export function AiChat({
+  preset,
   children,
   className = '',
   label = 'AI chat',
@@ -32,7 +35,8 @@ export function AiChat({
   const t = useAiText(translations);
   return (
     <section
-      class={`rv-ai-chat ${className}`}
+      class={`rv-ai-chat ${preset?.className ?? ''} ${className}`}
+      data-part="root"
       aria-label={t(label)}
       style={style}
     >
@@ -49,6 +53,7 @@ export interface AiChatContentProps extends AiChatPartProps {
 }
 /** Scroll measurement belongs to this visual viewport, never to a grid/data owner. */
 export function AiChatContent({
+  preset,
   children,
   className = '',
   autoScroll = true,
@@ -92,10 +97,14 @@ export function AiChatContent({
     return () => observer.disconnect();
   }, [autoScroll]);
   return (
-    <div class={`rv-ai-chat-scroll ${className}`}>
+    <div
+      class={`rv-ai-chat-scroll ${preset?.className ?? ''} ${className}`}
+      data-part="root"
+    >
       <div
         ref={viewport}
         class="rv-ai-chat-viewport"
+        data-part="viewport"
         role="log"
         aria-label={t(label)}
         aria-live="polite"
@@ -104,7 +113,7 @@ export function AiChatContent({
         tabIndex={0}
         onScroll={measure}
       >
-        <div ref={content} class="rv-ai-chat-content">
+        <div ref={content} class="rv-ai-chat-content" data-part="content">
           {children}
         </div>
       </div>
@@ -128,6 +137,7 @@ export interface AiChatEmptyStateProps extends AiChatPartProps {
   renderContent?(host: HTMLElement): void | (() => void);
 }
 export function AiChatEmptyState({
+  preset,
   title = 'Start a conversation',
   description = 'Ask a question to get started.',
   children,
@@ -147,7 +157,10 @@ export function AiChatEmptyState({
     };
   }, [renderContent]);
   return (
-    <div class={`rv-ai-chat-empty ${className}`}>
+    <div
+      class={`rv-ai-chat-empty ${preset?.className ?? ''} ${className}`}
+      data-part="root"
+    >
       {title && <strong>{t(title)}</strong>}
       {description && <p>{t(description)}</p>}
       {children}
@@ -169,6 +182,7 @@ export interface AiMessageProps extends AiChatPartProps {
   isStreaming?: boolean;
 }
 export function AiMessage({
+  preset,
   from,
   label,
   isStreaming = false,
@@ -179,7 +193,8 @@ export function AiMessage({
   const t = useAiText(translations);
   return (
     <article
-      class={`rv-ai-message rv-ai-message--${from} ${className}`}
+      class={`rv-ai-message rv-ai-message--${from} ${preset?.className ?? ''} ${className}`}
+      data-part="root"
       aria-label={t(
         label ??
           { user: 'You', assistant: 'Assistant', system: 'System' }[from],
@@ -193,15 +208,24 @@ export function AiMessage({
 }
 /** Text stays text. Hosts can supply their own trusted Markdown renderer as children. */
 export function AiMessageContent({
+  preset,
   children,
   className = '',
 }: AiChatPartProps) {
-  return <div class={`rv-ai-message-content ${className}`}>{children}</div>;
+  return (
+    <div
+      class={`rv-ai-message-content ${preset?.className ?? ''} ${className}`}
+      data-part="root"
+    >
+      {children}
+    </div>
+  );
 }
 export interface AiMessageActionsProps extends AiChatPartProps {
   label?: string;
 }
 export function AiMessageActions({
+  preset,
   children,
   className = '',
   label = 'Message actions',
@@ -210,7 +234,8 @@ export function AiMessageActions({
   const t = useAiText(translations);
   return (
     <div
-      class={`rv-ai-message-actions ${className}`}
+      class={`rv-ai-message-actions ${preset?.className ?? ''} ${className}`}
+      data-part="root"
       role="group"
       aria-label={t(label)}
     >
@@ -261,6 +286,7 @@ export interface AiTaskProps extends AiChatPartProps {
 }
 /** Native disclosure shared by task and published reasoning summaries. */
 function AiTrace({
+  preset,
   title,
   status = 'completed',
   open,
@@ -293,11 +319,16 @@ function AiTrace({
   );
   if (!hasContent)
     return (
-      <div class={`rv-ai-trace rv-ai-trace-line ${className}`}>{heading}</div>
+      <div
+        class={`rv-ai-trace rv-ai-trace-line ${preset?.className ?? ''} ${className}`}
+        data-part="root"
+      >
+        {heading}
+      </div>
     );
   return (
     <Disclosure
-      className={`rv-ai-trace ${className}`}
+      className={`rv-ai-trace ${preset?.className ?? ''} ${className}`}
       open={expanded}
       onToggle={(event) => {
         const next = event.currentTarget.open;
@@ -310,7 +341,9 @@ function AiTrace({
       }}
       summary={heading}
     >
-      <div class="rv-ai-trace-content">{children}</div>
+      <div class="rv-ai-trace-content" data-part="content">
+        {children}
+      </div>
     </Disclosure>
   );
 }
@@ -321,6 +354,7 @@ export interface AiTaskItemProps extends AiChatPartProps {
   status?: AiTaskStatus;
 }
 export function AiTaskItem({
+  preset,
   status = 'completed',
   children,
   className = '',
@@ -328,7 +362,10 @@ export function AiTaskItem({
 }: AiTaskItemProps) {
   const t = useAiText(translations);
   return (
-    <div class={`rv-ai-task-item ${className}`}>
+    <div
+      class={`rv-ai-task-item ${preset?.className ?? ''} ${className}`}
+      data-part="root"
+    >
       <TaskIcon status={status} />
       <span class="rv-visually-hidden">{t(statusLabels[status])}: </span>
       <div>{children}</div>

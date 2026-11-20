@@ -1,13 +1,21 @@
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import {
-  AiAssistant,
-  AiChatComposer,
-  AiSuggestions,
-  AiActionStatus,
-  AiResult,
+  AiAssistant as __themeOriginal_AiAssistant,
+  AiChatComposer as __themeOriginal_AiChatComposer,
+  AiSuggestions as __themeOriginal_AiSuggestions,
+  AiActionStatus as __themeOriginal_AiActionStatus,
+  AiResult as __themeOriginal_AiResult,
 } from '@revolist/ui/preact';
 import { Example } from './catalog';
+import { withThemePreview } from './theme-preview';
+
+const AiAssistant = withThemePreview(__themeOriginal_AiAssistant, 'AiAssistant');
+const AiChatComposer = withThemePreview(__themeOriginal_AiChatComposer, 'AiChatComposer');
+const AiSuggestions = withThemePreview(__themeOriginal_AiSuggestions, 'AiSuggestions');
+const AiActionStatus = withThemePreview(__themeOriginal_AiActionStatus, 'AiActionStatus');
+const AiResult = withThemePreview(__themeOriginal_AiResult, 'AiResult');
+
 
 export function AiExamples() {
   const [value, setValue] = useState('');

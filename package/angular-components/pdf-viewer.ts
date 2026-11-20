@@ -24,6 +24,7 @@ export class PdfViewer extends AngularComponentAdapter<never> {
   @NgInput() declare "onPageChange"?: AngularInput<'PdfViewer', "onPageChange">;
   @NgInput() declare "onReady"?: AngularInput<'PdfViewer', "onReady">;
   @NgInput() declare "onZoomChange"?: AngularInput<'PdfViewer', "onZoomChange">;
+  @NgInput() declare "preset"?: AngularInput<'PdfViewer', "preset">;
   @NgInput() declare "renderStatus"?: AngularInput<'PdfViewer', "renderStatus">;
   @NgInput() declare "renderToolbar"?: AngularInput<'PdfViewer', "renderToolbar">;
   @NgInput() declare "showHeader"?: AngularInput<'PdfViewer', "showHeader">;

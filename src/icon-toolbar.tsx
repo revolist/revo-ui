@@ -1,7 +1,11 @@
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
-import { IconToolbar, ICON_TOOLBAR_ICONS } from '@revolist/ui/icon-toolbar';
+import { IconToolbar as __themeOriginal_IconToolbar, ICON_TOOLBAR_ICONS } from '@revolist/ui/icon-toolbar';
 import { Example } from './catalog';
+import { withThemePreview } from './theme-preview';
+
+const IconToolbar = withThemePreview(__themeOriginal_IconToolbar, 'IconToolbar');
+
 
 export function IconToolbarExample() {
   const [window, setWindow] = useState({ start: 0, span: 100 });

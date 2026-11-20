@@ -1,3 +1,6 @@
+import { ThemeSamples, hasThemeSample } from './theme-samples';
+import { ThemeEditor, type ThemePreview } from './theme-editor';
+import { ThemePreviewContext } from './theme-preview';
 import documentation from './documentation.json';
 import { documentationPage } from './documentation';
 import { accessibilityArticle } from './accessibility';
@@ -17,7 +20,7 @@ import {
   toChildArray,
   type ComponentChildren,
 } from 'preact';
-import { useContext, useEffect, useRef, useState } from 'preact/hooks';
+import { useCallback, useContext, useEffect, useRef, useState } from 'preact/hooks';
 import { Button, DialogCloseButton, SearchInput, Switch, Toolbar } from '@revolist/ui/preact';
 
 import pages from './pages.json';
@@ -72,6 +75,9 @@ export function Section({
   columns?: number;
 }) {
   const route = useContext(Route);
+  const [themePreview, setThemePreview] = useState<ThemePreview>();
+  const [previewMatches, setPreviewMatches] = useState(0);
+  const reportPreview = useCallback((change: number) => setPreviewMatches((count) => count + change), []);
   if (
     route &&
     route !== 'components' &&
@@ -104,11 +110,22 @@ export function Section({
           ↗
         </a>
       </div>
+      <ThemeEditor family={title} onPreview={setThemePreview} />
+      {themePreview && <style>{themePreview.css}</style>}
+      {themePreview && <ThemeSamples preview={themePreview} />}
+      {themePreview && !previewMatches && !hasThemeSample(themePreview.component) && (
+        <p class="theme-preview-note">
+          Shared colors and radius are previewed across these examples. Component
+          options apply when you use the downloaded preset in your project.
+        </p>
+      )}
       <div
-        class="examples"
+        class={`examples ${themePreview && !previewMatches ? themePreview.preset.className : ''}`}
         style={{ '--catalog-columns': Math.min(3, columns ?? cardCount) }}
       >
-        {children}
+        <ThemePreviewContext.Provider value={{ preview: themePreview, report: reportPreview }}>
+          {children}
+        </ThemePreviewContext.Provider>
       </div>
       <ApiReference family={title} />
     </section>

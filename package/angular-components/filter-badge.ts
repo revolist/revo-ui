@@ -19,6 +19,7 @@ export class FilterBadge extends AngularComponentAdapter<never> {
   @NgInput() declare "detailsLabel"?: AngularInput<'FilterBadge', "detailsLabel">;
   @NgInput() declare "label"?: AngularInput<'FilterBadge', "label">;
   @NgInput() declare "onRemove"?: AngularInput<'FilterBadge', "onRemove">;
+  @NgInput() declare "preset"?: AngularInput<'FilterBadge', "preset">;
   @NgInput() declare "removeClassName"?: AngularInput<'FilterBadge', "removeClassName">;
   @NgInput() declare "removeLabel"?: AngularInput<'FilterBadge', "removeLabel">;
   @NgInput() declare "role"?: AngularInput<'FilterBadge', "role">;

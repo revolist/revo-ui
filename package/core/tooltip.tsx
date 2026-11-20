@@ -1,3 +1,4 @@
+import type { ClassPreset } from '../presets/types';
 /** @jsxImportSource preact */
 import { h, type ComponentChildren, type TargetedEvent } from 'preact';
 import { useCallback, useLayoutEffect, useRef, useState } from 'preact/hooks';
@@ -131,6 +132,7 @@ export function useControlTooltip(
   } as const;
 }
 export interface ControlTooltipProps extends TooltipOptions {
+  preset?: ClassPreset;
   id: string;
   text: string;
   content?: ComponentChildren;
@@ -139,6 +141,7 @@ export interface ControlTooltipProps extends TooltipOptions {
 }
 /** A controlled presentation surface; the host owns trigger markup and focus. */
 export function ControlTooltip({
+  preset,
   id,
   text,
   content,
@@ -147,6 +150,7 @@ export function ControlTooltip({
   className = 'rv-format-control-tooltip',
   ...options
 }: ControlTooltipProps) {
+  const classes = [preset?.className, className].filter(Boolean).join(' ');
   const [session] = useState(() => new TooltipSession());
   const ref = useCallback(
     (element: HTMLSpanElement | null) => {
@@ -156,7 +160,7 @@ export function ControlTooltip({
     [session],
   );
   useLayoutEffect(() => {
-    session.configure({ ...options, className });
+    session.configure({ ...options, className: classes });
   });
   useLayoutEffect(() => {
     if (visible && anchor) session.show(anchor, 'controlled');
@@ -167,7 +171,8 @@ export function ControlTooltip({
     <span
       ref={ref}
       id={id}
-      class={`rv-tooltip ${className}`}
+      class={`rv-tooltip ${classes}`}
+      data-part="root"
       role="tooltip"
       data-visible="false"
       hidden

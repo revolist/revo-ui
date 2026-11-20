@@ -101,5 +101,13 @@
     "source": "integration-lovable.md",
     "category": "Integrations",
     "seoTitle": "Lovable UI integration with React"
+  },
+  "presets": {
+    "label": "Themes and presets",
+    "title": "Themes and presets",
+    "description": "Create reusable JSON and CSS themes, customize component behavior, and share presets across projects.",
+    "source": "presets.md",
+    "category": "Essentials",
+    "seoTitle": "Themes and presets"
   }
 }

@@ -19,6 +19,7 @@ export class RadioGroup extends AngularComponentAdapter<AngularCallbackValue<Ang
   @NgInput() declare "name"?: AngularInput<'RadioGroup', "name">;
   @NgInput() declare "onChange"?: AngularInput<'RadioGroup', "onChange">;
   @NgInput({ required: true }) declare "options": AngularInput<'RadioGroup', "options">;
+  @NgInput() declare "preset"?: AngularInput<'RadioGroup', "preset">;
   @NgInput({ required: true }) declare "value": AngularInput<'RadioGroup', "value">;
 
   protected rvResolveProps() { return this.rvInputValues; }

@@ -223,3 +223,16 @@ it('uses shared masking in popup date inputs and commits or clears their ISO val
   );
   expect(values).toEqual(['2026-11-20', null]);
 });
+
+
+it('updates the open date picker theme without discarding its draft', () => {
+  const field = (className: string) => <DateTimeField value="2026-10-12" preset={{ className }} />;
+  act(() => render(field('theme-one'), host));
+  act(() => host.querySelector('button')!.click());
+  const panel = document.querySelector<HTMLElement>('.rv-editor-popup')!;
+  expect(panel.classList.contains('theme-one')).toBe(true);
+  act(() => render(field('theme-two'), host));
+  expect(document.querySelector('.rv-editor-popup')).toBe(panel);
+  expect(panel.classList.contains('theme-one')).toBe(false);
+  expect(panel.classList.contains('theme-two')).toBe(true);
+});

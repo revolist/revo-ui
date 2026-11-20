@@ -1,5 +1,6 @@
 /** @jsxRuntime automatic */
 /** @jsxImportSource preact */
+import type { ClassPreset } from '../presets/types';
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { Input } from '../native-control';
 import { Button } from '../controls';
@@ -28,12 +29,14 @@ export type {
 
 /** Staged numeric input shared by number, currency and ratio editor adapters. */
 export function NumberDraft({
+  preset,
   value,
   options,
   apply,
   cancel,
   initialSelection = 'all',
 }: {
+  preset?: ClassPreset;
   value: unknown;
   options: NumberInputOptions;
   apply: (value: number | null) => void;
@@ -84,7 +87,8 @@ export function NumberDraft({
   }, []);
   return (
     <div
-      class="rv-number-draft"
+      class={`rv-number-draft ${preset?.className ?? ''}`}
+      data-part="root"
       onKeyDown={(event) => {
         if (event.isComposing || composing.current) return;
         if (

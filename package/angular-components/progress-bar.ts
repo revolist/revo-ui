@@ -17,6 +17,7 @@ export class ProgressBar extends AngularComponentAdapter<never> {
   @NgInput() declare "fillClass"?: AngularInput<'ProgressBar', "fillClass">;
   @NgInput() declare "max"?: AngularInput<'ProgressBar', "max">;
   @NgInput() declare "min"?: AngularInput<'ProgressBar', "min">;
+  @NgInput() declare "preset"?: AngularInput<'ProgressBar', "preset">;
   @NgInput({ required: true }) declare "value": AngularInput<'ProgressBar', "value">;
 
   protected rvResolveProps() { return this.rvInputValues; }

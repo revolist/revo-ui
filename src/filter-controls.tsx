@@ -1,24 +1,41 @@
-import { Legend } from '@revolist/ui/legend';
-import { Dropdown } from '@revolist/ui/dropdown/index';
-import { ChoiceChips } from '@revolist/ui/choice-chips/index';
+import { Legend as __themeOriginal_Legend } from '@revolist/ui/legend';
+import { Dropdown as __themeOriginal_Dropdown } from '@revolist/ui/dropdown/index';
+import { ChoiceChips as __themeOriginal_ChoiceChips } from '@revolist/ui/choice-chips/index';
 import { ButtonControl } from '@revolist/ui/native-control';
-import { FilterBadge } from '@revolist/ui/filter-badge';
+import { FilterBadge as __themeOriginal_FilterBadge } from '@revolist/ui/filter-badge';
 import { Fragment, h } from 'preact';
 import { Example as Specimen } from './catalog';
 import { useRef, useState } from 'preact/hooks';
-import { AreaChart, BarChart, LineChart } from '@revolist/ui/distribution-chart';
-import { BrushRange } from '@revolist/ui/brush-range';
+import { AreaChart as __themeOriginal_AreaChart, BarChart as __themeOriginal_BarChart, LineChart as __themeOriginal_LineChart } from '@revolist/ui/distribution-chart';
+import { BrushRange as __themeOriginal_BrushRange } from '@revolist/ui/brush-range';
 import {
-  OptionButton,
-  HighlightedTextInput,
-  InlineFieldGroup,
+  OptionButton as __themeOriginal_OptionButton,
+  HighlightedTextInput as __themeOriginal_HighlightedTextInput,
+  InlineFieldGroup as __themeOriginal_InlineFieldGroup,
 } from '@revolist/ui/filter-controls';
 import {
-  TimeGrid,
+  TimeGrid as __themeOriginal_TimeGrid,
   timeGridCellKey,
   useTimeGridInteraction,
 } from '@revolist/ui/time-grid';
-import { SegmentedControl, NumberInput } from '@revolist/ui/controls';
+import { SegmentedControl as __themeOriginal_SegmentedControl, NumberInput as __themeOriginal_NumberInput } from '@revolist/ui/controls';
+import { withThemePreview } from './theme-preview';
+
+const Legend = withThemePreview(__themeOriginal_Legend, 'Legend');
+const Dropdown = withThemePreview(__themeOriginal_Dropdown, 'Dropdown');
+const ChoiceChips = withThemePreview(__themeOriginal_ChoiceChips, 'ChoiceChips');
+const FilterBadge = withThemePreview(__themeOriginal_FilterBadge, 'FilterBadge');
+const AreaChart = withThemePreview(__themeOriginal_AreaChart, 'AreaChart');
+const BarChart = withThemePreview(__themeOriginal_BarChart, 'BarChart');
+const LineChart = withThemePreview(__themeOriginal_LineChart, 'LineChart');
+const BrushRange = withThemePreview(__themeOriginal_BrushRange, 'BrushRange');
+const OptionButton = withThemePreview(__themeOriginal_OptionButton, 'OptionButton');
+const HighlightedTextInput = withThemePreview(__themeOriginal_HighlightedTextInput, 'HighlightedTextInput');
+const InlineFieldGroup = withThemePreview(__themeOriginal_InlineFieldGroup, 'InlineFieldGroup');
+const TimeGrid = withThemePreview(__themeOriginal_TimeGrid, 'TimeGrid');
+const SegmentedControl = withThemePreview(__themeOriginal_SegmentedControl, 'SegmentedControl');
+const NumberInput = withThemePreview(__themeOriginal_NumberInput, 'NumberInput');
+
 
 const chartData = [12, 24, 15, 10, 40, 8, 46, 23, 30, 18].map(
   (value, index) => ({

@@ -1,3 +1,4 @@
+import type { ClassPreset } from './presets/types';
 import { h, type JSX } from 'preact';
 import { useCallback } from 'preact/hooks';
 import { useTitleTooltip } from './core/title-tooltip';
@@ -12,6 +13,7 @@ type NativeAttributes<K extends keyof JSX.IntrinsicElements> = Omit<
     | JSX.IntrinsicElements[K]['class']
     | Record<string, boolean | undefined>;
   className?: JSX.IntrinsicElements[K]['className'];
+  preset?: ClassPreset;
 };
 
 /** Compat normalizes text onChange to input globally. Restore the native commit
@@ -49,18 +51,18 @@ function useHintRef<T extends HTMLElement>(
 }
 export const Input = /* @__PURE__ */ registerControl(
   /* @__PURE__ */ forwardRef<HTMLInputElement, NativeAttributes<'input'>>(
-    ({ title, ...props }, ref) => {
+    ({ title, preset, ...props }, ref) => {
       const hint = useHintRef<HTMLInputElement>(title, ref);
-      return nativeNode('input', { ...props, ref: hint });
+      return nativeNode('input', { ...props, className: [preset?.className, props.className].filter(Boolean).join(' '), ref: hint });
     },
   ),
   'input',
 );
 export const TextArea = /* @__PURE__ */ registerControl(
   /* @__PURE__ */ forwardRef<HTMLTextAreaElement, NativeAttributes<'textarea'>>(
-    ({ children, title, ...props }, ref) => {
+    ({ children, title, preset, ...props }, ref) => {
       const hint = useHintRef<HTMLTextAreaElement>(title, ref);
-      return nativeNode('textarea', { ...props, ref: hint }, children);
+      return nativeNode('textarea', { ...props, className: [preset?.className, props.className].filter(Boolean).join(' '), ref: hint }, children);
     },
   ),
   'textarea',
@@ -74,11 +76,12 @@ export const ButtonControl = /* @__PURE__ */ registerControl(
       busy?: boolean;
       rounded?: boolean;
     }
-  >(({ children, title, ...props }, ref) => {
+  >(({ children, title, preset, ...props }, ref) => {
     return nativeNode(
       'button',
       {
         ...props,
+        className: [preset?.className, props.className].filter(Boolean).join(' '),
         ref,
         title,
         'aria-label':
@@ -92,9 +95,9 @@ export const ButtonControl = /* @__PURE__ */ registerControl(
 );
 export const Summary = /* @__PURE__ */ registerControl(
   /* @__PURE__ */ forwardRef<HTMLElement, NativeAttributes<'summary'>>(
-    ({ children, title, ...props }, ref) => {
+    ({ children, title, preset, ...props }, ref) => {
       const hint = useHintRef<HTMLElement>(title, ref);
-      return nativeNode('summary', { ...props, ref: hint }, children);
+      return nativeNode('summary', { ...props, className: [preset?.className, props.className].filter(Boolean).join(' '), ref: hint }, children);
     },
   ),
   'summary',

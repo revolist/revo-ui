@@ -21,6 +21,7 @@ export class Popover extends AngularComponentAdapter<never> {
   @NgInput() declare "label"?: AngularInput<'Popover', "label">;
   @NgInput() declare "onClose"?: AngularInput<'Popover', "onClose">;
   @NgInput({ required: true }) declare "open": AngularInput<'Popover', "open">;
+  @NgInput() declare "preset"?: AngularInput<'Popover', "preset">;
   @NgInput() declare "role"?: AngularInput<'Popover', "role">;
   @Output() get closeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'Popover', 'onClose'>>>('onClose'); }
   protected rvResolveProps() { return this.rvInputValues; }

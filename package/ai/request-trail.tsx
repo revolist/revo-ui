@@ -1,3 +1,4 @@
+import type { ClassPreset } from '../presets/types';
 import { TooltipText } from '../core/tooltip-text';
 import type { AiUiTranslations } from './translations';
 import { useAiText } from './translation-context';
@@ -19,6 +20,8 @@ export interface AiRequestTrailItem {
   count?: number;
 }
 export interface AiRequestTrailProps {
+  preset?: ClassPreset;
+  className?: string;
   translations?: AiUiTranslations;
   items: readonly AiRequestTrailItem[];
   onRemove(id: string): void;
@@ -41,6 +44,8 @@ export interface AiRequestTrailProps {
 
 /** Applied context only. The host owns replay, persistence and view mutations. */
 export function AiRequestTrail({
+  preset,
+  className = '',
   translations,
   items,
   onRemove,
@@ -145,7 +150,8 @@ export function AiRequestTrail({
   const total = items.reduce((sum, item) => sum + (item.count ?? 1), 0);
   return (
     <div
-      class="rv-ai-request-trail"
+      class={`rv-ai-request-trail ${preset?.className ?? ''} ${className}`}
+      data-part="root"
       role="group"
       aria-label={t(label)}
       ref={root}
@@ -180,6 +186,7 @@ export function AiRequestTrail({
         ref={panel}
         id={panelId}
         class="rv-popover rv-ai-trail-popover"
+        data-part="popup"
         role="dialog"
         aria-label={t(label)}
         tabIndex={-1}

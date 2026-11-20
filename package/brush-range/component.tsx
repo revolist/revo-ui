@@ -1,3 +1,4 @@
+import type { ClassPreset } from '../presets/types';
 import { TooltipText } from '../core/tooltip-text';
 /** @jsxImportSource preact */
 import { h, type ComponentChildren } from 'preact';
@@ -9,6 +10,8 @@ import {
 import { PreactRangeSlider } from '../filter/filters/slider/preact';
 
 export interface BrushRangeProps {
+  readonly preset?: ClassPreset;
+  readonly className?: string;
   readonly chart?: DistributionChartProps | null;
   readonly slider: RangeSliderProps;
   readonly startLabel: ComponentChildren;
@@ -31,6 +34,8 @@ function labelTitle(label: ComponentChildren) {
  * the chart data and translate slider positions to their filter conditions.
  */
 export function BrushRange({
+  preset,
+  className,
   chart,
   slider,
   startLabel,
@@ -38,7 +43,10 @@ export function BrushRange({
   endLabel,
 }: BrushRangeProps) {
   return (
-    <div class="brush-range">
+    <div
+      class={classes('brush-range', preset?.className, className)}
+      data-part="root"
+    >
       {chart ? (
         <DistributionChart
           {...chart}
@@ -55,7 +63,7 @@ export function BrushRange({
         fromClassName={slider.fromClassName}
         toClassName={slider.toClassName}
       />
-      <div class="brush-range__labels">
+      <div class="brush-range__labels" data-part="labels">
         <TooltipText
           class="brush-range__label brush-range__label--start"
           title={labelTitle(startLabel)}

@@ -38,9 +38,15 @@ export type SegmentedSwitchOption<
 
 export type SegmentedSwitchRole = 'tablist' | 'radiogroup' | 'group';
 
+export type SegmentedSwitchPreset = {
+  className?: string;
+  props?: { iconOnly?: boolean; disabled?: boolean };
+};
+
 export type SegmentedSwitchProps<
   T extends SegmentedSwitchValue = SegmentedSwitchValue,
 > = {
+  preset?: SegmentedSwitchPreset;
   value: T;
   options: SegmentedSwitchOption<T>[];
   onChange: (
@@ -87,6 +93,7 @@ export function renderSegmentedSwitch<
 >(
   h: (tag: string, attributes: Record<string, any>, ...children: any[]) => any,
   {
+    preset,
     value,
     options,
     onChange,
@@ -95,8 +102,8 @@ export function renderSegmentedSwitch<
     itemClassName = '',
     countClassName = '',
     activeClassName = 'on',
-    disabled = false,
-    iconOnly = false,
+    disabled: disabledProp,
+    iconOnly: iconOnlyProp,
     title,
     role = 'tablist',
     testId,
@@ -104,6 +111,8 @@ export function renderSegmentedSwitch<
     renderCount,
   }: SegmentedSwitchProps<T>,
 ): any {
+  const disabled = disabledProp ?? preset?.props?.disabled ?? false;
+  const iconOnly = iconOnlyProp ?? preset?.props?.iconOnly ?? false;
   const itemRole = getItemRole(role);
   const enabledOptions = options.filter(
     (option) => !disabled && !option.disabled,
@@ -154,8 +163,9 @@ export function renderSegmentedSwitch<
     'div',
     {
       class:
-        `rv-segmented-switch${iconOnly ? ' rv-segmented-switch--icon-only' : ''} ${className}`.trim(),
+        `rv-segmented-switch${iconOnly ? ' rv-segmented-switch--icon-only' : ''} ${preset?.className ?? ''} ${className}`.trim(),
       role,
+      'data-part': 'root',
       'aria-label': ariaLabel,
       title,
       'data-testid': testId,
@@ -198,6 +208,8 @@ export function renderSegmentedSwitch<
           class:
             `rv-segmented-switch-item ${active ? `on ${activeClassName}` : ''} ${itemClassName} ${option.className ?? ''}`.trim(),
           disabled: itemDisabled,
+          'data-part': 'item',
+          'data-state': active ? 'active' : 'inactive',
           'data-value': String(option.value),
           'data-testid': option.testId,
           onKeyDown: (event: KeyboardEvent) => moveFocus(event, option.value),
@@ -208,7 +220,7 @@ export function renderSegmentedSwitch<
         },
         h(
           'span',
-          { class: 'rv-segmented-switch-label' },
+          { class: 'rv-segmented-switch-label', 'data-part': 'label' },
           renderOption ? renderOption(option, state) : option.label,
         ),
         option.count !== undefined
@@ -216,6 +228,7 @@ export function renderSegmentedSwitch<
               'span',
               {
                 class: `rv-segmented-switch-count ${countClassName}`.trim(),
+                'data-part': 'count',
               },
               renderCount ? renderCount(option, state) : option.count,
             )

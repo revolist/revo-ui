@@ -13,11 +13,13 @@ export class TimelineTrack extends AngularComponentAdapter<never> {
   protected readonly rvComponentName = 'TimelineTrack';
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onEventChange","onSelect"];
+  @NgInput() declare "className"?: AngularInput<'TimelineTrack', "className">;
   @NgInput() declare "formatValue"?: AngularInput<'TimelineTrack', "formatValue">;
   @NgInput() declare "getTooltip"?: AngularInput<'TimelineTrack', "getTooltip">;
   @NgInput() declare "labels"?: AngularInput<'TimelineTrack', "labels">;
   @NgInput() declare "onEventChange"?: AngularInput<'TimelineTrack', "onEventChange">;
   @NgInput() declare "onSelect"?: AngularInput<'TimelineTrack', "onSelect">;
+  @NgInput() declare "preset"?: AngularInput<'TimelineTrack', "preset">;
   @NgInput({ required: true }) declare "range": AngularInput<'TimelineTrack', "range">;
   @NgInput({ required: true }) declare "rows": AngularInput<'TimelineTrack', "rows">;
   @NgInput() declare "selected"?: AngularInput<'TimelineTrack', "selected">;

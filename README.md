@@ -43,6 +43,8 @@ mount.render(uiComponents.Button, {
 // Call mount.destroy() when removing the view.
 ```
 
+[Customize components with portable presets and CSS](docs/presets.md).
+
 [Try the live gallery](https://ui.rv-grid.com/components/buttons/) or choose a framework guide: [React](https://ui.rv-grid.com/frameworks/react/) · [Vue](https://ui.rv-grid.com/frameworks/vue/) · [Angular](https://ui.rv-grid.com/frameworks/angular/) · [Svelte](https://ui.rv-grid.com/frameworks/svelte/) · [Preact](https://ui.rv-grid.com/frameworks/preact/) · [Vanilla TypeScript](https://ui.rv-grid.com/frameworks/vanilla-typescript/).
 
 React, Vue, Angular and Svelte adapters automatically load their component styles. For extracted CSS, use the matching `/unstyled` entry and import shared styles once:
@@ -72,6 +74,8 @@ Use the same component library and shared styles across frameworks, while keepin
 | <img src="src/assets/frameworks/typescript.svg" width="24" height="24" alt=""> Vanilla TypeScript | Mount components into a DOM element with `createFrameworkMount` from `@revolist/ui/framework`. |
 
 For a narrow dependency graph, import the matching component entry, for example `@revolist/ui/angular/svg-button` or `@revolist/ui/svelte/svg-button`. Each exports `SvgButton`; `/unstyled` variants use application-managed CSS.
+
+For date and time fields, use the shared picker controls. See the [native input migration guide](docs/temporal-input-migration.md) when replacing `DateInput`, `TimeInput`, or `DateTimeInput`.
 
 ## Components
 

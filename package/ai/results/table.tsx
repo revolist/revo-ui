@@ -1,11 +1,24 @@
+import type { ClassPreset } from '../../presets/types';
 import { h } from 'preact';
 import { useAiText } from '../translation-context';
 import { formatAiResultValue, type AiTableResult } from './types';
 
-export function AiResultTable({ result }: { result: AiTableResult }) {
+export function AiResultTable({
+  result,
+  preset,
+  className = '',
+}: {
+  result: AiTableResult;
+  preset?: ClassPreset;
+  className?: string;
+}) {
   const t = useAiText();
   return (
-    <section class="rv-ai-result-content" aria-label={result.title}>
+    <section
+      class={`rv-ai-result-content ${preset?.className ?? ''} ${className}`}
+      data-part="root"
+      aria-label={result.title}
+    >
       <div
         class="rv-ai-result-table-scroll"
         tabIndex={0}

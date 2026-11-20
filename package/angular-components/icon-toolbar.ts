@@ -14,9 +14,11 @@ export class IconToolbar extends AngularComponentAdapter<never> {
   protected rvResolveComponent() { return Control; }
   protected override readonly rvRequiredCallbacks = ["onAction"];
   @NgInput({ required: true }) declare "actions": AngularInput<'IconToolbar', "actions">;
+  @NgInput() declare "className"?: AngularInput<'IconToolbar', "className">;
   @NgInput() declare "label"?: AngularInput<'IconToolbar', "label">;
   @NgInput() declare "onAction"?: AngularInput<'IconToolbar', "onAction">;
   @NgInput() declare "onEscape"?: AngularInput<'IconToolbar', "onEscape">;
+  @NgInput() declare "preset"?: AngularInput<'IconToolbar', "preset">;
   @Output() get action() { return this.rvOutput<AngularCallbackValue<AngularInput<'IconToolbar', 'onAction'>>>('onAction'); }
   @Output() get escape() { return this.rvOutput<AngularCallbackValue<AngularInput<'IconToolbar', 'onEscape'>>>('onEscape'); }
   protected rvResolveProps() { return this.rvInputValues; }

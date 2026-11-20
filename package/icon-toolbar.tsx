@@ -1,4 +1,5 @@
 /** @jsxImportSource preact */
+import type { ClassPreset } from './presets/types';
 import { useTitleTooltip } from './core/title-tooltip';
 import { h, type Ref } from 'preact';
 import plus from '@fortawesome/fontawesome-free/svgs/solid/plus.svg?raw';
@@ -176,6 +177,8 @@ export interface IconToolbarAction {
   disabled?: boolean;
 }
 export interface IconToolbarProps {
+  preset?: ClassPreset;
+  className?: string;
   actions: readonly IconToolbarAction[];
   label?: string;
   onAction: (action: string) => void;
@@ -184,6 +187,8 @@ export interface IconToolbarProps {
 }
 /** Compact SVG icon toolbar; the consumer supplies icons, labels and actions. */
 export function IconToolbar({
+  preset,
+  className = '',
   actions,
   label = 'Actions',
   onAction,
@@ -192,7 +197,8 @@ export function IconToolbar({
   const width = Math.max(10, actions.length * 33 + 5);
   return (
     <svg
-      class="rv-icon-toolbar"
+      class={`rv-icon-toolbar ${preset?.className ?? ''} ${className}`}
+      data-part="root"
       role="group"
       aria-label={label}
       width={width}

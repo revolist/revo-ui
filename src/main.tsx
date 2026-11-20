@@ -1,32 +1,33 @@
 import { AutocompleteExamples } from './autocomplete';
+import { SwitchThemeEditor } from './switch-theme-editor';
 import { TooltipPlacementExamples, TooltipTimingExamples, TooltipStateExamples, TooltipContentExamples, TooltipBoundaryExample, TooltipControllerExample } from './tooltips';
-import { CollapsibleSection } from '@revolist/ui/preact';
+import { CollapsibleSection as __themeOriginal_CollapsibleSection } from '@revolist/ui/preact';
 import { AccessibilityPage } from './accessibility';
 import { ApiPage } from './api-page';
 import { componentHref, pageKind, redirectLegacyRoute } from './routing';
 import { MemberDropdown } from './home-planning';
 import { FrameworksPage } from './frameworks';
-import { Select } from '@revolist/ui/select';
+import { Select as __themeOriginal_Select } from '@revolist/ui/select';
 import { TimePickerExamples } from './time-picker';
 import { PdfViewerExamples } from './pdf-viewer';
-import { DateTimeField } from '@revolist/ui/date-time';
+import { DateTimeField as __themeOriginal_DateTimeField } from '@revolist/ui/date-time';
 import { SharedEditorExamples, DurationEffortExample, RemoteLookupExample, AssigneeFieldExample } from './shared-editors';
 import { RichTextEditorExample } from './rich-text';
 import { ColorsExamples } from './colors';
 import { AiExamples } from './ai';
 import { AiChatExample } from './ai-chat';
 import { AiResultsExample } from './ai-results';
-import { ActivityMessage } from '@revolist/ui/activity-message';
+import { ActivityMessage as __themeOriginal_ActivityMessage } from '@revolist/ui/activity-message';
 import { SelectionListExamples } from './selection-list';
 import { DialogCompositionExamples } from './dialog-composition';
-import { SvgButton } from '@revolist/ui/buttons/svg-button';
-import { SvgIcon } from '@revolist/ui/icons/icon';
+import { SvgButton as __themeOriginal_SvgButton } from '@revolist/ui/buttons/svg-button';
+import { SvgIcon as __themeOriginal_SvgIcon } from '@revolist/ui/icons/icon';
 import alertCheckIcon from '@fortawesome/fontawesome-free/svgs/solid/circle-check.svg?raw';
 import alertWarningIcon from '@fortawesome/fontawesome-free/svgs/solid/circle-exclamation.svg?raw';
 import plusIcon from '@fortawesome/fontawesome-free/svgs/solid/plus.svg?raw';
 import { SliderLayoutExamples, TimelineTrackExample } from './sliders';
 import { CalendarExamples, DateTimeCalendarExample } from './calendars';
-import { Legend } from '@revolist/ui/legend';
+import { Legend as __themeOriginal_Legend } from '@revolist/ui/legend';
 import { FormattingExamples } from './formatting';
 import {PaginationExamples} from './pagination';
 import { FieldConfiguratorExamples } from './field-configurator';
@@ -48,59 +49,59 @@ import exportIcon from '@fortawesome/fontawesome-free/svgs/solid/file-export.svg
 import { useState } from 'preact/hooks';
 import { DRAWING_TOOL_PATHS } from '@revolist/ui/native';
 import {
-  Button,
-  IconButton,
-  ToggleButton,
-  ButtonGroup,
-  Checkbox,
-  Switch,
-  RadioGroup,
-  ChoiceChips,
-  Tabs,
-  TabPanel,
-  TextInput,
-  Textarea,
-  SearchInput,
-  NumberInput,
-  NumberStepper,
-  Combobox,
-  MultiSelect,
-  SingleValueSlider,
-  PreactRangeSlider,
-  Calendar,
-  DatePicker,
-  DateRangePicker,
-  ColorPicker,
-  ColorPalette,
-  Avatar,
-  SharedResourcePicker,
-  FormField,
-  FieldError,
-  FieldHint,
-  FormSection,
-  Dialog,
-  ConfirmDialog,
-  Popover,
-  Tooltip,
-  Menu,
-  MenuItem,
-  MenuSeparator,
-  Submenu,
-  Toolbar,
-  ToolbarGroup,
-  ToolbarSeparator,
-  Badge,
-  CountBadge,
-  StatusBadge,
-  StatusFeedbackPanel,
-  Alert,
-  Spinner,
-  LoadingOverlay,
-  EmptyState,
-  Panel,
-  ProgressBar,
-  CircularProgress,
-  Rating,
+  Button as __themeOriginal_Button,
+  IconButton as __themeOriginal_IconButton,
+  ToggleButton as __themeOriginal_ToggleButton,
+  ButtonGroup as __themeOriginal_ButtonGroup,
+  Checkbox as __themeOriginal_Checkbox,
+  Switch as __themeOriginal_Switch,
+  RadioGroup as __themeOriginal_RadioGroup,
+  ChoiceChips as __themeOriginal_ChoiceChips,
+  Tabs as __themeOriginal_Tabs,
+  TabPanel as __themeOriginal_TabPanel,
+  TextInput as __themeOriginal_TextInput,
+  Textarea as __themeOriginal_Textarea,
+  SearchInput as __themeOriginal_SearchInput,
+  NumberInput as __themeOriginal_NumberInput,
+  NumberStepper as __themeOriginal_NumberStepper,
+  Combobox as __themeOriginal_Combobox,
+  MultiSelect as __themeOriginal_MultiSelect,
+  SingleValueSlider as __themeOriginal_SingleValueSlider,
+  PreactRangeSlider as __themeOriginal_PreactRangeSlider,
+  Calendar as __themeOriginal_Calendar,
+  DatePicker as __themeOriginal_DatePicker,
+  DateRangePicker as __themeOriginal_DateRangePicker,
+  ColorPicker as __themeOriginal_ColorPicker,
+  ColorPalette as __themeOriginal_ColorPalette,
+  Avatar as __themeOriginal_Avatar,
+  SharedResourcePicker as __themeOriginal_SharedResourcePicker,
+  FormField as __themeOriginal_FormField,
+  FieldError as __themeOriginal_FieldError,
+  FieldHint as __themeOriginal_FieldHint,
+  FormSection as __themeOriginal_FormSection,
+  Dialog as __themeOriginal_Dialog,
+  ConfirmDialog as __themeOriginal_ConfirmDialog,
+  Popover as __themeOriginal_Popover,
+  Tooltip as __themeOriginal_Tooltip,
+  Menu as __themeOriginal_Menu,
+  MenuItem as __themeOriginal_MenuItem,
+  MenuSeparator as __themeOriginal_MenuSeparator,
+  Submenu as __themeOriginal_Submenu,
+  Toolbar as __themeOriginal_Toolbar,
+  ToolbarGroup as __themeOriginal_ToolbarGroup,
+  ToolbarSeparator as __themeOriginal_ToolbarSeparator,
+  Badge as __themeOriginal_Badge,
+  CountBadge as __themeOriginal_CountBadge,
+  StatusBadge as __themeOriginal_StatusBadge,
+  StatusFeedbackPanel as __themeOriginal_StatusFeedbackPanel,
+  Alert as __themeOriginal_Alert,
+  Spinner as __themeOriginal_Spinner,
+  LoadingOverlay as __themeOriginal_LoadingOverlay,
+  EmptyState as __themeOriginal_EmptyState,
+  Panel as __themeOriginal_Panel,
+  ProgressBar as __themeOriginal_ProgressBar,
+  CircularProgress as __themeOriginal_CircularProgress,
+  Rating as __themeOriginal_Rating,
 } from '@revolist/ui/preact';
 import {
   renderScalarSlider,
@@ -109,6 +110,69 @@ import type { CalendarDateRange } from '@revolist/ui/calendar/types';
 import type { ISODateString } from '@revolist/ui-dates';
 import '@revolist/ui/styles.scss';
 import './style.css';
+import { withThemePreview } from './theme-preview';
+
+const CollapsibleSection = withThemePreview(__themeOriginal_CollapsibleSection, 'CollapsibleSection');
+const Select = withThemePreview(__themeOriginal_Select, 'Select');
+const DateTimeField = withThemePreview(__themeOriginal_DateTimeField, 'DateTimeField');
+const ActivityMessage = withThemePreview(__themeOriginal_ActivityMessage, 'ActivityMessage');
+const SvgButton = withThemePreview(__themeOriginal_SvgButton, 'SvgButton');
+const SvgIcon = withThemePreview(__themeOriginal_SvgIcon, 'SvgIcon');
+const Legend = withThemePreview(__themeOriginal_Legend, 'Legend');
+const Button = withThemePreview(__themeOriginal_Button, 'Button');
+const IconButton = withThemePreview(__themeOriginal_IconButton, 'IconButton');
+const ToggleButton = withThemePreview(__themeOriginal_ToggleButton, 'ToggleButton');
+const ButtonGroup = withThemePreview(__themeOriginal_ButtonGroup, 'ButtonGroup');
+const Checkbox = withThemePreview(__themeOriginal_Checkbox, 'Checkbox');
+const Switch = withThemePreview(__themeOriginal_Switch, 'Switch');
+const RadioGroup = withThemePreview(__themeOriginal_RadioGroup, 'RadioGroup');
+const ChoiceChips = withThemePreview(__themeOriginal_ChoiceChips, 'ChoiceChips');
+const Tabs = withThemePreview(__themeOriginal_Tabs, 'Tabs');
+const TabPanel = withThemePreview(__themeOriginal_TabPanel, 'TabPanel');
+const TextInput = withThemePreview(__themeOriginal_TextInput, 'TextInput');
+const Textarea = withThemePreview(__themeOriginal_Textarea, 'Textarea');
+const SearchInput = withThemePreview(__themeOriginal_SearchInput, 'SearchInput');
+const NumberInput = withThemePreview(__themeOriginal_NumberInput, 'NumberInput');
+const NumberStepper = withThemePreview(__themeOriginal_NumberStepper, 'NumberStepper');
+const Combobox = withThemePreview(__themeOriginal_Combobox, 'Combobox');
+const MultiSelect = withThemePreview(__themeOriginal_MultiSelect, 'MultiSelect');
+const SingleValueSlider = withThemePreview(__themeOriginal_SingleValueSlider, 'SingleValueSlider');
+const PreactRangeSlider = withThemePreview(__themeOriginal_PreactRangeSlider, 'PreactRangeSlider');
+const Calendar = withThemePreview(__themeOriginal_Calendar, 'Calendar');
+const DatePicker = withThemePreview(__themeOriginal_DatePicker, 'DatePicker');
+const DateRangePicker = withThemePreview(__themeOriginal_DateRangePicker, 'DateRangePicker');
+const ColorPicker = withThemePreview(__themeOriginal_ColorPicker, 'ColorPicker');
+const ColorPalette = withThemePreview(__themeOriginal_ColorPalette, 'ColorPalette');
+const Avatar = withThemePreview(__themeOriginal_Avatar, 'Avatar');
+const SharedResourcePicker = withThemePreview(__themeOriginal_SharedResourcePicker, 'SharedResourcePicker');
+const FormField = withThemePreview(__themeOriginal_FormField, 'FormField');
+const FieldError = withThemePreview(__themeOriginal_FieldError, 'FieldError');
+const FieldHint = withThemePreview(__themeOriginal_FieldHint, 'FieldHint');
+const FormSection = withThemePreview(__themeOriginal_FormSection, 'FormSection');
+const Dialog = withThemePreview(__themeOriginal_Dialog, 'Dialog');
+const ConfirmDialog = withThemePreview(__themeOriginal_ConfirmDialog, 'ConfirmDialog');
+const Popover = withThemePreview(__themeOriginal_Popover, 'Popover');
+const Tooltip = withThemePreview(__themeOriginal_Tooltip, 'Tooltip');
+const Menu = withThemePreview(__themeOriginal_Menu, 'Menu');
+const MenuItem = withThemePreview(__themeOriginal_MenuItem, 'MenuItem');
+const MenuSeparator = withThemePreview(__themeOriginal_MenuSeparator, 'MenuSeparator');
+const Submenu = withThemePreview(__themeOriginal_Submenu, 'Submenu');
+const Toolbar = withThemePreview(__themeOriginal_Toolbar, 'Toolbar');
+const ToolbarGroup = withThemePreview(__themeOriginal_ToolbarGroup, 'ToolbarGroup');
+const ToolbarSeparator = withThemePreview(__themeOriginal_ToolbarSeparator, 'ToolbarSeparator');
+const Badge = withThemePreview(__themeOriginal_Badge, 'Badge');
+const CountBadge = withThemePreview(__themeOriginal_CountBadge, 'CountBadge');
+const StatusBadge = withThemePreview(__themeOriginal_StatusBadge, 'StatusBadge');
+const StatusFeedbackPanel = withThemePreview(__themeOriginal_StatusFeedbackPanel, 'StatusFeedbackPanel');
+const Alert = withThemePreview(__themeOriginal_Alert, 'Alert');
+const Spinner = withThemePreview(__themeOriginal_Spinner, 'Spinner');
+const LoadingOverlay = withThemePreview(__themeOriginal_LoadingOverlay, 'LoadingOverlay');
+const EmptyState = withThemePreview(__themeOriginal_EmptyState, 'EmptyState');
+const Panel = withThemePreview(__themeOriginal_Panel, 'Panel');
+const ProgressBar = withThemePreview(__themeOriginal_ProgressBar, 'ProgressBar');
+const CircularProgress = withThemePreview(__themeOriginal_CircularProgress, 'CircularProgress');
+const Rating = withThemePreview(__themeOriginal_Rating, 'Rating');
+
 
 const icon =
   '<svg viewBox="0 0 16 16"><path fill="currentColor" d="M7 1h2v6h6v2H9v6H7V9H1V7h6z"/></svg>';
@@ -313,6 +377,9 @@ function App() {
             disabled
             onChange={() => {}}
           />
+        </Example>
+        <Example title="Customize a switch">
+          <SwitchThemeEditor />
         </Example>
         <Example title="Radio choices">
           <RadioGroup

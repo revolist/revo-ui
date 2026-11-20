@@ -27,13 +27,16 @@ import type { DropdownOption, DropdownProps } from './dropdown.types';
 export function AutocompleteDropdown<T>(props: DropdownProps<T>) {
   const {
     source,
-    config = {},
+    preset,
+    config: configProp,
     value,
-    disabled = false,
+    disabled: disabledProp,
     onChange,
     onCreateOption,
     environment,
   } = props;
+  const config = { ...preset?.props?.config, ...configProp };
+  const disabled = disabledProp ?? preset?.props?.disabled ?? false;
   const currentProps = useRef(props);
   currentProps.current = props;
   const multiSelect = !!config.multiSelect;
@@ -196,13 +199,16 @@ export function AutocompleteDropdown<T>(props: DropdownProps<T>) {
 
   return (
     <div
-      className={`dropdown-container ${props.className ?? ''} ${disabled ? 'disabled' : ''}`}
+      className={`dropdown-container ${preset?.className ?? ''} ${props.className ?? ''} ${disabled ? 'disabled' : ''}`}
+      data-part="root"
+      data-preset-surface={props.presetSurface ? '' : undefined}
       style={props.style}
     >
       <div
         {...triggerAttributes}
         ref={trigger}
         className={`dropdown-trigger dropdown-trigger--editable ${open ? 'open' : ''}`}
+        data-part="trigger"
         onClick={() => {
           openInput();
           input.current?.focus({ preventScroll: true });
@@ -288,7 +294,8 @@ export function AutocompleteDropdown<T>(props: DropdownProps<T>) {
           portalTarget={portalTarget}
           topLayer={config.topLayer}
           dropdownMenuId={menuId}
-          popupClassName={config.popupClassName}
+          popupClassName={[preset?.className, config.popupClassName].filter(Boolean).join(' ')}
+          inheritedPresetSurface={!!preset?.className}
           theme={config.theme}
           maxHeight={config.maxHeight}
           matchTriggerWidth

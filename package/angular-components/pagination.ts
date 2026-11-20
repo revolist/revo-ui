@@ -25,6 +25,7 @@ export class Pagination extends AngularComponentAdapter<never> {
   @NgInput() declare "onChange"?: AngularInput<'Pagination', "onChange">;
   @NgInput({ required: true }) declare "page": AngularInput<'Pagination', "page">;
   @NgInput({ required: true }) declare "pageCount": AngularInput<'Pagination', "pageCount">;
+  @NgInput() declare "preset"?: AngularInput<'Pagination', "preset">;
   @NgInput({ required: true }) declare "previousLabel": AngularInput<'Pagination', "previousLabel">;
   @NgInput() declare "variant"?: AngularInput<'Pagination', "variant">;
   @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'Pagination', 'onChange'>>>('onChange'); }

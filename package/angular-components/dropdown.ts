@@ -25,6 +25,8 @@ export class Dropdown extends AngularComponentAdapter<AngularCallbackValue<Angul
   @NgInput() declare "onClose"?: AngularInput<'Dropdown', "onClose">;
   @NgInput() declare "onCreateOption"?: AngularInput<'Dropdown', "onCreateOption">;
   @NgInput() declare "placeholder"?: AngularInput<'Dropdown', "placeholder">;
+  @NgInput() declare "preset"?: AngularInput<'Dropdown', "preset">;
+  @NgInput() declare "presetSurface"?: AngularInput<'Dropdown', "presetSurface">;
   @NgInput() declare "remoteText"?: AngularInput<'Dropdown', "remoteText">;
   @NgInput() declare "renderContent"?: AngularInput<'Dropdown', "renderContent">;
   @NgInput() declare "renderNoResults"?: AngularInput<'Dropdown', "renderNoResults">;

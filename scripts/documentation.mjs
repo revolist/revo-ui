@@ -52,8 +52,10 @@ export function renderDocumentation(source, base = '/') {
         }
         return `<a href="${escape(href)}"${title ? ` title="${escape(title)}"` : ''}>${label}</a>`;
       },
-      image({ text }) {
-        return escape(text);
+      image({ href, text, title }) {
+        const match = /^\.\.\/public\/assets\/([a-z0-9-]+\.svg)$/.exec(href);
+        if (!match) return escape(text);
+        return `<span class="documentation-figure"><span class="documentation-figure-scroll" tabindex="0" aria-label="${escape(text)}"><img src="${escape(`${base}assets/${match[1]}`)}" alt="${escape(text)}"${title ? ` title="${escape(title)}"` : ''} loading="lazy"></span><span class="documentation-figure-hint">Scroll to explore the diagram →</span></span>`;
       },
       table(token) {
         return `<div class="documentation-table">${Renderer.prototype.table.call(this, token)}</div>`;

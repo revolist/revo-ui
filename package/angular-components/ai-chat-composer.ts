@@ -15,6 +15,7 @@ export class AiChatComposer extends AngularComponentAdapter<never> {
   protected override readonly rvRequiredCallbacks = ["onSubmit","onValueChange"];
   @NgInput() declare "actions"?: AngularInput<'AiChatComposer', "actions">;
   @NgInput() declare "busy"?: AngularInput<'AiChatComposer', "busy">;
+  @NgInput() declare "className"?: AngularInput<'AiChatComposer', "className">;
   @NgInput() declare "disabled"?: AngularInput<'AiChatComposer', "disabled">;
   @NgInput() declare "footer"?: AngularInput<'AiChatComposer', "footer">;
   @NgInput() declare "hint"?: AngularInput<'AiChatComposer', "hint">;
@@ -23,6 +24,7 @@ export class AiChatComposer extends AngularComponentAdapter<never> {
   @NgInput() declare "onSubmit"?: AngularInput<'AiChatComposer', "onSubmit">;
   @NgInput() declare "onValueChange"?: AngularInput<'AiChatComposer', "onValueChange">;
   @NgInput() declare "placeholder"?: AngularInput<'AiChatComposer', "placeholder">;
+  @NgInput() declare "preset"?: AngularInput<'AiChatComposer', "preset">;
   @NgInput() declare "promptHistory"?: AngularInput<'AiChatComposer', "promptHistory">;
   @NgInput() declare "stopLabel"?: AngularInput<'AiChatComposer', "stopLabel">;
   @NgInput() declare "submitLabel"?: AngularInput<'AiChatComposer', "submitLabel">;

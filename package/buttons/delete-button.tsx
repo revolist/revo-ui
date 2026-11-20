@@ -1,9 +1,11 @@
 /** @jsxImportSource preact */
+import type { ClassPreset } from '../presets/types';
 import { h } from 'preact';
 
 import cancel from '../icons/cancel.svg?raw';
 import './delete-button.style.scss';
 export const DeleteButton = ({
+  preset,
   onClick,
   disabled,
   rounded,
@@ -15,6 +17,7 @@ export const DeleteButton = ({
     ariaLabel: 'Remove',
   },
 }: {
+  preset?: ClassPreset;
   onClick: (e: MouseEvent) => void;
   disabled?: boolean;
   rounded?: boolean;
@@ -32,9 +35,10 @@ export const DeleteButton = ({
     onClick={onClick}
     disabled={disabled}
     type="button"
+    data-part="root"
     title={locale.title}
     aria-label={locale.ariaLabel}
-    className={`rounded-lg flex focus:outline-none remove-btn rv-chip-remove${rounded ? ' rv-btn-rounded' : ''}${className ? ` ${className}` : ''}`}
+    className={`rounded-lg flex focus:outline-none remove-btn rv-chip-remove${rounded ? ' rv-btn-rounded' : ''}${className ? ` ${className}` : ''}${preset?.className ? ` ${preset.className}` : ''}`}
     dangerouslySetInnerHTML={{ __html: cancel }}
   />
 );

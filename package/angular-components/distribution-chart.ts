@@ -20,6 +20,7 @@ export class DistributionChart extends AngularComponentAdapter<never> {
   @NgInput() declare "height"?: AngularInput<'DistributionChart', "height">;
   @NgInput() declare "interpolation"?: AngularInput<'DistributionChart', "interpolation">;
   @NgInput() declare "legend"?: AngularInput<'DistributionChart', "legend">;
+  @NgInput() declare "preset"?: AngularInput<'DistributionChart', "preset">;
   @NgInput() declare "renderTooltip"?: AngularInput<'DistributionChart', "renderTooltip">;
   @NgInput() declare "showGrid"?: AngularInput<'DistributionChart', "showGrid">;
   @NgInput() declare "showLabels"?: AngularInput<'DistributionChart', "showLabels">;

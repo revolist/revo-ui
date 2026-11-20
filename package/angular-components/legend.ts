@@ -16,6 +16,7 @@ export class Legend extends AngularComponentAdapter<never> {
   @NgInput() declare "itemClassName"?: AngularInput<'Legend', "itemClassName">;
   @NgInput({ required: true }) declare "items": AngularInput<'Legend', "items">;
   @NgInput({ required: true }) declare "label": AngularInput<'Legend', "label">;
+  @NgInput() declare "preset"?: AngularInput<'Legend', "preset">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

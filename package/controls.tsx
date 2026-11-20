@@ -1,3 +1,4 @@
+import type { ClassPreset } from './presets/types';
 import { useTitleTooltip } from './core/title-tooltip';
 import { RatingStar } from './rating-choice';
 import { Input, TextArea, ButtonControl } from './native-control';
@@ -25,7 +26,25 @@ import {
 import { normalizeProgressRange } from './progress/range';
 
 type ButtonAttributes = Omit<JSX.IntrinsicElements['button'], 'className'>;
+export type ButtonPreset = {
+  className?: string;
+  props?: {
+    variant?:
+      | 'default'
+      | 'primary'
+      | 'secondary'
+      | 'danger'
+      | 'danger-outline'
+      | 'ghost'
+      | 'link'
+      | 'solid';
+    size?: 'compact' | 'default';
+    rounded?: boolean;
+  };
+};
+
 export type ButtonProps = ButtonAttributes & {
+  preset?: ButtonPreset;
   /** Pill-shaped corners for any button variant. */
   rounded?: boolean;
   /** Render navigation with native anchor semantics. */
@@ -52,15 +71,19 @@ export const Button = /* @__PURE__ */ registerControl(
       href,
       target,
       rel,
-      rounded = false,
-      variant = 'default',
-      size = 'default',
+      preset,
+      rounded: roundedProp,
+      variant: variantProp,
+      size: sizeProp,
       className = '',
       class: nativeClass,
       ...props
     }: ButtonProps,
     ref,
   ) {
+    const rounded = roundedProp ?? preset?.props?.rounded ?? false;
+    const variant = variantProp ?? preset?.props?.variant ?? 'default';
+    const size = sizeProp ?? preset?.props?.size ?? 'default';
     const linkTooltip = useTitleTooltip<HTMLAnchorElement>(
       href !== undefined && typeof props.title === 'string'
         ? props.title
@@ -71,6 +94,7 @@ export const Button = /* @__PURE__ */ registerControl(
       size === 'compact' ? 'rv-btn-sm' : '',
       rounded ? 'rv-btn-rounded' : '',
       nativeClass,
+      preset?.className,
       className,
     ]
       .filter(Boolean)
@@ -109,6 +133,7 @@ export const Button = /* @__PURE__ */ registerControl(
           variant === 'default' ? 'rv-btn' : `rv-btn-${variant}`,
           size === 'compact' ? 'rv-btn-sm' : '',
           nativeClass,
+          preset?.className,
           className,
         ]
           .filter(Boolean)
@@ -125,17 +150,21 @@ export function IconButton({
   badge,
   children,
   className = '',
-  variant = 'ghost',
-  size = 'default',
+  preset,
+  variant: variantProp,
+  size: sizeProp,
+  rounded,
   ...props
 }: ButtonProps & { label: string; icon?: string; badge?: string | number }) {
+  const variant = variantProp ?? preset?.props?.variant ?? 'ghost';
+  const size = sizeProp ?? preset?.props?.size ?? 'default';
   return (
     <SvgButton
       {...props}
       label={label}
       icon={icon}
       badge={badge}
-      className={`rv-btn-icon ${variant === 'default' ? 'rv-btn' : `rv-btn-${variant}`} ${size === 'compact' ? 'rv-btn-sm' : ''} ${className}`}
+      className={`rv-btn-icon ${variant === 'default' ? 'rv-btn' : `rv-btn-${variant}`} ${size === 'compact' ? 'rv-btn-sm' : ''} ${(rounded ?? preset?.props?.rounded) ? 'rv-btn-rounded' : ''} ${preset?.className ?? ''} ${className}`}
     >
       {children}
     </SvgButton>
@@ -164,10 +193,21 @@ type ShellProps = {
   children?: ComponentChildren;
   className?: string;
   label?: string;
+  preset?: ClassPreset;
 };
-export function ButtonGroup({ children, className = '', label }: ShellProps) {
+export function ButtonGroup({
+  children,
+  className = '',
+  label,
+  preset,
+}: ShellProps) {
   return (
-    <div role="group" aria-label={label} class={`rv-btn-group ${className}`}>
+    <div
+      role="group"
+      aria-label={label}
+      class={`rv-btn-group ${preset?.className ?? ''} ${className}`}
+      data-part="root"
+    >
       {children}
     </div>
   );
@@ -183,18 +223,22 @@ export function Tabs<T extends SegmentedSwitchValue>(
   return <SegmentedSwitch {...props} role="tablist" />;
 }
 export function TabPanel({
+  preset,
+  className = '',
   id,
   labelledBy,
   active,
   children,
 }: {
+  preset?: ClassPreset;
+  className?: string;
   id: string;
   labelledBy: string;
   active: boolean;
   children?: ComponentChildren;
 }) {
   return (
-    <div id={id} role="tabpanel" aria-labelledby={labelledBy} hidden={!active}>
+    <div id={id} class={`${preset?.className ?? ''} ${className}`.trim()} data-part="root" role="tabpanel" aria-labelledby={labelledBy} hidden={!active}>
       {children}
     </div>
   );
@@ -205,7 +249,13 @@ export interface RadioOption<T extends string | number> {
   label: ComponentChildren;
   disabled?: boolean;
 }
+export type RadioGroupPreset = {
+  className?: string;
+  props?: { disabled?: boolean };
+};
+
 export function RadioGroup<T extends string | number>({
+  preset,
   className = '',
   value,
   options,
@@ -214,6 +264,7 @@ export function RadioGroup<T extends string | number>({
   disabled,
   name,
 }: {
+  preset?: RadioGroupPreset;
   value: T;
   options: readonly RadioOption<T>[];
   className?: string;
@@ -224,12 +275,17 @@ export function RadioGroup<T extends string | number>({
 }) {
   const [id] = useState(() => createControlId('rv-ui'));
   return (
-    <fieldset class={`rv-radio-group ${className}`} disabled={disabled}>
-      <legend>{label}</legend>
+    <fieldset
+      class={`rv-radio-group ${preset?.className ?? ''} ${className}`}
+      disabled={disabled ?? preset?.props?.disabled}
+      data-part="root"
+    >
+      <legend data-part="label">{label}</legend>
       {options.map((option) => (
-        <label key={option.value}>
+        <label key={option.value} data-part="option">
           <Input
             type="radio"
+            data-part="input"
             name={name ?? id}
             checked={value === option.value}
             disabled={option.disabled}
@@ -242,11 +298,21 @@ export function RadioGroup<T extends string | number>({
   );
 }
 
+export type TextFieldPreset = {
+  className?: string;
+  props?: { disabled?: boolean; readOnly?: boolean };
+};
+
 export type TextInputProps = Omit<
   JSX.IntrinsicElements['input'],
   'className'
-> & { className?: string; onValueChange?: (value: string) => void };
+> & {
+  preset?: TextFieldPreset;
+  className?: string;
+  onValueChange?: (value: string) => void;
+};
 export function TextInput({
+  preset,
   className = '',
   class: nativeClass,
   onValueChange,
@@ -256,8 +322,11 @@ export function TextInput({
   return (
     <Input
       type="text"
+      {...preset?.props}
       {...props}
-      class={`rv-control ${nativeClass ?? ''} ${className}`}
+      data-part="input"
+      data-preset-scope="root"
+      class={`rv-control ${nativeClass ?? ''} ${preset?.className ?? ''} ${className}`}
       onInput={(event) => {
         onInput?.(event);
         if (!event.defaultPrevented) onValueChange?.(event.currentTarget.value);
@@ -266,19 +335,24 @@ export function TextInput({
   );
 }
 export function Textarea({
+  preset,
   className = '',
   class: nativeClass,
   onValueChange,
   onInput,
   ...props
 }: Omit<JSX.IntrinsicElements['textarea'], 'className'> & {
+  preset?: TextFieldPreset;
   className?: string;
   onValueChange?: (value: string) => void;
 }) {
   return (
     <TextArea
+      {...preset?.props}
       {...props}
-      class={`rv-control ${nativeClass ?? ''} ${className}`}
+      data-part="input"
+      data-preset-scope="root"
+      class={`rv-control ${nativeClass ?? ''} ${preset?.className ?? ''} ${className}`}
       onInput={(event) => {
         onInput?.(event);
         if (!event.defaultPrevented) onValueChange?.(event.currentTarget.value);
@@ -303,18 +377,27 @@ export function NumberInput({
     />
   );
 }
+export type NumberStepperPreset = {
+  className?: string;
+  props?: { step?: number; disabled?: boolean; readOnly?: boolean };
+};
+
 export function NumberStepper({
+  preset,
+  className = '',
   value,
   min = -Infinity,
   max = Infinity,
-  step = 1,
+  step: stepProp,
   onChange,
   label,
   decreaseLabel,
   increaseLabel,
-  disabled,
-  readOnly,
+  disabled: disabledProp,
+  readOnly: readOnlyProp,
 }: {
+  preset?: NumberStepperPreset;
+  className?: string;
   value: number;
   min?: number;
   max?: number;
@@ -326,12 +409,16 @@ export function NumberStepper({
   disabled?: boolean;
   readOnly?: boolean;
 }) {
+  const step = stepProp ?? preset?.props?.step ?? 1;
+  const disabled = disabledProp ?? preset?.props?.disabled;
+  const readOnly = readOnlyProp ?? preset?.props?.readOnly;
   const set = (next: number) => {
     if (Number.isFinite(next)) onChange(Math.max(min, Math.min(max, next)));
   };
   return (
-    <div class="rv-number-stepper" role="group" aria-label={label}>
+    <div class={`rv-number-stepper ${preset?.className ?? ''} ${className}`} data-part="root" role="group" aria-label={label}>
       <Button
+        data-part="decrease"
         disabled={disabled || readOnly || value <= min}
         aria-label={decreaseLabel}
         onClick={() => set(value - step)}
@@ -351,6 +438,7 @@ export function NumberStepper({
         }}
       />
       <Button
+        data-part="increase"
         disabled={disabled || readOnly || value >= max}
         aria-label={increaseLabel}
         onClick={() => set(value + step)}
@@ -360,47 +448,78 @@ export function NumberStepper({
     </div>
   );
 }
-export function DateInput(props: Omit<TextInputProps, 'type'>) {
-  return <TextInput {...props} type="date" />;
-}
-export function TimeInput(props: Omit<TextInputProps, 'type'>) {
-  return <TextInput {...props} type="time" />;
-}
-export function DateTimeInput(props: Omit<TextInputProps, 'type'>) {
-  return <TextInput {...props} type="datetime-local" />;
-}
-export function Chip({ children, className = '' }: ShellProps) {
-  return <span class={`rv-btn-pill ${className}`}>{children}</span>;
-}
-export function FieldHint({ children, id }: ShellProps & { id?: string }) {
+export function Chip({ children, className = '', preset }: ShellProps) {
   return (
-    <span class="rv-field__hint" id={id}>
+    <span
+      class={`rv-btn-pill ${preset?.className ?? ''} ${className}`}
+      data-part="root"
+    >
       {children}
     </span>
   );
 }
-export function FieldError({ children, id }: ShellProps & { id?: string }) {
+export function FieldHint({
+  children,
+  id,
+  className = '',
+  preset,
+}: ShellProps & { id?: string }) {
   return (
-    <span class="rv-field__error" id={id} role="alert">
+    <span
+      class={`rv-field__hint ${preset?.className ?? ''} ${className}`}
+      data-part="root"
+      id={id}
+    >
+      {children}
+    </span>
+  );
+}
+export function FieldError({
+  children,
+  id,
+  className = '',
+  preset,
+}: ShellProps & { id?: string }) {
+  return (
+    <span
+      class={`rv-field__error ${preset?.className ?? ''} ${className}`}
+      data-part="root"
+      id={id}
+      role="alert"
+    >
       {children}
     </span>
   );
 }
 export function FormSection({
   children,
+  preset,
+  className = '',
   title,
   description,
 }: ShellProps & { title?: string; description?: string }) {
   return (
-    <fieldset class="rv-form-section">
-      {title && <legend class="rv-form-section__title">{title}</legend>}
-      {description && <p class="rv-form-description">{description}</p>}
+    <fieldset
+      class={`rv-form-section ${preset?.className ?? ''} ${className}`}
+      data-part="root"
+    >
+      {title && (
+        <legend class="rv-form-section__title" data-part="title">
+          {title}
+        </legend>
+      )}
+      {description && (
+        <p class="rv-form-description" data-part="description">
+          {description}
+        </p>
+      )}
       {children}
     </fieldset>
   );
 }
 export function Disclosure({
   children,
+  preset,
   className = '',
   summary,
   open,
@@ -412,35 +531,63 @@ export function Disclosure({
 }) {
   return (
     <details
-      class={`rv-disclosure ${className}`.trim()}
+      class={`rv-disclosure ${preset?.className ?? ''} ${className}`.trim()}
+      data-part="root"
       open={open}
       onToggle={onToggle}
     >
-      <summary class="rv-disclosure-summary">{summary}</summary>
+      <summary class="rv-disclosure-summary" data-part="summary">
+        {summary}
+      </summary>
       {children}
     </details>
   );
 }
 export { EditorPane as Pane, EditorSplitLayout as SplitLayout };
-export function Panel({ children, className = '', label }: ShellProps) {
+export function Panel({
+  children,
+  className = '',
+  label,
+  preset,
+}: ShellProps & { preset?: ClassPreset }) {
   return (
-    <section class={`rv-panel ${className}`} aria-label={label}>
+    <section
+      class={`rv-panel ${preset?.className ?? ''} ${className}`}
+      data-part="root"
+      aria-label={label}
+    >
       {children}
     </section>
   );
 }
 
-export function Toolbar({ children, className = '', label }: ShellProps) {
+export function Toolbar({
+  children,
+  className = '',
+  label,
+  preset,
+}: ShellProps & { preset?: ClassPreset }) {
   return (
-    <div class={`rv-toolbar ${className}`} role="toolbar" aria-label={label}>
+    <div
+      class={`rv-toolbar ${preset?.className ?? ''} ${className}`}
+      data-part="root"
+      role="toolbar"
+      aria-label={label}
+    >
       {children}
     </div>
   );
 }
-export function ToolbarGroup({ children, className = '', label }: ShellProps) {
+export function ToolbarGroup({
+  children,
+  className = '',
+  label,
+  preset,
+}: ShellProps & { preset?: ClassPreset }) {
   return (
     <div
-      class={`rv-toolbar-group ${className}`}
+      class={`rv-toolbar-group ${preset?.className ?? ''} ${className}`}
+      data-part="root"
       role="group"
       aria-label={label}
     >
@@ -448,28 +595,61 @@ export function ToolbarGroup({ children, className = '', label }: ShellProps) {
     </div>
   );
 }
-export function ToolbarSeparator() {
+export function ToolbarSeparator({
+  preset,
+  className = '',
+}: { preset?: ClassPreset; className?: string } = {}) {
   return (
     <span
-      class="rv-toolbar-separator"
+      class={`rv-toolbar-separator ${preset?.className ?? ''} ${className}`}
+      data-part="root"
       role="separator"
       aria-orientation="vertical"
     />
   );
 }
 export { Badge } from './badge.view';
-export function CountBadge({ count, label }: { count: number; label: string }) {
+export function CountBadge({
+  count,
+  label,
+  preset,
+  className = '',
+}: {
+  count: number;
+  label: string;
+  preset?: ClassPreset;
+  className?: string;
+}) {
   return (
-    <span class="rv-count" role="img" aria-label={label}>
+    <span
+      class={`rv-count ${preset?.className ?? ''} ${className}`}
+      data-part="root"
+      role="img"
+      aria-label={label}
+    >
       {count}
     </span>
   );
 }
 export { Alert } from './alert';
-export function Spinner({ label }: { label: string }) {
-  return renderLoadingIndicator(h, { label, showSpinner: true });
+export function Spinner({
+  label,
+  preset,
+  className = '',
+}: {
+  label: string;
+  preset?: ClassPreset;
+  className?: string;
+}) {
+  return renderLoadingIndicator(h, {
+    label,
+    className: `rv-spinner ${preset?.className ?? ''} ${className}`,
+    showSpinner: true,
+  });
 }
 export function LoadingOverlay({
+  preset,
+  className = '',
   busy,
   label,
   children,
@@ -477,12 +657,18 @@ export function LoadingOverlay({
   busy: boolean;
   label: string;
   children?: ComponentChildren;
+  preset?: ClassPreset;
+  className?: string;
 }) {
   return (
-    <div class="rv-loading-container" aria-busy={busy}>
+    <div
+      class={`rv-loading-container ${preset?.className ?? ''} ${className}`}
+      data-part="root"
+      aria-busy={busy}
+    >
       {children}
       {busy && (
-        <div class="rv-loading-overlay">
+        <div class="rv-loading-overlay" data-part="overlay">
           <Spinner label={label} />
         </div>
       )}
@@ -490,6 +676,8 @@ export function LoadingOverlay({
   );
 }
 export function EmptyState({
+  preset,
+  className = '',
   title,
   description,
   children,
@@ -497,11 +685,16 @@ export function EmptyState({
   title: string;
   description?: string;
   children?: ComponentChildren;
+  preset?: ClassPreset;
+  className?: string;
 }) {
   return (
-    <div class="rv-empty-state">
-      <strong>{title}</strong>
-      {description && <p>{description}</p>}
+    <div
+      class={`rv-empty-state ${preset?.className ?? ''} ${className}`}
+      data-part="root"
+    >
+      <strong data-part="title">{title}</strong>
+      {description && <p data-part="description">{description}</p>}
       {children}
     </div>
   );
@@ -510,30 +703,56 @@ export function EmptyState({
 export function Menu({
   children,
   label,
+  className = '',
+  preset,
   onClose,
-}: ShellProps & { onClose?: () => void }) {
+}: ShellProps & { preset?: ClassPreset; onClose?: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
   useLayoutEffect(
     () => (ref.current ? attachMenuKeyboard(ref.current, onClose) : undefined),
     [onClose],
   );
   return (
-    <div ref={ref} class="rv-menu" role="menu" aria-label={label}>
+    <div
+      ref={ref}
+      class={`rv-menu ${preset?.className ?? ''} ${className}`}
+      data-part="root"
+      role="menu"
+      aria-label={label}
+    >
       {children}
     </div>
   );
 }
 export function MenuItem({ children, ...props }: ButtonProps) {
   return (
-    <Button variant="ghost" {...props} role="menuitem">
+    <Button
+      variant={props.variant ?? props.preset?.props?.variant ?? 'ghost'}
+      {...props}
+      role="menuitem"
+    >
       {children}
     </Button>
   );
 }
-export function MenuSeparator() {
-  return <div role="separator" class="rv-menu-separator" />;
+export function MenuSeparator({
+  preset,
+  className = '',
+}: { preset?: ClassPreset; className?: string } = {}) {
+  return (
+    <div
+      role="separator"
+      data-part="root"
+      class={`rv-menu-separator ${preset?.className ?? ''} ${className}`}
+    />
+  );
 }
-export function Submenu({ label, children }: ShellProps & { label: string }) {
+export function Submenu({
+  label,
+  children,
+  preset,
+  className = '',
+}: ShellProps & { label: string }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
@@ -552,7 +771,8 @@ export function Submenu({ label, children }: ShellProps & { label: string }) {
   return (
     <div
       ref={ref}
-      class="rv-submenu"
+      class={`rv-submenu ${preset?.className ?? ''} ${className}`}
+      data-part="root"
       onKeyDown={(event) => {
         if (open && (event.key === 'ArrowLeft' || event.key === 'Escape')) {
           event.preventDefault();
@@ -588,7 +808,7 @@ export function Submenu({ label, children }: ShellProps & { label: string }) {
     </div>
   );
 }
-export function ResizeHandle(props: ResizeOptions) {
+export function ResizeHandle(props: ResizeOptions & { preset?: ClassPreset; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const latest = useRef(props);
   latest.current = props;
@@ -601,7 +821,8 @@ export function ResizeHandle(props: ResizeOptions) {
   );
   return (
     <div
-      class="rv-resize-handle"
+      class={`rv-resize-handle ${props.preset?.className ?? ''} ${props.className ?? ''}`}
+      data-part="root"
       ref={ref}
       role="separator"
       tabIndex={0}
@@ -669,7 +890,11 @@ export type PaginationButtonOptions = Pick<
   ButtonProps,
   'disabled' | 'variant' | 'className' | 'title'
 >;
+export type PaginationPreset = ClassPreset & {
+  props?: { variant?: 'compact' | 'numbered' | 'icons'; disabled?: boolean; navigation?: boolean; boundaryButtons?: boolean };
+};
 export interface PaginationProps {
+  preset?: PaginationPreset;
   /** Zero-based page index. */
   page: number;
   pageCount: number;
@@ -692,6 +917,7 @@ export interface PaginationProps {
   className?: string;
 }
 export function Pagination({
+  preset,
   page,
   pageCount,
   onChange,
@@ -700,14 +926,18 @@ export function Pagination({
   nextLabel,
   firstLabel = 'First page',
   lastLabel = 'Last page',
-  variant = 'compact',
-  disabled = false,
-  navigation = true,
-  boundaryButtons = false,
+  variant: variantProp,
+  disabled: disabledProp,
+  navigation: navigationProp,
+  boundaryButtons: boundaryButtonsProp,
   buttons,
   children,
   className = '',
 }: PaginationProps) {
+  const variant = variantProp ?? preset?.props?.variant ?? 'compact';
+  const disabled = disabledProp ?? preset?.props?.disabled ?? false;
+  const navigation = navigationProp ?? preset?.props?.navigation ?? true;
+  const boundaryButtons = boundaryButtonsProp ?? preset?.props?.boundaryButtons ?? false;
   const count = Number.isFinite(pageCount)
     ? Math.max(0, Math.floor(pageCount))
     : 0;
@@ -747,7 +977,8 @@ export function Pagination({
   };
   return (
     <nav
-      class={`rv-pagination ${variant === 'numbered' ? 'rv-pagination--numbered' : ''} ${className}`}
+      class={`rv-pagination ${variant === 'numbered' ? 'rv-pagination--numbered' : ''} ${preset?.className ?? ''} ${className}`}
+      data-part="root"
       aria-label={label}
     >
       {navigation && boundaryButtons && button('first', firstLabel)}
@@ -800,6 +1031,8 @@ export function Pagination({
   );
 }
 export function CircularProgress({
+  preset,
+  className = '',
   value,
   min = 0,
   max = 100,
@@ -809,12 +1042,15 @@ export function CircularProgress({
   min?: number;
   max?: number;
   label: string;
+  preset?: ClassPreset;
+  className?: string;
 }) {
   const normalized = normalizeProgressRange(value, min, max);
   return (
     <svg
       viewBox="0 0 36 36"
-      class="rv-circular-progress"
+      class={`rv-circular-progress ${preset?.className ?? ''} ${className}`}
+      data-part="root"
       role="progressbar"
       aria-label={label}
       aria-valuemin={normalized.min}
@@ -831,6 +1067,7 @@ export function CircularProgress({
         fill="none"
         stroke="currentColor"
         opacity="0.15"
+        data-part="track"
       />
       <circle
         cx="18"
@@ -839,32 +1076,40 @@ export function CircularProgress({
         fill="none"
         stroke="currentColor"
         pathLength="100"
+        data-part="fill"
         stroke-dasharray={`${normalized.percent} 100`}
         transform="rotate(-90 18 18)"
       />
     </svg>
   );
 }
+export type RatingPreset = ClassPreset & { props?: { max?: number; disabled?: boolean } };
 export function Rating({
+  preset,
+  className = '',
   value,
-  max = 5,
+  max: maxProp,
   label,
   onChange,
-  disabled,
+  disabled: disabledProp,
 }: {
   value: number;
   max?: number;
   label: string;
   onChange?: (value: number) => void;
   disabled?: boolean;
+  preset?: RatingPreset;
+  className?: string;
 }) {
+  const max = maxProp ?? preset?.props?.max ?? 5;
+  const disabled = disabledProp ?? preset?.props?.disabled;
   const options = Array.from(
     { length: Math.max(0, Math.min(100, Math.floor(max))) },
     (_, index) => index + 1,
   );
   return onChange ? (
     <RadioGroup
-      className="rv-rating"
+      className={`rv-rating ${preset?.className ?? ''} ${className}`}
       label={label}
       value={value}
       disabled={disabled}
@@ -881,7 +1126,8 @@ export function Rating({
     />
   ) : (
     <span
-      class="rv-rating"
+      class={`rv-rating ${preset?.className ?? ''} ${className}`}
+      data-part="root"
       role="img"
       aria-label={`${label}: ${value} / ${max}`}
     >
@@ -895,9 +1141,6 @@ export function Rating({
 // Let native hint and policy adapters recognize these transparent compositions.
 registerControl(TextInput, 'input');
 registerControl(NumberInput, 'input');
-registerControl(DateInput, 'input');
-registerControl(TimeInput, 'input');
-registerControl(DateTimeInput, 'input');
 registerControl(Textarea, 'textarea');
 
 export * from './selection-list';

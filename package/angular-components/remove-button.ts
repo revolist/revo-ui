@@ -20,6 +20,7 @@ export class RemoveButton extends AngularComponentAdapter<never> {
   @NgInput() declare "onClick"?: AngularInput<'RemoveButton', "onClick">;
   @NgInput() declare "onDblClick"?: AngularInput<'RemoveButton', "onDblClick">;
   @NgInput() declare "onMouseDown"?: AngularInput<'RemoveButton', "onMouseDown">;
+  @NgInput() declare "preset"?: AngularInput<'RemoveButton', "preset">;
   @NgInput() declare "rounded"?: AngularInput<'RemoveButton', "rounded">;
   @Output() get clickEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'RemoveButton', 'onClick'>>>('onClick'); }
   @Output() get dblClick() { return this.rvOutput<AngularCallbackValue<AngularInput<'RemoveButton', 'onDblClick'>>>('onDblClick'); }

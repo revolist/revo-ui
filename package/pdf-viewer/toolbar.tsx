@@ -1,3 +1,4 @@
+import type { ClassPreset } from '../presets/types';
 import { h, Fragment } from 'preact';
 import { useLayoutEffect, useRef, useState } from 'preact/hooks';
 import {
@@ -29,6 +30,7 @@ import {
 import './style.scss';
 
 export interface PdfViewerToolbarProps {
+  preset?: ClassPreset;
   controller: PdfViewerController;
   state: Readonly<PdfViewerState>;
   config?: PdfViewerToolbarConfig;
@@ -131,6 +133,7 @@ export function PdfViewerToolbar(props: PdfViewerToolbarProps) {
   return (
     <>
       <Toolbar
+        preset={props.preset}
         label={text.toolbar}
         className={`rv-pdf-viewer__toolbar rv-toolbar--surface ${options.className ?? ''}`}
       >
@@ -231,6 +234,7 @@ export function PdfViewerToolbar(props: PdfViewerToolbarProps) {
               {options.showZoomSelect !== false && (
                 <div class="rv-pdf-viewer__zoom-select">
                   <Dropdown
+                    preset={props.preset}
                     className="rv-select"
                     config={{
                       ariaLabel: text.zoom,
@@ -356,6 +360,7 @@ export function PdfViewerToolbar(props: PdfViewerToolbarProps) {
         )}
       </Toolbar>
       <Popover
+        preset={props.preset}
         open={moreOpen}
         anchor={moreButton.current}
         appendTo={props.appendTo}

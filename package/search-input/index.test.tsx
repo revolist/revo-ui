@@ -103,3 +103,26 @@ describe('SearchInput', () => {
     );
   });
 });
+
+it('applies search presets and allows instance overrides', () => {
+  render(
+    <SearchInput
+      preset={{
+        className: 'custom-search',
+        props: { hideIcon: true, disabled: true },
+      }}
+      hideIcon={false}
+      disabled={false}
+    />,
+    document.body,
+  );
+  expect(
+    document
+      .querySelector('[data-part="root"]')
+      ?.classList.contains('custom-search'),
+  ).toBe(true);
+  expect(document.querySelector('[data-part="icon"]')).toBeTruthy();
+  expect(
+    document.querySelector<HTMLInputElement>('[data-part="input"]')?.disabled,
+  ).toBe(false);
+});

@@ -22,6 +22,7 @@ export class SegmentedControl extends AngularComponentAdapter<AngularCallbackVal
   @NgInput() declare "itemClassName"?: AngularInput<'SegmentedControl', "itemClassName">;
   @NgInput() declare "onChange"?: AngularInput<'SegmentedControl', "onChange">;
   @NgInput({ required: true }) declare "options": AngularInput<'SegmentedControl', "options">;
+  @NgInput() declare "preset"?: AngularInput<'SegmentedControl', "preset">;
   @NgInput() declare "renderCount"?: AngularInput<'SegmentedControl', "renderCount">;
   @NgInput() declare "renderOption"?: AngularInput<'SegmentedControl', "renderOption">;
   @NgInput() declare "role"?: AngularInput<'SegmentedControl', "role">;

@@ -47,7 +47,19 @@ const DAY_NAVIGATION_KEYS = [
   'PageDown',
 ];
 
-export function Calendar({
+export function Calendar(input: CalendarProps) {
+  const defaults = input.preset?.props;
+  return renderCalendar({
+    ...input,
+    showTodayButton: input.showTodayButton ?? defaults?.showTodayButton,
+    showOutsideDays: input.showOutsideDays ?? defaults?.showOutsideDays,
+    fixedWeeks: input.fixedWeeks ?? defaults?.fixedWeeks,
+    showWeekNumber: input.showWeekNumber ?? defaults?.showWeekNumber,
+    enableYearView: input.enableYearView ?? defaults?.enableYearView,
+  });
+}
+
+function renderCalendar({
   locale = 'en-US',
   weekStartsOn = 1,
   showOutsideDays = false,
@@ -337,7 +349,9 @@ export function Calendar({
     <div
       ref={calendarRoot}
       tabIndex={-1}
-      class={`revo-calendar${props.showWeekNumber ? ' revo-calendar--week-numbers' : ''}${props.className ? ` ${props.className}` : ''}`}
+      class={`revo-calendar${props.showWeekNumber ? ' revo-calendar--week-numbers' : ''}${props.className ? ` ${props.className}` : ''}${props.preset?.className ? ` ${props.preset.className}` : ''}`}
+      data-part="root"
+      data-preset-surface={props.presetSurface ? '' : undefined}
       onFocusCapture={(event) => {
         const element = event.target as HTMLButtonElement;
         focusedDay.current = element.hasAttribute('data-calendar-date')
@@ -364,9 +378,9 @@ export function Calendar({
           : undefined
       }
     >
-      <div class="revo-calendar__months">
+      <div class="revo-calendar__months" data-part="months">
         {(isYearView ? [month] : displayed).map((candidate, index) => (
-          <section class="revo-calendar__month-panel" key={index}>
+          <section class="revo-calendar__month-panel" data-part="month" key={index}>
             {showHeader && (
               <CalendarHeader
                 label={
@@ -502,6 +516,7 @@ export function Calendar({
                   />
                 )}
                 <CalendarMonthGrid
+                  inheritPresetScope
                   dates={createCalendarMonth(
                     candidate,
                     weekStartsOn,

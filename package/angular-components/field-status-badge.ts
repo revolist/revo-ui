@@ -15,6 +15,7 @@ export class FieldStatusBadge extends AngularComponentAdapter<never> {
   @NgInput() declare "active"?: AngularInput<'FieldStatusBadge', "active">;
   @NgInput() declare "className"?: AngularInput<'FieldStatusBadge', "className">;
   @NgInput({ required: true }) declare "label": AngularInput<'FieldStatusBadge', "label">;
+  @NgInput() declare "preset"?: AngularInput<'FieldStatusBadge', "preset">;
 
   protected rvResolveProps() { return this.rvInputValues; }
 }

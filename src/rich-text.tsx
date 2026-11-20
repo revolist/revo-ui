@@ -1,7 +1,11 @@
 import { h } from 'preact';
 import { useMemo, useState } from 'preact/hooks';
-import { HtmlEditor, HtmlSyntax, formatRichTextHtml } from '@revolist/ui/rich-text';
+import { HtmlEditor as __themeOriginal_HtmlEditor, HtmlSyntax, formatRichTextHtml } from '@revolist/ui/rich-text';
 import { Example } from './catalog';
+import { withThemePreview } from './theme-preview';
+
+const HtmlEditor = withThemePreview(__themeOriginal_HtmlEditor, 'HtmlEditor');
+
 
 export function RichTextEditorExample() {
   const [saved, setSaved] = useState(

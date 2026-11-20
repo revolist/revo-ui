@@ -23,9 +23,6 @@ export interface SvelteModelCallbacks {
   Textarea: 'onValueChange';
   NumberInput: 'onValueChange';
   NumberStepper: 'onChange';
-  DateInput: 'onValueChange';
-  TimeInput: 'onValueChange';
-  DateTimeInput: 'onValueChange';
   Rating: 'onChange';
   Combobox: 'onChange';
   MultiSelect: 'onChange';
