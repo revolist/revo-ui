@@ -54,7 +54,7 @@ it('compiles structured root and part styles for several components', async () =
     '.brand-button {\n  background-color: #123456;\n  --space: 4px;\n}',
   );
   expect(css).toContain(
-    '.brand-switch[data-part="thumb"], .brand-switch [data-part="thumb"]:not(.brand-switch [data-part="root"] *) {\n  border-radius: 50%;\n}',
+    '.brand-switch[data-part="thumb"], .brand-switch [data-part="thumb"]:not(:where(.brand-switch [data-part="root"]:not(.brand-switch):not([data-preset-scope="inherit"]) *)) {\n  border-radius: 50%;\n}',
   );
   expect(
     themeToCss({

@@ -13,6 +13,7 @@ import type { CalendarDateRange, CalendarDayContext } from './types';
 
 export function CalendarMonthGrid({
   preset,
+  inheritPresetScope,
   className = '',
   dates,
   system = 'gregory',
@@ -40,6 +41,8 @@ export function CalendarMonthGrid({
   onSelect,
 }: {
   preset?: ClassPreset;
+  /** Internal composition hook: expose calendar days to the parent preset. */
+  inheritPresetScope?: boolean;
   className?: string;
   dates: readonly ISODateString[];
   system?: DisplayCalendarSystem;
@@ -78,7 +81,7 @@ export function CalendarMonthGrid({
   onSelect: (date: ISODateString) => void;
 }) {
   return (
-    <div class={`revo-calendar__month-grid ${preset?.className ?? ''} ${className}`} data-part="root">
+    <div class={`revo-calendar__month-grid ${preset?.className ?? ''} ${className}`} data-part="root" data-preset-scope={inheritPresetScope ? 'inherit' : undefined}>
       {Array.from({ length: dates.length / 7 }, (_, week) => (
         <div
           class="revo-calendar__week"

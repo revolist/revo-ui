@@ -91,6 +91,8 @@ The preset applies its class, built-in `props`, and Switch tokens. Importing `th
 | `styles.parts` | CSS declarations for named `data-part` elements. | Generate and import CSS with `themeToCss`. |
 | `defaults` | Other JSON-friendly component props. | Apply with `presetProps` as shown below. |
 
+Structured part styles stop at an independently nested component marked with `data-part="root"`. Some composed components expose their internal parts to the parent preset: for example, Calendar exposes its day buttons. Give other nested components their own presets, or use ordinary CSS to target deeper descendants.
+
 Not every component has built-in `props` or `tokens`. Check its API reference and the schema for the options it supports. Any component can use a class and structured styles; JSON-friendly props can also be supplied through `defaults`.
 
 A component may have several named presets. Give presets with different styles distinct class names:

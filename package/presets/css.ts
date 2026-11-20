@@ -55,7 +55,7 @@ export function themeToCss(theme: UiTheme): string {
         // itself is addressed only on the preset element, not its children.
         const scopedPart = part === 'root'
           ? `${selector}${attribute}`
-          : `${selector}${attribute}, ${selector} ${attribute}:not(${selector} [data-part="root"] *)`;
+          : `${selector}${attribute}, ${selector} ${attribute}:not(:where(${selector} [data-part="root"]:not(${selector}):not([data-preset-scope="inherit"]) *))`;
         emit(scopedPart, declarations);
       }
     }

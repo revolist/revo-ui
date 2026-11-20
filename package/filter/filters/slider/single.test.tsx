@@ -8,6 +8,7 @@ afterEach(() => {
 it('retains the bare slider contract without composition markup', () => {
   render(
     <SingleValueSlider
+      preset={{ className: 'bare-slider' }}
       min={0}
       max={100}
       value={50}
@@ -17,6 +18,7 @@ it('retains the bare slider contract without composition markup', () => {
     document.body,
   );
   expect(document.body.firstElementChild?.tagName).toBe('INPUT');
+  expect(document.body.firstElementChild?.classList.contains('bare-slider')).toBe(true);
 });
 it('formats accessible values and reports native input and commit independently', () => {
   const change = vi.fn(),

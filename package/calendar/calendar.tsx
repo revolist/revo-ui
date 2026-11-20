@@ -409,6 +409,7 @@ function renderCalendar({
                   />
                 )}
                 <CalendarMonthGrid
+                  inheritPresetScope
                   dates={createCalendarMonth(
                     candidate,
                     weekStartsOn,
