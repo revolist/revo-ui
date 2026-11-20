@@ -7,19 +7,40 @@ import type { AngularInput, AngularCallbackValue } from '../angular-adapter';
 @Component({
   selector: 'rv-disclosure-summary',
   standalone: true,
-  template: '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
+  template:
+    '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
   host: { style: 'display: contents', ngSkipHydration: 'true' },
 })
-export class DisclosureSummary extends AngularNativeAdapter<'DisclosureSummary', never> {
+export class DisclosureSummary extends AngularNativeAdapter<
+  'DisclosureSummary',
+  never
+> {
   protected readonly rvComponentName = 'DisclosureSummary';
-  protected rvResolveComponent() { return Control; }
-  @NgInput() declare "aria-label"?: AngularInput<'DisclosureSummary', "aria-label">;
-  @NgInput() declare "class"?: AngularInput<'DisclosureSummary', "class">;
-  @NgInput() declare "icon"?: AngularInput<'DisclosureSummary', "icon">;
-  @NgInput() declare "iconClassName"?: AngularInput<'DisclosureSummary', "iconClassName">;
-  @NgInput() declare "iconPosition"?: AngularInput<'DisclosureSummary', "iconPosition">;
-  @NgInput() declare "onChange"?: AngularInput<'DisclosureSummary', "onChange">;
-  @NgInput() declare "title"?: AngularInput<'DisclosureSummary', "title">;
-  @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DisclosureSummary', 'onChange'>>>('onChange'); }
-  protected rvResolveProps() { return this.rvInputValues; }
+  protected rvResolveComponent() {
+    return Control;
+  }
+  @NgInput() declare 'aria-label'?: AngularInput<
+    'DisclosureSummary',
+    'aria-label'
+  >;
+  @NgInput() declare 'class'?: AngularInput<'DisclosureSummary', 'class'>;
+  @NgInput() declare 'icon'?: AngularInput<'DisclosureSummary', 'icon'>;
+  @NgInput() declare 'iconClassName'?: AngularInput<
+    'DisclosureSummary',
+    'iconClassName'
+  >;
+  @NgInput() declare 'iconPosition'?: AngularInput<
+    'DisclosureSummary',
+    'iconPosition'
+  >;
+  @NgInput() declare 'onChange'?: AngularInput<'DisclosureSummary', 'onChange'>;
+  @NgInput() declare 'title'?: AngularInput<'DisclosureSummary', 'title'>;
+  @Output() get changeEvent() {
+    return this.rvOutput<
+      AngularCallbackValue<AngularInput<'DisclosureSummary', 'onChange'>>
+    >('onChange');
+  }
+  protected rvResolveProps() {
+    return this.rvInputValues;
+  }
 }

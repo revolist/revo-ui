@@ -2,7 +2,7 @@ name: SSR examples
 
 on:
   schedule:
-    - cron: "0 3 * * *"
+    - cron: '0 3 * * *'
   workflow_dispatch:
 
 permissions:
@@ -56,9 +56,9 @@ jobs:
       - name: Verify production server and browser interaction
         env:
           STARTER: ${{ matrix.starter }}
-          PORT: "3000"
-          HOST: "127.0.0.1"
-          ORIGIN: "http://127.0.0.1:3000"
+          PORT: '3000'
+          HOST: '127.0.0.1'
+          ORIGIN: 'http://127.0.0.1:3000'
         run: |
           pnpm --dir "examples/ssr/$STARTER" start > /tmp/starter.log 2>&1 &
           server_pid=$!

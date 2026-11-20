@@ -20,11 +20,11 @@ The starter explicitly uses Next.js's supported Webpack build (`next build --web
 
 ## Files to read
 
-| File | Responsibility |
-| --- | --- |
-| [`app/layout.tsx`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/refine/app/layout.tsx) | Loads global CSS and enables request-time server rendering. |
-| [`app/page.tsx`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/refine/app/page.tsx) | Provides Refine context and renders the editable form with `SvgButton` directly. |
-| [`app/api/reports/[id]/route.ts`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/refine/app/api/reports/[id]/route.ts) | Validates a PATCH request and echoes the report. |
+| File                                                                                                                               | Responsibility                                                                   |
+| ---------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| [`app/layout.tsx`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/refine/app/layout.tsx)                               | Loads global CSS and enables request-time server rendering.                      |
+| [`app/page.tsx`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/refine/app/page.tsx)                                   | Provides Refine context and renders the editable form with `SvgButton` directly. |
+| [`app/api/reports/[id]/route.ts`](https://github.com/revolist/revo-ui/blob/main/examples/ssr/refine/app/api/reports/[id]/route.ts) | Validates a PATCH request and echoes the report.                                 |
 
 ## Use the component directly
 

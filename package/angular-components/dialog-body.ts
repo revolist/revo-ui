@@ -7,16 +7,25 @@ import type { AngularInput, AngularCallbackValue } from '../angular-adapter';
 @Component({
   selector: 'rv-dialog-body',
   standalone: true,
-  template: '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
+  template:
+    '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
   host: { style: 'display: contents', ngSkipHydration: 'true' },
 })
 export class DialogBody extends AngularNativeAdapter<'DialogBody', never> {
   protected readonly rvComponentName = 'DialogBody';
-  protected rvResolveComponent() { return Control; }
-  @NgInput() declare "aria-label"?: AngularInput<'DialogBody', "aria-label">;
-  @NgInput() declare "class"?: AngularInput<'DialogBody', "class">;
-  @NgInput() declare "onChange"?: AngularInput<'DialogBody', "onChange">;
-  @NgInput() declare "title"?: AngularInput<'DialogBody', "title">;
-  @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogBody', 'onChange'>>>('onChange'); }
-  protected rvResolveProps() { return this.rvInputValues; }
+  protected rvResolveComponent() {
+    return Control;
+  }
+  @NgInput() declare 'aria-label'?: AngularInput<'DialogBody', 'aria-label'>;
+  @NgInput() declare 'class'?: AngularInput<'DialogBody', 'class'>;
+  @NgInput() declare 'onChange'?: AngularInput<'DialogBody', 'onChange'>;
+  @NgInput() declare 'title'?: AngularInput<'DialogBody', 'title'>;
+  @Output() get changeEvent() {
+    return this.rvOutput<
+      AngularCallbackValue<AngularInput<'DialogBody', 'onChange'>>
+    >('onChange');
+  }
+  protected rvResolveProps() {
+    return this.rvInputValues;
+  }
 }

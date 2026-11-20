@@ -53,7 +53,13 @@ export const Input = /* @__PURE__ */ registerControl(
   /* @__PURE__ */ forwardRef<HTMLInputElement, NativeAttributes<'input'>>(
     ({ title, preset, ...props }, ref) => {
       const hint = useHintRef<HTMLInputElement>(title, ref);
-      return nativeNode('input', { ...props, className: [preset?.className, props.className].filter(Boolean).join(' '), ref: hint });
+      return nativeNode('input', {
+        ...props,
+        className: [preset?.className, props.className]
+          .filter(Boolean)
+          .join(' '),
+        ref: hint,
+      });
     },
   ),
   'input',
@@ -62,7 +68,17 @@ export const TextArea = /* @__PURE__ */ registerControl(
   /* @__PURE__ */ forwardRef<HTMLTextAreaElement, NativeAttributes<'textarea'>>(
     ({ children, title, preset, ...props }, ref) => {
       const hint = useHintRef<HTMLTextAreaElement>(title, ref);
-      return nativeNode('textarea', { ...props, className: [preset?.className, props.className].filter(Boolean).join(' '), ref: hint }, children);
+      return nativeNode(
+        'textarea',
+        {
+          ...props,
+          className: [preset?.className, props.className]
+            .filter(Boolean)
+            .join(' '),
+          ref: hint,
+        },
+        children,
+      );
     },
   ),
   'textarea',
@@ -81,7 +97,9 @@ export const ButtonControl = /* @__PURE__ */ registerControl(
       'button',
       {
         ...props,
-        className: [preset?.className, props.className].filter(Boolean).join(' '),
+        className: [preset?.className, props.className]
+          .filter(Boolean)
+          .join(' '),
         ref,
         title,
         'aria-label':
@@ -97,7 +115,17 @@ export const Summary = /* @__PURE__ */ registerControl(
   /* @__PURE__ */ forwardRef<HTMLElement, NativeAttributes<'summary'>>(
     ({ children, title, preset, ...props }, ref) => {
       const hint = useHintRef<HTMLElement>(title, ref);
-      return nativeNode('summary', { ...props, className: [preset?.className, props.className].filter(Boolean).join(' '), ref: hint }, children);
+      return nativeNode(
+        'summary',
+        {
+          ...props,
+          className: [preset?.className, props.className]
+            .filter(Boolean)
+            .join(' '),
+          ref: hint,
+        },
+        children,
+      );
     },
   ),
   'summary',

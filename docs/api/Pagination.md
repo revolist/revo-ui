@@ -16,23 +16,23 @@ Angular/Svelte: pass `component="Pagination"` to the framework's `UiComponent` h
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `page` | `number` | Yes | Zero-based page index. |
-| `pageCount` | `number` | Yes |  |
-| `onChange` | `(page: number) => void` | Yes |  |
-| `label` | `string` | Yes |  |
-| `previousLabel` | `string` | Yes |  |
-| `nextLabel` | `string` | Yes |  |
-| `firstLabel` | `string \| undefined` | No |  |
-| `lastLabel` | `string \| undefined` | No |  |
-| `variant` | `"compact" \| "numbered" \| "icons" \| undefined` | No |  |
-| `disabled` | `boolean \| undefined` | No |  |
-| `navigation` | `boolean \| undefined` | No |  |
-| `boundaryButtons` | `boolean \| undefined` | No | Show first/last buttons, default false. |
-| `buttons` | `Partial<Record<PaginationDirection, false \| PaginationButtonOptions>> \| undefined` | No |  |
-| `children` | `ComponentChildren` | No | Optional page field/selector between the previous and next controls. |
-| `className` | `string \| undefined` | No |  |
+| Prop              | Type                                                                                  | Required | Description                                                          |
+| ----------------- | ------------------------------------------------------------------------------------- | -------- | -------------------------------------------------------------------- |
+| `page`            | `number`                                                                              | Yes      | Zero-based page index.                                               |
+| `pageCount`       | `number`                                                                              | Yes      |                                                                      |
+| `onChange`        | `(page: number) => void`                                                              | Yes      |                                                                      |
+| `label`           | `string`                                                                              | Yes      |                                                                      |
+| `previousLabel`   | `string`                                                                              | Yes      |                                                                      |
+| `nextLabel`       | `string`                                                                              | Yes      |                                                                      |
+| `firstLabel`      | `string \| undefined`                                                                 | No       |                                                                      |
+| `lastLabel`       | `string \| undefined`                                                                 | No       |                                                                      |
+| `variant`         | `"compact" \| "numbered" \| "icons" \| undefined`                                     | No       |                                                                      |
+| `disabled`        | `boolean \| undefined`                                                                | No       |                                                                      |
+| `navigation`      | `boolean \| undefined`                                                                | No       |                                                                      |
+| `boundaryButtons` | `boolean \| undefined`                                                                | No       | Show first/last buttons, default false.                              |
+| `buttons`         | `Partial<Record<PaginationDirection, false \| PaginationButtonOptions>> \| undefined` | No       |                                                                      |
+| `children`        | `ComponentChildren`                                                                   | No       | Optional page field/selector between the previous and next controls. |
+| `className`       | `string \| undefined`                                                                 | No       |                                                                      |
 
 ## Composition
 

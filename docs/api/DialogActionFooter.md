@@ -16,15 +16,15 @@ Angular/Svelte: pass `component="DialogActionFooter"` to the framework's `UiComp
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `cancel` | `false \| DialogAction \| undefined` | No |  |
-| `save` | `false \| DialogAction \| undefined` | No |  |
-| `deleteAction` | `false \| DialogAction \| undefined` | No |  |
-| `reset` | `false \| DialogAction \| undefined` | No |  |
-| `start` | `ComponentChildren` | No | Custom actions on either side of the standard bottom panel. |
-| `end` | `ComponentChildren` | No |  |
-| `actionsClass` | `string \| undefined` | No |  |
+| Prop           | Type                                 | Required | Description                                                 |
+| -------------- | ------------------------------------ | -------- | ----------------------------------------------------------- |
+| `cancel`       | `false \| DialogAction \| undefined` | No       |                                                             |
+| `save`         | `false \| DialogAction \| undefined` | No       |                                                             |
+| `deleteAction` | `false \| DialogAction \| undefined` | No       |                                                             |
+| `reset`        | `false \| DialogAction \| undefined` | No       |                                                             |
+| `start`        | `ComponentChildren`                  | No       | Custom actions on either side of the standard bottom panel. |
+| `end`          | `ComponentChildren`                  | No       |                                                             |
+| `actionsClass` | `string \| undefined`                | No       |                                                             |
 
 ## Composition
 

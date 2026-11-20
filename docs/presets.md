@@ -80,17 +80,17 @@ The preset applies its class, built-in `props`, and Switch tokens. Importing `th
 
 ![Diagram of the component, named preset, class, props, defaults and styles fields](../public/assets/presets-anatomy.svg)
 
-| Field | Purpose | How it takes effect |
-| --- | --- | --- |
-| `version` | Theme format version; currently `1`. | Required on the theme. |
-| `components` | Groups named presets by component name. | Choose a component and preset explicitly. |
-| `className` | Connects the component to CSS. | Applied when the component receives the preset. |
-| `props` | Built-in preset options supported by that component. | Read automatically by the component. |
-| `tokens` | Component-specific design values, where supported. | Read automatically; Switch supports the tokens below. |
-| `styles.root` | CSS declarations for the preset class. | Generate and import CSS with `themeToCss`. |
-| `styles.parts` | CSS declarations for named `data-part` elements. | Generate and import CSS with `themeToCss`. |
-| `defaults` | Other JSON-friendly component props. | Apply with `presetProps` as shown below. |
-| `motion` | Event-specific animation timing and keyframes, for components listed below. | Pass the preset; slider motion additionally requires generated CSS. |
+| Field          | Purpose                                                                     | How it takes effect                                                 |
+| -------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `version`      | Theme format version; currently `1`.                                        | Required on the theme.                                              |
+| `components`   | Groups named presets by component name.                                     | Choose a component and preset explicitly.                           |
+| `className`    | Connects the component to CSS.                                              | Applied when the component receives the preset.                     |
+| `props`        | Built-in preset options supported by that component.                        | Read automatically by the component.                                |
+| `tokens`       | Component-specific design values, where supported.                          | Read automatically; Switch supports the tokens below.               |
+| `styles.root`  | CSS declarations for the preset class.                                      | Generate and import CSS with `themeToCss`.                          |
+| `styles.parts` | CSS declarations for named `data-part` elements.                            | Generate and import CSS with `themeToCss`.                          |
+| `defaults`     | Other JSON-friendly component props.                                        | Apply with `presetProps` as shown below.                            |
+| `motion`       | Event-specific animation timing and keyframes, for components listed below. | Pass the preset; slider motion additionally requires generated CSS. |
 
 Structured part styles stop at an independently nested component marked with `data-part="root"`. Some composed components expose their internal parts to the parent preset: for example, Calendar exposes its day buttons. Give other nested components their own presets, or use ordinary CSS to target deeper descendants.
 
@@ -103,7 +103,10 @@ A component may have several named presets. Give presets with different styles d
   "version": 1,
   "components": {
     "Button": {
-      "primary": { "className": "brand-button", "props": { "variant": "primary" } },
+      "primary": {
+        "className": "brand-button",
+        "props": { "variant": "primary" }
+      },
       "quiet": { "className": "quiet-button", "props": { "variant": "ghost" } }
     }
   }
@@ -155,13 +158,13 @@ Animation is optional. A motion event can specify `enabled`, `duration`, `delay`
 
 Pass the named preset to the corresponding component as in the example above. Switch, segmented control, calendar, and number stepper read their motion directly from the preset. For slider hover and press, run `themeToCss` and import its output: it contains scoped keyframes and selectors for the native slider thumb. Slider CSS supports `duration`, `delay`, `easing`, `iterations`, `direction`, `fill`, and `keyframes`; `endDelay`, `iterationStart`, and `stagger` apply only to JavaScript-driven events.
 
-| Component | Event names | Available keyframe placeholders |
-| --- | --- | --- |
-| Switch | `settle` | — |
-| SegmentedSwitch, SegmentedControl, Tabs | `selection` | `{{distance}}`, `{{startWidth}}`, `{{endWidth}}` in pixels |
-| Calendar and calendar pickers | `selection`, `caption`, `period`, `periodForward`, `periodBackward` | Selection: `{{x}}`, `{{y}}`; period: `{{x}}`, `{{opacity}}`, `{{column}}`, `{{direction}}` |
-| NumberStepper | `digits`, `digitsUp`, `digitsDown` | `{{fromY}}`, `{{toY}}`, `{{fromOpacity}}`, `{{toOpacity}}`, `{{direction}}` |
-| SingleValueSlider, SliderField, PreactRangeSlider | `hover`, `press` | — |
+| Component                                         | Event names                                                         | Available keyframe placeholders                                                            |
+| ------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| Switch                                            | `settle`                                                            | —                                                                                          |
+| SegmentedSwitch, SegmentedControl, Tabs           | `selection`                                                         | `{{distance}}`, `{{startWidth}}`, `{{endWidth}}` in pixels                                 |
+| Calendar and calendar pickers                     | `selection`, `caption`, `period`, `periodForward`, `periodBackward` | Selection: `{{x}}`, `{{y}}`; period: `{{x}}`, `{{opacity}}`, `{{column}}`, `{{direction}}` |
+| NumberStepper                                     | `digits`, `digitsUp`, `digitsDown`                                  | `{{fromY}}`, `{{toY}}`, `{{fromOpacity}}`, `{{toOpacity}}`, `{{direction}}`                |
+| SingleValueSlider, SliderField, PreactRangeSlider | `hover`, `press`                                                    | —                                                                                          |
 
 For example, a segmented selection can end at `translateX({{distance}}px)`. Counter placeholders provide separate start and end values for outgoing and incoming digits. Calendar `periodForward` and `periodBackward` override `period` for their respective directions; number stepper `digitsUp` and `digitsDown` override `digits`. Calendar period and caption transitions are **off by default** and run only when configured. A calendar period can also set `stagger` (milliseconds per column).
 
@@ -198,7 +201,7 @@ const theme = rawTheme as unknown as UiTheme;
   {...presetProps(theme.components.ProgressBar?.capacity)}
   value={65}
   ariaLabel="Capacity"
-/>
+/>;
 ```
 
 This supplies both `max` and `preset`. Put `max={100}` **after** the spread to override the shared value. For built-in `props`, an explicit component prop also wins over the preset. Use the component API reference to find valid prop names and values: the generic `defaults` field does not check them against each component's API.
@@ -267,16 +270,15 @@ Saved presets use browser local storage. Export the files before moving to anoth
 
 ## Troubleshooting
 
-| Symptom | Check |
-| --- | --- |
-| JSON styles do not appear | Generate and import `theme.css`, and pass the matching named preset to the component. |
-| A behavior default is ignored | Apply `presetProps`, check the component's prop name, and look for an explicit prop after the spread. |
-| A CSS part is missing | Open the relevant popup or state in the preview; not all parts are mounted all the time. |
-| A CSS value is rejected | Use a simple property/value in structured styles, or put complex CSS in a stylesheet. |
-| Theme validation fails | Check `version`, component and preset names, supported built-in options, and the schema for your installed version. |
+| Symptom                       | Check                                                                                                               |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| JSON styles do not appear     | Generate and import `theme.css`, and pass the matching named preset to the component.                               |
+| A behavior default is ignored | Apply `presetProps`, check the component's prop name, and look for an explicit prop after the spread.               |
+| A CSS part is missing         | Open the relevant popup or state in the preview; not all parts are mounted all the time.                            |
+| A CSS value is rejected       | Use a simple property/value in structured styles, or put complex CSS in a stylesheet.                               |
+| Theme validation fails        | Check `version`, component and preset names, supported built-in options, and the schema for your installed version. |
 
 Validate externally sourced theme files before using them. A TypeScript cast such as `as UiTheme` helps with editor types; it does not validate JSON at runtime.
-
 
 ### Ready-made styles
 

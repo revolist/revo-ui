@@ -16,11 +16,11 @@ Angular/Svelte: pass `component="FieldContent"` to the framework's `UiComponent`
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `icon` | `ComponentChildren` | No |  |
-| `children` | `ComponentChildren` | Yes |  |
-| `className` | `string \| undefined` | No |  |
+| Prop        | Type                  | Required | Description |
+| ----------- | --------------------- | -------- | ----------- |
+| `icon`      | `ComponentChildren`   | No       |             |
+| `children`  | `ComponentChildren`   | Yes      |             |
+| `className` | `string \| undefined` | No       |             |
 
 ## Composition
 

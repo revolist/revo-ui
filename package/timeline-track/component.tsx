@@ -288,7 +288,10 @@ export function TimelineTrack<T extends TimelineTrackEvent>({
           })}
       </div>
       {showActions && (
-        <details class={`rv-timeline-control__actions ${preset?.className ?? ''} ${className}`} data-part="actions">
+        <details
+          class={`rv-timeline-control__actions ${preset?.className ?? ''} ${className}`}
+          data-part="actions"
+        >
           <summary>{locale.editEvents}</summary>
           {rows
             .filter(

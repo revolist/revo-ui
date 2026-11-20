@@ -19,10 +19,22 @@ import { Input as __themeOriginal_Input } from '@revolist/ui/native-control';
 import { Example } from './catalog';
 import { withThemePreview } from './theme-preview';
 
-const TypographyControls = withThemePreview(__themeOriginal_TypographyControls, 'TypographyControls');
-const IconChoiceGroup = withThemePreview(__themeOriginal_IconChoiceGroup, 'IconChoiceGroup');
-const InspectorSection = withThemePreview(__themeOriginal_InspectorSection, 'InspectorSection');
-const ComparisonPreview = withThemePreview(__themeOriginal_ComparisonPreview, 'ComparisonPreview');
+const TypographyControls = withThemePreview(
+  __themeOriginal_TypographyControls,
+  'TypographyControls',
+);
+const IconChoiceGroup = withThemePreview(
+  __themeOriginal_IconChoiceGroup,
+  'IconChoiceGroup',
+);
+const InspectorSection = withThemePreview(
+  __themeOriginal_InspectorSection,
+  'InspectorSection',
+);
+const ComparisonPreview = withThemePreview(
+  __themeOriginal_ComparisonPreview,
+  'ComparisonPreview',
+);
 const Input = withThemePreview(__themeOriginal_Input, 'Input');
 
 export function FormattingExamples() {

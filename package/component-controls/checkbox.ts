@@ -3,5 +3,7 @@ import { Checkbox as Control } from '../checkbox/index';
 import { registerComponentStyles } from '../core/component-styles';
 import { baseStyles } from '../component-style-families';
 
-export const Checkbox: typeof Control =
-  /* @__PURE__ */ registerComponentStyles(Control, baseStyles);
+export const Checkbox: typeof Control = /* @__PURE__ */ registerComponentStyles(
+  Control,
+  baseStyles,
+);

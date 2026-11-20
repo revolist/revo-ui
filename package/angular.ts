@@ -1,22 +1,22 @@
-import { Component, Input } from "@angular/core";
-import { uiComponents, type UiComponentName } from "./component-catalog";
-import { AngularComponentAdapter } from "./angular-adapter";
+import { Component, Input } from '@angular/core';
+import { uiComponents, type UiComponentName } from './component-catalog';
+import { AngularComponentAdapter } from './angular-adapter';
 
-export { UiSlotDirective } from "./angular-adapter";
+export { UiSlotDirective } from './angular-adapter';
 export type {
   UiEvent,
   AngularInput,
   AngularCallbackValue,
-} from "./angular-adapter";
-export type { UiComponentName, UiComponentProps } from "./component-catalog";
-export * from "./angular-components";
+} from './angular-adapter';
+export type { UiComponentName, UiComponentProps } from './component-catalog';
+export * from './angular-components';
 
 /** Backward-compatible dynamic catalog host; use named components for static imports. */
 @Component({
-  selector: "rv-ui",
+  selector: 'rv-ui',
   standalone: true,
   template: '<span #rvHost style="display: contents"></span>',
-  host: { style: "display: contents" },
+  host: { style: 'display: contents' },
 })
 export class UiComponent extends AngularComponentAdapter {
   @Input({ required: true }) component!: UiComponentName;
@@ -34,17 +34,17 @@ export class UiComponent extends AngularComponentAdapter {
   }
 }
 
-export type { PdfViewerProps, PdfViewerText } from "./pdf-viewer/component";
-export type { PdfViewerToolbarProps } from "./pdf-viewer/toolbar";
+export type { PdfViewerProps, PdfViewerText } from './pdf-viewer/component';
+export type { PdfViewerToolbarProps } from './pdf-viewer/toolbar';
 export type {
   PdfViewerButton,
   PdfViewerButtonOptions,
   PdfViewerToolbarOptions,
   PdfViewerToolbarConfig,
-} from "./pdf-viewer/toolbar-options";
-export { defaultPdfViewerText } from "./pdf-viewer/index";
+} from './pdf-viewer/toolbar-options';
+export { defaultPdfViewerText } from './pdf-viewer/index';
 
-export { createTooltipGroup, TooltipGroup } from "./core/tooltip-options";
+export { createTooltipGroup, TooltipGroup } from './core/tooltip-options';
 export type {
   TooltipAnchor,
   TooltipSide,
@@ -59,4 +59,4 @@ export type {
   TooltipChangeDetails,
   TooltipContentContext,
   TooltipPositionOptions,
-} from "./core/tooltip-options";
+} from './core/tooltip-options';

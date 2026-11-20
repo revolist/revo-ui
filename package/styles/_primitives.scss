@@ -37,6 +37,12 @@ $include-history-controls: true !default;
   }
 }
 
+.rv-btn-lg {
+  --rv-control-height: 40px;
+  --rv-control-padding: 9px 16px;
+  --rv-control-font-size: 1rem;
+}
+
 /* ─── Button variants ─────────────────────────────────────────────────────── */
 
 .rv-btn {

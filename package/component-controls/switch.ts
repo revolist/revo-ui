@@ -3,5 +3,7 @@ import { Switch as Control } from '../switch/index';
 import { registerComponentStyles } from '../core/component-styles';
 import { baseStyles } from '../component-style-families';
 
-export const Switch: typeof Control =
-  /* @__PURE__ */ registerComponentStyles(Control, baseStyles);
+export const Switch: typeof Control = /* @__PURE__ */ registerComponentStyles(
+  Control,
+  baseStyles,
+);

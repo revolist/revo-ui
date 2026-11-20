@@ -16,17 +16,17 @@ Angular/Svelte: pass `component="HtmlEditor"` to the framework's `UiComponent` h
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `value` | `string` | Yes |  |
-| `onApply` | `(value: string) => void` | Yes |  |
-| `onCancel` | `() => void` | Yes |  |
-| `required` | `boolean \| undefined` | No |  |
-| `maxLength` | `number \| undefined` | No |  |
-| `text` | `Partial<HtmlEditorText> \| undefined` | No |  |
-| `actions` | `Partial<EditorActionText> \| undefined` | No |  |
-| `autoApply` | `boolean \| undefined` | No | Apply completed edits automatically. Set false to require explicit Apply. |
-| `showActions` | `boolean \| undefined` | No | Show Apply/Cancel buttons. Defaults to true only when autoApply is false. |
+| Prop          | Type                                     | Required | Description                                                               |
+| ------------- | ---------------------------------------- | -------- | ------------------------------------------------------------------------- |
+| `value`       | `string`                                 | Yes      |                                                                           |
+| `onApply`     | `(value: string) => void`                | Yes      |                                                                           |
+| `onCancel`    | `() => void`                             | Yes      |                                                                           |
+| `required`    | `boolean \| undefined`                   | No       |                                                                           |
+| `maxLength`   | `number \| undefined`                    | No       |                                                                           |
+| `text`        | `Partial<HtmlEditorText> \| undefined`   | No       |                                                                           |
+| `actions`     | `Partial<EditorActionText> \| undefined` | No       |                                                                           |
+| `autoApply`   | `boolean \| undefined`                   | No       | Apply completed edits automatically. Set false to require explicit Apply. |
+| `showActions` | `boolean \| undefined`                   | No       | Show Apply/Cancel buttons. Defaults to true only when autoApply is false. |
 
 ## Composition
 

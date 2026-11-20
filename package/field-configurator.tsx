@@ -23,7 +23,13 @@ export function FieldIcon({
   preset?: ClassPreset;
   className?: string;
 }) {
-  return <SvgIcon preset={preset} svg={svg} className={`rv-configurator-icon ${className}`} />;
+  return (
+    <SvgIcon
+      preset={preset}
+      svg={svg}
+      className={`rv-configurator-icon ${className}`}
+    />
+  );
 }
 
 export function FieldSummary({
@@ -94,7 +100,9 @@ export function FieldGroupHeading({
   className?: string;
 }) {
   return (
-    <div class={`rv-configurator-zone-heading ${preset?.className ?? ''} ${className}`}>
+    <div
+      class={`rv-configurator-zone-heading ${preset?.className ?? ''} ${className}`}
+    >
       <span class="rv-configurator-zone-label">{children}</span>
       {actions && <span class="rv-configurator-zone-actions">{actions}</span>}
     </div>
@@ -117,7 +125,10 @@ export function FieldGroup({
   className?: string;
 }) {
   return (
-    <section {...props} className={`rv-configurator-zone ${preset?.className ?? ''} ${className}`}>
+    <section
+      {...props}
+      className={`rv-configurator-zone ${preset?.className ?? ''} ${className}`}
+    >
       <FieldGroupHeading className={headingClassName} actions={actions}>
         {heading}
       </FieldGroupHeading>
@@ -191,7 +202,9 @@ export function FieldContent({
   className?: string;
 }) {
   return (
-    <span class={`rv-configurator-field-content ${preset?.className ?? ''} ${className}`}>
+    <span
+      class={`rv-configurator-field-content ${preset?.className ?? ''} ${className}`}
+    >
       {icon}
       <span class="rv-configurator-field-caption">{children}</span>
     </span>
@@ -212,7 +225,11 @@ export function FieldItem({
 }): JSX.Element {
   return h(
     as,
-    { ...props, class: `rv-configurator-field ${preset?.className ?? ''} ${className}`, 'data-part': 'root' },
+    {
+      ...props,
+      class: `rv-configurator-field ${preset?.className ?? ''} ${className}`,
+      'data-part': 'root',
+    },
     children,
   );
 }
@@ -260,9 +277,15 @@ export function FieldActions({
   children,
   className = '',
   ...props
-}: Omit<JSX.HTMLAttributes<HTMLDivElement>, 'class'> & { preset?: ClassPreset; className?: string }) {
+}: Omit<JSX.HTMLAttributes<HTMLDivElement>, 'class'> & {
+  preset?: ClassPreset;
+  className?: string;
+}) {
   return (
-    <div {...props} className={`rv-configurator-field-actions ${preset?.className ?? ''} ${className}`}>
+    <div
+      {...props}
+      className={`rv-configurator-field-actions ${preset?.className ?? ''} ${className}`}
+    >
       {children}
     </div>
   );
@@ -304,7 +327,10 @@ export function FieldRemoveButton(props: Parameters<typeof RemoveButton>[0]) {
 }
 
 /** The same removal glyph for native policy adapters and field remove buttons. */
-export function FieldRemoveIcon({ preset, className }: { preset?: ClassPreset; className?: string } = {}) {
+export function FieldRemoveIcon({
+  preset,
+  className,
+}: { preset?: ClassPreset; className?: string } = {}) {
   return <SvgIcon svg={cancel} preset={preset} className={className} />;
 }
 
@@ -372,9 +398,12 @@ export function CollapsibleSection({
   descriptionClassName = '',
   renderRoot,
 }: CollapsibleSectionProps) {
-  const initiallyOpen = useRef(defaultOpen ?? preset?.props?.defaultOpen ?? false);
+  const initiallyOpen = useRef(
+    defaultOpen ?? preset?.props?.defaultOpen ?? false,
+  );
   const props: JSX.IntrinsicElements['details'] = {
-    class: `rv-collapsible-section rv-configurator-section ${preset?.className ?? ''} ${className}`.trim(),
+    class:
+      `rv-collapsible-section rv-configurator-section ${preset?.className ?? ''} ${className}`.trim(),
     open: initiallyOpen.current,
     children: [
       <FieldSummary className={summaryClassName}>{title}</FieldSummary>,

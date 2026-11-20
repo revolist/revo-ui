@@ -3,5 +3,7 @@ import { Input as Control } from '../native-control';
 import { registerComponentStyles } from '../core/component-styles';
 import { baseStyles } from '../component-style-families';
 
-export const Input: typeof Control =
-  /* @__PURE__ */ registerComponentStyles(Control, baseStyles);
+export const Input: typeof Control = /* @__PURE__ */ registerComponentStyles(
+  Control,
+  baseStyles,
+);

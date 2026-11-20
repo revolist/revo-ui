@@ -60,7 +60,8 @@ export function CalendarYearGrid({
   return (
     <div
       ref={buttons}
-      class={`revo-calendar__year-grid ${preset?.className ?? ''} ${className}`} data-part="root"
+      class={`revo-calendar__year-grid ${preset?.className ?? ''} ${className}`}
+      data-part="root"
       role="group"
       aria-label={ariaLabel}
       tabIndex={-1}

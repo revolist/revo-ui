@@ -109,7 +109,10 @@ export function DurationField(props: DurationFieldProps) {
     if (commit && next.valid) props.onCommit?.(next.value);
   };
   return (
-    <span class={`rv-duration-field ${props.preset?.className ?? ''} ${props.className ?? ''}`} data-part="root">
+    <span
+      class={`rv-duration-field ${props.preset?.className ?? ''} ${props.className ?? ''}`}
+      data-part="root"
+    >
       <Input
         type="text"
         aria-label={props.label ?? 'Duration'}
@@ -181,7 +184,9 @@ export function DurationDraft({
   };
   useEditorAutoApply(commit, autoApply);
   return (
-    <div class={preset?.className} data-part="root"
+    <div
+      class={preset?.className}
+      data-part="root"
       onKeyDown={(event) => {
         const textInput =
           event.target instanceof HTMLInputElement &&

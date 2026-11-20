@@ -16,11 +16,11 @@ Angular/Svelte: pass `component="ResourcePickerAvatar"` to the framework's `UiCo
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `resource` | `ResourcePickerItem<Id>` | Yes |  |
-| `className` | `string \| undefined` | No |  |
-| `color` | `string \| undefined` | No |  |
+| Prop        | Type                     | Required | Description |
+| ----------- | ------------------------ | -------- | ----------- |
+| `resource`  | `ResourcePickerItem<Id>` | Yes      |             |
+| `className` | `string \| undefined`    | No       |             |
+| `color`     | `string \| undefined`    | No       |             |
 
 ## Composition
 

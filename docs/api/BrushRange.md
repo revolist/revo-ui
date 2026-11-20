@@ -16,14 +16,14 @@ Angular/Svelte: pass `component="BrushRange"` to the framework's `UiComponent` h
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `chart` | `DistributionChartProps \| null \| undefined` | No |  |
-| `slider` | `RangeSliderProps` | Yes |  |
-| `startLabel` | `ComponentChildren` | Yes |  |
-| `selectionLabel` | `ComponentChildren` | Yes |  |
-| `endLabel` | `ComponentChildren` | Yes |  |
-| `legacyClassPrefix` | `string \| undefined` | No | Retains the established filter-specific selectors while sharing the markup owner. |
+| Prop                | Type                                          | Required | Description                                                                       |
+| ------------------- | --------------------------------------------- | -------- | --------------------------------------------------------------------------------- |
+| `chart`             | `DistributionChartProps \| null \| undefined` | No       |                                                                                   |
+| `slider`            | `RangeSliderProps`                            | Yes      |                                                                                   |
+| `startLabel`        | `ComponentChildren`                           | Yes      |                                                                                   |
+| `selectionLabel`    | `ComponentChildren`                           | Yes      |                                                                                   |
+| `endLabel`          | `ComponentChildren`                           | Yes      |                                                                                   |
+| `legacyClassPrefix` | `string \| undefined`                         | No       | Retains the established filter-specific selectors while sharing the markup owner. |
 
 ## Composition
 

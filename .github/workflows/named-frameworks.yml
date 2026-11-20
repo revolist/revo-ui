@@ -2,15 +2,15 @@ name: Named Angular and Svelte adapters
 on:
   pull_request:
     paths:
-      - "package/**"
-      - "scripts/build-public.mjs"
-      - "scripts/generate-*.mjs"
-      - "scripts/named-framework-consumer.test.mjs"
-      - "vite.config.ts"
-      - "tests/browser/fixtures/framework-adapters/**"
-      - "tests/browser/named-framework-adapters.spec.ts"
-      - "playwright.named-frameworks.config.ts"
-      - ".github/workflows/named-frameworks.yml"
+      - 'package/**'
+      - 'scripts/build-public.mjs'
+      - 'scripts/generate-*.mjs'
+      - 'scripts/named-framework-consumer.test.mjs'
+      - 'vite.config.ts'
+      - 'tests/browser/fixtures/framework-adapters/**'
+      - 'tests/browser/named-framework-adapters.spec.ts'
+      - 'playwright.named-frameworks.config.ts'
+      - '.github/workflows/named-frameworks.yml'
   workflow_dispatch:
 permissions:
   contents: read

@@ -19,16 +19,16 @@ import {
   type OnDestroy,
   type EmbeddedViewRef,
   type SimpleChanges,
-} from "@angular/core";
-import type { ComponentType } from "preact";
-import type { UiComponentName, UiComponentProps } from "./component-catalog";
-import { componentModels } from "./component-metadata";
+} from '@angular/core';
+import type { ComponentType } from 'preact';
+import type { UiComponentName, UiComponentProps } from './component-catalog';
+import { componentModels } from './component-metadata';
 import {
   createFrameworkMount,
   withFrameworkContent,
   type UiFrameworkMount,
   type UiContentTarget,
-} from "./framework-mount";
+} from './framework-mount';
 
 export interface UiEvent {
   name: string;
@@ -48,9 +48,9 @@ export type AngularCallbackValue<T> =
   NonNullable<T> extends (...args: infer A) => unknown ? A[0] : never;
 
 /** Angular owns these views even when their nodes are moved into a Preact slot. */
-@Directive({ selector: "ng-template[rvUiSlot]", standalone: true })
+@Directive({ selector: 'ng-template[rvUiSlot]', standalone: true })
 export class UiSlotDirective {
-  @Input() rvUiSlot = "default";
+  @Input() rvUiSlot = 'default';
   readonly template = inject<TemplateRef<Record<string, unknown>>>(TemplateRef);
   readonly container = inject(ViewContainerRef);
 }
@@ -91,12 +91,12 @@ export abstract class AngularComponentAdapter<ModelValue = unknown>
   }
   @Output() valueChange = new EventEmitter<ModelValue>();
   @Output() uiEvent = new EventEmitter<UiEvent>();
-  @ViewChild("rvHost", { static: true })
+  @ViewChild('rvHost', { static: true })
   private rvHost!: ElementRef<HTMLElement>;
   @ContentChildren(UiSlotDirective)
   private rvSlots!: QueryList<UiSlotDirective>;
   private readonly rvChanges = inject(ChangeDetectorRef);
-  @ViewChild("rvProjected", { static: true })
+  @ViewChild('rvProjected', { static: true })
   private rvProjected?: ElementRef<HTMLElement>;
   private rvProjection?: AngularProjectedContent;
   private rvProjectionPresent = false;
@@ -110,7 +110,7 @@ export abstract class AngularComponentAdapter<ModelValue = unknown>
     }
   >();
   private rvDestroyed = false;
-  private readonly rvBrowser = inject(PLATFORM_ID) === "browser";
+  private readonly rvBrowser = inject(PLATFORM_ID) === 'browser';
 
   /** Adapter host available after view creation; cleared when its owner is destroyed. */
   getElement(): HTMLElement | null {
@@ -149,9 +149,9 @@ export abstract class AngularComponentAdapter<ModelValue = unknown>
   ngOnChanges(changes: SimpleChanges): void {
     for (const [name, change] of Object.entries(changes)) {
       const pickerValue =
-        name === "value" &&
-        (this.rvComponentName === "DatePicker" ||
-          this.rvComponentName === "DateRangePicker");
+        name === 'value' &&
+        (this.rvComponentName === 'DatePicker' ||
+          this.rvComponentName === 'DateRangePicker');
       if (change.currentValue === undefined && !pickerValue)
         delete this.rvInputValues[name];
       else this.rvInputValues[name] = change.currentValue;
@@ -166,7 +166,7 @@ export abstract class AngularComponentAdapter<ModelValue = unknown>
     const outputs = this.rvCallbackOutputs();
     const callbacks = new Set([
       ...Object.keys(props).filter((key) => /^on[A-Z]/.test(key)),
-      "onClose",
+      'onClose',
       ...(model ? [model.callback] : []),
       ...Object.keys(outputs),
       ...this.rvRequiredCallbacks,
@@ -189,7 +189,7 @@ export abstract class AngularComponentAdapter<ModelValue = unknown>
     const projected = this.rvProjected?.nativeElement;
     const useProjection =
       !rvSlots.default && projected && this.rvHasProjection();
-    if (projected && !useProjection) projected.style.display = "none";
+    if (projected && !useProjection) projected.style.display = 'none';
     if (useProjection) {
       this.rvProjection ??= { element: projected };
       rvSlots.default = this.rvProjection;
@@ -208,8 +208,8 @@ export abstract class AngularComponentAdapter<ModelValue = unknown>
       }
     }
     for (const entry of targets) {
-      if ("element" in entry.content) {
-        entry.content.element.style.display = "contents";
+      if ('element' in entry.content) {
+        entry.content.element.style.display = 'contents';
         if (entry.content.element.parentNode !== entry.element)
           entry.element.appendChild(entry.content.element);
         continue;

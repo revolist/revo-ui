@@ -16,14 +16,14 @@ Angular/Svelte: pass `component="InspectorSection"` to the framework's `UiCompon
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `title` | `string` | Yes |  |
-| `icon` | `string` | Yes |  |
-| `expandLabel` | `string` | Yes |  |
-| `collapseLabel` | `string` | Yes |  |
-| `open` | `boolean \| undefined` | No |  |
-| `children` | `ComponentChildren` | Yes |  |
+| Prop            | Type                   | Required | Description |
+| --------------- | ---------------------- | -------- | ----------- |
+| `title`         | `string`               | Yes      |             |
+| `icon`          | `string`               | Yes      |             |
+| `expandLabel`   | `string`               | Yes      |             |
+| `collapseLabel` | `string`               | Yes      |             |
+| `open`          | `boolean \| undefined` | No       |             |
+| `children`      | `ComponentChildren`    | Yes      |             |
 
 ## Composition
 

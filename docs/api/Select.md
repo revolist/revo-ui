@@ -10,13 +10,13 @@ Direct Preact entry: `@revolist/ui/select`. For other framework adapters use `Dr
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `value` | `string \| number \| readonly string[] \| undefined` | No |  |
-| `defaultValue` | `string \| number \| readonly string[] \| undefined` | No |  |
-| `optionPolicy` | `((props: SelectOptionProps) => SelectOptionProps) \| undefined` | No | Optional domain policy for option descriptors; no native option nodes are mounted. |
-| `multiple` | `boolean \| undefined` | No |  |
-| `onValueChange` | `((value: string) => void) \| ((value: string[]) => void) \| undefined` | No |  |
+| Prop            | Type                                                                    | Required | Description                                                                        |
+| --------------- | ----------------------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------- |
+| `value`         | `string \| number \| readonly string[] \| undefined`                    | No       |                                                                                    |
+| `defaultValue`  | `string \| number \| readonly string[] \| undefined`                    | No       |                                                                                    |
+| `optionPolicy`  | `((props: SelectOptionProps) => SelectOptionProps) \| undefined`        | No       | Optional domain policy for option descriptors; no native option nodes are mounted. |
+| `multiple`      | `boolean \| undefined`                                                  | No       |                                                                                    |
+| `onValueChange` | `((value: string) => void) \| ((value: string[]) => void) \| undefined` | No       |                                                                                    |
 
 ## Composition
 

@@ -66,7 +66,8 @@ export function ColorPicker({
   readonly onChange: (value: string | undefined) => void;
 }) {
   const optional = optionalProp ?? preset?.props?.optional ?? true;
-  const allowHexInput = allowHexInputProp ?? preset?.props?.allowHexInput ?? true;
+  const allowHexInput =
+    allowHexInputProp ?? preset?.props?.allowHexInput ?? true;
   const disabled = disabledProp ?? preset?.props?.disabled ?? false;
   const [pickerId] = useState(createColorPickerId);
   const tooltip = useControlTooltip(label, true, {

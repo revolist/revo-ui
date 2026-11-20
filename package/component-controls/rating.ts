@@ -3,5 +3,7 @@ import { Rating as Control } from '../controls';
 import { registerComponentStyles } from '../core/component-styles';
 import { feedbackStyles } from '../component-style-families';
 
-export const Rating: typeof Control =
-  /* @__PURE__ */ registerComponentStyles(Control, feedbackStyles);
+export const Rating: typeof Control = /* @__PURE__ */ registerComponentStyles(
+  Control,
+  feedbackStyles,
+);

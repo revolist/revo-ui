@@ -12,7 +12,10 @@ $include-history-controls: true !default;
   @if $include-history-controls {
     @include meta.load-css('./styles/primitives');
   } @else {
-    @include meta.load-css('./styles/primitives', $with: ('include-history-controls': false));
+    @include meta.load-css(
+      './styles/primitives',
+      $with: ('include-history-controls': false)
+    );
   }
   @include meta.load-css('./form');
   @include meta.load-css('./checkbox/checkbox');

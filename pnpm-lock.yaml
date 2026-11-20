@@ -78,6 +78,9 @@ importers:
       prettier:
         specifier: 3.8.3
         version: 3.8.3
+      prettier-plugin-svelte:
+        specifier: 4.2.0
+        version: 4.2.0(prettier@3.8.3)(svelte@5.55.7(@typescript-eslint/types@8.59.0))
       react:
         specifier: ^19.2.0
         version: 19.2.5
@@ -2003,6 +2006,13 @@ packages:
 
   preact@10.29.1:
     resolution: {integrity: sha512-gQCLc/vWroE8lIpleXtdJhTFDogTdZG9AjMUpVkDf2iTCNwYNWA+u16dL41TqUDJO4gm2IgrcMv3uTpjd4Pwmg==}
+
+  prettier-plugin-svelte@4.2.0:
+    resolution: {integrity: sha512-VgUFSR6+7/KLloVSIgKMwY/9OFxaixY/xsOBUCP95ZKaxSa6JBtLKzq6L1L/Tw6Jc1C7K+op7D1Yu5qD+YdPHA==}
+    engines: {node: '>=20'}
+    peerDependencies:
+      prettier: ^3.0.0
+      svelte: ^5.0.0
 
   prettier@3.8.3:
     resolution: {integrity: sha512-7igPTM53cGHMW8xWuVTydi2KO233VFiTNyF5hLJqpilHfmn8C8gPf+PS7dUT64YcXFbiMGZxS9pCSxL/Dxm/Jw==}
@@ -4254,6 +4264,11 @@ snapshots:
       source-map-js: 1.2.2
 
   preact@10.29.1: {}
+
+  prettier-plugin-svelte@4.2.0(prettier@3.8.3)(svelte@5.55.7(@typescript-eslint/types@8.59.0)):
+    dependencies:
+      prettier: 3.8.3
+      svelte: 5.55.7(@typescript-eslint/types@8.59.0)
 
   prettier@3.8.3: {}
 

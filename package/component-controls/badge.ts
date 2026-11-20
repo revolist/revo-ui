@@ -3,5 +3,7 @@ import { Badge as Control } from '../badge.view';
 import { registerComponentStyles } from '../core/component-styles';
 import { layoutStyles } from '../component-style-families';
 
-export const Badge: typeof Control =
-  /* @__PURE__ */ registerComponentStyles(Control, layoutStyles);
+export const Badge: typeof Control = /* @__PURE__ */ registerComponentStyles(
+  Control,
+  layoutStyles,
+);

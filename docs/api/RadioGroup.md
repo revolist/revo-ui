@@ -16,15 +16,15 @@ Angular/Svelte: pass `component="RadioGroup"` to the framework's `UiComponent` h
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `value` | `T` | Yes |  |
-| `options` | `readonly RadioOption<T>[]` | Yes |  |
-| `className` | `string \| undefined` | No |  |
-| `onChange` | `(value: T) => void` | Yes |  |
-| `label` | `string` | Yes |  |
-| `disabled` | `boolean \| undefined` | No |  |
-| `name` | `string \| undefined` | No |  |
+| Prop        | Type                        | Required | Description |
+| ----------- | --------------------------- | -------- | ----------- |
+| `value`     | `T`                         | Yes      |             |
+| `options`   | `readonly RadioOption<T>[]` | Yes      |             |
+| `className` | `string \| undefined`       | No       |             |
+| `onChange`  | `(value: T) => void`        | Yes      |             |
+| `label`     | `string`                    | Yes      |             |
+| `disabled`  | `boolean \| undefined`      | No       |             |
+| `name`      | `string \| undefined`       | No       |             |
 
 ## Composition
 

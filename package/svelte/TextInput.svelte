@@ -5,12 +5,23 @@
   import type { SvelteComponentProps } from '../svelte-props';
   import type { UiComponentProps } from '../component-catalog';
 
-  let { children, slots, onUiEvent, value = $bindable(), ...props }: SvelteComponentProps<'TextInput'> = $props();
+  let {
+    children,
+    slots,
+    onUiEvent,
+    value = $bindable(),
+    ...props
+  }: SvelteComponentProps<'TextInput'> = $props();
   let mount: Mount;
 
-  function updateModel(...args: Parameters<NonNullable<UiComponentProps<'TextInput'>['onValueChange']>>) {
+  function updateModel(
+    ...args: Parameters<
+      NonNullable<UiComponentProps<'TextInput'>['onValueChange']>
+    >
+  ) {
     value = args[0];
-    if (props.onValueChange) return Reflect.apply(props.onValueChange, undefined, args);
+    if (props.onValueChange)
+      return Reflect.apply(props.onValueChange, undefined, args);
   }
 
   export function getElement(): HTMLElement | null {

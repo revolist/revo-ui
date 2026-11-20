@@ -1,3 +1,3 @@
 export function load() {
-  return { title: "SvelteKit report" };
+  return { title: 'SvelteKit report' };
 }

@@ -16,19 +16,19 @@ Angular/Svelte: pass `component="CalendarYearGrid"` to the framework's `UiCompon
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `month` | `ISODateString` | Yes |  |
-| `system` | `DisplayCalendarSystem \| undefined` | No |  |
-| `referenceDate` | `ISODateString \| undefined` | No |  |
-| `minDate` | `ISODateString \| undefined` | No |  |
-| `maxDate` | `ISODateString \| undefined` | No |  |
-| `isMonthDisabled` | `((month: ISODateString) => boolean) \| undefined` | No |  |
-| `focusOnMount` | `boolean \| undefined` | No | Focuses the active or first available month when entering the year view. |
-| `locale` | `string` | Yes |  |
-| `ariaLabel` | `string` | Yes |  |
-| `onSelect` | `(month: ISODateString) => void` | Yes |  |
-| `onEscape` | `(() => void) \| undefined` | No | Handles Escape within the year view when supplied. |
+| Prop              | Type                                               | Required | Description                                                              |
+| ----------------- | -------------------------------------------------- | -------- | ------------------------------------------------------------------------ |
+| `month`           | `ISODateString`                                    | Yes      |                                                                          |
+| `system`          | `DisplayCalendarSystem \| undefined`               | No       |                                                                          |
+| `referenceDate`   | `ISODateString \| undefined`                       | No       |                                                                          |
+| `minDate`         | `ISODateString \| undefined`                       | No       |                                                                          |
+| `maxDate`         | `ISODateString \| undefined`                       | No       |                                                                          |
+| `isMonthDisabled` | `((month: ISODateString) => boolean) \| undefined` | No       |                                                                          |
+| `focusOnMount`    | `boolean \| undefined`                             | No       | Focuses the active or first available month when entering the year view. |
+| `locale`          | `string`                                           | Yes      |                                                                          |
+| `ariaLabel`       | `string`                                           | Yes      |                                                                          |
+| `onSelect`        | `(month: ISODateString) => void`                   | Yes      |                                                                          |
+| `onEscape`        | `(() => void) \| undefined`                        | No       | Handles Escape within the year view when supplied.                       |
 
 ## Composition
 

@@ -35,10 +35,10 @@ The controller passes ordinary data to the template:
 ```ts
 @Controller()
 class HomeController {
-  @Get("/")
-  @Render("index")
+  @Get('/')
+  @Render('index')
   home() {
-    return { title: "NestJS report" };
+    return { title: 'NestJS report' };
   }
 }
 ```
@@ -57,11 +57,11 @@ Nest serves `public/` as static assets and uses `views/` for Handlebars template
 ## Mount the small browser component
 
 ```ts
-import { createFrameworkMount } from "@revolist/ui/framework/unstyled";
-import { SvgButton } from "@revolist/ui/preact/unstyled";
-import "@revolist/ui/styles/base.css";
+import { createFrameworkMount } from '@revolist/ui/framework/unstyled';
+import { SvgButton } from '@revolist/ui/preact/unstyled';
+import '@revolist/ui/styles/base.css';
 
-const host = document.getElementById("report-action")!;
+const host = document.getElementById('report-action')!;
 const mount = createFrameworkMount(host, () => {}, { styles: false });
 let count = 0;
 

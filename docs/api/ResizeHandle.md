@@ -16,15 +16,15 @@ Angular/Svelte: pass `component="ResizeHandle"` to the framework's `UiComponent`
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `value` | `number` | Yes |  |
-| `min` | `number \| undefined` | No |  |
-| `max` | `number \| undefined` | No |  |
-| `step` | `number \| undefined` | No |  |
-| `label` | `string` | Yes |  |
-| `onChange` | `(value: number) => void` | Yes |  |
-| `direction` | `"ltr" \| "rtl" \| undefined` | No |  |
+| Prop        | Type                          | Required | Description |
+| ----------- | ----------------------------- | -------- | ----------- |
+| `value`     | `number`                      | Yes      |             |
+| `min`       | `number \| undefined`         | No       |             |
+| `max`       | `number \| undefined`         | No       |             |
+| `step`      | `number \| undefined`         | No       |             |
+| `label`     | `string`                      | Yes      |             |
+| `onChange`  | `(value: number) => void`     | Yes      |             |
+| `direction` | `"ltr" \| "rtl" \| undefined` | No       |             |
 
 ## Composition
 

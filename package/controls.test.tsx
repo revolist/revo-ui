@@ -392,10 +392,26 @@ it('styles a radio group from its preset while preserving explicit state', () =>
   ).toBeTruthy();
 });
 
-
 it('uses rating preset options while honoring explicit values', () => {
-  const host = mount(<Rating label="Rating" value={1} onChange={() => {}} preset={{ className: 'rating-theme', props: { max: 3, disabled: true } }} disabled={false} />);
+  const host = mount(
+    <Rating
+      label="Rating"
+      value={1}
+      onChange={() => {}}
+      preset={{ className: 'rating-theme', props: { max: 3, disabled: true } }}
+      disabled={false}
+    />,
+  );
   expect(host.querySelectorAll('input[type="radio"]')).toHaveLength(3);
-  expect(host.querySelector<HTMLInputElement>('input[type="radio"]')?.disabled).toBe(false);
+  expect(
+    host.querySelector<HTMLInputElement>('input[type="radio"]')?.disabled,
+  ).toBe(false);
   expect(host.querySelector('.rating-theme')).not.toBeNull();
+});
+
+it('renders large buttons through the shared size contract', () => {
+  const host = mount(<Button size="large">Large action</Button>);
+  expect(host.querySelector('button')?.classList.contains('rv-btn-lg')).toBe(
+    true,
+  );
 });

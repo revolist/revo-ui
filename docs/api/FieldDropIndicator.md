@@ -16,11 +16,11 @@ Angular/Svelte: pass `component="FieldDropIndicator"` to the framework's `UiComp
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `position` | `"before" \| "after"` | Yes |  |
-| `index` | `number \| undefined` | No |  |
-| `className` | `string \| undefined` | No |  |
+| Prop        | Type                  | Required | Description |
+| ----------- | --------------------- | -------- | ----------- |
+| `position`  | `"before" \| "after"` | Yes      |             |
+| `index`     | `number \| undefined` | No       |             |
+| `className` | `string \| undefined` | No       |             |
 
 ## Composition
 

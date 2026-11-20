@@ -18,7 +18,7 @@ Shared calendar controls use the product's standard blue selection, ISO civil-da
 | RTL/localization          | `dir`, locale, translated controls and custom formatters; mirrored arrows and horizontal keys; logical range corners |
 | Persian/Jalali            | `calendarSystem="persian"`, e.g. `locale="fa-IR"`, `weekStartsOn={6}`                                                |
 | Hijri                     | `calendarSystem="islamic-umalqura"`, e.g. `locale="ar-SA"`; distinct from Persian                                    |
-| Today in a timezone       | `timeZone` with an optional `referenceInstant`, or explicit `referenceDate`                                                         |
+| Today in a timezone       | `timeZone` with an optional `referenceInstant`, or explicit `referenceDate`                                          |
 
 Range `min` / `max` measure nights (difference between endpoints), not inclusive date count. `excludeDisabled` rejects an interval through unavailable dates and restarts its pending anchor at the clicked endpoint. Controlled range state may contain `{ from }` while awaiting the end date. Required single selection cannot be cleared by clicking itself; multiple selection can be built up to its minimum but cannot be removed below it. Presets commit complete supplied selections atomically. Selection callbacks can provide additional error presentation via `onInvalidSelection`.
 

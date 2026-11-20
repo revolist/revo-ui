@@ -16,12 +16,12 @@ Angular/Svelte: pass `component="CircularProgress"` to the framework's `UiCompon
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `value` | `number` | Yes |  |
-| `min` | `number \| undefined` | No |  |
-| `max` | `number \| undefined` | No |  |
-| `label` | `string` | Yes |  |
+| Prop    | Type                  | Required | Description |
+| ------- | --------------------- | -------- | ----------- |
+| `value` | `number`              | Yes      |             |
+| `min`   | `number \| undefined` | No       |             |
+| `max`   | `number \| undefined` | No       |             |
+| `label` | `string`              | Yes      |             |
 
 ## Composition
 

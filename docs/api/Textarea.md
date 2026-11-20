@@ -16,10 +16,10 @@ Angular/Svelte: pass `component="Textarea"` to the framework's `UiComponent` hos
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `className` | `string \| undefined` | No |  |
-| `onValueChange` | `((value: string) => void) \| undefined` | No |  |
+| Prop            | Type                                     | Required | Description |
+| --------------- | ---------------------------------------- | -------- | ----------- |
+| `className`     | `string \| undefined`                    | No       |             |
+| `onValueChange` | `((value: string) => void) \| undefined` | No       |             |
 
 ## Composition
 

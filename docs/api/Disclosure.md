@@ -16,14 +16,14 @@ Angular/Svelte: pass `component="Disclosure"` to the framework's `UiComponent` h
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `children` | `ComponentChildren` | No |  |
-| `className` | `string \| undefined` | No |  |
-| `label` | `string \| undefined` | No |  |
-| `summary` | `ComponentChildren` | Yes |  |
-| `open` | `boolean \| undefined` | No |  |
-| `onToggle` | `h.JSX.GenericEventHandler<HTMLDetailsElement> \| undefined` | No |  |
+| Prop        | Type                                                         | Required | Description |
+| ----------- | ------------------------------------------------------------ | -------- | ----------- |
+| `children`  | `ComponentChildren`                                          | No       |             |
+| `className` | `string \| undefined`                                        | No       |             |
+| `label`     | `string \| undefined`                                        | No       |             |
+| `summary`   | `ComponentChildren`                                          | Yes      |             |
+| `open`      | `boolean \| undefined`                                       | No       |             |
+| `onToggle`  | `h.JSX.GenericEventHandler<HTMLDetailsElement> \| undefined` | No       |             |
 
 ## Composition
 

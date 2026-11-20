@@ -5,12 +5,23 @@
   import type { SvelteComponentProps } from '../svelte-props';
   import type { UiComponentProps } from '../component-catalog';
 
-  let { children, slots, onUiEvent, pressed = $bindable(), ...props }: SvelteComponentProps<'ToggleButton'> = $props();
+  let {
+    children,
+    slots,
+    onUiEvent,
+    pressed = $bindable(),
+    ...props
+  }: SvelteComponentProps<'ToggleButton'> = $props();
   let mount: Mount;
 
-  function updateModel(...args: Parameters<NonNullable<UiComponentProps<'ToggleButton'>['onPressedChange']>>) {
+  function updateModel(
+    ...args: Parameters<
+      NonNullable<UiComponentProps<'ToggleButton'>['onPressedChange']>
+    >
+  ) {
     pressed = args[0];
-    if (props.onPressedChange) return Reflect.apply(props.onPressedChange, undefined, args);
+    if (props.onPressedChange)
+      return Reflect.apply(props.onPressedChange, undefined, args);
   }
 
   export function getElement(): HTMLElement | null {

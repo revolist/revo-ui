@@ -3,5 +3,7 @@ import { AiChat as Control } from '../ai/chat';
 import { registerComponentStyles } from '../core/component-styles';
 import { aiStyles } from '../component-style-families';
 
-export const AiChat: typeof Control =
-  /* @__PURE__ */ registerComponentStyles(Control, aiStyles);
+export const AiChat: typeof Control = /* @__PURE__ */ registerComponentStyles(
+  Control,
+  aiStyles,
+);

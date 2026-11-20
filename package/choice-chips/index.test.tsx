@@ -183,7 +183,13 @@ it('applies a choice preset without replacing explicit options', () => {
 });
 
 it('applies the info button preset to its rendered button', () => {
-  render(<ChoiceChipInfoButton aria-label="Details" preset={{ className: 'info-theme' }} />, document.body);
+  render(
+    <ChoiceChipInfoButton
+      aria-label="Details"
+      preset={{ className: 'info-theme' }}
+    />,
+    document.body,
+  );
   const button = document.querySelector('button')!;
   expect(button.classList.contains('info-theme')).toBe(true);
   expect(button.getAttribute('data-part')).toBe('root');
@@ -192,8 +198,18 @@ it('applies the info button preset to its rendered button', () => {
 
 it('exposes composite item parts to the choice group preset', () => {
   const host = document.createElement('div');
-  render(<ChoiceChips value="a" options={[{ value: 'a', label: 'A', onRemove: () => {} }]} ariaLabel="Choices" onChange={() => {}} />, host);
+  render(
+    <ChoiceChips
+      value="a"
+      options={[{ value: 'a', label: 'A', onRemove: () => {} }]}
+      ariaLabel="Choices"
+      onChange={() => {}}
+    />,
+    host,
+  );
   const item = host.querySelector('[data-part="item"]')!;
-  expect(item.closest('[data-part="root"][data-preset-scope="inherit"]')).not.toBeNull();
+  expect(
+    item.closest('[data-part="root"][data-preset-scope="inherit"]'),
+  ).not.toBeNull();
   render(null, host);
 });

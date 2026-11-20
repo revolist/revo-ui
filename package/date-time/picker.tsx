@@ -174,9 +174,7 @@ export function TemporalPicker(props: TemporalPickerProps) {
           next
             ? {
                 from: withTemporalDate(next.from, from, kind),
-                ...(next.to
-                  ? { to: withTemporalDate(next.to, to, kind) }
-                  : {}),
+                ...(next.to ? { to: withTemporalDate(next.to, to, kind) } : {}),
               }
             : null,
         ),

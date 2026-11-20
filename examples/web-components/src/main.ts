@@ -13,14 +13,16 @@ const messages = {
   },
   pt: {
     title: 'Controlos de relatórios com Web Components',
-    description: 'Controlos Revo UI montados através de um adaptador de elementos personalizados.',
+    description:
+      'Controlos Revo UI montados através de um adaptador de elementos personalizados.',
     field: 'Nome do relatório',
     initial: 'Receita mensal',
     apply: 'Aplicar relatório',
     applied: (value: string) => `Relatório selecionado: ${value}`,
   },
 };
-const language = new URLSearchParams(location.search).get('lang') === 'pt' ? 'pt' : 'en';
+const language =
+  new URLSearchParams(location.search).get('lang') === 'pt' ? 'pt' : 'en';
 const labels = messages[language];
 document.documentElement.lang = language;
 document.getElementById('title')!.textContent = labels.title;
@@ -32,6 +34,7 @@ input.props = { id: 'report-name', defaultValue: labels.initial };
 const button = document.querySelector<RevoUiElement>('#apply')!;
 button.props = { children: labels.apply, variant: 'primary' };
 button.addEventListener('click', () => {
-  document.getElementById('status')!.textContent =
-    labels.applied(input.querySelector('input')!.value);
+  document.getElementById('status')!.textContent = labels.applied(
+    input.querySelector('input')!.value,
+  );
 });

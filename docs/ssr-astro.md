@@ -30,13 +30,13 @@ Configure the renderer and the server:
 
 ```js
 // astro.config.mjs
-import { defineConfig } from "astro/config";
-import node from "@astrojs/node";
-import vue from "@astrojs/vue";
+import { defineConfig } from 'astro/config';
+import node from '@astrojs/node';
+import vue from '@astrojs/vue';
 
 export default defineConfig({
-  output: "server",
-  adapter: node({ mode: "standalone" }),
+  output: 'server',
+  adapter: node({ mode: 'standalone' }),
   integrations: [vue()],
 });
 ```
@@ -46,8 +46,8 @@ The island is an ordinary Vue component:
 ```vue
 <!-- src/components/SaveButton.vue -->
 <script setup lang="ts">
-import { ref } from "vue";
-import { SvgButton } from "@revolist/ui/vue/unstyled";
+import { ref } from 'vue';
+import { SvgButton } from '@revolist/ui/vue/unstyled';
 
 const count = ref(0);
 </script>

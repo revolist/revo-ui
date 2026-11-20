@@ -16,32 +16,32 @@ Angular/Svelte: pass `component="CalendarMonthGrid"` to the framework's `UiCompo
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `dates` | `readonly ISODateString[]` | Yes |  |
-| `system` | `DisplayCalendarSystem \| undefined` | No |  |
-| `selectedDates` | `readonly ISODateString[] \| undefined` | No |  |
-| `visibleMonths` | `readonly ISODateString[] \| undefined` | No |  |
-| `weekNumber` | `((date: ISODateString) => string) \| undefined` | No |  |
-| `weekNumberLabel` | `string \| undefined` | No |  |
-| `month` | `ISODateString` | Yes |  |
-| `focusedDate` | `ISODateString` | Yes |  |
-| `referenceDate` | `ISODateString \| undefined` | No |  |
-| `selection` | `CalendarDateRange \| undefined` | No |  |
-| `preview` | `CalendarDateRange \| undefined` | No |  |
-| `previewInvalid` | `boolean \| undefined` | No |  |
-| `previewDescriptionId` | `string \| undefined` | No |  |
-| `showOutsideDays` | `boolean` | Yes |  |
-| `allowOutsideMonthSelection` | `boolean` | Yes |  |
-| `dayClassName` | `string \| ((date: ISODateString, context: CalendarDayContext) => string \| undefined) \| undefined` | No |  |
-| `renderDay` | `((date: ISODateString, context: CalendarDayContext) => ComponentChildren) \| undefined` | No |  |
-| `isDisabled` | `(date: ISODateString) => boolean` | Yes |  |
-| `formatDayLabel` | `(date: ISODateString) => string` | Yes |  |
-| `setDayRef` | `(date: ISODateString, element: HTMLButtonElement \| null) => void` | Yes |  |
-| `onFocus` | `(date: ISODateString) => void` | Yes |  |
-| `onPreview` | `(date?: ISODateString) => void` | Yes |  |
-| `onKeyDown` | `(event: h.JSX.TargetedKeyboardEvent<HTMLButtonElement>, date: ISODateString) => void` | Yes |  |
-| `onSelect` | `(date: ISODateString) => void` | Yes |  |
+| Prop                         | Type                                                                                                 | Required | Description |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------- | -------- | ----------- |
+| `dates`                      | `readonly ISODateString[]`                                                                           | Yes      |             |
+| `system`                     | `DisplayCalendarSystem \| undefined`                                                                 | No       |             |
+| `selectedDates`              | `readonly ISODateString[] \| undefined`                                                              | No       |             |
+| `visibleMonths`              | `readonly ISODateString[] \| undefined`                                                              | No       |             |
+| `weekNumber`                 | `((date: ISODateString) => string) \| undefined`                                                     | No       |             |
+| `weekNumberLabel`            | `string \| undefined`                                                                                | No       |             |
+| `month`                      | `ISODateString`                                                                                      | Yes      |             |
+| `focusedDate`                | `ISODateString`                                                                                      | Yes      |             |
+| `referenceDate`              | `ISODateString \| undefined`                                                                         | No       |             |
+| `selection`                  | `CalendarDateRange \| undefined`                                                                     | No       |             |
+| `preview`                    | `CalendarDateRange \| undefined`                                                                     | No       |             |
+| `previewInvalid`             | `boolean \| undefined`                                                                               | No       |             |
+| `previewDescriptionId`       | `string \| undefined`                                                                                | No       |             |
+| `showOutsideDays`            | `boolean`                                                                                            | Yes      |             |
+| `allowOutsideMonthSelection` | `boolean`                                                                                            | Yes      |             |
+| `dayClassName`               | `string \| ((date: ISODateString, context: CalendarDayContext) => string \| undefined) \| undefined` | No       |             |
+| `renderDay`                  | `((date: ISODateString, context: CalendarDayContext) => ComponentChildren) \| undefined`             | No       |             |
+| `isDisabled`                 | `(date: ISODateString) => boolean`                                                                   | Yes      |             |
+| `formatDayLabel`             | `(date: ISODateString) => string`                                                                    | Yes      |             |
+| `setDayRef`                  | `(date: ISODateString, element: HTMLButtonElement \| null) => void`                                  | Yes      |             |
+| `onFocus`                    | `(date: ISODateString) => void`                                                                      | Yes      |             |
+| `onPreview`                  | `(date?: ISODateString) => void`                                                                     | Yes      |             |
+| `onKeyDown`                  | `(event: h.JSX.TargetedKeyboardEvent<HTMLButtonElement>, date: ISODateString) => void`               | Yes      |             |
+| `onSelect`                   | `(date: ISODateString) => void`                                                                      | Yes      |             |
 
 ## Composition
 

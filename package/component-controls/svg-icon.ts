@@ -3,5 +3,7 @@ import { SvgIcon as Control } from '../icons/icon';
 import { registerComponentStyles } from '../core/component-styles';
 import { baseStyles } from '../component-style-families';
 
-export const SvgIcon: typeof Control =
-  /* @__PURE__ */ registerComponentStyles(Control, baseStyles);
+export const SvgIcon: typeof Control = /* @__PURE__ */ registerComponentStyles(
+  Control,
+  baseStyles,
+);

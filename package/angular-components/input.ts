@@ -7,59 +7,68 @@ import type { AngularInput, AngularCallbackValue } from '../angular-adapter';
 @Component({
   selector: 'rv-input',
   standalone: true,
-  template: '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
+  template:
+    '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
   host: { style: 'display: contents', ngSkipHydration: 'true' },
 })
 export class Input extends AngularNativeAdapter<'Input', never> {
   protected readonly rvComponentName = 'Input';
-  protected rvResolveComponent() { return Control; }
-  @NgInput() declare "accept"?: AngularInput<'Input', "accept">;
-  @NgInput() declare "alt"?: AngularInput<'Input', "alt">;
-  @NgInput() declare "aria-label"?: AngularInput<'Input', "aria-label">;
-  @NgInput() declare "autoComplete"?: AngularInput<'Input', "autoComplete">;
-  @NgInput() declare "autocomplete"?: AngularInput<'Input', "autocomplete">;
-  @NgInput() declare "capture"?: AngularInput<'Input', "capture">;
-  @NgInput() declare "checked"?: AngularInput<'Input', "checked">;
-  @NgInput() declare "class"?: AngularInput<'Input', "class">;
-  @NgInput() declare "defaultChecked"?: AngularInput<'Input', "defaultChecked">;
-  @NgInput() declare "defaultValue"?: AngularInput<'Input', "defaultValue">;
-  @NgInput() declare "disabled"?: AngularInput<'Input', "disabled">;
-  @NgInput() declare "enterKeyHint"?: AngularInput<'Input', "enterKeyHint">;
-  @NgInput() declare "form"?: AngularInput<'Input', "form">;
-  @NgInput() declare "formAction"?: AngularInput<'Input', "formAction">;
-  @NgInput() declare "formEncType"?: AngularInput<'Input', "formEncType">;
-  @NgInput() declare "formMethod"?: AngularInput<'Input', "formMethod">;
-  @NgInput() declare "formNoValidate"?: AngularInput<'Input', "formNoValidate">;
-  @NgInput() declare "formTarget"?: AngularInput<'Input', "formTarget">;
-  @NgInput() declare "formaction"?: AngularInput<'Input', "formaction">;
-  @NgInput() declare "formenctype"?: AngularInput<'Input', "formenctype">;
-  @NgInput() declare "formmethod"?: AngularInput<'Input', "formmethod">;
-  @NgInput() declare "formnovalidate"?: AngularInput<'Input', "formnovalidate">;
-  @NgInput() declare "formtarget"?: AngularInput<'Input', "formtarget">;
-  @NgInput() declare "height"?: AngularInput<'Input', "height">;
-  @NgInput() declare "indeterminate"?: AngularInput<'Input', "indeterminate">;
-  @NgInput() declare "list"?: AngularInput<'Input', "list">;
-  @NgInput() declare "max"?: AngularInput<'Input', "max">;
-  @NgInput() declare "maxLength"?: AngularInput<'Input', "maxLength">;
-  @NgInput() declare "maxlength"?: AngularInput<'Input', "maxlength">;
-  @NgInput() declare "min"?: AngularInput<'Input', "min">;
-  @NgInput() declare "minLength"?: AngularInput<'Input', "minLength">;
-  @NgInput() declare "minlength"?: AngularInput<'Input', "minlength">;
-  @NgInput() declare "multiple"?: AngularInput<'Input', "multiple">;
-  @NgInput() declare "name"?: AngularInput<'Input', "name">;
-  @NgInput() declare "onChange"?: AngularInput<'Input', "onChange">;
-  @NgInput() declare "pattern"?: AngularInput<'Input', "pattern">;
-  @NgInput() declare "placeholder"?: AngularInput<'Input', "placeholder">;
-  @NgInput() declare "readOnly"?: AngularInput<'Input', "readOnly">;
-  @NgInput() declare "readonly"?: AngularInput<'Input', "readonly">;
-  @NgInput() declare "required"?: AngularInput<'Input', "required">;
-  @NgInput() declare "size"?: AngularInput<'Input', "size">;
-  @NgInput() declare "src"?: AngularInput<'Input', "src">;
-  @NgInput() declare "step"?: AngularInput<'Input', "step">;
-  @NgInput() declare "title"?: AngularInput<'Input', "title">;
-  @NgInput() declare "type"?: AngularInput<'Input', "type">;
-  @NgInput() declare "value"?: AngularInput<'Input', "value">;
-  @NgInput() declare "width"?: AngularInput<'Input', "width">;
-  @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'Input', 'onChange'>>>('onChange'); }
-  protected rvResolveProps() { return this.rvInputValues; }
+  protected rvResolveComponent() {
+    return Control;
+  }
+  @NgInput() declare 'accept'?: AngularInput<'Input', 'accept'>;
+  @NgInput() declare 'alt'?: AngularInput<'Input', 'alt'>;
+  @NgInput() declare 'aria-label'?: AngularInput<'Input', 'aria-label'>;
+  @NgInput() declare 'autoComplete'?: AngularInput<'Input', 'autoComplete'>;
+  @NgInput() declare 'autocomplete'?: AngularInput<'Input', 'autocomplete'>;
+  @NgInput() declare 'capture'?: AngularInput<'Input', 'capture'>;
+  @NgInput() declare 'checked'?: AngularInput<'Input', 'checked'>;
+  @NgInput() declare 'class'?: AngularInput<'Input', 'class'>;
+  @NgInput() declare 'defaultChecked'?: AngularInput<'Input', 'defaultChecked'>;
+  @NgInput() declare 'defaultValue'?: AngularInput<'Input', 'defaultValue'>;
+  @NgInput() declare 'disabled'?: AngularInput<'Input', 'disabled'>;
+  @NgInput() declare 'enterKeyHint'?: AngularInput<'Input', 'enterKeyHint'>;
+  @NgInput() declare 'form'?: AngularInput<'Input', 'form'>;
+  @NgInput() declare 'formAction'?: AngularInput<'Input', 'formAction'>;
+  @NgInput() declare 'formEncType'?: AngularInput<'Input', 'formEncType'>;
+  @NgInput() declare 'formMethod'?: AngularInput<'Input', 'formMethod'>;
+  @NgInput() declare 'formNoValidate'?: AngularInput<'Input', 'formNoValidate'>;
+  @NgInput() declare 'formTarget'?: AngularInput<'Input', 'formTarget'>;
+  @NgInput() declare 'formaction'?: AngularInput<'Input', 'formaction'>;
+  @NgInput() declare 'formenctype'?: AngularInput<'Input', 'formenctype'>;
+  @NgInput() declare 'formmethod'?: AngularInput<'Input', 'formmethod'>;
+  @NgInput() declare 'formnovalidate'?: AngularInput<'Input', 'formnovalidate'>;
+  @NgInput() declare 'formtarget'?: AngularInput<'Input', 'formtarget'>;
+  @NgInput() declare 'height'?: AngularInput<'Input', 'height'>;
+  @NgInput() declare 'indeterminate'?: AngularInput<'Input', 'indeterminate'>;
+  @NgInput() declare 'list'?: AngularInput<'Input', 'list'>;
+  @NgInput() declare 'max'?: AngularInput<'Input', 'max'>;
+  @NgInput() declare 'maxLength'?: AngularInput<'Input', 'maxLength'>;
+  @NgInput() declare 'maxlength'?: AngularInput<'Input', 'maxlength'>;
+  @NgInput() declare 'min'?: AngularInput<'Input', 'min'>;
+  @NgInput() declare 'minLength'?: AngularInput<'Input', 'minLength'>;
+  @NgInput() declare 'minlength'?: AngularInput<'Input', 'minlength'>;
+  @NgInput() declare 'multiple'?: AngularInput<'Input', 'multiple'>;
+  @NgInput() declare 'name'?: AngularInput<'Input', 'name'>;
+  @NgInput() declare 'onChange'?: AngularInput<'Input', 'onChange'>;
+  @NgInput() declare 'pattern'?: AngularInput<'Input', 'pattern'>;
+  @NgInput() declare 'placeholder'?: AngularInput<'Input', 'placeholder'>;
+  @NgInput() declare 'readOnly'?: AngularInput<'Input', 'readOnly'>;
+  @NgInput() declare 'readonly'?: AngularInput<'Input', 'readonly'>;
+  @NgInput() declare 'required'?: AngularInput<'Input', 'required'>;
+  @NgInput() declare 'size'?: AngularInput<'Input', 'size'>;
+  @NgInput() declare 'src'?: AngularInput<'Input', 'src'>;
+  @NgInput() declare 'step'?: AngularInput<'Input', 'step'>;
+  @NgInput() declare 'title'?: AngularInput<'Input', 'title'>;
+  @NgInput() declare 'type'?: AngularInput<'Input', 'type'>;
+  @NgInput() declare 'value'?: AngularInput<'Input', 'value'>;
+  @NgInput() declare 'width'?: AngularInput<'Input', 'width'>;
+  @Output() get changeEvent() {
+    return this.rvOutput<
+      AngularCallbackValue<AngularInput<'Input', 'onChange'>>
+    >('onChange');
+  }
+  protected rvResolveProps() {
+    return this.rvInputValues;
+  }
 }

@@ -3,5 +3,7 @@ import { TimeGrid as Control } from '../time-grid';
 import { registerComponentStyles } from '../core/component-styles';
 import { fieldsStyles } from '../component-style-families';
 
-export const TimeGrid: typeof Control =
-  /* @__PURE__ */ registerComponentStyles(Control, fieldsStyles);
+export const TimeGrid: typeof Control = /* @__PURE__ */ registerComponentStyles(
+  Control,
+  fieldsStyles,
+);

@@ -16,18 +16,18 @@ Angular/Svelte: pass `component="ChoiceChips"` to the framework's `UiComponent` 
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `value` | `T \| readonly T[] \| undefined` | No |  |
-| `options` | `readonly ChoiceChipOption<T>[]` | Yes |  |
-| `onChange` | `(value: T, option: ChoiceChipOption<T>) => void` | Yes |  |
-| `ariaLabel` | `string` | Yes |  |
-| `appearance` | `"soft" \| "outlined" \| undefined` | No |  |
-| `size` | `"small" \| "medium" \| undefined` | No |  |
-| `className` | `string \| undefined` | No |  |
-| `itemClassName` | `string \| undefined` | No |  |
-| `disabled` | `boolean \| undefined` | No |  |
-| `testId` | `string \| undefined` | No |  |
+| Prop            | Type                                              | Required | Description |
+| --------------- | ------------------------------------------------- | -------- | ----------- |
+| `value`         | `T \| readonly T[] \| undefined`                  | No       |             |
+| `options`       | `readonly ChoiceChipOption<T>[]`                  | Yes      |             |
+| `onChange`      | `(value: T, option: ChoiceChipOption<T>) => void` | Yes      |             |
+| `ariaLabel`     | `string`                                          | Yes      |             |
+| `appearance`    | `"soft" \| "outlined" \| undefined`               | No       |             |
+| `size`          | `"small" \| "medium" \| undefined`                | No       |             |
+| `className`     | `string \| undefined`                             | No       |             |
+| `itemClassName` | `string \| undefined`                             | No       |             |
+| `disabled`      | `boolean \| undefined`                            | No       |             |
+| `testId`        | `string \| undefined`                             | No       |             |
 
 ## Composition
 

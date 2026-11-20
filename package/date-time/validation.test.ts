@@ -11,8 +11,7 @@ it('shares the calendar’s zoned reference date with typed validation', () => {
         calendar: {
           referenceInstant: new Date('2024-03-31T21:00:00Z'),
           timeZone: 'Asia/Beirut',
-          validateSelection: (date, context) =>
-            date === context.referenceDate,
+          validateSelection: (date, context) => date === context.referenceDate,
         },
       },
       '2024-04-01',

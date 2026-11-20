@@ -6,7 +6,9 @@ import { type FilterChipProps } from './form-controls/presentation';
 
 /** Shared click-only details action; consumers provide localized labels. */
 export function FilterBadgeInfoButton(
-  props: Omit<JSX.IntrinsicElements['button'], 'children'> & { preset?: ClassPreset },
+  props: Omit<JSX.IntrinsicElements['button'], 'children'> & {
+    preset?: ClassPreset;
+  },
 ) {
   return (
     <ChoiceChipInfoButton

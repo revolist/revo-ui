@@ -16,11 +16,11 @@ Angular/Svelte: pass `component="FieldRow"` to the framework's `UiComponent` hos
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `className` | `string \| (h.JSX.SignalLike<string \| undefined> & string) \| undefined` | No |  |
-| `indicator` | `ComponentChildren` | No |  |
-| `dropPosition` | `"before" \| "after" \| undefined` | No |  |
+| Prop           | Type                                                                      | Required | Description |
+| -------------- | ------------------------------------------------------------------------- | -------- | ----------- |
+| `className`    | `string \| (h.JSX.SignalLike<string \| undefined> & string) \| undefined` | No       |             |
+| `indicator`    | `ComponentChildren`                                                       | No       |             |
+| `dropPosition` | `"before" \| "after" \| undefined`                                        | No       |             |
 
 ## Composition
 

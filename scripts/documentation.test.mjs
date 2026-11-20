@@ -41,18 +41,32 @@ test('raw HTML and executable links cannot become executable page markup', () =>
   assert(html.includes('&lt;button&gt;Save&lt;/button&gt;'));
 });
 
-
 test('guide diagrams use safe local asset paths and the deployment base', () => {
-  const html = renderDocumentation('![Theme flow](../public/assets/presets-flow.svg)\n\n![Unsafe](https://example.com/a.svg)\n\n![Escape](../public/assets/../secret.svg)', '/ui/');
-  assert.match(html, /<img src="\/ui\/assets\/presets-flow\.svg" alt="Theme flow"/);
+  const html = renderDocumentation(
+    '![Theme flow](../public/assets/presets-flow.svg)\n\n![Unsafe](https://example.com/a.svg)\n\n![Escape](../public/assets/../secret.svg)',
+    '/ui/',
+  );
+  assert.match(
+    html,
+    /<img src="\/ui\/assets\/presets-flow\.svg" alt="Theme flow"/,
+  );
   assert(!html.includes('src="https://'));
   assert(!html.includes('secret.svg'));
 });
 
-
 test('theme guide jump links resolve to headings', () => {
-  const html = renderDocumentation(readFileSync(new URL('../docs/presets.md', import.meta.url), 'utf8'));
-  for (const anchor of ['start-with-a-switch', 'understand-the-schema', 'configure-other-behavior-with-json', 'use-the-same-files-in-vue', 'write-your-own-css', 'build-and-share-in-the-gallery', 'troubleshooting']) {
+  const html = renderDocumentation(
+    readFileSync(new URL('../docs/presets.md', import.meta.url), 'utf8'),
+  );
+  for (const anchor of [
+    'start-with-a-switch',
+    'understand-the-schema',
+    'configure-other-behavior-with-json',
+    'use-the-same-files-in-vue',
+    'write-your-own-css',
+    'build-and-share-in-the-gallery',
+    'troubleshooting',
+  ]) {
     assert.ok(html.includes(`href="#${anchor}"`), anchor);
     assert.ok(html.includes(`id="${anchor}"`), anchor);
   }

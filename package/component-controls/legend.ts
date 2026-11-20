@@ -3,5 +3,7 @@ import { Legend as Control } from '../legend';
 import { registerComponentStyles } from '../core/component-styles';
 import { chartsStyles } from '../component-style-families';
 
-export const Legend: typeof Control =
-  /* @__PURE__ */ registerComponentStyles(Control, chartsStyles);
+export const Legend: typeof Control = /* @__PURE__ */ registerComponentStyles(
+  Control,
+  chartsStyles,
+);

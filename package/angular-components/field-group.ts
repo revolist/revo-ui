@@ -7,17 +7,29 @@ import type { AngularInput, AngularCallbackValue } from '../angular-adapter';
 @Component({
   selector: 'rv-field-group',
   standalone: true,
-  template: '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
+  template:
+    '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
   host: { style: 'display: contents', ngSkipHydration: 'true' },
 })
 export class FieldGroup extends AngularNativeAdapter<'FieldGroup', never> {
   protected readonly rvComponentName = 'FieldGroup';
-  protected rvResolveComponent() { return Control; }
-  @NgInput() declare "actions"?: AngularInput<'FieldGroup', "actions">;
-  @NgInput() declare "aria-label"?: AngularInput<'FieldGroup', "aria-label">;
-  @NgInput() declare "heading"?: AngularInput<'FieldGroup', "heading">;
-  @NgInput() declare "headingClassName"?: AngularInput<'FieldGroup', "headingClassName">;
-  @NgInput() declare "onChange"?: AngularInput<'FieldGroup', "onChange">;
-  @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'FieldGroup', 'onChange'>>>('onChange'); }
-  protected rvResolveProps() { return this.rvInputValues; }
+  protected rvResolveComponent() {
+    return Control;
+  }
+  @NgInput() declare 'actions'?: AngularInput<'FieldGroup', 'actions'>;
+  @NgInput() declare 'aria-label'?: AngularInput<'FieldGroup', 'aria-label'>;
+  @NgInput() declare 'heading'?: AngularInput<'FieldGroup', 'heading'>;
+  @NgInput() declare 'headingClassName'?: AngularInput<
+    'FieldGroup',
+    'headingClassName'
+  >;
+  @NgInput() declare 'onChange'?: AngularInput<'FieldGroup', 'onChange'>;
+  @Output() get changeEvent() {
+    return this.rvOutput<
+      AngularCallbackValue<AngularInput<'FieldGroup', 'onChange'>>
+    >('onChange');
+  }
+  protected rvResolveProps() {
+    return this.rvInputValues;
+  }
 }

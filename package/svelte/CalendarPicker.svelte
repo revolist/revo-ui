@@ -5,12 +5,23 @@
   import type { SvelteComponentProps } from '../svelte-props';
   import type { UiComponentProps } from '../component-catalog';
 
-  let { children, slots, onUiEvent, selected = $bindable(), ...props }: SvelteComponentProps<'CalendarPicker'> = $props();
+  let {
+    children,
+    slots,
+    onUiEvent,
+    selected = $bindable(),
+    ...props
+  }: SvelteComponentProps<'CalendarPicker'> = $props();
   let mount: Mount;
 
-  function updateModel(...args: Parameters<NonNullable<UiComponentProps<'CalendarPicker'>['onSelectionChange']>>) {
+  function updateModel(
+    ...args: Parameters<
+      NonNullable<UiComponentProps<'CalendarPicker'>['onSelectionChange']>
+    >
+  ) {
     selected = args[0];
-    if (props.onSelectionChange) return Reflect.apply(props.onSelectionChange, undefined, args);
+    if (props.onSelectionChange)
+      return Reflect.apply(props.onSelectionChange, undefined, args);
   }
 
   export function getElement(): HTMLElement | null {

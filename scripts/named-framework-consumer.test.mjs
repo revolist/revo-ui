@@ -315,9 +315,15 @@ test('Angular inherited native inputs, event targets and model outputs retain th
     ['<rv-svg-button />', /Required input.*label|label.*required/i],
     ['<rv-svg-button [label]="123" />', /number.*string|not assignable/i],
     [`<rv-svg-button label="Save" [tabIndex]="'bad'" />`, /not assignable/i],
-    ['<rv-svg-button label="Save" (clickEvent)="numberEvent($event)" />', /not assignable/i],
+    [
+      '<rv-svg-button label="Save" (clickEvent)="numberEvent($event)" />',
+      /not assignable/i,
+    ],
     ['<rv-input (clickEvent)="buttonTarget($event)" />', /not assignable/i],
-    ['<rv-search-input (valueChange)="count = $event" />', /string.*number|not assignable/i],
+    [
+      '<rv-search-input (valueChange)="count = $event" />',
+      /string.*number|not assignable/i,
+    ],
   ]) {
     assert.throws(
       () => angularCompile(template),

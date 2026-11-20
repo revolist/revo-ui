@@ -119,7 +119,9 @@ export function DateTimeField({
     const panel = popup.current?.element;
     if (!panel) return;
     panel.classList.remove(...popupPreset.current);
-    popupPreset.current = (preset?.className ?? '').split(/\s+/).filter(Boolean);
+    popupPreset.current = (preset?.className ?? '')
+      .split(/\s+/)
+      .filter(Boolean);
     panel.classList.add(...popupPreset.current);
   }, [preset?.className]);
   const current = useRef({ value, kind, picker, onValueChange, input });
@@ -129,7 +131,10 @@ export function DateTimeField({
     if (input.disabled || input.readOnly) popup.current?.close();
   }, [input.disabled, input.readOnly]);
   return (
-    <span class={`rv-date-time-field ${preset?.className ?? ''}`} data-part="root">
+    <span
+      class={`rv-date-time-field ${preset?.className ?? ''}`}
+      data-part="root"
+    >
       <Input
         {...input}
         type="text"
@@ -173,7 +178,9 @@ export function DateTimeField({
             lastApplied = value;
             current.current.onValueChange?.(value);
           };
-          popupPreset.current = (preset?.className ?? '').split(/\s+/).filter(Boolean);
+          popupPreset.current = (preset?.className ?? '')
+            .split(/\s+/)
+            .filter(Boolean);
           popup.current = mountEditorPopup(
             anchor.current,
             (close) => (
@@ -212,7 +219,9 @@ export function DateTimeField({
                   : kind === 'datetime'
                     ? 'rv-editor-popup--datetime'
                     : undefined,
-              ].filter(Boolean).join(' '),
+              ]
+                .filter(Boolean)
+                .join(' '),
               onClose: () => {
                 popup.current = undefined;
               },

@@ -16,11 +16,11 @@ Angular/Svelte: pass `component="FieldList"` to the framework's `UiComponent` ho
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `className` | `string \| (h.JSX.SignalLike<string \| undefined> & string) \| undefined` | No |  |
-| `empty` | `boolean` | Yes |  |
-| `placeholder` | `ComponentChildren` | Yes |  |
+| Prop          | Type                                                                      | Required | Description |
+| ------------- | ------------------------------------------------------------------------- | -------- | ----------- |
+| `className`   | `string \| (h.JSX.SignalLike<string \| undefined> & string) \| undefined` | No       |             |
+| `empty`       | `boolean`                                                                 | Yes      |             |
+| `placeholder` | `ComponentChildren`                                                       | Yes      |             |
 
 ## Composition
 

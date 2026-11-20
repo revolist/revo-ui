@@ -16,24 +16,24 @@ Angular/Svelte: pass `component="DropdownPopupContent"` to the framework's `UiCo
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `options` | `DropdownOption<T>[]` | Yes |  |
-| `selectedValues` | `DropdownOption<T>[] \| undefined` | No |  |
-| `remote` | `(RemoteDropdownState<T> & { text: DropdownRemoteText; search: (query: string) => void; loadMore: () => void; retry: () => void; }) \| undefined` | No |  |
-| `value` | `T \| T[] \| undefined` | Yes |  |
-| `onChange` | `(value: T \| T[]) => void` | Yes |  |
-| `config` | `DropdownConfig<T>` | Yes |  |
-| `multiSelect` | `boolean` | Yes |  |
-| `search` | `boolean` | Yes |  |
-| `searchPlaceholder` | `string` | Yes |  |
-| `listboxId` | `string` | Yes |  |
-| `searchId` | `string` | Yes |  |
-| `renderOption` | `((h: any, option: DropdownOption<T>, isSelected: boolean) => ComponentChildren) \| undefined` | No |  |
-| `renderNoResults` | `((h: any) => ComponentChildren) \| undefined` | No |  |
-| `onClose` | `(focusNext?: boolean) => void` | Yes |  |
-| `onTabNavigation` | `(() => void) \| undefined` | No |  |
-| `theme` | `string \| null \| undefined` | No |  |
+| Prop                | Type                                                                                                                                              | Required | Description |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ----------- |
+| `options`           | `DropdownOption<T>[]`                                                                                                                             | Yes      |             |
+| `selectedValues`    | `DropdownOption<T>[] \| undefined`                                                                                                                | No       |             |
+| `remote`            | `(RemoteDropdownState<T> & { text: DropdownRemoteText; search: (query: string) => void; loadMore: () => void; retry: () => void; }) \| undefined` | No       |             |
+| `value`             | `T \| T[] \| undefined`                                                                                                                           | Yes      |             |
+| `onChange`          | `(value: T \| T[]) => void`                                                                                                                       | Yes      |             |
+| `config`            | `DropdownConfig<T>`                                                                                                                               | Yes      |             |
+| `multiSelect`       | `boolean`                                                                                                                                         | Yes      |             |
+| `search`            | `boolean`                                                                                                                                         | Yes      |             |
+| `searchPlaceholder` | `string`                                                                                                                                          | Yes      |             |
+| `listboxId`         | `string`                                                                                                                                          | Yes      |             |
+| `searchId`          | `string`                                                                                                                                          | Yes      |             |
+| `renderOption`      | `((h: any, option: DropdownOption<T>, isSelected: boolean) => ComponentChildren) \| undefined`                                                    | No       |             |
+| `renderNoResults`   | `((h: any) => ComponentChildren) \| undefined`                                                                                                    | No       |             |
+| `onClose`           | `(focusNext?: boolean) => void`                                                                                                                   | Yes      |             |
+| `onTabNavigation`   | `(() => void) \| undefined`                                                                                                                       | No       |             |
+| `theme`             | `string \| null \| undefined`                                                                                                                     | No       |             |
 
 ## Composition
 

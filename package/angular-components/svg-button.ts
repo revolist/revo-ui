@@ -7,49 +7,88 @@ import type { AngularInput, AngularCallbackValue } from '../angular-adapter';
 @Component({
   selector: 'rv-svg-button',
   standalone: true,
-  template: '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
+  template:
+    '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
   host: { style: 'display: contents', ngSkipHydration: 'true' },
 })
 export class SvgButton extends AngularNativeAdapter<'SvgButton', never> {
   protected readonly rvComponentName = 'SvgButton';
-  protected rvResolveComponent() { return Control; }
-  @NgInput() declare "aria-label"?: AngularInput<'SvgButton', "aria-label">;
-  @NgInput() declare "badge"?: AngularInput<'SvgButton', "badge">;
-  @NgInput() declare "badgeClassName"?: AngularInput<'SvgButton', "badgeClassName">;
-  @NgInput() declare "busy"?: AngularInput<'SvgButton', "busy">;
-  @NgInput() declare "class"?: AngularInput<'SvgButton', "class">;
-  @NgInput() declare "command"?: AngularInput<'SvgButton', "command">;
-  @NgInput() declare "commandFor"?: AngularInput<'SvgButton', "commandFor">;
-  @NgInput() declare "commandfor"?: AngularInput<'SvgButton', "commandfor">;
-  @NgInput() declare "disabled"?: AngularInput<'SvgButton', "disabled">;
-  @NgInput() declare "form"?: AngularInput<'SvgButton', "form">;
-  @NgInput() declare "formAction"?: AngularInput<'SvgButton', "formAction">;
-  @NgInput() declare "formEncType"?: AngularInput<'SvgButton', "formEncType">;
-  @NgInput() declare "formMethod"?: AngularInput<'SvgButton', "formMethod">;
-  @NgInput() declare "formNoValidate"?: AngularInput<'SvgButton', "formNoValidate">;
-  @NgInput() declare "formTarget"?: AngularInput<'SvgButton', "formTarget">;
-  @NgInput() declare "formaction"?: AngularInput<'SvgButton', "formaction">;
-  @NgInput() declare "formenctype"?: AngularInput<'SvgButton', "formenctype">;
-  @NgInput() declare "formmethod"?: AngularInput<'SvgButton', "formmethod">;
-  @NgInput() declare "formnovalidate"?: AngularInput<'SvgButton', "formnovalidate">;
-  @NgInput() declare "formtarget"?: AngularInput<'SvgButton', "formtarget">;
-  @NgInput() declare "icon"?: AngularInput<'SvgButton', "icon">;
-  @NgInput() declare "iconClassName"?: AngularInput<'SvgButton', "iconClassName">;
-  @NgInput() declare "iconContent"?: AngularInput<'SvgButton', "iconContent">;
-  @NgInput({ required: true }) declare "label": AngularInput<'SvgButton', "label">;
-  @NgInput() declare "labelClassName"?: AngularInput<'SvgButton', "labelClassName">;
-  @NgInput() declare "name"?: AngularInput<'SvgButton', "name">;
-  @NgInput() declare "onChange"?: AngularInput<'SvgButton', "onChange">;
-  @NgInput() declare "popoverTarget"?: AngularInput<'SvgButton', "popoverTarget">;
-  @NgInput() declare "popoverTargetAction"?: AngularInput<'SvgButton', "popoverTargetAction">;
-  @NgInput() declare "popovertarget"?: AngularInput<'SvgButton', "popovertarget">;
-  @NgInput() declare "popovertargetaction"?: AngularInput<'SvgButton', "popovertargetaction">;
-  @NgInput() declare "rounded"?: AngularInput<'SvgButton', "rounded">;
-  @NgInput() declare "title"?: AngularInput<'SvgButton', "title">;
-  @NgInput() declare "type"?: AngularInput<'SvgButton', "type">;
-  @NgInput() declare "value"?: AngularInput<'SvgButton', "value">;
-  @NgInput() declare "variant"?: AngularInput<'SvgButton', "variant">;
-  @NgInput() declare "visibleLabel"?: AngularInput<'SvgButton', "visibleLabel">;
-  @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'SvgButton', 'onChange'>>>('onChange'); }
-  protected rvResolveProps() { return this.rvInputValues; }
+  protected rvResolveComponent() {
+    return Control;
+  }
+  @NgInput() declare 'aria-label'?: AngularInput<'SvgButton', 'aria-label'>;
+  @NgInput() declare 'badge'?: AngularInput<'SvgButton', 'badge'>;
+  @NgInput() declare 'badgeClassName'?: AngularInput<
+    'SvgButton',
+    'badgeClassName'
+  >;
+  @NgInput() declare 'busy'?: AngularInput<'SvgButton', 'busy'>;
+  @NgInput() declare 'class'?: AngularInput<'SvgButton', 'class'>;
+  @NgInput() declare 'command'?: AngularInput<'SvgButton', 'command'>;
+  @NgInput() declare 'commandFor'?: AngularInput<'SvgButton', 'commandFor'>;
+  @NgInput() declare 'commandfor'?: AngularInput<'SvgButton', 'commandfor'>;
+  @NgInput() declare 'disabled'?: AngularInput<'SvgButton', 'disabled'>;
+  @NgInput() declare 'form'?: AngularInput<'SvgButton', 'form'>;
+  @NgInput() declare 'formAction'?: AngularInput<'SvgButton', 'formAction'>;
+  @NgInput() declare 'formEncType'?: AngularInput<'SvgButton', 'formEncType'>;
+  @NgInput() declare 'formMethod'?: AngularInput<'SvgButton', 'formMethod'>;
+  @NgInput() declare 'formNoValidate'?: AngularInput<
+    'SvgButton',
+    'formNoValidate'
+  >;
+  @NgInput() declare 'formTarget'?: AngularInput<'SvgButton', 'formTarget'>;
+  @NgInput() declare 'formaction'?: AngularInput<'SvgButton', 'formaction'>;
+  @NgInput() declare 'formenctype'?: AngularInput<'SvgButton', 'formenctype'>;
+  @NgInput() declare 'formmethod'?: AngularInput<'SvgButton', 'formmethod'>;
+  @NgInput() declare 'formnovalidate'?: AngularInput<
+    'SvgButton',
+    'formnovalidate'
+  >;
+  @NgInput() declare 'formtarget'?: AngularInput<'SvgButton', 'formtarget'>;
+  @NgInput() declare 'icon'?: AngularInput<'SvgButton', 'icon'>;
+  @NgInput() declare 'iconClassName'?: AngularInput<
+    'SvgButton',
+    'iconClassName'
+  >;
+  @NgInput() declare 'iconContent'?: AngularInput<'SvgButton', 'iconContent'>;
+  @NgInput({ required: true }) declare 'label': AngularInput<
+    'SvgButton',
+    'label'
+  >;
+  @NgInput() declare 'labelClassName'?: AngularInput<
+    'SvgButton',
+    'labelClassName'
+  >;
+  @NgInput() declare 'name'?: AngularInput<'SvgButton', 'name'>;
+  @NgInput() declare 'onChange'?: AngularInput<'SvgButton', 'onChange'>;
+  @NgInput() declare 'popoverTarget'?: AngularInput<
+    'SvgButton',
+    'popoverTarget'
+  >;
+  @NgInput() declare 'popoverTargetAction'?: AngularInput<
+    'SvgButton',
+    'popoverTargetAction'
+  >;
+  @NgInput() declare 'popovertarget'?: AngularInput<
+    'SvgButton',
+    'popovertarget'
+  >;
+  @NgInput() declare 'popovertargetaction'?: AngularInput<
+    'SvgButton',
+    'popovertargetaction'
+  >;
+  @NgInput() declare 'rounded'?: AngularInput<'SvgButton', 'rounded'>;
+  @NgInput() declare 'title'?: AngularInput<'SvgButton', 'title'>;
+  @NgInput() declare 'type'?: AngularInput<'SvgButton', 'type'>;
+  @NgInput() declare 'value'?: AngularInput<'SvgButton', 'value'>;
+  @NgInput() declare 'variant'?: AngularInput<'SvgButton', 'variant'>;
+  @NgInput() declare 'visibleLabel'?: AngularInput<'SvgButton', 'visibleLabel'>;
+  @Output() get changeEvent() {
+    return this.rvOutput<
+      AngularCallbackValue<AngularInput<'SvgButton', 'onChange'>>
+    >('onChange');
+  }
+  protected rvResolveProps() {
+    return this.rvInputValues;
+  }
 }

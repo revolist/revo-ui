@@ -2,8 +2,12 @@ import { cpSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { validatePublishTarget } from './publish-target.mjs';
 
-const source = resolve(process.argv[2] ?? new URL('../dist', import.meta.url).pathname);
-const destination = resolve(process.argv[3] ?? new URL('../dist-github', import.meta.url).pathname);
+const source = resolve(
+  process.argv[2] ?? new URL('../dist', import.meta.url).pathname,
+);
+const destination = resolve(
+  process.argv[3] ?? new URL('../dist-github', import.meta.url).pathname,
+);
 if (source === destination || destination.startsWith(`${source}/`)) {
   throw new Error(
     'GitHub distribution must be separate from the npm distribution.',

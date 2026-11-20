@@ -3,10 +3,7 @@ import { readFileSync } from 'node:fs';
 
 const componentSections = (
   JSON.parse(
-    readFileSync(
-      new URL('../../src/pages.json', import.meta.url),
-      'utf8',
-    ),
+    readFileSync(new URL('../../src/pages.json', import.meta.url), 'utf8'),
   ) as {
     components: Array<{ title: string }>;
   }

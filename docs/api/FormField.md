@@ -16,15 +16,15 @@ Angular/Svelte: pass `component="FormField"` to the framework's `UiComponent` ho
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `label` | `ComponentChildren` | Yes |  |
-| `children` | `ComponentChildren` | Yes |  |
-| `hint` | `ComponentChildren` | No |  |
-| `hintId` | `string \| undefined` | No | Supply an instance-unique ID when rendering a hint through the native helper. |
-| `labelId` | `string \| undefined` | No |  |
-| `className` | `string \| undefined` | No |  |
-| `controlId` | `string \| undefined` | No | Associates a separately identified control; implicit labels need no ID. |
+| Prop        | Type                  | Required | Description                                                                   |
+| ----------- | --------------------- | -------- | ----------------------------------------------------------------------------- |
+| `label`     | `ComponentChildren`   | Yes      |                                                                               |
+| `children`  | `ComponentChildren`   | Yes      |                                                                               |
+| `hint`      | `ComponentChildren`   | No       |                                                                               |
+| `hintId`    | `string \| undefined` | No       | Supply an instance-unique ID when rendering a hint through the native helper. |
+| `labelId`   | `string \| undefined` | No       |                                                                               |
+| `className` | `string \| undefined` | No       |                                                                               |
+| `controlId` | `string \| undefined` | No       | Associates a separately identified control; implicit labels need no ID.       |
 
 ## Composition
 

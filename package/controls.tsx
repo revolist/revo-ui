@@ -40,7 +40,7 @@ export type ButtonPreset = {
       | 'ghost'
       | 'link'
       | 'solid';
-    size?: 'compact' | 'default';
+    size?: 'compact' | 'default' | 'large';
     rounded?: boolean;
   };
 };
@@ -65,7 +65,7 @@ export type ButtonProps = ButtonAttributes & {
     | 'ghost'
     | 'link'
     | 'solid';
-  size?: 'compact' | 'default';
+  size?: 'compact' | 'default' | 'large';
 };
 export const Button = /* @__PURE__ */ registerControl(
   /* @__PURE__ */ forwardRef<HTMLButtonElement, ButtonProps>(function Button(
@@ -93,7 +93,7 @@ export const Button = /* @__PURE__ */ registerControl(
     );
     const classes = [
       variant === 'default' ? 'rv-btn' : `rv-btn-${variant}`,
-      size === 'compact' ? 'rv-btn-sm' : '',
+      size === 'compact' ? 'rv-btn-sm' : size === 'large' ? 'rv-btn-lg' : '',
       rounded ? 'rv-btn-rounded' : '',
       nativeClass,
       preset?.className,
@@ -133,7 +133,11 @@ export const Button = /* @__PURE__ */ registerControl(
         {...props}
         class={[
           variant === 'default' ? 'rv-btn' : `rv-btn-${variant}`,
-          size === 'compact' ? 'rv-btn-sm' : '',
+          size === 'compact'
+            ? 'rv-btn-sm'
+            : size === 'large'
+              ? 'rv-btn-lg'
+              : '',
           nativeClass,
           preset?.className,
           className,
@@ -166,7 +170,7 @@ export function IconButton({
       label={label}
       icon={icon}
       badge={badge}
-      className={`rv-btn-icon ${variant === 'default' ? 'rv-btn' : `rv-btn-${variant}`} ${size === 'compact' ? 'rv-btn-sm' : ''} ${(rounded ?? preset?.props?.rounded) ? 'rv-btn-rounded' : ''} ${preset?.className ?? ''} ${className}`}
+      className={`rv-btn-icon ${variant === 'default' ? 'rv-btn' : `rv-btn-${variant}`} ${size === 'compact' ? 'rv-btn-sm' : size === 'large' ? 'rv-btn-lg' : ''} ${(rounded ?? preset?.props?.rounded) ? 'rv-btn-rounded' : ''} ${preset?.className ?? ''} ${className}`}
     >
       {children}
     </SvgButton>

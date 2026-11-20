@@ -16,23 +16,23 @@ Angular/Svelte: pass `component="Tabs"` to the framework's `UiComponent` host. S
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `value` | `T` | Yes |  |
-| `options` | `SegmentedSwitchOption<T>[]` | Yes |  |
-| `onChange` | `(value: T, option: SegmentedSwitchOption<T>) => void` | Yes |  |
-| `ariaLabel` | `string \| undefined` | No |  |
-| `className` | `string \| undefined` | No |  |
-| `itemClassName` | `string \| undefined` | No |  |
-| `countClassName` | `string \| undefined` | No |  |
-| `activeClassName` | `string \| undefined` | No |  |
-| `disabled` | `boolean \| undefined` | No |  |
-| `iconOnly` | `boolean \| undefined` | No | Compact icon layout. Supply icons through renderOption and text through option labels. |
-| `title` | `string \| undefined` | No |  |
-| `role` | `SegmentedSwitchRole \| undefined` | No |  |
-| `testId` | `string \| undefined` | No |  |
-| `renderOption` | `((option: SegmentedSwitchOption<T>, state: { active: boolean; disabled: boolean; }) => SegmentedSwitchRenderable) \| undefined` | No |  |
-| `renderCount` | `((option: SegmentedSwitchOption<T>, state: { active: boolean; disabled: boolean; }) => SegmentedSwitchRenderable) \| undefined` | No |  |
+| Prop              | Type                                                                                                                             | Required | Description                                                                            |
+| ----------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------- | -------------------------------------------------------------------------------------- |
+| `value`           | `T`                                                                                                                              | Yes      |                                                                                        |
+| `options`         | `SegmentedSwitchOption<T>[]`                                                                                                     | Yes      |                                                                                        |
+| `onChange`        | `(value: T, option: SegmentedSwitchOption<T>) => void`                                                                           | Yes      |                                                                                        |
+| `ariaLabel`       | `string \| undefined`                                                                                                            | No       |                                                                                        |
+| `className`       | `string \| undefined`                                                                                                            | No       |                                                                                        |
+| `itemClassName`   | `string \| undefined`                                                                                                            | No       |                                                                                        |
+| `countClassName`  | `string \| undefined`                                                                                                            | No       |                                                                                        |
+| `activeClassName` | `string \| undefined`                                                                                                            | No       |                                                                                        |
+| `disabled`        | `boolean \| undefined`                                                                                                           | No       |                                                                                        |
+| `iconOnly`        | `boolean \| undefined`                                                                                                           | No       | Compact icon layout. Supply icons through renderOption and text through option labels. |
+| `title`           | `string \| undefined`                                                                                                            | No       |                                                                                        |
+| `role`            | `SegmentedSwitchRole \| undefined`                                                                                               | No       |                                                                                        |
+| `testId`          | `string \| undefined`                                                                                                            | No       |                                                                                        |
+| `renderOption`    | `((option: SegmentedSwitchOption<T>, state: { active: boolean; disabled: boolean; }) => SegmentedSwitchRenderable) \| undefined` | No       |                                                                                        |
+| `renderCount`     | `((option: SegmentedSwitchOption<T>, state: { active: boolean; disabled: boolean; }) => SegmentedSwitchRenderable) \| undefined` | No       |                                                                                        |
 
 ## Composition
 

@@ -16,14 +16,14 @@ Angular/Svelte: pass `component="Alert"` to the framework's `UiComponent` host. 
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `tone` | `"danger" \| "neutral" \| "warning" \| "success" \| undefined` | No |  |
-| `label` | `string \| undefined` | No |  |
-| `icon` | `ComponentChildren` | No |  |
-| `title` | `ComponentChildren` | No |  |
-| `description` | `ComponentChildren` | No |  |
-| `actions` | `ComponentChildren` | No |  |
+| Prop          | Type                                                           | Required | Description |
+| ------------- | -------------------------------------------------------------- | -------- | ----------- |
+| `tone`        | `"danger" \| "neutral" \| "warning" \| "success" \| undefined` | No       |             |
+| `label`       | `string \| undefined`                                          | No       |             |
+| `icon`        | `ComponentChildren`                                            | No       |             |
+| `title`       | `ComponentChildren`                                            | No       |             |
+| `description` | `ComponentChildren`                                            | No       |             |
+| `actions`     | `ComponentChildren`                                            | No       |             |
 
 ## Composition
 

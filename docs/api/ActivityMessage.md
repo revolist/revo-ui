@@ -16,15 +16,15 @@ Angular/Svelte: pass `component="ActivityMessage"` to the framework's `UiCompone
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `className` | `string \| undefined` | No |  |
-| `avatar` | `ComponentChildren` | Yes |  |
-| `timestamp` | `ComponentChildren` | Yes |  |
-| `header` | `ComponentChildren` | No |  |
-| `children` | `ComponentChildren` | Yes |  |
-| `actions` | `ComponentChildren` | No |  |
-| `details` | `ComponentChildren` | No |  |
+| Prop        | Type                  | Required | Description |
+| ----------- | --------------------- | -------- | ----------- |
+| `className` | `string \| undefined` | No       |             |
+| `avatar`    | `ComponentChildren`   | Yes      |             |
+| `timestamp` | `ComponentChildren`   | Yes      |             |
+| `header`    | `ComponentChildren`   | No       |             |
+| `children`  | `ComponentChildren`   | Yes      |             |
+| `actions`   | `ComponentChildren`   | No       |             |
+| `details`   | `ComponentChildren`   | No       |             |
 
 ## Composition
 

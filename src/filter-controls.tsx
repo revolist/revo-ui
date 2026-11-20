@@ -6,7 +6,11 @@ import { FilterBadge as __themeOriginal_FilterBadge } from '@revolist/ui/filter-
 import { Fragment, h } from 'preact';
 import { Example as Specimen } from './catalog';
 import { useRef, useState } from 'preact/hooks';
-import { AreaChart as __themeOriginal_AreaChart, BarChart as __themeOriginal_BarChart, LineChart as __themeOriginal_LineChart } from '@revolist/ui/distribution-chart';
+import {
+  AreaChart as __themeOriginal_AreaChart,
+  BarChart as __themeOriginal_BarChart,
+  LineChart as __themeOriginal_LineChart,
+} from '@revolist/ui/distribution-chart';
 import { BrushRange as __themeOriginal_BrushRange } from '@revolist/ui/brush-range';
 import {
   OptionButton as __themeOriginal_OptionButton,
@@ -18,24 +22,47 @@ import {
   timeGridCellKey,
   useTimeGridInteraction,
 } from '@revolist/ui/time-grid';
-import { SegmentedControl as __themeOriginal_SegmentedControl, NumberInput as __themeOriginal_NumberInput } from '@revolist/ui/controls';
+import {
+  SegmentedControl as __themeOriginal_SegmentedControl,
+  NumberInput as __themeOriginal_NumberInput,
+} from '@revolist/ui/controls';
 import { withThemePreview } from './theme-preview';
 
 const Legend = withThemePreview(__themeOriginal_Legend, 'Legend');
 const Dropdown = withThemePreview(__themeOriginal_Dropdown, 'Dropdown');
-const ChoiceChips = withThemePreview(__themeOriginal_ChoiceChips, 'ChoiceChips');
-const FilterBadge = withThemePreview(__themeOriginal_FilterBadge, 'FilterBadge');
+const ChoiceChips = withThemePreview(
+  __themeOriginal_ChoiceChips,
+  'ChoiceChips',
+);
+const FilterBadge = withThemePreview(
+  __themeOriginal_FilterBadge,
+  'FilterBadge',
+);
 const AreaChart = withThemePreview(__themeOriginal_AreaChart, 'AreaChart');
 const BarChart = withThemePreview(__themeOriginal_BarChart, 'BarChart');
 const LineChart = withThemePreview(__themeOriginal_LineChart, 'LineChart');
 const BrushRange = withThemePreview(__themeOriginal_BrushRange, 'BrushRange');
-const OptionButton = withThemePreview(__themeOriginal_OptionButton, 'OptionButton');
-const HighlightedTextInput = withThemePreview(__themeOriginal_HighlightedTextInput, 'HighlightedTextInput');
-const InlineFieldGroup = withThemePreview(__themeOriginal_InlineFieldGroup, 'InlineFieldGroup');
+const OptionButton = withThemePreview(
+  __themeOriginal_OptionButton,
+  'OptionButton',
+);
+const HighlightedTextInput = withThemePreview(
+  __themeOriginal_HighlightedTextInput,
+  'HighlightedTextInput',
+);
+const InlineFieldGroup = withThemePreview(
+  __themeOriginal_InlineFieldGroup,
+  'InlineFieldGroup',
+);
 const TimeGrid = withThemePreview(__themeOriginal_TimeGrid, 'TimeGrid');
-const SegmentedControl = withThemePreview(__themeOriginal_SegmentedControl, 'SegmentedControl');
-const NumberInput = withThemePreview(__themeOriginal_NumberInput, 'NumberInput');
-
+const SegmentedControl = withThemePreview(
+  __themeOriginal_SegmentedControl,
+  'SegmentedControl',
+);
+const NumberInput = withThemePreview(
+  __themeOriginal_NumberInput,
+  'NumberInput',
+);
 
 const chartData = [12, 24, 15, 10, 40, 8, 46, 23, 30, 18].map(
   (value, index) => ({
@@ -45,7 +72,17 @@ const chartData = [12, 24, 15, 10, 40, 8, 46, 23, 30, 18].map(
     tooltip: { title: `Bucket ${index + 1}`, details: [`${value} items`] },
   }),
 );
-const monthlyData = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'].map((month, index) => ({ key: month, value: [186, 305, 237, 73, 209, 214][index], selected: true, tooltip: { title: month, details: [`${[186, 305, 237, 73, 209, 214][index]} orders`] } }));
+const monthlyData = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'].map(
+  (month, index) => ({
+    key: month,
+    value: [186, 305, 237, 73, 209, 214][index],
+    selected: true,
+    tooltip: {
+      title: month,
+      details: [`${[186, 305, 237, 73, 209, 214][index]} orders`],
+    },
+  }),
+);
 const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(
   (short, index) => ({ weekday: (index + 1) % 7, short, long: short }),
 );
@@ -69,16 +106,58 @@ export function ChartExamples() {
         />
       </Specimen>
       <Specimen title="Bar chart with labels">
-        <BarChart ariaLabel="Monthly orders" data={monthlyData} height={150} showGrid showLabels showValues legend="Orders" tooltipIndicator="dot" formatValue={value => `${value}`} />
+        <BarChart
+          ariaLabel="Monthly orders"
+          data={monthlyData}
+          height={150}
+          showGrid
+          showLabels
+          showValues
+          legend="Orders"
+          tooltipIndicator="dot"
+          formatValue={(value) => `${value}`}
+        />
       </Specimen>
       <Specimen title="Step line">
-        <LineChart ariaLabel="Weekly subscriptions" data={monthlyData} height={150} showGrid showLabels interpolation="step" legend="Subscriptions" tooltipIndicator="line" />
+        <LineChart
+          ariaLabel="Weekly subscriptions"
+          data={monthlyData}
+          height={150}
+          showGrid
+          showLabels
+          interpolation="step"
+          legend="Subscriptions"
+          tooltipIndicator="line"
+        />
       </Specimen>
       <Specimen title="Gradient area">
-        <AreaChart ariaLabel="Monthly revenue" data={monthlyData} height={150} showGrid showLabels showPoints={false} areaFill="gradient" legend="Revenue" tooltipIndicator="dashed" renderTooltip={datum => <><strong>{datum.tooltip.title}</strong><span>Revenue · ${datum.value.toLocaleString()}</span></>} />
+        <AreaChart
+          ariaLabel="Monthly revenue"
+          data={monthlyData}
+          height={150}
+          showGrid
+          showLabels
+          showPoints={false}
+          areaFill="gradient"
+          legend="Revenue"
+          tooltipIndicator="dashed"
+          renderTooltip={(datum) => (
+            <>
+              <strong>{datum.tooltip.title}</strong>
+              <span>Revenue · ${datum.value.toLocaleString()}</span>
+            </>
+          )}
+        />
       </Specimen>
       <Specimen title="Area chart without tooltips">
-        <AreaChart ariaLabel="Monthly activity" data={monthlyData} height={120} showLabels tooltip={false} legend="Activity" />
+        <AreaChart
+          ariaLabel="Monthly activity"
+          data={monthlyData}
+          height={120}
+          showLabels
+          tooltip={false}
+          legend="Activity"
+        />
       </Specimen>
       <Specimen title="Distribution and range brush" wide>
         <SegmentedControl
@@ -217,14 +296,32 @@ export function InlineFieldsExample() {
   return (
     <Specimen title="Inline field group">
       <InlineFieldGroup label="Dimensions">
-        <Dropdown className="rv-select" source={[{ value: 'Fixed', label: 'Fixed' }, { value: 'Auto', label: 'Auto' }]} config={{ ariaLabel: "Sizing mode" }} value={mode} onChange={value => setMode(String(value))} />
+        <Dropdown
+          className="rv-select"
+          source={[
+            { value: 'Fixed', label: 'Fixed' },
+            { value: 'Auto', label: 'Auto' },
+          ]}
+          config={{ ariaLabel: 'Sizing mode' }}
+          value={mode}
+          onChange={(value) => setMode(String(value))}
+        />
         <NumberInput
           aria-label="Width"
           min={1}
           value={amount}
           onValueChange={(value) => setAmount(value ?? 1)}
         />
-        <Dropdown className="rv-select" source={[{ value: 'Pixels', label: 'Pixels' }, { value: 'Percent', label: 'Percent' }]} config={{ ariaLabel: "Size unit" }} value={unit} onChange={value => setUnit(String(value))} />
+        <Dropdown
+          className="rv-select"
+          source={[
+            { value: 'Pixels', label: 'Pixels' },
+            { value: 'Percent', label: 'Percent' },
+          ]}
+          config={{ ariaLabel: 'Size unit' }}
+          value={unit}
+          onChange={(value) => setUnit(String(value))}
+        />
       </InlineFieldGroup>
     </Specimen>
   );
@@ -233,21 +330,56 @@ export function InlineFieldsExample() {
 export function ChoiceChipFilterVariants() {
   const [selected, setSelected] = useState(['Critical', 'High']);
   const [visible, setVisible] = useState(true);
-  return <>
-    <ChoiceChips ariaLabel="Colored choices" value={selected}
-      options={[
-        { value: 'Critical', label: 'Critical', color: '#ef4444' },
-        { value: 'High', label: 'High', color: '#d97706' },
-        { value: 'Normal', label: 'Normal', color: '#16a34a' },
-        { value: 'Low', label: 'Low', color: '#2563eb' },
-        { value: 'Backlog', label: 'Backlog', color: '#9333ea' },
-      ]}
-      onChange={value => setSelected(selected.includes(value) ? selected.filter(item => item !== value) : [...selected, value])}
-    />
-    <div class="rv-filter-badges" role="list" aria-label="Active sample filters">
-      {visible && <FilterBadge role="listitem" color="#2563eb" label="Priority: 2 selected" details="Critical, High · blanks excluded" detailsLabel="Details for Priority filter" descriptionId="sample-priority-details" removeLabel="Remove Priority filter" onRemove={() => setVisible(false)} />}
-      <FilterBadge role="listitem" label="Region: Europe" details="Read-only filter" detailsLabel="Details for Region filter" descriptionId="sample-region-details" />
-    </div>
-    {!visible && <ButtonControl onClick={() => setVisible(true)}>Restore Priority filter</ButtonControl>}
-  </>;
+  return (
+    <>
+      <ChoiceChips
+        ariaLabel="Colored choices"
+        value={selected}
+        options={[
+          { value: 'Critical', label: 'Critical', color: '#ef4444' },
+          { value: 'High', label: 'High', color: '#d97706' },
+          { value: 'Normal', label: 'Normal', color: '#16a34a' },
+          { value: 'Low', label: 'Low', color: '#2563eb' },
+          { value: 'Backlog', label: 'Backlog', color: '#9333ea' },
+        ]}
+        onChange={(value) =>
+          setSelected(
+            selected.includes(value)
+              ? selected.filter((item) => item !== value)
+              : [...selected, value],
+          )
+        }
+      />
+      <div
+        class="rv-filter-badges"
+        role="list"
+        aria-label="Active sample filters"
+      >
+        {visible && (
+          <FilterBadge
+            role="listitem"
+            color="#2563eb"
+            label="Priority: 2 selected"
+            details="Critical, High · blanks excluded"
+            detailsLabel="Details for Priority filter"
+            descriptionId="sample-priority-details"
+            removeLabel="Remove Priority filter"
+            onRemove={() => setVisible(false)}
+          />
+        )}
+        <FilterBadge
+          role="listitem"
+          label="Region: Europe"
+          details="Read-only filter"
+          detailsLabel="Details for Region filter"
+          descriptionId="sample-region-details"
+        />
+      </div>
+      {!visible && (
+        <ButtonControl onClick={() => setVisible(true)}>
+          Restore Priority filter
+        </ButtonControl>
+      )}
+    </>
+  );
 }

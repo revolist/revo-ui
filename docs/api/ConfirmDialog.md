@@ -16,20 +16,20 @@ Angular/Svelte: pass `component="ConfirmDialog"` to the framework's `UiComponent
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `open` | `boolean` | Yes |  |
-| `title` | `string` | Yes |  |
-| `closeLabel` | `string` | Yes |  |
-| `onClose` | `() => void` | Yes |  |
-| `children` | `ComponentChildren` | No |  |
-| `footer` | `ComponentChildren` | No |  |
-| `draggable` | `boolean \| undefined` | No |  |
-| `returnFocus` | `HTMLElement \| undefined` | No |  |
-| `onConfirm` | `() => void` | Yes |  |
-| `confirmLabel` | `string` | Yes |  |
-| `cancelLabel` | `string` | Yes |  |
-| `pending` | `boolean \| undefined` | No |  |
+| Prop           | Type                       | Required | Description |
+| -------------- | -------------------------- | -------- | ----------- |
+| `open`         | `boolean`                  | Yes      |             |
+| `title`        | `string`                   | Yes      |             |
+| `closeLabel`   | `string`                   | Yes      |             |
+| `onClose`      | `() => void`               | Yes      |             |
+| `children`     | `ComponentChildren`        | No       |             |
+| `footer`       | `ComponentChildren`        | No       |             |
+| `draggable`    | `boolean \| undefined`     | No       |             |
+| `returnFocus`  | `HTMLElement \| undefined` | No       |             |
+| `onConfirm`    | `() => void`               | Yes      |             |
+| `confirmLabel` | `string`                   | Yes      |             |
+| `cancelLabel`  | `string`                   | Yes      |             |
+| `pending`      | `boolean \| undefined`     | No       |             |
 
 ## Composition
 

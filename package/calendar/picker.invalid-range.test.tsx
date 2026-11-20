@@ -176,9 +176,7 @@ it('counts distinct dates before enforcing multiple preset limits', () => {
         mode="multiple"
         defaultMonth="2026-10-01"
         max={1}
-        presets={[
-          { label: 'Dates', selection: ['2026-10-12', '2026-10-12'] },
-        ]}
+        presets={[{ label: 'Dates', selection: ['2026-10-12', '2026-10-12'] }]}
         onSelectionChange={change}
       />,
       host,

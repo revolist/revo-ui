@@ -1,3 +1,4 @@
+import { formatGenerated } from './generated-format.mjs';
 import ts from 'typescript';
 import {
   existsSync,
@@ -125,14 +126,22 @@ export function componentControls(root = defaultRoot) {
   });
 }
 
-export function generateComponentControls(root = defaultRoot, check = false) {
+export async function generateComponentControls(
+  root = defaultRoot,
+  check = false,
+) {
   const controls = componentControls(root);
   const output = resolve(root, 'package/component-controls');
   const files = new Map(
-    controls.map((control) => [
-      `${control.slug}.ts`,
-      `${marker}\nimport { ${control.exportName} as Control } from '../${control.owner}';\nimport { registerComponentStyles } from '../core/component-styles';\nimport { ${control.styles} } from '../component-style-families';\n\nexport const ${control.name}: typeof Control =\n  /* @__PURE__ */ registerComponentStyles(Control, ${control.styles});\n`,
-    ]),
+    await Promise.all(
+      controls.map(async (control) => [
+        `${control.slug}.ts`,
+        await formatGenerated(
+          `${marker}\nimport { ${control.exportName} as Control } from '../${control.owner}';\nimport { registerComponentStyles } from '../core/component-styles';\nimport { ${control.styles} } from '../component-style-families';\n\nexport const ${control.name}: typeof Control =\n  /* @__PURE__ */ registerComponentStyles(Control, ${control.styles});\n`,
+          `${control.slug}.ts`,
+        ),
+      ]),
+    ),
   );
   if (new Set(controls.map((control) => control.slug)).size !== controls.length)
     throw new Error('Duplicate component leaf slug');
@@ -170,7 +179,7 @@ if (
   process.argv[1] &&
   import.meta.url === pathToFileURL(resolve(process.argv[1])).href
 ) {
-  const controls = generateComponentControls(
+  const controls = await generateComponentControls(
     defaultRoot,
     process.argv.includes('--check'),
   );

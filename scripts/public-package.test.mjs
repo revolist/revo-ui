@@ -385,7 +385,20 @@ test('archive exposes standalone module and classic browser builds with CDN defa
 });
 
 test('the same exported theme works in separate React and Vue consumers', () => {
-  const theme = JSON.stringify({ version: 1, components: { Switch: { custom: { className: 'shared-switch', props: { labelPosition: 'after' }, tokens: { trackWidth: '46px' }, defaults: { disabled: true }, styles: { parts: { thumb: { 'border-radius': '50%' } } } } } } });
+  const theme = JSON.stringify({
+    version: 1,
+    components: {
+      Switch: {
+        custom: {
+          className: 'shared-switch',
+          props: { labelPosition: 'after' },
+          tokens: { trackWidth: '46px' },
+          defaults: { disabled: true },
+          styles: { parts: { thumb: { 'border-radius': '50%' } } },
+        },
+      },
+    },
+  });
   const css = '.shared-switch { --rv-ui-switch-track-on: #6d28d9; }';
   for (const framework of ['react', 'vue']) {
     const project = join(fixture, `${framework}-theme-project`);
@@ -428,6 +441,9 @@ test('the same exported theme works in separate React and Vue consumers', () => 
       window.happyDOM.abort();
     `;
     writeFileSync(join(project, 'consumer.mjs'), script);
-    execFileSync(process.execPath, [join(project, 'consumer.mjs')], { cwd: project, stdio: 'pipe' });
+    execFileSync(process.execPath, [join(project, 'consumer.mjs')], {
+      cwd: project,
+      stdio: 'pipe',
+    });
   }
 });

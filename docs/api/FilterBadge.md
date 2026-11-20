@@ -16,18 +16,18 @@ Angular/Svelte: pass `component="FilterBadge"` to the framework's `UiComponent` 
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `className` | `string \| undefined` | No |  |
-| `role` | `"listitem" \| undefined` | No |  |
-| `removeLabel` | `string \| undefined` | No |  |
-| `onRemove` | `(() => void) \| undefined` | No |  |
-| `removeClassName` | `string \| undefined` | No |  |
-| `label` | `ComponentChildren` | Yes |  |
-| `color` | `string \| undefined` | No |  |
-| `details` | `string \| undefined` | No |  |
-| `detailsLabel` | `string \| undefined` | No |  |
-| `descriptionId` | `string \| undefined` | No |  |
+| Prop              | Type                        | Required | Description |
+| ----------------- | --------------------------- | -------- | ----------- |
+| `className`       | `string \| undefined`       | No       |             |
+| `role`            | `"listitem" \| undefined`   | No       |             |
+| `removeLabel`     | `string \| undefined`       | No       |             |
+| `onRemove`        | `(() => void) \| undefined` | No       |             |
+| `removeClassName` | `string \| undefined`       | No       |             |
+| `label`           | `ComponentChildren`         | Yes      |             |
+| `color`           | `string \| undefined`       | No       |             |
+| `details`         | `string \| undefined`       | No       |             |
+| `detailsLabel`    | `string \| undefined`       | No       |             |
+| `descriptionId`   | `string \| undefined`       | No       |             |
 
 ## Composition
 

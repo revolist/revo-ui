@@ -211,7 +211,9 @@ test('compact header keeps settings behind an overflow button', async ({
     page.getByRole('button', { name: 'Theme', exact: true }),
   ).toHaveAttribute('aria-pressed', 'true');
   // An explicit native title does not add a custom tooltip layer.
-  await expect(page.getByRole('button', { name: 'Theme', exact: true })).toHaveAttribute('title', 'Switch to light theme');
+  await expect(
+    page.getByRole('button', { name: 'Theme', exact: true }),
+  ).toHaveAttribute('title', 'Switch to light theme');
   await expect(page.getByRole('tooltip')).toHaveCount(0);
   await page.keyboard.press('Escape');
   await expect(more).toHaveAttribute('aria-expanded', 'false');
@@ -307,8 +309,18 @@ test('duration has its own page and remote lookup belongs with selects', async (
   page,
 }) => {
   for (const [route, title, component, example] of [
-    ['duration-and-effort', 'Duration and effort', 'DurationField', 'Duration and effort'],
-    ['multi-selects-autocomplete', 'Multi/selects, autocomplete', 'LookupField', 'Remote lookup field'],
+    [
+      'duration-and-effort',
+      'Duration and effort',
+      'DurationField',
+      'Duration and effort',
+    ],
+    [
+      'multi-selects-autocomplete',
+      'Multi/selects, autocomplete',
+      'LookupField',
+      'Remote lookup field',
+    ],
   ]) {
     await page.goto(`/components/${route}/`);
     await expect(

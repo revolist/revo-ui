@@ -367,7 +367,9 @@ function DropdownSelect<T = any>({
         portalTarget={portalTarget}
         theme={theme}
         dropdownMenuId={dropdownMenuId}
-        popupClassName={[preset?.className, popupClassName].filter(Boolean).join(' ')}
+        popupClassName={[preset?.className, popupClassName]
+          .filter(Boolean)
+          .join(' ')}
         inheritedPresetSurface={!!preset?.className}
         maxHeight={maxHeight}
       >

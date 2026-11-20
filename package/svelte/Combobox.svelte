@@ -5,10 +5,18 @@
   import type { SvelteComponentProps } from '../svelte-props';
   import type { UiComponentProps } from '../component-catalog';
 
-  let { children, slots, onUiEvent, value = $bindable(), ...props }: SvelteComponentProps<'Combobox'> = $props();
+  let {
+    children,
+    slots,
+    onUiEvent,
+    value = $bindable(),
+    ...props
+  }: SvelteComponentProps<'Combobox'> = $props();
   let mount: Mount;
 
-  function updateModel(...args: Parameters<NonNullable<UiComponentProps<'Combobox'>['onChange']>>) {
+  function updateModel(
+    ...args: Parameters<NonNullable<UiComponentProps<'Combobox'>['onChange']>>
+  ) {
     value = args[0];
     if (props.onChange) return Reflect.apply(props.onChange, undefined, args);
   }

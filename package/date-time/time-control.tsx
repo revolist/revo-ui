@@ -31,9 +31,17 @@ export function TimeControl({
 }) {
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState('');
-  const effectiveLocale = locale ?? new Intl.DateTimeFormat().resolvedOptions().locale;
-  const resolvedFormat = clockUses12Hours(format, effectiveLocale) ? '12h' : '24h';
-  const display = formatClockControl(value, resolvedFormat, precision, effectiveLocale);
+  const effectiveLocale =
+    locale ?? new Intl.DateTimeFormat().resolvedOptions().locale;
+  const resolvedFormat = clockUses12Hours(format, effectiveLocale)
+    ? '12h'
+    : '24h';
+  const display = formatClockControl(
+    value,
+    resolvedFormat,
+    precision,
+    effectiveLocale,
+  );
   return (
     <Input
       type="text"
@@ -50,7 +58,9 @@ export function TimeControl({
         const text = event.currentTarget.value;
         setDraft(text);
         onChange(
-          text ? (parseClockControl(text, precision, effectiveLocale) ?? text) : '',
+          text
+            ? (parseClockControl(text, precision, effectiveLocale) ?? text)
+            : '',
         );
       }}
     />

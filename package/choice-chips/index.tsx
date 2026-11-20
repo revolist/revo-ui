@@ -143,7 +143,10 @@ export function ChoiceChipInfoButton({
   title,
   ref: forwardedRef,
   ...props
-}: JSX.IntrinsicElements['button'] & { 'data-tooltip'?: string; preset?: ClassPreset }) {
+}: JSX.IntrinsicElements['button'] & {
+  'data-tooltip'?: string;
+  preset?: ClassPreset;
+}) {
   const anchor = useRef<HTMLButtonElement | null>(null);
   const text = details ?? (typeof title === 'object' ? title.value : title);
   useLayoutEffect(() => {

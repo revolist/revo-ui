@@ -7,27 +7,78 @@ import type { AngularInput, AngularCallbackValue } from '../angular-adapter';
 @Component({
   selector: 'rv-editable-dialog-header',
   standalone: true,
-  template: '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
+  template:
+    '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
   host: { style: 'display: contents', ngSkipHydration: 'true' },
 })
-export class EditableDialogHeader extends AngularNativeAdapter<'EditableDialogHeader', never> {
+export class EditableDialogHeader extends AngularNativeAdapter<
+  'EditableDialogHeader',
+  never
+> {
   protected readonly rvComponentName = 'EditableDialogHeader';
-  protected rvResolveComponent() { return Control; }
-  @NgInput() declare "aria-label"?: AngularInput<'EditableDialogHeader', "aria-label">;
-  @NgInput() declare "class"?: AngularInput<'EditableDialogHeader', "class">;
-  @NgInput({ required: true }) declare "closeLabel": AngularInput<'EditableDialogHeader', "closeLabel">;
-  @NgInput() declare "closeProps"?: AngularInput<'EditableDialogHeader', "closeProps">;
-  @NgInput() declare "description"?: AngularInput<'EditableDialogHeader', "description">;
-  @NgInput() declare "headingClass"?: AngularInput<'EditableDialogHeader', "headingClass">;
-  @NgInput({ required: true }) declare "inputLabel": AngularInput<'EditableDialogHeader', "inputLabel">;
-  @NgInput() declare "inputProps"?: AngularInput<'EditableDialogHeader', "inputProps">;
-  @NgInput() declare "kickerClass"?: AngularInput<'EditableDialogHeader', "kickerClass">;
-  @NgInput() declare "name"?: AngularInput<'EditableDialogHeader', "name">;
-  @NgInput() declare "onChange"?: AngularInput<'EditableDialogHeader', "onChange">;
-  @NgInput({ required: true }) declare "title": AngularInput<'EditableDialogHeader', "title">;
-  @NgInput() declare "titleClass"?: AngularInput<'EditableDialogHeader', "titleClass">;
-  @NgInput() declare "titleHidden"?: AngularInput<'EditableDialogHeader', "titleHidden">;
-  @NgInput({ required: true }) declare "titleId": AngularInput<'EditableDialogHeader', "titleId">;
-  @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'EditableDialogHeader', 'onChange'>>>('onChange'); }
-  protected rvResolveProps() { return this.rvInputValues; }
+  protected rvResolveComponent() {
+    return Control;
+  }
+  @NgInput() declare 'aria-label'?: AngularInput<
+    'EditableDialogHeader',
+    'aria-label'
+  >;
+  @NgInput() declare 'class'?: AngularInput<'EditableDialogHeader', 'class'>;
+  @NgInput({ required: true }) declare 'closeLabel': AngularInput<
+    'EditableDialogHeader',
+    'closeLabel'
+  >;
+  @NgInput() declare 'closeProps'?: AngularInput<
+    'EditableDialogHeader',
+    'closeProps'
+  >;
+  @NgInput() declare 'description'?: AngularInput<
+    'EditableDialogHeader',
+    'description'
+  >;
+  @NgInput() declare 'headingClass'?: AngularInput<
+    'EditableDialogHeader',
+    'headingClass'
+  >;
+  @NgInput({ required: true }) declare 'inputLabel': AngularInput<
+    'EditableDialogHeader',
+    'inputLabel'
+  >;
+  @NgInput() declare 'inputProps'?: AngularInput<
+    'EditableDialogHeader',
+    'inputProps'
+  >;
+  @NgInput() declare 'kickerClass'?: AngularInput<
+    'EditableDialogHeader',
+    'kickerClass'
+  >;
+  @NgInput() declare 'name'?: AngularInput<'EditableDialogHeader', 'name'>;
+  @NgInput() declare 'onChange'?: AngularInput<
+    'EditableDialogHeader',
+    'onChange'
+  >;
+  @NgInput({ required: true }) declare 'title': AngularInput<
+    'EditableDialogHeader',
+    'title'
+  >;
+  @NgInput() declare 'titleClass'?: AngularInput<
+    'EditableDialogHeader',
+    'titleClass'
+  >;
+  @NgInput() declare 'titleHidden'?: AngularInput<
+    'EditableDialogHeader',
+    'titleHidden'
+  >;
+  @NgInput({ required: true }) declare 'titleId': AngularInput<
+    'EditableDialogHeader',
+    'titleId'
+  >;
+  @Output() get changeEvent() {
+    return this.rvOutput<
+      AngularCallbackValue<AngularInput<'EditableDialogHeader', 'onChange'>>
+    >('onChange');
+  }
+  protected rvResolveProps() {
+    return this.rvInputValues;
+  }
 }

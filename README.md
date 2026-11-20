@@ -35,7 +35,10 @@ For a quick start in vanilla TypeScript, add `<div id="app"></div>` to your page
 ```ts
 import { createFrameworkMount, uiComponents } from '@revolist/ui/framework';
 
-const mount = createFrameworkMount(document.querySelector<HTMLElement>('#app')!, () => {});
+const mount = createFrameworkMount(
+  document.querySelector<HTMLElement>('#app')!,
+  () => {},
+);
 mount.render(uiComponents.Button, {
   children: 'Create report',
   onClick: () => alert('Report created'),
@@ -59,7 +62,6 @@ import '@revolist/ui/styles.css';
 
 For smaller extracted stylesheets, use `styles/base.css` and only the required families. Direct Preact/native rendering also uses explicit CSS. See [automatic/extracted styles, CSP configuration and bundle-size budgets](docs/bundle-size.md).
 
-
 For server-rendered applications, see the [SSR and hydration guide](docs/ssr.md) for framework recipes, initial CSS delivery, fallbacks and CSP.
 
 For browser use without a build step, see the [JavaScript / CDN guide](https://ui.rv-grid.com/frameworks/javascript-cdn/).
@@ -68,14 +70,14 @@ For browser use without a build step, see the [JavaScript / CDN guide](https://u
 
 Use the same component library and shared styles across frameworks, while keeping application state in your chosen stack. The new named Angular/Svelte exports are a source preview for the next release; the [Angular](docs/ssr-angular.md) and [SvelteKit](docs/ssr-sveltekit.md) guides show how to build and run the local public package.
 
-| Framework | Integration |
-| --- | --- |
-| <img src="src/assets/frameworks/react.svg" width="24" height="24" alt=""> React | Named components from `@revolist/ui/react`, with React state, children, and callbacks. |
-| <img src="src/assets/frameworks/vue.svg" width="24" height="24" alt=""> Vue | Named components from `@revolist/ui/vue`, with events, slots, and `v-model` for controls with a declared model. |
-| <img src="src/assets/frameworks/angular.svg" width="24" height="24" alt=""> Angular | Named standalone components from `@revolist/ui/angular`, with typed inputs, events and `rvUiSlot` templates. |
-| <img src="src/assets/frameworks/svelte.svg" width="24" height="24" alt=""> Svelte | Named Svelte 5 components from `@revolist/ui/svelte`, with typed props, model bindings, callbacks and snippets. |
-| <img src="src/assets/frameworks/preact.svg" width="24" height="24" alt=""> Preact | Components from `@revolist/ui/preact`, with Preact hooks and JSX. |
-| <img src="src/assets/frameworks/typescript.svg" width="24" height="24" alt=""> Vanilla TypeScript | Mount components into a DOM element with `createFrameworkMount` from `@revolist/ui/framework`. |
+| Framework                                                                                         | Integration                                                                                                     |
+| ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| <img src="src/assets/frameworks/react.svg" width="24" height="24" alt=""> React                   | Named components from `@revolist/ui/react`, with React state, children, and callbacks.                          |
+| <img src="src/assets/frameworks/vue.svg" width="24" height="24" alt=""> Vue                       | Named components from `@revolist/ui/vue`, with events, slots, and `v-model` for controls with a declared model. |
+| <img src="src/assets/frameworks/angular.svg" width="24" height="24" alt=""> Angular               | Named standalone components from `@revolist/ui/angular`, with typed inputs, events and `rvUiSlot` templates.    |
+| <img src="src/assets/frameworks/svelte.svg" width="24" height="24" alt=""> Svelte                 | Named Svelte 5 components from `@revolist/ui/svelte`, with typed props, model bindings, callbacks and snippets. |
+| <img src="src/assets/frameworks/preact.svg" width="24" height="24" alt=""> Preact                 | Components from `@revolist/ui/preact`, with Preact hooks and JSX.                                               |
+| <img src="src/assets/frameworks/typescript.svg" width="24" height="24" alt=""> Vanilla TypeScript | Mount components into a DOM element with `createFrameworkMount` from `@revolist/ui/framework`.                  |
 
 For a narrow dependency graph, import the matching component entry, for example `@revolist/ui/angular/svg-button` or `@revolist/ui/svelte/svg-button`. Each exports `SvgButton`; `/unstyled` variants use application-managed CSS.
 
@@ -148,8 +150,11 @@ Framework-independent date helpers are available from `@revolist/ui/dates`:
 
 ```ts
 import {
-  addDays, diffInCalendarDays, formatCalendarDateDisplay,
-  isValidIsoDate, startOfMonth,
+  addDays,
+  diffInCalendarDays,
+  formatCalendarDateDisplay,
+  isValidIsoDate,
+  startOfMonth,
 } from '@revolist/ui/dates';
 
 const to = '2026-11-16';

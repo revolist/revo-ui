@@ -93,8 +93,10 @@ export function renderRangeSlider(
     parseInputValue,
   } = props;
   const showTooltips = showTooltipsProp ?? preset?.props?.showTooltips ?? false;
-  const showRangeDisplay = showRangeDisplayProp ?? preset?.props?.showRangeDisplay ?? false;
-  const showRangeInputs = showRangeInputsProp ?? preset?.props?.showRangeInputs ?? false;
+  const showRangeDisplay =
+    showRangeDisplayProp ?? preset?.props?.showRangeDisplay ?? false;
+  const showRangeInputs =
+    showRangeInputsProp ?? preset?.props?.showRangeInputs ?? false;
   const disabled = disabledProp ?? preset?.props?.disabled ?? false;
   const step = stepProp ?? preset?.props?.step;
   const effectiveScaleFactor =

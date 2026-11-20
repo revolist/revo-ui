@@ -16,13 +16,13 @@ Angular/Svelte: pass `component="TemporalDraft"` to the framework's `UiComponent
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `clearable` | `boolean \| undefined` | No |  |
-| `value` | `TemporalControlValue` | Yes |  |
-| `options` | `TemporalPickerOptions` | Yes |  |
-| `apply` | `(value: TemporalControlValue) => void \| string` | Yes |  |
-| `cancel` | `() => void` | Yes |  |
+| Prop        | Type                                              | Required | Description |
+| ----------- | ------------------------------------------------- | -------- | ----------- |
+| `clearable` | `boolean \| undefined`                            | No       |             |
+| `value`     | `TemporalControlValue`                            | Yes      |             |
+| `options`   | `TemporalPickerOptions`                           | Yes      |             |
+| `apply`     | `(value: TemporalControlValue) => void \| string` | Yes      |             |
+| `cancel`    | `() => void`                                      | Yes      |             |
 
 ## Composition
 

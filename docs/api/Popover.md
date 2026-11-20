@@ -16,16 +16,16 @@ Angular/Svelte: pass `component="Popover"` to the framework's `UiComponent` host
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `open` | `boolean` | Yes |  |
-| `anchor` | `HTMLElement \| null` | Yes |  |
-| `appendTo` | `HTMLElement \| undefined` | No | Optional mount scope for inherited theme tokens and text direction. |
-| `onClose` | `() => void` | Yes |  |
-| `children` | `ComponentChildren` | No |  |
-| `label` | `string \| undefined` | No |  |
-| `className` | `string \| undefined` | No |  |
-| `role` | `"dialog" \| "menu" \| undefined` | No |  |
+| Prop        | Type                              | Required | Description                                                         |
+| ----------- | --------------------------------- | -------- | ------------------------------------------------------------------- |
+| `open`      | `boolean`                         | Yes      |                                                                     |
+| `anchor`    | `HTMLElement \| null`             | Yes      |                                                                     |
+| `appendTo`  | `HTMLElement \| undefined`        | No       | Optional mount scope for inherited theme tokens and text direction. |
+| `onClose`   | `() => void`                      | Yes      |                                                                     |
+| `children`  | `ComponentChildren`               | No       |                                                                     |
+| `label`     | `string \| undefined`             | No       |                                                                     |
+| `className` | `string \| undefined`             | No       |                                                                     |
+| `role`      | `"dialog" \| "menu" \| undefined` | No       |                                                                     |
 
 ## Composition
 

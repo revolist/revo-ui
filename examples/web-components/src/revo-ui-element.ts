@@ -1,4 +1,8 @@
-import { createFrameworkMount, uiComponents, type UiFrameworkMount } from '@revolist/ui/framework';
+import {
+  createFrameworkMount,
+  uiComponents,
+  type UiFrameworkMount,
+} from '@revolist/ui/framework';
 import '@revolist/ui/styles.css';
 
 /** Example custom-element adapter using the published UI component catalog. */
@@ -42,15 +46,20 @@ export class RevoUiElement extends HTMLElement {
       this.mount?.destroy();
       this.mount = undefined;
       if (!component) return;
-      this.dispatchEvent(new CustomEvent('ui-error', {
-        detail: new Error(`Unknown UI component: ${component}`),
-        bubbles: true,
-        composed: true,
-      }));
+      this.dispatchEvent(
+        new CustomEvent('ui-error', {
+          detail: new Error(`Unknown UI component: ${component}`),
+          bubbles: true,
+          composed: true,
+        }),
+      );
       return;
     }
     this.mount ??= createFrameworkMount(this.container, () => {});
-    this.mount.render(uiComponents[component as keyof typeof uiComponents], this.currentProps);
+    this.mount.render(
+      uiComponents[component as keyof typeof uiComponents],
+      this.currentProps,
+    );
   }
 }
 

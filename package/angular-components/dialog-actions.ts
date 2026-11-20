@@ -7,16 +7,28 @@ import type { AngularInput, AngularCallbackValue } from '../angular-adapter';
 @Component({
   selector: 'rv-dialog-actions',
   standalone: true,
-  template: '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
+  template:
+    '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
   host: { style: 'display: contents', ngSkipHydration: 'true' },
 })
-export class DialogActions extends AngularNativeAdapter<'DialogActions', never> {
+export class DialogActions extends AngularNativeAdapter<
+  'DialogActions',
+  never
+> {
   protected readonly rvComponentName = 'DialogActions';
-  protected rvResolveComponent() { return Control; }
-  @NgInput() declare "aria-label"?: AngularInput<'DialogActions', "aria-label">;
-  @NgInput() declare "class"?: AngularInput<'DialogActions', "class">;
-  @NgInput() declare "onChange"?: AngularInput<'DialogActions', "onChange">;
-  @NgInput() declare "title"?: AngularInput<'DialogActions', "title">;
-  @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'DialogActions', 'onChange'>>>('onChange'); }
-  protected rvResolveProps() { return this.rvInputValues; }
+  protected rvResolveComponent() {
+    return Control;
+  }
+  @NgInput() declare 'aria-label'?: AngularInput<'DialogActions', 'aria-label'>;
+  @NgInput() declare 'class'?: AngularInput<'DialogActions', 'class'>;
+  @NgInput() declare 'onChange'?: AngularInput<'DialogActions', 'onChange'>;
+  @NgInput() declare 'title'?: AngularInput<'DialogActions', 'title'>;
+  @Output() get changeEvent() {
+    return this.rvOutput<
+      AngularCallbackValue<AngularInput<'DialogActions', 'onChange'>>
+    >('onChange');
+  }
+  protected rvResolveProps() {
+    return this.rvInputValues;
+  }
 }

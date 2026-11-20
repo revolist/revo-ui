@@ -3,5 +3,7 @@ import { BarChart as Control } from '../distribution-chart/bar-chart';
 import { registerComponentStyles } from '../core/component-styles';
 import { chartsStyles } from '../component-style-families';
 
-export const BarChart: typeof Control =
-  /* @__PURE__ */ registerComponentStyles(Control, chartsStyles);
+export const BarChart: typeof Control = /* @__PURE__ */ registerComponentStyles(
+  Control,
+  chartsStyles,
+);

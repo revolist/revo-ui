@@ -5,10 +5,18 @@
   import type { SvelteComponentProps } from '../svelte-props';
   import type { UiComponentProps } from '../component-catalog';
 
-  let { children, slots, onUiEvent, checked = $bindable(), ...props }: SvelteComponentProps<'Switch'> = $props();
+  let {
+    children,
+    slots,
+    onUiEvent,
+    checked = $bindable(),
+    ...props
+  }: SvelteComponentProps<'Switch'> = $props();
   let mount: Mount;
 
-  function updateModel(...args: Parameters<NonNullable<UiComponentProps<'Switch'>['onChange']>>) {
+  function updateModel(
+    ...args: Parameters<NonNullable<UiComponentProps<'Switch'>['onChange']>>
+  ) {
     checked = args[0];
     if (props.onChange) return Reflect.apply(props.onChange, undefined, args);
   }

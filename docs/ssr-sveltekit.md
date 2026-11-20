@@ -65,7 +65,9 @@ Use the control directly beside the server-rendered content:
   <SvgButton
     label={`Save ${count}`}
     visibleLabel={`Save ${count}`}
-    onClick={() => { count += 1; }}
+    onClick={() => {
+      count += 1;
+    }}
   />
 </main>
 ```

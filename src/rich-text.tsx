@@ -1,11 +1,14 @@
 import { h } from 'preact';
 import { useMemo, useState } from 'preact/hooks';
-import { HtmlEditor as __themeOriginal_HtmlEditor, HtmlSyntax, formatRichTextHtml } from '@revolist/ui/rich-text';
+import {
+  HtmlEditor as __themeOriginal_HtmlEditor,
+  HtmlSyntax,
+  formatRichTextHtml,
+} from '@revolist/ui/rich-text';
 import { Example } from './catalog';
 import { withThemePreview } from './theme-preview';
 
 const HtmlEditor = withThemePreview(__themeOriginal_HtmlEditor, 'HtmlEditor');
-
 
 export function RichTextEditorExample() {
   const [saved, setSaved] = useState(
@@ -15,7 +18,10 @@ export function RichTextEditorExample() {
       '<ul><li>Review changes</li><li>Share with the team</li></ul>',
   );
   const [revision, setRevision] = useState(0);
-  const formattedHtml = useMemo(() => formatRichTextHtml(saved) || '<!-- Empty document -->', [saved]);
+  const formattedHtml = useMemo(
+    () => formatRichTextHtml(saved) || '<!-- Empty document -->',
+    [saved],
+  );
   return (
     <Example title="HTML Rich Text Editor" wide>
       <HtmlEditor
@@ -31,7 +37,11 @@ export function RichTextEditorExample() {
       />
       <div class="catalog-rich-text-result">
         <span>Saved HTML</span>
-        <pre tabIndex={0}><output aria-label="Saved HTML"><HtmlSyntax code={formattedHtml} /></output></pre>
+        <pre tabIndex={0}>
+          <output aria-label="Saved HTML">
+            <HtmlSyntax code={formattedHtml} />
+          </output>
+        </pre>
       </div>
     </Example>
   );

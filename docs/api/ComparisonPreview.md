@@ -16,14 +16,14 @@ Angular/Svelte: pass `component="ComparisonPreview"` to the framework's `UiCompo
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `originalValue` | `string` | Yes |  |
-| `formatted` | `ComponentChildren` | Yes |  |
-| `formattedStyle` | `h.JSX.CSSProperties \| undefined` | No |  |
-| `visual` | `boolean \| undefined` | No |  |
-| `formattedClassName` | `string \| undefined` | No |  |
-| `labels` | `{ readonly title: string; readonly original: string; readonly formatted: string; readonly hint: string; }` | Yes |  |
+| Prop                 | Type                                                                                                        | Required | Description |
+| -------------------- | ----------------------------------------------------------------------------------------------------------- | -------- | ----------- |
+| `originalValue`      | `string`                                                                                                    | Yes      |             |
+| `formatted`          | `ComponentChildren`                                                                                         | Yes      |             |
+| `formattedStyle`     | `h.JSX.CSSProperties \| undefined`                                                                          | No       |             |
+| `visual`             | `boolean \| undefined`                                                                                      | No       |             |
+| `formattedClassName` | `string \| undefined`                                                                                       | No       |             |
+| `labels`             | `{ readonly title: string; readonly original: string; readonly formatted: string; readonly hint: string; }` | Yes      |             |
 
 ## Composition
 

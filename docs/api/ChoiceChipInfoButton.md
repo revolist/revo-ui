@@ -16,9 +16,9 @@ Angular/Svelte: pass `component="ChoiceChipInfoButton"` to the framework's `UiCo
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `data-tooltip` | `string \| undefined` | No |  |
+| Prop           | Type                  | Required | Description |
+| -------------- | --------------------- | -------- | ----------- |
+| `data-tooltip` | `string \| undefined` | No       |             |
 
 ## Composition
 

@@ -16,13 +16,13 @@ Angular/Svelte: pass `component="OptionButton"` to the framework's `UiComponent`
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `label` | `ComponentChildren` | Yes |  |
-| `detail` | `ComponentChildren` | No |  |
-| `selected` | `boolean \| undefined` | No |  |
-| `className` | `string \| undefined` | No |  |
-| `detailClassName` | `string \| undefined` | No |  |
+| Prop              | Type                   | Required | Description |
+| ----------------- | ---------------------- | -------- | ----------- |
+| `label`           | `ComponentChildren`    | Yes      |             |
+| `detail`          | `ComponentChildren`    | No       |             |
+| `selected`        | `boolean \| undefined` | No       |             |
+| `className`       | `string \| undefined`  | No       |             |
+| `detailClassName` | `string \| undefined`  | No       |             |
 
 ## Composition
 

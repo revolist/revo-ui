@@ -3,5 +3,7 @@ import { Avatar as Control } from '../pickers';
 import { registerComponentStyles } from '../core/component-styles';
 import { feedbackStyles } from '../component-style-families';
 
-export const Avatar: typeof Control =
-  /* @__PURE__ */ registerComponentStyles(Control, feedbackStyles);
+export const Avatar: typeof Control = /* @__PURE__ */ registerComponentStyles(
+  Control,
+  feedbackStyles,
+);

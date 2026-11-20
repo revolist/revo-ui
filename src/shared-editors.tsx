@@ -1,6 +1,9 @@
 import { Dropdown as __themeOriginal_Dropdown } from '@revolist/ui/dropdown/index';
 import { LookupField as __themeOriginal_LookupField } from '@revolist/ui/dropdown/lookup-field';
-import { AssigneeField as __themeOriginal_AssigneeField, type AssigneeAssignment } from '@revolist/ui/assignee';
+import {
+  AssigneeField as __themeOriginal_AssigneeField,
+  type AssigneeAssignment,
+} from '@revolist/ui/assignee';
 import { Button as __themeOriginal_Button } from '@revolist/ui/controls';
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
@@ -10,19 +13,37 @@ import {
   DateTimeField as __themeOriginal_DateTimeField,
   type TemporalPickerOptions,
 } from '@revolist/ui/date-time';
-import { DurationField as __themeOriginal_DurationField, type ParsedDuration } from '@revolist/ui/duration';
+import {
+  DurationField as __themeOriginal_DurationField,
+  type ParsedDuration,
+} from '@revolist/ui/duration';
 import { Input as __themeOriginal_Input } from '@revolist/ui/native-control';
 import type { TemporalControlValue } from '@revolist/ui-dates';
 import { Example } from './catalog';
 import { withThemePreview } from './theme-preview';
 
 const Dropdown = withThemePreview(__themeOriginal_Dropdown, 'Dropdown');
-const LookupField = withThemePreview(__themeOriginal_LookupField, 'LookupField');
-const AssigneeField = withThemePreview(__themeOriginal_AssigneeField, 'AssigneeField');
+const LookupField = withThemePreview(
+  __themeOriginal_LookupField,
+  'LookupField',
+);
+const AssigneeField = withThemePreview(
+  __themeOriginal_AssigneeField,
+  'AssigneeField',
+);
 const Button = withThemePreview(__themeOriginal_Button, 'Button');
-const TemporalPicker = withThemePreview(__themeOriginal_TemporalPicker, 'TemporalPicker');
-const DateTimeField = withThemePreview(__themeOriginal_DateTimeField, 'DateTimeField');
-const DurationField = withThemePreview(__themeOriginal_DurationField, 'DurationField');
+const TemporalPicker = withThemePreview(
+  __themeOriginal_TemporalPicker,
+  'TemporalPicker',
+);
+const DateTimeField = withThemePreview(
+  __themeOriginal_DateTimeField,
+  'DateTimeField',
+);
+const DurationField = withThemePreview(
+  __themeOriginal_DurationField,
+  'DurationField',
+);
 const Input = withThemePreview(__themeOriginal_Input, 'Input');
 
 export function SharedEditorExamples() {

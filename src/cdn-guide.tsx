@@ -12,8 +12,8 @@ export function CdnGuide() {
         or framework runtime is required. Modern browsers are required.
       </p>
       <p>
-        Keep JavaScript and CSS pinned to the same version; use a
-        local HTTP server rather than opening an HTML file directly.
+        Keep JavaScript and CSS pinned to the same version; use a local HTTP
+        server rather than opening an HTML file directly.
       </p>
       <h2>Browser ES module import</h2>
       <pre>

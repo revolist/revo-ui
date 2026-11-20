@@ -16,15 +16,15 @@ Angular/Svelte: pass `component="EditorList"` to the framework's `UiComponent` h
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `label` | `string` | Yes |  |
-| `onSelect` | `(value: string) => void` | Yes |  |
-| `listRef` | `Ref<HTMLDivElement> \| undefined` | No |  |
-| `variant` | `"default" \| "plain" \| undefined` | No | Omit the inner frame when the list sits inside an editor pane. |
-| `spacing` | `"default" \| "comfortable" \| undefined` | No | Additional room around icon/description rows. |
-| `children` | `ComponentChildren` | Yes |  |
-| `className` | `string \| undefined` | No |  |
+| Prop        | Type                                      | Required | Description                                                    |
+| ----------- | ----------------------------------------- | -------- | -------------------------------------------------------------- |
+| `label`     | `string`                                  | Yes      |                                                                |
+| `onSelect`  | `(value: string) => void`                 | Yes      |                                                                |
+| `listRef`   | `Ref<HTMLDivElement> \| undefined`        | No       |                                                                |
+| `variant`   | `"default" \| "plain" \| undefined`       | No       | Omit the inner frame when the list sits inside an editor pane. |
+| `spacing`   | `"default" \| "comfortable" \| undefined` | No       | Additional room around icon/description rows.                  |
+| `children`  | `ComponentChildren`                       | Yes      |                                                                |
+| `className` | `string \| undefined`                     | No       |                                                                |
 
 ## Composition
 

@@ -82,7 +82,11 @@ export function CalendarMonthGrid({
   onSelect: (date: ISODateString) => void;
 }) {
   return (
-    <div class={`revo-calendar__month-grid ${preset?.className ?? ''} ${className}`} data-part="root" data-preset-scope={inheritPresetScope ? 'inherit' : undefined}>
+    <div
+      class={`revo-calendar__month-grid ${preset?.className ?? ''} ${className}`}
+      data-part="root"
+      data-preset-scope={inheritPresetScope ? 'inherit' : undefined}
+    >
       {Array.from({ length: dates.length / 7 }, (_, week) => (
         <div
           class="revo-calendar__week"

@@ -7,16 +7,25 @@ import type { AngularInput, AngularCallbackValue } from '../angular-adapter';
 @Component({
   selector: 'rv-field-item',
   standalone: true,
-  template: '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
+  template:
+    '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
   host: { style: 'display: contents', ngSkipHydration: 'true' },
 })
 export class FieldItem extends AngularNativeAdapter<'FieldItem', never> {
   protected readonly rvComponentName = 'FieldItem';
-  protected rvResolveComponent() { return Control; }
-  @NgInput() declare "aria-label"?: AngularInput<'FieldItem', "aria-label">;
-  @NgInput() declare "as"?: AngularInput<'FieldItem', "as">;
-  @NgInput() declare "onChange"?: AngularInput<'FieldItem', "onChange">;
-  @NgInput() declare "title"?: AngularInput<'FieldItem', "title">;
-  @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'FieldItem', 'onChange'>>>('onChange'); }
-  protected rvResolveProps() { return this.rvInputValues; }
+  protected rvResolveComponent() {
+    return Control;
+  }
+  @NgInput() declare 'aria-label'?: AngularInput<'FieldItem', 'aria-label'>;
+  @NgInput() declare 'as'?: AngularInput<'FieldItem', 'as'>;
+  @NgInput() declare 'onChange'?: AngularInput<'FieldItem', 'onChange'>;
+  @NgInput() declare 'title'?: AngularInput<'FieldItem', 'title'>;
+  @Output() get changeEvent() {
+    return this.rvOutput<
+      AngularCallbackValue<AngularInput<'FieldItem', 'onChange'>>
+    >('onChange');
+  }
+  protected rvResolveProps() {
+    return this.rvInputValues;
+  }
 }

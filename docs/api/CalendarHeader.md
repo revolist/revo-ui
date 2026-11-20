@@ -16,20 +16,20 @@ Angular/Svelte: pass `component="CalendarHeader"` to the framework's `UiComponen
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `label` | `string` | Yes |  |
-| `previousLabel` | `string` | Yes |  |
-| `nextLabel` | `string` | Yes |  |
-| `caption` | `ComponentChildren` | No |  |
-| `labelAction` | `{ ariaLabel: string; onClick: () => void; ref?: (element: HTMLButtonElement \| null) => void; } \| undefined` | No |  |
-| `showLabel` | `boolean \| undefined` | No |  |
-| `showPrevious` | `boolean \| undefined` | No |  |
-| `showNext` | `boolean \| undefined` | No |  |
-| `previousDisabled` | `boolean \| undefined` | No |  |
-| `nextDisabled` | `boolean \| undefined` | No |  |
-| `onPrevious` | `() => void` | Yes |  |
-| `onNext` | `() => void` | Yes |  |
+| Prop               | Type                                                                                                           | Required | Description |
+| ------------------ | -------------------------------------------------------------------------------------------------------------- | -------- | ----------- |
+| `label`            | `string`                                                                                                       | Yes      |             |
+| `previousLabel`    | `string`                                                                                                       | Yes      |             |
+| `nextLabel`        | `string`                                                                                                       | Yes      |             |
+| `caption`          | `ComponentChildren`                                                                                            | No       |             |
+| `labelAction`      | `{ ariaLabel: string; onClick: () => void; ref?: (element: HTMLButtonElement \| null) => void; } \| undefined` | No       |             |
+| `showLabel`        | `boolean \| undefined`                                                                                         | No       |             |
+| `showPrevious`     | `boolean \| undefined`                                                                                         | No       |             |
+| `showNext`         | `boolean \| undefined`                                                                                         | No       |             |
+| `previousDisabled` | `boolean \| undefined`                                                                                         | No       |             |
+| `nextDisabled`     | `boolean \| undefined`                                                                                         | No       |             |
+| `onPrevious`       | `() => void`                                                                                                   | Yes      |             |
+| `onNext`           | `() => void`                                                                                                   | Yes      |             |
 
 ## Composition
 

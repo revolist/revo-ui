@@ -16,9 +16,9 @@ Angular/Svelte: pass `component="AiResultText"` to the framework's `UiComponent`
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `result` | `AiTextResult` | Yes |  |
+| Prop     | Type           | Required | Description |
+| -------- | -------------- | -------- | ----------- |
+| `result` | `AiTextResult` | Yes      |             |
 
 ## Composition
 

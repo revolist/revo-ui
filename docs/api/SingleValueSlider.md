@@ -16,21 +16,21 @@ Angular/Svelte: pass `component="SingleValueSlider"` to the framework's `UiCompo
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `min` | `number` | Yes |  |
-| `max` | `number` | Yes |  |
-| `value` | `number` | Yes |  |
-| `step` | `string \| number \| undefined` | No |  |
-| `disabled` | `boolean \| undefined` | No |  |
-| `id` | `string \| undefined` | No |  |
-| `className` | `string \| undefined` | No |  |
-| `ariaLabel` | `string` | Yes |  |
-| `ariaValueText` | `string \| undefined` | No |  |
-| `ariaDescribedBy` | `string \| undefined` | No |  |
-| `onChange` | `(value: number, event: Event & { currentTarget: HTMLInputElement; }) => void` | Yes |  |
-| `onCommit` | `((value: number, event: Event & { currentTarget: HTMLInputElement; }) => void) \| undefined` | No |  |
-| `onKeyDown` | `((event: KeyboardEvent) => void) \| undefined` | No |  |
+| Prop              | Type                                                                                          | Required | Description |
+| ----------------- | --------------------------------------------------------------------------------------------- | -------- | ----------- |
+| `min`             | `number`                                                                                      | Yes      |             |
+| `max`             | `number`                                                                                      | Yes      |             |
+| `value`           | `number`                                                                                      | Yes      |             |
+| `step`            | `string \| number \| undefined`                                                               | No       |             |
+| `disabled`        | `boolean \| undefined`                                                                        | No       |             |
+| `id`              | `string \| undefined`                                                                         | No       |             |
+| `className`       | `string \| undefined`                                                                         | No       |             |
+| `ariaLabel`       | `string`                                                                                      | Yes      |             |
+| `ariaValueText`   | `string \| undefined`                                                                         | No       |             |
+| `ariaDescribedBy` | `string \| undefined`                                                                         | No       |             |
+| `onChange`        | `(value: number, event: Event & { currentTarget: HTMLInputElement; }) => void`                | Yes      |             |
+| `onCommit`        | `((value: number, event: Event & { currentTarget: HTMLInputElement; }) => void) \| undefined` | No       |             |
+| `onKeyDown`       | `((event: KeyboardEvent) => void) \| undefined`                                               | No       |             |
 
 ## Composition
 

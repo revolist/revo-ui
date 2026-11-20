@@ -34,9 +34,9 @@
       onValueChange={(next) => (value = next as string)}
       slots={{ option }}
     />
-    {#snippet option(scope: Record<string, any>)}<strong data-svelte-option
-        >{scope.option.label}</strong
-      >{/snippet}
+    {#snippet option(scope: Record<string, any>)}<strong data-svelte-option>
+        {scope.option.label}
+      </strong>{/snippet}
     <UiComponent
       component="Dropdown"
       props={{
@@ -61,9 +61,9 @@
     >
       <input aria-label="Svelte dialog name" />
     </UiComponent>
-    {#snippet footer()}<button onclick={() => (open = false)}
-        >Done Svelte</button
-      >{/snippet}
+    {#snippet footer()}<button onclick={() => (open = false)}>
+        Done Svelte
+      </button>{/snippet}
   {/if}
   <button onclick={() => (open = true)}>Open Svelte editor</button>
 </section>

@@ -526,15 +526,21 @@ export function ThemeEditor({
                     <Select
                       preset={{ className: 'rv-theme-editor-popup' }}
                       aria-label={name.charAt(0).toUpperCase() + name.slice(1)}
-                      value={selected === undefined ? '' : String(selected)}
+                      value={
+                        selected === undefined || selected === 'default'
+                          ? ''
+                          : String(selected)
+                      }
                       onValueChange={(value) => update(String(value))}
                     >
                       <option value="">Default</option>
-                      {(property.enum ?? ['true', 'false']).map((value) => (
-                        <option key={value} value={value}>
-                          {value}
-                        </option>
-                      ))}
+                      {(property.enum ?? ['true', 'false'])
+                        .filter((value) => value.toLowerCase() !== 'default')
+                        .map((value) => (
+                          <option key={value} value={value}>
+                            {value}
+                          </option>
+                        ))}
                     </Select>
                   )}
                 </div>

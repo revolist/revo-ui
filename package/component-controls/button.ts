@@ -3,5 +3,7 @@ import { Button as Control } from '../controls';
 import { registerComponentStyles } from '../core/component-styles';
 import { baseStyles } from '../component-style-families';
 
-export const Button: typeof Control =
-  /* @__PURE__ */ registerComponentStyles(Control, baseStyles);
+export const Button: typeof Control = /* @__PURE__ */ registerComponentStyles(
+  Control,
+  baseStyles,
+);

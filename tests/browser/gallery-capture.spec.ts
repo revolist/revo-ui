@@ -2,10 +2,7 @@ import { test, expect } from './gallery-test';
 import { chooseOption } from './choose-option';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-const output = resolve(
-  import.meta.dirname,
-  '../../.artifacts/visual-audit',
-);
+const output = resolve(import.meta.dirname, '../../.artifacts/visual-audit');
 
 test.use({ galleryPdf: true });
 

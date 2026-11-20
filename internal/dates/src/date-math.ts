@@ -54,10 +54,7 @@ export function addMonths(date: string, months: number): ISODateString {
 }
 
 /** Adds calendar months while preserving the day-of-month, clamped to the target month. */
-export function addCalendarMonths(
-  date: string,
-  months: number,
-): ISODateString {
+export function addCalendarMonths(date: string, months: number): ISODateString {
   const current = parseIsoDate(normalizeIsoDate(date));
   const targetFirst = new Date(current.getTime());
   targetFirst.setUTCMonth(current.getUTCMonth() + months, 1);
@@ -75,10 +72,7 @@ export function diffInDays(startDate: string, endDate: string): number {
   );
 }
 
-export function diffInCalendarDays(
-  startDate: string,
-  endDate: string,
-): number {
+export function diffInCalendarDays(startDate: string, endDate: string): number {
   const start = startOfUtcDayMs(startDate);
   const end = startOfUtcDayMs(endDate);
   return Math.round((end - start) / DAY_IN_MS);
@@ -248,9 +242,7 @@ export function getIsoWeekNumber(date: Date): number {
   utc.setUTCDate(utc.getUTCDate() + 4 - day);
   const yearStart = new Date(utc.getTime());
   yearStart.setUTCMonth(0, 1);
-  return Math.ceil(
-    ((utc.getTime() - yearStart.getTime()) / DAY_IN_MS + 1) / 7,
-  );
+  return Math.ceil(((utc.getTime() - yearStart.getTime()) / DAY_IN_MS + 1) / 7);
 }
 
 export function todayIsoDate(): ISODateString {

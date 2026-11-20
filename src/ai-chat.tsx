@@ -17,17 +17,34 @@ import { Example } from './catalog';
 import { withThemePreview } from './theme-preview';
 
 const AiChat = withThemePreview(__themeOriginal_AiChat, 'AiChat');
-const AiChatContent = withThemePreview(__themeOriginal_AiChatContent, 'AiChatContent');
-const AiChatComposer = withThemePreview(__themeOriginal_AiChatComposer, 'AiChatComposer');
+const AiChatContent = withThemePreview(
+  __themeOriginal_AiChatContent,
+  'AiChatContent',
+);
+const AiChatComposer = withThemePreview(
+  __themeOriginal_AiChatComposer,
+  'AiChatComposer',
+);
 const AiMessage = withThemePreview(__themeOriginal_AiMessage, 'AiMessage');
-const AiMessageContent = withThemePreview(__themeOriginal_AiMessageContent, 'AiMessageContent');
-const AiMessageActions = withThemePreview(__themeOriginal_AiMessageActions, 'AiMessageActions');
-const AiReasoning = withThemePreview(__themeOriginal_AiReasoning, 'AiReasoning');
+const AiMessageContent = withThemePreview(
+  __themeOriginal_AiMessageContent,
+  'AiMessageContent',
+);
+const AiMessageActions = withThemePreview(
+  __themeOriginal_AiMessageActions,
+  'AiMessageActions',
+);
+const AiReasoning = withThemePreview(
+  __themeOriginal_AiReasoning,
+  'AiReasoning',
+);
 const AiTask = withThemePreview(__themeOriginal_AiTask, 'AiTask');
 const AiTaskItem = withThemePreview(__themeOriginal_AiTaskItem, 'AiTaskItem');
-const AiSuggestions = withThemePreview(__themeOriginal_AiSuggestions, 'AiSuggestions');
+const AiSuggestions = withThemePreview(
+  __themeOriginal_AiSuggestions,
+  'AiSuggestions',
+);
 const Button = withThemePreview(__themeOriginal_Button, 'Button');
-
 
 interface DemoMessage {
   id: number;

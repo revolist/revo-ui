@@ -16,12 +16,12 @@ Angular/Svelte: pass `component="ListboxOptionContent"` to the framework's `UiCo
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `icon` | `ComponentChildren` | No |  |
-| `label` | `ComponentChildren` | Yes |  |
-| `description` | `ComponentChildren` | No |  |
-| `classNames` | `{ readonly icon?: string; readonly copy?: string; readonly label?: string; readonly description?: string; } \| undefined` | No |  |
+| Prop          | Type                                                                                                                       | Required | Description |
+| ------------- | -------------------------------------------------------------------------------------------------------------------------- | -------- | ----------- |
+| `icon`        | `ComponentChildren`                                                                                                        | No       |             |
+| `label`       | `ComponentChildren`                                                                                                        | Yes      |             |
+| `description` | `ComponentChildren`                                                                                                        | No       |             |
+| `classNames`  | `{ readonly icon?: string; readonly copy?: string; readonly label?: string; readonly description?: string; } \| undefined` | No       |             |
 
 ## Composition
 

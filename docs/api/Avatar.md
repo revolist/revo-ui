@@ -16,18 +16,18 @@ Angular/Svelte: pass `component="Avatar"` to the framework's `UiComponent` host.
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `ariaLabel` | `string \| undefined` | No |  |
-| `className` | `string \| undefined` | No |  |
-| `index` | `number \| undefined` | No |  |
-| `initials` | `string \| undefined` | No |  |
-| `key` | `string \| number \| undefined` | No |  |
-| `label` | `string \| undefined` | No |  |
-| `rectangular` | `boolean \| undefined` | No |  |
-| `size` | `number \| undefined` | No |  |
-| `style` | `Record<string, string \| number \| null \| undefined> \| undefined` | No |  |
-| `value` | `unknown` | No |  |
+| Prop          | Type                                                                 | Required | Description |
+| ------------- | -------------------------------------------------------------------- | -------- | ----------- |
+| `ariaLabel`   | `string \| undefined`                                                | No       |             |
+| `className`   | `string \| undefined`                                                | No       |             |
+| `index`       | `number \| undefined`                                                | No       |             |
+| `initials`    | `string \| undefined`                                                | No       |             |
+| `key`         | `string \| number \| undefined`                                      | No       |             |
+| `label`       | `string \| undefined`                                                | No       |             |
+| `rectangular` | `boolean \| undefined`                                               | No       |             |
+| `size`        | `number \| undefined`                                                | No       |             |
+| `style`       | `Record<string, string \| number \| null \| undefined> \| undefined` | No       |             |
+| `value`       | `unknown`                                                            | No       |             |
 
 ## Composition
 

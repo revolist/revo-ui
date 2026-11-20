@@ -15,7 +15,6 @@ const Button = withThemePreview(__themeOriginal_Button, 'Button');
 const Checkbox = withThemePreview(__themeOriginal_Checkbox, 'Checkbox');
 const Tooltip = withThemePreview(__themeOriginal_Tooltip, 'Tooltip');
 
-
 export function TooltipPlacementExamples() {
   const sides: TooltipSide[] = [
     'top',

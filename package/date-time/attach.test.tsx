@@ -148,15 +148,20 @@ it('opens an inline draft using the calendar locale rather than the host locale'
   ).toBe('11.12.2026');
 });
 
-
 it('opens an attached picker without toggling it closed and respects readonly state', () => {
   const input = document.createElement('input');
   document.body.append(input);
   expect(openAttachedTemporalPicker(input)).toBe(false);
-  act(() => { dispose = attachTemporalPicker(input, { kind: 'date' }, () => {}); });
-  act(() => { expect(openAttachedTemporalPicker(input)).toBe(true); });
+  act(() => {
+    dispose = attachTemporalPicker(input, { kind: 'date' }, () => {});
+  });
+  act(() => {
+    expect(openAttachedTemporalPicker(input)).toBe(true);
+  });
   expect(document.querySelector('.rv-editor-popup')).toBeTruthy();
-  act(() => { expect(openAttachedTemporalPicker(input)).toBe(true); });
+  act(() => {
+    expect(openAttachedTemporalPicker(input)).toBe(true);
+  });
   expect(document.querySelector('.rv-editor-popup')).toBeTruthy();
   input.readOnly = true;
   expect(openAttachedTemporalPicker(input)).toBe(false);

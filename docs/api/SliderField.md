@@ -16,27 +16,27 @@ Angular/Svelte: pass `component="SliderField"` to the framework's `UiComponent` 
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `label` | `string` | Yes |  |
-| `layout` | `"inline" \| "stacked" \| undefined` | No |  |
-| `valuePlacement` | `"end" \| "thumb" \| "none" \| undefined` | No |  |
-| `formatValue` | `((value: number) => string) \| undefined` | No |  |
-| `ticks` | `number \| undefined` | No | Number of evenly spaced decorative tick marks, bounded to 2–101. |
-| `accentColor` | `string \| undefined` | No |  |
-| `min` | `number` | Yes |  |
-| `max` | `number` | Yes |  |
-| `value` | `number` | Yes |  |
-| `step` | `string \| number \| undefined` | No |  |
-| `disabled` | `boolean \| undefined` | No |  |
-| `id` | `string \| undefined` | No |  |
-| `className` | `string \| undefined` | No |  |
-| `ariaLabel` | `string` | Yes |  |
-| `ariaValueText` | `string \| undefined` | No |  |
-| `ariaDescribedBy` | `string \| undefined` | No |  |
-| `onChange` | `(value: number, event: Event & { currentTarget: HTMLInputElement; }) => void` | Yes |  |
-| `onCommit` | `((value: number, event: Event & { currentTarget: HTMLInputElement; }) => void) \| undefined` | No |  |
-| `onKeyDown` | `((event: KeyboardEvent) => void) \| undefined` | No |  |
+| Prop              | Type                                                                                          | Required | Description                                                      |
+| ----------------- | --------------------------------------------------------------------------------------------- | -------- | ---------------------------------------------------------------- |
+| `label`           | `string`                                                                                      | Yes      |                                                                  |
+| `layout`          | `"inline" \| "stacked" \| undefined`                                                          | No       |                                                                  |
+| `valuePlacement`  | `"end" \| "thumb" \| "none" \| undefined`                                                     | No       |                                                                  |
+| `formatValue`     | `((value: number) => string) \| undefined`                                                    | No       |                                                                  |
+| `ticks`           | `number \| undefined`                                                                         | No       | Number of evenly spaced decorative tick marks, bounded to 2–101. |
+| `accentColor`     | `string \| undefined`                                                                         | No       |                                                                  |
+| `min`             | `number`                                                                                      | Yes      |                                                                  |
+| `max`             | `number`                                                                                      | Yes      |                                                                  |
+| `value`           | `number`                                                                                      | Yes      |                                                                  |
+| `step`            | `string \| number \| undefined`                                                               | No       |                                                                  |
+| `disabled`        | `boolean \| undefined`                                                                        | No       |                                                                  |
+| `id`              | `string \| undefined`                                                                         | No       |                                                                  |
+| `className`       | `string \| undefined`                                                                         | No       |                                                                  |
+| `ariaLabel`       | `string`                                                                                      | Yes      |                                                                  |
+| `ariaValueText`   | `string \| undefined`                                                                         | No       |                                                                  |
+| `ariaDescribedBy` | `string \| undefined`                                                                         | No       |                                                                  |
+| `onChange`        | `(value: number, event: Event & { currentTarget: HTMLInputElement; }) => void`                | Yes      |                                                                  |
+| `onCommit`        | `((value: number, event: Event & { currentTarget: HTMLInputElement; }) => void) \| undefined` | No       |                                                                  |
+| `onKeyDown`       | `((event: KeyboardEvent) => void) \| undefined`                                               | No       |                                                                  |
 
 ## Composition
 

@@ -7,17 +7,29 @@ import type { AngularInput, AngularCallbackValue } from '../angular-adapter';
 @Component({
   selector: 'rv-field-list',
   standalone: true,
-  template: '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
+  template:
+    '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
   host: { style: 'display: contents', ngSkipHydration: 'true' },
 })
 export class FieldList extends AngularNativeAdapter<'FieldList', never> {
   protected readonly rvComponentName = 'FieldList';
-  protected rvResolveComponent() { return Control; }
-  @NgInput() declare "aria-label"?: AngularInput<'FieldList', "aria-label">;
-  @NgInput({ required: true }) declare "empty": AngularInput<'FieldList', "empty">;
-  @NgInput() declare "onChange"?: AngularInput<'FieldList', "onChange">;
-  @NgInput() declare "placeholder"?: AngularInput<'FieldList', "placeholder">;
-  @NgInput() declare "title"?: AngularInput<'FieldList', "title">;
-  @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'FieldList', 'onChange'>>>('onChange'); }
-  protected rvResolveProps() { return this.rvInputValues; }
+  protected rvResolveComponent() {
+    return Control;
+  }
+  @NgInput() declare 'aria-label'?: AngularInput<'FieldList', 'aria-label'>;
+  @NgInput({ required: true }) declare 'empty': AngularInput<
+    'FieldList',
+    'empty'
+  >;
+  @NgInput() declare 'onChange'?: AngularInput<'FieldList', 'onChange'>;
+  @NgInput() declare 'placeholder'?: AngularInput<'FieldList', 'placeholder'>;
+  @NgInput() declare 'title'?: AngularInput<'FieldList', 'title'>;
+  @Output() get changeEvent() {
+    return this.rvOutput<
+      AngularCallbackValue<AngularInput<'FieldList', 'onChange'>>
+    >('onChange');
+  }
+  protected rvResolveProps() {
+    return this.rvInputValues;
+  }
 }

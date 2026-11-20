@@ -16,9 +16,9 @@ Angular/Svelte: pass `component="FilterBadgeInfoButton"` to the framework's `UiC
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| — | No component-specific props listed | — | See the linked examples and package declarations. |
+| Prop | Type                               | Required | Description                                       |
+| ---- | ---------------------------------- | -------- | ------------------------------------------------- |
+| —    | No component-specific props listed | —        | See the linked examples and package declarations. |
 
 ## Composition
 

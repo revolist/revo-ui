@@ -16,13 +16,13 @@ Angular/Svelte: pass `component="LookupField"` to the framework's `UiComponent` 
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `initial` | `LookupId \| LookupId[] \| null` | Yes | Initial selected record ID, multiple IDs, or null for an empty selection. |
-| `options` | `LookupFieldOptions` | Yes | Remote data source, selection mode, validation, text and commit behavior. |
-| `context` | `unknown` | Yes | Application context forwarded to the remote data source as dataContext. |
-| `apply` | `(value: LookupId \| LookupId[] \| null) => void` | Yes | Commits the selected record IDs. Update application state and close the editor. |
-| `cancel` | `() => void` | Yes | Closes the editor without applying the current draft. |
+| Prop      | Type                                              | Required | Description                                                                     |
+| --------- | ------------------------------------------------- | -------- | ------------------------------------------------------------------------------- |
+| `initial` | `LookupId \| LookupId[] \| null`                  | Yes      | Initial selected record ID, multiple IDs, or null for an empty selection.       |
+| `options` | `LookupFieldOptions`                              | Yes      | Remote data source, selection mode, validation, text and commit behavior.       |
+| `context` | `unknown`                                         | Yes      | Application context forwarded to the remote data source as dataContext.         |
+| `apply`   | `(value: LookupId \| LookupId[] \| null) => void` | Yes      | Commits the selected record IDs. Update application state and close the editor. |
+| `cancel`  | `() => void`                                      | Yes      | Closes the editor without applying the current draft.                           |
 
 ## Composition
 

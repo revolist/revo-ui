@@ -7,15 +7,24 @@ import type { AngularInput, AngularCallbackValue } from '../angular-adapter';
 @Component({
   selector: 'rv-field-actions',
   standalone: true,
-  template: '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
+  template:
+    '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
   host: { style: 'display: contents', ngSkipHydration: 'true' },
 })
 export class FieldActions extends AngularNativeAdapter<'FieldActions', never> {
   protected readonly rvComponentName = 'FieldActions';
-  protected rvResolveComponent() { return Control; }
-  @NgInput() declare "aria-label"?: AngularInput<'FieldActions', "aria-label">;
-  @NgInput() declare "onChange"?: AngularInput<'FieldActions', "onChange">;
-  @NgInput() declare "title"?: AngularInput<'FieldActions', "title">;
-  @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'FieldActions', 'onChange'>>>('onChange'); }
-  protected rvResolveProps() { return this.rvInputValues; }
+  protected rvResolveComponent() {
+    return Control;
+  }
+  @NgInput() declare 'aria-label'?: AngularInput<'FieldActions', 'aria-label'>;
+  @NgInput() declare 'onChange'?: AngularInput<'FieldActions', 'onChange'>;
+  @NgInput() declare 'title'?: AngularInput<'FieldActions', 'title'>;
+  @Output() get changeEvent() {
+    return this.rvOutput<
+      AngularCallbackValue<AngularInput<'FieldActions', 'onChange'>>
+    >('onChange');
+  }
+  protected rvResolveProps() {
+    return this.rvInputValues;
+  }
 }

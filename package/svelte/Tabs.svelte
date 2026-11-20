@@ -5,10 +5,18 @@
   import type { SvelteComponentProps } from '../svelte-props';
   import type { UiComponentProps } from '../component-catalog';
 
-  let { children, slots, onUiEvent, value = $bindable(), ...props }: SvelteComponentProps<'Tabs'> = $props();
+  let {
+    children,
+    slots,
+    onUiEvent,
+    value = $bindable(),
+    ...props
+  }: SvelteComponentProps<'Tabs'> = $props();
   let mount: Mount;
 
-  function updateModel(...args: Parameters<NonNullable<UiComponentProps<'Tabs'>['onChange']>>) {
+  function updateModel(
+    ...args: Parameters<NonNullable<UiComponentProps<'Tabs'>['onChange']>>
+  ) {
     value = args[0];
     if (props.onChange) return Reflect.apply(props.onChange, undefined, args);
   }

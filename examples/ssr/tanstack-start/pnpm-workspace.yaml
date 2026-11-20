@@ -3,5 +3,5 @@ verifyDepsBeforeRun: false
 
 # Exact releases verified by this starter; keep other release-age checks active.
 minimumReleaseAgeExclude:
-  - "@revolist/ui@4.0.25"
-  - "@tybys/wasm-util@0.10.5"
+  - '@revolist/ui@4.0.25'
+  - '@tybys/wasm-util@0.10.5'

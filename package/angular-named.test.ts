@@ -1,7 +1,7 @@
-import "@angular/compiler";
-import { Component, ViewChild, type OnDestroy } from "@angular/core";
-import { bootstrapApplication } from "@angular/platform-browser";
-import { describe, expect, it } from "vitest";
+import '@angular/compiler';
+import { Component, ViewChild, type OnDestroy } from '@angular/core';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { describe, expect, it } from 'vitest';
 import {
   SvgButton,
   SearchInput,
@@ -9,12 +9,12 @@ import {
   UiSlotDirective,
   Button,
   Panel,
-} from "./angular";
-import { componentStyles } from "./core/component-styles";
-import { LookupField } from "./preact";
+} from './angular';
+import { componentStyles } from './core/component-styles';
+import { LookupField } from './preact';
 
 @Component({
-  selector: "ui-projected-child",
+  selector: 'ui-projected-child',
   template: '<input data-projected-input value="Draft">',
 })
 class ProjectedChild implements OnDestroy {
@@ -25,7 +25,7 @@ class ProjectedChild implements OnDestroy {
 }
 
 @Component({
-  selector: "ui-named-angular-harness",
+  selector: 'ui-named-angular-harness',
   imports: [
     SvgButton,
     SearchInput,
@@ -91,54 +91,54 @@ class NamedHarness {
   projectedCount = 0;
   showConditional = false;
   disabled = false;
-  search = "";
-  value: unknown = "a";
+  search = '';
+  value: unknown = 'a';
   source = [
-    { value: "a", label: "Alpha" },
-    { value: "b", label: "Beta" },
+    { value: 'a', label: 'Alpha' },
+    { value: 'b', label: 'Beta' },
   ];
 }
 const settle = () => new Promise((resolve) => setTimeout(resolve, 0));
 
-describe("named Angular components", () => {
-  it("forwards direct props and native events without duplicating click callbacks", async () => {
-    const host = document.createElement("ui-named-angular-harness");
+describe('named Angular components', () => {
+  it('forwards direct props and native events without duplicating click callbacks', async () => {
+    const host = document.createElement('ui-named-angular-harness');
     document.body.append(host);
     const app = await bootstrapApplication(NamedHarness);
     try {
       app.tick();
       await settle();
-      const button = host.querySelector<HTMLButtonElement>("button")!;
+      const button = host.querySelector<HTMLButtonElement>('button')!;
       expect(
         app.components[0].instance.saveButton
           .getElement()
-          ?.querySelector("button"),
+          ?.querySelector('button'),
       ).toBe(button);
       expect(button.tabIndex).toBe(3);
-      expect(button.getAttribute("aria-describedby")).toBe("report-help");
+      expect(button.getAttribute('aria-describedby')).toBe('report-help');
       button.click();
       app.tick();
       await settle();
       expect(app.components[0].instance.count).toBe(1);
       expect(app.components[0].instance.callbackCount).toBe(1);
       expect(button.tabIndex).toBe(4);
-      expect(button.getAttribute("aria-label")).toBe("Save 1");
-      host.querySelector<HTMLButtonElement>("[data-disable]")!.click();
+      expect(button.getAttribute('aria-label')).toBe('Save 1');
+      host.querySelector<HTMLButtonElement>('[data-disable]')!.click();
       app.tick();
       await settle();
       expect(button.disabled).toBe(true);
       expect(
-        host.querySelector("rv-svg-button")!.hasAttribute("ngskiphydration"),
+        host.querySelector('rv-svg-button')!.hasAttribute('ngskiphydration'),
       ).toBe(true);
-      const input = host.querySelector<HTMLInputElement>("input")!;
-      expect(input.getAttribute("aria-label")).toBe("Search reports");
-      expect(input.placeholder).toBe("Find a report");
+      const input = host.querySelector<HTMLInputElement>('input')!;
+      expect(input.getAttribute('aria-label')).toBe('Search reports');
+      expect(input.placeholder).toBe('Find a report');
       expect(input.disabled).toBe(true);
-      input.value = "Find report";
-      input.dispatchEvent(new Event("input", { bubbles: true }));
+      input.value = 'Find report';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
       app.tick();
       await settle();
-      expect(app.components[0].instance.search).toBe("Find report");
+      expect(app.components[0].instance.search).toBe('Find report');
     } finally {
       const control = app.components[0].instance.saveButton;
       app.destroy();
@@ -147,8 +147,8 @@ describe("named Angular components", () => {
     }
   });
 
-  it("preserves framework-owned scoped slots and disposes open overlays", async () => {
-    const host = document.createElement("ui-named-angular-harness");
+  it('preserves framework-owned scoped slots and disposes open overlays', async () => {
+    const host = document.createElement('ui-named-angular-harness');
     document.body.append(host);
     const app = await bootstrapApplication(NamedHarness);
     try {
@@ -158,12 +158,12 @@ describe("named Angular components", () => {
       await settle();
       app.tick();
       const beta = [
-        ...document.querySelectorAll<HTMLElement>("[data-named-option]"),
-      ].find((option) => option.textContent?.trim() === "Beta")!;
+        ...document.querySelectorAll<HTMLElement>('[data-named-option]'),
+      ].find((option) => option.textContent?.trim() === 'Beta')!;
       beta.click();
       await settle();
       app.tick();
-      expect(app.components[0].instance.value).toBe("b");
+      expect(app.components[0].instance.value).toBe('b');
       host.querySelector<HTMLElement>('[role="combobox"]')!.click();
       await settle();
       app.tick();
@@ -176,55 +176,55 @@ describe("named Angular components", () => {
     }
   });
 
-  it("projects ordinary Angular children once and preserves their state and lifecycle", async () => {
-    const host = document.createElement("ui-named-angular-harness");
+  it('projects ordinary Angular children once and preserves their state and lifecycle', async () => {
+    const host = document.createElement('ui-named-angular-harness');
     document.body.append(host);
     const before = ProjectedChild.destroyed;
     const app = await bootstrapApplication(NamedHarness);
     try {
       app.tick();
       await settle();
-      const button = host.querySelector<HTMLButtonElement>("rv-button button")!;
-      expect(button.textContent?.trim()).toBe("Save 0");
+      const button = host.querySelector<HTMLButtonElement>('rv-button button')!;
+      expect(button.textContent?.trim()).toBe('Save 0');
       button.click();
       app.tick();
       await settle();
-      expect(button.textContent?.trim()).toBe("Save 1");
+      expect(button.textContent?.trim()).toBe('Save 1');
       const explicit = host.querySelector<HTMLElement>(
-        "[data-explicit-button]",
+        '[data-explicit-button]',
       )!;
-      expect(explicit.querySelector("button")!.textContent?.trim()).toBe(
-        "Explicit content",
+      expect(explicit.querySelector('button')!.textContent?.trim()).toBe(
+        'Explicit content',
       );
       expect(
         [...explicit.children].some(
           (child) =>
-            (child as HTMLElement).style.display === "none" &&
-            child.textContent?.includes("Ignored fallback"),
+            (child as HTMLElement).style.display === 'none' &&
+            child.textContent?.includes('Ignored fallback'),
         ),
       ).toBe(true);
       const conditional = host.querySelector<HTMLButtonElement>(
-        "[data-conditional-button] button",
+        '[data-conditional-button] button',
       )!;
-      expect(conditional.textContent?.trim()).toBe("");
-      host.querySelector<HTMLButtonElement>("[data-show-conditional]")!.click();
+      expect(conditional.textContent?.trim()).toBe('');
+      host.querySelector<HTMLButtonElement>('[data-show-conditional]')!.click();
       app.tick();
       await settle();
-      expect(conditional.textContent?.trim()).toBe("Later content");
-      host.querySelector<HTMLButtonElement>("[data-show-conditional]")!.click();
+      expect(conditional.textContent?.trim()).toBe('Later content');
+      host.querySelector<HTMLButtonElement>('[data-show-conditional]')!.click();
       app.tick();
       await settle();
-      expect(conditional.textContent?.trim()).toBe("");
+      expect(conditional.textContent?.trim()).toBe('');
       const input = host.querySelector<HTMLInputElement>(
-        "[data-projected-input]",
+        '[data-projected-input]',
       )!;
-      input.value = "Unsaved draft";
+      input.value = 'Unsaved draft';
       input.focus();
-      host.querySelector<HTMLButtonElement>("rv-svg-button button")!.click();
+      host.querySelector<HTMLButtonElement>('rv-svg-button button')!.click();
       app.tick();
       await settle();
-      expect(host.querySelectorAll("[data-projected-input]")).toHaveLength(1);
-      expect(input.value).toBe("Unsaved draft");
+      expect(host.querySelectorAll('[data-projected-input]')).toHaveLength(1);
+      expect(input.value).toBe('Unsaved draft');
       expect(document.activeElement).toBe(input);
       app.destroy();
       expect(ProjectedChild.destroyed).toBe(before + 1);
@@ -234,12 +234,12 @@ describe("named Angular components", () => {
     }
   });
 
-  it("registers the LookupField stylesheet families for all framework adapters", () => {
+  it('registers the LookupField stylesheet families for all framework adapters', () => {
     expect(componentStyles(LookupField).map((sheet) => sheet.id)).toContain(
-      "fields",
+      'fields',
     );
     expect(componentStyles(LookupField).map((sheet) => sheet.id)).toContain(
-      "layout",
+      'layout',
     );
   });
 });

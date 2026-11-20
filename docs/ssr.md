@@ -4,18 +4,18 @@ Keep your page content on the server and use Revo UI for small interactive contr
 
 ## Choose your guide
 
-| Framework or integration                | What you will build                                               |
-| --------------------------------------- | ----------------------------------------------------------------- |
-| [Next.js App Router](ssr-nextjs.md)     | A server-rendered page using the button directly. |
-| [Nuxt](ssr-nuxt.md)                     | A server-rendered page with a Vue control.                        |
-| [SvelteKit](ssr-sveltekit.md)           | A server-rendered page and a Svelte control.                      |
-| [Astro](ssr-astro.md)                   | Server-rendered content with an interactive island.               |
-| [Angular SSR](ssr-angular.md)           | A hydrated page with an isolated control region.                  |
-| [React Router](ssr-react-router.md)     | A framework-mode page with server data.                           |
-| [TanStack Start](ssr-tanstack-start.md) | A server-rendered route with a React control.                     |
-| [NestJS](ssr-nestjs.md)                 | A server template and a browser-mounted control.                  |
-| [Refine](integration-refine.md)         | A small resource page using Next.js.                              |
-| [Lovable](integration-lovable.md)       | Revo UI in a TanStack Start or legacy React/Vite project.         |
+| Framework or integration                | What you will build                                       |
+| --------------------------------------- | --------------------------------------------------------- |
+| [Next.js App Router](ssr-nextjs.md)     | A server-rendered page using the button directly.         |
+| [Nuxt](ssr-nuxt.md)                     | A server-rendered page with a Vue control.                |
+| [SvelteKit](ssr-sveltekit.md)           | A server-rendered page and a Svelte control.              |
+| [Astro](ssr-astro.md)                   | Server-rendered content with an interactive island.       |
+| [Angular SSR](ssr-angular.md)           | A hydrated page with an isolated control region.          |
+| [React Router](ssr-react-router.md)     | A framework-mode page with server data.                   |
+| [TanStack Start](ssr-tanstack-start.md) | A server-rendered route with a React control.             |
+| [NestJS](ssr-nestjs.md)                 | A server template and a browser-mounted control.          |
+| [Refine](integration-refine.md)         | A small resource page using Next.js.                      |
+| [Lovable](integration-lovable.md)       | Revo UI in a TanStack Start or legacy React/Vite project. |
 
 Browse the [complete starter sources](https://github.com/revolist/revo-ui/tree/main/examples/ssr). Each starter has its own dependencies and commands. Most use the published package. Angular and SvelteKit preview named adapters from the locally built public package; follow their setup steps until those APIs are released.
 
@@ -32,8 +32,8 @@ Angular's native `UiControlDirective` is a separate path: Angular owns the actua
 For predictable initial CSS delivery, use the matching `/unstyled` adapter and import static CSS from the framework's global entry or root layout:
 
 ```ts
-import "@revolist/ui/styles/base.css";
-import { SvgButton } from "@revolist/ui/react/unstyled";
+import '@revolist/ui/styles/base.css';
+import { SvgButton } from '@revolist/ui/react/unstyled';
 ```
 
 This example shows React imports; the individual guides use the matching adapter and stylesheet location. Base covers the button example. Add the required [style families](bundle-size.md#stylesheet-families) when using calendars, dialogs or other controls, or import `@revolist/ui/styles.css` for all families.
@@ -55,7 +55,7 @@ Prefer `/unstyled` with external CSS when your policy forbids injected styleshee
 With automatic styles and a nonce policy, configure the response's nonce **before** controls mount:
 
 ```ts
-import { configureUiStyles } from "@revolist/ui/style-config";
+import { configureUiStyles } from '@revolist/ui/style-config';
 
 // Browser bootstrap: the server must supply this escaped meta value
 // and authorize the same nonce in this response's CSP header.

@@ -7,46 +7,80 @@ import type { AngularInput, AngularCallbackValue } from '../angular-adapter';
 @Component({
   selector: 'rv-choice-chip',
   standalone: true,
-  template: '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
+  template:
+    '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
   host: { style: 'display: contents', ngSkipHydration: 'true' },
 })
 export class ChoiceChip extends AngularNativeAdapter<'ChoiceChip', never> {
   protected readonly rvComponentName = 'ChoiceChip';
-  protected rvResolveComponent() { return Control; }
-  @NgInput() declare "aria-label"?: AngularInput<'ChoiceChip', "aria-label">;
-  @NgInput() declare "class"?: AngularInput<'ChoiceChip', "class">;
-  @NgInput() declare "color"?: AngularInput<'ChoiceChip', "color">;
-  @NgInput() declare "command"?: AngularInput<'ChoiceChip', "command">;
-  @NgInput() declare "commandFor"?: AngularInput<'ChoiceChip', "commandFor">;
-  @NgInput() declare "commandfor"?: AngularInput<'ChoiceChip', "commandfor">;
-  @NgInput() declare "data-part"?: AngularInput<'ChoiceChip', "data-part">;
-  @NgInput() declare "disabled"?: AngularInput<'ChoiceChip', "disabled">;
-  @NgInput() declare "form"?: AngularInput<'ChoiceChip', "form">;
-  @NgInput() declare "formAction"?: AngularInput<'ChoiceChip', "formAction">;
-  @NgInput() declare "formEncType"?: AngularInput<'ChoiceChip', "formEncType">;
-  @NgInput() declare "formMethod"?: AngularInput<'ChoiceChip', "formMethod">;
-  @NgInput() declare "formNoValidate"?: AngularInput<'ChoiceChip', "formNoValidate">;
-  @NgInput() declare "formTarget"?: AngularInput<'ChoiceChip', "formTarget">;
-  @NgInput() declare "formaction"?: AngularInput<'ChoiceChip', "formaction">;
-  @NgInput() declare "formenctype"?: AngularInput<'ChoiceChip', "formenctype">;
-  @NgInput() declare "formmethod"?: AngularInput<'ChoiceChip', "formmethod">;
-  @NgInput() declare "formnovalidate"?: AngularInput<'ChoiceChip', "formnovalidate">;
-  @NgInput() declare "formtarget"?: AngularInput<'ChoiceChip', "formtarget">;
-  @NgInput() declare "info"?: AngularInput<'ChoiceChip', "info">;
-  @NgInput() declare "name"?: AngularInput<'ChoiceChip', "name">;
-  @NgInput() declare "onChange"?: AngularInput<'ChoiceChip', "onChange">;
-  @NgInput() declare "onRemove"?: AngularInput<'ChoiceChip', "onRemove">;
-  @NgInput() declare "popoverTarget"?: AngularInput<'ChoiceChip', "popoverTarget">;
-  @NgInput() declare "popoverTargetAction"?: AngularInput<'ChoiceChip', "popoverTargetAction">;
-  @NgInput() declare "popovertarget"?: AngularInput<'ChoiceChip', "popovertarget">;
-  @NgInput() declare "popovertargetaction"?: AngularInput<'ChoiceChip', "popovertargetaction">;
-  @NgInput() declare "removeClassName"?: AngularInput<'ChoiceChip', "removeClassName">;
-  @NgInput() declare "removeLabel"?: AngularInput<'ChoiceChip', "removeLabel">;
-  @NgInput() declare "selected"?: AngularInput<'ChoiceChip', "selected">;
-  @NgInput() declare "title"?: AngularInput<'ChoiceChip', "title">;
-  @NgInput() declare "type"?: AngularInput<'ChoiceChip', "type">;
-  @NgInput() declare "value"?: AngularInput<'ChoiceChip', "value">;
-  @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onChange'>>>('onChange'); }
-  @Output() get remove() { return this.rvOutput<AngularCallbackValue<AngularInput<'ChoiceChip', 'onRemove'>>>('onRemove'); }
-  protected rvResolveProps() { return this.rvInputValues; }
+  protected rvResolveComponent() {
+    return Control;
+  }
+  @NgInput() declare 'aria-label'?: AngularInput<'ChoiceChip', 'aria-label'>;
+  @NgInput() declare 'class'?: AngularInput<'ChoiceChip', 'class'>;
+  @NgInput() declare 'color'?: AngularInput<'ChoiceChip', 'color'>;
+  @NgInput() declare 'command'?: AngularInput<'ChoiceChip', 'command'>;
+  @NgInput() declare 'commandFor'?: AngularInput<'ChoiceChip', 'commandFor'>;
+  @NgInput() declare 'commandfor'?: AngularInput<'ChoiceChip', 'commandfor'>;
+  @NgInput() declare 'data-part'?: AngularInput<'ChoiceChip', 'data-part'>;
+  @NgInput() declare 'disabled'?: AngularInput<'ChoiceChip', 'disabled'>;
+  @NgInput() declare 'form'?: AngularInput<'ChoiceChip', 'form'>;
+  @NgInput() declare 'formAction'?: AngularInput<'ChoiceChip', 'formAction'>;
+  @NgInput() declare 'formEncType'?: AngularInput<'ChoiceChip', 'formEncType'>;
+  @NgInput() declare 'formMethod'?: AngularInput<'ChoiceChip', 'formMethod'>;
+  @NgInput() declare 'formNoValidate'?: AngularInput<
+    'ChoiceChip',
+    'formNoValidate'
+  >;
+  @NgInput() declare 'formTarget'?: AngularInput<'ChoiceChip', 'formTarget'>;
+  @NgInput() declare 'formaction'?: AngularInput<'ChoiceChip', 'formaction'>;
+  @NgInput() declare 'formenctype'?: AngularInput<'ChoiceChip', 'formenctype'>;
+  @NgInput() declare 'formmethod'?: AngularInput<'ChoiceChip', 'formmethod'>;
+  @NgInput() declare 'formnovalidate'?: AngularInput<
+    'ChoiceChip',
+    'formnovalidate'
+  >;
+  @NgInput() declare 'formtarget'?: AngularInput<'ChoiceChip', 'formtarget'>;
+  @NgInput() declare 'info'?: AngularInput<'ChoiceChip', 'info'>;
+  @NgInput() declare 'name'?: AngularInput<'ChoiceChip', 'name'>;
+  @NgInput() declare 'onChange'?: AngularInput<'ChoiceChip', 'onChange'>;
+  @NgInput() declare 'onRemove'?: AngularInput<'ChoiceChip', 'onRemove'>;
+  @NgInput() declare 'popoverTarget'?: AngularInput<
+    'ChoiceChip',
+    'popoverTarget'
+  >;
+  @NgInput() declare 'popoverTargetAction'?: AngularInput<
+    'ChoiceChip',
+    'popoverTargetAction'
+  >;
+  @NgInput() declare 'popovertarget'?: AngularInput<
+    'ChoiceChip',
+    'popovertarget'
+  >;
+  @NgInput() declare 'popovertargetaction'?: AngularInput<
+    'ChoiceChip',
+    'popovertargetaction'
+  >;
+  @NgInput() declare 'removeClassName'?: AngularInput<
+    'ChoiceChip',
+    'removeClassName'
+  >;
+  @NgInput() declare 'removeLabel'?: AngularInput<'ChoiceChip', 'removeLabel'>;
+  @NgInput() declare 'selected'?: AngularInput<'ChoiceChip', 'selected'>;
+  @NgInput() declare 'title'?: AngularInput<'ChoiceChip', 'title'>;
+  @NgInput() declare 'type'?: AngularInput<'ChoiceChip', 'type'>;
+  @NgInput() declare 'value'?: AngularInput<'ChoiceChip', 'value'>;
+  @Output() get changeEvent() {
+    return this.rvOutput<
+      AngularCallbackValue<AngularInput<'ChoiceChip', 'onChange'>>
+    >('onChange');
+  }
+  @Output() get remove() {
+    return this.rvOutput<
+      AngularCallbackValue<AngularInput<'ChoiceChip', 'onRemove'>>
+    >('onRemove');
+  }
+  protected rvResolveProps() {
+    return this.rvInputValues;
+  }
 }

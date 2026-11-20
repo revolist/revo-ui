@@ -48,7 +48,9 @@ export function renderProgressBar(
   return h(
     'div',
     {
-      class: ['rv-progress-bar', preset?.className, className].filter(Boolean).join(' '),
+      class: ['rv-progress-bar', preset?.className, className]
+        .filter(Boolean)
+        .join(' '),
       'data-part': 'root',
       role: 'progressbar',
       'aria-valuemin': normalized.min,

@@ -31,7 +31,10 @@ test('a published React button import does not retain dropdown implementation', 
     !result.code.includes('combobox'),
     'A button must not retain shared Select/Dropdown code',
   );
-  assert(!result.code.includes('rv-tooltip'), 'button must not retain the custom tooltip engine or CSS');
+  assert(
+    !result.code.includes('rv-tooltip'),
+    'button must not retain the custom tooltip engine or CSS',
+  );
   assert(result.code.includes('.rv-btn'), 'button includes its own CSS');
   assert(
     !result.code.includes('.revo-calendar__header{'),

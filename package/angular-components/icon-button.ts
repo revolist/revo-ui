@@ -7,48 +7,78 @@ import type { AngularInput, AngularCallbackValue } from '../angular-adapter';
 @Component({
   selector: 'rv-icon-button',
   standalone: true,
-  template: '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
+  template:
+    '<span #rvHost style="display: contents"></span><span #rvProjected style="display: none"><ng-content /></span>',
   host: { style: 'display: contents', ngSkipHydration: 'true' },
 })
 export class IconButton extends AngularNativeAdapter<'IconButton', never> {
   protected readonly rvComponentName = 'IconButton';
-  protected rvResolveComponent() { return Control; }
-  @NgInput() declare "aria-label"?: AngularInput<'IconButton', "aria-label">;
-  @NgInput() declare "badge"?: AngularInput<'IconButton', "badge">;
-  @NgInput() declare "busy"?: AngularInput<'IconButton', "busy">;
-  @NgInput() declare "class"?: AngularInput<'IconButton', "class">;
-  @NgInput() declare "command"?: AngularInput<'IconButton', "command">;
-  @NgInput() declare "commandFor"?: AngularInput<'IconButton', "commandFor">;
-  @NgInput() declare "commandfor"?: AngularInput<'IconButton', "commandfor">;
-  @NgInput() declare "disabled"?: AngularInput<'IconButton', "disabled">;
-  @NgInput() declare "form"?: AngularInput<'IconButton', "form">;
-  @NgInput() declare "formAction"?: AngularInput<'IconButton', "formAction">;
-  @NgInput() declare "formEncType"?: AngularInput<'IconButton', "formEncType">;
-  @NgInput() declare "formMethod"?: AngularInput<'IconButton', "formMethod">;
-  @NgInput() declare "formNoValidate"?: AngularInput<'IconButton', "formNoValidate">;
-  @NgInput() declare "formTarget"?: AngularInput<'IconButton', "formTarget">;
-  @NgInput() declare "formaction"?: AngularInput<'IconButton', "formaction">;
-  @NgInput() declare "formenctype"?: AngularInput<'IconButton', "formenctype">;
-  @NgInput() declare "formmethod"?: AngularInput<'IconButton', "formmethod">;
-  @NgInput() declare "formnovalidate"?: AngularInput<'IconButton', "formnovalidate">;
-  @NgInput() declare "formtarget"?: AngularInput<'IconButton', "formtarget">;
-  @NgInput() declare "href"?: AngularInput<'IconButton', "href">;
-  @NgInput() declare "icon"?: AngularInput<'IconButton', "icon">;
-  @NgInput({ required: true }) declare "label": AngularInput<'IconButton', "label">;
-  @NgInput() declare "name"?: AngularInput<'IconButton', "name">;
-  @NgInput() declare "onChange"?: AngularInput<'IconButton', "onChange">;
-  @NgInput() declare "popoverTarget"?: AngularInput<'IconButton', "popoverTarget">;
-  @NgInput() declare "popoverTargetAction"?: AngularInput<'IconButton', "popoverTargetAction">;
-  @NgInput() declare "popovertarget"?: AngularInput<'IconButton', "popovertarget">;
-  @NgInput() declare "popovertargetaction"?: AngularInput<'IconButton', "popovertargetaction">;
-  @NgInput() declare "rel"?: AngularInput<'IconButton', "rel">;
-  @NgInput() declare "rounded"?: AngularInput<'IconButton', "rounded">;
-  @NgInput() declare "size"?: AngularInput<'IconButton', "size">;
-  @NgInput() declare "target"?: AngularInput<'IconButton', "target">;
-  @NgInput() declare "title"?: AngularInput<'IconButton', "title">;
-  @NgInput() declare "type"?: AngularInput<'IconButton', "type">;
-  @NgInput() declare "value"?: AngularInput<'IconButton', "value">;
-  @NgInput() declare "variant"?: AngularInput<'IconButton', "variant">;
-  @Output() get changeEvent() { return this.rvOutput<AngularCallbackValue<AngularInput<'IconButton', 'onChange'>>>('onChange'); }
-  protected rvResolveProps() { return this.rvInputValues; }
+  protected rvResolveComponent() {
+    return Control;
+  }
+  @NgInput() declare 'aria-label'?: AngularInput<'IconButton', 'aria-label'>;
+  @NgInput() declare 'badge'?: AngularInput<'IconButton', 'badge'>;
+  @NgInput() declare 'busy'?: AngularInput<'IconButton', 'busy'>;
+  @NgInput() declare 'class'?: AngularInput<'IconButton', 'class'>;
+  @NgInput() declare 'command'?: AngularInput<'IconButton', 'command'>;
+  @NgInput() declare 'commandFor'?: AngularInput<'IconButton', 'commandFor'>;
+  @NgInput() declare 'commandfor'?: AngularInput<'IconButton', 'commandfor'>;
+  @NgInput() declare 'disabled'?: AngularInput<'IconButton', 'disabled'>;
+  @NgInput() declare 'form'?: AngularInput<'IconButton', 'form'>;
+  @NgInput() declare 'formAction'?: AngularInput<'IconButton', 'formAction'>;
+  @NgInput() declare 'formEncType'?: AngularInput<'IconButton', 'formEncType'>;
+  @NgInput() declare 'formMethod'?: AngularInput<'IconButton', 'formMethod'>;
+  @NgInput() declare 'formNoValidate'?: AngularInput<
+    'IconButton',
+    'formNoValidate'
+  >;
+  @NgInput() declare 'formTarget'?: AngularInput<'IconButton', 'formTarget'>;
+  @NgInput() declare 'formaction'?: AngularInput<'IconButton', 'formaction'>;
+  @NgInput() declare 'formenctype'?: AngularInput<'IconButton', 'formenctype'>;
+  @NgInput() declare 'formmethod'?: AngularInput<'IconButton', 'formmethod'>;
+  @NgInput() declare 'formnovalidate'?: AngularInput<
+    'IconButton',
+    'formnovalidate'
+  >;
+  @NgInput() declare 'formtarget'?: AngularInput<'IconButton', 'formtarget'>;
+  @NgInput() declare 'href'?: AngularInput<'IconButton', 'href'>;
+  @NgInput() declare 'icon'?: AngularInput<'IconButton', 'icon'>;
+  @NgInput({ required: true }) declare 'label': AngularInput<
+    'IconButton',
+    'label'
+  >;
+  @NgInput() declare 'name'?: AngularInput<'IconButton', 'name'>;
+  @NgInput() declare 'onChange'?: AngularInput<'IconButton', 'onChange'>;
+  @NgInput() declare 'popoverTarget'?: AngularInput<
+    'IconButton',
+    'popoverTarget'
+  >;
+  @NgInput() declare 'popoverTargetAction'?: AngularInput<
+    'IconButton',
+    'popoverTargetAction'
+  >;
+  @NgInput() declare 'popovertarget'?: AngularInput<
+    'IconButton',
+    'popovertarget'
+  >;
+  @NgInput() declare 'popovertargetaction'?: AngularInput<
+    'IconButton',
+    'popovertargetaction'
+  >;
+  @NgInput() declare 'rel'?: AngularInput<'IconButton', 'rel'>;
+  @NgInput() declare 'rounded'?: AngularInput<'IconButton', 'rounded'>;
+  @NgInput() declare 'size'?: AngularInput<'IconButton', 'size'>;
+  @NgInput() declare 'target'?: AngularInput<'IconButton', 'target'>;
+  @NgInput() declare 'title'?: AngularInput<'IconButton', 'title'>;
+  @NgInput() declare 'type'?: AngularInput<'IconButton', 'type'>;
+  @NgInput() declare 'value'?: AngularInput<'IconButton', 'value'>;
+  @NgInput() declare 'variant'?: AngularInput<'IconButton', 'variant'>;
+  @Output() get changeEvent() {
+    return this.rvOutput<
+      AngularCallbackValue<AngularInput<'IconButton', 'onChange'>>
+    >('onChange');
+  }
+  protected rvResolveProps() {
+    return this.rvInputValues;
+  }
 }

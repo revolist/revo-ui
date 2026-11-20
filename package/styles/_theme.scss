@@ -3,7 +3,9 @@
 @use '../variables' as variables;
 @mixin rv-ui-light-tokens($apply-color-scheme: true) {
   --rv-ui-color-scheme: light;
-  @if $apply-color-scheme { color-scheme: light; }
+  @if $apply-color-scheme {
+    color-scheme: light;
+  }
   --rv-ui-overlay: color-mix(in srgb, black 38%, transparent);
   --rv-ui-shadow: color-mix(in srgb, black 10%, transparent);
   --rv-ui-disabled-bg: var(--rv-ui-surface-sunken);
@@ -172,7 +174,9 @@
   --rv-ui-success: #{palette.$green-300};
   --rv-ui-btn-danger-outline: #{palette.$red-300};
   --rv-ui-btn-danger-outline-hover: #{palette.$red-light-overlay-10};
-  @if $apply-color-scheme { color-scheme: dark; }
+  @if $apply-color-scheme {
+    color-scheme: dark;
+  }
 
   --rv-ui-accent: #{palette.$blue-600};
   --rv-ui-accent-hover: #{palette.$blue-700};

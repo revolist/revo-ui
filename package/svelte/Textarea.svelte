@@ -5,12 +5,23 @@
   import type { SvelteComponentProps } from '../svelte-props';
   import type { UiComponentProps } from '../component-catalog';
 
-  let { children, slots, onUiEvent, value = $bindable(), ...props }: SvelteComponentProps<'Textarea'> = $props();
+  let {
+    children,
+    slots,
+    onUiEvent,
+    value = $bindable(),
+    ...props
+  }: SvelteComponentProps<'Textarea'> = $props();
   let mount: Mount;
 
-  function updateModel(...args: Parameters<NonNullable<UiComponentProps<'Textarea'>['onValueChange']>>) {
+  function updateModel(
+    ...args: Parameters<
+      NonNullable<UiComponentProps<'Textarea'>['onValueChange']>
+    >
+  ) {
     value = args[0];
-    if (props.onValueChange) return Reflect.apply(props.onValueChange, undefined, args);
+    if (props.onValueChange)
+      return Reflect.apply(props.onValueChange, undefined, args);
   }
 
   export function getElement(): HTMLElement | null {
