@@ -9,7 +9,9 @@ export async function loadPdfRuntime() {
   if (!document.getElementById('rv-pdfjs-viewer-styles')) {
     const style = document.createElement('style');
     style.id = 'rv-pdfjs-viewer-styles';
-    style.textContent = css.replace(/(:root\s*\{\s*)color-scheme:\s*light dark\s*;/, '$1');
+    style.textContent = css.replace(/(:root\s*\{)([^}]*)\}/g, (_match, start: string, declarations: string) =>
+      `${start}${declarations.replace(/color-scheme\s*:\s*light\s+dark\s*;?/g, '')}}`,
+    );
     document.head.append(style);
   }
   return { ...pdf, ...viewer };

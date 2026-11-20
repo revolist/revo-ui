@@ -8,6 +8,7 @@ test("animation JSON previews and exports a custom switch animation", async ({
   await page.goto("/customize/");
   const editor = page.locator(".theme-editor").first();
   await chooseOption(editor.getByLabel("Component"), "Switch");
+  await page.keyboard.press("Escape");
   await editor.getByText("Animation (JSON)", { exact: true }).click();
   const config = {
     settle: {
@@ -116,6 +117,7 @@ test("custom selection, calendar and digit animations run in the preview", async
   const editor = page.locator(".theme-editor").first();
   const configure = async (component: string, motion: object) => {
     await chooseOption(editor.getByLabel("Component"), component);
+    await page.keyboard.press("Escape");
     const section = editor.getByText("Animation (JSON)", { exact: true });
     if (!(await editor.getByLabel("Animation settings").isVisible()))
       await section.click();
