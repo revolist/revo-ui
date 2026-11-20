@@ -3,12 +3,17 @@
 @use './styles/theme';
 @use './styles/motion';
 @use './styles/disclosure';
+$include-history-controls: true !default;
 .rv-native-controls {
   @include theme.rv-ui-light-tokens;
   --rv-control-height: 32px;
   --rv-control-padding: 6px 9px;
   color: var(--rv-ui-text);
-  @include meta.load-css('./styles/primitives');
+  @if $include-history-controls {
+    @include meta.load-css('./styles/primitives');
+  } @else {
+    @include meta.load-css('./styles/primitives', $with: ('include-history-controls': false));
+  }
   @include meta.load-css('./form');
   @include meta.load-css('./checkbox/checkbox');
 }

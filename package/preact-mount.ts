@@ -71,3 +71,6 @@ function withOwnerDocument(document: Document, callback: () => void): void {
     }
   }
 }
+
+// Composed host renderers must use the same hook runtime as UI controls.
+export { useEffect, useId, useRef, useState } from 'preact/hooks';

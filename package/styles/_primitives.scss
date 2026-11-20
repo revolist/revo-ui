@@ -1,6 +1,7 @@
 @use './motion';
 @use './loading';
 @use './control';
+$include-history-controls: true !default;
 %rv-btn-base {
   position: relative;
   display: inline-flex;
@@ -1129,13 +1130,15 @@ button.rv-badge--inline {
   line-height: 16px;
   pointer-events: none;
 }
-// Reserve the icon badges' overhang so toolbars can center controls without clipping them.
-.rv-history-controls {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding-block: 5px;
-  padding-inline-end: 6px;
+@if $include-history-controls {
+  // Reserve the icon badges' overhang so toolbars can center controls without clipping them.
+  .rv-history-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-block: 5px;
+    padding-inline-end: 6px;
+  }
 }
 
 // Native disabled buttons still expose their explanation on pointer hover.
