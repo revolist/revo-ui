@@ -83,7 +83,7 @@ test('migrated controls retain readable content and disabled cues in compact car
   await expect(
     page.locator('.rv-resource-picker__details em').first(),
   ).toHaveCSS('color', 'rgb(163, 163, 163)');
-  const tag = page.locator('.rv-multi-select .selected-tag');
+  const tag = page.locator('#example-multiple-selection .selected-tag');
   const contrast = await tag.evaluate((node) => {
     const c = getComputedStyle(node);
     const luminance = (value: string) =>

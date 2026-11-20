@@ -43,7 +43,11 @@ export type SegmentedSwitchProps<
 > = {
   value: T;
   options: SegmentedSwitchOption<T>[];
-  onChange: (value: T, option: SegmentedSwitchOption<T>) => void;
+  onChange: (
+    value: T,
+    option: SegmentedSwitchOption<T>,
+    event?: MouseEvent | KeyboardEvent,
+  ) => void;
   ariaLabel?: string;
   className?: string;
   itemClassName?: string;
@@ -122,6 +126,7 @@ export function renderSegmentedSwitch<
       return;
     if (!enabledOptions.length) return;
     event.preventDefault();
+    event.stopPropagation();
     const current = enabledOptions.findIndex(
       (option) => option.value === currentValue,
     );
@@ -136,7 +141,7 @@ export function renderSegmentedSwitch<
               enabledOptions.length) %
             enabledOptions.length;
     const target = enabledOptions[targetIndex];
-    onChange(target.value, target);
+    onChange(target.value, target, event);
     const buttons = (
       event.currentTarget as HTMLButtonElement
     ).parentElement?.querySelectorAll<HTMLButtonElement>(
@@ -168,9 +173,9 @@ export function renderSegmentedSwitch<
           role: itemRole,
           id: option.id,
           'aria-controls': option.ariaControls,
-          'aria-selected': itemRole === 'tab' ? active : undefined,
-          'aria-checked': itemRole === 'radio' ? active : undefined,
-          'aria-pressed': role === 'group' ? active : undefined,
+          'aria-selected': itemRole === 'tab' ? String(active) : undefined,
+          'aria-checked': itemRole === 'radio' ? String(active) : undefined,
+          'aria-pressed': role === 'group' ? String(active) : undefined,
           'aria-label':
             option.ariaLabel ??
             (iconOnly && typeof option.label === 'string'
@@ -196,9 +201,9 @@ export function renderSegmentedSwitch<
           'data-value': String(option.value),
           'data-testid': option.testId,
           onKeyDown: (event: KeyboardEvent) => moveFocus(event, option.value),
-          onClick: () => {
+          onClick: (event: MouseEvent) => {
             if (itemDisabled || active) return;
-            onChange(option.value, option);
+            onChange(option.value, option, event);
           },
         },
         h(

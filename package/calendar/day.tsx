@@ -58,7 +58,7 @@ export function CalendarDay(props: CalendarDayProps) {
       data-calendar-date={props.date}
       class={classes}
       disabled={props.disabled || props.hidden}
-      tabIndex={!props.hidden && props.focused ? 0 : -1}
+      tabIndex={!props.hidden && !props.disabled && props.focused ? 0 : -1}
       aria-hidden={props.hidden || undefined}
       aria-selected={props.selected || undefined}
       aria-invalid={props.previewInvalid || undefined}

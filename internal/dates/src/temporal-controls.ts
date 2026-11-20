@@ -53,9 +53,7 @@ export function isValidTemporalControl(
   return kind === 'date'
     ? isValidIsoDate(value)
     : kind === 'datetime'
-      ? !!parseIsoLocalCivilDateTime(
-          value.replace(/(\d{2}:\d{2}:\d{2})\.\d{1,3}$/, '$1'),
-        )
+      ? !!parseIsoLocalCivilDateTime(value)
       : !!parseLocalDateControlValue(kind, value);
 }
 /** Date-only values never shift zones. Other stored representations are projected for editing. */
@@ -106,6 +104,13 @@ export function temporalFromControl(
       typeof original === 'number' ||
       (typeof original === 'string' &&
         !isValidTemporalControl(kind, original)));
+  if (
+    kind === 'date' &&
+    !instantOriginal &&
+    !(original instanceof Date) &&
+    typeof original !== 'number'
+  )
+    return draft;
   const clock = instantOriginal
     ? temporalToControl('datetime', original, timeZone)
     : undefined;
@@ -137,11 +142,14 @@ export function temporalFromControl(
   return draft;
 }
 
+function parseClockDate(value: string): Date | undefined {
+  const dateTime = `1970-01-01T${value}`;
+  if (parseIsoLocalCivilDateTime(dateTime)) return new Date(`${dateTime}Z`);
+}
+
 export function timeControlSeconds(value: string): number | undefined {
-  const date = parseLocalDateControlValue('time', value);
-  return date
-    ? date.getHours() * 3600 + date.getMinutes() * 60 + date.getSeconds()
-    : undefined;
+  const date = parseClockDate(value);
+  return date ? date.getTime() / 1000 : undefined;
 }
 export function isTimeControlAllowed(
   value: string,
@@ -166,11 +174,12 @@ export function formatClockControl(
   precision: 'minute' | 'second' = 'minute',
   locale?: string,
 ): string {
-  const date = parseLocalDateControlValue('time', value);
+  const date = parseClockDate(value);
   if (!date) return value;
   return new Intl.DateTimeFormat(
     locale ?? (format === '12h' ? 'en-US' : 'en-GB'),
     {
+      timeZone: 'UTC',
       hour: '2-digit',
       minute: '2-digit',
       ...(precision === 'second' ? { second: '2-digit' } : {}),
@@ -192,13 +201,14 @@ export function parseClockControl(
     const periods = new Intl.DateTimeFormat(locale, {
       hour: 'numeric',
       hourCycle: 'h12',
+      timeZone: 'UTC',
     });
     for (const [hour, period] of [
       [1, 'AM'],
       [13, 'PM'],
     ] as const) {
       const localized = periods
-        .formatToParts(new Date(2000, 0, 1, hour))
+        .formatToParts(new Date(Date.UTC(2000, 0, 1, hour)))
         .find((part) => part.type === 'dayPeriod')?.value;
       if (localized) value = value.replace(localized, period);
     }
@@ -207,14 +217,17 @@ export function parseClockControl(
       minute: '2-digit',
       second: '2-digit',
       hourCycle: 'h23',
-    }).formatToParts(new Date(2000, 0, 1, 13, 45, 20));
+      timeZone: 'UTC',
+    }).formatToParts(new Date(Date.UTC(2000, 0, 1, 13, 45, 20)));
     for (const part of separators)
       if (part.type === 'literal' && part.value.trim())
         value = value.split(part.value).join(':');
     value = value.replace(/^\s*(AM|PM)\s*(.*)$/i, '$2 $1');
   }
-  const direct = parseLocalDateControlValue('time', value.trim());
-  if (direct) return formatLocalDateControlValue('time', direct, precision);
+  const format = (date: Date) =>
+    date.toISOString().slice(11, precision === 'second' ? 19 : 16);
+  const direct = parseClockDate(value.trim());
+  if (direct) return format(direct);
   const match = /^(\d{1,2}):(\d{2})(?::(\d{2}))?\s*([ap])\.?m\.?$/i.exec(
     value.trim(),
   );
@@ -222,8 +235,6 @@ export function parseClockControl(
   const hour = Number(match[1]);
   if (hour < 1 || hour > 12) return;
   const clock = `${String((hour % 12) + (match[4].toLowerCase() === 'p' ? 12 : 0)).padStart(2, '0')}:${match[2]}:${match[3] ?? '00'}`;
-  const parsed = parseLocalDateControlValue('time', clock);
-  return parsed
-    ? formatLocalDateControlValue('time', parsed, precision)
-    : undefined;
+  const parsed = parseClockDate(clock);
+  return parsed ? format(parsed) : undefined;
 }

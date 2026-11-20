@@ -5,10 +5,13 @@ import {
   type DisplayCalendarSystem,
   addDays,
   compareIsoDates,
+  diffInDays,
   getUtcWeekday,
+  isValidIsoDate,
   type ISODateString,
 } from '@revolist/ui-dates';
 
+import { MAX_CALENDAR_DATE, MIN_CALENDAR_DATE } from './reference-date';
 import type {
   CalendarDateRange,
   CalendarWeekStart,
@@ -27,17 +30,11 @@ export function createCalendarMonth(
     -((getUtcWeekday(start) - weekStartsOn + 7) % 7),
   );
   const last = endOfDisplayMonth(start, system);
-  const dates: ISODateString[] = [];
-  for (
-    let next = first;
-    next <= last || dates.length % 7;
-    next = addDays(next, 1)
-  )
-    dates.push(next);
-  if (!fixedWeeks || dates.length >= 42) return dates;
-  const result = [...dates];
-  while (result.length < 42) result.push(addDays(result[result.length - 1], 1));
-  return result;
+  const weeks = Math.ceil((diffInDays(first, last) + 1) / 7);
+  return Array.from(
+    { length: (fixedWeeks ? Math.max(6, weeks) : weeks) * 7 },
+    (_, index) => addDays(first, index),
+  );
 }
 
 export function orderCalendarRange(
@@ -45,6 +42,28 @@ export function orderCalendarRange(
   to: ISODateString,
 ): CalendarDateRange {
   return compareIsoDates(from, to) <= 0 ? { from, to } : { from: to, to: from };
+}
+
+/** Validate completed civil ranges, optionally sharing a cached disabled-date scan for hover. */
+export function isCalendarRangeValid(
+  range: { from: ISODateString; to?: ISODateString },
+  min: number,
+  max: number,
+  blocked: (date: ISODateString) => boolean,
+  disabledInterior?: (date: ISODateString) => boolean,
+  scanPreview?: (from: ISODateString, to: ISODateString) => boolean,
+): boolean {
+  if (blocked(range.from)) return false;
+  if (!range.to) return true;
+  if (blocked(range.to)) return false;
+  const nights = diffInDays(range.from, range.to);
+  if (nights < min || nights > max || nights < 0) return false;
+  if (!disabledInterior || nights < 2) return true;
+  if (nights > 366000) return false;
+  if (scanPreview) return !scanPreview(range.from, range.to);
+  for (let day = addDays(range.from, 1); day < range.to; day = addDays(day, 1))
+    if (disabledInterior(day)) return false;
+  return true;
 }
 
 export function isDateInCalendarRange(
@@ -117,13 +136,44 @@ export function moveCalendarFocus(
       1,
     ];
   if (!next) return;
-
-  for (
-    let attempts = 0;
-    attempts < 3660 && isCalendarDateDisabled(next, options);
-    attempts++
-  ) {
-    next = addDays(next, step);
+  if (!isValidIsoDate(next)) {
+    if (key === 'Home') next = MIN_CALENDAR_DATE;
+    else if (key === 'End') next = MAX_CALENDAR_DATE;
   }
-  return isCalendarDateDisabled(next, options) ? undefined : next;
+
+  const isAvailable = (candidate: ISODateString) =>
+    isValidIsoDate(candidate) && !isCalendarDateDisabled(candidate, options);
+  if (isAvailable(next)) return next;
+  if (key === 'PageDown' || key === 'PageUp') {
+    const start = startOfDisplayMonth(next, options.calendarSystem);
+    const end = endOfDisplayMonth(next, options.calendarSystem);
+    // Prefer the nearest enabled day in the requested month, including
+    // when the original day has already clamped to that month's last day.
+    for (let offset = 1; offset < 31; offset++) {
+      const candidates = [
+        addDays(next, offset * step),
+        addDays(next, -offset * step),
+      ];
+      const available = candidates.find(
+        (date) =>
+          compareIsoDates(date, start) >= 0 &&
+          compareIsoDates(date, end) <= 0 &&
+          isAvailable(date),
+      );
+      if (available) return available;
+    }
+  }
+  for (let attempts = 0; attempts < 3660 && isValidIsoDate(next); attempts++) {
+    if (
+      (step < 0 &&
+        options.minDate &&
+        compareIsoDates(next, options.minDate) < 0) ||
+      (step > 0 &&
+        options.maxDate &&
+        compareIsoDates(next, options.maxDate) > 0)
+    )
+      return;
+    next = addDays(next, step);
+    if (isAvailable(next)) return next;
+  }
 }

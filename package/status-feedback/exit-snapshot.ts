@@ -1,3 +1,4 @@
+import { applyPopupPosition } from '../core/popup-position';
 import { isUiMotionEnabled } from '../core/motion';
 import { showTopLayerPopup } from '../core/top-layer-popup';
 import { animateStatusFeedback } from './motion';
@@ -32,8 +33,6 @@ export function statusFeedbackExit(
       snapshot.style.setProperty(property, style.getPropertyValue(property));
   Object.assign(snapshot.style, {
     position: 'fixed',
-    left: `${rect.left}px`,
-    top: `${rect.top}px`,
     width: `${rect.width}px`,
     height: `${rect.height}px`,
     display: 'flex',
@@ -47,6 +46,7 @@ export function statusFeedbackExit(
   panel.ownerDocument.body.append(snapshot);
   // A manual popover keeps the exit above the board without intercepting interaction.
   showTopLayerPopup(snapshot);
+  applyPopupPosition(snapshot, rect);
   originals.forEach((element, index) => {
     if (element.scrollTop) copies[index].scrollTop = element.scrollTop;
     if (element.scrollLeft) copies[index].scrollLeft = element.scrollLeft;

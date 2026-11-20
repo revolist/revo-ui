@@ -1,9 +1,9 @@
 import {
   formatDateEntry,
   parseDateEntry,
-  todayIsoDate,
   type TemporalControlValue,
 } from '@revolist/ui-dates';
+import { getCalendarInitialDate } from '../calendar/reference-date';
 import {
   handleMaskedBeforeInput,
   handleMaskedHistory,
@@ -128,7 +128,8 @@ export function parseTemporalInput(
   const parsed = temporalInputDraft(text, options);
   const result = validateTemporalSelection(
     { ...options, value: parsed, onChange: () => {} },
-    todayIsoDate(),
+    options.calendar?.defaultMonth ??
+      getCalendarInitialDate(options.calendar ?? {}),
   );
   return result.valid ? { value: parsed } : { error: result.errorMessage };
 }

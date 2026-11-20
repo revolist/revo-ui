@@ -314,6 +314,181 @@ it('clamps a paged multi-month window so the bounded last month stays reachable'
   ).toBe(true);
 });
 
+it('retains navigation focus and transfers focus when changing views', () => {
+  const host = mount(
+    <CalendarPicker
+      defaultMonth="2026-10-01"
+      onSelectionChange={() => {}}
+    />,
+  );
+  const button = (label: string) =>
+    host.querySelector<HTMLButtonElement>(`button[aria-label="${label}"]`)!;
+  const next = button('Next month');
+  act(() => {
+    next.focus();
+    next.click();
+  });
+  expect(document.activeElement).toBe(button('Next month'));
+  const opener = () => button('Choose month: November 2026');
+  act(() => opener().click());
+  expect(document.activeElement?.getAttribute('data-calendar-month')).toBe(
+    '2026-11-01',
+  );
+  act(() =>
+    document.activeElement!.dispatchEvent(
+      new KeyboardEvent('keydown', {
+        key: 'Escape',
+        bubbles: true,
+        cancelable: true,
+      }),
+    ),
+  );
+  expect(document.activeElement).toBe(opener());
+  act(() => opener().click());
+  act(() =>
+    host
+      .querySelector<HTMLButtonElement>('[data-calendar-month="2026-09-01"]')!
+      .click(),
+  );
+  expect(document.activeElement?.getAttribute('data-calendar-date')).toBe(
+    '2026-09-01',
+  );
+});
+
+it('disables year overview months outside the navigation bounds', () => {
+  const host = mount(
+    <CalendarPicker
+      defaultMonth="2026-10-01"
+      startMonth="2026-08-01"
+      endMonth="2026-11-01"
+      defaultView="year"
+      onSelectionChange={() => {}}
+    />,
+  );
+  const months = host.querySelectorAll<HTMLButtonElement>(
+    '[data-calendar-month]:not(:disabled)',
+  );
+  expect([...months].map((month) => month.dataset.calendarMonth)).toEqual([
+    '2026-08-01',
+    '2026-09-01',
+    '2026-10-01',
+    '2026-11-01',
+  ]);
+});
+
+it('pages to an available month when the next year has a disabled anchor month', () => {
+  const monthChange = vi.fn();
+  const host = mount(
+    <CalendarPicker
+      defaultMonth="2026-10-01"
+      defaultView="year"
+      isMonthDisabled={(date) => date === '2027-10-01'}
+      onSelectionChange={() => {}}
+      onMonthChange={monthChange}
+    />,
+  );
+  const next = host.querySelector<HTMLButtonElement>('[aria-label="Next year"]')!;
+  expect(next.disabled).toBe(false);
+  act(() => next.click());
+  expect(monthChange).toHaveBeenCalledExactlyOnceWith('2027-01-01');
+});
+
+it('keeps Page Down in the requested month when the clamped day is unavailable', () => {
+  expect(
+    moveCalendarFocus({
+      date: '2026-01-31',
+      key: 'PageDown',
+      weekStartsOn: 1,
+      isDisabled: (date) => date === '2026-02-28',
+    }),
+  ).toBe('2026-02-27');
+});
+
+it('keeps the header usable when all calendar days are disabled', () => {
+  const host = mount(<Calendar {...base} isDateDisabled={() => true} />);
+  expect(host.querySelector('[data-calendar-date][tabindex="0"]')).toBeNull();
+  const next = host.querySelector<HTMLButtonElement>('[aria-label="Next month"]')!;
+  expect(next.disabled).toBe(false);
+});
+
+it('can browse through a disabled month using the month-only view', () => {
+  const host = mount(
+    <CalendarPicker
+      defaultMonth="2026-10-01"
+      enableYearView={false}
+      isMonthDisabled={(date) => date === '2026-11-01'}
+      onSelectionChange={() => {}}
+    />,
+  );
+  const next = host.querySelector<HTMLButtonElement>('[aria-label="Next month"]')!;
+  expect(next.disabled).toBe(false);
+  act(() => next.click());
+  expect(
+    host.querySelector('[data-calendar-date="2026-11-12"]:disabled'),
+  ).not.toBeNull();
+  act(() => next.click());
+  expect(
+    host.querySelector('[data-calendar-date="2026-12-12"]:not(:disabled)'),
+  ).not.toBeNull();
+});
+
+it('keeps keyboard focus inside the supported four-digit years', () => {
+  expect(
+    moveCalendarFocus({
+      date: '0000-01-02',
+      key: 'Home',
+      weekStartsOn: 1,
+    }),
+  ).toBe('0000-01-01');
+  expect(
+    moveCalendarFocus({
+      date: '9999-12-30',
+      key: 'End',
+      weekStartsOn: 1,
+    }),
+  ).toBe('9999-12-31');
+  expect(
+    moveCalendarFocus({
+      date: '9999-12-31',
+      key: 'ArrowRight',
+      weekStartsOn: 1,
+    }),
+  ).toBeUndefined();
+});
+
+it('commits a range ending on the final supported date without exposing extended years', () => {
+  const change = vi.fn();
+  const disabled = vi.fn(() => false);
+  const host = mount(
+    <CalendarPicker
+      mode="range"
+      selected={{ from: '9999-12-29' }}
+      onSelectionChange={change}
+      numberOfMonths={2}
+      excludeDisabled
+      isDateDisabled={disabled}
+    />,
+  );
+  expect(host.querySelectorAll('[role="grid"]')).toHaveLength(1);
+  expect(
+    host.querySelector<HTMLButtonElement>('[aria-label="Next month"]')!
+      .disabled,
+  ).toBe(true);
+  expect(host.querySelector('[data-calendar-date^="+"]')).toBeNull();
+  act(() =>
+    host
+      .querySelector<HTMLButtonElement>('[data-calendar-date="9999-12-31"]')!
+      .click(),
+  );
+  expect(change).toHaveBeenCalledExactlyOnceWith({
+    from: '9999-12-29',
+    to: '9999-12-31',
+  });
+  expect(disabled).not.toHaveBeenCalledWith(
+    expect.stringMatching(/^[+-]/),
+  );
+});
+
 it.each([
   { mode: 'single', selection: '2026-11-10', rejected: '2026-11-10' },
   {

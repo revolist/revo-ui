@@ -1,8 +1,11 @@
-import { addDays, diffInDays } from './date-math';
+import { addDays, compareIsoDates, diffInDays } from './date-math';
 import { parseIsoDate, getUtcWeekday, type ISODateString } from './iso';
 
 /** Display systems with twelve months. Values always remain Gregorian ISO civil dates. */
-export type DisplayCalendarSystem = 'gregory' | 'persian' | 'islamic-umalqura';
+export type DisplayCalendarSystem =
+  | 'gregory'
+  | 'persian'
+  | 'islamic-umalqura';
 const formatters = new Map<string, Intl.DateTimeFormat>();
 function formatter(
   locale: string,
@@ -29,7 +32,12 @@ export function formatDisplayCalendarDate(
   options: Intl.DateTimeFormatOptions,
   system: DisplayCalendarSystem = 'gregory',
 ): string {
-  return formatter(locale, system, options).format(parseIsoDate(date));
+  const value = parseIsoDate(date);
+  const displayOptions =
+    system === 'gregory' && options.year && value.getUTCFullYear() <= 0
+      ? { era: 'short' as const, ...options }
+      : options;
+  return formatter(locale, system, displayOptions).format(value);
 }
 export function getDisplayCalendarParts(
   date: ISODateString,
@@ -113,8 +121,11 @@ export function displayWeekNumber(
     return addDays(anchor, -((getUtcWeekday(anchor) - weekStartsOn + 7) % 7));
   };
   let year = displayYearMonths(date, system)[0];
-  if (date < firstWeek(year)) year = addDisplayMonths(year, -12, system);
-  else if (date >= firstWeek(addDisplayMonths(year, 12, system)))
+  if (compareIsoDates(date, firstWeek(year)) < 0)
+    year = addDisplayMonths(year, -12, system);
+  else if (
+    compareIsoDates(date, firstWeek(addDisplayMonths(year, 12, system))) >= 0
+  )
     year = addDisplayMonths(year, 12, system);
   return Math.floor(diffInDays(firstWeek(year), date) / 7) + 1;
 }

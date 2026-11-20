@@ -43,10 +43,10 @@
       "keywords": "text textarea message search number stepper counter field error validation readonly highlighted inline dimensions"
     },
     {
-      "title": "Selects, chips and resources",
+      "title": "Multi/selects, autocomplete",
       "group": "Controls",
-      "description": "Find options, manage selections and choose people.",
-      "keywords": "combobox multiselect dropdown avatar picker tag"
+      "description": "Single and multiple selects, editable autocomplete, optional tags and remote lookup.",
+      "keywords": "select combobox autocomplete editable multiselect dropdown tags create remote lookup linked records async"
     },
     {
       "title": "Sliders",
@@ -69,8 +69,20 @@
     {
       "title": "Calendar and dates",
       "group": "Pickers",
-      "description": "Independent calendars, date inputs, date ranges and time pickers.",
-      "keywords": "date time datetime calendar picker range"
+      "description": "Calendar views, date selection and date ranges.",
+      "keywords": "date calendar picker range multiple presets week month year"
+    },
+    {
+      "title": "Time pickers",
+      "group": "Pickers",
+      "description": "Time-only fields, business hours, seconds and 12/24-hour pickers.",
+      "keywords": "time picker hours minutes seconds am pm clock confirmation"
+    },
+    {
+      "title": "Date and time fields",
+      "group": "Pickers",
+      "description": "DateTimeField inputs and configurable date/time editor compositions.",
+      "keywords": "date datetime field temporal editor input format calendar time range multiple"
     },
     {
       "title": "Duration and effort",
@@ -79,16 +91,16 @@
       "keywords": "duration effort units elapsed day hour minute slider"
     },
     {
+      "title": "Resource selection",
+      "group": "Pickers",
+      "description": "Select people or other resources, with avatars and person selectors.",
+      "keywords": "resource selection picker people assignee search multiple avatar images user member"
+    },
+    {
       "title": "Assignee field",
       "group": "Pickers",
       "description": "Assign people and edit their allocation units.",
       "keywords": "assignee field people resource allocation units assignment"
-    },
-    {
-      "title": "Remote lookup field",
-      "group": "Pickers",
-      "description": "Search remote records and apply linked-record selections.",
-      "keywords": "lookup remote search linked records async data source"
     },
     {
       "title": "Legend",

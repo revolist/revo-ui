@@ -46,6 +46,9 @@ export const schedulerEventContentColors = {
 } as const;
 
 export const schedulerEventStatesColors = {
+  'pending-sweep-edge': commonColors.rgba_255_255_255_0_12,
+  'pending-sweep-center': commonColors.rgba_255_255_255_0_52,
+  'pending-reduced-motion': commonColors.rgba_255_255_255_0_08,
   'state-highlight': commonColors.rgba_255_255_255_0_32,
   'state-icon': commonColors.white,
   'invalid-outline': commonColors.red600,
@@ -54,6 +57,9 @@ export const schedulerEventStatesColors = {
 } as const;
 
 export const schedulerThemeLightColors = {
+  'selected-date-bg': commonColors.hexe5e5e5,
+  'editor-shadow': commonColors.rgba_0_0_0_0_12,
+  'editor-shadow-soft': commonColors.rgba_0_0_0_0_06,
   'event-color': commonColors.rgb_69_115_222,
   'event-border-mix-base': commonColors.hex0f172a,
   'confirmed-color': commonColors.rgb_69_115_222,
@@ -117,6 +123,7 @@ export const schedulerThemeLightColors = {
 } as const;
 
 export const schedulerThemeDarkColors = {
+  'selected-date-bg': commonColors.hex424242,
   'event-color': commonColors.rgb_80_128_235,
   'event-bg': commonColors.rgb_80_128_235,
   'event-text': commonColors.white,

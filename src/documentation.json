@@ -2,18 +2,104 @@
   "javascript-cdn": {
     "label": "JavaScript / CDN",
     "title": "JavaScript / CDN",
-    "description": "Use Revo UI directly in the browser with ES module or classic-script CDN examples, pinned assets and optional PDF worker setup."
+    "description": "Load Revo UI components with browser ES modules or a classic script. Includes CDN setup, matching styles, self-hosting and optional PDF worker configuration.",
+    "category": "Essentials",
+    "seoTitle": "JavaScript UI components via CDN"
   },
   "ssr": {
     "label": "SSR",
     "title": "Server rendering and hydration",
-    "description": "Use Revo UI in SSR applications: simple framework examples, initial CSS delivery, client mounting, hydration and CSP configuration.",
-    "source": "ssr.md"
+    "description": "Integrate Revo UI with server-rendered React, Vue, Angular and Svelte apps. Learn client mounting, hydration boundaries, initial CSS and CSP setup.",
+    "source": "ssr.md",
+    "category": "Server rendering",
+    "seoTitle": "SSR integration and hydration guide"
   },
   "bundle-size": {
     "label": "Bundle size",
     "title": "Bundle size and selective styles",
     "description": "Keep Revo UI bundles small with tree-shaken imports, automatic or extracted CSS, selective stylesheets and reproducible size budgets.",
-    "source": "bundle-size.md"
+    "source": "bundle-size.md",
+    "category": "Essentials",
+    "seoTitle": "Bundle size and selective styles"
+  },
+  "ssr-nextjs": {
+    "label": "Next.js SSR",
+    "title": "Next.js App Router and Revo UI",
+    "description": "Use Revo UI in Next.js App Router with a server layout, a client page and extracted CSS. Includes a runnable SSR example and hydration checks.",
+    "source": "ssr-nextjs.md",
+    "category": "Server rendering",
+    "seoTitle": "Next.js App Router SSR integration"
+  },
+  "ssr-nuxt": {
+    "label": "Nuxt SSR",
+    "title": "Nuxt and Revo UI",
+    "description": "Add Revo UI components to Nuxt with Vue state, global CSS and SSR enabled. Follow a small runnable example and verify page hydration.",
+    "source": "ssr-nuxt.md",
+    "category": "Server rendering",
+    "seoTitle": "Nuxt SSR with Vue UI components"
+  },
+  "ssr-sveltekit": {
+    "label": "SvelteKit SSR",
+    "title": "SvelteKit and Revo UI",
+    "description": "Use named Revo UI components in SvelteKit with server-loaded data, extracted CSS and browser mounting. Includes a small runnable SSR example.",
+    "source": "ssr-sveltekit.md",
+    "category": "Server rendering",
+    "seoTitle": "SvelteKit SSR and hydration"
+  },
+  "ssr-astro": {
+    "label": "Astro SSR",
+    "title": "Astro and Revo UI",
+    "description": "Add a Revo UI control to an Astro SSR page with a Vue island, client:load and global CSS. Follow a small runnable Node server example.",
+    "source": "ssr-astro.md",
+    "category": "Server rendering",
+    "seoTitle": "Astro SSR with interactive Vue islands"
+  },
+  "ssr-angular": {
+    "label": "Angular SSR",
+    "title": "Angular SSR and Revo UI",
+    "description": "Integrate Revo UI components with Angular SSR and hydration. Use typed inputs, normal events and extracted CSS in a small runnable example.",
+    "source": "ssr-angular.md",
+    "category": "Server rendering",
+    "seoTitle": "Angular SSR and hydration"
+  },
+  "ssr-react-router": {
+    "label": "React Router SSR",
+    "title": "React Router and Revo UI",
+    "description": "Integrate Revo UI with React Router framework-mode SSR, server loaders and extracted CSS. Includes an interactive page and verification steps.",
+    "source": "ssr-react-router.md",
+    "category": "Server rendering",
+    "seoTitle": "React Router SSR and server loaders"
+  },
+  "ssr-tanstack-start": {
+    "label": "TanStack Start SSR",
+    "title": "TanStack Start and Revo UI",
+    "description": "Use Revo UI with TanStack Start SSR, server functions and extracted CSS. Build a small route with clear server and browser boundaries.",
+    "source": "ssr-tanstack-start.md",
+    "category": "Server rendering",
+    "seoTitle": "TanStack Start SSR with React"
+  },
+  "ssr-nestjs": {
+    "label": "NestJS",
+    "title": "NestJS and Revo UI",
+    "description": "Render a NestJS page with Handlebars and mount a Revo UI control in the browser. Includes template setup, extracted CSS and a runnable example.",
+    "source": "ssr-nestjs.md",
+    "category": "Server rendering",
+    "seoTitle": "NestJS server rendering with Handlebars"
+  },
+  "integration-refine": {
+    "label": "Refine",
+    "title": "Refine and Revo UI",
+    "description": "Build a small Refine form with Next.js and Revo UI components. Follow the data-provider and mutation flow, with server rendering and validation.",
+    "source": "integration-refine.md",
+    "category": "Integrations",
+    "seoTitle": "Refine UI integration with Next.js"
+  },
+  "integration-lovable": {
+    "label": "Lovable",
+    "title": "Lovable and Revo UI",
+    "description": "Add Revo UI to a Lovable project. Choose TanStack Start SSR or React/Vite, copy a simple prompt and use a component in your existing page.",
+    "source": "integration-lovable.md",
+    "category": "Integrations",
+    "seoTitle": "Lovable UI integration with React"
   }
 }

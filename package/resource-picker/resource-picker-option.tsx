@@ -67,11 +67,17 @@ export function ResourcePickerOption<
       role={readOnly && optionId ? 'option' : undefined}
       aria-selected={readOnly && optionId ? selected : undefined}
       data-selected={selected ? 'true' : 'false'}
+      style={
+        resource.color
+          ? { '--rv-resource-picker-accent': resource.color }
+          : undefined
+      }
       onMouseEnter={onFocus}
     >
       {!readOnly && (
         <input
           type="checkbox"
+          aria-label={resource.name}
           id={optionId}
           role={optionId ? 'option' : undefined}
           aria-selected={optionId ? selected : undefined}

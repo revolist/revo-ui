@@ -424,8 +424,6 @@ test('nested dialogs trap focus and restore it to the correct trigger', async ({
   await expect(
     inner.getByRole('button', { name: 'Close confirmation' }),
   ).toBeFocused();
-  await page.keyboard.press('Escape');
-  await expect(inner).toBeVisible();
   await expect(page.locator('[role="tooltip"]:visible')).toHaveCount(0);
   await page.keyboard.press('Escape');
   await expect(inner).toHaveCount(0);
@@ -630,12 +628,10 @@ test('shared control states have complete presentation and logical RTL spacing',
   expect(icon!.x).toBeGreaterThan(field!.x + field!.width / 2);
 });
 
-test('gallery groups controls, outlines destructive actions and counts icon history with tooltips', async ({
+test('gallery groups controls, outlines destructive actions and counts icon history without implicit tooltips', async ({
   page,
 }) => {
-  const logo = page
-    .getByRole('banner')
-    .getByRole('img', { name: 'Revo UI', exact: true });
+  const logo = page.getByRole('banner').locator('.catalog-logo');
   await expect(logo).toBeVisible();
   await expect
     .poll(() =>
@@ -676,9 +672,11 @@ test('gallery groups controls, outlines destructive actions and counts icon hist
   await redo.click();
   await expect(undo.locator('.rv-badge')).toHaveText('3');
   await undo.focus();
-  await expect(undo.locator('.rv-control-tooltip')).toBeVisible();
+  await expect(undo.locator('[role="tooltip"]')).toHaveCount(0);
+  await expect(undo).not.toHaveAttribute('aria-describedby');
   await exp.hover();
-  await expect(exp.locator('.rv-control-tooltip')).toBeVisible();
+  await expect(exp.locator('[role="tooltip"]')).toHaveCount(0);
+  await expect(exp).not.toHaveAttribute('title');
   await chooseOption(page.getByRole('button', { name: 'Theme' }), 'Dark');
   await expect(remove).toHaveCSS('border-color', 'rgb(252, 165, 165)');
 });
@@ -779,7 +777,8 @@ test('drawing tools share contained native toolbar presentation in both themes',
     await toolbar.scrollIntoViewIfNeeded();
     await select.press('Tab');
     await expect(rectangle).toBeFocused();
-    await expect(rectangle.locator('.rv-control-tooltip')).toBeVisible();
+    await expect(rectangle.locator('[role="tooltip"]')).toHaveCount(0);
+    await expect(rectangle).not.toHaveAttribute('aria-describedby');
     await rectangle.hover();
     await expect(rectangle).not.toHaveCSS(
       'background-color',
@@ -1132,7 +1131,7 @@ test.describe('calendar family', () => {
   for (const width of [1440, 390])
     for (const theme of ['light', 'dark'])
       for (const rtl of [false, true]) {
-        test(`calendar variants keep blue selection and fit light dark LTR RTL layouts at ${width}px in ${theme} ${rtl ? 'RTL' : 'LTR'}`, async ({
+        test(`calendar variants keep neutral selection and fit light dark LTR RTL layouts at ${width}px in ${theme} ${rtl ? 'RTL' : 'LTR'}`, async ({
           page,
         }, info) => {
           const section = page.locator('#calendar-and-dates');
@@ -1149,9 +1148,30 @@ test.describe('calendar family', () => {
             .first();
           await expect(selected).toHaveCSS(
             'background-color',
-            'rgb(37, 99, 235)',
+            theme === 'light'
+              ? 'color(srgb 0.88 0.88 0.88)'
+              : 'color(srgb 0.225098 0.225098 0.225098)',
           );
-          await expect(selected).toHaveCSS('color', 'rgb(255, 255, 255)');
+          await expect(selected).toHaveCSS(
+            'color',
+            theme === 'light' ? 'rgb(23, 23, 23)' : 'rgb(245, 245, 245)',
+          );
+          await selected.evaluate((node) => {
+            const calendar = node.closest('.revo-calendar') as HTMLElement;
+            calendar.style.setProperty(
+              '--revo-calendar-selection-bg',
+              'rgb(10, 20, 30)',
+            );
+            calendar.style.setProperty(
+              '--revo-calendar-selection-text',
+              'rgb(240, 245, 250)',
+            );
+          });
+          await expect(selected).toHaveCSS(
+            'background-color',
+            'rgb(10, 20, 30)',
+          );
+          await expect(selected).toHaveCSS('color', 'rgb(240, 245, 250)');
           const overflow = await section
             .locator('.revo-calendar')
             .evaluateAll((nodes) =>
@@ -1715,9 +1735,9 @@ test('shared filter badge details and removal remain independent', async ({
       await section.screenshot({
         path: testInfo.outputPath(`${width}-${theme}-selection-controls.png`),
       });
-      await page.locator('#selects-chips-and-resources').screenshot({
+      await page.locator('#multi-selects-autocomplete').screenshot({
         path: testInfo.outputPath(
-          `${width}-${theme}-selects-chips-and-resources.png`,
+          `${width}-${theme}-multi-selects-autocomplete.png`,
         ),
       });
     }

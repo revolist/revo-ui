@@ -1,3 +1,4 @@
+import { createEventTooltipContent } from '@revolist/ui/native';
 import { decorateIconAction } from '@revolist/ui/native';
 import { TooltipApiFixture, TooltipExitFixture } from './api';
 /** @jsxImportSource preact */
@@ -17,6 +18,7 @@ import {
 } from '@revolist/ui/timeline-track';
 import { IconToolbar } from '@revolist/ui/icon-toolbar';
 import { SvgButton } from '@revolist/ui/buttons/svg-button';
+import { Tooltip } from '@revolist/ui/preact';
 import { useTooltip } from '@revolist/ui/surfaces';
 import { BarChart } from '@revolist/ui/bar-chart';
 import '@revolist/ui/styles.scss';
@@ -104,7 +106,7 @@ function Hints() {
         actions={[{ id: 'bold', label: 'Bold', text: 'B' }]}
         onAction={() => {}}
       />
-      <SvgButton label="Clear formatting" />
+      <Tooltip text="Clear formatting"><SvgButton label="Clear formatting" /></Tooltip>
       <button {...hint.triggerProps}>Help</button>
       {hint.tooltip}
     </div>
@@ -171,4 +173,31 @@ if (new URLSearchParams(location.search).has('decorated-icon')) {
   button.textContent = '↗';
   document.getElementById('app')!.replaceChildren(button);
   decorateIconAction(button, 'Linked views');
+}
+
+if (new URLSearchParams(location.search).has('event-content')) {
+  document.getElementById('app')!.replaceChildren(
+    createEventTooltipContent(document, {
+      title: '<Revisão>',
+      dates: [
+        {
+          label: 'Início',
+          month: 'nov.',
+          day: '16',
+          value: '16 nov. 2026, 09:00',
+        },
+      ],
+      description: 'Notas',
+      peopleLabel: 'Equipa',
+      people: [
+        {
+          name: 'Iris',
+          avatarUrl:
+            'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg"/%3E',
+        },
+        { name: 'Zoe' },
+      ],
+      details: ['Confirmado'],
+    }),
+  );
 }

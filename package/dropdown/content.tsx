@@ -8,6 +8,54 @@ import { useDropdownService } from './dropdown.service';
 import { ButtonControl as Button } from '../native-control';
 import type { RemoteDropdownState, DropdownRemoteText } from './remote';
 
+export type DropdownRemoteControls<T> = RemoteDropdownState<T> & {
+  text: DropdownRemoteText;
+  search: (query: string) => void;
+  loadMore: () => void;
+  retry: () => void;
+};
+export function DropdownRemoteStatus<T>({
+  remote,
+}: {
+  remote?: DropdownRemoteControls<T>;
+}) {
+  return (
+    <>
+      {remote?.loading && <div role="status">{remote.text.loading}</div>}
+      {remote?.error && (
+        <div role="alert">
+          {remote.text.error}{' '}
+          <Button onClick={remote.retry}>{remote.text.retry}</Button>
+        </div>
+      )}
+    </>
+  );
+}
+export function DropdownRemoteMore<T>({
+  remote,
+}: {
+  remote?: DropdownRemoteControls<T>;
+}) {
+  return remote?.hasMore ? (
+    <Button disabled={remote.loading} onClick={remote.loadMore}>
+      {remote.text.loadMore}
+    </Button>
+  ) : null;
+}
+export function revealDropdownOption(
+  list: HTMLUListElement | null,
+  id: string | undefined,
+) {
+  if (!list || !id) return;
+  const option = list.ownerDocument.getElementById(id);
+  if (!option) return;
+  const bounds = list.getBoundingClientRect();
+  const { top, bottom } = option.getBoundingClientRect();
+  if (top < bounds.top || bottom - top > bounds.height)
+    list.scrollTop += top - bounds.top;
+  else if (bottom > bounds.bottom) list.scrollTop += bottom - bounds.bottom;
+}
+
 // DropdownContent component - Contains the options, search, etc.
 type DropdownContentProps<T = any> = {
   options: DropdownOption<T>[];
@@ -29,6 +77,7 @@ type DropdownContentProps<T = any> = {
   optionIdPrefix: string;
   listboxLabel?: string;
   loading?: boolean;
+  createOption?: DropdownOption<T>;
 };
 // DropdownPopupContent component that includes the service
 export function DropdownPopupContent<T = any>({
@@ -51,12 +100,7 @@ export function DropdownPopupContent<T = any>({
 }: {
   options: DropdownOption<T>[];
   selectedValues?: DropdownOption<T>[];
-  remote?: RemoteDropdownState<T> & {
-    text: DropdownRemoteText;
-    search: (query: string) => void;
-    loadMore: () => void;
-    retry: () => void;
-  };
+  remote?: DropdownRemoteControls<T>;
   value: T | T[] | undefined;
   onChange: (value: T | T[]) => void;
   config: DropdownConfig<T>;
@@ -79,7 +123,7 @@ export function DropdownPopupContent<T = any>({
   const searchInputRef = useRef<HTMLInputElement>(null);
   const listboxRef = useRef<HTMLDivElement>(null);
   const dropdownListRef = useRef<HTMLUListElement>(null);
-  const revealActiveOption = useRef(false);
+  const revealActiveOption = useRef(true);
 
   // Use the dropdown service
   const {
@@ -110,12 +154,7 @@ export function DropdownPopupContent<T = any>({
     const list = dropdownListRef.current;
     if (!revealActiveOption.current || !list || !activeOptionId) return;
     revealActiveOption.current = false;
-    const option = list.ownerDocument.getElementById(activeOptionId);
-    if (!option) return;
-    const bounds = list.getBoundingClientRect();
-    const { top, bottom } = option.getBoundingClientRect();
-    if (top < bounds.top) list.scrollTop += top - bounds.top;
-    else if (bottom > bounds.bottom) list.scrollTop += bottom - bounds.bottom;
+    revealDropdownOption(list, activeOptionId);
   });
 
   const tooltipRef = useSelectionListTooltips();
@@ -214,13 +253,7 @@ export function DropdownPopupContent<T = any>({
           />
         </div>
       )}
-      {remote?.loading && <div role="status">{remote.text.loading}</div>}
-      {remote?.error && (
-        <div role="alert">
-          {remote.text.error}{' '}
-          <Button onClick={remote.retry}>{remote.text.retry}</Button>
-        </div>
-      )}
+      <DropdownRemoteStatus remote={remote} />
       <DropdownContent
         options={options}
         filteredOptions={filteredOptions}
@@ -242,11 +275,7 @@ export function DropdownPopupContent<T = any>({
         listboxLabel={config.ariaLabel ?? config.searchAriaLabel ?? 'Options'}
         loading={remote?.loading}
       />
-      {remote?.hasMore && (
-        <Button disabled={remote.loading} onClick={remote.loadMore}>
-          {remote.text.loadMore}
-        </Button>
-      )}
+      <DropdownRemoteMore remote={remote} />
     </div>
   );
 }
@@ -266,6 +295,7 @@ export function DropdownContent<T = any>({
   optionIdPrefix,
   listboxLabel,
   loading,
+  createOption,
 }: DropdownContentProps<T>) {
   // Check if an option is selected
   const isOptionSelected = useCallback(
@@ -289,6 +319,7 @@ export function DropdownContent<T = any>({
           key={`${option.label}-${index}`}
           id={`${optionIdPrefix}-option-${index}`}
           role="option"
+          data-create-option={option === createOption ? 'true' : undefined}
           data-value={
             typeof option.value === 'string' || typeof option.value === 'number'
               ? String(option.value)
@@ -303,11 +334,16 @@ export function DropdownContent<T = any>({
             if (!option.disabled) onFocusChange(index);
           }}
         >
+          {option === createOption && (
+            <span aria-hidden="true" class="dropdown-create-marker">
+              +
+            </span>
+          )}
           {renderOption ? (
             renderOption(h, option, isSelected)
           ) : (
             <div className="option-content">
-              {multiSelect && (
+              {multiSelect && option !== createOption && (
                 <input
                   type="checkbox"
                   checked={isSelected}
@@ -325,6 +361,7 @@ export function DropdownContent<T = any>({
     },
     [
       focusedIndex,
+      createOption,
       onSelect,
       isOptionSelected,
       multiSelect,

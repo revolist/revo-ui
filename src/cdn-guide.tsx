@@ -12,9 +12,7 @@ export function CdnGuide() {
         or framework runtime is required. Modern browsers are required.
       </p>
       <p>
-        The examples below target version {__UI_VERSION__}. These new browser
-        files become available on jsDelivr and unpkg after that npm version is
-        published. Keep JavaScript and CSS pinned to the same version; use a
+        Keep JavaScript and CSS pinned to the same version; use a
         local HTTP server rather than opening an HTML file directly.
       </p>
       <h2>Browser ES module import</h2>

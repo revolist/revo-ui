@@ -1,6 +1,6 @@
 # Calendar
 
-Calendar views and date/time fields, ranges, duration drafts, weekly availability and descriptive legends.
+Calendar views, date selection and date ranges.
 
 [Live examples and formatted usage](https://ui.rv-grid.com/components/calendar-and-dates/) · [Component index](../../README.md#complete-component-reference)
 
@@ -41,8 +41,8 @@ The table lists library-declared props. Standard inherited HTML attributes are o
 | `footer` | `ComponentChildren` | No |  |
 | `presets` | `readonly { readonly label: string; readonly date: ISODateString; }[] \| undefined` | No |  |
 | `cellSize` | `number \| undefined` | No |  |
-| `referenceInstant` | `Date \| undefined` | No | Optional instant used only to resolve Today in the requested zone. ISO date values never shift. |
-| `timeZone` | `string \| undefined` | No |  |
+| `referenceInstant` | `Date \| undefined` | No | Overrides the current instant used to resolve Today and the initial month of an empty picker. Defaults to UTC when no timezone is supplied. |
+| `timeZone` | `string \| undefined` | No | IANA timezone used to resolve Today. Uses the current instant by default and leaves ISO selections unchanged. |
 | `locale` | `string \| undefined` | No |  |
 | `weekStartsOn` | `CalendarWeekStart \| undefined` | No |  |
 | `minDate` | `ISODateString \| undefined` | No |  |

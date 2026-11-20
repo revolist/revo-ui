@@ -1,3 +1,4 @@
+import { VIEWPORT_POPUP_STYLE } from '../core/popup-position';
 import { h } from 'preact';
 import { createPreactElement } from '../preact-mount';
 import { ButtonControl } from '../native-control';
@@ -37,6 +38,7 @@ export function createDialogElements(
       class={['rv-dialog-overlay', options.overlayClass]
         .filter(Boolean)
         .join(' ')}
+      style={{ ...VIEWPORT_POPUP_STYLE, inset: 0 }}
       role="dialog"
       aria-modal="true"
       aria-labelledby={titleId}

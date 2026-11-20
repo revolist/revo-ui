@@ -119,16 +119,8 @@ describe('standalone surface lifecycle', () => {
         cancelable: true,
       }),
     );
-    // The focused close button's tooltip consumes Escape before its modal.
-    expect(second.isOpen).toBe(true);
-    expect(innerClose).not.toHaveBeenCalled();
-    inner.root.dispatchEvent(
-      new KeyboardEvent('keydown', {
-        key: 'Escape',
-        bubbles: true,
-        cancelable: true,
-      }),
-    );
+    // No implicit button tooltip intercepts Escape before the innermost modal.
+    expect(second.isOpen).toBe(false);
     expect(innerClose).toHaveBeenCalledOnce();
     expect(first.isOpen).toBe(true);
     expect(document.activeElement).toBe(nestedTrigger);

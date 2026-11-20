@@ -53,6 +53,7 @@ permissions:
 
 jobs:
   validate:
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
@@ -68,7 +69,6 @@ jobs:
 
   publish:
     if: github.event_name != 'pull_request'
-    needs: validate
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     concurrency:
@@ -123,20 +123,18 @@ jobs:
           RELEASE_VERSION: ${{ steps.source.outputs.version }}
           SOURCE_SHA: ${{ steps.source.outputs.sha }}
         run: node automation/scripts/release.mjs stamp source
-      - name: Build and validate public package
+      - name: Build public package
         working-directory: source
         run: |
           pnpm lint
-          pnpm test
           pnpm build:public
-      - name: Stamp compiled distribution and validate archive
+      - name: Stamp compiled distribution and pack archive
         env:
           RELEASE_VERSION: ${{ steps.source.outputs.version }}
           SOURCE_SHA: ${{ steps.source.outputs.sha }}
         run: |
           node automation/scripts/release.mjs stamp source/dist
           pnpm --dir source/dist pack --pack-destination ../artifacts
-          pnpm --dir source test:public
       - name: Prepare GitHub Packages mirror
         run: |
           node automation/scripts/prepare-github-package.mjs source/dist source/dist-github

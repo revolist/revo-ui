@@ -1,5 +1,5 @@
 import { DocumentationPage, documentationPage } from './documentation';
-import { frameworkHref, currentRoute, siteHref } from './routing';
+import { frameworkHref, currentRoute, siteHref, componentHref } from './routing';
 import { useEffect, useState } from 'preact/hooks';
 import { CdnGuide } from './cdn-guide';
 import { Highlight } from './example-source';
@@ -7,6 +7,13 @@ import { Highlight } from './example-source';
 const guides = [
   {
     name: 'React',
+    relatedGuides: [
+      'ssr-nextjs',
+      'ssr-react-router',
+      'ssr-tanstack-start',
+      'integration-refine',
+      'integration-lovable',
+    ],
     entry: '@revolist/ui/react',
     language: 'TSX',
     description:
@@ -25,6 +32,7 @@ export default function Example() {
   },
   {
     name: 'Vue',
+    relatedGuides: ['ssr-nuxt', 'ssr-astro'],
     entry: '@revolist/ui/vue',
     language: 'Vue',
     description:
@@ -44,53 +52,49 @@ const count = ref(0);
   },
   {
     name: 'Angular',
+    relatedGuides: ['ssr-angular'],
     entry: '@revolist/ui/angular',
     language: 'TypeScript',
     description:
-      'Import the standalone UiComponent, select a component by name, and pass its props. Angular automatically loads the required component styles. For externally managed CSS, use @revolist/ui/angular/unstyled and import @revolist/ui/styles.css once in main.ts. uiEvent exposes callback names and arguments; valueChange handles a component’s declared value model. Use rvUiSlot templates for custom content.',
-    code: `import { Component } from '@angular/core';
-import { UiComponent, type UiEvent } from '@revolist/ui/angular';
+      'Import named standalone components and bind their typed inputs directly. SvgButton is the imported component; rv-svg-button is its template tag. Angular events and rvUiSlot templates keep content in Angular. Named adapters manage their own browser mount and hydration boundary. These named exports preview the next release; the Angular SSR guide includes the local public-package setup.',
+    code: `import { Component, signal } from '@angular/core';
+import { SvgButton } from '@revolist/ui/angular/svg-button';
 
 @Component({
   selector: 'app-report-action',
-  standalone: true,
-  imports: [UiComponent],
-  template: \`<rv-ui component="Button"
-    [props]="{ rounded: true, variant: 'primary', children: 'Create report · ' + count, onClick: click }"
-    (uiEvent)="handle($event)" />\`,
+  imports: [SvgButton],
+  template: \`<rv-svg-button
+    [label]="'Save ' + count()"
+    [visibleLabel]="'Save ' + count()"
+    (click)="count.set(count() + 1)"
+  />\`,
 })
 export class ReportAction {
-  count = 0;
-  click = () => {};
-  handle(event: UiEvent) {
-    if (event.name === 'onClick') this.count++;
-  }
+  readonly count = signal(0);
 }`,
   },
   {
     name: 'Svelte',
+    relatedGuides: ['ssr-sveltekit'],
     entry: '@revolist/ui/svelte',
     language: 'Svelte',
     description:
-      'Use the Svelte 5 UiComponent host with the component name and props. Pass callbacks in props or observe onUiEvent; onValueChange handles declared value models. Svelte snippets provide custom content.',
+      'Import named Svelte 5 components with direct typed props and callbacks. Declared value models support bind:value (or the component’s model prop), and snippets provide custom content. These named exports preview the next release; the SvelteKit guide includes the local public-package setup.',
     code: `<script lang="ts">
-import { UiComponent } from '@revolist/ui/svelte';
+import { SvgButton } from '@revolist/ui/svelte/svg-button';
 
 let count = $state(0);
 </script>
 
-<UiComponent
-  component="Button"
-  props={{
-    rounded: true,
-    variant: 'primary',
-    children: 'Create report · ' + count,
-    onClick: () => count++,
-  }}
+<SvgButton
+  label={\`Save \${count}\`}
+  visibleLabel={\`Save \${count}\`}
+  onClick={() => count++}
 />`,
   },
   {
     name: 'Preact',
+    relatedGuides: ['ssr', 'ssr-nestjs'],
     entry: '@revolist/ui/preact',
     language: 'TSX',
     description:
@@ -111,6 +115,7 @@ export function Example() {
   },
   {
     name: 'Vanilla TypeScript',
+    relatedGuides: ['ssr-nestjs', 'javascript-cdn'],
     entry: '@revolist/ui/framework',
     language: 'TypeScript',
     description:
@@ -149,7 +154,7 @@ export function FrameworksPage() {
   if (active === 'javascript-cdn') return <CdnGuide />;
   if (documentationPage(active)) return <DocumentationPage id={active} />;
   return (
-    <div class="framework-guide">
+    <article class="framework-guide">
       <div class="component-intro">
         <span class="home-eyebrow">ONE LIBRARY. YOUR STACK.</span>
         <h1>{selected ? `${selected.name} integration` : 'Getting started'}</h1>
@@ -209,8 +214,15 @@ export function FrameworksPage() {
                 <Highlight code={guide.code} />
               </pre>
             </details>
+            <nav class="framework-jump-links" aria-label={`${guide.name} related guides`}>
+              {guide.relatedGuides.map((id) => (
+                <a key={id} href={frameworkHref(id)}>{documentationPage(id)?.label}</a>
+              ))}
+              <a href={frameworkHref('bundle-size')}>Styles and bundle size</a>
+              <a href={componentHref('buttons')}>Button examples</a>
+            </nav>
           </section>
         ))}
-    </div>
+    </article>
   );
 }

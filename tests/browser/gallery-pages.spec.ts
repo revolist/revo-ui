@@ -111,13 +111,13 @@ test('deep links, searchable navigation, history and missing routes', async ({
 }) => {
   await page.goto('/#component/select');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-    'Selects, chips and resources',
+    'Multi/selects, autocomplete',
   );
   expect(await page.locator('.catalog-example').count()).toBeGreaterThan(1);
   const search = page.getByRole('searchbox', { name: 'Find a component' });
   await search.fill('switch');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-    'Selects, chips and resources',
+    'Multi/selects, autocomplete',
   );
   await page
     .getByRole('navigation', { name: 'Component sections' })
@@ -128,7 +128,7 @@ test('deep links, searchable navigation, history and missing routes', async ({
   );
   await page.goBack();
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-    'Selects, chips and resources',
+    'Multi/selects, autocomplete',
   );
   await page.goto('/#component/not-a-component');
   await expect(
@@ -147,7 +147,7 @@ test('mobile overview and component code stay within the viewport', async ({
   ).toBeLessThanOrEqual(390);
   await page.goto('/#component/select');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-    'Selects, chips and resources',
+    'Multi/selects, autocomplete',
   );
   const browse = page.getByRole('button', {
     name: 'Browse components',
@@ -430,7 +430,7 @@ test('inline inputs match dropdown height and font size', async ({ page }) => {
 });
 
 test('searchable selects match plain select sizing', async ({ page }) => {
-  await page.goto('/#selects-chips-and-resources');
+  await page.goto('/#multi-selects-autocomplete');
   const plain = page.getByRole('combobox', { name: 'View', exact: true });
   const searchable = page.getByRole('combobox', {
     name: 'Searchable view',
@@ -618,6 +618,102 @@ test('framework guide covers supported adapters and works on mobile', async ({
   await expect(page.locator('#svelte pre')).toBeHidden();
 });
 
+for (const width of [1280, 390]) {
+  for (const theme of ['light', 'dark']) {
+    test(`documentation categories keep every guide accessible at ${width}px in ${theme}`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.addInitScript(
+        (value) => localStorage.setItem('revo-ui-theme', value),
+        theme,
+      );
+      await page.goto('/frameworks/');
+      const navigation = page.getByRole('navigation', {
+        name: 'Documentation navigation',
+      });
+      const categories = {
+        Essentials: [
+          'Getting started',
+          'JavaScript / CDN',
+          'Bundle size',
+          'Accessibility',
+        ],
+        'Framework adapters': [
+          'React',
+          'Vue',
+          'Angular',
+          'Svelte',
+          'Preact',
+          'Vanilla TypeScript',
+        ],
+        'Server rendering': [
+          'SSR',
+          'Next.js SSR',
+          'Nuxt SSR',
+          'SvelteKit SSR',
+          'Astro SSR',
+          'Angular SSR',
+          'React Router SSR',
+          'TanStack Start SSR',
+          'NestJS',
+        ],
+        Integrations: ['Refine', 'Lovable'],
+      };
+      await expect(navigation.getByRole('group')).toHaveCount(4);
+      for (const [category, links] of Object.entries(categories)) {
+        await expect(
+          navigation
+            .getByRole('group', { name: category, exact: true })
+            .getByRole('link'),
+        ).toHaveText(links);
+      }
+      await expect(navigation.getByRole('link')).toHaveCount(21);
+      await navigation
+        .getByRole('link', { name: 'Next.js SSR', exact: true })
+        .click();
+      await expect(
+        navigation.getByRole('link', { name: 'Next.js SSR', exact: true }),
+      ).toHaveAttribute('aria-current', 'page');
+      await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+        'Next.js App Router and Revo UI',
+      );
+      await navigation
+        .getByRole('link', { name: 'Refine', exact: true })
+        .click();
+      await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+        'Refine and Revo UI',
+      );
+      await expect(navigation.locator('[aria-current="page"]')).toHaveText(
+        'Refine',
+      );
+      if (width === 390) {
+        const groups = await navigation
+          .getByRole('group')
+          .evaluateAll((elements) =>
+            elements.map((element) => {
+              const bounds = element.getBoundingClientRect();
+              return { top: bounds.top, bottom: bounds.bottom };
+            }),
+          );
+        for (let index = 1; index < groups.length; index++) {
+          expect(
+            groups[index].top - groups[index - 1].bottom,
+          ).toBeGreaterThanOrEqual(20);
+        }
+        await page.getByRole('button', { name: 'More gallery options' }).click();
+        await page
+          .getByRole('switch', { name: 'Right to left', exact: true })
+          .click();
+        await expect(page.locator('main')).toHaveAttribute('dir', 'rtl');
+      }
+      expect(
+        await page.evaluate(() => document.documentElement.scrollWidth),
+      ).toBeLessThanOrEqual(width);
+    });
+  }
+}
+
 test('overview introduces frameworks and links to adapter pages', async ({
   page,
 }) => {
@@ -696,10 +792,10 @@ test('standalone dropdown has balanced text and caret insets', async ({
   }
 });
 
-test('selects page includes user photos in selected value and options', async ({
+test('resource selection page includes user photos in selected value and options', async ({
   page,
 }) => {
-  await page.goto('/#selects-chips-and-resources');
+  await page.goto('/components/resource-selection/');
   const select = page.getByRole('combobox', {
     name: 'Choose a team member',
     exact: true,
@@ -721,7 +817,9 @@ test('header repository link, favicon and pre-rendered SEO work together', async
 }) => {
   const response = await request.get('/');
   const html = await response.text();
-  expect(html).toContain('Components for finance,');
+  expect(html).toMatch(
+    /<h1[^>]*>Components for<br\s*\/?\s*>data-rich applications\.<\/h1>/,
+  );
   expect(html).toContain('https://ui.rv-grid.com/og-image.png');
   await page.goto('/');
   await expect(
@@ -756,24 +854,13 @@ test('footer product names link to RevoGrid and Pro documentation', async ({
   }
 });
 
-test('component pages keep the GitHub star link visible on desktop and mobile', async ({
-  page,
-}) => {
+test('header navigation omits the star request on desktop and mobile', async ({ page }) => {
   for (const width of [1280, 390]) {
     await page.setViewportSize({ width, height: 800 });
     await page.goto('/components/timeline-track/');
-    const star = page
-      .getByRole('navigation', { name: 'Library pages' })
-      .getByRole('link', { name: 'Star on GitHub' });
-    await expect(star).toBeVisible();
-    await expect(star).toHaveAttribute(
-      'href',
-      'https://github.com/revolist/revo-ui',
-    );
-    const bounds = await star.boundingBox();
-    expect(bounds).not.toBeNull();
-    expect(bounds!.x).toBeGreaterThanOrEqual(0);
-    expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(width);
+    const navigation = page.getByRole('navigation', { name: 'Library pages' });
+    await expect(navigation.getByRole('link', { name: 'Star on GitHub' })).toHaveCount(0);
+    await expect(navigation.getByRole('link')).toHaveText(['Overview', 'Components', 'Colors', 'Docs', 'API']);
   }
 });
 
@@ -795,4 +882,20 @@ test('wide planner keeps member controls in the grid column beside the summary',
   const gridPanel = (await planner.locator('.planning-grid-panel').boundingBox())!;
   expect(controls.x + controls.width).toBeLessThanOrEqual(summary.x);
   expect(Math.abs(summary.y - gridPanel.y)).toBeLessThan(5);
+});
+
+test('resource selection has a dedicated picker page', async ({ page }) => {
+  await page.goto('/components/resource-selection/');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'Resource selection',
+  );
+  await expect(page.getByRole('searchbox', { name: 'Search people' })).toBeVisible();
+  await expect(
+    page.getByRole('navigation', { name: 'Component sections' }).getByRole('link', {
+      name: 'Resource selection',
+      exact: true,
+    }),
+  ).toBeVisible();
+  await page.goto('/components/multi-selects-autocomplete/');
+  await expect(page.getByRole('searchbox', { name: 'Search people' })).toHaveCount(0);
 });

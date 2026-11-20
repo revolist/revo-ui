@@ -1,7 +1,7 @@
 import { chooseOption } from './choose-option';
 import { expect, test } from './gallery-test';
 
-test.use({ gallerySections: ['calendar-and-dates'] });
+test.use({ gallerySections: ['date-and-time-fields'] });
 
 for (const theme of ['light', 'dark'])
   for (const width of [1280, 390]) {
@@ -9,7 +9,7 @@ for (const theme of ['light', 'dark'])
       page,
     }, info) => {
       await page.setViewportSize({ width, height: 1000 });
-      await page.goto('/#calendar-and-dates');
+      await page.goto('/#date-and-time-fields');
       await chooseOption(
         page.getByRole('button', { name: 'Theme', exact: true }),
         theme === 'light' ? 'Light' : 'Dark',

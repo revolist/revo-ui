@@ -9,6 +9,7 @@ import {
   startOfDisplayMonth,
   type ISODateString,
 } from '@revolist/ui-dates';
+import { resolveCalendarReferenceDate } from '../calendar/reference-date';
 import { defaultTemporalPickerText, type TemporalPickerProps } from './types';
 /** One validation path for keyboard drafts and calendar selections. */
 export function validateTemporalSelection(
@@ -68,13 +69,17 @@ export function validateTemporalSelection(
       kind === 'time' ||
       !range?.to ||
       !calendar.excludeDisabled ||
+      (!calendar.isDateDisabled && !calendar.isMonthDisabled) ||
       !values.every(validValue)
     )
       return true;
     if (rangeNights > 366000) return false;
+    if (rangeNights < 2) return true;
+    const firstDate = temporalDatePart(from);
+    const lastDate = temporalDatePart(to);
     for (
-      let day = temporalDatePart(from) as ISODateString;
-      day <= temporalDatePart(to);
+      let day = addDays(firstDate, 1);
+      day < lastDate;
       day = addDays(day, 1)
     )
       if (!validDate(day)) return false;
@@ -88,9 +93,12 @@ export function validateTemporalSelection(
       const date = temporalDatePart(item) as ISODateString;
       if (!isValidIsoDate(date)) return false;
       const result = calendar.validateSelection?.(date, {
-        month: calendar.month ?? month,
+        month: startOfDisplayMonth(
+          calendar.month ?? month,
+          calendar.calendarSystem,
+        ),
         view: calendar.defaultView ?? 'month',
-        referenceDate: calendar.referenceDate,
+        referenceDate: resolveCalendarReferenceDate(calendar),
         selection: range
           ? {
               from: temporalDatePart(from) as ISODateString,

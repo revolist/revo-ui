@@ -1,6 +1,11 @@
 /** Fixed shared colors. CSS system colors and currentColor remain contextual. */
 export const commonColors = {
   black: '#000000',
+  hexe5e5e5: '#e5e5e5',
+  hex424242: '#424242',
+  rgba_0_0_0_0_12: 'rgba(0, 0, 0, 0.12)',
+  rgba_255_255_255_0_12: 'rgba(255, 255, 255, 0.12)',
+  rgba_255_255_255_0_52: 'rgba(255, 255, 255, 0.52)',
   hex0003: '#0003',
   white: '#ffffff',
   transparent: 'transparent',

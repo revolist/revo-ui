@@ -1,3 +1,4 @@
+import { applyPopupPosition } from './popup-position';
 import {
   claimTooltip,
   releaseTooltip,
@@ -278,10 +279,7 @@ export class TooltipSession {
         positionOptions,
       );
     }
-    Object.assign(surface.style, {
-      left: `${point.left}px`,
-      top: `${point.top}px`,
-    });
+    applyPopupPosition(surface, point);
     surface.dataset.side = point.side;
     surface.dataset.align = point.align;
     for (const [key, value] of Object.entries({

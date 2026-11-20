@@ -158,7 +158,7 @@ export function componentApi(library, gallery, watchSource = () => {}) {
     const families = groups
       .filter(([, , , names]) => names.split(' ').includes(name))
       .map(([title]) => title);
-    if (name === 'Select') families.push('Selects, chips and resources');
+    if (name === 'Select') families.push('Multi/selects, autocomplete');
     if (name === 'IconToolbar') families.push('Menus and toolbars');
     if (name === 'HtmlEditor') families.push('HTML Editor');
     // Result subcomponents belong alongside the AI assistant composition.

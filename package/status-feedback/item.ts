@@ -1,4 +1,6 @@
 import { statusIcon } from './icons';
+import { badgeClassName } from '../badge';
+import { avatarTemplate } from '../avatar';
 import type { StatusFeedbackH, StatusFeedbackItem } from './types';
 
 export function renderItem<T>(
@@ -27,6 +29,20 @@ export function renderItem<T>(
       statusIcon(h, tone, !!item.busy),
       h('div', { class: 'rv-status-feedback__copy' }, [
         h('div', { class: 'rv-status-feedback__title' }, item.title),
+        item.badges?.length || item.avatars?.length
+          ? h('div', { class: 'rv-status-feedback__badges' }, [
+              ...(item.badges ?? []).map((badge) =>
+                h('span', { class: badgeClassName(badge) }, badge.label),
+              ),
+              item.avatars?.length
+                ? h(
+                    'span',
+                    { class: 'rv-status-feedback__avatars' },
+                    item.avatars.map((avatar) => avatarTemplate(h, avatar)),
+                  )
+                : null,
+            ])
+          : null,
         item.description
           ? h(
               'div',

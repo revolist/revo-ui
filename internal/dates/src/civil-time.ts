@@ -13,7 +13,7 @@ export interface CivilDateTime {
 export type CivilDate = Pick<CivilDateTime, 'year' | 'month' | 'day'>;
 
 const ISO_LOCAL_CIVIL_DATETIME_PATTERN =
-  /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::(\d{2}))?$/;
+  /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::(\d{2})(?:\.(\d{1,3}))?)?$/;
 
 const formatterCache = new Map<string, Intl.DateTimeFormat>();
 
@@ -41,7 +41,10 @@ export function getBrowserTimeZone() {
 }
 
 /** Projects an instant into Gregorian civil fields in an IANA timezone. */
-export function getCivilParts(instant: Date, timeZone: string): CivilDateTime {
+export function getCivilParts(
+  instant: Date,
+  timeZone: string,
+): CivilDateTime {
   const parts = new Map(
     civilFormatter(timeZone)
       .formatToParts(instant)
@@ -153,7 +156,10 @@ export function resolveExactCivilInstant(
   return possible.length === 1 ? possible[0] : undefined;
 }
 
-function addCivilSeconds(value: CivilDateTime, seconds: number): CivilDateTime {
+function addCivilSeconds(
+  value: CivilDateTime,
+  seconds: number,
+): CivilDateTime {
   const date = new Date(civilEpoch(value) + seconds * 1000);
   return {
     year: date.getUTCFullYear(),
@@ -251,6 +257,8 @@ export function parseZonedDateTimeControlValue(
 ): Date | undefined {
   const civil = parseIsoLocalCivilDateTime(value);
   if (!civil) return;
+  const fraction = value.split('.')[1];
+  const milliseconds = Number(fraction?.padEnd(3, '0') ?? 0);
   if (original) {
     const fields = getCivilParts(original, timeZone);
     if (
@@ -260,10 +268,15 @@ export function parseZonedDateTimeControlValue(
       fields.hour === civil.hour &&
       fields.minute === civil.minute &&
       (value.length === 16 || fields.second === civil.second)
-    )
-      return new Date(original);
+    ) {
+      const selected = new Date(original);
+      if (fraction !== undefined) selected.setUTCMilliseconds(milliseconds);
+      return selected;
+    }
   }
-  return getPossibleInstants(civil, timeZone)[0];
+  const selected = getPossibleInstants(civil, timeZone)[0];
+  if (selected && milliseconds) selected.setUTCMilliseconds(milliseconds);
+  return selected;
 }
 
 export interface TimeZoneOffsetRange {

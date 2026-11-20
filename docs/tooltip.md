@@ -4,6 +4,10 @@ Tooltips add short, non-interactive descriptions to a focusable trigger. Revo UI
 
 [Try the live examples](https://ui.rv-grid.com/components/tooltip/) · [Tooltip props](api/Tooltip.md) · [Controlled surface props](api/ControlTooltip.md)
 
+## Button hints are opt-in
+
+`SvgButton` uses `label` for its accessible name; it does not create a tooltip automatically. An explicit `title` on `SvgButton`, `ButtonControl`, or a non-navigation `Button` provides a native browser hint. Wrap a button in `Tooltip` when you want the shared styled tooltip, including focus behavior, placement, rich content, and dismissal. This keeps the tooltip engine out of standalone `SvgButton` imports.
+
 ## Basic and rich content
 
 ```tsx

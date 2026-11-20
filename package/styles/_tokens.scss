@@ -1,27 +1,35 @@
 @use './theme';
-:root,
-.light,
-[data-theme^='light'],
+:root {
+  @include theme.rv-ui-light-tokens(false);
+}
+
+.light:not(:root),
+[data-theme^='light']:not(:root),
 revo-grid[theme^='light'] {
-  @include theme.rv-ui-light-tokens;
+  @include theme.rv-ui-light-tokens(false);
 }
 
 /* Explicit dark selectors */
-[data-theme^='dark'],
-.dark,
+[data-theme^='dark']:not(:root),
+.dark:not(:root),
 revo-grid[theme^='dark'] {
-  @include theme.rv-ui-dark-tokens;
+  @include theme.rv-ui-dark-tokens(false);
 }
 
-:root.dark {
-  @include theme.rv-ui-dark-tokens;
+:root.dark,
+:root[data-theme^='dark'] {
+  @include theme.rv-ui-dark-tokens(false);
 }
 
 /* OS-level dark preference (only when no explicit class overrides) */
 @media (prefers-color-scheme: dark) {
   :root:not(.light):not([data-theme^='light']) {
-    @include theme.rv-ui-dark-tokens;
+    @include theme.rv-ui-dark-tokens(false);
   }
 }
 
 /* ─── Base button placeholder ─────────────────────────────────────────────── */
+
+/* Grid-owned native scrollbars follow the grid's explicit theme. */
+revo-grid[theme^='light'] { color-scheme: light; }
+revo-grid[theme^='dark'] { color-scheme: dark; }

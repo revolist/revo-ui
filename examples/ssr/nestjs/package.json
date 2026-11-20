@@ -1,0 +1,27 @@
+{
+  "name": "revo-ui-nestjs-example",
+  "private": true,
+  "scripts": {
+    "build": "tsc && node build.mjs",
+    "start": "node dist/main.js",
+    "check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.1.0",
+    "@nestjs/core": "^11.1.0",
+    "@nestjs/platform-express": "^11.1.0",
+    "@revolist/ui": "4.0.25",
+    "hbs": "^4.2.0",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "esbuild": "^0.28.2",
+    "typescript": "~6.0.3"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=24.15.0"
+  }
+}

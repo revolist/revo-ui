@@ -14,6 +14,7 @@ import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import test, { after } from 'node:test';
+import ts from 'typescript';
 import { validatePublishTarget } from './publish-target.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
@@ -150,6 +151,23 @@ test('archive exposes real typed ESM/CSS exports without private dependencies or
   );
 });
 
+test('every relative declaration import has an explicit resolvable file extension', () => {
+  for (const file of files(packageRoot).filter((file) =>
+    file.endsWith('.d.ts'),
+  )) {
+    const content = readFileSync(file, 'utf8');
+    for (const { fileName } of ts.preProcessFile(content, true, true)
+      .importedFiles) {
+      if (!fileName.startsWith('.')) continue;
+      assert.match(fileName, /\.js$/, `${file}: ${fileName}`);
+      assert.ok(
+        existsSync(resolve(dirname(file), fileName.replace(/\.js$/, '.d.ts'))),
+        `${file}: ${fileName}`,
+      );
+    }
+  }
+});
+
 test('archive excludes commercial scheduling and conditional-format rules', () => {
   for (const file of files(packageRoot)) {
     assert.doesNotMatch(
@@ -164,6 +182,25 @@ test('archive excludes commercial scheduling and conditional-format rules', () =
       );
     }
   }
+});
+
+test('date utilities execute in Node without a DOM or private workspace packages', () => {
+  const script = `
+    import assert from 'node:assert/strict';
+    import { addDays, diffInCalendarDays, startOfMonth, isValidIsoDate,
+      formatCalendarDateDisplay } from '@revolist/ui/dates';
+    assert.equal(typeof document, 'undefined');
+    assert.equal(isValidIsoDate('2026-02-29'), false);
+    assert.equal(addDays('2024-03-01', -1), '2024-02-29');
+    assert.equal(diffInCalendarDays('2026-03-28', '2026-03-30'), 2);
+    assert.equal(startOfMonth('2026-11-16'), '2026-11-01');
+    assert.equal(formatCalendarDateDisplay('2026-11-16', 'fr-FR', 'America/Los_Angeles'), '16 nov. 2026');
+  `;
+  writeFileSync(join(fixture, 'dates-consumer.mjs'), script);
+  execFileSync(process.execPath, [join(fixture, 'dates-consumer.mjs')], {
+    cwd: fixture,
+    stdio: 'pipe',
+  });
 });
 
 test('an isolated consumer executes native, React, Vue and Svelte adapters from the archive', () => {
@@ -199,7 +236,7 @@ test('an isolated consumer executes native, React, Vue and Svelte adapters from 
   });
 });
 
-test('an isolated TypeScript consumer resolves published declarations without workspace aliases', () => {
+test('an isolated TypeScript consumer resolves published declarations without workspace aliases', async (t) => {
   const allPublicTypes = Object.entries(manifest.exports)
     .filter(([, entry]) => typeof entry === 'object' && entry.types)
     .map(
@@ -208,18 +245,35 @@ test('an isolated TypeScript consumer resolves published declarations without wo
     )
     .join('\n');
   writeFileSync(
-    join(fixture, 'consumer.ts'),
+    join(fixture, 'consumer.mts'),
     allPublicTypes +
       `
-    import { createControl, type ControlTag } from '@revolist/ui';
+    import { addDays, diffInCalendarDays, isValidIsoDate, formatCalendarDateDisplay, type ISODateString } from '@revolist/ui/dates';
+    const date: ISODateString = addDays('2026-11-16', -6);
+    const count: number = diffInCalendarDays(date, '2026-11-16');
+    const caption: string | undefined = formatCalendarDateDisplay(date, 'fr-FR');
+    const candidate: string = '2026-11-16';
+    if (isValidIsoDate(candidate)) { const valid: ISODateString = candidate; void valid; }
+    void [count, caption];
+    import { createControl, mountAiAssistant, type ControlTag } from '@revolist/ui';
+    import { createFrameworkMount, uiComponents } from '@revolist/ui/framework';
+    import { Button } from '@revolist/ui/react';
+    void [createFrameworkMount, uiComponents];
+    // @ts-expect-error mount functions must retain their declared types
+    const invalidMount: symbol = mountAiAssistant;
+    // @ts-expect-error adapter components must not degrade to any
+    const invalidComponent: symbol = Button;
     import { Input } from '@revolist/ui/react-control';
     import { createElement } from 'react';
     import { Dropdown, FieldGroupHeading, FieldGroup, FieldList, FieldRow, PdfViewer, PdfViewerToolbar } from '@revolist/ui/react';
-    createElement(PdfViewer, { workerSrc: '/worker.mjs', toolbar: { buttons: { print: false } },
+    import { DatePicker as ReactDatePicker } from '@revolist/ui/react';
+    createElement(ReactDatePicker, { label: 'Date', openLabel: 'Choose date',
+      renderTrigger: props => createElement('button', props) });
+    createElement(PdfViewer, { toolbar: { buttons: { print: false } },
       renderToolbar: (_controller, _state, props) => createElement(PdfViewerToolbar, props) });
     import type { PdfViewerProps as AngularPdfProps } from '@revolist/ui/angular';
     import type { PdfViewerProps as SveltePdfProps } from '@revolist/ui/svelte';
-    const pdfProps: AngularPdfProps & SveltePdfProps = { workerSrc: '/worker.mjs', toolbar: ['search'] };
+    const pdfProps: AngularPdfProps & SveltePdfProps = { toolbar: ['search'] };
     void pdfProps;
     const dropdown = createElement(Dropdown, {
       source: [{ value: 'a', label: 'Alpha' }],
@@ -237,31 +291,65 @@ test('an isolated TypeScript consumer resolves published declarations without wo
     void [button, Input, vRvControl, rvControl, UiControlDirective];
   `,
   );
-  writeFileSync(
-    join(fixture, 'tsconfig.json'),
-    JSON.stringify({
-      compilerOptions: {
-        target: 'ES2022',
-        module: 'ESNext',
-        moduleResolution: 'bundler',
-        strict: true,
-        skipLibCheck: false,
-        types: [],
-        noEmit: true,
-        lib: ['ES2022', 'DOM', 'DOM.Iterable'],
-      },
-      files: ['consumer.ts'],
-    }),
-  );
-  execFileSync(
-    process.execPath,
-    [
-      fileURLToPath(import.meta.resolve('typescript/bin/tsc')),
-      '-p',
-      join(fixture, 'tsconfig.json'),
-    ],
-    { cwd: fixture, stdio: 'pipe' },
-  );
+  for (const [module, moduleResolution] of [
+    ['ESNext', 'bundler'],
+    ['Node16', 'node16'],
+    ['NodeNext', 'nodenext'],
+  ]) {
+    for (const skipLibCheck of [false, true]) {
+      await t.test(`${moduleResolution}, skipLibCheck=${skipLibCheck}`, () => {
+        writeFileSync(
+          join(fixture, 'tsconfig.json'),
+          JSON.stringify({
+            compilerOptions: {
+              target: 'ES2022',
+              module,
+              moduleResolution,
+              strict: true,
+              skipLibCheck,
+              types: [],
+              noEmit: true,
+              lib: ['ES2022', 'DOM', 'DOM.Iterable'],
+            },
+            files: ['consumer.mts'],
+          }),
+        );
+        const config = ts.readConfigFile(
+          join(fixture, 'tsconfig.json'),
+          ts.sys.readFile,
+        );
+        assert.equal(config.error, undefined);
+        const parsed = ts.parseJsonConfigFileContent(
+          config.config,
+          ts.sys,
+          fixture,
+        );
+        assert.deepEqual(parsed.errors, []);
+        const program = ts.createProgram(parsed.fileNames, parsed.options);
+        const diagnostics = ts
+          .getPreEmitDiagnostics(program)
+          .filter((diagnostic) => {
+            // The hoisted Angular Babel 8 dev dependency leaks into Vue's own
+            // declarations in this symlinked fixture. Ignore only that external
+            // CJS/ESM diagnostic; every archived declaration is checked normally.
+            return !(
+              diagnostic.code === 1479 &&
+              diagnostic.file?.fileName.includes(
+                '/node_modules/@vue/compiler-core/',
+              )
+            );
+          });
+        assert.equal(
+          ts.formatDiagnosticsWithColorAndContext(diagnostics, {
+            getCanonicalFileName: (file) => file,
+            getCurrentDirectory: () => fixture,
+            getNewLine: () => '\n',
+          }),
+          '',
+        );
+      });
+    }
+  }
 });
 
 test('archive exposes standalone module and classic browser builds with CDN defaults', () => {

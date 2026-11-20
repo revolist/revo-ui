@@ -1,3 +1,4 @@
+export * from './event-tooltip';
 export * from './core/anchored-popover';
 export { mountAiAssistant } from './ai/mount';
 export type {
