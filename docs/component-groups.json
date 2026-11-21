@@ -15,7 +15,7 @@
     "Tabs and lists",
     "tabs-and-lists",
     "Switch content, group options and present plain, icon or descriptive selection rows.",
-    "SegmentedControl SegmentedSwitch Tabs TabPanel Listbox ListboxOption ListboxGroup ListboxOptionContent EditorList EditorListItem EditorListItemContent EditorListGroup Tree"
+    "SegmentedControl SegmentedSwitch Tabs TabPanel Listbox ListboxOption ListboxGroup ListboxOptionContent EditorList EditorListItem EditorListItemContent EditorListGroup Tree FileTree"
   ],
   [
     "Inputs and forms",

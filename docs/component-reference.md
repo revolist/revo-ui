@@ -536,3 +536,4 @@ Revo UI is [MIT licensed](../LICENSE). Anyone can use, modify, and distribute it
 - [Stepper](api/Stepper.md) ([examples](https://ui.rv-grid.com/components/stepper/))
 - [Trace](api/Trace.md) ([examples](https://ui.rv-grid.com/components/trace/))
 - [ActivityTimeline](api/ActivityTimeline.md) ([examples](https://ui.rv-grid.com/components/activity-timeline/))
+- [FileTree](api/FileTree.md) ([examples](https://ui.rv-grid.com/components/file-tree/))

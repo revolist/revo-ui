@@ -755,3 +755,8 @@ export const CommandPalette = /* @__PURE__ */ createVueAdapter(
   ui.CommandPalette,
   'CommandPalette',
 );
+
+export const FileTree = /* @__PURE__ */ createVueAdapter(
+  ui.FileTree,
+  'FileTree',
+);

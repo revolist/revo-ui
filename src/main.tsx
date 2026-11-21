@@ -1,3 +1,4 @@
+import { FileTree } from '@revolist/ui/preact';
 import { CommandPalette } from '@revolist/ui/preact';
 import { FilterBar } from '@revolist/ui/preact';
 import { Cascader } from '@revolist/ui/preact';
@@ -617,6 +618,50 @@ function App() {
             ]}
             onClose={() => setPaletteOpen(false)}
             onExecute={setLastCommand}
+          />
+        </Example>
+      </Section>
+      <Section title="File tree">
+        <Example title="Changed files">
+          <FileTree
+            label="Project changes"
+            defaultValue="src/main.ts"
+            defaultExpanded={['src']}
+            nodes={[
+              {
+                type: 'folder',
+                name: 'src',
+                path: 'src',
+                children: [
+                  {
+                    type: 'file',
+                    name: 'main.ts',
+                    path: 'src/main.ts',
+                    status: 'modified',
+                  },
+                  {
+                    type: 'file',
+                    name: 'format.ts',
+                    path: 'src/format.ts',
+                    status: 'added',
+                  },
+                ],
+              },
+              {
+                type: 'folder',
+                name: 'docs',
+                path: 'docs',
+                children: [
+                  { type: 'file', name: 'notes.md', path: 'docs/notes.md' },
+                ],
+              },
+              {
+                type: 'file',
+                name: 'legacy.md',
+                path: 'legacy.md',
+                status: 'deleted',
+              },
+            ]}
           />
         </Example>
       </Section>

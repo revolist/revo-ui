@@ -1,5 +1,6 @@
 import * as ui from './preact';
 export const uiComponents = {
+  FileTree: ui.FileTree,
   CommandPalette: ui.CommandPalette,
   FilterBar: ui.FilterBar,
   Cascader: ui.Cascader,

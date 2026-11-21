@@ -137,3 +137,5 @@ export * from './cascader';
 export * from './filter-bar';
 
 export * from './command-palette';
+
+export * from './file-tree';

@@ -201,6 +201,7 @@ export interface UiTheme {
     Cascader?: NamedPresets<ClassPreset>;
     FilterBar?: NamedPresets<ClassPreset>;
     CommandPalette?: NamedPresets<ClassPreset>;
+    FileTree?: NamedPresets<ClassPreset>;
     ReorderList?: NamedPresets<ClassPreset>;
     ReorderHandle?: NamedPresets<ClassPreset>;
     IconToolbar?: NamedPresets<ClassPreset>;

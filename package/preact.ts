@@ -474,3 +474,6 @@ export const FilterBar: typeof ui.FilterBar =
 
 export const CommandPalette: typeof ui.CommandPalette =
   /* @__PURE__ */ registerComponentStyles(ui.CommandPalette, dialogsStyles);
+
+export const FileTree: typeof ui.FileTree =
+  /* @__PURE__ */ registerComponentStyles(ui.FileTree, layoutStyles);

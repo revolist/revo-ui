@@ -525,3 +525,6 @@ export const FilterBar: ReactUiComponent<typeof ui.FilterBar> =
 
 export const CommandPalette: ReactUiComponent<typeof ui.CommandPalette> =
   /* @__PURE__ */ createReactAdapter(ui.CommandPalette, 'CommandPalette');
+
+export const FileTree: ReactUiComponent<typeof ui.FileTree> =
+  /* @__PURE__ */ createReactAdapter(ui.FileTree, 'FileTree');
