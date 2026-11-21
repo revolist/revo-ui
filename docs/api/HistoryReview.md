@@ -2,7 +2,7 @@
 
 Inspect saved versions and compare changes to grid cells.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/components/history-review/) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/history/#example-grid-version-history) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { HistoryReview } from '@revolist/ui/preact'`
 

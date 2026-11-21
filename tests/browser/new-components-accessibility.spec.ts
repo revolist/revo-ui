@@ -5,7 +5,7 @@ const require = createRequire(import.meta.url);
 const examples = [
   ['tree', '.rv-tree'],
   ['cascader', '.rv-cascader-panel'],
-  ['filter-bar', '.rv-filter-bar'],
+  ['inputs-and-forms', '#example-filter-bar .rv-filter-bar'],
   ['command-palette', '.rv-command-palette'],
   ['command-palette', '#example-quick-actions .rv-command-palette'],
   ['attachments', '.rv-attachments'],

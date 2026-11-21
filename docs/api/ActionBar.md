@@ -2,7 +2,7 @@
 
 Run contextual actions for a selection.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/components/action-bar/) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/menus-and-toolbars/#example-bulk-file-actions) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { ActionBar } from '@revolist/ui/preact'`
 

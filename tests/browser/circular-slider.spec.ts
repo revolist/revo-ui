@@ -2,12 +2,14 @@ import { createRequire } from 'node:module';
 import { expect, test } from '@playwright/test';
 
 const require = createRequire(import.meta.url);
+const rotationExample = '/components/sliders/#example-controlled-rotation';
 
 test('drags along the ring and commits once on release without jumping across the seam', async ({
   page,
 }) => {
-  await page.goto('/components/circular-slider/');
+  await page.goto(rotationExample);
   const slider = page.getByRole('slider', { name: 'Rotation', exact: true });
+  await slider.scrollIntoViewIfNeeded();
   const box = await slider.boundingBox();
   const radius = Number(
     await slider.locator('[data-part="track"]').getAttribute('r'),
@@ -45,16 +47,24 @@ test('drags along the ring and commits once on release without jumping across th
   await expect(slider).toHaveAttribute('aria-valuenow', '55');
 });
 
-test('lists the dial next to sliders and animates the thumb and arc together', async ({
+test('shows the dial on the Sliders page and animates the thumb and arc together', async ({
   page,
 }) => {
   await page.route('https://registry.npmjs.org/**', (route) => route.abort());
   await page.goto('/components/circular-slider/');
-  const links = await page
-    .getByRole('navigation', { name: 'Component sections' })
-    .getByRole('link')
-    .allTextContents();
-  expect(links[links.indexOf('Sliders') + 1]).toBe('Circular slider');
+  await expect(page).toHaveURL(rotationExample);
+  const navigation = page.getByRole('navigation', {
+    name: 'Component sections',
+  });
+  await expect(
+    navigation.getByRole('link', { name: 'Sliders', exact: true }),
+  ).toHaveAttribute('aria-current', 'location');
+  await expect(
+    navigation.getByRole('link', { name: 'Circular slider', exact: true }),
+  ).toHaveCount(0);
+  await expect(
+    page.getByRole('slider', { name: 'Opacity', exact: true }),
+  ).toBeVisible();
 
   const slider = page.getByRole('slider', { name: 'Rotation', exact: true });
   const thumb = slider.locator('[data-part="thumb"]');
@@ -97,7 +107,7 @@ test('shows keyboard focus on the thumb without outlining the dial', async ({
   page,
 }) => {
   await page.route('https://registry.npmjs.org/**', (route) => route.abort());
-  await page.goto('/components/circular-slider/');
+  await page.goto(rotationExample);
   const slider = page.getByRole('slider', { name: 'Rotation', exact: true });
   const thumb = slider.locator('[data-part="thumb"]');
   const idle = await thumb.evaluate(
@@ -117,7 +127,7 @@ test('shows keyboard focus on the thumb without outlining the dial', async ({
 test('submits degrees while displaying another unit and resets uncontrolled values', async ({
   page,
 }) => {
-  await page.goto('/components/circular-slider/');
+  await page.goto('/components/sliders/#example-circular-form-control');
   const slider = page.getByRole('slider', { name: 'Mix level' });
   await expect(slider).toHaveAttribute('aria-valuetext', '50%');
   await slider.focus();
@@ -147,7 +157,7 @@ for (const theme of ['light', 'dark']) {
       (mode) => localStorage.setItem('revo-ui-theme', mode),
       theme,
     );
-    await page.goto('/components/circular-slider/');
+    await page.goto('/components/sliders/#example-circular-slider-states');
     const compass = page.getByRole('slider', { name: 'Heading' });
     await expect(compass.locator('[data-part="marker"]')).toHaveCount(4);
     const readonly = page.getByRole('slider', { name: 'Saved heading' });
@@ -161,20 +171,27 @@ for (const theme of ['light', 'dark']) {
       page.getByRole('slider', { name: 'Review angle' }),
     ).toHaveAttribute('aria-invalid', 'true');
     await page.addScriptTag({ path: require.resolve('axe-core/axe.min.js') });
-    const violations = await page
-      .locator('#circular-slider')
-      .evaluate(async (element) => {
-        const axe = (window as unknown as { axe: typeof import('axe-core') })
-          .axe;
-        return (
-          await axe.run(element, {
+    const violations = await page.evaluate(async () => {
+      const axe = (window as unknown as { axe: typeof import('axe-core') }).axe;
+      return (
+        await axe.run(
+          {
+            include: [
+              '#example-controlled-rotation',
+              '#example-heading-with-compass-markers',
+              '#example-circular-form-control',
+              '#example-circular-slider-states',
+            ],
+          },
+          {
             runOnly: {
               type: 'tag',
               values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'],
             },
-          })
-        ).violations.map(({ id }) => id);
-      });
+          },
+        )
+      ).violations.map(({ id }) => id);
+    });
     expect(violations).toEqual([]);
   });
 }

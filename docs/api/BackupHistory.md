@@ -2,7 +2,7 @@
 
 Browse snapshots and choose a restore point.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/components/backup-history/) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/history/#example-backup-snapshots) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { BackupHistory } from '@revolist/ui/preact'`
 

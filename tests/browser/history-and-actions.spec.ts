@@ -13,6 +13,9 @@ for (const theme of ['light', 'dark']) {
       theme,
     );
     await page.goto('/components/action-bar/');
+    await expect(page).toHaveURL(
+      /\/components\/menus-and-toolbars\/#example-bulk-file-actions$/,
+    );
     const file = page.getByRole('checkbox', { name: 'Forecast.xlsx' });
     const bar = page.getByRole('toolbar', {
       name: 'Actions for selected files',
@@ -50,6 +53,13 @@ test('backup navigation keeps the card, slider and confirmation in sync', async 
   page,
 }) => {
   await page.goto('/components/backup-history/');
+  await expect(page).toHaveURL('/components/history/#example-backup-snapshots');
+  await expect(
+    page.getByRole('heading', { name: 'History', level: 1 }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole('button', { name: 'Open version history' }),
+  ).toBeVisible();
   const group = page.getByRole('region', { name: 'Workspace backups' });
   const slider = group.getByRole('slider', { name: 'Browse snapshots' });
   await expect(slider).toHaveValue('8');
@@ -87,7 +97,7 @@ test('backup ticks share the range geometry and the slider moves the rail in eit
   page,
 }) => {
   await page.route('https://registry.npmjs.org/**', (route) => route.abort());
-  await page.goto('/components/backup-history/');
+  await page.goto('/components/history/#example-backup-snapshots');
   const backup = page.getByRole('region', { name: 'Workspace backups' });
   const rail = backup.locator('[data-part="rail"]');
   const slider = backup.getByRole('slider');
@@ -162,6 +172,9 @@ test('grid history compares versions and adds a confirmed revision without losin
 }) => {
   await page.setViewportSize({ width: 390, height: 800 });
   await page.goto('/components/history-review/');
+  await expect(page).toHaveURL(
+    '/components/history/#example-grid-version-history',
+  );
   const launcher = page.getByRole('button', { name: 'Open version history' });
   await launcher.click();
   const dialog = page.getByRole('dialog', { name: 'Budget version history' });
@@ -291,9 +304,9 @@ test('new history and action examples have no scoped WCAG A or AA axe violations
 }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   for (const [route, selector] of [
-    ['action-bar', '#example-inline-actions-in-rtl .rv-action-bar'],
-    ['backup-history', '.rv-backup-history'],
-    ['history-review', '.rv-history-review'],
+    ['menus-and-toolbars', '#example-inline-actions-in-rtl .rv-action-bar'],
+    ['history', '.rv-backup-history'],
+    ['history', '.rv-history-review'],
   ]) {
     await page.addInitScript(() =>
       localStorage.setItem('revo-ui-theme', 'dark'),

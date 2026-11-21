@@ -108,6 +108,8 @@ Text, search and numeric entry; field labels, validation, inline layouts and edi
 
 [Input](api/Input.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/)) | [TextInput](api/TextInput.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/)) | [Textarea](api/Textarea.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/)) | [SearchInput](api/SearchInput.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/)) | [NumberInput](api/NumberInput.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/)) | [NumberStepper](api/NumberStepper.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/)) | [FormField](api/FormField.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/)) | [FieldHint](api/FieldHint.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/)) | [FieldError](api/FieldError.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/)) | [FormSection](api/FormSection.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/)) | [HighlightedTextInput](api/HighlightedTextInput.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/)) | [InlineFieldGroup](api/InlineFieldGroup.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/)) | [NumberDraft](api/NumberDraft.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/)) | [MaskedDraft](api/MaskedDraft.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/)) | [HtmlEditor](api/HtmlEditor.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/))
 
+[FilterBar](api/FilterBar.md) ([examples](https://ui.rv-grid.com/components/inputs-and-forms/#example-filter-bar))
+
 ### Multi/selects, autocomplete
 
 Single and multiple selects, editable autocomplete, optional tags and remote record lookup.
@@ -119,6 +121,8 @@ Single and multiple selects, editable autocomplete, optional tags and remote rec
 Scalar and interval controls with labels, value badges, thumb values, ticks and units.
 
 [SingleValueSlider](api/SingleValueSlider.md) ([examples](https://ui.rv-grid.com/components/sliders/)) | [PreactRangeSlider](api/PreactRangeSlider.md) ([examples](https://ui.rv-grid.com/components/sliders/)) | [SliderField](api/SliderField.md) ([examples](https://ui.rv-grid.com/components/sliders/))
+
+[CircularSlider](api/CircularSlider.md) ([examples](https://ui.rv-grid.com/components/sliders/#example-controlled-rotation))
 
 ### Timeline track
 
@@ -216,6 +220,8 @@ Command menus, nested commands, separators and grouped toolbar actions.
 
 [Menu](api/Menu.md) ([examples](https://ui.rv-grid.com/components/menus-and-toolbars/)) | [MenuItem](api/MenuItem.md) ([examples](https://ui.rv-grid.com/components/menus-and-toolbars/)) | [MenuSeparator](api/MenuSeparator.md) ([examples](https://ui.rv-grid.com/components/menus-and-toolbars/)) | [Submenu](api/Submenu.md) ([examples](https://ui.rv-grid.com/components/menus-and-toolbars/)) | [Toolbar](api/Toolbar.md) ([examples](https://ui.rv-grid.com/components/menus-and-toolbars/)) | [IconToolbar](api/IconToolbar.md) ([examples](https://ui.rv-grid.com/components/menus-and-toolbars/)) | [ToolbarGroup](api/ToolbarGroup.md) ([examples](https://ui.rv-grid.com/components/menus-and-toolbars/)) | [ToolbarSeparator](api/ToolbarSeparator.md) ([examples](https://ui.rv-grid.com/components/menus-and-toolbars/))
 
+[ActionBar](api/ActionBar.md) ([examples](https://ui.rv-grid.com/components/menus-and-toolbars/#example-bulk-file-actions))
+
 ### Status and feedback
 
 Semantic badges, counters, alerts, progress indicators, loading surfaces, empty states and feedback panels.
@@ -229,6 +235,8 @@ Semantic badges, counters, alerts, progress indicators, loading surfaces, empty 
 Expandable sections with keyboard controls and persistent draft content.
 
 [CollapsibleSection](api/CollapsibleSection.md) ([examples](https://ui.rv-grid.com/components/accordion/))
+
+[Trace](api/Trace.md) ([examples](https://ui.rv-grid.com/components/accordion/#example-trace))
 
 ### Layout
 
@@ -532,19 +540,15 @@ Revo UI is [MIT licensed](../LICENSE). Anyone can use, modify, and distribute it
 
 - [Tree](api/Tree.md) ([examples](https://ui.rv-grid.com/components/tree/))
 - [Cascader](api/Cascader.md) ([examples](https://ui.rv-grid.com/components/cascader/))
-- [FilterBar](api/FilterBar.md) ([examples](https://ui.rv-grid.com/components/filter-bar/))
 - [CommandPalette](api/CommandPalette.md) ([examples](https://ui.rv-grid.com/components/command-palette/))
 - [Attachments](api/Attachments.md) ([examples](https://ui.rv-grid.com/components/attachments/))
 - [Stepper](api/Stepper.md) ([examples](https://ui.rv-grid.com/components/stepper/))
-- [Trace](api/Trace.md) ([examples](https://ui.rv-grid.com/components/trace/))
 - [ActivityTimeline](api/ActivityTimeline.md) ([examples](https://ui.rv-grid.com/components/activity-timeline/))
 - [FileTree](api/FileTree.md) ([examples](https://ui.rv-grid.com/components/tree/#example-changed-files))
-- [ActionBar](api/ActionBar.md) ([examples](https://ui.rv-grid.com/components/action-bar/))
-- [BackupHistory](api/BackupHistory.md) ([examples](https://ui.rv-grid.com/components/backup-history/))
-- [HistoryReview](api/HistoryReview.md) ([examples](https://ui.rv-grid.com/components/history-review/))
+- [HistoryReview](api/HistoryReview.md) ([examples](https://ui.rv-grid.com/components/history/#example-grid-version-history))
+- [BackupHistory](api/BackupHistory.md) ([examples](https://ui.rv-grid.com/components/history/#example-backup-snapshots))
 - [Cursor](api/Cursor.md) ([examples](https://ui.rv-grid.com/components/cursor/))
 - [CursorPointer](api/CursorPointer.md) ([examples](https://ui.rv-grid.com/components/cursor/))
 - [CursorBody](api/CursorBody.md) ([examples](https://ui.rv-grid.com/components/cursor/))
 - [CursorName](api/CursorName.md) ([examples](https://ui.rv-grid.com/components/cursor/))
 - [CursorMessage](api/CursorMessage.md) ([examples](https://ui.rv-grid.com/components/cursor/))
-- [CircularSlider](api/CircularSlider.md) ([examples](https://ui.rv-grid.com/components/circular-slider/))

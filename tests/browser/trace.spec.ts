@@ -6,6 +6,11 @@ for (const theme of ['light', 'dark'])
       theme,
     );
     await page.goto('/components/trace/');
+    await expect(page).toHaveURL('/components/accordion/#example-trace');
+    await expect(
+      page.getByRole('heading', { name: 'Accordion', level: 1, exact: true }),
+    ).toBeVisible();
+    await expect(page.locator('#example-accordion-sections')).toBeVisible();
     const region = page.getByRole('region', { name: 'Run' });
     await expect(region).toContainText('Complete');
     const summary = region.locator('summary').first();

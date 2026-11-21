@@ -6,22 +6,10 @@
     "Cursor CursorPointer CursorBody CursorName CursorMessage"
   ],
   [
-    "History review",
-    "history-review",
-    "Inspect saved versions and compare changes to grid cells.",
-    "HistoryReview"
-  ],
-  [
-    "Backup history",
-    "backup-history",
-    "Browse snapshots and choose a restore point.",
-    "BackupHistory"
-  ],
-  [
-    "Action bar",
-    "action-bar",
-    "Run contextual actions for a selection.",
-    "ActionBar"
+    "History",
+    "history",
+    "Compare changes across saved versions and browse backup snapshots to choose a restore point.",
+    "HistoryReview BackupHistory"
   ],
   [
     "Buttons",
@@ -51,7 +39,7 @@
     "Inputs and forms",
     "inputs-and-forms",
     "Text, search and numeric entry; field labels, validation, inline layouts and editor drafts.",
-    "Input TextInput Textarea SearchInput NumberInput NumberStepper FormField FieldHint FieldError FormSection HighlightedTextInput InlineFieldGroup NumberDraft MaskedDraft HtmlEditor Attachments"
+    "Input TextInput Textarea SearchInput FilterBar NumberInput NumberStepper FormField FieldHint FieldError FormSection HighlightedTextInput InlineFieldGroup NumberDraft MaskedDraft HtmlEditor Attachments"
   ],
   [
     "Multi/selects, autocomplete",
@@ -63,13 +51,7 @@
     "Sliders",
     "sliders",
     "Scalar and interval controls with labels, value badges, thumb values, ticks and units.",
-    "SingleValueSlider PreactRangeSlider SliderField"
-  ],
-  [
-    "Circular slider",
-    "circular-slider",
-    "Adjust an angle on a themed dial.",
-    "CircularSlider"
+    "SingleValueSlider PreactRangeSlider SliderField CircularSlider"
   ],
   [
     "Timeline track",
@@ -141,7 +123,7 @@
     "Formatting controls",
     "formatting-controls",
     "Typography choices, icon choices, inspector sections, preview comparisons and contextual filter badges.",
-    "InspectorSection IconChoiceGroup IconToggleButton TypographyControls ComparisonPreview FilterBadgeInfoButton FilterBadge FilterBar"
+    "InspectorSection IconChoiceGroup IconToggleButton TypographyControls ComparisonPreview FilterBadgeInfoButton FilterBadge"
   ],
   [
     "Charts and range selection",
@@ -171,7 +153,7 @@
     "Menus and toolbars",
     "menus-and-toolbars",
     "Command menus, nested commands, separators and grouped toolbar actions.",
-    "Menu MenuItem MenuSeparator Submenu Toolbar IconToolbar ToolbarGroup ToolbarSeparator"
+    "Menu MenuItem MenuSeparator Submenu Toolbar IconToolbar ToolbarGroup ToolbarSeparator ActionBar"
   ],
   [
     "Status and feedback",
@@ -183,7 +165,7 @@
     "Accordion",
     "accordion",
     "Expandable sections with keyboard controls and persistent draft content.",
-    "CollapsibleSection"
+    "CollapsibleSection Trace"
   ],
   [
     "Layout",

@@ -6,6 +6,12 @@ for (const theme of ['light', 'dark'])
       theme,
     );
     await page.goto('/components/filter-bar/');
+    await expect(page).toHaveURL(
+      '/components/inputs-and-forms/#example-filter-bar',
+    );
+    await expect(
+      page.locator('#example-search-input + #example-filter-bar'),
+    ).toBeVisible();
     const group = page.getByRole('group', { name: 'Filters' });
     const search = group.getByRole('searchbox', { name: 'Search records' });
     await search.fill('report');

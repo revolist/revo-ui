@@ -7,22 +7,10 @@
       "keywords": "remote cursor collaborator presence pointer canvas multiplayer"
     },
     {
-      "title": "History review",
+      "title": "History",
       "group": "Compositions",
-      "description": "Inspect saved versions and compare changes to grid cells.",
-      "keywords": "history review selection changes restore bulk"
-    },
-    {
-      "title": "Backup history",
-      "group": "Compositions",
-      "description": "Browse snapshots and choose a restore point.",
-      "keywords": "backup history selection changes restore bulk"
-    },
-    {
-      "title": "Action bar",
-      "group": "Compositions",
-      "description": "Run contextual actions for a selection.",
-      "keywords": "action bar selection changes restore bulk"
+      "description": "Compare changes across saved versions and browse backup snapshots to choose a restore point.",
+      "keywords": "history review backup history grid versions cell changes comment edits snapshots restore"
     },
     {
       "title": "HTML Editor",
@@ -63,8 +51,8 @@
     {
       "title": "Inputs and forms",
       "group": "Controls",
-      "description": "Text, messages, search, numbers and clear field presentation.",
-      "keywords": "text textarea message search number stepper counter field error validation readonly highlighted inline dimensions"
+      "description": "Text, messages, search, filters, numbers and clear field presentation.",
+      "keywords": "text textarea message search filter bar number stepper counter field error validation readonly highlighted inline dimensions"
     },
     {
       "title": "Multi/selects, autocomplete",
@@ -75,14 +63,8 @@
     {
       "title": "Sliders",
       "group": "Controls",
-      "description": "Adjust a value or define an interval.",
-      "keywords": "range scalar numeric timeline track move resize events"
-    },
-    {
-      "title": "Circular slider",
-      "group": "Controls",
-      "description": "Set a rotation, heading or other angle with a circular dial.",
-      "keywords": "circular slider angle dial rotation heading markers degrees"
+      "description": "Adjust a value, define an interval, or set an angle with a circular dial.",
+      "keywords": "range scalar numeric timeline track move resize events circular slider dial rotation angle heading markers degrees"
     },
     {
       "title": "Timeline track",
@@ -183,8 +165,8 @@
     {
       "title": "Menus and toolbars",
       "group": "Compositions",
-      "description": "Commands with feedback scoped to their own example.",
-      "keywords": "menu submenu toolbar undo redo export history"
+      "description": "Organize commands in menus, toolbars and contextual action bars.",
+      "keywords": "menu submenu toolbar action bar selection bulk undo redo export history"
     },
     {
       "title": "Status and feedback",
@@ -195,8 +177,8 @@
     {
       "title": "Accordion",
       "group": "Compositions",
-      "description": "Expandable sections with keyboard controls and persistent draft content.",
-      "keywords": "accordion collapsible section disclosure expand collapse configurator"
+      "description": "Expand sections to edit settings or inspect the details of a run.",
+      "keywords": "accordion collapsible section disclosure expand collapse configurator trace run steps"
     },
     {
       "title": "Layout",
@@ -235,12 +217,6 @@
       "keywords": "activity timeline history events feed"
     },
     {
-      "title": "Trace",
-      "group": "Compositions",
-      "description": "Explore the Trace component.",
-      "keywords": "trace"
-    },
-    {
       "title": "Attachments",
       "group": "Compositions",
       "description": "Explore the Attachments component.",
@@ -251,12 +227,6 @@
       "group": "Pickers",
       "description": "Explore the Cascader component.",
       "keywords": "cascader"
-    },
-    {
-      "title": "Filter bar",
-      "group": "Controls",
-      "description": "Explore the Filter bar component.",
-      "keywords": "filter bar"
     },
     {
       "title": "Command palette",

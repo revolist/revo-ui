@@ -1,8 +1,8 @@
 # Trace
 
-Presentation for messages, prompts, suggestions, reasoning, tasks, action state and result summaries. Applications provide the model and tools.
+Show the status and expandable details of each step in a run.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/components/trace/) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/accordion/#example-trace) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { Trace } from '@revolist/ui/preact'`
 

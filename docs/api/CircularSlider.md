@@ -2,7 +2,7 @@
 
 Adjust an angle on a themed dial.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/components/circular-slider/) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/sliders/#example-controlled-rotation) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { CircularSlider } from '@revolist/ui/preact'`
 

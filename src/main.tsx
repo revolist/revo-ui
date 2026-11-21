@@ -415,14 +415,9 @@ function App() {
       <Section title="Cursor" columns={2}>
         <CursorExamples />
       </Section>
-      <Section title="Action bar" columns={2}>
-        <ActionBarExamples />
-      </Section>
-      <Section title="Backup history" columns={1}>
-        <BackupHistoryExamples />
-      </Section>
-      <Section title="History review" columns={2}>
+      <Section title="History" columns={1}>
         <HistoryReviewExamples />
+        <BackupHistoryExamples />
       </Section>
       <Section title="Tree">
         <Example title="Project hierarchy">
@@ -691,23 +686,6 @@ function App() {
           <p aria-live="polite">{timelineMessage}</p>
         </Example>
       </Section>
-      <Section title="Trace">
-        <Example title="Trace">
-          <Trace
-            label="Run"
-            steps={[
-              {
-                id: 'one',
-                title: 'Search records',
-                status: 'Complete',
-                tone: 'success',
-                details: 'Found 12 records',
-              },
-              { id: 'two', title: 'Prepare report', status: 'Running' },
-            ]}
-          />
-        </Example>
-      </Section>
       <Section title="Attachments">
         <Example title="Attachments">
           <Attachments
@@ -763,25 +741,6 @@ function App() {
                 children: [{ id: 'finance', label: 'Finance' }],
               },
             ]}
-          />
-        </Example>
-      </Section>
-      <Section title="Filter bar">
-        <Example title="Filter bar">
-          <FilterBar
-            label="Filters"
-            filters={activeFilters}
-            search={filterSearch}
-            searchLabel="Search records"
-            onSearchChange={setFilterSearch}
-            removeLabel={(filter) => `Remove ${filter.label}`}
-            onRemove={(id) =>
-              setActiveFilters((previous) =>
-                previous.filter((filter) => filter.id !== id),
-              )
-            }
-            clearLabel="Clear filters"
-            onClear={() => setActiveFilters([])}
           />
         </Example>
       </Section>
@@ -1036,6 +995,23 @@ function App() {
             aria-label="Search catalog"
           />
         </Example>
+        <Example title="Filter bar">
+          <FilterBar
+            label="Filters"
+            filters={activeFilters}
+            search={filterSearch}
+            searchLabel="Search records"
+            onSearchChange={setFilterSearch}
+            removeLabel={(filter) => `Remove ${filter.label}`}
+            onRemove={(id) =>
+              setActiveFilters((previous) =>
+                previous.filter((filter) => filter.id !== id),
+              )
+            }
+            clearLabel="Clear filters"
+            onClear={() => setActiveFilters([])}
+          />
+        </Example>
         <Example title="Number input">
           <FormField label="Quantity">
             <NumberInput
@@ -1193,8 +1169,6 @@ function App() {
             onChange: setNativeSlider,
           })}
         </Example>
-      </Section>
-      <Section title="Circular slider" columns={2}>
         <CircularSliderExamples />
       </Section>
       <Section title="Field configurators" columns={2}>
@@ -1457,6 +1431,21 @@ function App() {
             </CollapsibleSection>
           </div>
         </Example>
+        <Example title="Trace">
+          <Trace
+            label="Run"
+            steps={[
+              {
+                id: 'one',
+                title: 'Search records',
+                status: 'Complete',
+                tone: 'success',
+                details: 'Found 12 records',
+              },
+              { id: 'two', title: 'Prepare report', status: 'Running' },
+            ]}
+          />
+        </Example>
       </Section>
       <Section title="Tooltip">
         <TooltipPlacementExamples />
@@ -1556,6 +1545,7 @@ function App() {
             {menuAction}
           </output>
         </Example>
+        <ActionBarExamples />
       </Section>
       <Section title="Status and feedback">
         <ToastExamples />

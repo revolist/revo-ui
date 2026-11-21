@@ -1,4 +1,10 @@
 {
+  "action-bar": "menus-and-toolbars#example-bulk-file-actions",
+  "history-review": "history#example-grid-version-history",
+  "backup-history": "history#example-backup-snapshots",
+  "circular-slider": "sliders#example-controlled-rotation",
+  "trace": "accordion#example-trace",
+  "filter-bar": "inputs-and-forms#example-filter-bar",
   "selects-chips-and-resources": "multi-selects-autocomplete",
   "file-tree": "tree#example-changed-files",
   "remote-lookup-field": "multi-selects-autocomplete#example-remote-lookup-field"

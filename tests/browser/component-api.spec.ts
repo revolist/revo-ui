@@ -255,10 +255,9 @@ test('Accordion showcases the existing CollapsibleSection contract', async ({
   await expect(input).toBeHidden();
   await page.keyboard.press('Enter');
   await expect(input).toHaveValue('Saved draft');
-  await page
-    .getByRole('navigation', { name: 'Accordion API pages' })
-    .getByRole('link', { name: /CollapsibleSection/ })
-    .click();
+  const api = page.getByRole('navigation', { name: 'Accordion API pages' });
+  await expect(api.getByRole('link', { name: /Trace/ })).toBeVisible();
+  await api.getByRole('link', { name: /CollapsibleSection/ }).click();
   await expect(
     page.getByRole('heading', { name: 'CollapsibleSection API', exact: true }),
   ).toBeVisible();

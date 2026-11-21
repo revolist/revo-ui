@@ -28,6 +28,36 @@ for (const [title, route, description, names] of groups) {
     if (!routes.has(name)) routes.set(name, { title, route, description });
   }
 }
+routes.set('ActionBar', {
+  route: 'menus-and-toolbars',
+  anchor: 'example-bulk-file-actions',
+  description: 'Run contextual actions for a selection.',
+});
+routes.set('HistoryReview', {
+  route: 'history',
+  anchor: 'example-grid-version-history',
+  description: 'Inspect saved versions and compare changes to grid cells.',
+});
+routes.set('BackupHistory', {
+  route: 'history',
+  anchor: 'example-backup-snapshots',
+  description: 'Browse snapshots and choose a restore point.',
+});
+routes.set('CircularSlider', {
+  route: 'sliders',
+  anchor: 'example-controlled-rotation',
+  description: 'Adjust an angle on a themed dial.',
+});
+routes.set('Trace', {
+  route: 'accordion',
+  anchor: 'example-trace',
+  description: 'Show the status and expandable details of each step in a run.',
+});
+routes.set('FilterBar', {
+  route: 'inputs-and-forms',
+  anchor: 'example-filter-bar',
+  description: 'Search records and remove or clear active filters.',
+});
 routes.set('FileTree', {
   route: 'tree',
   anchor: 'example-changed-files',

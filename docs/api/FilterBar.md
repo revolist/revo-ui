@@ -1,8 +1,8 @@
 # FilterBar
 
-Typography choices, icon choices, inspector sections, preview comparisons and contextual filter badges.
+Search records and remove or clear active filters.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/components/filter-bar/) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/inputs-and-forms/#example-filter-bar) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { FilterBar } from '@revolist/ui/preact'`
 
