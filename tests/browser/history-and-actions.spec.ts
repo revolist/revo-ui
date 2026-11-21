@@ -52,33 +52,109 @@ test('backup navigation keeps the card, slider and confirmation in sync', async 
   await page.goto('/components/backup-history/');
   const group = page.getByRole('region', { name: 'Workspace backups' });
   const slider = group.getByRole('slider', { name: 'Browse snapshots' });
-  await expect(slider).toHaveValue('3');
-  await expect(group.getByText('19.1 GB')).toBeVisible();
-  await group.getByRole('button', { name: 'Previous snapshot' }).click();
-  await expect(slider).toHaveValue('2');
+  await expect(slider).toHaveValue('8');
   await expect(
-    group.getByRole('button', { name: 'Restore snapshot' }),
+    group.getByRole('article').getByText('19.1 GB', { exact: true }),
+  ).toBeVisible();
+  await group.getByRole('button', { name: 'Previous' }).click();
+  await expect(slider).toHaveValue('7');
+  await expect(
+    group.getByRole('button', { name: 'Restore', exact: true }),
   ).toBeDisabled();
   await slider.focus();
   await page.keyboard.press('Home');
-  await expect(group.getByText('Backup BK-041')).toBeVisible();
+  await expect(group.getByText('Backup BK-036')).toBeVisible();
   await expect(slider).toHaveAttribute(
     'aria-valuetext',
-    'Snapshot 1 of 4, Nov 17',
+    'Snapshot 1 of 9, Nov 12, Full, 17.6 GB',
   );
-  await group.getByRole('button', { name: 'Restore snapshot' }).click();
+  await group.getByRole('button', { name: 'Restore', exact: true }).click();
   const confirmation = page.getByRole('dialog', {
     name: 'Restore this snapshot?',
   });
-  await expect(confirmation.getByText('Backup BK-041')).toBeVisible();
+  await expect(confirmation.getByText('Backup BK-036')).toBeVisible();
   await confirmation.getByRole('button', { name: 'Keep current data' }).click();
   await expect(confirmation).toBeHidden();
   await expect(
-    group.getByRole('button', { name: 'Restore snapshot' }),
+    group.getByRole('button', { name: 'Restore', exact: true }),
   ).toBeFocused();
-  await group.getByRole('button', { name: 'Restore snapshot' }).click();
+  await group.getByRole('button', { name: 'Restore', exact: true }).click();
   await confirmation.getByRole('button', { name: 'Confirm restore' }).click();
-  await expect(page.getByText('Restore confirmed for BK-041')).toBeVisible();
+  await expect(page.getByText('Restore confirmed for BK-036')).toBeVisible();
+});
+
+test('backup ticks share the range geometry and the slider moves the rail in either direction', async ({
+  page,
+}) => {
+  await page.route('https://registry.npmjs.org/**', (route) => route.abort());
+  await page.goto('/components/backup-history/');
+  const backup = page.getByRole('region', { name: 'Workspace backups' });
+  const rail = backup.locator('[data-part="rail"]');
+  const slider = backup.getByRole('slider');
+  const motion = () =>
+    rail.evaluate((element) => {
+      getComputedStyle(element).translate;
+      return element.getAnimations()[0]?.effect instanceof KeyframeEffect
+        ? (element.getAnimations()[0].effect as KeyframeEffect)
+            .getKeyframes()
+            .map(({ translate }) => Number.parseFloat(String(translate)))
+        : [];
+    });
+  const finish = () =>
+    rail.evaluate((element) =>
+      Promise.all(
+        element.getAnimations().map((animation) => animation.finished),
+      ),
+    );
+  await slider.press('ArrowLeft');
+  await expect.poll(motion).toEqual([-800, -700]);
+  await finish();
+  await slider.press('ArrowRight');
+  await expect.poll(motion).toEqual([-700, -800]);
+  await finish();
+  await expect(backup.getByRole('article')).toHaveCount(1);
+  await expect(backup.getByRole('article')).toContainText('Backup BK-044');
+  const geometry = () =>
+    backup.evaluate((element) => {
+      const input = element.querySelector('input[type="range"]')!;
+      const bounds = input.getBoundingClientRect();
+      const halfThumb =
+        Number.parseFloat(
+          getComputedStyle(input).getPropertyValue('--slider-thumb-size'),
+        ) / 2;
+      const ticks = [...element.querySelectorAll('.rv-backup-tick')];
+      const card = element.getBoundingClientRect();
+      return {
+        error: Math.max(
+          ...ticks.map((tick, i) =>
+            Math.abs(
+              tick.getBoundingClientRect().x -
+                (bounds.x +
+                  halfThumb +
+                  (i * (bounds.width - 2 * halfThumb)) / (ticks.length - 1)),
+            ),
+          ),
+        ),
+        contained: ticks.every((tick) => {
+          const label = tick.firstElementChild!;
+          const box = label.getBoundingClientRect();
+          return (
+            getComputedStyle(label).visibility === 'hidden' ||
+            (box.left >= card.left && box.right <= card.right)
+          );
+        }),
+      };
+    });
+  for (const width of [1280, 320]) {
+    await page.setViewportSize({ width, height: 850 });
+    const { error, contained } = await geometry();
+    expect(error).toBeLessThan(1);
+    expect(contained).toBe(true);
+  }
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await slider.press('Home');
+  await expect(rail).toHaveCSS('transition-duration', '0s');
+  await expect(backup.getByRole('article')).toContainText('Backup BK-036');
 });
 
 test('grid history compares versions and adds a confirmed revision without losing the older entries', async ({

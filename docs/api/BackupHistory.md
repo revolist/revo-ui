@@ -38,4 +38,4 @@ This reference is generated from the local `package` library source. Rebuild it 
 
 Supply snapshots from oldest to newest. The newest snapshot is initially selected, and the slider, buttons, arrow keys and touch track all change the same selection. The slider uses chronological left-to-right order, including in an RTL host.
 
-Supply localized, display-ready dates, sizes and verification states. Mark unsuccessful or unavailable backups with `restoreDisabled`. Preview and confirmed restore callbacks receive the snapshot ID so the application can manage data and persistence.
+Supply localized, display-ready dates, sizes and verification states. Set `majorTick` on important backups to draw a taller date tick. The optional `labels.taken` and `labels.duration` provide captions for those fields. The track slides left or right in chronological order and honors the user's motion preference. Mark unsuccessful or unavailable backups with `restoreDisabled`. Preview and confirmed restore callbacks receive the snapshot ID so the application can manage data and persistence.

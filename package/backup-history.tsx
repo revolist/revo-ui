@@ -1,10 +1,12 @@
 import { h } from 'preact';
 import { useRef } from 'preact/hooks';
-import { Badge, Button, ToolbarGroup } from './controls';
+import previousIcon from '@fortawesome/fontawesome-free/svgs/solid/chevron-left.svg?raw';
+import nextIcon from '@fortawesome/fontawesome-free/svgs/solid/chevron-right.svg?raw';
+import { Badge, Button, IconButton, ToolbarGroup } from './controls';
 import { SingleValueSlider } from './filter/filters/slider/single';
 import type { ClassPreset } from './presets/types';
 import {
-  HistoryEntryLabel,
+  HistoryEntryAuthor,
   HistoryRestore,
   useHistorySelection,
   type HistoryEntry,
@@ -14,6 +16,8 @@ import {
 export interface BackupSnapshot extends HistoryEntry {
   /** Display-ready snapshot kind, such as Full or Incremental. */
   kind?: string;
+  /** Draw a taller date tick for a full backup or other milestone. */
+  majorTick?: boolean;
   /** Display-ready size. */
   size?: string;
   /** Display-ready size delta or supporting detail. */
@@ -32,6 +36,10 @@ export interface BackupHistoryLabels {
   previous: string;
   next: string;
   preview: string;
+  /** Optional caption for the date. */
+  taken?: string;
+  /** Optional caption for the duration. */
+  duration?: string;
   restore: HistoryRestoreLabels;
   /** Localized position text for the live region and slider value. */
   position: (index: number, total: number, snapshot: BackupSnapshot) => string;
@@ -86,13 +94,19 @@ export function BackupHistory({
     ? labels.position(index + 1, snapshots.length, selected)
     : labels.empty;
 
+  const status = (
+    <p class="rv-history-summary" data-part="status" role="status">
+      {description}
+    </p>
+  );
+
   return (
     <section
       aria-label={label}
       class={`rv-backup-history ${preset?.className ?? ''} ${className}`}
       data-part="root"
     >
-      {selected && (
+      {selected ? (
         <>
           <div
             class="rv-backup-track"
@@ -132,27 +146,66 @@ export function BackupHistory({
                 move(index + (x < 0 ? 1 : -1));
             }}
           >
-            <article
-              key={selected.id}
-              class="rv-backup-card"
-              data-part="snapshot"
+            <div
+              class="rv-backup-rail"
+              data-part="rail"
+              style={{ '--rv-backup-index': index }}
             >
-              <HistoryEntryLabel entry={selected} badge={selected.kind} />
-              {selected.size && (
-                <strong class="rv-backup-size">{selected.size}</strong>
-              )}
-              {selected.change && (
-                <span class="rv-history-summary">{selected.change}</span>
-              )}
-              <div class="rv-backup-meta">
-                {selected.status && (
-                  <Badge variant="neutral" shape="rounded">
-                    {selected.status}
-                  </Badge>
-                )}
-                {selected.duration && <span>{selected.duration}</span>}
-              </div>
-            </article>
+              {snapshots.map((snapshot) => (
+                <article
+                  key={snapshot.id}
+                  class="rv-backup-card"
+                  data-part="snapshot"
+                  aria-hidden={snapshot !== selected || undefined}
+                  inert={snapshot !== selected || undefined}
+                >
+                  <header class="rv-backup-card-header">
+                    <div class="rv-history-entry-title">
+                      <span class="rv-backup-title">{snapshot.title}</span>
+                      {snapshot.kind && (
+                        <Badge variant="neutral" shape="rounded">
+                          {snapshot.kind}
+                        </Badge>
+                      )}
+                    </div>
+                    {snapshot.status && (
+                      <Badge variant="neutral" shape="rounded">
+                        {snapshot.status}
+                      </Badge>
+                    )}
+                  </header>
+                  <div class="rv-backup-metrics">
+                    {snapshot.size && (
+                      <span class="rv-backup-size">{snapshot.size}</span>
+                    )}
+                    {snapshot.change && (
+                      <span class="rv-history-summary">{snapshot.change}</span>
+                    )}
+                  </div>
+                  <div class="rv-backup-meta">
+                    <div>
+                      {labels.taken && (
+                        <span class="rv-history-summary">{labels.taken}</span>
+                      )}
+                      <time dateTime={snapshot.dateTime}>
+                        {snapshot.dateLabel}
+                      </time>
+                    </div>
+                    {snapshot.duration && (
+                      <div>
+                        {labels.duration && (
+                          <span class="rv-history-summary">
+                            {labels.duration}
+                          </span>
+                        )}
+                        <span>{snapshot.duration}</span>
+                      </div>
+                    )}
+                    <HistoryEntryAuthor entry={snapshot} />
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
           {snapshots.length > 1 && (
             <div class="rv-backup-scrubber" data-part="scrubber" dir="ltr">
@@ -166,32 +219,24 @@ export function BackupHistory({
                 ariaValueText={description}
               />
               <div class="rv-backup-dates" aria-hidden="true">
-                {(snapshots.length <= 7
+                {(snapshots.length <= 12
                   ? snapshots
                   : [snapshots[0], snapshots[snapshots.length - 1]]
                 ).map((snapshot) => (
-                  <span key={snapshot.id}>{snapshot.dateLabel}</span>
+                  <span
+                    key={snapshot.id}
+                    class="rv-backup-tick"
+                    data-major={snapshot.majorTick || undefined}
+                    data-current={snapshot === selected || undefined}
+                  >
+                    <span>{snapshot.dateLabel}</span>
+                  </span>
                 ))}
               </div>
             </div>
           )}
           <div class="rv-backup-footer" data-part="actions">
-            <ToolbarGroup className="rv-backup-navigation">
-              <Button
-                size="compact"
-                disabled={index === 0}
-                onClick={() => move(index - 1)}
-              >
-                {labels.previous}
-              </Button>
-              <Button
-                size="compact"
-                disabled={index === snapshots.length - 1}
-                onClick={() => move(index + 1)}
-              >
-                {labels.next}
-              </Button>
-            </ToolbarGroup>
+            {status}
             <ToolbarGroup className="rv-backup-navigation">
               {onPreview && (
                 <Button onClick={() => onPreview(selected.id)}>
@@ -208,12 +253,27 @@ export function BackupHistory({
                 />
               )}
             </ToolbarGroup>
+            {snapshots.length > 1 && (
+              <ToolbarGroup className="rv-backup-navigation">
+                <IconButton
+                  label={labels.previous}
+                  icon={previousIcon}
+                  disabled={index === 0}
+                  onClick={() => move(index - 1)}
+                />
+                <IconButton
+                  label={labels.next}
+                  icon={nextIcon}
+                  disabled={index === snapshots.length - 1}
+                  onClick={() => move(index + 1)}
+                />
+              </ToolbarGroup>
+            )}
           </div>
         </>
+      ) : (
+        status
       )}
-      <p class="rv-history-summary" data-part="status" role="status">
-        {description}
-      </p>
     </section>
   );
 }

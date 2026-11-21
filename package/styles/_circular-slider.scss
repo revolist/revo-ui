@@ -77,9 +77,22 @@
   cursor: grabbing;
 }
 
-.rv-circular-slider-control:focus-visible {
-  outline: 2px solid var(--rv-ui-focus-ring);
-  outline-offset: 2px;
+.rv-circular-slider-control:focus {
+  outline: none;
+}
+
+.rv-circular-slider-control:focus-visible:not([data-pointer-focus])
+  [data-part='thumb'] {
+  fill: var(--rv-circular-slider-accent);
+  stroke: var(--rv-ui-text);
+}
+
+@media (forced-colors: active) {
+  .rv-circular-slider-control:focus-visible:not([data-pointer-focus])
+    [data-part='thumb'] {
+    fill: Highlight;
+    stroke: HighlightText;
+  }
 }
 
 .rv-circular-slider-value {

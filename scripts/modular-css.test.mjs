@@ -48,3 +48,10 @@ test('calendar CSS styles the dropdowns in the month and year caption', () => {
   ])
     assert(css.includes(selector), selector);
 });
+
+test('timeline CSS includes the shared accordion without the rest of the field configurator', () => {
+  const css = readFileSync(resolve(root, 'dist/styles/timeline.css'), 'utf8');
+  assert(css.includes('.rv-collapsible-section'));
+  assert(css.includes('.rv-configurator-summary'));
+  assert(!css.includes('.rv-configurator-zone-heading'));
+});

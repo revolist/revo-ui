@@ -45,6 +45,27 @@ test('drags along the ring and commits once on release without jumping across th
   await expect(slider).toHaveAttribute('aria-valuenow', '55');
 });
 
+test('shows keyboard focus on the thumb without outlining the dial', async ({
+  page,
+}) => {
+  await page.route('https://registry.npmjs.org/**', (route) => route.abort());
+  await page.goto('/components/circular-slider/');
+  const slider = page.getByRole('slider', { name: 'Rotation', exact: true });
+  const thumb = slider.locator('[data-part="thumb"]');
+  const idle = await thumb.evaluate(
+    (element) => getComputedStyle(element).fill,
+  );
+  await thumb.click();
+  await expect(slider).toBeFocused();
+  await expect(slider).toHaveCSS('outline-style', 'none');
+  await expect(thumb).toHaveCSS('fill', idle);
+  await page.keyboard.press('Tab');
+  await page.keyboard.press('Shift+Tab');
+  await expect(slider).toBeFocused();
+  await expect(slider).toHaveCSS('outline-style', 'none');
+  await expect(thumb).not.toHaveCSS('fill', idle);
+});
+
 test('submits degrees while displaying another unit and resets uncontrolled values', async ({
   page,
 }) => {

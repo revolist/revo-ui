@@ -1,4 +1,5 @@
 @use '../styles/motion';
+@use '../styles/collapsible-section';
 .rv-timeline-control__track {
   position: relative;
   box-sizing: border-box;
@@ -195,16 +196,14 @@
 }
 
 .rv-timeline-control__actions {
+  box-sizing: border-box;
+  inline-size: 100%;
   margin-block: 8px;
-  summary {
-    cursor: pointer;
-    min-height: 24px;
-  }
   fieldset {
     min-width: 0;
-    margin-block: 8px;
+    margin: 0;
     border: 1px solid var(--rv-ui-border);
-    border-radius: 6px;
+    border-radius: var(--rv-ui-radius);
   }
   output {
     display: block;

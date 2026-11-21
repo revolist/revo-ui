@@ -794,7 +794,15 @@
     "states": []
   },
   "BackupHistory": {
-    "parts": ["root"],
+    "parts": [
+      "root",
+      "track",
+      "rail",
+      "snapshot",
+      "scrubber",
+      "actions",
+      "status"
+    ],
     "states": []
   },
   "HistoryReview": {

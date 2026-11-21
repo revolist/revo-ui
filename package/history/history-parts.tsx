@@ -27,16 +27,8 @@ export interface HistoryRestoreLabels {
   close: string;
 }
 
-export function HistoryEntryLabel({
-  entry,
-  badge,
-  authorFirst = false,
-}: {
-  entry: HistoryEntry;
-  badge?: string;
-  authorFirst?: boolean;
-}) {
-  const author = entry.author && (
+export function HistoryEntryAuthor({ entry }: { entry: HistoryEntry }) {
+  return entry.author ? (
     <span class="rv-history-author" data-part="author">
       <AvatarElement
         key={entry.authorAvatarUrl}
@@ -49,7 +41,19 @@ export function HistoryEntryLabel({
       />
       <span>{entry.author}</span>
     </span>
-  );
+  ) : null;
+}
+
+export function HistoryEntryLabel({
+  entry,
+  badge,
+  authorFirst = false,
+}: {
+  entry: HistoryEntry;
+  badge?: string;
+  authorFirst?: boolean;
+}) {
+  const author = <HistoryEntryAuthor entry={entry} />;
   return (
     <span class="rv-history-entry-label">
       <span class="rv-history-entry-title">

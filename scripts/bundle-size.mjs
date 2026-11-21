@@ -18,7 +18,7 @@ export const limits = {
   'react-button': 24 * 1024,
   'react-controls': 26 * 1024,
   // Full-catalog budgets include the new workflows and their styles.
-  'react-all': 174 * 1024,
+  'react-all': 175 * 1024,
   'native-all': 65 * 1024,
   'styles.css': 37 * 1024,
   'styles/base.css': 8 * 1024,
@@ -27,6 +27,7 @@ export const limits = {
       .filter((name) => name !== 'base')
       .map((name) => [`styles/${name}.css`, 8 * 1024]),
   ),
+  'styles/layout.css': 9 * 1024,
 };
 
 export async function measureEntry(

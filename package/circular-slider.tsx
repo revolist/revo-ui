@@ -192,7 +192,11 @@ export function CircularSlider({
         aria-readonly={readOnly || undefined}
         aria-invalid={invalid || undefined}
         tabIndex={disabled ? -1 : 0}
+        onBlur={(event) => {
+          delete event.currentTarget.dataset.pointerFocus;
+        }}
         onPointerDown={(event) => {
+          event.currentTarget.dataset.pointerFocus = '';
           if (disabled || readOnly || drag.current || event.button !== 0)
             return;
           const point = readPointer(event);
@@ -246,6 +250,7 @@ export function CircularSlider({
         }}
         onKeyDown={(event) => {
           const { key, currentTarget } = event;
+          delete currentTarget.dataset.pointerFocus;
           if (
             ![
               'Home',
