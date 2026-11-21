@@ -137,3 +137,36 @@ test('accordion panels share size and fade motion and honor reduced motion', asy
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await expect(panel).toHaveCSS('transition-duration', '0s');
 });
+
+test('animates only the enabled step marker on hover and honors motion preferences', async ({
+  page,
+}) => {
+  await page.route('https://registry.npmjs.org/**', (route) => route.abort());
+  await page.goto('/components/stepper/');
+  const stepper = page.getByRole('navigation', { name: 'إعداد المشروع' });
+  const finish = stepper.getByRole('button', { name: 'إنهاء' });
+  await finish.click();
+  await expect(finish).toHaveAttribute('aria-current', 'step');
+  const review = stepper.getByRole('button', { name: 'المراجعة' });
+  const marker = review.locator('[data-part="indicator"]');
+  await expect(marker).toHaveCSS('scale', 'none');
+  await review.hover();
+  await expect(marker).toHaveCSS('scale', '1.12');
+  await expect(review).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+
+  await page.mouse.down();
+  await expect(marker).toHaveCSS('scale', '0.96');
+  await expect(review).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+  await page.mouse.move(0, 0);
+  await page.mouse.up();
+  await expect(marker).toHaveCSS('scale', 'none');
+
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await review.hover();
+  await expect(marker).toHaveCSS('scale', 'none');
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await review.evaluate((element) =>
+    element.closest('.rv-stepper')!.setAttribute('data-rv-ui-motion', 'off'),
+  );
+  await expect(marker).toHaveCSS('scale', '1');
+});

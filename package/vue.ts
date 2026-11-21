@@ -98,6 +98,11 @@ export const Calendar = /* @__PURE__ */ createVueAdapter(
   ui.Calendar,
   'Calendar',
 );
+export type { MiniCalendarProps } from './calendar/mini-calendar';
+export const MiniCalendar = /* @__PURE__ */ createVueAdapter(
+  ui.MiniCalendar,
+  'MiniCalendar',
+);
 export const CalendarHeader = /* @__PURE__ */ createVueAdapter(
   ui.CalendarHeader,
   'CalendarHeader',
@@ -302,6 +307,17 @@ export const ListboxOptionContent = /* @__PURE__ */ createVueAdapter(
   ui.ListboxOptionContent,
   'ListboxOptionContent',
 );
+export { createToaster } from './toast-store';
+export type {
+  ToastController,
+  ToastEntry,
+  ToastOptions,
+  ToastPromiseMessages,
+  ToastTone,
+} from './toast-store';
+export type { ToasterProps } from './toaster';
+export const Toaster: VueUiComponent<typeof ui.Toaster> =
+  /* @__PURE__ */ createVueAdapter(ui.Toaster, 'Toaster');
 export const StatusFeedbackPanel = /* @__PURE__ */ createVueAdapter(
   ui.StatusFeedbackPanel,
   'StatusFeedbackPanel',
@@ -759,4 +775,46 @@ export const CommandPalette = /* @__PURE__ */ createVueAdapter(
 export const FileTree = /* @__PURE__ */ createVueAdapter(
   ui.FileTree,
   'FileTree',
+);
+
+export const ActionBar = /* @__PURE__ */ createVueAdapter(
+  ui.ActionBar,
+  'ActionBar',
+);
+
+export const BackupHistory = /* @__PURE__ */ createVueAdapter(
+  ui.BackupHistory,
+  'BackupHistory',
+);
+
+export const HistoryReview = /* @__PURE__ */ createVueAdapter(
+  ui.HistoryReview,
+  'HistoryReview',
+);
+
+export const Cursor = /* @__PURE__ */ createVueAdapter(ui.Cursor, 'Cursor');
+
+export const CursorPointer = /* @__PURE__ */ createVueAdapter(
+  ui.CursorPointer,
+  'CursorPointer',
+);
+
+export const CursorBody = /* @__PURE__ */ createVueAdapter(
+  ui.CursorBody,
+  'CursorBody',
+);
+
+export const CursorName = /* @__PURE__ */ createVueAdapter(
+  ui.CursorName,
+  'CursorName',
+);
+
+export const CursorMessage = /* @__PURE__ */ createVueAdapter(
+  ui.CursorMessage,
+  'CursorMessage',
+);
+
+export const CircularSlider = /* @__PURE__ */ createVueAdapter(
+  ui.CircularSlider,
+  'CircularSlider',
 );

@@ -74,3 +74,26 @@ test('shared timeline track moves and resizes independently of the Pro editor', 
     path: testInfo.outputPath('shared-timeline-narrow.png'),
   });
 });
+
+test('timeline editing uses the full-width shared disclosure in both states', async ({
+  page,
+}) => {
+  await page.goto('/components/timeline-track/');
+  const track = page
+    .getByRole('group', { name: 'Timeline preview', exact: true })
+    .first();
+  const actions = page
+    .locator('.rv-collapsible-section[data-part="actions"]')
+    .first();
+  const trigger = actions.locator('summary');
+  await expect(trigger).toHaveText('Edit timeline events');
+  const width = (await track.boundingBox())!.width;
+  expect((await actions.boundingBox())!.width).toBeCloseTo(width, 0);
+  await trigger.focus();
+  await page.keyboard.press('Enter');
+  const build = actions.getByRole('group', { name: 'Build', exact: true });
+  await expect(build).toBeVisible();
+  expect((await actions.boundingBox())!.width).toBeCloseTo(width, 0);
+  await build.getByRole('button', { name: 'Move later' }).click();
+  await expect(build.locator('output')).toHaveText('09:00 – 13:00');
+});

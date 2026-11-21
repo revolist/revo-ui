@@ -3,6 +3,7 @@ import type { JSX } from 'preact';
 import type { ClassPreset } from '../presets/types';
 import { useControlTooltip } from '../core/tooltip';
 import { useRef } from 'preact/hooks';
+import { CollapsibleSection } from '../field-configurator';
 import { ButtonControl as UiButton } from '../native-control';
 import {
   timelineEventBackground,
@@ -288,11 +289,12 @@ export function TimelineTrack<T extends TimelineTrackEvent>({
           })}
       </div>
       {showActions && (
-        <details
-          class={`rv-timeline-control__actions ${preset?.className ?? ''} ${className}`}
-          data-part="actions"
+        <CollapsibleSection
+          title={locale.editEvents}
+          preset={preset}
+          className={`rv-timeline-control__actions ${className}`.trim()}
+          renderRoot={(props) => <details {...props} data-part="actions" />}
         >
-          <summary>{locale.editEvents}</summary>
           {rows
             .filter(
               ({ event }) =>
@@ -343,7 +345,7 @@ export function TimelineTrack<T extends TimelineTrackEvent>({
                 </div>
               </fieldset>
             ))}
-        </details>
+        </CollapsibleSection>
       )}
     </>
   );

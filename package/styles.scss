@@ -11,6 +11,7 @@
 @use './dialog';
 @use './checkbox/checkbox';
 @use './calendar/calendar';
+@use './calendar/mini-calendar';
 @use './editor-layout/style';
 @use './resource-picker/resource-picker';
 @use './filter/filters/slider/slider';
@@ -37,6 +38,7 @@
 @use './formatting/styles' as formattingStyles;
 @use './timeline-track/style' as timelineTrack;
 @use './styles/activity-message';
+@use './styles/toaster';
 @use './styles/activity-timeline';
 @use './styles/motion';
 
@@ -44,6 +46,10 @@
 
 @use './styles/ready-styles';
 @use './styles/file-tree';
+@use './styles/action-bar';
+@use './styles/history';
+@use './styles/cursor';
+@use './styles/circular-slider';
 @use './styles/command-palette';
 @use './styles/filter-bar';
 @use './styles/cascader';

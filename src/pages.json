@@ -1,6 +1,30 @@
 {
   "components": [
     {
+      "title": "Cursor",
+      "group": "Compositions",
+      "description": "Show collaborator presence in a shared workspace.",
+      "keywords": "remote cursor collaborator presence pointer canvas multiplayer"
+    },
+    {
+      "title": "History review",
+      "group": "Compositions",
+      "description": "Inspect saved versions and compare changes to grid cells.",
+      "keywords": "history review selection changes restore bulk"
+    },
+    {
+      "title": "Backup history",
+      "group": "Compositions",
+      "description": "Browse snapshots and choose a restore point.",
+      "keywords": "backup history selection changes restore bulk"
+    },
+    {
+      "title": "Action bar",
+      "group": "Compositions",
+      "description": "Run contextual actions for a selection.",
+      "keywords": "action bar selection changes restore bulk"
+    },
+    {
       "title": "HTML Editor",
       "group": "Advanced",
       "description": "Edit rich text visually or as HTML, with formatting commands and explicit save or cancel actions.",
@@ -55,6 +79,12 @@
       "keywords": "range scalar numeric timeline track move resize events"
     },
     {
+      "title": "Circular slider",
+      "group": "Controls",
+      "description": "Set a rotation, heading or other angle with a circular dial.",
+      "keywords": "circular slider angle dial rotation heading markers degrees"
+    },
+    {
       "title": "Timeline track",
       "group": "Controls",
       "description": "Move and resize timeline events with per-event colors and weighted phases.",
@@ -70,7 +100,7 @@
       "title": "Calendar and dates",
       "group": "Pickers",
       "description": "Calendar views, date selection and date ranges.",
-      "keywords": "date calendar picker range multiple presets week month year"
+      "keywords": "date calendar mini calendar date strip picker range multiple presets week month year"
     },
     {
       "title": "Time pickers",
@@ -159,8 +189,8 @@
     {
       "title": "Status and feedback",
       "group": "Compositions",
-      "description": "Badges, alerts, loading states and helpful empty content.",
-      "keywords": "badge alert spinner loading empty feedback"
+      "description": "Badges, alerts, loading states, empty states and toast notifications.",
+      "keywords": "badge alert spinner loading empty feedback toaster toast notification"
     },
     {
       "title": "Accordion",

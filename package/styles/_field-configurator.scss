@@ -1,6 +1,6 @@
 @use './fields-grid';
 @use './motion';
-@use './disclosure';
+@use './collapsible-section';
 @use './icon-action';
 
 @mixin palette($prefix, $dark: false) {
@@ -115,17 +115,6 @@
     min-width: 0;
     overflow-wrap: anywhere;
   }
-  .rv-configurator-icon {
-    display: inline-flex;
-    flex: none;
-    color: var(--rv-configurator-muted, var(--rv-ui-field-muted));
-    svg {
-      display: block;
-      width: 12px;
-      height: 12px;
-      fill: currentColor;
-    }
-  }
   .rv-configurator-available-fields {
     border: 1px solid var(--rv-configurator-border, var(--rv-ui-border));
     border-radius: 9px;
@@ -152,44 +141,6 @@
   }
   .rv-configurator-library-list .rv-configurator-field {
     background: transparent;
-  }
-  .rv-configurator-summary {
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    box-sizing: border-box;
-    min-height: 42px;
-    padding: 10px 0;
-    color: var(--rv-configurator-text, var(--rv-ui-field-text));
-    font-size: 12px;
-    font-weight: 500;
-    list-style: none;
-    cursor: pointer;
-    transition: color var(--rv-ui-motion-fast, 120ms)
-      var(--rv-ui-motion-ease, cubic-bezier(0.2, 0, 0, 1));
-    &::-webkit-details-marker {
-      display: none;
-    }
-    .rv-disclosure-summary__label {
-      min-width: 0;
-      overflow-wrap: anywhere;
-    }
-    .rv-disclosure-summary__icon {
-      display: inline-flex;
-      flex: none;
-    }
-    .rv-configurator-icon {
-      transition: transform var(--rv-ui-motion-fast, 120ms)
-        var(--rv-ui-motion-ease, cubic-bezier(0.2, 0, 0, 1));
-    }
-    &:hover {
-      color: var(--rv-configurator-accent-text, var(--rv-ui-accent));
-    }
-  }
-  details[open] > .rv-configurator-summary .rv-configurator-icon {
-    transform: rotate(90deg);
   }
   .rv-configurator-zone {
     min-width: 0;
@@ -332,34 +283,6 @@ button.rv-configurator-action-button {
   &[data-position='after'] {
     top: auto;
     bottom: -2px;
-  }
-}
-
-.rv-collapsible-section {
-  min-width: 0;
-  margin: 0;
-  border: 0;
-  border-top: 1px solid var(--rv-configurator-border, var(--rv-ui-border));
-  border-radius: 0;
-  background: transparent;
-}
-.rv-collapsible-section > .rv-configurator-summary {
-  min-height: 52px;
-}
-.rv-collapsible-section__content {
-  display: grid;
-  gap: 12px;
-  min-width: 0;
-  padding: 0 0 14px;
-  overflow-wrap: anywhere;
-}
-.rv-collapsible-section__description {
-  margin: 0;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .rv-collapsible-section > .rv-configurator-summary svg {
-    transition: none;
   }
 }
 

@@ -270,6 +270,15 @@ body {
   flex-wrap: wrap;
   gap: 12px;
 }
+.mini-calendar-demo {
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  max-inline-size: 100%;
+}
+.mini-calendar-demo > .catalog-row {
+  justify-content: center;
+}
 .catalog-specimen .rv-toolbar:not(.rv-toolbar--surface) {
   padding: 8px;
   gap: 20px;
@@ -4417,4 +4426,68 @@ body {
   border-color: var(--rv-ui-accent);
   color: var(--rv-ui-accent-text);
   background: var(--rv-ui-selected-bg);
+}
+
+.rv-demo-file-list {
+  display: grid;
+  gap: 8px;
+  inline-size: 100%;
+  max-inline-size: 32rem;
+}
+
+.rv-demo-cursor-canvas {
+  position: relative;
+  box-sizing: border-box;
+  inline-size: 100%;
+  max-inline-size: 38rem;
+  overflow: clip;
+  background: var(--rv-ui-surface);
+  border: 1px solid var(--rv-ui-border);
+  border-radius: var(--rv-ui-radius);
+}
+
+.rv-demo-cursor-worksheet table {
+  inline-size: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  color: var(--rv-ui-text);
+  font-size: 0.8125rem;
+}
+
+.rv-demo-cursor-worksheet :is(th, td) {
+  padding: 12px 6px;
+  border-block-end: 1px solid var(--rv-ui-border);
+  border-inline-end: 1px solid var(--rv-ui-border);
+  text-align: start;
+}
+
+.rv-demo-cursor-worksheet thead {
+  background: var(--rv-ui-surface-sunken);
+}
+
+.rv-demo-cursor-worksheet .rv-demo-cursor-sam,
+.rv-demo-cursor-worksheet .rv-demo-cursor-alex {
+  position: absolute;
+}
+
+.rv-demo-cursor-sam {
+  left: 41%;
+  top: 33%;
+}
+
+.rv-demo-cursor-alex {
+  left: 55%;
+  top: 69%;
+}
+
+.rv-demo-cursor-live {
+  min-block-size: 168px;
+  background-image: radial-gradient(var(--rv-ui-border) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+.rv-demo-cursor-board-action {
+  position: absolute;
+  top: 20px;
+  left: 12px;
 }

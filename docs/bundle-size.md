@@ -69,19 +69,19 @@ Browser regressions exercise nonce-restricted automatic styles and external-only
 
 Import base first. It provides shared theme tokens, buttons, native fields, checkboxes and control primitives, including light/dark and accessibility states. Tooltip surfaces install their shared styles through the existing tooltip owner. Add family styles when using those components:
 
-| Family           | Coverage                                                                     |
-| ---------------- | ---------------------------------------------------------------------------- |
-| `calendar.css`   | Calendar views and date selection                                            |
-| `dialogs.css`    | Dialog surfaces, headers, bodies and footers                                 |
-| `pickers.css`    | Resource and color pickers                                                   |
-| `layout.css`     | Panels, toolbars, menus, form compositions and editor layout                 |
-| `feedback.css`   | Avatars, status feedback, progress, rating, pagination and activity messages |
-| `fields.css`     | Field configurators, sliders, counters, filters and time grids               |
-| `charts.css`     | Cell visuals, distribution charts, brush ranges and legends                  |
-| `formatting.css` | Formatting inspector and controls                                            |
-| `timeline.css`   | Timeline track                                                               |
-| `ai.css`         | AI assistant components                                                      |
-| `pdf-viewer.css` | PDF viewer chrome; PDF.js is still a separate optional dependency            |
+| Family           | Coverage                                                                             |
+| ---------------- | ------------------------------------------------------------------------------------ |
+| `calendar.css`   | Calendar views and date selection                                                    |
+| `dialogs.css`    | Dialog surfaces, headers, bodies and footers                                         |
+| `pickers.css`    | Resource and color pickers                                                           |
+| `layout.css`     | Panels, toolbars, menus, form compositions and editor layout                         |
+| `feedback.css`   | Avatars, status feedback, progress, rating, pagination, activity messages and toasts |
+| `fields.css`     | Field configurators, sliders, counters, filters and time grids                       |
+| `charts.css`     | Cell visuals, distribution charts, brush ranges and legends                          |
+| `formatting.css` | Formatting inspector and controls                                                    |
+| `timeline.css`   | Timeline track                                                                       |
+| `ai.css`         | AI assistant components                                                              |
+| `pdf-viewer.css` | PDF viewer chrome; PDF.js is still a separate optional dependency                    |
 
 All families are under `@revolist/ui/styles/`. Matching `.scss` entrypoints are available for Sass consumers. These compose the existing component style owners; they do not introduce alternative themes or component classes. `native-styles.css` keeps its existing scoped native-control purpose and is not a replacement for the global base stylesheet.
 
@@ -104,4 +104,4 @@ This bundles consumer imports from the emitted distribution with pinned esbuild,
 
 Measure automatic JavaScript (including embedded CSS), extracted JavaScript and required external CSS separately when comparing consumer builds. The original three-control React consumer required 26,245 gzip bytes of JavaScript plus 28,576 bytes of aggregate CSS. Exact current measurements are printed by the budget command; optional peers, application code and separately loaded PDF.js are excluded.
 
-The full React entry has a 165 KiB gzip budget and the aggregate stylesheet has a 35 KiB gzip budget. These limits cover the expanded catalog, including File Tree, Stepper and grouped commands. Selective imports, the native entry, and CSS family files retain their individual budgets.
+The full React entry has a 175 KiB gzip budget and the aggregate stylesheet has a 37 KiB gzip budget. These limits cover the expanded catalog, including the action bar, history components, circular slider, and toast notifications. The layout family has a 9 KiB gzip budget that includes the Backup History carousel. The unpacked footprint budget is 12.2 MB. Selective imports, the native entry, and the other CSS families retain their individual budgets.
