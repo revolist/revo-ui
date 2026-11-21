@@ -17,10 +17,10 @@ export const limits = {
   // React bundles now include the automatically installed component CSS.
   'react-button': 24 * 1024,
   'react-controls': 26 * 1024,
-  // The full entry includes the expanded theme and motion controls.
-  'react-all': 156 * 1024,
+  // Full-catalog budgets include the new workflows and their styles.
+  'react-all': 164 * 1024,
   'native-all': 65 * 1024,
-  'styles.css': 32 * 1024,
+  'styles.css': 34 * 1024,
   'styles/base.css': 8 * 1024,
   ...Object.fromEntries(
     styleEntrypoints
