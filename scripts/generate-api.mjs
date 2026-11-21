@@ -68,6 +68,11 @@ entries.push({ name: 'Select', node: select });
 const escape = (text) =>
   text.replaceAll('|', '\\|').replaceAll('\n', ' ').replaceAll('`', '&#96;');
 const componentGuidance = {
+  TimelineTrack: `
+Pass \`columns\` for vertical lines and axis labels at numeric positions. Pass \`lanes\` to add a label, description and optional icon beside each row, and use \`laneId\` on events to place multiple bars in the same lane. Use \`marker\` for a labeled reference position. Values use the same numeric scale as the range, including for time-based axes.
+
+Use \`pattern\` on an event for a CSS image layer over its color or weighted segments. Read-only events can display a labeled terminal mark with \`endLabel\` and can expose details with \`onEventActivate\`. The timeline runs from earlier to later left to right and scrolls horizontally on narrow screens.
+`,
   MiniCalendar: `
 Use MiniCalendar for choosing one nearby date. The row pages by its visible day count and works with the same date-only ISO strings as Calendar. The selected day and the page can each be controlled independently. Supply a reference date when today must match across rendering environments.
 

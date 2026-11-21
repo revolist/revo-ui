@@ -697,8 +697,20 @@
     "states": ["aria-selected"]
   },
   "TimelineTrack": {
-    "parts": ["actions", "track"],
-    "states": ["data-state"]
+    "parts": [
+      "actions",
+      "track",
+      "axis",
+      "column",
+      "column-line",
+      "lanes",
+      "lane",
+      "plot",
+      "event",
+      "reference",
+      "reference-line"
+    ],
+    "states": ["data-chart", "data-readonly"]
   },
   "ToggleButton": {
     "parts": [],

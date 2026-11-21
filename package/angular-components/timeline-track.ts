@@ -19,17 +19,20 @@ export class TimelineTrack extends AngularComponentAdapter<never> {
   protected rvResolveComponent() {
     return Control;
   }
-  protected override readonly rvRequiredCallbacks = [
-    'onEventChange',
-    'onSelect',
-  ];
   @NgInput() declare 'className'?: AngularInput<'TimelineTrack', 'className'>;
+  @NgInput() declare 'columns'?: AngularInput<'TimelineTrack', 'columns'>;
   @NgInput() declare 'formatValue'?: AngularInput<
     'TimelineTrack',
     'formatValue'
   >;
   @NgInput() declare 'getTooltip'?: AngularInput<'TimelineTrack', 'getTooltip'>;
   @NgInput() declare 'labels'?: AngularInput<'TimelineTrack', 'labels'>;
+  @NgInput() declare 'lanes'?: AngularInput<'TimelineTrack', 'lanes'>;
+  @NgInput() declare 'marker'?: AngularInput<'TimelineTrack', 'marker'>;
+  @NgInput() declare 'onEventActivate'?: AngularInput<
+    'TimelineTrack',
+    'onEventActivate'
+  >;
   @NgInput() declare 'onEventChange'?: AngularInput<
     'TimelineTrack',
     'onEventChange'
@@ -40,6 +43,7 @@ export class TimelineTrack extends AngularComponentAdapter<never> {
     'TimelineTrack',
     'range'
   >;
+  @NgInput() declare 'readOnly'?: AngularInput<'TimelineTrack', 'readOnly'>;
   @NgInput({ required: true }) declare 'rows': AngularInput<
     'TimelineTrack',
     'rows'
@@ -50,6 +54,11 @@ export class TimelineTrack extends AngularComponentAdapter<never> {
     'showActions'
   >;
   @NgInput() declare 'tooltip'?: AngularInput<'TimelineTrack', 'tooltip'>;
+  @Output() get eventActivate() {
+    return this.rvOutput<
+      AngularCallbackValue<AngularInput<'TimelineTrack', 'onEventActivate'>>
+    >('onEventActivate');
+  }
   @Output() get eventChange() {
     return this.rvOutput<
       AngularCallbackValue<AngularInput<'TimelineTrack', 'onEventChange'>>

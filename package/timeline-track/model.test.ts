@@ -85,3 +85,22 @@ it('supports weighted event colors and retains phase metadata when moved or resi
     }),
   ).toBe('red');
 });
+
+it('layers custom CSS patterns over solid colors and segmented phases', () => {
+  const pattern =
+    'repeating-linear-gradient(45deg, transparent 0 4px, black 4px 5px)';
+  expect(
+    timelineEventBackground({ start: 0, end: 1, pattern, color: 'white' }),
+  ).toBe(`${pattern}, white`);
+  expect(
+    timelineEventBackground({
+      start: 0,
+      end: 1,
+      pattern,
+      segments: [
+        { color: 'red', weight: 1 },
+        { color: 'blue', weight: 3 },
+      ],
+    }),
+  ).toBe(`${pattern}, linear-gradient(to right, red 0% 25%, blue 25% 100%)`);
+});

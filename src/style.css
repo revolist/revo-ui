@@ -4491,3 +4491,52 @@ body {
   top: 20px;
   left: 12px;
 }
+
+.session-timeline-demo {
+  --rv-session-revoked: repeating-linear-gradient(
+    -45deg,
+    transparent 0 3px,
+    var(--rv-ui-text) 3px 4px,
+    transparent 4px 6px
+  );
+  inline-size: 100%;
+}
+
+.session-timeline-demo .rv-timeline-control__track {
+  margin: 0;
+}
+
+.session-timeline-legend {
+  padding: 12px 0 0;
+  gap: 8px 18px;
+  font-size: 0.75rem;
+}
+
+.session-timeline-legend .rv-legend__item > i {
+  flex-basis: 22px;
+  block-size: 10px;
+  border-radius: 5px;
+}
+
+.session-timeline-legend .session-timeline-revoked > i {
+  background: var(--rv-session-revoked), var(--rv-ui-surface);
+  border: 1px solid var(--rv-ui-text);
+  border-inline-end-width: 2px;
+}
+
+.session-timeline-details {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 12px;
+  margin: 0;
+  padding: 8px;
+  font-size: 0.875rem;
+}
+
+.session-timeline-details > dt {
+  color: var(--rv-ui-text-muted);
+}
+
+.session-timeline-details > dd {
+  margin: 0;
+}

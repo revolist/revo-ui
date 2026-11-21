@@ -1,5 +1,8 @@
+import { createRequire } from 'node:module';
 import { chooseOption } from './choose-option';
 import { expect, test } from './gallery-test';
+
+const require = createRequire(import.meta.url);
 
 test.use({ gallerySections: ['timeline-track'] });
 
@@ -96,4 +99,102 @@ test('timeline editing uses the full-width shared disclosure in both states', as
   expect((await actions.boundingBox())!.width).toBeCloseTo(width, 0);
   await build.getByRole('button', { name: 'Move later' }).click();
   await expect(build.locator('output')).toHaveText('09:00 – 13:00');
+});
+
+test('session lanes align to their axis and expose patterned events and details', async ({
+  page,
+}) => {
+  await page.route('https://registry.npmjs.org/**', (route) => route.abort());
+  await page.goto('/components/timeline-track/');
+  const chart = page.getByRole('group', {
+    name: 'Device sessions by day',
+    exact: true,
+  });
+  const axis = chart.locator('[data-part="column"]');
+  const lines = chart.locator('[data-part="column-line"]');
+  await expect(axis).toHaveCount(7);
+  await expect(lines).toHaveCount(7);
+  await expect(chart.locator('[data-part="lane"]')).toHaveCount(4);
+  await expect(chart.locator('[data-part="event"]')).toHaveCount(9);
+  expect(
+    await chart.evaluate(
+      (element) => element.scrollHeight - element.clientHeight,
+    ),
+  ).toBe(0);
+  const reference = chart.locator('[data-part="reference"]');
+  await expect(reference).toContainText('Now');
+  const markerCaption = (await reference.locator('span').boundingBox())!;
+  const referenceRow = (await reference.boundingBox())!;
+  expect(markerCaption.y + markerCaption.height).toBeLessThanOrEqual(
+    referenceRow.y + referenceRow.height,
+  );
+  await expect(reference.locator('span')).toHaveCSS('white-space', 'nowrap');
+  for (let index = 0; index < 7; index += 1) {
+    const heading = (await axis.nth(index).boundingBox())!;
+    const line = (await lines.nth(index).boundingBox())!;
+    expect(Math.abs(heading.x - line.x)).toBeLessThan(1);
+  }
+  const chrome = await chart
+    .getByRole('button', { name: /^Chrome on macOS/ })
+    .all();
+  expect(
+    await Promise.all(
+      chrome.map(async (button) => (await button.boundingBox())!.y),
+    ),
+  ).toEqual(Array(chrome.length).fill((await chrome[0].boundingBox())!.y));
+  const legend = page.getByRole('list', { name: 'Session status' });
+  await expect(legend.getByRole('listitem')).toHaveCount(3);
+  await expect(legend.getByText('Revoked')).toBeVisible();
+  const revoked = chart.getByRole('button', {
+    name: /Firefox on Windows, Revoked/,
+  });
+  await expect(revoked.locator('..')).toHaveCSS(
+    'background-image',
+    /repeating-linear-gradient/,
+  );
+  await revoked.press('Enter');
+  const detail = page.getByRole('dialog', { name: 'Session details' });
+  await expect(detail).toContainText('DT-28');
+  await page.keyboard.press('Escape');
+  await expect(detail).toBeHidden();
+  await expect(revoked).toBeFocused();
+
+  await page.setViewportSize({ width: 320, height: 800 });
+  await expect(chart).toBeVisible();
+  const bounds = (await chart.boundingBox())!;
+  expect(bounds.x + bounds.width).toBeLessThanOrEqual(320);
+  expect(
+    await chart.evaluate((element) => element.scrollWidth),
+  ).toBeGreaterThan(bounds.width);
+});
+
+test('session timeline uses themed colors and passes scoped checks in dark mode', async ({
+  page,
+}) => {
+  await page.route('https://registry.npmjs.org/**', (route) => route.abort());
+  await page.addInitScript(() => localStorage.setItem('revo-ui-theme', 'dark'));
+  await page.goto('/components/timeline-track/');
+  const chart = page.getByRole('group', { name: 'Device sessions by day' });
+  const active = chart
+    .getByRole('button', { name: /^Safari on iOS, Active/ })
+    .locator('..');
+  const color = await chart.evaluate(
+    (element) => getComputedStyle(element).color,
+  );
+  await expect(active).toHaveCSS('background-color', color);
+  await page.addScriptTag({ path: require.resolve('axe-core/axe.min.js') });
+  const violations = await page
+    .locator('.session-timeline-demo')
+    .evaluate(async (element) => {
+      const axe = (window as unknown as { axe: typeof import('axe-core') }).axe;
+      return (
+        await axe.run(element, {
+          runOnly: {
+            type: 'tag',
+            values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'],
+          },
+        })
+      ).violations.map(({ id }) => id);
+    });
+  expect(violations).toEqual([]);
 });

@@ -5,6 +5,10 @@ export interface TimelineTrackEvent {
   /** Single CSS color, or weighted phases within this event. */
   readonly color?: string;
   readonly textColor?: string;
+  /** CSS image such as a repeating gradient over the event fill. */
+  readonly pattern?: string;
+  /** Optional text and terminal mark drawn at the end of an event in a read-only track. */
+  readonly endLabel?: string;
   readonly segments?: readonly {
     readonly color: string;
     readonly weight: number;
@@ -84,10 +88,14 @@ export function timelineEventBackground(
   const segments = event.segments?.filter(
     (segment) => Number.isFinite(segment.weight) && segment.weight > 0,
   );
-  if (!segments?.length) return event.color;
+  if (!segments?.length) {
+    return event.pattern
+      ? [event.pattern, event.color].filter(Boolean).join(', ')
+      : event.color;
+  }
   const total = segments.reduce((sum, segment) => sum + segment.weight, 0);
   let offset = 0;
-  return `linear-gradient(to right, ${segments
+  return `${event.pattern ? `${event.pattern}, ` : ''}linear-gradient(to right, ${segments
     .map((segment) => {
       const start = (offset / total) * 100;
       offset += segment.weight;

@@ -221,3 +221,172 @@
     outline-offset: -2px;
   }
 }
+
+.rv-timeline-control__track[data-chart] {
+  --rv-timeline-lane-size: 56px;
+  height: auto;
+  overflow-x: auto;
+  border-radius: var(--rv-ui-radius);
+  background: var(--rv-ui-surface);
+  direction: ltr;
+}
+
+.rv-timeline-control__track[data-chart]::before {
+  content: none;
+}
+
+.rv-timeline-control__chart {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  min-inline-size: 32rem;
+}
+
+[data-labeled] > .rv-timeline-control__chart {
+  grid-template-columns: var(--rv-timeline-label-size, 12rem) minmax(0, 1fr);
+  min-inline-size: calc(var(--rv-timeline-label-size, 12rem) + 32rem);
+}
+
+.rv-timeline-control__axis,
+.rv-timeline-control__lane-heading {
+  position: relative;
+  block-size: 36px;
+  border-block-end: 1px solid var(--rv-ui-border);
+}
+
+.rv-timeline-control__lane-heading,
+.rv-timeline-control__lanes {
+  border-inline-end: 1px solid var(--rv-ui-border);
+}
+
+.rv-timeline-control__axis > span {
+  position: absolute;
+  inset-block: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  padding-inline: 8px;
+  line-height: 35px;
+  text-overflow: ellipsis;
+  border-inline-start: 1px solid var(--rv-ui-border);
+  color: var(--rv-ui-text-muted);
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.rv-timeline-control__lane {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  block-size: var(--rv-timeline-lane-size);
+  padding-inline: 14px 8px;
+  border-block-end: 1px solid var(--rv-ui-border);
+  font-size: 0.875rem;
+  font-weight: var(--rv-ui-font-weight-medium, 500);
+}
+
+.rv-timeline-control__lane small {
+  display: block;
+  color: var(--rv-ui-text-muted);
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+
+.rv-timeline-control__lane-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 30px;
+  block-size: 30px;
+  border: 1px solid var(--rv-ui-border);
+  border-radius: var(--rv-ui-radius);
+  background: var(--rv-ui-surface-sunken);
+}
+
+.rv-timeline-control__plot {
+  position: relative;
+  block-size: calc(
+    var(--rv-timeline-lane-count) * var(--rv-timeline-lane-size)
+  );
+  overflow: hidden;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0 calc(var(--rv-timeline-lane-size) - 1px),
+    var(--rv-ui-border) 0 var(--rv-timeline-lane-size)
+  );
+}
+
+.rv-timeline-control__plot
+  > :is([data-part='column-line'], [data-part='reference-line']) {
+  position: absolute;
+  inset-block: 0;
+  inline-size: 1px;
+  background: var(--rv-ui-border);
+  pointer-events: none;
+}
+
+.rv-timeline-control__plot > [data-part='reference-line'] {
+  z-index: 2;
+  background: var(--rv-ui-text);
+}
+
+.rv-timeline-control__plot > .rv-timeline-control__bar {
+  translate: 0 -50%;
+}
+
+.rv-timeline-control__track[data-readonly] .rv-timeline-control__bar {
+  min-width: 2px;
+  block-size: 24px;
+  border-color: var(--timeline-event-color-end, var(--rv-ui-border-strong));
+  box-shadow: none;
+}
+
+.rv-timeline-control__track[data-readonly]
+  .rv-timeline-control__bar[data-pattern] {
+  border-color: var(--rv-ui-border-strong);
+}
+
+.rv-timeline-control__track[data-readonly] .rv-timeline-control__bar-move {
+  cursor: pointer;
+  touch-action: auto;
+}
+
+.rv-timeline-control__end-label {
+  position: absolute;
+  inset-inline-start: 100%;
+  inset-block: -3px;
+  display: flex;
+  align-items: center;
+  padding-inline-start: 6px;
+  border-inline-start: 2px solid var(--rv-ui-text);
+  color: var(--rv-ui-text-muted);
+  font-size: 0.75rem;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.rv-timeline-control__reference {
+  position: relative;
+  grid-column: -2 / -1;
+  block-size: 34px;
+}
+
+.rv-timeline-control__reference > span {
+  position: absolute;
+  inset-inline-start: clamp(
+    3rem,
+    var(--rv-timeline-marker-position),
+    100% - 3rem
+  );
+  inset-block-start: 5px;
+  translate: -50% 0;
+  box-sizing: border-box;
+  inline-size: max-content;
+  max-inline-size: 6rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 2px 7px;
+  border: 1px solid var(--rv-ui-border);
+  border-radius: 999px;
+  color: var(--rv-ui-text);
+  font-size: 0.75rem;
+}
