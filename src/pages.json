@@ -233,6 +233,12 @@
       "group": "Controls",
       "description": "Explore the Command palette component.",
       "keywords": "command palette"
+    },
+    {
+      "title": "File tree",
+      "group": "Controls",
+      "description": "Explore the File tree component.",
+      "keywords": "file tree"
     }
   ],
   "frameworks": [

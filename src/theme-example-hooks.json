@@ -738,5 +738,9 @@
   "CommandPalette": {
     "parts": ["root"],
     "states": []
+  },
+  "FileTree": {
+    "parts": ["root"],
+    "states": []
   }
 }

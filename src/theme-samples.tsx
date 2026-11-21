@@ -9,6 +9,7 @@ import {
   Cascader,
   FilterBar,
   CommandPalette,
+  FileTree,
   Alert,
   Badge,
   Button,
@@ -272,6 +273,7 @@ const names = new Set([
   'Cascader',
   'FilterBar',
   'CommandPalette',
+  'FileTree',
   'EditorList',
   'EditorListGroup',
   'EditorListItem',
@@ -1819,6 +1821,21 @@ function Sample({
           commands={[]}
           onClose={() => {}}
           onExecute={() => {}}
+        />
+      );
+    case 'FileTree':
+      return (
+        <FileTree
+          {...shared}
+          label="Files"
+          nodes={[
+            {
+              type: 'file',
+              name: 'README.md',
+              path: 'README.md',
+              status: 'modified',
+            },
+          ]}
         />
       );
     case 'EditorList':

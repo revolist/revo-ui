@@ -1124,6 +1124,12 @@
           "additionalProperties": {
             "$ref": "#/$defs/classPreset"
           }
+        },
+        "FileTree": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
         }
       },
       "additionalProperties": false

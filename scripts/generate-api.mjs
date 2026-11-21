@@ -28,6 +28,16 @@ for (const [title, route, description, names] of groups) {
     if (!routes.has(name)) routes.set(name, { title, route, description });
   }
 }
+routes.set('FileTree', {
+  route: 'file-tree',
+  description:
+    'Browse nested files and folders, select paths, and show file changes.',
+});
+routes.set('Stepper', {
+  route: 'stepper',
+  description:
+    'Show progress and guide users through a workflow with optional inline panels.',
+});
 routes.set('Select', {
   title: 'Multi/selects, autocomplete',
   route: 'multi-selects-autocomplete',
@@ -56,6 +66,34 @@ const select = program
 entries.push({ name: 'Select', node: select });
 const escape = (text) =>
   text.replaceAll('|', '\\|').replaceAll('\n', ' ').replaceAll('`', '&#96;');
+const componentGuidance = {
+  FileTree: `
+## Selection and expansion
+
+The selected file uses its relative path and exposes \`aria-current\`. Pass \`expanded\` with \`onExpandedChange\` to control open folders and implement Expand all or Collapse all. When omitted, folders open initially unless \`defaultExpanded\` specifies paths.
+
+Use \`fileTreeFromPaths\` from \`@revolist/ui/file-tree\` to group and deduplicate flat relative file paths, such as the paths returned by completed write operations. Assign the optional \`added\`, \`modified\`, or \`deleted\` status on file nodes. The indicator's letter is part of the visible action name, and its localized description announces the full status.
+`,
+  Stepper: `
+## Layout and state
+
+Use \`orientation="horizontal"\`, \`orientation="vertical"\`, or the default responsive layout. Set \`dir="rtl"\` or inherit writing direction. Horizontal arrows follow writing direction and vertical arrows use Up and Down. Home and End move to the first and last enabled trigger. Arrow keys move focus. Enter and Space activate the focused step.
+
+For a wizard, use \`defaultStep\` or controlled \`step\` and \`onStepChange\`. The number of \`steps\` determines the count. A step index equal to that count displays \`completedContent\`. Step content stays mounted while hidden. Pass localized \`previousLabel\` and \`nextLabel\` to render shared navigation buttons.
+
+Existing ID-based consumers can continue using \`value\` with \`onValueChange\`. When omitted, the component owns its index. Use indexed state for a controlled workflow with a completion panel.
+
+Use \`linear\` to restrict navigation to Back and Next. \`isStepValid\` checks forward moves and \`onStepInvalid\` lets the application surface errors. \`isStepSkippable\` bypasses optional steps during sequential navigation. Use \`busy\` to prevent navigation during asynchronous work. Each step can override its marker with a decorative icon and provide a separate title and description.
+
+The list, indicator, title, description, panels and actions are exposed as CSS parts. Revo UI uses an array of step definitions in place of a compound component hierarchy.
+
+## Accordion checklist
+
+Set \`layout="accordion"\` to place each panel below its vertical step heading. The current step opens when progress changes. Users can open another heading to inspect it while the current step stays marked. The inline Back and Next buttons change progress and focus the new current step.
+
+See the [Stepper examples](https://ui.rv-grid.com/components/stepper/) for a checklist, a validated workspace setup, and left-to-right and right-to-left navigation.
+`,
+};
 const output = resolve(gallery, 'docs/api');
 mkdirSync(output, { recursive: true });
 let count = 0;
@@ -125,6 +163,7 @@ for (const { name, node } of entries) {
       '| — | No component-specific props listed | — | See the linked examples and package declarations. |\n';
   text +=
     '\n## Composition\n\nKeep controlled values and side effects in your application. Use the matching framework adapter rather than passing another framework’s VNodes through Preact callbacks. The live page groups this control with related variants and composition helpers.\n\nThis reference is generated from the local `package` library source. Rebuild it with `node scripts/generate-api.mjs`.\n';
+  text += componentGuidance[name] ?? '';
   writeFileSync(resolve(output, `${name}.md`), text);
   count++;
 }

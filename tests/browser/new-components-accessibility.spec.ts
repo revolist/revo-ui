@@ -9,13 +9,14 @@ const examples = [
   ['command-palette', '.rv-command-palette'],
   ['attachments', '.rv-attachments'],
   ['stepper', '.rv-stepper'],
+  ['stepper', '#launch-checklist'],
   ['trace', '.rv-trace'],
   ['activity-timeline', '.rv-activity-timeline'],
 ] as const;
 
 for (const [name, selector] of examples) {
   for (const theme of ['light', 'dark']) {
-    test(`${name} has no scoped axe violations in ${theme}`, async ({
+    test(`${selector} has no scoped axe violations in ${theme}`, async ({
       page,
     }) => {
       await page.addInitScript(

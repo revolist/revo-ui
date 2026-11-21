@@ -1,0 +1,104 @@
+@use './disclosure';
+
+.rv-file-tree {
+  inline-size: 100%;
+  max-inline-size: 32rem;
+  padding: 4px;
+  border: 1px solid var(--rv-ui-border);
+  border-radius: var(--rv-ui-radius);
+  background: var(--rv-ui-surface);
+  color: var(--rv-ui-text);
+}
+
+.rv-file-tree,
+.rv-file-tree ul {
+  margin: 0;
+  list-style: none;
+}
+
+.rv-file-tree ul {
+  padding: 0;
+  margin-inline-start: 16px;
+  padding-inline-start: 4px;
+  border-inline-start: 1px solid var(--rv-ui-border);
+}
+
+.rv-file-tree .rv-file-tree-folder > summary,
+.rv-file-tree .rv-file-tree-file {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  inline-size: 100%;
+  min-block-size: 36px;
+  box-sizing: border-box;
+  padding: 6px 8px;
+  font-size: 0.875rem;
+  text-align: start;
+}
+
+.rv-file-tree .rv-file-tree-file {
+  padding-inline-start: 26px;
+}
+
+.rv-file-tree summary {
+  list-style: none;
+  border-radius: var(--rv-ui-radius);
+  cursor: pointer;
+}
+
+.rv-file-tree summary::-webkit-details-marker {
+  display: none;
+}
+
+.rv-file-tree summary:hover {
+  background: var(--rv-ui-surface-hover);
+}
+
+.rv-file-tree summary:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: -2px;
+}
+
+.rv-file-tree-chevron {
+  transform: rotate(-90deg);
+  transition: transform var(--rv-ui-motion-fast, 120ms)
+    var(--rv-ui-motion-ease, ease-out);
+}
+
+.rv-file-tree-chevron:dir(rtl) {
+  transform: rotate(90deg);
+}
+
+.rv-file-tree details[open] > summary .rv-file-tree-chevron {
+  transform: rotate(0);
+}
+
+.rv-file-tree-name {
+  flex: 1;
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+}
+
+.rv-file-tree .rv-file-tree-file[aria-current='true'] {
+  background: var(--rv-ui-selected-bg);
+  color: var(--rv-ui-selected-fg);
+  font-weight: var(--rv-ui-font-weight-medium, 500);
+}
+
+.rv-file-tree [data-part='status'] {
+  min-inline-size: 20px;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.rv-file-tree [data-status='added'] {
+  color: var(--rv-ui-success);
+}
+.rv-file-tree [data-status='modified'] {
+  color: var(--rv-ui-warning);
+}
+.rv-file-tree [data-status='deleted'] {
+  color: var(--rv-ui-danger);
+}
