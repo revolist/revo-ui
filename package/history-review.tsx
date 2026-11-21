@@ -29,7 +29,10 @@ export interface HistoryVersion extends HistoryEntry {
 
 export interface HistoryReviewLabels {
   versions: string;
+  /** Visible and accessible label for the comparison switch. */
   comparison: string;
+  /** Accessible changes table name. Defaults to the comparison label. */
+  changesTable?: string;
   previous: string;
   current: string;
   currentVersion: string;
@@ -119,32 +122,50 @@ export function HistoryReview({
     >
       {selected ? (
         <>
-          <RadioGroup
-            className="rv-history-versions"
-            label={labels.versions}
-            value={selected.id}
-            onChange={select}
-            options={versions.map((entry) => ({
-              value: entry.id,
-              label: (
-                <HistoryEntryLabel
-                  entry={entry}
-                  badge={entry === current ? labels.currentVersion : undefined}
-                />
-              ),
-            }))}
-          />
-          <div class="rv-history-comparison" data-part="comparison">
-            <SegmentedSwitch<'previous' | 'current'>
-              role="group"
-              ariaLabel={labels.comparison}
-              value={compareTo}
-              onChange={setCompareTo}
-              options={[
-                { value: 'previous', label: labels.previous },
-                { value: 'current', label: labels.current },
-              ]}
+          <div class="rv-history-sidebar" data-part="versions">
+            <div
+              class="rv-history-sidebar-heading"
+              data-part="versions-label"
+              aria-hidden="true"
+            >
+              {labels.versions}
+            </div>
+            <RadioGroup
+              className="rv-history-versions"
+              label={labels.versions}
+              value={selected.id}
+              onChange={select}
+              options={versions.map((entry) => ({
+                value: entry.id,
+                label: (
+                  <HistoryEntryLabel
+                    entry={entry}
+                    authorFirst
+                    badge={
+                      entry === current ? labels.currentVersion : undefined
+                    }
+                  />
+                ),
+              }))}
             />
+          </div>
+          <div class="rv-history-comparison" data-part="comparison">
+            <div
+              class="rv-history-comparison-control"
+              data-part="comparison-control"
+            >
+              <span data-part="comparison-label">{labels.comparison}</span>
+              <SegmentedSwitch<'previous' | 'current'>
+                role="group"
+                ariaLabel={labels.comparison}
+                value={compareTo}
+                onChange={setCompareTo}
+                options={[
+                  { value: 'previous', label: labels.previous },
+                  { value: 'current', label: labels.current },
+                ]}
+              />
+            </div>
             <div class="rv-history-summary" role="status">
               {!baseline
                 ? labels.noPrevious
@@ -153,7 +174,10 @@ export function HistoryReview({
                   : labels.noChanges}
             </div>
             {!!changes.length && (
-              <table class="rv-history-changes" aria-label={labels.comparison}>
+              <table
+                class="rv-history-changes"
+                aria-label={labels.changesTable ?? labels.comparison}
+              >
                 <thead>
                   <tr>
                     <th scope="col">{labels.address}</th>

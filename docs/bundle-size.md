@@ -104,4 +104,4 @@ This bundles consumer imports from the emitted distribution with pinned esbuild,
 
 Measure automatic JavaScript (including embedded CSS), extracted JavaScript and required external CSS separately when comparing consumer builds. The original three-control React consumer required 26,245 gzip bytes of JavaScript plus 28,576 bytes of aggregate CSS. Exact current measurements are printed by the budget command; optional peers, application code and separately loaded PDF.js are excluded.
 
-The full React entry has a 173 KiB gzip budget and the aggregate stylesheet has a 37 KiB gzip budget. These limits cover the expanded catalog, including the action bar, history components, circular slider, and toast notifications. Selective imports, the native entry, and CSS family files retain their individual budgets.
+The full React entry has a 174 KiB gzip budget and the aggregate stylesheet has a 37 KiB gzip budget. These limits cover the expanded catalog, including the action bar, history components, circular slider, and toast notifications. Selective imports, the native entry, and CSS family files retain their individual budgets.

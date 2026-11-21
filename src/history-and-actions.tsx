@@ -100,8 +100,9 @@ export function ActionBarExamples() {
 export const historyLabels: HistoryReviewLabels = {
   versions: 'Saved versions',
   comparison: 'Compare with',
+  changesTable: 'Cell changes',
   previous: 'Previous',
-  current: 'Current',
+  current: 'Latest',
   currentVersion: 'Current',
   address: 'Cell',
   before: 'Before',
@@ -229,7 +230,12 @@ export function HistoryReviewExamples() {
         <HistoryReview
           label="Comment edit history"
           versions={commentVersions}
-          labels={historyLabels}
+          labels={{
+            ...historyLabels,
+            comparison: 'Compare edits with',
+            previous: 'Earlier edit',
+            current: 'Latest edit',
+          }}
         />
       </Example>
     </>

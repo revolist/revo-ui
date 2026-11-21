@@ -27,10 +27,13 @@ export interface HistoryRestoreLabels {
 export function HistoryEntryLabel({
   entry,
   badge,
+  authorFirst = false,
 }: {
   entry: HistoryEntry;
   badge?: string;
+  authorFirst?: boolean;
 }) {
+  const author = entry.author && <span>{entry.author}</span>;
   return (
     <span class="rv-history-entry-label">
       <span class="rv-history-entry-title">
@@ -42,8 +45,9 @@ export function HistoryEntryLabel({
         )}
       </span>
       <span class="rv-history-entry-meta">
+        {authorFirst && author}
         <time dateTime={entry.dateTime}>{entry.dateLabel}</time>
-        {entry.author && <span>{entry.author}</span>}
+        {!authorFirst && author}
       </span>
     </span>
   );

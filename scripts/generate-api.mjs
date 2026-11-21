@@ -115,6 +115,8 @@ Supply localized, display-ready dates, sizes and verification states. Mark unsuc
 
 Supply full snapshots newest first. Use stable cell IDs across revisions, including the sheet identity for multi-sheet workbooks. Addresses and display values are supplied by the host. Set a cell's value to \`null\` or omit its ID when the cell is empty. The comparison shows values before and after the selected revision, using either the preceding snapshot or the current version as the starting point.
 
+Use \`labels.comparison\` for the visible and accessible switch label, and \`labels.previous\` and \`labels.current\` for its options. Set \`labels.changesTable\` to give the changes table a separate accessible name. The current-version badge, change counts, empty states, and restore labels can also be localized.
+
 Use the inline review for an audit panel or a comment's edit history. Pass \`open\` and \`onClose\` for a modal review. The optional restore handler receives the confirmed revision ID. The host can persist a new revision while retaining the earlier snapshots.
 `,
   CommandPalette: `

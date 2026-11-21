@@ -90,7 +90,26 @@ test('grid history compares versions and adds a confirmed revision without losin
   await launcher.click();
   const dialog = page.getByRole('dialog', { name: 'Budget version history' });
   const version = dialog.getByRole('radio', { name: /^Forecast updated/ });
-  await version.check();
+  const versionRow = dialog
+    .locator('.rv-history-versions label')
+    .filter({ hasText: 'Forecast updated' });
+  await versionRow.click();
+  await expect(version).toBeChecked();
+  await expect(versionRow).not.toHaveCSS(
+    'border-inline-start-color',
+    'rgba(0, 0, 0, 0)',
+  );
+  await expect(versionRow.getByText('Forecast updated')).toHaveCSS(
+    'font-weight',
+    '500',
+  );
+  await version.focus();
+  await page.keyboard.press('ArrowDown');
+  await expect(
+    dialog.getByRole('radio', { name: /Initial budget/ }),
+  ).toBeChecked();
+  await page.keyboard.press('ArrowUp');
+  await expect(version).toBeChecked();
   await expect(dialog.getByText('2 cells changed')).toBeVisible();
   await expect(dialog.getByRole('row', { name: /Budget B4/ })).toContainText(
     '$24,000',
@@ -98,7 +117,14 @@ test('grid history compares versions and adds a confirmed revision without losin
   await expect(dialog.getByRole('row', { name: /Budget B4/ })).toContainText(
     '$26,500',
   );
-  await dialog.getByText('Current', { exact: true }).last().click();
+  const comparison = dialog.getByRole('group', { name: 'Compare with' });
+  await expect(dialog.getByText('Compare with', { exact: true })).toBeVisible();
+  await expect(
+    dialog.getByRole('table', { name: 'Cell changes' }),
+  ).toBeVisible();
+  const latest = comparison.getByRole('button', { name: 'Latest' });
+  await latest.click();
+  await expect(latest).toHaveAttribute('aria-pressed', 'true');
   await expect(dialog.getByRole('row', { name: /Budget D4/ })).toContainText(
     'Empty',
   );
@@ -127,11 +153,38 @@ test('grid history compares versions and adds a confirmed revision without losin
   await launcher.click();
   const surface = await dialog.locator('.rv-dialog__surface').boundingBox();
   expect(surface!.width).toBeGreaterThan(750);
+  await comparison.getByRole('button', { name: 'Previous' }).click();
+  const switchBox = (await comparison.boundingBox())!;
+  const labelBox = (await dialog
+    .getByText('Compare with', { exact: true })
+    .boundingBox())!;
+  const tableBox = (await dialog
+    .getByRole('table', { name: 'Cell changes' })
+    .boundingBox())!;
+  expect(switchBox.width).toBeLessThan(tableBox.width / 2);
+  expect(
+    Math.abs(
+      switchBox.y + switchBox.height / 2 - labelBox.y - labelBox.height / 2,
+    ),
+  ).toBeLessThan(1);
+  expect(switchBox.x).toBeGreaterThan(labelBox.x + labelBox.width);
+  const edits = page.getByRole('region', { name: 'Comment edit history' });
+  await page.keyboard.press('Escape');
+  await expect(
+    edits.getByText('Compare edits with', { exact: true }),
+  ).toBeVisible();
+  await expect(
+    edits.getByRole('button', { name: 'Earlier edit' }),
+  ).toBeVisible();
+  await expect(
+    edits.getByRole('button', { name: 'Latest edit' }),
+  ).toBeVisible();
 });
 
 test('new history and action examples have no scoped WCAG A or AA axe violations', async ({
   page,
 }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
   for (const [route, selector] of [
     ['action-bar', '#example-inline-actions-in-rtl .rv-action-bar'],
     ['backup-history', '.rv-backup-history'],

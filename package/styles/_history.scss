@@ -27,35 +27,71 @@
   }
 }
 
-.rv-history-review .rv-history-versions {
-  display: flex;
-  flex-direction: column;
+.rv-history-sidebar {
   align-self: start;
   min-inline-size: 0;
-  max-block-size: 25rem;
-  overflow: auto;
-  padding: 6px;
-  margin: 0;
+  overflow: hidden;
   border: 1px solid var(--rv-ui-border);
   border-radius: var(--rv-ui-radius, 8px);
 }
 
-.rv-history-versions legend {
-  margin-inline: 4px;
-  padding-inline: 4px;
-  color: var(--rv-ui-text-muted);
+.rv-history-sidebar-heading {
+  padding: 14px 16px;
+  border-block-end: 1px solid var(--rv-ui-border);
+}
+
+.rv-history-review .rv-history-versions {
+  display: block;
+  max-block-size: 25rem;
+  overflow: auto;
+  scrollbar-width: thin;
+}
+
+.rv-history-versions legend,
+.rv-history-versions input[type='radio'] {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  margin: 0;
+  clip-path: inset(50%);
 }
 
 .rv-history-review .rv-history-versions label {
-  align-items: center;
-  gap: 8px;
-  padding: 8px;
-  border-radius: var(--rv-ui-radius, 8px);
+  position: relative;
+  display: block;
+  cursor: pointer;
+  border-inline-start: 2px solid transparent;
+  padding: 12px 14px;
+}
+
+.rv-history-versions label + label {
+  border-block-start: 1px solid var(--rv-ui-border);
+}
+
+.rv-history-versions label:hover {
+  background: var(--rv-ui-surface-hover);
 }
 
 .rv-history-versions label:has(input:checked) {
-  background: var(--rv-ui-selected-bg);
-  color: var(--rv-ui-selected-fg);
+  border-inline-start-color: var(--rv-ui-accent);
+  background: var(--rv-ui-surface-sunken);
+}
+
+.rv-history-versions label:has(input:focus-visible) {
+  outline: 2px solid var(--rv-ui-accent);
+  outline-offset: -2px;
+}
+
+.rv-history-sidebar .rv-history-entry-meta {
+  flex-direction: column;
+  gap: 2px;
+}
+
+.rv-history-sidebar-heading,
+.rv-history-review .rv-history-entry-title strong,
+.rv-history-changes th {
+  font-weight: var(--rv-ui-font-weight-medium, 500);
 }
 
 .rv-history-entry-label,
@@ -94,6 +130,31 @@
   align-content: start;
   gap: 12px;
   min-inline-size: 0;
+}
+
+.rv-history-comparison-control {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+  font-size: 0.875rem;
+  overflow-wrap: anywhere;
+}
+
+.rv-history-comparison-control > .rv-segmented-switch {
+  --rv-segmented-border: var(--rv-ui-border);
+  block-size: auto;
+  min-block-size: 37px;
+  max-inline-size: 100%;
+  align-items: stretch;
+}
+
+.rv-history-comparison-control .rv-segmented-switch-item {
+  block-size: auto;
+  min-block-size: 31px;
+  min-inline-size: 0;
+  padding-block: 4px;
+  white-space: normal;
 }
 
 .rv-history-changes {
