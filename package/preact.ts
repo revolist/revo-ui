@@ -446,3 +446,31 @@ export const LookupField: typeof ui.LookupField =
 
 export const CollapsibleSection: typeof ui.CollapsibleSection =
   /* @__PURE__ */ registerComponentStyles(ui.CollapsibleSection, fieldsStyles);
+
+export const Tree: typeof ui.Tree = /* @__PURE__ */ registerComponentStyles(
+  ui.Tree,
+  layoutStyles,
+);
+
+export const Stepper: typeof ui.Stepper =
+  /* @__PURE__ */ registerComponentStyles(ui.Stepper, layoutStyles);
+
+export const ActivityTimeline: typeof ui.ActivityTimeline =
+  /* @__PURE__ */ registerComponentStyles(ui.ActivityTimeline, layoutStyles);
+
+export const Trace: typeof ui.Trace = /* @__PURE__ */ registerComponentStyles(
+  ui.Trace,
+  fieldsStyles,
+);
+
+export const Attachments: typeof ui.Attachments =
+  /* @__PURE__ */ registerComponentStyles(ui.Attachments, layoutStyles);
+
+export const Cascader: typeof ui.Cascader =
+  /* @__PURE__ */ registerComponentStyles(ui.Cascader, pickerStyles);
+
+export const FilterBar: typeof ui.FilterBar =
+  /* @__PURE__ */ registerComponentStyles(ui.FilterBar, layoutStyles);
+
+export const CommandPalette: typeof ui.CommandPalette =
+  /* @__PURE__ */ registerComponentStyles(ui.CommandPalette, dialogsStyles);

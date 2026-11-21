@@ -706,5 +706,37 @@
   "TypographyControls": {
     "parts": ["fields", "root", "toolbar", "trigger"],
     "states": ["aria-expanded", "aria-pressed", "data-state"]
+  },
+  "Tree": {
+    "parts": ["root", "item", "label"],
+    "states": []
+  },
+  "Stepper": {
+    "parts": ["root", "step"],
+    "states": []
+  },
+  "ActivityTimeline": {
+    "parts": ["root", "entry"],
+    "states": []
+  },
+  "Trace": {
+    "parts": ["root"],
+    "states": []
+  },
+  "Attachments": {
+    "parts": ["root"],
+    "states": []
+  },
+  "Cascader": {
+    "parts": ["root"],
+    "states": []
+  },
+  "FilterBar": {
+    "parts": ["root"],
+    "states": []
+  },
+  "CommandPalette": {
+    "parts": ["root"],
+    "states": []
   }
 }

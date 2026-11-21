@@ -501,3 +501,27 @@ export type {
 
 export const LookupField: ReactUiComponent<typeof ui.LookupField> =
   /* @__PURE__ */ createReactAdapter(ui.LookupField, 'LookupField');
+
+export const Tree: ReactUiComponent<typeof ui.Tree> =
+  /* @__PURE__ */ createReactAdapter(ui.Tree, 'Tree');
+
+export const Stepper: ReactUiComponent<typeof ui.Stepper> =
+  /* @__PURE__ */ createReactAdapter(ui.Stepper, 'Stepper');
+
+export const ActivityTimeline: ReactUiComponent<typeof ui.ActivityTimeline> =
+  /* @__PURE__ */ createReactAdapter(ui.ActivityTimeline, 'ActivityTimeline');
+
+export const Trace: ReactUiComponent<typeof ui.Trace> =
+  /* @__PURE__ */ createReactAdapter(ui.Trace, 'Trace');
+
+export const Attachments: ReactUiComponent<typeof ui.Attachments> =
+  /* @__PURE__ */ createReactAdapter(ui.Attachments, 'Attachments');
+
+export const Cascader: ReactUiComponent<typeof ui.Cascader> =
+  /* @__PURE__ */ createReactAdapter(ui.Cascader, 'Cascader');
+
+export const FilterBar: ReactUiComponent<typeof ui.FilterBar> =
+  /* @__PURE__ */ createReactAdapter(ui.FilterBar, 'FilterBar');
+
+export const CommandPalette: ReactUiComponent<typeof ui.CommandPalette> =
+  /* @__PURE__ */ createReactAdapter(ui.CommandPalette, 'CommandPalette');

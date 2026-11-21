@@ -13,7 +13,7 @@
 }
 .rv-activity-message-card {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) fit-content(35%);
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: start;
   gap: 6px 12px;
   min-width: 0;

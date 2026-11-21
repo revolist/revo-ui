@@ -1,3 +1,20 @@
 // Import base.css once before optional component families.
 @use '../editor-layout/style';
 @use './compositions';
+
+@use '../tree/style' as treeStyle;
+
+@use './stepper';
+
+@use './activity-timeline';
+@use './activity-message';
+
+@use './trace';
+
+@use './attachments';
+
+@use './cascader';
+
+@use './filter-bar';
+
+@use './command-palette';

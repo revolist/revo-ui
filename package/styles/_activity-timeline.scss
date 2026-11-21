@@ -1,0 +1,65 @@
+.rv-activity-timeline {
+  --rv-activity-timeline-gap: 16px;
+  display: grid;
+  width: 100%;
+  min-width: 0;
+  gap: var(--rv-activity-timeline-gap) 8px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.rv-activity-timeline
+  > li
+  > .rv-activity-message
+  > .rv-activity-message-avatar {
+  grid-row: 1 / span 2;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-block-start: 0;
+  margin-block-end: calc(-1 * var(--rv-activity-timeline-gap));
+
+  &::before,
+  &::after {
+    content: '';
+    inline-size: 1px;
+    background: var(--rv-ui-border);
+    pointer-events: none;
+  }
+
+  &::before {
+    flex: 0 0 10px;
+  }
+
+  &::after {
+    flex: 1;
+  }
+}
+
+.rv-activity-timeline > li:first-child .rv-activity-message-avatar::before {
+  visibility: hidden;
+}
+
+.rv-activity-timeline > li:last-child .rv-activity-message-avatar {
+  margin-block-end: 0;
+
+  &::after {
+    display: none;
+  }
+}
+
+// Share one avatar column across entries, even when their avatars differ in size.
+@supports (grid-template-columns: subgrid) {
+  .rv-activity-timeline {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .rv-activity-timeline > li,
+  .rv-activity-timeline > li > .rv-activity-message {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+  }
+}

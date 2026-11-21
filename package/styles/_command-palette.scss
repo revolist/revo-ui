@@ -1,0 +1,19 @@
+.rv-command-palette {
+  display: grid;
+  gap: 8px;
+  min-width: min(420px, 80vw);
+}
+.rv-command-list {
+  display: grid;
+  gap: 2px;
+  max-height: 320px;
+  overflow: auto;
+}
+.rv-command-list button {
+  justify-content: start;
+  text-align: start;
+}
+.rv-command-list small {
+  display: block;
+  color: var(--rv-ui-text-muted);
+}

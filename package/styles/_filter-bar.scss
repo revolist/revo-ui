@@ -1,0 +1,18 @@
+.rv-filter-bar,
+.rv-filter-bar-items {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.rv-filter-bar {
+  width: 100%;
+  min-width: 0;
+}
+.rv-filter-bar {
+  width: 100%;
+  min-width: 0;
+}
+.rv-filter-bar .rv-search-input {
+  min-width: 180px;
+}

@@ -724,3 +724,34 @@ export const LookupField = /* @__PURE__ */ createVueAdapter(
   ui.LookupField,
   'LookupField',
 );
+
+export const Tree = /* @__PURE__ */ createVueAdapter(ui.Tree, 'Tree');
+
+export const Stepper = /* @__PURE__ */ createVueAdapter(ui.Stepper, 'Stepper');
+
+export const ActivityTimeline = /* @__PURE__ */ createVueAdapter(
+  ui.ActivityTimeline,
+  'ActivityTimeline',
+);
+
+export const Trace = /* @__PURE__ */ createVueAdapter(ui.Trace, 'Trace');
+
+export const Attachments = /* @__PURE__ */ createVueAdapter(
+  ui.Attachments,
+  'Attachments',
+);
+
+export const Cascader = /* @__PURE__ */ createVueAdapter(
+  ui.Cascader,
+  'Cascader',
+);
+
+export const FilterBar = /* @__PURE__ */ createVueAdapter(
+  ui.FilterBar,
+  'FilterBar',
+);
+
+export const CommandPalette = /* @__PURE__ */ createVueAdapter(
+  ui.CommandPalette,
+  'CommandPalette',
+);

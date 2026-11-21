@@ -1,5 +1,13 @@
 import * as ui from './preact';
 export const uiComponents = {
+  CommandPalette: ui.CommandPalette,
+  FilterBar: ui.FilterBar,
+  Cascader: ui.Cascader,
+  Attachments: ui.Attachments,
+  Trace: ui.Trace,
+  ActivityTimeline: ui.ActivityTimeline,
+  Stepper: ui.Stepper,
+  Tree: ui.Tree,
   AiChat: ui.AiChat,
   AiChatContent: ui.AiChatContent,
   AiChatComposer: ui.AiChatComposer,
