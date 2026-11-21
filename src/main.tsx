@@ -1,5 +1,5 @@
 import { FileTree, fileTreeFromPaths } from '@revolist/ui/preact';
-import { CommandPalette } from '@revolist/ui/preact';
+import { CommandPaletteExamples } from './command-palette-examples';
 import { FilterBar } from '@revolist/ui/preact';
 import { Cascader } from '@revolist/ui/preact';
 import { Attachments } from '@revolist/ui/preact';
@@ -284,8 +284,6 @@ function App() {
   const [workspaceName, setWorkspaceName] = useState('');
   const [setupMessage, setSetupMessage] = useState('');
   const [expandedPaths, setExpandedPaths] = useState<string[]>(['src']);
-  const [paletteOpen, setPaletteOpen] = useState(false);
-  const [lastCommand, setLastCommand] = useState('');
   const [timelineMessage, setTimelineMessage] = useState('');
   const [activeFilters, setActiveFilters] = useState([
     { id: 'status', label: 'Status', value: 'Open' },
@@ -405,7 +403,7 @@ function App() {
       onRtlChange={setRtl}
     >
       <Section title="Tree">
-        <Example title="File tree">
+        <Example title="Project hierarchy">
           <Tree
             label="Files"
             defaultExpanded={['projects']}
@@ -452,6 +450,67 @@ function App() {
                 ],
               },
             ]}
+          />
+        </Example>
+        <Example title="Changed files">
+          <div class="catalog-row">
+            <Button onClick={() => setExpandedPaths(['src', 'docs'])}>
+              Expand all
+            </Button>
+            <Button onClick={() => setExpandedPaths([])}>Collapse all</Button>
+          </div>
+
+          <FileTree
+            label="Project changes"
+            defaultValue="src/main.ts"
+            expanded={expandedPaths}
+            onExpandedChange={setExpandedPaths}
+            nodes={[
+              {
+                type: 'folder',
+                name: 'src',
+                path: 'src',
+                children: [
+                  {
+                    type: 'file',
+                    name: 'main.ts',
+                    path: 'src/main.ts',
+                    status: 'modified',
+                  },
+                  {
+                    type: 'file',
+                    name: 'format.ts',
+                    path: 'src/format.ts',
+                    status: 'added',
+                  },
+                ],
+              },
+              {
+                type: 'folder',
+                name: 'docs',
+                path: 'docs',
+                children: [
+                  { type: 'file', name: 'notes.md', path: 'docs/notes.md' },
+                ],
+              },
+              {
+                type: 'file',
+                name: 'legacy.md',
+                path: 'legacy.md',
+                status: 'deleted',
+              },
+            ]}
+          />
+        </Example>
+        <Example title="Files from paths">
+          <FileTree
+            label="Generated files"
+            nodes={fileTreeFromPaths([
+              'src/main.ts',
+              'src/format.ts',
+              'README.md',
+              'src/main.ts',
+            ])}
           />
         </Example>
       </Section>
@@ -704,100 +763,8 @@ function App() {
           />
         </Example>
       </Section>
-      <Section title="Command palette">
-        <Example title="Command palette">
-          <Button onClick={() => setPaletteOpen(true)}>Open commands</Button>
-          <p aria-live="polite">{lastCommand}</p>
-          <CommandPalette
-            open={paletteOpen}
-            label="Commands"
-            searchLabel="Search commands"
-            closeLabel="Close"
-            emptyLabel="No commands"
-            commands={[
-              {
-                id: 'open',
-                label: 'Open project',
-                description: 'Go to your projects',
-              },
-              {
-                id: 'team',
-                label: 'Browse team',
-                description: 'Find people and teams',
-              },
-              {
-                id: 'settings',
-                label: 'Open settings',
-                description: 'Manage your preferences',
-              },
-            ]}
-            onClose={() => setPaletteOpen(false)}
-            onExecute={setLastCommand}
-          />
-        </Example>
-      </Section>
-      <Section title="File tree">
-        <Example title="Changed files">
-          <div class="catalog-row">
-            <Button onClick={() => setExpandedPaths(['src', 'docs'])}>
-              Expand all
-            </Button>
-            <Button onClick={() => setExpandedPaths([])}>Collapse all</Button>
-          </div>
-
-          <FileTree
-            label="Project changes"
-            defaultValue="src/main.ts"
-            expanded={expandedPaths}
-            onExpandedChange={setExpandedPaths}
-            nodes={[
-              {
-                type: 'folder',
-                name: 'src',
-                path: 'src',
-                children: [
-                  {
-                    type: 'file',
-                    name: 'main.ts',
-                    path: 'src/main.ts',
-                    status: 'modified',
-                  },
-                  {
-                    type: 'file',
-                    name: 'format.ts',
-                    path: 'src/format.ts',
-                    status: 'added',
-                  },
-                ],
-              },
-              {
-                type: 'folder',
-                name: 'docs',
-                path: 'docs',
-                children: [
-                  { type: 'file', name: 'notes.md', path: 'docs/notes.md' },
-                ],
-              },
-              {
-                type: 'file',
-                name: 'legacy.md',
-                path: 'legacy.md',
-                status: 'deleted',
-              },
-            ]}
-          />
-        </Example>
-        <Example title="Files from paths">
-          <FileTree
-            label="Generated files"
-            nodes={fileTreeFromPaths([
-              'src/main.ts',
-              'src/format.ts',
-              'README.md',
-              'src/main.ts',
-            ])}
-          />
-        </Example>
+      <Section title="Command palette" columns={4}>
+        <CommandPaletteExamples />
       </Section>
       <Section title="Buttons">
         <Example title="Button variants">

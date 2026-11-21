@@ -250,9 +250,16 @@ export function Stepper({
         id={panelId(index)}
         aria-labelledby={triggerId(index)}
         hidden={hidden}
+        inert={accordion && hidden ? true : undefined}
       >
-        {item.content}
-        {accordion && !hidden && index === current && actions}
+        {accordion ? (
+          <div class="rv-stepper-panel-content">
+            {item.content}
+            {!hidden && index === current && actions}
+          </div>
+        ) : (
+          item.content
+        )}
       </section>
     );
   }

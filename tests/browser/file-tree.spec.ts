@@ -11,7 +11,8 @@ for (const theme of ['light', 'dark']) {
       (mode) => localStorage.setItem('revo-ui-theme', mode),
       theme,
     );
-    await page.goto('/components/file-tree/');
+    await page.goto('/components/tree/');
+    await expect(page.getByRole('tree', { name: 'Files' })).toBeVisible();
     const list = page.getByRole('list', { name: 'Project changes' });
     const src = list.locator('summary').filter({ hasText: /^src$/ });
     const main = list.getByRole('button', { name: 'main.ts M' });
@@ -77,3 +78,14 @@ for (const theme of ['light', 'dark']) {
     expect(violations).toEqual([]);
   });
 }
+
+test('legacy File Tree links open its examples on the shared Tree page', async ({
+  page,
+}) => {
+  await page.goto('/components/file-tree/');
+  await expect(page).toHaveURL(/\/components\/tree\/#example-changed-files$/);
+  await expect(page.getByRole('tree', { name: 'Files' })).toBeVisible();
+  await expect(
+    page.getByRole('list', { name: 'Project changes' }),
+  ).toBeVisible();
+});

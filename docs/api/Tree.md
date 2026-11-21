@@ -1,6 +1,6 @@
 # Tree
 
-Switch content, group options and present plain, icon or descriptive selection rows.
+Browse hierarchical data and explore changed files.
 
 [Live examples and formatted usage](https://ui.rv-grid.com/components/tree/) · [Component index](../../README.md#complete-component-reference)
 
@@ -16,18 +16,18 @@ Angular/Svelte: pass `component="Tree"` to the framework's `UiComponent` host. S
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `nodes` | `readonly TreeNode[]` | Yes | Root nodes in display order. |
-| `label` | `string` | Yes | Accessible name for the tree. |
-| `value` | `string \| undefined` | No | Controlled selected node ID. |
-| `defaultValue` | `string \| undefined` | No | Initially selected node ID when uncontrolled. |
-| `expanded` | `readonly string[] \| undefined` | No | Controlled IDs of expanded branches. |
-| `defaultExpanded` | `readonly string[] \| undefined` | No | Initially expanded branch IDs when uncontrolled. |
-| `onValueChange` | `((id: string) => void) \| undefined` | No | Called after an enabled node is selected. |
-| `onExpandedChange` | `((ids: string[]) => void) \| undefined` | No | Called with expanded branch IDs after disclosure changes. |
-| `preset` | `ClassPreset \| undefined` | No | Optional shared presentation preset. |
-| `className` | `string \| undefined` | No | Additional root class names. |
+| Prop               | Type                                     | Required | Description                                               |
+| ------------------ | ---------------------------------------- | -------- | --------------------------------------------------------- |
+| `nodes`            | `readonly TreeNode[]`                    | Yes      | Root nodes in display order.                              |
+| `label`            | `string`                                 | Yes      | Accessible name for the tree.                             |
+| `value`            | `string \| undefined`                    | No       | Controlled selected node ID.                              |
+| `defaultValue`     | `string \| undefined`                    | No       | Initially selected node ID when uncontrolled.             |
+| `expanded`         | `readonly string[] \| undefined`         | No       | Controlled IDs of expanded branches.                      |
+| `defaultExpanded`  | `readonly string[] \| undefined`         | No       | Initially expanded branch IDs when uncontrolled.          |
+| `onValueChange`    | `((id: string) => void) \| undefined`    | No       | Called after an enabled node is selected.                 |
+| `onExpandedChange` | `((ids: string[]) => void) \| undefined` | No       | Called with expanded branch IDs after disclosure changes. |
+| `preset`           | `ClassPreset \| undefined`               | No       | Optional shared presentation preset.                      |
+| `className`        | `string \| undefined`                    | No       | Additional root class names.                              |
 
 ## Composition
 

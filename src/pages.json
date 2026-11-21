@@ -189,8 +189,8 @@
     {
       "title": "Tree",
       "group": "Controls",
-      "description": "Browse and select nested items using a keyboard or pointer.",
-      "keywords": "tree hierarchy folders navigation selection"
+      "description": "Browse hierarchical data with Tree and explore changed files with File Tree.",
+      "keywords": "tree hierarchy folders navigation selection file tree changed files"
     },
     {
       "title": "Stepper",
@@ -233,12 +233,6 @@
       "group": "Controls",
       "description": "Explore the Command palette component.",
       "keywords": "command palette"
-    },
-    {
-      "title": "File tree",
-      "group": "Controls",
-      "description": "Explore the File tree component.",
-      "keywords": "file tree"
     }
   ],
   "frameworks": [

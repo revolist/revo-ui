@@ -19,8 +19,8 @@ export class CommandPalette extends AngularComponentAdapter<never> {
   protected rvResolveComponent() {
     return Control;
   }
-  protected override readonly rvRequiredCallbacks = ['onClose', 'onExecute'];
-  @NgInput({ required: true }) declare 'closeLabel': AngularInput<
+  protected override readonly rvRequiredCallbacks = ['onExecute'];
+  @NgInput() declare 'closeLabel'?: AngularInput<
     'CommandPalette',
     'closeLabel'
   >;
@@ -32,16 +32,15 @@ export class CommandPalette extends AngularComponentAdapter<never> {
     'CommandPalette',
     'emptyLabel'
   >;
+  @NgInput() declare 'inline'?: AngularInput<'CommandPalette', 'inline'>;
   @NgInput({ required: true }) declare 'label': AngularInput<
     'CommandPalette',
     'label'
   >;
+  @NgInput() declare 'loop'?: AngularInput<'CommandPalette', 'loop'>;
   @NgInput() declare 'onClose'?: AngularInput<'CommandPalette', 'onClose'>;
   @NgInput() declare 'onExecute'?: AngularInput<'CommandPalette', 'onExecute'>;
-  @NgInput({ required: true }) declare 'open': AngularInput<
-    'CommandPalette',
-    'open'
-  >;
+  @NgInput() declare 'open'?: AngularInput<'CommandPalette', 'open'>;
   @NgInput() declare 'preset'?: AngularInput<'CommandPalette', 'preset'>;
   @NgInput({ required: true }) declare 'searchLabel': AngularInput<
     'CommandPalette',

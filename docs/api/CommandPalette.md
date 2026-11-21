@@ -1,6 +1,6 @@
 # CommandPalette
 
-Command menus, nested commands, separators and grouped toolbar actions.
+Search and run commands in a dialog or inline list.
 
 [Live examples and formatted usage](https://ui.rv-grid.com/components/command-palette/) · [Component index](../../README.md#complete-component-reference)
 
@@ -16,20 +16,28 @@ Angular/Svelte: pass `component="CommandPalette"` to the framework's `UiComponen
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `open` | `boolean` | Yes | Whether the dialog is open. |
-| `label` | `string` | Yes | Localized dialog title. |
-| `searchLabel` | `string` | Yes | Localized search label. |
-| `closeLabel` | `string` | Yes | Localized close action. |
-| `emptyLabel` | `string` | Yes | Localized empty-results message. |
-| `commands` | `readonly PaletteCommand[]` | Yes | Commands in display order. |
-| `onClose` | `() => void` | Yes | Called when the dialog closes. |
-| `onExecute` | `(id: string) => void` | Yes | Called when an enabled command is activated. |
-| `preset` | `ClassPreset \| undefined` | No | Optional presentation preset. |
+| Prop          | Type                        | Required | Description                                                                   |
+| ------------- | --------------------------- | -------- | ----------------------------------------------------------------------------- |
+| `open`        | `boolean \| undefined`      | No       | Whether the dialog is open.                                                   |
+| `label`       | `string`                    | Yes      | Localized dialog or inline palette title.                                     |
+| `searchLabel` | `string`                    | Yes      | Localized search label and placeholder.                                       |
+| `closeLabel`  | `string \| undefined`       | No       | Localized close action.                                                       |
+| `emptyLabel`  | `string`                    | Yes      | Localized empty-results message.                                              |
+| `commands`    | `readonly PaletteCommand[]` | Yes      | Commands in display order. Commands with the same group appear together.      |
+| `inline`      | `boolean \| undefined`      | No       | Show a persistent inline command list. Dialog props are ignored in this mode. |
+| `loop`        | `boolean \| undefined`      | No       | Wrap arrow navigation at the beginning and end of the results.                |
+| `onClose`     | `(() => void) \| undefined` | No       | Called when the dialog closes.                                                |
+| `onExecute`   | `(id: string) => void`      | Yes      | Called when an enabled command is activated.                                  |
+| `preset`      | `ClassPreset \| undefined`  | No       | Optional presentation preset.                                                 |
 
 ## Composition
 
 Keep controlled values and side effects in your application. Use the matching framework adapter rather than passing another framework’s VNodes through Preact callbacks. The live page groups this control with related variants and composition helpers.
 
 This reference is generated from the local `package` library source. Rebuild it with `node scripts/generate-api.mjs`.
+
+## Command groups and keyboard
+
+Provide a command's optional `group`, decorative `icon`, and `shortcut` to organize the list. A shortcut describes a key binding registered by your application. Use `inline` for a persistent list, or control `open` and `onClose` for a dialog.
+
+The field keeps keyboard focus while Up and Down move the highlighted option. Alt with Up or Down jumps between groups. Home and End reach the ends of the list. Enter runs the highlighted command, and Escape dismisses the dialog.

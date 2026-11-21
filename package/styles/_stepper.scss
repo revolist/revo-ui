@@ -1,3 +1,5 @@
+@use './disclosure';
+
 .rv-stepper {
   --rv-stepper-marker: 32px;
   --rv-stepper-inset: 8px;
@@ -145,7 +147,7 @@
   .rv-stepper-list > li > span,
   .rv-stepper-list > li > button {
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
     gap: 12px;
     text-align: start;
   }
@@ -209,10 +211,6 @@
 }
 
 .rv-stepper[data-layout='accordion'] {
-  .rv-stepper-list > li > :is(button, span) {
-    align-items: center;
-  }
-
   .rv-stepper-chevron {
     flex: none;
     margin-inline-start: auto;
@@ -225,16 +223,11 @@
     transform: rotate(180deg);
   }
 
-  .rv-stepper-list > li > [data-part='panel'] {
+  .rv-stepper-panel-content {
     padding: 0 var(--rv-stepper-inset) var(--rv-stepper-inset)
       calc(var(--rv-stepper-inset) + var(--rv-stepper-marker) + 12px);
     color: var(--rv-ui-text);
     line-height: 1.5;
-  }
-
-  .rv-stepper-list > li > [data-part='panel']:not([hidden]) {
-    animation: rv-stepper-panel-in var(--rv-ui-motion-normal, 160ms)
-      var(--rv-ui-motion-ease, ease-out);
   }
 
   .rv-stepper-body {
@@ -242,21 +235,35 @@
   }
 }
 
-@keyframes rv-stepper-panel-in {
-  from {
-    opacity: 0;
-    transform: translateY(-3px);
+@supports (interpolate-size: allow-keywords) and
+  (transition-behavior: allow-discrete) {
+  .rv-stepper[data-layout='accordion']
+    .rv-stepper-list
+    > li
+    > [data-part='panel'] {
+    interpolate-size: allow-keywords;
+    @include disclosure.panel-motion(display);
+
+    &:not([hidden]) {
+      block-size: auto;
+      opacity: 1;
+
+      @starting-style {
+        block-size: 0;
+        opacity: 0;
+      }
+    }
+
+    &[hidden] {
+      display: none;
+      block-size: 0;
+      opacity: 0;
+    }
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .rv-stepper[data-layout='accordion'] {
-    .rv-stepper-chevron {
-      transition: none;
-    }
-
-    .rv-stepper-list > li > [data-part='panel']:not([hidden]) {
-      animation: none;
-    }
+  .rv-stepper[data-layout='accordion'] .rv-stepper-chevron {
+    transition: none;
   }
 }

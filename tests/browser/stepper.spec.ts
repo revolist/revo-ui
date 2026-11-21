@@ -98,3 +98,42 @@ test('accordion disclosure keeps progress independent and focuses the next step'
   await expect(stepper.getByText('Launch checklist complete')).toBeVisible();
   await expect(stepper.locator('[data-part=completed]')).toBeFocused();
 });
+
+test('vertical step labels align with their markers', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/components/stepper/');
+  const steps = page
+    .getByRole('navigation', { name: 'Review stages' })
+    .locator('li');
+  for (const step of await steps.all()) {
+    const marker = await step.locator('[data-part="indicator"]').boundingBox();
+    const title = await step.locator('[data-part="title"]').boundingBox();
+    expect(
+      Math.abs(title!.y + title!.height / 2 - (marker!.y + marker!.height / 2)),
+    ).toBeLessThan(1);
+  }
+});
+
+test('accordion panels share size and fade motion and honor reduced motion', async ({
+  page,
+}) => {
+  await page.goto('/components/stepper/');
+  const panel = page.locator('#launch-checklist-panel-1');
+  const trigger = page.getByRole('button', { name: /Review the launch plan/ });
+  await expect(panel).toBeVisible();
+  await panel.evaluate((element) =>
+    Promise.all(element.getAnimations().map((animation) => animation.finished)),
+  );
+  await expect(panel).toHaveCSS(
+    'transition-property',
+    'block-size, opacity, display',
+  );
+  await trigger.evaluate((element) => (element as HTMLElement).click());
+  await expect(panel).toHaveAttribute('inert', '');
+  await expect(panel).toBeHidden();
+  await trigger.click();
+  await expect(panel).toBeVisible();
+  await expect(panel).not.toHaveAttribute('inert', '');
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await expect(panel).toHaveCSS('transition-duration', '0s');
+});

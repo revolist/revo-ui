@@ -29,7 +29,8 @@ for (const [title, route, description, names] of groups) {
   }
 }
 routes.set('FileTree', {
-  route: 'file-tree',
+  route: 'tree',
+  anchor: 'example-changed-files',
   description:
     'Browse nested files and folders, select paths, and show file changes.',
 });
@@ -67,6 +68,13 @@ entries.push({ name: 'Select', node: select });
 const escape = (text) =>
   text.replaceAll('|', '\\|').replaceAll('\n', ' ').replaceAll('`', '&#96;');
 const componentGuidance = {
+  CommandPalette: `
+## Command groups and keyboard
+
+Provide a command's optional \`group\`, decorative \`icon\`, and \`shortcut\` to organize the list. A shortcut describes a key binding registered by your application. Use \`inline\` for a persistent list, or control \`open\` and \`onClose\` for a dialog.
+
+The field keeps keyboard focus while Up and Down move the highlighted option. Alt with Up or Down jumps between groups. Home and End reach the ends of the list. Enter runs the highlighted command, and Escape dismisses the dialog.
+`,
   FileTree: `
 ## Selection and expansion
 
@@ -121,7 +129,7 @@ for (const { name, node } of entries) {
   );
   const group = routes.get(name);
   if (!group) throw new Error(`Missing group: ${name}`);
-  let text = `# ${name}\n\n${group.description}\n\n[Live examples and formatted usage](https://ui.rv-grid.com/components/${group.route}/) · [Component index](../../README.md#complete-component-reference)\n\n`;
+  let text = `# ${name}\n\n${group.description}\n\n[Live examples and formatted usage](https://ui.rv-grid.com/components/${group.route}/${group.anchor ? '#' + group.anchor : ''}) · [Component index](../../README.md#complete-component-reference)\n\n`;
   const directEntries = {
     LookupField: 'dropdown/lookup-field',
     NumberDraft: 'number-input',

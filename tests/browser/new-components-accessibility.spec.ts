@@ -7,6 +7,7 @@ const examples = [
   ['cascader', '.rv-cascader-panel'],
   ['filter-bar', '.rv-filter-bar'],
   ['command-palette', '.rv-command-palette'],
+  ['command-palette', '#example-quick-actions .rv-command-palette'],
   ['attachments', '.rv-attachments'],
   ['stepper', '.rv-stepper'],
   ['stepper', '#launch-checklist'],
@@ -30,7 +31,7 @@ for (const [name, selector] of examples) {
       );
       if (name === 'cascader')
         await page.getByRole('button', { name: /^Location:/ }).click();
-      if (name === 'command-palette')
+      if (selector === '.rv-command-palette')
         await page.getByRole('button', { name: 'Open commands' }).click();
       if (name === 'trace') await page.locator('.rv-trace summary').click();
       const component = page.locator(selector).first();

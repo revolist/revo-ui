@@ -18,9 +18,9 @@ export const limits = {
   'react-button': 24 * 1024,
   'react-controls': 26 * 1024,
   // Full-catalog budgets include the new workflows and their styles.
-  'react-all': 164 * 1024,
+  'react-all': 165 * 1024,
   'native-all': 65 * 1024,
-  'styles.css': 34 * 1024,
+  'styles.css': 35 * 1024,
   'styles/base.css': 8 * 1024,
   ...Object.fromEntries(
     styleEntrypoints
