@@ -525,3 +525,14 @@ Motion follows the system's reduced-motion preference. `data-rv-ui-motion="off"`
 ## Licensing
 
 Revo UI is [MIT licensed](../LICENSE). Anyone can use, modify, and distribute it, including in commercial projects.
+
+## Workflow and activity controls
+
+- [Tree](api/Tree.md) ([examples](https://ui.rv-grid.com/components/tree/))
+- [Cascader](api/Cascader.md) ([examples](https://ui.rv-grid.com/components/cascader/))
+- [FilterBar](api/FilterBar.md) ([examples](https://ui.rv-grid.com/components/filter-bar/))
+- [CommandPalette](api/CommandPalette.md) ([examples](https://ui.rv-grid.com/components/command-palette/))
+- [Attachments](api/Attachments.md) ([examples](https://ui.rv-grid.com/components/attachments/))
+- [Stepper](api/Stepper.md) ([examples](https://ui.rv-grid.com/components/stepper/))
+- [Trace](api/Trace.md) ([examples](https://ui.rv-grid.com/components/trace/))
+- [ActivityTimeline](api/ActivityTimeline.md) ([examples](https://ui.rv-grid.com/components/activity-timeline/))
