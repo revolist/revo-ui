@@ -1,4 +1,4 @@
-import { h } from 'preact';
+import { Fragment, h } from 'preact';
 import { useRef } from 'preact/hooks';
 import previousIcon from '@fortawesome/fontawesome-free/svgs/solid/chevron-left.svg?raw';
 import nextIcon from '@fortawesome/fontawesome-free/svgs/solid/chevron-right.svg?raw';

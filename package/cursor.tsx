@@ -1,5 +1,5 @@
 import arrowPointer from '@fortawesome/fontawesome-free/svgs/solid/arrow-pointer.svg?raw';
-import { h, type ComponentChildren, type JSX } from 'preact';
+import { Fragment, h, type ComponentChildren, type JSX } from 'preact';
 import { SvgIcon } from './icons';
 import type { ClassPreset } from './presets/types';
 

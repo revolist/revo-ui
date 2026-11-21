@@ -50,6 +50,8 @@ it('renders localized comparisons and operation-only rows in the same table', ()
             address: 'Cellule',
             before: 'Avant',
             after: 'Après',
+            latest: 'Serveur',
+            action: 'Décision',
             emptyValue: 'Vide',
           }}
           rows={[
@@ -57,7 +59,8 @@ it('renders localized comparisons and operation-only rows in the same table', ()
               id: 'a1',
               address: 'A1',
               sheet: 'Ventes',
-              values: { before: '10', after: '20' },
+              values: { before: '10', after: '20', latest: '15' },
+              action: <button type="button">Conserver</button>,
             },
             {
               id: 'b1',
@@ -72,13 +75,19 @@ it('renders localized comparisons and operation-only rows in the same table', ()
     );
     const table = host.querySelector('table')!;
     expect(table.getAttribute('aria-label')).toBe('Modifications');
-    expect(table.querySelector('thead')?.textContent).toBe('CelluleAvantAprès');
+    expect(table.querySelector('thead')?.textContent).toBe(
+      'CelluleAvantAprèsServeurDécision',
+    );
     expect(table.querySelector('tbody small')?.textContent).toBe('Ventes');
     expect(table.querySelector('del')?.textContent).toBe('10');
     expect(table.querySelector('ins')?.textContent).toBe('20');
+    expect(table.querySelector('.rv-history-latest-value')?.textContent).toBe(
+      '15',
+    );
+    expect(table.querySelector('button')?.textContent).toBe('Conserver');
     expect(table.rows[2]?.cells[2]?.textContent).toBe('Vide');
     expect(table.rows[3]?.cells[0]?.textContent).toBe('Insérer une ligne');
-    expect(table.rows[3]?.cells[1]?.colSpan).toBe(2);
+    expect(table.rows[3]?.cells[1]?.colSpan).toBe(3);
   } finally {
     act(() => render(null, host));
   }

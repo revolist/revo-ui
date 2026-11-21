@@ -1,4 +1,4 @@
-import { Fragment, h } from 'preact';
+import { Fragment, h, type ComponentChildren } from 'preact';
 import { useMemo, useRef, useState } from 'preact/hooks';
 import { RadioGroup } from './controls';
 import { Dialog } from './pickers';
@@ -84,7 +84,10 @@ export interface HistoryChangeRow {
   values?: {
     before: string | null;
     after: string | null;
+    latest?: string | null;
   };
+  /** Optional decision control or action within the row. */
+  action?: ComponentChildren;
 }
 
 export interface HistoryChangesProps {
@@ -93,11 +96,16 @@ export interface HistoryChangesProps {
   labels: Pick<
     HistoryReviewLabels,
     'address' | 'before' | 'after' | 'emptyValue'
-  >;
+  > & {
+    latest?: string;
+    action?: string;
+  };
 }
 
 /** Display before and after values for changes already resolved by the host. */
 export function HistoryChanges({ label, rows, labels }: HistoryChangesProps) {
+  const hasLatest = labels.latest !== undefined;
+  const hasAction = labels.action !== undefined;
   return (
     <table class="rv-history-changes" aria-label={label}>
       <thead>
@@ -105,10 +113,16 @@ export function HistoryChanges({ label, rows, labels }: HistoryChangesProps) {
           <th scope="col">{labels.address}</th>
           <th scope="col">{labels.before}</th>
           <th scope="col">{labels.after}</th>
+          {hasLatest && <th scope="col">{labels.latest}</th>}
+          {hasAction && (
+            <th scope="col" class="rv-history-change-action">
+              {labels.action}
+            </th>
+          )}
         </tr>
       </thead>
       <tbody>
-        {rows.map(({ id, address, sheet, values }) => (
+        {rows.map(({ id, address, sheet, values, action }) => (
           <tr key={id}>
             <th scope="row">
               {sheet && <small>{sheet}</small>}
@@ -130,10 +144,22 @@ export function HistoryChanges({ label, rows, labels }: HistoryChangesProps) {
                     <ins>{values.after}</ins>
                   )}
                 </td>
+                {hasLatest && (
+                  <td>
+                    {values.latest == null ? (
+                      labels.emptyValue
+                    ) : (
+                      <span class="rv-history-latest-value">
+                        {values.latest}
+                      </span>
+                    )}
+                  </td>
+                )}
               </>
             ) : (
-              <td colSpan={2} />
+              <td colSpan={hasLatest ? 3 : 2} />
             )}
+            {hasAction && <td class="rv-history-change-action">{action}</td>}
           </tr>
         ))}
       </tbody>

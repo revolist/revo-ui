@@ -1,4 +1,4 @@
-import { h, type ComponentChildren } from 'preact';
+import { Fragment, h, type ComponentChildren } from 'preact';
 import { useId, useLayoutEffect, useRef, useState } from 'preact/hooks';
 import type { ClassPreset } from './presets/types';
 import { Button } from './controls';

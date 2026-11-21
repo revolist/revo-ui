@@ -1,4 +1,4 @@
-import { h } from 'preact';
+import { Fragment, h } from 'preact';
 import { useState } from 'preact/hooks';
 import { AvatarElement, getAvatarInitials } from '../avatar';
 import { Badge, Button } from '../controls';

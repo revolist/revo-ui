@@ -1,4 +1,4 @@
-import { h, type ComponentChildren } from 'preact';
+import { Fragment, h, type ComponentChildren } from 'preact';
 import { useEffect, useLayoutEffect, useRef } from 'preact/hooks';
 import { Button, Toolbar, ToolbarGroup, ToolbarSeparator } from './controls';
 import { RemoveButton } from './buttons/remove-button';

@@ -1,4 +1,4 @@
-import { h } from 'preact';
+import { Fragment, h } from 'preact';
 import { useState } from 'preact/hooks';
 import fileIcon from '@fortawesome/fontawesome-free/svgs/regular/file.svg?raw';
 import folderIcon from '@fortawesome/fontawesome-free/svgs/regular/folder.svg?raw';
