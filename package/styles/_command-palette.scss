@@ -73,14 +73,13 @@
   margin-block-start: 2px;
 }
 
-.rv-command-icon,
-.rv-command-shortcut {
+.rv-command-icon {
   flex: none;
   color: var(--rv-ui-text-muted);
 }
 
-.rv-command-shortcut {
-  font-size: 0.75rem;
+.rv-command-list .rv-keycap {
+  flex: none;
 }
 
 .rv-command-status {
@@ -94,6 +93,12 @@
   padding: 0;
 }
 
-.rv-dialog__surface:has(.rv-command-palette) > .rv-dialog__footer {
-  display: none;
+.rv-dialog__surface:has(.rv-command-palette:not(.rv-command-inline)) {
+  > .rv-dialog__header {
+    align-items: center;
+  }
+
+  > .rv-dialog__footer {
+    display: none;
+  }
 }

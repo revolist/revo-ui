@@ -149,9 +149,7 @@ export function CommandPalette({
           {command.label}
           {command.description && <small>{command.description}</small>}
         </span>
-        {command.shortcut && (
-          <kbd class="rv-command-shortcut">{command.shortcut}</kbd>
-        )}
+        {command.shortcut && <kbd class="rv-keycap">{command.shortcut}</kbd>}
       </Button>
     ));
   }

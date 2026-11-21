@@ -16,6 +16,19 @@ for (const theme of ['light', 'dark']) {
     const search = dialog.getByRole('combobox', { name: 'Search commands' });
     await expect(search).toBeFocused();
     await expect(dialog.locator('.rv-dialog__footer')).toBeHidden();
+    const title = await dialog
+      .getByRole('heading', { name: 'Commands' })
+      .boundingBox();
+    const close = await dialog
+      .getByRole('button', { name: 'Close' })
+      .boundingBox();
+    expect(
+      Math.abs(title!.y + title!.height / 2 - (close!.y + close!.height / 2)),
+    ).toBeLessThan(1);
+    await expect(opener.locator('kbd.rv-keycap')).toHaveCSS(
+      'border-bottom-width',
+      '2px',
+    );
     const field = await dialog.locator('.rv-search-input').boundingBox();
     const body = await dialog.locator('.rv-dialog__body').boundingBox();
     expect(field!.x - body!.x).toBeGreaterThanOrEqual(4);
@@ -40,6 +53,11 @@ for (const theme of ['light', 'dark']) {
     const item = dialog.getByRole('option', { name: /^Open project/ });
     await expect(item).toHaveAttribute('aria-selected', 'true');
     await expect(item.locator('.rv-command-icon svg')).toBeVisible();
+    await expect(item.locator('kbd.rv-keycap')).toHaveText('⌘P');
+    await expect(item.locator('kbd.rv-keycap')).toHaveCSS(
+      'border-bottom-width',
+      '2px',
+    );
     await expect(search).toHaveAttribute(
       'aria-activedescendant',
       (await item.getAttribute('id')) ?? '',
