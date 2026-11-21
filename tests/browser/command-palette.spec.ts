@@ -15,6 +15,7 @@ for (const theme of ['light', 'dark']) {
     const dialog = page.getByRole('dialog', { name: 'Commands', exact: true });
     const search = dialog.getByRole('combobox', { name: 'Search commands' });
     await expect(search).toBeFocused();
+    await expect(dialog.locator('.rv-dialog__footer')).toBeHidden();
     const field = await dialog.locator('.rv-search-input').boundingBox();
     const body = await dialog.locator('.rv-dialog__body').boundingBox();
     expect(field!.x - body!.x).toBeGreaterThanOrEqual(4);

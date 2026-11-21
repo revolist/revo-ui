@@ -126,7 +126,9 @@ export function CommandPaletteExamples() {
         event.key.toLowerCase() === 'k' &&
         !event.defaultPrevented &&
         launcher.current?.isConnected &&
-        !document?.querySelector('dialog[open]')
+        !document?.querySelector(
+          'dialog[open], [role="dialog"][aria-modal="true"]',
+        )
       ) {
         event.preventDefault();
         launcher.current.focus();
