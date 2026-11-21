@@ -125,6 +125,18 @@ test('grid history compares versions and adds a confirmed revision without losin
   await expect(dialog.getByRole('row', { name: /Budget B4/ })).toContainText(
     '$26,500',
   );
+  const changedCell = dialog.getByRole('row', { name: /Budget B4/ });
+  const before = changedCell.locator('del');
+  const after = changedCell.locator('ins');
+  await expect(before).toHaveCSS('text-decoration-line', 'line-through');
+  await expect(after).toHaveCSS('text-decoration-line', 'none');
+  for (const value of [before, after]) {
+    await expect(value).toHaveCSS('padding-inline-start', '6px');
+    const radius = await value.evaluate((element) =>
+      getComputedStyle(element).getPropertyValue('--rv-ui-radius').trim(),
+    );
+    await expect(value).toHaveCSS('border-top-left-radius', radius);
+  }
   const comparison = dialog.getByRole('group', { name: 'Compare with' });
   await expect(dialog.getByText('Compare with', { exact: true })).toBeVisible();
   await expect(
