@@ -1,5 +1,6 @@
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
+import { AvatarElement, getAvatarInitials } from '../avatar';
 import { Badge, Button } from '../controls';
 import { ConfirmDialog } from '../pickers';
 
@@ -14,6 +15,8 @@ export interface HistoryEntry {
   dateTime?: string;
   /** Optional author or source. */
   author?: string;
+  /** Optional author photo. The avatar falls back to initials. */
+  authorAvatarUrl?: string;
 }
 
 export interface HistoryRestoreLabels {
@@ -33,7 +36,20 @@ export function HistoryEntryLabel({
   badge?: string;
   authorFirst?: boolean;
 }) {
-  const author = entry.author && <span>{entry.author}</span>;
+  const author = entry.author && (
+    <span class="rv-history-author" data-part="author">
+      <AvatarElement
+        key={entry.authorAvatarUrl}
+        options={{
+          label: '',
+          size: 20,
+          value: entry.authorAvatarUrl,
+          initials: getAvatarInitials(entry.author),
+        }}
+      />
+      <span>{entry.author}</span>
+    </span>
+  );
   return (
     <span class="rv-history-entry-label">
       <span class="rv-history-entry-title">

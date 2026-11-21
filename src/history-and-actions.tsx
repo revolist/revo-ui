@@ -15,6 +15,8 @@ import type {
 import archiveIcon from '@fortawesome/fontawesome-free/svgs/solid/box-archive.svg?raw';
 import downloadIcon from '@fortawesome/fontawesome-free/svgs/solid/download.svg?raw';
 import { Example } from './catalog';
+import alexPhoto from './assets/people/contact-2.jpg';
+import morganPhoto from './assets/people/contact-3.jpg';
 
 const files = ['Forecast.xlsx', 'Research notes.md', 'Launch brief.pdf'];
 
@@ -130,6 +132,7 @@ const initialVersions: readonly HistoryVersion[] = [
     dateLabel: 'Nov 20, 10:42',
     dateTime: '2026-11-20T10:42:00Z',
     author: 'Alex Chen',
+    authorAvatarUrl: alexPhoto,
     cells: [
       { id: 'budget', address: 'B4', sheet: 'Budget', value: '$28,000' },
       { id: 'status', address: 'C4', sheet: 'Budget', value: 'Approved' },
@@ -142,6 +145,7 @@ const initialVersions: readonly HistoryVersion[] = [
     dateLabel: 'Nov 19, 14:10',
     dateTime: '2026-11-19T14:10:00Z',
     author: 'Morgan Lee',
+    authorAvatarUrl: morganPhoto,
     cells: [
       { id: 'budget', address: 'B4', sheet: 'Budget', value: '$26,500' },
       { id: 'status', address: 'C4', sheet: 'Budget', value: 'In review' },
@@ -153,6 +157,7 @@ const initialVersions: readonly HistoryVersion[] = [
     dateLabel: 'Nov 18, 09:05',
     dateTime: '2026-11-18T09:05:00Z',
     author: 'Alex Chen',
+    authorAvatarUrl: alexPhoto,
     cells: [
       { id: 'budget', address: 'B4', sheet: 'Budget', value: '$24,000' },
       { id: 'status', address: 'C4', sheet: 'Budget', value: 'Draft' },
@@ -166,6 +171,7 @@ const commentVersions: readonly HistoryVersion[] = [
     title: 'Clarified deadline',
     dateLabel: 'Nov 20, 11:24',
     author: 'Morgan Lee',
+    authorAvatarUrl: morganPhoto,
     cells: [
       {
         id: 'handoff',
@@ -180,6 +186,7 @@ const commentVersions: readonly HistoryVersion[] = [
     title: 'Original comment',
     dateLabel: 'Nov 20, 10:58',
     author: 'Morgan Lee',
+    authorAvatarUrl: morganPhoto,
     cells: [
       {
         id: 'handoff',

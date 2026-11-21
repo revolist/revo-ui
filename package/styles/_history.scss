@@ -83,6 +83,12 @@
   outline-offset: -2px;
 }
 
+.rv-history-author {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .rv-history-sidebar .rv-history-entry-meta {
   flex-direction: column;
   gap: 2px;

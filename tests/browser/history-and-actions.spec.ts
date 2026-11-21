@@ -93,6 +93,14 @@ test('grid history compares versions and adds a confirmed revision without losin
   const versionRow = dialog
     .locator('.rv-history-versions label')
     .filter({ hasText: 'Forecast updated' });
+  const avatar = versionRow.locator('[data-part="author"] .avatar-cell');
+  await expect(avatar).toHaveAttribute('aria-hidden', 'true');
+  await expect(avatar.locator('img')).toHaveJSProperty('complete', true);
+  expect(
+    await avatar
+      .locator('img')
+      .evaluate((image: HTMLImageElement) => image.naturalWidth),
+  ).toBeGreaterThan(0);
   await versionRow.click();
   await expect(version).toBeChecked();
   await expect(versionRow).not.toHaveCSS(
