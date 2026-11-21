@@ -411,9 +411,6 @@ function App() {
       onThemeChange={setTheme}
       onRtlChange={setRtl}
     >
-      <Section title="Circular slider" columns={2}>
-        <CircularSliderExamples />
-      </Section>
       <Section title="Cursor" columns={2}>
         <CursorExamples />
       </Section>
@@ -1194,6 +1191,9 @@ function App() {
             onChange: setNativeSlider,
           })}
         </Example>
+      </Section>
+      <Section title="Circular slider" columns={2}>
+        <CircularSliderExamples />
       </Section>
       <Section title="Field configurators" columns={2}>
         <FieldConfiguratorExamples />

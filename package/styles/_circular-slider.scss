@@ -1,3 +1,5 @@
+@use '../filter/filters/slider/single-slider' as slider;
+
 .rv-circular-slider {
   --rv-circular-slider-accent: var(--rv-ui-accent);
   display: inline-grid;
@@ -49,6 +51,28 @@
 
 .rv-circular-slider-ring [data-part='fill'] {
   stroke: var(--rv-circular-slider-accent);
+  stroke-dasharray: var(--rv-circular-slider-angle) 360;
+  transition: stroke-dasharray var(--rv-ui-motion-normal, 160ms)
+    var(--rv-ui-motion-ease, ease-out);
+}
+
+.rv-circular-slider-thumb-position {
+  transform-origin: center;
+  transform: rotate(calc(var(--rv-circular-slider-angle) * 1deg));
+  transition: transform var(--rv-ui-motion-normal, 160ms)
+    var(--rv-ui-motion-ease, ease-out);
+}
+
+.rv-circular-slider-control[data-dragging]
+  :is([data-part='fill'], .rv-circular-slider-thumb-position) {
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rv-circular-slider-ring
+    :is([data-part='fill'], .rv-circular-slider-thumb-position) {
+    transition: none;
+  }
 }
 
 .rv-circular-slider-ring [data-part='marker'] {
@@ -60,6 +84,19 @@
   fill: var(--rv-ui-surface-elevated);
   stroke: var(--rv-circular-slider-accent);
   stroke-width: 3;
+}
+
+.rv-circular-slider-control:not([aria-disabled='true'], [aria-readonly='true'])
+  [data-part='thumb'] {
+  transform-box: fill-box;
+  transform-origin: center;
+  @include slider.thumb-motion;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rv-circular-slider-control[data-pressed] [data-part='thumb'] {
+    transform: scale(var(--rv-slider-press-scale, 0.92));
+  }
 }
 
 .rv-circular-slider-control:not(

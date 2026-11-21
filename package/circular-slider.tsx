@@ -109,7 +109,6 @@ export function CircularSlider({
   const thumbRadius = Math.max(6, thickness / 2 + 2);
   const center = size / 2;
   const radius = center - thumbRadius - 7;
-  const thumb = pointOnDial(center, radius, angle);
   const tickInterval = markersAtSteps ? step * Math.ceil(3 / step) : 60;
   const ticks =
     markers === true
@@ -178,7 +177,10 @@ export function CircularSlider({
       <div
         class="rv-circular-slider-control"
         data-part="control"
-        style={{ '--rv-circular-slider-size': `${size}px` }}
+        style={{
+          '--rv-circular-slider-size': `${size}px`,
+          '--rv-circular-slider-angle': angle,
+        }}
         ref={control}
         id={controlId}
         role="slider"
@@ -208,6 +210,7 @@ export function CircularSlider({
           event.preventDefault();
           event.currentTarget.focus({ preventScroll: true });
           event.currentTarget.setPointerCapture(event.pointerId);
+          event.currentTarget.dataset.pressed = '';
           const grabbedThumb =
             event.target instanceof Element &&
             event.target.closest('[data-part="thumb"]');
@@ -235,6 +238,7 @@ export function CircularSlider({
           active.raw = point.raw;
           const next = snapAngle(active.angle, step);
           if (next !== active.value) {
+            event.currentTarget.dataset.dragging = '';
             active.value = next;
             update(next);
           }
@@ -243,10 +247,15 @@ export function CircularSlider({
           const active = drag.current;
           if (!active || active.id !== event.pointerId) return;
           drag.current = undefined;
+          delete event.currentTarget.dataset.pressed;
+          delete event.currentTarget.dataset.dragging;
           if (!disabled && !readOnly) onValueCommit?.(active.value);
         }}
         onLostPointerCapture={(event) => {
-          if (drag.current?.id === event.pointerId) drag.current = undefined;
+          if (drag.current?.id !== event.pointerId) return;
+          drag.current = undefined;
+          delete event.currentTarget.dataset.pressed;
+          delete event.currentTarget.dataset.dragging;
         }}
         onKeyDown={(event) => {
           const { key, currentTarget } = event;
@@ -295,18 +304,15 @@ export function CircularSlider({
             r={radius}
             stroke-width={thickness}
           />
-          {angle > 0 && (
-            <circle
-              data-part="fill"
-              cx={center}
-              cy={center}
-              r={radius}
-              stroke-width={thickness}
-              pathLength={MAX_ANGLE}
-              stroke-dasharray={`${angle} ${MAX_ANGLE}`}
-              transform={`rotate(-90 ${center} ${center})`}
-            />
-          )}
+          <circle
+            data-part="fill"
+            cx={center}
+            cy={center}
+            r={radius}
+            stroke-width={thickness}
+            pathLength={MAX_ANGLE}
+            transform={`rotate(-90 ${center} ${center})`}
+          />
           {ticks.map((tick) => {
             const start = pointOnDial(center, radius + thickness / 2 + 3, tick);
             const end = pointOnDial(center, radius + thickness / 2 + 6, tick);
@@ -321,7 +327,14 @@ export function CircularSlider({
               />
             );
           })}
-          <circle data-part="thumb" cx={thumb.x} cy={thumb.y} r={thumbRadius} />
+          <g class="rv-circular-slider-thumb-position">
+            <circle
+              data-part="thumb"
+              cx={center}
+              cy={center - radius}
+              r={thumbRadius}
+            />
+          </g>
         </svg>
         {showValue && (
           <span

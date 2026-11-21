@@ -1,12 +1,6 @@
 {
   "components": [
     {
-      "title": "Circular slider",
-      "group": "Controls",
-      "description": "Set a rotation, heading or other angle with a circular dial.",
-      "keywords": "circular slider angle dial rotation heading markers degrees"
-    },
-    {
       "title": "Cursor",
       "group": "Compositions",
       "description": "Show collaborator presence in a shared workspace.",
@@ -83,6 +77,12 @@
       "group": "Controls",
       "description": "Adjust a value or define an interval.",
       "keywords": "range scalar numeric timeline track move resize events"
+    },
+    {
+      "title": "Circular slider",
+      "group": "Controls",
+      "description": "Set a rotation, heading or other angle with a circular dial.",
+      "keywords": "circular slider angle dial rotation heading markers degrees"
     },
     {
       "title": "Timeline track",

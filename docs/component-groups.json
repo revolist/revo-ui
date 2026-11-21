@@ -1,11 +1,5 @@
 [
   [
-    "Circular slider",
-    "circular-slider",
-    "Adjust an angle on a themed dial.",
-    "CircularSlider"
-  ],
-  [
     "Cursor",
     "cursor",
     "Show collaborator presence with a pointer, label and message.",
@@ -70,6 +64,12 @@
     "sliders",
     "Scalar and interval controls with labels, value badges, thumb values, ticks and units.",
     "SingleValueSlider PreactRangeSlider SliderField"
+  ],
+  [
+    "Circular slider",
+    "circular-slider",
+    "Adjust an angle on a themed dial.",
+    "CircularSlider"
   ],
   [
     "Timeline track",

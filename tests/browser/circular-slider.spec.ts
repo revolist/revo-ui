@@ -45,6 +45,54 @@ test('drags along the ring and commits once on release without jumping across th
   await expect(slider).toHaveAttribute('aria-valuenow', '55');
 });
 
+test('lists the dial next to sliders and animates the thumb and arc together', async ({
+  page,
+}) => {
+  await page.route('https://registry.npmjs.org/**', (route) => route.abort());
+  await page.goto('/components/circular-slider/');
+  const links = await page
+    .getByRole('navigation', { name: 'Component sections' })
+    .getByRole('link')
+    .allTextContents();
+  expect(links[links.indexOf('Sliders') + 1]).toBe('Circular slider');
+
+  const slider = page.getByRole('slider', { name: 'Rotation', exact: true });
+  const thumb = slider.locator('[data-part="thumb"]');
+  await thumb.hover();
+  await expect(thumb).toHaveCSS('transform', /^matrix\(1\.1,/);
+  await page.mouse.down();
+  await expect(thumb).toHaveCSS('transform', /^matrix\(0\.92,/);
+  const bounds = (await slider.boundingBox())!;
+  await page.mouse.move(
+    bounds.x + bounds.width * 0.09,
+    bounds.y + bounds.height / 2,
+  );
+  const position = slider.locator('.rv-circular-slider-thumb-position');
+  const fill = slider.locator('[data-part="fill"]');
+  await expect(slider).toHaveAttribute('data-dragging', '');
+  await expect(position).toHaveCSS('transition-duration', '0s');
+  await page.mouse.up();
+  await expect(slider).not.toHaveAttribute('data-dragging', '');
+
+  const motion = () =>
+    slider.evaluate((element) =>
+      element
+        .getAnimations({ subtree: true })
+        .filter(
+          (animation): animation is CSSTransition =>
+            animation instanceof CSSTransition,
+        )
+        .map((animation) => animation.transitionProperty),
+    );
+  await slider.press('PageUp');
+  await expect
+    .poll(motion)
+    .toEqual(expect.arrayContaining(['stroke-dasharray', 'transform']));
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await expect(position).toHaveCSS('transition-duration', '0s');
+  await expect(fill).toHaveCSS('transition-duration', '0s');
+});
+
 test('shows keyboard focus on the thumb without outlining the dial', async ({
   page,
 }) => {
