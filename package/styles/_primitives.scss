@@ -971,6 +971,26 @@ label.rv-switch-label {
   padding-inline-end: 12px;
 }
 
+// Semantic keyboard hints for buttons, lists, and help text.
+.rv-keycap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 1.5em;
+  min-block-size: 1.65em;
+  padding-inline: 0.35em;
+  border: 1px solid var(--rv-ui-border-strong);
+  border-block-end-width: 2px;
+  border-radius: min(4px, var(--rv-ui-radius, 4px));
+  background: var(--rv-ui-surface-sunken);
+  color: var(--rv-ui-text);
+  font:
+    500 0.75rem/1 ui-monospace,
+    monospace;
+  white-space: nowrap;
+  unicode-bidi: isolate;
+}
+
 .rv-search-input-shortcut {
   position: absolute;
   inset-inline-end: 8px;

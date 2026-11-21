@@ -147,7 +147,10 @@ export function CommandPaletteExamples() {
           onClick={() => setOpen(true)}
           aria-keyshortcuts="Meta+K Control+K"
         >
-          Open commands <kbd>⌘ / Ctrl + K</kbd>
+          Open commands{' '}
+          <kbd class="rv-keycap" aria-hidden="true">
+            ⌘ / Ctrl + K
+          </kbd>
         </Button>
         <p role="status">{result}</p>
         <CommandPalette
