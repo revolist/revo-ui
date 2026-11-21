@@ -1,6 +1,6 @@
 # FileTree
 
-Switch content, group options and present plain, icon or descriptive selection rows.
+Browse nested files and folders, select paths, and show file changes.
 
 [Live examples and formatted usage](https://ui.rv-grid.com/components/file-tree/) · [Component index](../../README.md#complete-component-reference)
 
@@ -16,19 +16,19 @@ Angular/Svelte: pass `component="FileTree"` to the framework's `UiComponent` hos
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop | Type | Required | Description |
-| --- | --- | --- | --- |
-| `label` | `string` | Yes | Accessible name of the file list. |
-| `nodes` | `readonly FileTreeNode[]` | Yes | Files and folders in display order. |
-| `value` | `string \| undefined` | No | Controlled selected path. Use an empty string for no selection. |
-| `defaultValue` | `string \| undefined` | No | Initially selected path when uncontrolled. |
-| `expanded` | `readonly string[] \| undefined` | No | Controlled list of open folder paths. |
-| `onExpandedChange` | `((paths: string[]) => void) \| undefined` | No | Called with the open folder paths after a folder toggles. |
-| `defaultExpanded` | `readonly string[] \| undefined` | No | Initially open folders. Omit to start with all folders open. |
-| `onValueChange` | `((path: string) => void) \| undefined` | No | Called when a file is selected. |
-| `statusLabels` | `Partial<Record<FileChangeStatus, { label: string; marker?: string; }>> \| undefined` | No | Localized accessible status names and optional visible marker letters. |
-| `preset` | `ClassPreset \| undefined` | No | Optional presentation preset. |
-| `className` | `string \| undefined` | No | Additional root class names. |
+| Prop               | Type                                                                                  | Required | Description                                                            |
+| ------------------ | ------------------------------------------------------------------------------------- | -------- | ---------------------------------------------------------------------- |
+| `label`            | `string`                                                                              | Yes      | Accessible name of the file list.                                      |
+| `nodes`            | `readonly FileTreeNode[]`                                                             | Yes      | Files and folders in display order.                                    |
+| `value`            | `string \| undefined`                                                                 | No       | Controlled selected path. Use an empty string for no selection.        |
+| `defaultValue`     | `string \| undefined`                                                                 | No       | Initially selected path when uncontrolled.                             |
+| `expanded`         | `readonly string[] \| undefined`                                                      | No       | Controlled list of open folder paths.                                  |
+| `onExpandedChange` | `((paths: string[]) => void) \| undefined`                                            | No       | Called with the open folder paths after a folder toggles.              |
+| `defaultExpanded`  | `readonly string[] \| undefined`                                                      | No       | Initially open folders. Omit to start with all folders open.           |
+| `onValueChange`    | `((path: string) => void) \| undefined`                                               | No       | Called when a file is selected.                                        |
+| `statusLabels`     | `Partial<Record<FileChangeStatus, { label: string; marker?: string; }>> \| undefined` | No       | Localized accessible status names and optional visible marker letters. |
+| `preset`           | `ClassPreset \| undefined`                                                            | No       | Optional presentation preset.                                          |
+| `className`        | `string \| undefined`                                                                 | No       | Additional root class names.                                           |
 
 ## Composition
 

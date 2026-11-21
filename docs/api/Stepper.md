@@ -1,8 +1,8 @@
 # Stepper
 
-Linear/circular completion and star-based rating controls.
+Show progress and guide users through a workflow with optional inline panels.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/components/progress-and-rating/) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/stepper/) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { Stepper } from '@revolist/ui/preact'`
 
