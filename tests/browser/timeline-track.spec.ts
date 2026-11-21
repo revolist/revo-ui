@@ -135,7 +135,7 @@ test('session lanes align to their axis and expose patterned events and details'
     expect(Math.abs(heading.x - line.x)).toBeLessThan(1);
   }
   const chrome = await chart
-    .getByRole('button', { name: /^Chrome on macOS/ })
+    .getByRole('button', { name: /^Firefox on Ubuntu/ })
     .all();
   expect(
     await Promise.all(
@@ -146,7 +146,7 @@ test('session lanes align to their axis and expose patterned events and details'
   await expect(legend.getByRole('listitem')).toHaveCount(3);
   await expect(legend.getByText('Revoked')).toBeVisible();
   const revoked = chart.getByRole('button', {
-    name: /Firefox on Windows, Revoked/,
+    name: /Edge on Windows, Revoked/,
   });
   await expect(revoked.locator('..')).toHaveCSS(
     'background-image',
@@ -154,7 +154,7 @@ test('session lanes align to their axis and expose patterned events and details'
   );
   await revoked.press('Enter');
   const detail = page.getByRole('dialog', { name: 'Session details' });
-  await expect(detail).toContainText('DT-28');
+  await expect(detail).toContainText('WS-304');
   await page.keyboard.press('Escape');
   await expect(detail).toBeHidden();
   await expect(revoked).toBeFocused();
@@ -168,6 +168,49 @@ test('session lanes align to their axis and expose patterned events and details'
   ).toBeGreaterThan(bounds.width);
 });
 
+test('the left device column resizes by pointer and keyboard without moving the timeline grid out of alignment', async ({
+  page,
+}) => {
+  await page.route('https://registry.npmjs.org/**', (route) => route.abort());
+  await page.goto('/components/timeline-track/');
+  const chart = page.getByRole('group', { name: 'Device sessions by day' });
+  const resize = chart.getByRole('separator', { name: 'Resize device column' });
+  const panel = chart.locator('[data-part="lanes"]');
+  const plot = chart.locator('[data-part="plot"]');
+  await resize.press('ArrowRight');
+  await expect(resize).toHaveAttribute('aria-valuenow', '202');
+  await resize.press('Home');
+  await expect(resize).toHaveAttribute('aria-valuenow', '140');
+  const handle = (await resize.boundingBox())!;
+  await page.mouse.move(
+    handle.x + handle.width / 2,
+    handle.y + handle.height / 2,
+  );
+  await page.mouse.down();
+  await page.mouse.move(
+    handle.x + handle.width / 2 + 56,
+    handle.y + handle.height / 2,
+    { steps: 4 },
+  );
+  await page.mouse.up();
+  await expect(resize).toHaveAttribute('aria-valuenow', '196');
+  const labels = (await panel.boundingBox())!;
+  const timeline = (await plot.boundingBox())!;
+  expect(labels.width).toBeCloseTo(196, 0);
+  expect(labels.x + labels.width).toBeCloseTo(timeline.x, 0);
+  await resize.press('End');
+  await expect(resize).toHaveAttribute('aria-valuenow', '320');
+  const column = (await chart
+    .locator('[data-part="column"]')
+    .nth(3)
+    .boundingBox())!;
+  const gridLine = (await chart
+    .locator('[data-part="column-line"]')
+    .nth(3)
+    .boundingBox())!;
+  expect(column.x).toBeCloseTo(gridLine.x, 0);
+});
+
 test('session timeline uses themed colors and passes scoped checks in dark mode', async ({
   page,
 }) => {
@@ -176,7 +219,7 @@ test('session timeline uses themed colors and passes scoped checks in dark mode'
   await page.goto('/components/timeline-track/');
   const chart = page.getByRole('group', { name: 'Device sessions by day' });
   const active = chart
-    .getByRole('button', { name: /^Safari on iOS, Active/ })
+    .getByRole('button', { name: /^Chrome on Pixel, Active/ })
     .locator('..');
   const color = await chart.evaluate(
     (element) => getComputedStyle(element).color,

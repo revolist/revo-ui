@@ -27,6 +27,7 @@ export class TimelineTrack extends AngularComponentAdapter<never> {
   >;
   @NgInput() declare 'getTooltip'?: AngularInput<'TimelineTrack', 'getTooltip'>;
   @NgInput() declare 'labels'?: AngularInput<'TimelineTrack', 'labels'>;
+  @NgInput() declare 'laneResize'?: AngularInput<'TimelineTrack', 'laneResize'>;
   @NgInput() declare 'lanes'?: AngularInput<'TimelineTrack', 'lanes'>;
   @NgInput() declare 'marker'?: AngularInput<'TimelineTrack', 'marker'>;
   @NgInput() declare 'onEventActivate'?: AngularInput<

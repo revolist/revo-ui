@@ -3,6 +3,7 @@
 @use './alert';
 @use './loading';
 @use './control';
+@use './resize-handle';
 
 .rv-example-card {
   box-sizing: border-box;
@@ -178,39 +179,6 @@
   left: 0;
 }
 
-.rv-resize-handle {
-  position: relative;
-  width: 12px;
-  min-height: 48px;
-  flex: 0 0 12px;
-  cursor: col-resize;
-  touch-action: none;
-  user-select: none;
-}
-.rv-resize-handle::after {
-  content: '';
-  position: absolute;
-  inset-block: 0;
-  inset-inline-start: 5px;
-  width: 1px;
-  border-radius: 2px;
-  background: var(--rv-ui-border);
-  transition: background-color var(--rv-ui-motion-fast, 120ms)
-    var(--rv-ui-motion-ease, cubic-bezier(0.2, 0, 0, 1));
-}
-.rv-resize-handle:hover::after,
-.rv-resize-handle:focus-visible::after {
-  background: var(--rv-ui-accent);
-}
-.rv-resize-handle:focus-visible {
-  outline: none;
-}
-@media (forced-colors: active) {
-  .rv-resize-handle:focus-visible {
-    outline: 2px solid Highlight;
-    outline-offset: 2px;
-  }
-}
 .rv-btn[aria-pressed='true'] {
   background: var(--rv-ui-selected-bg);
   color: var(--rv-ui-selected-accent-fg, var(--rv-ui-accent-text));

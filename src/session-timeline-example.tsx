@@ -13,26 +13,26 @@ import { Example } from './catalog';
 const lanes = [
   {
     id: 'work',
-    label: 'Chrome on macOS',
-    description: 'Lisbon, Portugal',
+    label: 'Firefox on Ubuntu',
+    description: 'Porto, Portugal',
     icon: laptop,
   },
   {
     id: 'phone',
-    label: 'Safari on iOS',
-    description: 'Cascais, Portugal',
+    label: 'Chrome on Pixel',
+    description: 'Évora, Portugal',
     icon: mobile,
   },
   {
     id: 'desktop',
-    label: 'Firefox on Windows',
-    description: 'Porto, Portugal',
+    label: 'Edge on Windows',
+    description: 'Aveiro, Portugal',
     icon: desktop,
   },
   {
     id: 'tablet',
-    label: 'Edge on Android',
-    description: 'Braga, Portugal',
+    label: 'Safari on iPad',
+    description: 'Setúbal, Portugal',
     icon: mobile,
   },
 ];
@@ -59,7 +59,7 @@ const columns = [
   'Fri 20',
   'Sat 21',
 ].map((label, value) => ({ label, value }));
-const now = 6.55;
+const now = 6.65;
 const range = { start: 0, end: columns.length };
 
 function session(
@@ -84,15 +84,15 @@ function session(
   };
 }
 const rows = [
-  session('WK-14', 'work', 0.34, 0.82, 'ended'),
-  session('WK-23', 'work', 1.37, 1.74, 'ended'),
-  session('WK-32', 'work', 4.25, 5.74, 'ended'),
-  session('WK-38', 'work', 6.4, now, 'active'),
-  session('PH-17', 'phone', 0.86, 2.23, 'ended'),
-  session('PH-26', 'phone', 2.92, now, 'active'),
-  session('DT-28', 'desktop', 1.58, 1.82, 'revoked'),
-  session('DT-35', 'desktop', 3.85, 4.16, 'ended'),
-  session('TB-19', 'tablet', 4.41, 4.7, 'revoked'),
+  session('NB-141', 'work', 0.42, 1.46, 'ended'),
+  session('NB-143', 'work', 2.61, 3.12, 'ended'),
+  session('NB-148', 'work', 4.35, now, 'active'),
+  session('PX-221', 'phone', 0.84, 1.7, 'ended'),
+  session('PX-225', 'phone', 3.55, 4.27, 'ended'),
+  session('PX-229', 'phone', 5.79, now, 'active'),
+  session('WS-304', 'desktop', 2.12, 2.56, 'revoked'),
+  session('WS-308', 'desktop', 5.18, 5.99, 'ended'),
+  session('PD-416', 'tablet', 3.48, 4.21, 'revoked'),
 ];
 
 const time = new Intl.DateTimeFormat('en-GB', {
@@ -112,6 +112,7 @@ export function SessionTimelineExample() {
     id: string | number;
     anchor: HTMLButtonElement;
   }>();
+  const [laneWidth, setLaneWidth] = useState(192);
   const active = rows.find(({ id }) => id === selection?.id);
   return (
     <Example title="Device session history" wide>
@@ -119,8 +120,15 @@ export function SessionTimelineExample() {
         <TimelineTrack
           rows={rows}
           lanes={lanes}
+          laneResize={{
+            label: 'Resize device column',
+            value: laneWidth,
+            min: 140,
+            max: 320,
+            onChange: setLaneWidth,
+          }}
           columns={columns}
-          marker={{ value: now, label: 'Now · 13:12' }}
+          marker={{ value: now, label: 'Now · 15:36' }}
           range={range}
           readOnly
           tooltip={false}

@@ -705,6 +705,7 @@
       "column-line",
       "lanes",
       "lane",
+      "lane-resize",
       "plot",
       "event",
       "reference",

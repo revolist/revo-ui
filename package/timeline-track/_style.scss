@@ -1,5 +1,6 @@
 @use '../styles/motion';
 @use '../styles/collapsible-section';
+@use '../styles/resize-handle';
 .rv-timeline-control__track {
   position: relative;
   box-sizing: border-box;
@@ -236,6 +237,7 @@
 }
 
 .rv-timeline-control__chart {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   min-inline-size: 32rem;
@@ -282,6 +284,30 @@
   border-block-end: 1px solid var(--rv-ui-border);
   font-size: 0.875rem;
   font-weight: var(--rv-ui-font-weight-medium, 500);
+}
+
+.rv-timeline-control__lane-resize {
+  position: absolute;
+  z-index: 3;
+  inset-block: 0;
+  inset-inline-start: var(--rv-timeline-label-size, 12rem);
+  display: flex;
+  translate: -50% 0;
+}
+
+.rv-timeline-control__lane-resize
+  .rv-resize-handle:not(:hover, :focus-visible)::after {
+  inset-block: calc(50% - 8px);
+  inline-size: 2px;
+  background: var(--rv-ui-border-strong);
+}
+
+.rv-timeline-control__lane > span:last-child,
+.rv-timeline-control__lane small {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .rv-timeline-control__lane small {

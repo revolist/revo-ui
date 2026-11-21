@@ -3,6 +3,8 @@ import type { JSX } from 'preact';
 import type { ClassPreset } from '../presets/types';
 import { useControlTooltip } from '../core/tooltip';
 import { useRef } from 'preact/hooks';
+import { ResizeHandle } from '../controls';
+import type { ResizeOptions } from '../surfaces';
 import { SvgIcon } from '../icons/icon';
 import { CollapsibleSection } from '../field-configurator';
 import { ButtonControl as UiButton } from '../native-control';
@@ -81,6 +83,8 @@ export interface TimelineTrackProps<T extends TimelineTrackEvent> {
   readonly rows: readonly TimelineTrackItem<T>[];
   /** Optional named lanes. Events with a matching laneId share one row. */
   readonly lanes?: readonly TimelineTrackLane[];
+  /** Controlled width in CSS pixels for the left label panel. Supply min and max for keyboard bounds. */
+  readonly laneResize?: Omit<ResizeOptions, 'direction'>;
   /** Optional axis labels and vertical grid lines. */
   readonly columns?: readonly TimelineTrackColumn[];
   /** Optional vertical reference line with a caption. */
@@ -111,6 +115,7 @@ export function TimelineTrack<T extends TimelineTrackEvent>({
   className = '',
   rows,
   lanes,
+  laneResize,
   columns,
   marker,
   readOnly = false,
@@ -366,6 +371,8 @@ export function TimelineTrack<T extends TimelineTrackEvent>({
         tabIndex={chart ? 0 : undefined}
         style={{
           '--rv-timeline-lane-count': lanes?.length ?? rows.length,
+          '--rv-timeline-label-size':
+            lanes && laneResize ? `${laneResize.value}px` : undefined,
           height: chart
             ? undefined
             : `max(112px, calc(70px + ${rows.length} * var(--rv-timeline-lane-size)))`,
@@ -422,6 +429,14 @@ export function TimelineTrack<T extends TimelineTrackEvent>({
                     </span>
                   </div>
                 ))}
+              </div>
+            )}
+            {lanes && laneResize && (
+              <div
+                data-part="lane-resize"
+                class="rv-timeline-control__lane-resize"
+              >
+                <ResizeHandle {...laneResize} direction="ltr" />
               </div>
             )}
             <div class="rv-timeline-control__plot" data-part="plot">
