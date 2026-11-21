@@ -68,6 +68,55 @@ entries.push({ name: 'Select', node: select });
 const escape = (text) =>
   text.replaceAll('|', '\\|').replaceAll('\n', ' ').replaceAll('`', '&#96;');
 const componentGuidance = {
+  MiniCalendar: `
+Use MiniCalendar for choosing one nearby date. The row pages by its visible day count and works with the same date-only ISO strings as Calendar. The selected day and the page can each be controlled independently. Supply a reference date when today must match across rendering environments.
+
+Arrow keys move focus in the visual direction, Home and End move to the first and last available days, and Page Up and Page Down page by the day count. Enter and Space select the focused day. Date bounds and disabled dates apply to keyboard and pointer selection. Use locale and translated navigation labels for localized interfaces.
+`,
+  Toaster: `
+Import \`createToaster\` from the Preact, React or Vue entry, or from \`@revolist/ui/toast-store\` with any adapter. Create a controller and mount one \`<Toaster toaster={toaster} />\` in the themed app or surface. Call \`toaster.show({ title, description, tone })\` from an event handler. It returns the ID for \`update(id, changes)\` and \`dismiss(id)\`. Call \`dismiss()\` to clear the queue.
+
+Use \`toaster.promise(task, { loading, success, error })\` to update one notification as a promise settles. Each message takes toast options and success and error can derive their options from the settled value. The returned promise preserves the task result or rejection.
+
+Notifications expire after four seconds by default. Loading notifications and notifications with actions stay visible by default. Pass \`duration: 0\` to keep other messages visible or set a duration in milliseconds. The timer pauses while the viewport is hovered or focused and while the document is hidden.
+
+Use logical start and end positions for RTL layouts, or \`inline\` within a panel. Pass translated message text, action labels, and \`text.notifications\` and \`text.dismiss\` for the accessible names. Keyboard users can Tab into the actions and press Escape within a notification to dismiss it.
+`,
+  CircularSlider: `
+## Angle and input
+
+The dial uses degrees from zero at the top through 360 for a complete clockwise turn. Pass an angle with \`value\` to control it, or use \`defaultValue\` for local state. Set \`step\` for adjustment increments and supply \`formatValue\` to display another unit.
+
+Use \`onValueChange\` for live updates and \`onValueCommit\` for completed pointer or keyboard adjustments. Arrow keys move one step, and Home and End reach the endpoints. Hold Shift with an arrow key, or use Page Up or Page Down, to move ten steps. Set \`name\` to submit the angle with a form.
+`,
+  Cursor: `
+## Position and accessibility
+
+Give the containing surface a positioning context, then pass the collaborator's offsets in CSS pixels through \`position\`. Enable \`animate\` to interpolate updates with the shared motion preferences. Hosts can subscribe to their presence service and pass coordinates, a name and a localized message as data.
+
+Set the CSS color per collaborator. The label uses automatic contrast where available and a theme surface with an accent border elsewhere. The pointer is decorative and allows clicks through to the workspace. Hide the whole cursor from assistive technology with \`aria-hidden\` if a separate presence list already identifies that collaborator.
+`,
+  ActionBar: `
+## Bulk selection
+
+Pass the selection count and its localized summary. The bar opens when the count is positive. Use \`open\` to control visibility and clear your host selection in \`onOpenChange(false)\`. Use the optional children slot for extra controls such as a menu trigger.
+
+The default is fixed to the bottom of the viewport. Allow enough room beneath the host content for rows to scroll clear of the bar. Use the inline mode for embedded layouts. Focus stays on the selection when the bar opens. Left and Right move between actions in writing order, and Home and End move to the ends.
+`,
+  BackupHistory: `
+## Snapshot order
+
+Supply snapshots from oldest to newest. The newest snapshot is initially selected, and the slider, buttons, arrow keys and touch track all change the same selection. The slider uses chronological left-to-right order, including in an RTL host.
+
+Supply localized, display-ready dates, sizes and verification states. Mark unsuccessful or unavailable backups with \`restoreDisabled\`. Preview and confirmed restore callbacks receive the snapshot ID so the application can manage data and persistence.
+`,
+  HistoryReview: `
+## Reviewing grid changes
+
+Supply full snapshots newest first. Use stable cell IDs across revisions, including the sheet identity for multi-sheet workbooks. Addresses and display values are supplied by the host. Set a cell's value to \`null\` or omit its ID when the cell is empty. The comparison shows values before and after the selected revision, using either the preceding snapshot or the current version as the starting point.
+
+Use the inline review for an audit panel or a comment's edit history. Pass \`open\` and \`onClose\` for a modal review. The optional restore handler receives the confirmed revision ID. The host can persist a new revision while retaining the earlier snapshots.
+`,
   CommandPalette: `
 ## Command groups and keyboard
 

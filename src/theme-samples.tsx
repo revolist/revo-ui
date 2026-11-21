@@ -1,4 +1,10 @@
+import {
+  backupLabels,
+  demoBackups,
+  historyLabels,
+} from './history-and-actions';
 import { h } from 'preact';
+import { ToasterThemeSample } from './toast-examples';
 import { useId, useRef, useState } from 'preact/hooks';
 import {
   Tree,
@@ -6,6 +12,15 @@ import {
   ActivityTimeline,
   Trace,
   Attachments,
+  ActionBar,
+  CircularSlider,
+  Cursor,
+  CursorPointer,
+  CursorBody,
+  CursorName,
+  CursorMessage,
+  BackupHistory,
+  HistoryReview,
   Cascader,
   FilterBar,
   CommandPalette,
@@ -55,6 +70,7 @@ import {
 } from '@revolist/ui/preact';
 import {
   CalendarDay,
+  MiniCalendar,
   CalendarHeader,
   CalendarWeekdays,
   DisclosureSummary,
@@ -262,6 +278,7 @@ const names = new Set([
   'FilterChip',
   'Input',
   'CalendarDay',
+  'MiniCalendar',
   'CalendarHeader',
   'CalendarWeekdays',
   'DisclosureSummary',
@@ -270,6 +287,15 @@ const names = new Set([
   'ActivityTimeline',
   'Trace',
   'Attachments',
+  'ActionBar',
+  'CircularSlider',
+  'Cursor',
+  'CursorPointer',
+  'CursorBody',
+  'CursorName',
+  'CursorMessage',
+  'BackupHistory',
+  'HistoryReview',
   'Cascader',
   'FilterBar',
   'CommandPalette',
@@ -381,6 +407,7 @@ const names = new Set([
   'InspectorSection',
   'ResizeHandle',
   'StatusFeedbackPanel',
+  'Toaster',
   'TimeGrid',
   'TypographyControls',
   'CalendarMonthGrid',
@@ -892,6 +919,8 @@ function Sample({
           onChange={setNumber}
         />
       );
+    case 'Toaster':
+      return <ToasterThemeSample preset={shared.preset} />;
     case 'StatusFeedbackPanel':
       return (
         <StatusFeedbackPanel
@@ -1644,6 +1673,15 @@ function Sample({
           svg={'<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" /></svg>'}
         />
       );
+    case 'MiniCalendar':
+      return (
+        <MiniCalendar
+          {...shared}
+          label="Delivery date"
+          referenceDate={date}
+          defaultValue={date}
+        />
+      );
     case 'CalendarDay':
       return (
         <div role="grid" aria-label="Calendar">
@@ -1772,6 +1810,95 @@ function Sample({
               details: 'Found records',
             },
           ]}
+        />
+      );
+    case 'CircularSlider':
+      return (
+        <CircularSlider
+          {...shared}
+          label="Rotation"
+          defaultValue={120}
+          markers
+        />
+      );
+    case 'Cursor':
+      return (
+        <Cursor {...shared} name="Morgan" message="Reviewing the totals" />
+      );
+    case 'CursorPointer':
+      return (
+        <Cursor>
+          <CursorPointer {...shared} size={24} />
+        </Cursor>
+      );
+    case 'CursorBody':
+      return (
+        <Cursor>
+          <CursorPointer />
+          <CursorBody {...shared}>
+            <CursorName>Morgan</CursorName>
+          </CursorBody>
+        </Cursor>
+      );
+    case 'CursorName':
+      return (
+        <Cursor>
+          <CursorPointer />
+          <CursorBody>
+            <CursorName {...shared}>Morgan</CursorName>
+          </CursorBody>
+        </Cursor>
+      );
+    case 'CursorMessage':
+      return (
+        <Cursor>
+          <CursorPointer />
+          <CursorBody>
+            <CursorMessage {...shared}>Reviewing the totals</CursorMessage>
+          </CursorBody>
+        </Cursor>
+      );
+    case 'ActionBar':
+      return (
+        <ActionBar
+          {...shared}
+          label="File actions"
+          count={2}
+          selectionLabel="2 files selected"
+          actions={[{ id: 'archive', label: 'Archive' }]}
+          onAction={() => {}}
+          positioning={{ mode: 'inline' }}
+        />
+      );
+    case 'BackupHistory':
+      return (
+        <BackupHistory
+          {...shared}
+          label="Backups"
+          snapshots={demoBackups.slice(-2)}
+          labels={backupLabels}
+        />
+      );
+    case 'HistoryReview':
+      return (
+        <HistoryReview
+          {...shared}
+          label="Version history"
+          versions={[
+            {
+              id: 'v2',
+              title: 'Revised forecast',
+              dateLabel: 'Nov 20',
+              cells: [{ id: 'cell', address: 'A1', value: '120' }],
+            },
+            {
+              id: 'v1',
+              title: 'Initial forecast',
+              dateLabel: 'Nov 19',
+              cells: [{ id: 'cell', address: 'A1', value: '100' }],
+            },
+          ]}
+          labels={historyLabels}
         />
       );
     case 'Attachments':

@@ -118,6 +118,7 @@ export interface UiTheme {
     RemoveButton?: NamedPresets<ClassPreset>;
     Input?: NamedPresets<ClassPreset>;
     Calendar?: NamedPresets<CalendarPreset>;
+    MiniCalendar?: NamedPresets<ClassPreset>;
     CalendarDay?: NamedPresets<ClassPreset>;
     CalendarPicker?: NamedPresets<CalendarPreset>;
     DatePicker?: NamedPresets<CalendarPreset>;
@@ -187,6 +188,7 @@ export interface UiTheme {
     DropdownPopupContent?: NamedPresets<ClassPreset>;
     LookupField?: NamedPresets<ClassPreset>;
     StatusFeedbackPanel?: NamedPresets<ClassPreset>;
+    Toaster?: NamedPresets<ClassPreset>;
     StatusBadge?: NamedPresets<ClassPreset>;
     Avatar?: NamedPresets<ClassPreset>;
     ResizeHandle?: NamedPresets<ClassPreset>;
@@ -201,6 +203,15 @@ export interface UiTheme {
     Cascader?: NamedPresets<ClassPreset>;
     FilterBar?: NamedPresets<ClassPreset>;
     CommandPalette?: NamedPresets<ClassPreset>;
+    CircularSlider?: NamedPresets<ClassPreset>;
+    Cursor?: NamedPresets<ClassPreset>;
+    CursorPointer?: NamedPresets<ClassPreset>;
+    CursorBody?: NamedPresets<ClassPreset>;
+    CursorName?: NamedPresets<ClassPreset>;
+    CursorMessage?: NamedPresets<ClassPreset>;
+    ActionBar?: NamedPresets<ClassPreset>;
+    BackupHistory?: NamedPresets<ClassPreset>;
+    HistoryReview?: NamedPresets<ClassPreset>;
     FileTree?: NamedPresets<ClassPreset>;
     ReorderList?: NamedPresets<ClassPreset>;
     ReorderHandle?: NamedPresets<ClassPreset>;

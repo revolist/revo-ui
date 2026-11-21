@@ -1,6 +1,7 @@
 // Import base.css once before optional component families.
 @use './field-configurator';
 @use './editor-slider';
+@use './circular-slider';
 @use './editor-counter';
 @use '../filter/filters/slider/slider';
 @use './filter-controls';

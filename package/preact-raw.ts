@@ -23,6 +23,7 @@ export * from './filter/filters/slider/preact';
 export * from './filter/filters/slider/single';
 export * from './controls';
 export * from './status-feedback';
+export * from './toaster';
 export * from './pickers';
 export * from './control-presentation';
 export { Input } from './native-control';
@@ -139,3 +140,8 @@ export * from './filter-bar';
 export * from './command-palette';
 
 export * from './file-tree';
+export * from './action-bar';
+export * from './backup-history';
+export * from './history-review';
+export * from './cursor';
+export * from './circular-slider';

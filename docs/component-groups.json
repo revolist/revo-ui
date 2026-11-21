@@ -1,5 +1,35 @@
 [
   [
+    "Circular slider",
+    "circular-slider",
+    "Adjust an angle on a themed dial.",
+    "CircularSlider"
+  ],
+  [
+    "Cursor",
+    "cursor",
+    "Show collaborator presence with a pointer, label and message.",
+    "Cursor CursorPointer CursorBody CursorName CursorMessage"
+  ],
+  [
+    "History review",
+    "history-review",
+    "Inspect saved versions and compare changes to grid cells.",
+    "HistoryReview"
+  ],
+  [
+    "Backup history",
+    "backup-history",
+    "Browse snapshots and choose a restore point.",
+    "BackupHistory"
+  ],
+  [
+    "Action bar",
+    "action-bar",
+    "Run contextual actions for a selection.",
+    "ActionBar"
+  ],
+  [
     "Buttons",
     "buttons",
     "Actions, grouped commands, toggled state, icons, compact sizing, busy states and pill corners.",
@@ -51,7 +81,7 @@
     "Calendar and dates",
     "calendar-and-dates",
     "Calendar views, date selection and date ranges.",
-    "Calendar CalendarHeader CalendarWeekdays CalendarDay CalendarMonthGrid CalendarYearGrid CalendarPicker DatePicker DateRangePicker"
+    "Calendar MiniCalendar CalendarHeader CalendarWeekdays CalendarDay CalendarMonthGrid CalendarYearGrid CalendarPicker DatePicker DateRangePicker"
   ],
   [
     "Date and time fields",
@@ -147,7 +177,7 @@
     "Status and feedback",
     "status-and-feedback",
     "Semantic badges, counters, alerts, progress indicators, loading surfaces, empty states and feedback panels.",
-    "Badge CountBadge Alert Spinner LoadingOverlay EmptyState StatusFeedbackPanel StatusBadge"
+    "Badge CountBadge Alert Spinner LoadingOverlay EmptyState StatusFeedbackPanel StatusBadge Toaster"
   ],
   [
     "Accordion",

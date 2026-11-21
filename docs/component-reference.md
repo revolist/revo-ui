@@ -130,7 +130,7 @@ Controlled timeline events with move/resize interactions, event colors, weighted
 
 Calendar views, date selection and date ranges.
 
-[Calendar](api/Calendar.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarHeader](api/CalendarHeader.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarWeekdays](api/CalendarWeekdays.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarDay](api/CalendarDay.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarMonthGrid](api/CalendarMonthGrid.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarYearGrid](api/CalendarYearGrid.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarPicker](api/CalendarPicker.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [DatePicker](api/DatePicker.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [DateRangePicker](api/DateRangePicker.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/))
+[Calendar](api/Calendar.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [MiniCalendar](api/MiniCalendar.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/#example-mini-calendar)) | [CalendarHeader](api/CalendarHeader.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarWeekdays](api/CalendarWeekdays.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarDay](api/CalendarDay.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarMonthGrid](api/CalendarMonthGrid.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarYearGrid](api/CalendarYearGrid.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarPicker](api/CalendarPicker.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [DatePicker](api/DatePicker.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [DateRangePicker](api/DateRangePicker.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/))
 
 ### Date and time fields
 
@@ -221,6 +221,8 @@ Command menus, nested commands, separators and grouped toolbar actions.
 Semantic badges, counters, alerts, progress indicators, loading surfaces, empty states and feedback panels.
 
 [Badge](api/Badge.md) ([examples](https://ui.rv-grid.com/components/status-and-feedback/)) | [CountBadge](api/CountBadge.md) ([examples](https://ui.rv-grid.com/components/status-and-feedback/)) | [Alert](api/Alert.md) ([examples](https://ui.rv-grid.com/components/status-and-feedback/)) | [Spinner](api/Spinner.md) ([examples](https://ui.rv-grid.com/components/status-and-feedback/)) | [LoadingOverlay](api/LoadingOverlay.md) ([examples](https://ui.rv-grid.com/components/status-and-feedback/)) | [EmptyState](api/EmptyState.md) ([examples](https://ui.rv-grid.com/components/status-and-feedback/)) | [StatusFeedbackPanel](api/StatusFeedbackPanel.md) ([examples](https://ui.rv-grid.com/components/status-and-feedback/)) | [StatusBadge](api/StatusBadge.md) ([examples](https://ui.rv-grid.com/components/status-and-feedback/))
+
+[Toaster](api/Toaster.md) ([examples](https://ui.rv-grid.com/components/status-and-feedback/))
 
 ### Accordion
 
@@ -537,3 +539,12 @@ Revo UI is [MIT licensed](../LICENSE). Anyone can use, modify, and distribute it
 - [Trace](api/Trace.md) ([examples](https://ui.rv-grid.com/components/trace/))
 - [ActivityTimeline](api/ActivityTimeline.md) ([examples](https://ui.rv-grid.com/components/activity-timeline/))
 - [FileTree](api/FileTree.md) ([examples](https://ui.rv-grid.com/components/tree/#example-changed-files))
+- [ActionBar](api/ActionBar.md) ([examples](https://ui.rv-grid.com/components/action-bar/))
+- [BackupHistory](api/BackupHistory.md) ([examples](https://ui.rv-grid.com/components/backup-history/))
+- [HistoryReview](api/HistoryReview.md) ([examples](https://ui.rv-grid.com/components/history-review/))
+- [Cursor](api/Cursor.md) ([examples](https://ui.rv-grid.com/components/cursor/))
+- [CursorPointer](api/CursorPointer.md) ([examples](https://ui.rv-grid.com/components/cursor/))
+- [CursorBody](api/CursorBody.md) ([examples](https://ui.rv-grid.com/components/cursor/))
+- [CursorName](api/CursorName.md) ([examples](https://ui.rv-grid.com/components/cursor/))
+- [CursorMessage](api/CursorMessage.md) ([examples](https://ui.rv-grid.com/components/cursor/))
+- [CircularSlider](api/CircularSlider.md) ([examples](https://ui.rv-grid.com/components/circular-slider/))

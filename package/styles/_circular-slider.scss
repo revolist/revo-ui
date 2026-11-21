@@ -1,0 +1,94 @@
+.rv-circular-slider {
+  --rv-circular-slider-accent: var(--rv-ui-accent);
+  display: inline-grid;
+  justify-items: center;
+  gap: 8px;
+  max-inline-size: 100%;
+  color: var(--rv-ui-text);
+}
+
+.rv-circular-slider[data-invalid] {
+  --rv-circular-slider-accent: var(--rv-ui-danger);
+}
+
+.rv-circular-slider[data-disabled] {
+  opacity: 0.55;
+}
+
+.rv-circular-slider-label {
+  font-size: 0.875rem;
+  font-weight: var(--rv-ui-font-weight-medium, 500);
+}
+
+.rv-circular-slider-control {
+  position: relative;
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  inline-size: var(--rv-circular-slider-size);
+  max-inline-size: 100%;
+  aspect-ratio: 1;
+  min-inline-size: 0;
+  border-radius: 50%;
+  user-select: none;
+}
+
+.rv-circular-slider-ring {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.rv-circular-slider-ring :is([data-part='track'], [data-part='fill']) {
+  fill: none;
+}
+
+.rv-circular-slider-ring [data-part='track'] {
+  stroke: var(--rv-ui-border-strong);
+}
+
+.rv-circular-slider-ring [data-part='fill'] {
+  stroke: var(--rv-circular-slider-accent);
+}
+
+.rv-circular-slider-ring [data-part='marker'] {
+  stroke: var(--rv-ui-text-muted);
+  stroke-width: 1;
+}
+
+.rv-circular-slider-ring [data-part='thumb'] {
+  fill: var(--rv-ui-surface-elevated);
+  stroke: var(--rv-circular-slider-accent);
+  stroke-width: 3;
+}
+
+.rv-circular-slider-control:not(
+  [aria-disabled='true'],
+  [aria-readonly='true']
+) {
+  cursor: grab;
+  touch-action: none;
+}
+
+.rv-circular-slider-control:not(
+    [aria-disabled='true'],
+    [aria-readonly='true']
+  ):active {
+  cursor: grabbing;
+}
+
+.rv-circular-slider-control:focus-visible {
+  outline: 2px solid var(--rv-ui-focus-ring);
+  outline-offset: 2px;
+}
+
+.rv-circular-slider-value {
+  position: absolute;
+  max-inline-size: 60%;
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: var(--rv-ui-font-weight-semibold, 600);
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+  pointer-events: none;
+}

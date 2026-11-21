@@ -55,6 +55,9 @@ export const EditorListGroup: ReactUiComponent<typeof ui.EditorListGroup> =
   /* @__PURE__ */ createReactAdapter(ui.EditorListGroup, 'EditorListGroup');
 export const Calendar: ReactUiComponent<typeof ui.Calendar> =
   /* @__PURE__ */ createReactAdapter(ui.Calendar, 'Calendar');
+export type { MiniCalendarProps } from './calendar/mini-calendar';
+export const MiniCalendar: ReactUiComponent<typeof ui.MiniCalendar> =
+  /* @__PURE__ */ createReactAdapter(ui.MiniCalendar, 'MiniCalendar');
 export const CalendarHeader: ReactUiComponent<typeof ui.CalendarHeader> =
   /* @__PURE__ */ createReactAdapter(ui.CalendarHeader, 'CalendarHeader');
 export const CalendarWeekdays: ReactUiComponent<typeof ui.CalendarWeekdays> =
@@ -213,6 +216,17 @@ export const ListboxOptionContent: ReactUiComponent<
   ui.ListboxOptionContent,
   'ListboxOptionContent',
 );
+export { createToaster } from './toast-store';
+export type {
+  ToastController,
+  ToastEntry,
+  ToastOptions,
+  ToastPromiseMessages,
+  ToastTone,
+} from './toast-store';
+export type { ToasterProps } from './toaster';
+export const Toaster: ReactUiComponent<typeof ui.Toaster> =
+  /* @__PURE__ */ createReactAdapter(ui.Toaster, 'Toaster');
 export const StatusFeedbackPanel: ReactUiComponent<
   typeof ui.StatusFeedbackPanel
 > = /* @__PURE__ */ createReactAdapter(
@@ -528,3 +542,30 @@ export const CommandPalette: ReactUiComponent<typeof ui.CommandPalette> =
 
 export const FileTree: ReactUiComponent<typeof ui.FileTree> =
   /* @__PURE__ */ createReactAdapter(ui.FileTree, 'FileTree');
+
+export const ActionBar: ReactUiComponent<typeof ui.ActionBar> =
+  /* @__PURE__ */ createReactAdapter(ui.ActionBar, 'ActionBar');
+
+export const BackupHistory: ReactUiComponent<typeof ui.BackupHistory> =
+  /* @__PURE__ */ createReactAdapter(ui.BackupHistory, 'BackupHistory');
+
+export const HistoryReview: ReactUiComponent<typeof ui.HistoryReview> =
+  /* @__PURE__ */ createReactAdapter(ui.HistoryReview, 'HistoryReview');
+
+export const Cursor: ReactUiComponent<typeof ui.Cursor> =
+  /* @__PURE__ */ createReactAdapter(ui.Cursor, 'Cursor');
+
+export const CursorPointer: ReactUiComponent<typeof ui.CursorPointer> =
+  /* @__PURE__ */ createReactAdapter(ui.CursorPointer, 'CursorPointer');
+
+export const CursorBody: ReactUiComponent<typeof ui.CursorBody> =
+  /* @__PURE__ */ createReactAdapter(ui.CursorBody, 'CursorBody');
+
+export const CursorName: ReactUiComponent<typeof ui.CursorName> =
+  /* @__PURE__ */ createReactAdapter(ui.CursorName, 'CursorName');
+
+export const CursorMessage: ReactUiComponent<typeof ui.CursorMessage> =
+  /* @__PURE__ */ createReactAdapter(ui.CursorMessage, 'CursorMessage');
+
+export const CircularSlider: ReactUiComponent<typeof ui.CircularSlider> =
+  /* @__PURE__ */ createReactAdapter(ui.CircularSlider, 'CircularSlider');

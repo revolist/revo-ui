@@ -69,6 +69,16 @@ export const pickerStyles = [
   fields,
 ] as const;
 export const dialogsStyles = [base, form, checkbox, dialogs, layout] as const;
+export const historyStyles = [
+  base,
+  form,
+  checkbox,
+  dialogs,
+  layout,
+  pickers,
+  feedback,
+  fields,
+] as const;
 export const feedbackStyles = [base, form, checkbox, layout, feedback] as const;
 export const fieldsStyles = [
   base,

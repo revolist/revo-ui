@@ -10,6 +10,7 @@ import {
   fieldsStyles,
   feedbackStyles,
   dialogsStyles,
+  historyStyles,
   chartsStyles,
   formattingStyles,
   timelineStyles,
@@ -70,6 +71,8 @@ export const EditorListGroup: typeof ui.EditorListGroup =
   /* @__PURE__ */ registerComponentStyles(ui.EditorListGroup, layoutStyles);
 export const Calendar: typeof ui.Calendar =
   /* @__PURE__ */ registerComponentStyles(ui.Calendar, calendarStyles);
+export const MiniCalendar: typeof ui.MiniCalendar =
+  /* @__PURE__ */ registerComponentStyles(ui.MiniCalendar, calendarStyles);
 export const CalendarHeader: typeof ui.CalendarHeader =
   /* @__PURE__ */ registerComponentStyles(ui.CalendarHeader, calendarStyles);
 export const CalendarWeekdays: typeof ui.CalendarWeekdays =
@@ -211,6 +214,8 @@ export const ListboxOptionContent: typeof ui.ListboxOptionContent =
     ui.ListboxOptionContent,
     layoutStyles,
   );
+export const Toaster: typeof ui.Toaster =
+  /* @__PURE__ */ registerComponentStyles(ui.Toaster, feedbackStyles);
 export const StatusFeedbackPanel: typeof ui.StatusFeedbackPanel =
   /* @__PURE__ */ registerComponentStyles(
     ui.StatusFeedbackPanel,
@@ -477,3 +482,32 @@ export const CommandPalette: typeof ui.CommandPalette =
 
 export const FileTree: typeof ui.FileTree =
   /* @__PURE__ */ registerComponentStyles(ui.FileTree, layoutStyles);
+
+export const ActionBar: typeof ui.ActionBar =
+  /* @__PURE__ */ registerComponentStyles(ui.ActionBar, layoutStyles);
+
+export const BackupHistory: typeof ui.BackupHistory =
+  /* @__PURE__ */ registerComponentStyles(ui.BackupHistory, historyStyles);
+
+export const HistoryReview: typeof ui.HistoryReview =
+  /* @__PURE__ */ registerComponentStyles(ui.HistoryReview, dialogsStyles);
+
+export const Cursor: typeof ui.Cursor = /* @__PURE__ */ registerComponentStyles(
+  ui.Cursor,
+  layoutStyles,
+);
+
+export const CursorPointer: typeof ui.CursorPointer =
+  /* @__PURE__ */ registerComponentStyles(ui.CursorPointer, layoutStyles);
+
+export const CursorBody: typeof ui.CursorBody =
+  /* @__PURE__ */ registerComponentStyles(ui.CursorBody, layoutStyles);
+
+export const CursorName: typeof ui.CursorName =
+  /* @__PURE__ */ registerComponentStyles(ui.CursorName, layoutStyles);
+
+export const CursorMessage: typeof ui.CursorMessage =
+  /* @__PURE__ */ registerComponentStyles(ui.CursorMessage, layoutStyles);
+
+export const CircularSlider: typeof ui.CircularSlider =
+  /* @__PURE__ */ registerComponentStyles(ui.CircularSlider, fieldsStyles);

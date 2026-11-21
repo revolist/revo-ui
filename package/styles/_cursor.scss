@@ -1,0 +1,68 @@
+.rv-cursor {
+  --rv-cursor-accent: var(--rv-cursor-color, var(--rv-ui-accent, #2563eb));
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 3px;
+  max-inline-size: 100%;
+  color: var(--rv-cursor-accent);
+  vertical-align: top;
+  user-select: none;
+  direction: ltr;
+}
+
+.rv-cursor,
+.rv-cursor * {
+  pointer-events: none;
+}
+
+.rv-cursor[data-positioned] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  translate: var(--rv-cursor-x) var(--rv-cursor-y);
+}
+
+.rv-cursor[data-animated] {
+  transition: translate var(--rv-ui-motion-normal, 160ms)
+    var(--rv-ui-motion-ease, ease-out);
+}
+
+.rv-cursor-pointer {
+  display: inline-flex;
+  flex: none;
+  color: inherit;
+}
+
+.rv-cursor-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-inline-size: 0;
+  max-inline-size: min(16rem, 55vw);
+  margin-block-start: 11px;
+  padding: 4px 8px;
+  border: 1px solid var(--rv-cursor-accent, var(--rv-ui-border, #777));
+  border-radius: var(--rv-ui-radius, 6px);
+  background: var(--rv-ui-surface-elevated, Canvas);
+  color: var(--rv-ui-text, CanvasText);
+  font-size: 0.75rem;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+@supports (color: contrast-color(black)) {
+  .rv-cursor .rv-cursor-body {
+    background: var(--rv-cursor-accent);
+    color: contrast-color(var(--rv-cursor-accent));
+  }
+}
+
+.rv-cursor-name {
+  font-weight: var(--rv-ui-font-weight-semibold, 600);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rv-cursor[data-animated] {
+    transition: none;
+  }
+}

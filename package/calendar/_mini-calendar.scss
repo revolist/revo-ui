@@ -1,0 +1,70 @@
+.rv-mini-calendar {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  max-inline-size: 100%;
+  min-inline-size: 0;
+  color: var(--rv-ui-text);
+}
+
+.rv-mini-calendar > .rv-mini-calendar__navigation {
+  flex: none;
+  inline-size: 30px;
+  block-size: 36px;
+  padding: 0;
+}
+
+.rv-mini-calendar:dir(rtl) .rv-mini-calendar__navigation svg {
+  transform: scaleX(-1);
+}
+
+.rv-mini-calendar__days {
+  display: flex;
+  align-items: stretch;
+  gap: 4px;
+  min-inline-size: 0;
+  overflow-x: auto;
+  padding: 4px;
+  scroll-padding-inline: 4px;
+  scrollbar-width: thin;
+}
+
+.rv-mini-calendar__days > .rv-mini-calendar__day {
+  display: flex;
+  flex: 1 0 35px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+  min-block-size: 49px;
+  padding: 5px 4px;
+  border: 1px solid transparent;
+  border-radius: var(--rv-ui-radius);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+.rv-mini-calendar__day [data-part='month'] {
+  color: var(--rv-ui-text-muted);
+  font-size: 0.6875rem;
+}
+
+.rv-mini-calendar__day [data-part='number'] {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.rv-mini-calendar__days > .rv-mini-calendar__day[aria-current='date'] {
+  border-color: var(--rv-ui-border);
+}
+
+.rv-mini-calendar__days > .rv-mini-calendar__day[aria-pressed='true'] {
+  border-color: var(--rv-ui-accent);
+  background: var(--rv-ui-selected-bg);
+  color: var(--rv-ui-text);
+}
+
+.rv-mini-calendar__days > .rv-mini-calendar__day:focus-visible {
+  outline: 2px solid var(--rv-ui-accent);
+  outline-offset: 1px;
+}

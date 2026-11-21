@@ -525,6 +525,10 @@
             "$ref": "#/$defs/calendarPreset"
           }
         },
+        "MiniCalendar": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/classPreset" }
+        },
         "CalendarDay": {
           "type": "object",
           "additionalProperties": {
@@ -933,6 +937,10 @@
             "$ref": "#/$defs/classPreset"
           }
         },
+        "Toaster": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/classPreset" }
+        },
         "StatusFeedbackPanel": {
           "type": "object",
           "additionalProperties": {
@@ -1120,6 +1128,60 @@
           }
         },
         "CommandPalette": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "CircularSlider": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "Cursor": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "CursorPointer": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "CursorBody": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "CursorName": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "CursorMessage": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "ActionBar": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "BackupHistory": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "HistoryReview": {
           "type": "object",
           "additionalProperties": {
             "$ref": "#/$defs/classPreset"

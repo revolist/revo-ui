@@ -135,6 +135,10 @@
     "parts": ["day", "month", "months", "root"],
     "states": ["aria-selected"]
   },
+  "MiniCalendar": {
+    "parts": ["root", "previous", "days", "day", "month", "number", "next"],
+    "states": ["aria-current", "aria-pressed", "data-weekend"]
+  },
   "CalendarDay": {
     "parts": ["day"],
     "states": ["aria-selected"]
@@ -631,6 +635,19 @@
     "parts": ["root"],
     "states": ["data-tone"]
   },
+  "Toaster": {
+    "parts": [
+      "root",
+      "list",
+      "toast",
+      "icon",
+      "title",
+      "description",
+      "action",
+      "dismiss"
+    ],
+    "states": ["data-position", "data-tone"]
+  },
   "StatusFeedbackPanel": {
     "parts": ["root"],
     "states": ["data-tone"]
@@ -736,6 +753,51 @@
     "states": []
   },
   "CommandPalette": {
+    "parts": ["root"],
+    "states": []
+  },
+  "CircularSlider": {
+    "parts": [
+      "root",
+      "label",
+      "control",
+      "track",
+      "fill",
+      "thumb",
+      "marker",
+      "value"
+    ],
+    "states": []
+  },
+  "Cursor": {
+    "parts": ["root"],
+    "states": []
+  },
+  "CursorPointer": {
+    "parts": ["pointer"],
+    "states": []
+  },
+  "CursorBody": {
+    "parts": ["body"],
+    "states": []
+  },
+  "CursorName": {
+    "parts": ["name"],
+    "states": []
+  },
+  "CursorMessage": {
+    "parts": ["message"],
+    "states": []
+  },
+  "ActionBar": {
+    "parts": ["root"],
+    "states": []
+  },
+  "BackupHistory": {
+    "parts": ["root"],
+    "states": []
+  },
+  "HistoryReview": {
     "parts": ["root"],
     "states": []
   },

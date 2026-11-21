@@ -1,3 +1,11 @@
+import { ToastExamples } from './toast-examples';
+import { CircularSliderExamples } from './circular-slider-examples';
+import { CursorExamples } from './cursor-examples';
+import {
+  ActionBarExamples,
+  BackupHistoryExamples,
+  HistoryReviewExamples,
+} from './history-and-actions';
 import { FileTree, fileTreeFromPaths } from '@revolist/ui/preact';
 import { CommandPaletteExamples } from './command-palette-examples';
 import { FilterBar } from '@revolist/ui/preact';
@@ -46,6 +54,7 @@ import alertCheckIcon from '@fortawesome/fontawesome-free/svgs/solid/circle-chec
 import alertWarningIcon from '@fortawesome/fontawesome-free/svgs/solid/circle-exclamation.svg?raw';
 import plusIcon from '@fortawesome/fontawesome-free/svgs/solid/plus.svg?raw';
 import { SliderLayoutExamples, TimelineTrackExample } from './sliders';
+import { MiniCalendarExamples } from './mini-calendar-examples';
 import { CalendarExamples, DateTimeCalendarExample } from './calendars';
 import { Legend as __themeOriginal_Legend } from '@revolist/ui/legend';
 import { FormattingExamples } from './formatting';
@@ -402,6 +411,21 @@ function App() {
       onThemeChange={setTheme}
       onRtlChange={setRtl}
     >
+      <Section title="Circular slider" columns={2}>
+        <CircularSliderExamples />
+      </Section>
+      <Section title="Cursor" columns={2}>
+        <CursorExamples />
+      </Section>
+      <Section title="Action bar" columns={2}>
+        <ActionBarExamples />
+      </Section>
+      <Section title="Backup history" columns={1}>
+        <BackupHistoryExamples />
+      </Section>
+      <Section title="History review" columns={2}>
+        <HistoryReviewExamples />
+      </Section>
       <Section title="Tree">
         <Example title="Project hierarchy">
           <Tree
@@ -1215,6 +1239,7 @@ function App() {
           />
         </Example>
 
+        <MiniCalendarExamples />
         <CalendarExamples />
         <Example title="Date pickers">
           <DatePicker
@@ -1531,6 +1556,7 @@ function App() {
         </Example>
       </Section>
       <Section title="Status and feedback">
+        <ToastExamples />
         <Example title="Badges">
           <Badge>Draft</Badge>
           <CountBadge count={12} label="12 tasks" />
