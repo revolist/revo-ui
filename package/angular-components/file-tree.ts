@@ -25,6 +25,7 @@ export class FileTree extends AngularComponentAdapter<never> {
     'defaultExpanded'
   >;
   @NgInput() declare 'defaultValue'?: AngularInput<'FileTree', 'defaultValue'>;
+  @NgInput() declare 'expanded'?: AngularInput<'FileTree', 'expanded'>;
   @NgInput({ required: true }) declare 'label': AngularInput<
     'FileTree',
     'label'
@@ -33,6 +34,10 @@ export class FileTree extends AngularComponentAdapter<never> {
     'FileTree',
     'nodes'
   >;
+  @NgInput() declare 'onExpandedChange'?: AngularInput<
+    'FileTree',
+    'onExpandedChange'
+  >;
   @NgInput() declare 'onValueChange'?: AngularInput<
     'FileTree',
     'onValueChange'
@@ -40,7 +45,11 @@ export class FileTree extends AngularComponentAdapter<never> {
   @NgInput() declare 'preset'?: AngularInput<'FileTree', 'preset'>;
   @NgInput() declare 'statusLabels'?: AngularInput<'FileTree', 'statusLabels'>;
   @NgInput() declare 'value'?: AngularInput<'FileTree', 'value'>;
-
+  @Output() get expandedChange() {
+    return this.rvOutput<
+      AngularCallbackValue<AngularInput<'FileTree', 'onExpandedChange'>>
+    >('onExpandedChange');
+  }
   protected rvResolveProps() {
     return this.rvInputValues;
   }

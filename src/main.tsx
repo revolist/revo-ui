@@ -1,4 +1,4 @@
-import { FileTree } from '@revolist/ui/preact';
+import { FileTree, fileTreeFromPaths } from '@revolist/ui/preact';
 import { CommandPalette } from '@revolist/ui/preact';
 import { FilterBar } from '@revolist/ui/preact';
 import { Cascader } from '@revolist/ui/preact';
@@ -281,6 +281,7 @@ const resources = [
   { id: 2, name: 'Alex Chen', role: 'Engineer' },
 ];
 function App() {
+  const [expandedPaths, setExpandedPaths] = useState<string[]>(['src']);
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [lastCommand, setLastCommand] = useState('');
   const [timelineMessage, setTimelineMessage] = useState('');
@@ -623,10 +624,18 @@ function App() {
       </Section>
       <Section title="File tree">
         <Example title="Changed files">
+          <div class="catalog-row">
+            <Button onClick={() => setExpandedPaths(['src', 'docs'])}>
+              Expand all
+            </Button>
+            <Button onClick={() => setExpandedPaths([])}>Collapse all</Button>
+          </div>
+
           <FileTree
             label="Project changes"
             defaultValue="src/main.ts"
-            defaultExpanded={['src']}
+            expanded={expandedPaths}
+            onExpandedChange={setExpandedPaths}
             nodes={[
               {
                 type: 'folder',
@@ -662,6 +671,17 @@ function App() {
                 status: 'deleted',
               },
             ]}
+          />
+        </Example>
+        <Example title="Files from paths">
+          <FileTree
+            label="Generated files"
+            nodes={fileTreeFromPaths([
+              'src/main.ts',
+              'src/format.ts',
+              'README.md',
+              'src/main.ts',
+            ])}
           />
         </Example>
       </Section>

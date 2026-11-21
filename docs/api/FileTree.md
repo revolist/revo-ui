@@ -22,20 +22,22 @@ The table lists library-declared props. Standard inherited HTML attributes are o
 | `nodes` | `readonly FileTreeNode[]` | Yes | Files and folders in display order. |
 | `value` | `string \| undefined` | No | Controlled selected path. Use an empty string for no selection. |
 | `defaultValue` | `string \| undefined` | No | Initially selected path when uncontrolled. |
+| `expanded` | `readonly string[] \| undefined` | No | Controlled list of open folder paths. |
+| `onExpandedChange` | `((paths: string[]) => void) \| undefined` | No | Called with the open folder paths after a folder toggles. |
 | `defaultExpanded` | `readonly string[] \| undefined` | No | Initially open folders. Omit to start with all folders open. |
 | `onValueChange` | `((path: string) => void) \| undefined` | No | Called when a file is selected. |
 | `statusLabels` | `Partial<Record<FileChangeStatus, { label: string; marker?: string; }>> \| undefined` | No | Localized accessible status names and optional visible marker letters. |
 | `preset` | `ClassPreset \| undefined` | No | Optional presentation preset. |
 | `className` | `string \| undefined` | No | Additional root class names. |
 
-## Keyboard and selection
-
-Tab and Shift+Tab move through visible folders and files. Enter or Space toggles a folder or selects a file. Collapsed folders remove their descendants from the tab order. The selected file exposes `aria-current`.
-
-Use a unique relative `path` as each node's identity. Folder nodes can be empty. If the application receives flat paths from file operations, group the paths into folder nodes before passing them to `FileTree`. Mark file nodes as `added`, `modified`, or `deleted` to show a visual marker and announce the status. Pass `statusLabels` to translate status names and marker letters.
-
 ## Composition
 
 Keep controlled values and side effects in your application. Use the matching framework adapter rather than passing another framework’s VNodes through Preact callbacks. The live page groups this control with related variants and composition helpers.
 
 This reference is generated from the local `package` library source. Rebuild it with `node scripts/generate-api.mjs`.
+
+## Selection and expansion
+
+The selected file uses its relative path and exposes `aria-current`. Pass `expanded` with `onExpandedChange` to control open folders and implement Expand all or Collapse all. When omitted, folders open initially unless `defaultExpanded` specifies paths.
+
+Use `fileTreeFromPaths` from `@revolist/ui/file-tree` to group and deduplicate flat relative file paths, such as the paths returned by completed write operations. Assign the optional `added`, `modified`, or `deleted` status on file nodes. The indicator's letter is part of the visible action name, and its localized description announces the full status.

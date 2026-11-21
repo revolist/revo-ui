@@ -47,6 +47,17 @@ for (const theme of ['light', 'dark']) {
     await expect(notes).toBeFocused();
     await page.keyboard.press('Enter');
     await expect(notes).toHaveAttribute('aria-current', 'true');
+    await page.getByRole('button', { name: 'Collapse all' }).click();
+    await expect(notes).toBeHidden();
+    await expect(main).toBeHidden();
+    await page.getByRole('button', { name: 'Expand all' }).click();
+    await expect(notes).toBeVisible();
+    await expect(main).toBeVisible();
+    await expect(
+      page
+        .getByRole('list', { name: 'Generated files' })
+        .getByRole('button', { name: 'main.ts', exact: true }),
+    ).toHaveCount(1);
 
     await page.addScriptTag({ path: require.resolve('axe-core/axe.min.js') });
     const violations = await list.evaluate(async (element: HTMLElement) => {
