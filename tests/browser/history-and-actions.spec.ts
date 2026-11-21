@@ -195,6 +195,15 @@ test('grid history compares versions and adds a confirmed revision without losin
   await page.keyboard.press('ArrowUp');
   await expect(version).toBeChecked();
   await expect(dialog.getByText('2 cells changed')).toBeVisible();
+  const comparedRows = dialog.locator('.rv-history-changes tbody tr');
+  await expect(comparedRows.first().locator('td').first()).toHaveCSS(
+    'border-block-end-width',
+    '1px',
+  );
+  await expect(comparedRows.last().locator('td').first()).toHaveCSS(
+    'border-block-end-width',
+    '0px',
+  );
   await expect(dialog.getByRole('row', { name: /Budget B4/ })).toContainText(
     '$24,000',
   );

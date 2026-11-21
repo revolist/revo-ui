@@ -1,4 +1,4 @@
-import { h } from 'preact';
+import { Fragment, h } from 'preact';
 import { useMemo, useRef, useState } from 'preact/hooks';
 import { RadioGroup } from './controls';
 import { Dialog } from './pickers';
@@ -72,6 +72,73 @@ export interface HistoryReviewProps {
   preset?: ClassPreset;
   /** Additional root classes. */
   className?: string;
+}
+
+export interface HistoryChangeRow {
+  /** Stable identifier for the displayed change. */
+  id: string;
+  /** Localized cell address or operation label. */
+  address: string;
+  sheet?: string;
+  /** Omit for rows that describe an operation without a cell comparison. */
+  values?: {
+    before: string | null;
+    after: string | null;
+  };
+}
+
+export interface HistoryChangesProps {
+  label: string;
+  rows: readonly HistoryChangeRow[];
+  labels: Pick<
+    HistoryReviewLabels,
+    'address' | 'before' | 'after' | 'emptyValue'
+  >;
+}
+
+/** Display before and after values for changes already resolved by the host. */
+export function HistoryChanges({ label, rows, labels }: HistoryChangesProps) {
+  return (
+    <table class="rv-history-changes" aria-label={label}>
+      <thead>
+        <tr>
+          <th scope="col">{labels.address}</th>
+          <th scope="col">{labels.before}</th>
+          <th scope="col">{labels.after}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map(({ id, address, sheet, values }) => (
+          <tr key={id}>
+            <th scope="row">
+              {sheet && <small>{sheet}</small>}
+              <span>{address}</span>
+            </th>
+            {values ? (
+              <>
+                <td>
+                  {values.before === null ? (
+                    labels.emptyValue
+                  ) : (
+                    <del>{values.before}</del>
+                  )}
+                </td>
+                <td>
+                  {values.after === null ? (
+                    labels.emptyValue
+                  ) : (
+                    <ins>{values.after}</ins>
+                  )}
+                </td>
+              </>
+            ) : (
+              <td colSpan={2} />
+            )}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
 }
 
 /** Browse saved versions and review spreadsheet changes by stable cell ID. */
@@ -174,42 +241,18 @@ export function HistoryReview({
                   : labels.noChanges}
             </div>
             {!!changes.length && (
-              <table
-                class="rv-history-changes"
-                aria-label={labels.changesTable ?? labels.comparison}
-              >
-                <thead>
-                  <tr>
-                    <th scope="col">{labels.address}</th>
-                    <th scope="col">{labels.before}</th>
-                    <th scope="col">{labels.after}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {changes.map(({ cell, before, after }) => (
-                    <tr key={cell.id}>
-                      <th scope="row">
-                        {cell.sheet && <small>{cell.sheet}</small>}
-                        <span>{cell.address}</span>
-                      </th>
-                      <td>
-                        {before === null ? (
-                          labels.emptyValue
-                        ) : (
-                          <del>{before}</del>
-                        )}
-                      </td>
-                      <td>
-                        {after === null ? (
-                          labels.emptyValue
-                        ) : (
-                          <ins>{after}</ins>
-                        )}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <HistoryChanges
+                label={labels.changesTable ?? labels.comparison}
+                rows={changes.map(
+                  ({ cell: { id, address, sheet }, before, after }) => ({
+                    id,
+                    address,
+                    sheet,
+                    values: { before, after },
+                  }),
+                )}
+                labels={labels}
+              />
             )}
             {onRestore && (
               <div class="rv-history-actions">

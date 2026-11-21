@@ -179,6 +179,10 @@
   overflow-wrap: anywhere;
 }
 
+.rv-history-changes tbody tr:last-child > * {
+  border-block-end: 0;
+}
+
 .rv-history-changes thead th:first-child {
   inline-size: 25%;
 }
