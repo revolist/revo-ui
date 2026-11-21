@@ -185,6 +185,54 @@
       "group": "Compositions",
       "description": "Show completion or collect a rating.",
       "keywords": "bar circular progress rating stars"
+    },
+    {
+      "title": "Tree",
+      "group": "Controls",
+      "description": "Browse and select nested items using a keyboard or pointer.",
+      "keywords": "tree hierarchy folders navigation selection"
+    },
+    {
+      "title": "Stepper",
+      "group": "Controls",
+      "description": "Show and navigate ordered workflow steps.",
+      "keywords": "stepper progress steps workflow wizard"
+    },
+    {
+      "title": "Activity timeline",
+      "group": "Compositions",
+      "description": "Present chronological project activity.",
+      "keywords": "activity timeline history events feed"
+    },
+    {
+      "title": "Trace",
+      "group": "Compositions",
+      "description": "Explore the Trace component.",
+      "keywords": "trace"
+    },
+    {
+      "title": "Attachments",
+      "group": "Compositions",
+      "description": "Explore the Attachments component.",
+      "keywords": "attachments"
+    },
+    {
+      "title": "Cascader",
+      "group": "Pickers",
+      "description": "Explore the Cascader component.",
+      "keywords": "cascader"
+    },
+    {
+      "title": "Filter bar",
+      "group": "Controls",
+      "description": "Explore the Filter bar component.",
+      "keywords": "filter bar"
+    },
+    {
+      "title": "Command palette",
+      "group": "Controls",
+      "description": "Explore the Command palette component.",
+      "keywords": "command palette"
     }
   ],
   "frameworks": [

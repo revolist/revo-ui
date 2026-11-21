@@ -37,11 +37,19 @@
 @use './formatting/styles' as formattingStyles;
 @use './timeline-track/style' as timelineTrack;
 @use './styles/activity-message';
+@use './styles/activity-timeline';
 @use './styles/motion';
 
 @use './view-switcher';
 
 @use './styles/ready-styles';
+@use './styles/command-palette';
+@use './styles/filter-bar';
+@use './styles/cascader';
+@use './styles/attachments';
+@use './styles/trace';
+@use './styles/stepper';
+@use './tree/style' as treeStyle;
 
 @include slider.styles;
 

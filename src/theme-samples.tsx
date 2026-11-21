@@ -1,6 +1,14 @@
 import { h } from 'preact';
 import { useId, useRef, useState } from 'preact/hooks';
 import {
+  Tree,
+  Stepper,
+  ActivityTimeline,
+  Trace,
+  Attachments,
+  Cascader,
+  FilterBar,
+  CommandPalette,
   Alert,
   Badge,
   Button,
@@ -256,6 +264,14 @@ const names = new Set([
   'CalendarHeader',
   'CalendarWeekdays',
   'DisclosureSummary',
+  'Tree',
+  'Stepper',
+  'ActivityTimeline',
+  'Trace',
+  'Attachments',
+  'Cascader',
+  'FilterBar',
+  'CommandPalette',
   'EditorList',
   'EditorListGroup',
   'EditorListItem',
@@ -1696,6 +1712,114 @@ function Sample({
             <div class="theme-pane-sample-content">Pane content</div>
           </EditorPane>
         </EditorSplitLayout>
+      );
+    case 'Tree':
+      return (
+        <Tree
+          {...shared}
+          label="Files"
+          defaultExpanded={['folder']}
+          nodes={[
+            {
+              id: 'folder',
+              label: 'Projects',
+              children: [{ id: 'file', label: 'Brief' }],
+            },
+          ]}
+        />
+      );
+    case 'Stepper':
+      return (
+        <Stepper
+          {...shared}
+          label="Setup"
+          value="review"
+          steps={[
+            { id: 'details', label: 'Details' },
+            { id: 'review', label: 'Review' },
+          ]}
+          onValueChange={() => {}}
+        />
+      );
+    case 'ActivityTimeline':
+      return (
+        <ActivityTimeline
+          {...shared}
+          label="Activity"
+          entries={[
+            {
+              id: 'one',
+              avatar: 'A',
+              timestamp: 'Today',
+              header: 'Alex',
+              content: 'Updated the project',
+            },
+          ]}
+        />
+      );
+    case 'Trace':
+      return (
+        <Trace
+          {...shared}
+          label="Run"
+          steps={[
+            {
+              id: 'one',
+              title: 'Search',
+              status: 'Complete',
+              details: 'Found records',
+            },
+          ]}
+        />
+      );
+    case 'Attachments':
+      return (
+        <Attachments
+          {...shared}
+          label="Files"
+          items={[{ id: 'a', name: 'Brief.pdf' }]}
+          removeLabel={(item) => `Remove ${item.name}`}
+          onRemove={() => {}}
+        />
+      );
+    case 'Cascader':
+      return (
+        <Cascader
+          {...shared}
+          label="Location"
+          placeholder="Choose"
+          nodes={[
+            {
+              id: 'eu',
+              label: 'Europe',
+              children: [{ id: 'pt', label: 'Portugal' }],
+            },
+          ]}
+        />
+      );
+    case 'FilterBar':
+      return (
+        <FilterBar
+          {...shared}
+          label="Filters"
+          filters={[{ id: 'status', label: 'Status', value: 'Open' }]}
+          removeLabel={(f) => `Remove ${f.label}`}
+          onRemove={() => {}}
+        />
+      );
+    case 'CommandPalette':
+      return (
+        <CommandPalette
+          {...shared}
+          open={false}
+          label="Commands"
+          searchLabel="Search commands"
+          closeLabel="Close"
+          emptyLabel="No commands"
+          commands={[]}
+          onClose={() => {}}
+          onExecute={() => {}}
+        />
       );
     case 'EditorList':
       return (

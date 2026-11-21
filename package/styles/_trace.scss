@@ -1,0 +1,130 @@
+.rv-trace {
+  inline-size: 100%;
+  max-inline-size: 34rem;
+  min-inline-size: 0;
+  color: var(--rv-ui-text);
+}
+
+.rv-trace ol {
+  display: grid;
+  gap: 6px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.rv-trace li {
+  min-inline-size: 0;
+  border: 1px solid var(--rv-ui-border);
+  border-radius: var(--rv-ui-radius);
+  background: var(--rv-ui-surface);
+}
+
+.rv-trace-line,
+.rv-trace summary.rv-configurator-summary {
+  box-sizing: border-box;
+  min-block-size: 42px;
+  padding: 8px 12px;
+  font-size: 0.875rem;
+  font-weight: var(--rv-ui-font-weight-medium, 500);
+}
+
+.rv-trace-line,
+.rv-trace-title {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 6em);
+  align-items: center;
+  gap: 8px;
+  overflow-wrap: anywhere;
+}
+
+.rv-trace-line {
+  padding-inline-end: 36px;
+}
+
+.rv-trace .rv-collapsible-section {
+  padding: 0;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+}
+
+.rv-trace summary.rv-configurator-summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: inherit;
+  cursor: pointer;
+  list-style: none;
+  border-radius: inherit;
+}
+
+.rv-trace summary::-webkit-details-marker {
+  display: none;
+}
+
+.rv-trace summary:hover {
+  background: var(--rv-ui-surface-hover);
+}
+
+.rv-trace summary:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: -2px;
+}
+
+.rv-trace summary > .rv-disclosure-summary__label {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.rv-trace summary > .rv-disclosure-summary__icon {
+  display: grid;
+  width: 16px;
+  flex: none;
+  place-items: center;
+}
+
+.rv-trace-status {
+  justify-self: end;
+  max-inline-size: 100%;
+  padding: 2px 6px;
+  border-radius: var(--rv-ui-radius);
+  color: var(--rv-ui-text-muted);
+  background: var(--rv-ui-surface-sunken);
+  font-size: 0.75rem;
+  font-weight: 400;
+  text-align: end;
+}
+
+.rv-trace
+  [data-tone='success']
+  > :is(.rv-trace-line, details)
+  .rv-trace-status {
+  color: var(--rv-ui-success);
+}
+
+.rv-trace [data-tone='danger'] > :is(.rv-trace-line, details) .rv-trace-status {
+  color: var(--rv-ui-danger);
+}
+
+.rv-trace .rv-collapsible-section__content {
+  padding: 10px 12px 12px;
+  border-block-start: 1px solid var(--rv-ui-border);
+  color: var(--rv-ui-text);
+  font-size: 0.875rem;
+}
+
+.rv-trace .rv-configurator-icon svg {
+  display: block;
+  width: 10px;
+  height: 10px;
+  fill: currentColor;
+}
+
+.rv-trace details[open] > summary .rv-configurator-icon {
+  transform: rotate(90deg);
+}
+
+.rv-trace :dir(rtl) details:not([open]) > summary .rv-configurator-icon {
+  transform: scaleX(-1);
+}

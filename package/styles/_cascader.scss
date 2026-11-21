@@ -1,0 +1,16 @@
+.rv-cascader > button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-width: 220px;
+}
+.rv-cascader > button .rv-svg-icon {
+  color: var(--rv-ui-text-muted);
+}
+.rv-cascader-panel {
+  min-width: 220px;
+  max-height: 320px;
+  overflow: auto;
+  padding: 6px;
+}

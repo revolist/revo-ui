@@ -193,6 +193,14 @@ export interface UiTheme {
     Pagination?: NamedPresets<PaginationPreset>;
     Tooltip?: NamedPresets<TooltipPreset>;
     ControlTooltip?: NamedPresets<ClassPreset>;
+    Tree?: NamedPresets<ClassPreset>;
+    Stepper?: NamedPresets<ClassPreset>;
+    ActivityTimeline?: NamedPresets<ClassPreset>;
+    Trace?: NamedPresets<ClassPreset>;
+    Attachments?: NamedPresets<ClassPreset>;
+    Cascader?: NamedPresets<ClassPreset>;
+    FilterBar?: NamedPresets<ClassPreset>;
+    CommandPalette?: NamedPresets<ClassPreset>;
     ReorderList?: NamedPresets<ClassPreset>;
     ReorderHandle?: NamedPresets<ClassPreset>;
     IconToolbar?: NamedPresets<ClassPreset>;

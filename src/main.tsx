@@ -1,3 +1,11 @@
+import { CommandPalette } from '@revolist/ui/preact';
+import { FilterBar } from '@revolist/ui/preact';
+import { Cascader } from '@revolist/ui/preact';
+import { Attachments } from '@revolist/ui/preact';
+import { Trace } from '@revolist/ui/preact';
+import { ActivityTimeline } from '@revolist/ui/preact';
+import { Stepper } from '@revolist/ui/preact';
+import { Tree } from '@revolist/ui/preact';
 import { AutocompleteExamples } from './autocomplete';
 import {
   TooltipPlacementExamples,
@@ -272,6 +280,17 @@ const resources = [
   { id: 2, name: 'Alex Chen', role: 'Engineer' },
 ];
 function App() {
+  const [paletteOpen, setPaletteOpen] = useState(false);
+  const [lastCommand, setLastCommand] = useState('');
+  const [timelineMessage, setTimelineMessage] = useState('');
+  const [activeFilters, setActiveFilters] = useState([
+    { id: 'status', label: 'Status', value: 'Open' },
+  ]);
+  const [filterSearch, setFilterSearch] = useState('');
+  const [files, setFiles] = useState([
+    { id: 'brief', name: 'Brief.pdf', description: '240 KB', state: 'Ready' },
+  ]);
+  const [workflowStep, setWorkflowStep] = useState('review');
   const [theme, setTheme] = useState(() =>
       document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light',
     ),
@@ -381,6 +400,226 @@ function App() {
       onThemeChange={setTheme}
       onRtlChange={setRtl}
     >
+      <Section title="Tree">
+        <Example title="File tree">
+          <Tree
+            label="Files"
+            defaultExpanded={['projects']}
+            nodes={[
+              {
+                id: 'projects',
+                label: 'Projects',
+                children: [
+                  { id: 'brief', label: 'Product brief' },
+                  { id: 'notes', label: 'Meeting notes' },
+                ],
+              },
+              {
+                id: 'archive',
+                label: 'Archive',
+                children: [{ id: 'old', label: 'Previous work' }],
+              },
+            ]}
+          />
+        </Example>
+        <Example title="Team structure">
+          <Tree
+            label="Teams"
+            defaultExpanded={['design']}
+            defaultValue="research"
+            nodes={[
+              {
+                id: 'design',
+                label: 'Design',
+                children: [
+                  { id: 'research', label: 'Research' },
+                  { id: 'systems', label: 'Design systems' },
+                ],
+              },
+              {
+                id: 'ops',
+                label: 'Operations',
+                children: [
+                  {
+                    id: 'archived',
+                    label: 'Archived projects',
+                    disabled: true,
+                  },
+                ],
+              },
+            ]}
+          />
+        </Example>
+      </Section>
+      <Section title="Stepper">
+        <Example title="Workflow progress">
+          <Stepper
+            label="Setup"
+            value={workflowStep}
+            onValueChange={setWorkflowStep}
+            steps={[
+              { id: 'details', label: 'Details' },
+              { id: 'review', label: 'Review' },
+              { id: 'finish', label: 'Finish' },
+            ]}
+          />
+        </Example>
+      </Section>
+      <Section title="Activity timeline">
+        <Example title="Project activity">
+          <ActivityTimeline
+            label="Project activity"
+            entries={[
+              {
+                id: 'created',
+                avatar: <Avatar value="Alex" label="Alex" />,
+                header: 'Alex',
+                content: 'Created the project',
+                timestamp: 'Monday',
+                actions: (
+                  <Button onClick={() => setTimelineMessage('Opened project')}>
+                    Open project
+                  </Button>
+                ),
+              },
+              {
+                id: 'updated',
+                avatar: <Avatar value="Morgan" label="Morgan" />,
+                header: 'Morgan',
+                content: 'Updated the plan',
+                timestamp: 'Tuesday',
+              },
+            ]}
+          />
+          <p aria-live="polite">{timelineMessage}</p>
+        </Example>
+      </Section>
+      <Section title="Trace">
+        <Example title="Trace">
+          <Trace
+            label="Run"
+            steps={[
+              {
+                id: 'one',
+                title: 'Search records',
+                status: 'Complete',
+                tone: 'success',
+                details: 'Found 12 records',
+              },
+              { id: 'two', title: 'Prepare report', status: 'Running' },
+            ]}
+          />
+        </Example>
+      </Section>
+      <Section title="Attachments">
+        <Example title="Attachments">
+          <Attachments
+            label="Attachments"
+            items={files}
+            removeLabel={(item) => `Remove ${item.name}`}
+            onRemove={(id) =>
+              setFiles((previous) => previous.filter((item) => item.id !== id))
+            }
+          />
+        </Example>
+      </Section>
+      <Section title="Cascader">
+        <Example title="Cascader">
+          <Cascader
+            label="Location"
+            placeholder="Choose a location"
+            nodes={[
+              {
+                id: 'eu',
+                label: 'Europe',
+                children: [
+                  { id: 'pt', label: 'Portugal' },
+                  { id: 'fr', label: 'France' },
+                ],
+              },
+            ]}
+          />
+        </Example>
+        <Example title="Choose a team">
+          <Cascader
+            label="Team"
+            placeholder="Select a team"
+            nodes={[
+              {
+                id: 'product',
+                label: 'Product',
+                children: [
+                  {
+                    id: 'design',
+                    label: 'Design',
+                    children: [
+                      { id: 'research', label: 'Research' },
+                      { id: 'systems', label: 'Design systems' },
+                    ],
+                  },
+                  { id: 'planning', label: 'Planning' },
+                ],
+              },
+              {
+                id: 'ops',
+                label: 'Operations',
+                children: [{ id: 'finance', label: 'Finance' }],
+              },
+            ]}
+          />
+        </Example>
+      </Section>
+      <Section title="Filter bar">
+        <Example title="Filter bar">
+          <FilterBar
+            label="Filters"
+            filters={activeFilters}
+            search={filterSearch}
+            searchLabel="Search records"
+            onSearchChange={setFilterSearch}
+            removeLabel={(filter) => `Remove ${filter.label}`}
+            onRemove={(id) =>
+              setActiveFilters((previous) =>
+                previous.filter((filter) => filter.id !== id),
+              )
+            }
+            clearLabel="Clear filters"
+            onClear={() => setActiveFilters([])}
+          />
+        </Example>
+      </Section>
+      <Section title="Command palette">
+        <Example title="Command palette">
+          <Button onClick={() => setPaletteOpen(true)}>Open commands</Button>
+          <p aria-live="polite">{lastCommand}</p>
+          <CommandPalette
+            open={paletteOpen}
+            label="Commands"
+            searchLabel="Search commands"
+            closeLabel="Close"
+            emptyLabel="No commands"
+            commands={[
+              {
+                id: 'open',
+                label: 'Open project',
+                description: 'Go to your projects',
+              },
+              {
+                id: 'team',
+                label: 'Browse team',
+                description: 'Find people and teams',
+              },
+              {
+                id: 'settings',
+                label: 'Open settings',
+                description: 'Manage your preferences',
+              },
+            ]}
+            onClose={() => setPaletteOpen(false)}
+            onExecute={setLastCommand}
+          />
+        </Example>
+      </Section>
       <Section title="Buttons">
         <Example title="Button variants">
           <div class="catalog-row">

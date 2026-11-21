@@ -1076,6 +1076,54 @@
           "additionalProperties": {
             "$ref": "#/$defs/selectPreset"
           }
+        },
+        "Tree": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "Stepper": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "ActivityTimeline": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "Trace": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "Attachments": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "Cascader": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "FilterBar": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "CommandPalette": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
         }
       },
       "additionalProperties": false
