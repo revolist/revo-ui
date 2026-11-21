@@ -1,26 +1,99 @@
 .rv-command-palette {
   display: grid;
-  gap: 12px;
-  min-width: min(420px, 80vw);
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
+  // Give the shared search focus ring space inside the dialog scrollport.
+  padding: 4px;
 }
+
+.rv-command-inline {
+  inline-size: 100%;
+  max-inline-size: 32rem;
+  padding: 8px;
+  border: 1px solid var(--rv-ui-border);
+  border-radius: var(--rv-ui-radius);
+  background: var(--rv-ui-surface-elevated);
+}
+
 .rv-command-list {
   display: grid;
   gap: 2px;
-  max-height: 320px;
+  max-block-size: min(18rem, 45dvh);
   overflow: auto;
+  overscroll-behavior: contain;
 }
-.rv-command-list button {
+
+.rv-command-list:empty {
+  display: none;
+}
+
+.rv-command-group {
+  display: grid;
+  gap: 2px;
+  min-inline-size: 0;
+}
+
+.rv-command-group + .rv-command-group {
+  border-block-start: 1px solid var(--rv-ui-border);
+  margin-block-start: 4px;
+  padding-block-start: 4px;
+}
+
+.rv-command-heading {
+  color: var(--rv-ui-text-muted);
+  font-size: 0.75rem;
+  font-weight: var(--rv-ui-font-weight-medium, 500);
+  padding: 5px 10px;
+}
+
+.rv-command-list [role='option'] {
+  display: flex;
   justify-content: start;
   text-align: start;
-  min-block-size: 40px;
-  padding: 8px 12px;
+  gap: 10px;
+  min-block-size: 38px;
+  padding: 6px 10px;
+  white-space: normal;
 }
-.rv-command-list small {
+
+.rv-command-list [aria-selected='true'] {
+  background: var(--rv-ui-selected-bg);
+  color: var(--rv-ui-selected-fg);
+}
+
+.rv-command-copy {
+  flex: 1;
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+}
+
+.rv-command-copy small {
   display: block;
-  color: var(--rv-ui-text);
+  color: var(--rv-ui-text-muted);
   margin-block-start: 2px;
 }
 
-.rv-command-status:empty {
+.rv-command-icon,
+.rv-command-shortcut {
+  flex: none;
+  color: var(--rv-ui-text-muted);
+}
+
+.rv-command-shortcut {
+  font-size: 0.75rem;
+}
+
+.rv-command-status {
   margin: 0;
+  padding: 8px 10px;
+  color: var(--rv-ui-text-muted);
+}
+
+.rv-command-status:empty {
+  position: absolute;
+  padding: 0;
+}
+
+.rv-dialog__surface:has(.rv-command-palette) > .rv-dialog__footer {
+  display: none;
 }

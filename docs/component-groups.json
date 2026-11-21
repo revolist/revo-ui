@@ -15,7 +15,13 @@
     "Tabs and lists",
     "tabs-and-lists",
     "Switch content, group options and present plain, icon or descriptive selection rows.",
-    "SegmentedControl SegmentedSwitch Tabs TabPanel Listbox ListboxOption ListboxGroup ListboxOptionContent EditorList EditorListItem EditorListItemContent EditorListGroup Tree FileTree"
+    "SegmentedControl SegmentedSwitch Tabs TabPanel Listbox ListboxOption ListboxGroup ListboxOptionContent EditorList EditorListItem EditorListItemContent EditorListGroup"
+  ],
+  [
+    "Tree",
+    "tree",
+    "Browse hierarchical data and explore changed files.",
+    "Tree FileTree"
   ],
   [
     "Inputs and forms",
@@ -126,10 +132,16 @@
     "Tooltip ControlTooltip"
   ],
   [
+    "Command palette",
+    "command-palette",
+    "Search and run commands in a dialog or inline list.",
+    "CommandPalette"
+  ],
+  [
     "Menus and toolbars",
     "menus-and-toolbars",
     "Command menus, nested commands, separators and grouped toolbar actions.",
-    "Menu MenuItem MenuSeparator Submenu Toolbar IconToolbar ToolbarGroup ToolbarSeparator CommandPalette"
+    "Menu MenuItem MenuSeparator Submenu Toolbar IconToolbar ToolbarGroup ToolbarSeparator"
   ],
   [
     "Status and feedback",

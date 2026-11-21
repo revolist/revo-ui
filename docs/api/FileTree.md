@@ -2,7 +2,7 @@
 
 Browse nested files and folders, select paths, and show file changes.
 
-[Live examples and formatted usage](https://ui.rv-grid.com/components/file-tree/) · [Component index](../../README.md#complete-component-reference)
+[Live examples and formatted usage](https://ui.rv-grid.com/components/tree/#example-changed-files) · [Component index](../../README.md#complete-component-reference)
 
 Preact: `import { FileTree } from '@revolist/ui/preact'`
 

@@ -31,6 +31,17 @@ details[open] > .rv-disclosure-summary--compact::before {
   }
 }
 
+// Both native details and custom triggers use the same intrinsic-size transition.
+@mixin panel-motion($visibility-property) {
+  overflow: clip;
+  overflow-clip-margin: 4px;
+  transition:
+    block-size var(--rv-ui-motion-normal, 160ms)
+      var(--rv-ui-motion-ease, ease-out),
+    opacity var(--rv-ui-motion-normal, 160ms) var(--rv-ui-motion-ease, ease-out),
+    #{$visibility-property} var(--rv-ui-motion-normal, 160ms) allow-discrete;
+}
+
 // Keep native details state, keyboard behavior and intrinsic content sizing.
 // Browsers without these capabilities retain immediate native disclosure behavior.
 @supports (interpolate-size: allow-keywords) and
@@ -47,14 +58,7 @@ details[open] > .rv-disclosure-summary--compact::before {
     &::details-content {
       block-size: 0;
       opacity: 0;
-      overflow: clip;
-      overflow-clip-margin: 4px;
-      transition:
-        block-size var(--rv-ui-motion-normal, 160ms)
-          var(--rv-ui-motion-ease, ease-out),
-        opacity var(--rv-ui-motion-normal, 160ms)
-          var(--rv-ui-motion-ease, ease-out),
-        content-visibility var(--rv-ui-motion-normal, 160ms) allow-discrete;
+      @include panel-motion(content-visibility);
     }
 
     &[open]::details-content {
