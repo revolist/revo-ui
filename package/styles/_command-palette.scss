@@ -1,6 +1,6 @@
 .rv-command-palette {
   display: grid;
-  gap: 8px;
+  gap: 12px;
   min-width: min(420px, 80vw);
 }
 .rv-command-list {
@@ -12,8 +12,15 @@
 .rv-command-list button {
   justify-content: start;
   text-align: start;
+  min-block-size: 40px;
+  padding: 8px 12px;
 }
 .rv-command-list small {
   display: block;
-  color: var(--rv-ui-text-muted);
+  color: var(--rv-ui-text);
+  margin-block-start: 2px;
+}
+
+.rv-command-status:empty {
+  margin: 0;
 }
