@@ -101,19 +101,28 @@ test('timeline editing uses the full-width shared disclosure in both states', as
   await expect(build.locator('output')).toHaveText('09:00 – 13:00');
 });
 
-test('session lanes align to their axis and expose patterned events and details', async ({
+test('rollout lanes align to their axis and expose patterned events and details', async ({
   page,
 }) => {
   await page.route('https://registry.npmjs.org/**', (route) => route.abort());
   await page.goto('/components/timeline-track/');
   const chart = page.getByRole('group', {
-    name: 'Device sessions by day',
+    name: 'Release rollout by service',
     exact: true,
   });
   const axis = chart.locator('[data-part="column"]');
   const lines = chart.locator('[data-part="column-line"]');
   await expect(axis).toHaveCount(7);
   await expect(lines).toHaveCount(7);
+  await expect(axis.first()).toHaveCSS(
+    'border-inline-start-color',
+    'rgba(0, 0, 0, 0)',
+  );
+  await expect(lines.first()).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+  await expect(chart.locator('[data-part="lanes"]')).toHaveCSS(
+    'border-inline-end-width',
+    '1px',
+  );
   await expect(chart.locator('[data-part="lane"]')).toHaveCount(4);
   await expect(chart.locator('[data-part="event"]')).toHaveCount(9);
   expect(
@@ -134,30 +143,30 @@ test('session lanes align to their axis and expose patterned events and details'
     const line = (await lines.nth(index).boundingBox())!;
     expect(Math.abs(heading.x - line.x)).toBeLessThan(1);
   }
-  const chrome = await chart
-    .getByRole('button', { name: /^Firefox on Ubuntu/ })
+  const gateway = await chart
+    .getByRole('button', { name: /^API gateway/ })
     .all();
   expect(
     await Promise.all(
-      chrome.map(async (button) => (await button.boundingBox())!.y),
+      gateway.map(async (button) => (await button.boundingBox())!.y),
     ),
-  ).toEqual(Array(chrome.length).fill((await chrome[0].boundingBox())!.y));
-  const legend = page.getByRole('list', { name: 'Session status' });
+  ).toEqual(Array(gateway.length).fill((await gateway[0].boundingBox())!.y));
+  const legend = page.getByRole('list', { name: 'Rollout status' });
   await expect(legend.getByRole('listitem')).toHaveCount(3);
-  await expect(legend.getByText('Revoked')).toBeVisible();
-  const revoked = chart.getByRole('button', {
-    name: /Edge on Windows, Revoked/,
+  await expect(legend.getByText('Paused')).toBeVisible();
+  const paused = chart.getByRole('button', {
+    name: /Billing pipeline, Webhook verification, Paused/,
   });
-  await expect(revoked.locator('..')).toHaveCSS(
+  await expect(paused.locator('..')).toHaveCSS(
     'background-image',
     /repeating-linear-gradient/,
   );
-  await revoked.press('Enter');
-  const detail = page.getByRole('dialog', { name: 'Session details' });
-  await expect(detail).toContainText('WS-304');
+  await paused.press('Enter');
+  const detail = page.getByRole('dialog', { name: 'Rollout details' });
+  await expect(detail).toContainText('Waiting for reconciliation checks.');
   await page.keyboard.press('Escape');
   await expect(detail).toBeHidden();
-  await expect(revoked).toBeFocused();
+  await expect(paused).toBeFocused();
 
   await page.setViewportSize({ width: 320, height: 800 });
   await expect(chart).toBeVisible();
@@ -168,13 +177,15 @@ test('session lanes align to their axis and expose patterned events and details'
   ).toBeGreaterThan(bounds.width);
 });
 
-test('the left device column resizes by pointer and keyboard without moving the timeline grid out of alignment', async ({
+test('the left service column resizes by pointer and keyboard without moving the timeline grid out of alignment', async ({
   page,
 }) => {
   await page.route('https://registry.npmjs.org/**', (route) => route.abort());
   await page.goto('/components/timeline-track/');
-  const chart = page.getByRole('group', { name: 'Device sessions by day' });
-  const resize = chart.getByRole('separator', { name: 'Resize device column' });
+  const chart = page.getByRole('group', { name: 'Release rollout by service' });
+  const resize = chart.getByRole('separator', {
+    name: 'Resize service column',
+  });
   const panel = chart.locator('[data-part="lanes"]');
   const plot = chart.locator('[data-part="plot"]');
   await resize.press('ArrowRight');
@@ -211,23 +222,33 @@ test('the left device column resizes by pointer and keyboard without moving the 
   expect(column.x).toBeCloseTo(gridLine.x, 0);
 });
 
-test('session timeline uses themed colors and passes scoped checks in dark mode', async ({
+test('rollout timeline uses the theme primary color and passes scoped checks in dark mode', async ({
   page,
 }) => {
   await page.route('https://registry.npmjs.org/**', (route) => route.abort());
   await page.addInitScript(() => localStorage.setItem('revo-ui-theme', 'dark'));
   await page.goto('/components/timeline-track/');
-  const chart = page.getByRole('group', { name: 'Device sessions by day' });
+  const chart = page.getByRole('group', { name: 'Release rollout by service' });
   const active = chart
-    .getByRole('button', { name: /^Chrome on Pixel, Active/ })
+    .getByRole('button', { name: /^Search index, Replica rollout, Active/ })
     .locator('..');
-  const color = await chart.evaluate(
-    (element) => getComputedStyle(element).color,
-  );
-  await expect(active).toHaveCSS('background-color', color);
+  const activeMarker = page
+    .getByRole('list', { name: 'Rollout status' })
+    .getByRole('listitem')
+    .filter({ hasText: /^Active$/ })
+    .locator('i');
+  const primary = await chart.evaluate((element) => {
+    const probe = element.appendChild(document.createElement('span'));
+    probe.style.color = 'var(--rv-ui-accent)';
+    const color = getComputedStyle(probe).color;
+    probe.remove();
+    return color;
+  });
+  await expect(active).toHaveCSS('background-color', primary);
+  await expect(activeMarker).toHaveCSS('background-color', primary);
   await page.addScriptTag({ path: require.resolve('axe-core/axe.min.js') });
   const violations = await page
-    .locator('.session-timeline-demo')
+    .locator('.release-timeline-demo')
     .evaluate(async (element) => {
       const axe = (window as unknown as { axe: typeof import('axe-core') }).axe;
       return (

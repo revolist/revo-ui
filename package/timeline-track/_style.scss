@@ -298,7 +298,6 @@
 .rv-timeline-control__lane-resize
   .rv-resize-handle:not(:hover, :focus-visible)::after {
   inset-block: calc(50% - 8px);
-  inline-size: 2px;
   background: var(--rv-ui-border-strong);
 }
 
@@ -347,6 +346,17 @@
   inline-size: 1px;
   background: var(--rv-ui-border);
   pointer-events: none;
+}
+
+// The lane border already draws the shared edge of the first column.
+[data-labeled] [data-part='column'][data-origin] {
+  border-inline-start-color: transparent;
+}
+
+[data-labeled]
+  .rv-timeline-control__plot
+  > [data-part='column-line'][data-origin] {
+  background: transparent;
 }
 
 .rv-timeline-control__plot > [data-part='reference-line'] {

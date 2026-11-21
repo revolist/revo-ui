@@ -1,4 +1,4 @@
-import { SessionTimelineExample } from './session-timeline-example';
+import { ReleaseTimelineExample } from './release-timeline-example';
 import { ToastExamples } from './toast-examples';
 import { CircularSliderExamples } from './circular-slider-examples';
 import { CursorExamples } from './cursor-examples';
@@ -1146,7 +1146,7 @@ function App() {
       </Section>
       <Section title="Timeline track">
         <TimelineTrackExample />
-        <SessionTimelineExample />
+        <ReleaseTimelineExample />
       </Section>
       <Section title="Sliders">
         <SliderLayoutExamples />

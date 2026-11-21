@@ -393,6 +393,7 @@ export function TimelineTrack<T extends TimelineTrackEvent>({
                     <span
                       key={column.value}
                       data-part="column"
+                      data-origin={column.value === range.start || undefined}
                       style={{
                         left: position(column.value),
                         width: position(
@@ -444,6 +445,7 @@ export function TimelineTrack<T extends TimelineTrackEvent>({
                 <i
                   key={column.value}
                   data-part="column-line"
+                  data-origin={column.value === range.start || undefined}
                   style={{ left: position(column.value) }}
                   aria-hidden="true"
                 />
