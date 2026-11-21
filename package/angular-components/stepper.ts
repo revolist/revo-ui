@@ -19,26 +19,64 @@ export class Stepper extends AngularComponentAdapter<never> {
   protected rvResolveComponent() {
     return Control;
   }
+  @NgInput() declare 'busy'?: AngularInput<'Stepper', 'busy'>;
+  @NgInput() declare 'busyLabel'?: AngularInput<'Stepper', 'busyLabel'>;
   @NgInput() declare 'className'?: AngularInput<'Stepper', 'className'>;
+  @NgInput() declare 'completedContent'?: AngularInput<
+    'Stepper',
+    'completedContent'
+  >;
   @NgInput() declare 'completedLabel'?: AngularInput<
     'Stepper',
     'completedLabel'
   >;
+  @NgInput() declare 'defaultStep'?: AngularInput<'Stepper', 'defaultStep'>;
+  @NgInput() declare 'dir'?: AngularInput<'Stepper', 'dir'>;
+  @NgInput() declare 'id'?: AngularInput<'Stepper', 'id'>;
+  @NgInput() declare 'ids'?: AngularInput<'Stepper', 'ids'>;
+  @NgInput() declare 'isStepSkippable'?: AngularInput<
+    'Stepper',
+    'isStepSkippable'
+  >;
+  @NgInput() declare 'isStepValid'?: AngularInput<'Stepper', 'isStepValid'>;
   @NgInput({ required: true }) declare 'label': AngularInput<
     'Stepper',
     'label'
   >;
+  @NgInput() declare 'layout'?: AngularInput<'Stepper', 'layout'>;
+  @NgInput() declare 'linear'?: AngularInput<'Stepper', 'linear'>;
+  @NgInput() declare 'nextLabel'?: AngularInput<'Stepper', 'nextLabel'>;
+  @NgInput() declare 'onStepChange'?: AngularInput<'Stepper', 'onStepChange'>;
+  @NgInput() declare 'onStepComplete'?: AngularInput<
+    'Stepper',
+    'onStepComplete'
+  >;
+  @NgInput() declare 'onStepInvalid'?: AngularInput<'Stepper', 'onStepInvalid'>;
   @NgInput() declare 'onValueChange'?: AngularInput<'Stepper', 'onValueChange'>;
+  @NgInput() declare 'orientation'?: AngularInput<'Stepper', 'orientation'>;
   @NgInput() declare 'preset'?: AngularInput<'Stepper', 'preset'>;
+  @NgInput() declare 'previousLabel'?: AngularInput<'Stepper', 'previousLabel'>;
+  @NgInput() declare 'step'?: AngularInput<'Stepper', 'step'>;
   @NgInput({ required: true }) declare 'steps': AngularInput<
     'Stepper',
     'steps'
   >;
-  @NgInput({ required: true }) declare 'value': AngularInput<
-    'Stepper',
-    'value'
-  >;
-
+  @NgInput() declare 'value'?: AngularInput<'Stepper', 'value'>;
+  @Output() get stepChange() {
+    return this.rvOutput<
+      AngularCallbackValue<AngularInput<'Stepper', 'onStepChange'>>
+    >('onStepChange');
+  }
+  @Output() get stepComplete() {
+    return this.rvOutput<
+      AngularCallbackValue<AngularInput<'Stepper', 'onStepComplete'>>
+    >('onStepComplete');
+  }
+  @Output() get stepInvalid() {
+    return this.rvOutput<
+      AngularCallbackValue<AngularInput<'Stepper', 'onStepInvalid'>>
+    >('onStepInvalid');
+  }
   protected rvResolveProps() {
     return this.rvInputValues;
   }

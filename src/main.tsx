@@ -281,6 +281,8 @@ const resources = [
   { id: 2, name: 'Alex Chen', role: 'Engineer' },
 ];
 function App() {
+  const [workspaceName, setWorkspaceName] = useState('');
+  const [setupMessage, setSetupMessage] = useState('');
   const [expandedPaths, setExpandedPaths] = useState<string[]>(['src']);
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [lastCommand, setLastCommand] = useState('');
@@ -463,6 +465,118 @@ function App() {
               { id: 'details', label: 'Details' },
               { id: 'review', label: 'Review' },
               { id: 'finish', label: 'Finish' },
+            ]}
+          />
+        </Example>
+        <Example title="Vertical setup">
+          <Stepper
+            label="Workspace setup"
+            orientation="vertical"
+            linear
+            id="workspace-setup"
+            previousLabel="Back"
+            nextLabel="Next"
+            isStepValid={(index) =>
+              index !== 0 || workspaceName.trim().length > 0
+            }
+            onStepInvalid={() => setSetupMessage('Enter a workspace name.')}
+            onStepChange={() => setSetupMessage('')}
+            completedContent={<p>Workspace ready</p>}
+            steps={[
+              {
+                id: 'name',
+                label: 'Name',
+                description: 'Workspace details',
+                content: (
+                  <div>
+                    <TextInput
+                      aria-label="Workspace name"
+                      value={workspaceName}
+                      onInput={(event) =>
+                        setWorkspaceName(event.currentTarget.value)
+                      }
+                    />
+                    <p aria-live="polite">{setupMessage}</p>
+                  </div>
+                ),
+              },
+              {
+                id: 'confirm',
+                label: 'Confirm',
+                content: <p>Review {workspaceName}.</p>,
+              },
+            ]}
+          />
+        </Example>
+        <Example title="Vertical keyboard navigation">
+          <Stepper
+            label="Review stages"
+            orientation="vertical"
+            defaultStep={0}
+            steps={[
+              { id: 'draft', label: 'Draft' },
+              { id: 'disabled', label: 'Unavailable', disabled: true },
+              { id: 'proof', label: 'Proofread' },
+            ]}
+          />
+        </Example>
+        <Example title="Accordion checklist">
+          <Stepper
+            label="Project launch checklist"
+            id="launch-checklist"
+            layout="accordion"
+            defaultStep={1}
+            nextLabel="Done, next step"
+            completedContent={<p>Launch checklist complete</p>}
+            steps={[
+              {
+                id: 'brief',
+                label: 'Set the project brief',
+                description: '5 min',
+                content: (
+                  <p>Agree on the scope, owners, and success criteria.</p>
+                ),
+              },
+              {
+                id: 'review',
+                label: 'Review the launch plan',
+                description: '10 min',
+                content: (
+                  <>
+                    <p>
+                      Confirm the launch date and make sure each task has an
+                      owner.
+                    </p>
+                    <p>
+                      <strong>Have ready:</strong> The project brief and
+                      milestone dates.
+                    </p>
+                  </>
+                ),
+              },
+              {
+                id: 'invite',
+                label: 'Invite collaborators',
+                description: '5 min',
+                content: (
+                  <p>
+                    Share the workspace with the launch team and confirm access.
+                  </p>
+                ),
+              },
+            ]}
+          />
+        </Example>
+        <Example title="Right-to-left progress">
+          <Stepper
+            label="إعداد المشروع"
+            dir="rtl"
+            orientation="horizontal"
+            defaultStep={1}
+            steps={[
+              { id: 'details', label: 'التفاصيل' },
+              { id: 'review', label: 'المراجعة' },
+              { id: 'finish', label: 'إنهاء' },
             ]}
           />
         </Example>
