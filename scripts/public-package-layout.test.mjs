@@ -46,6 +46,16 @@ test('public package ships one module worker for all PDF entry points', () => {
   );
 });
 
+test('unstyled entrypoints omit the duplicate extracted stylesheet', () => {
+  assert(!existsSync(resolve(root, 'unstyled/ui.css')));
+  const modules = output.filter(
+    (file) => file.startsWith(resolve(root, 'unstyled') + '/') && file.endsWith('.js'),
+  );
+  for (const file of modules) {
+    assert.doesNotMatch(readFileSync(file, 'utf8'), /["'](?:\.\/|\.\.\/)*ui\.css["']/);
+  }
+});
+
 test('Angular declarations have a single compiled owner', () => {
   assert(
     !existsSync(resolve(root, 'angular-components')),
