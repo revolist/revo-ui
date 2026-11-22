@@ -10,7 +10,7 @@ import {
   mkdtempSync,
   rmSync,
 } from 'node:fs';
-import { resolve, relative, basename } from 'node:path';
+import { resolve, relative, basename, sep } from 'node:path';
 
 const project = resolve(import.meta.dirname, '..');
 const { version } = JSON.parse(
@@ -49,8 +49,9 @@ test('public package ships one module worker for all PDF entry points', () => {
 test('unstyled entrypoints omit the duplicate extracted stylesheet', () => {
   assert(!existsSync(resolve(root, 'unstyled/ui.css')));
   const modules = output.filter(
-    (file) => file.startsWith(resolve(root, 'unstyled') + '/') && file.endsWith('.js'),
+    (file) => file.startsWith(resolve(root, 'unstyled') + sep) && file.endsWith('.js'),
   );
+  assert(modules.length > 0, 'find the unstyled JavaScript modules');
   for (const file of modules) {
     assert.doesNotMatch(readFileSync(file, 'utf8'), /["'](?:\.\/|\.\.\/)*ui\.css["']/);
   }
