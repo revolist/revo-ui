@@ -1,6 +1,6 @@
-import type { ClassPreset } from '../presets/types';
 /** @jsxRuntime automatic */
 /** @jsxImportSource preact */
+import type { ClassPreset } from '../presets/types';
 import { Fragment, h, type ComponentChildren, type RefObject } from 'preact';
 import { useCallback, useEffect, useLayoutEffect, useRef } from 'preact/compat';
 import type { DropdownConfig, DropdownOption } from './dropdown.types';
