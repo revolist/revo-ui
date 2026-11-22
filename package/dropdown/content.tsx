@@ -7,6 +7,7 @@ import type { DropdownConfig, DropdownOption } from './dropdown.types';
 import { useSelectionListTooltips } from '../core/selection-list-tooltips';
 import { useDropdownService } from './dropdown.service';
 import { ButtonControl as Button } from '../native-control';
+import { SearchInput } from '../search-input';
 import type { RemoteDropdownState, DropdownRemoteText } from './remote';
 
 export type DropdownRemoteControls<T> = RemoteDropdownState<T> & {
@@ -242,14 +243,13 @@ export function DropdownPopupContent<T = any>({
     >
       {search && (
         <div className="dropdown-search">
-          <input
-            ref={searchInputRef}
+          <SearchInput
+            inputRef={searchInputRef}
             type="text"
             id={searchId}
-            className={`dropdown-search-input ${theme ? `theme-${theme}` : ''}`}
+            inputClassName={`dropdown-search-input ${theme ? `theme-${theme}` : ''}`}
             placeholder={searchPlaceholder}
             value={searchValue}
-            onChange={handleSearchChange}
             onInput={handleSearchChange}
             aria-label={config.searchAriaLabel ?? 'Search options'}
             aria-controls={listboxId}

@@ -160,6 +160,7 @@ it('keeps search typing local and treats spaces as text rather than option selec
     const input = document.querySelector<HTMLInputElement>(
       '.dropdown-search-input',
     )!;
+    expect(input.closest('.rv-search-input')?.querySelector('.rv-search-input-icon')).toBeTruthy();
     for (const key of ['I', ' ', 'Backspace', 'Home', 'ArrowLeft']) {
       const event = new KeyboardEvent('keydown', {
         key,

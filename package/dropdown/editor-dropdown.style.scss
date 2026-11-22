@@ -245,17 +245,6 @@ revo-grid,
     padding: 8px;
     border-bottom: 1px solid var(--rv-dropdown-menu-search-border);
 
-    input {
-      width: 100%;
-      padding: 8px;
-      border: 1px solid var(--rv-dropdown-menu-border);
-      border-radius: 4px;
-      font-size: 14px;
-
-      &:focus {
-        @include focus-style;
-      }
-    }
   }
 
   .dropdown-options {
