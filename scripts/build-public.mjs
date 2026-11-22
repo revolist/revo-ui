@@ -38,6 +38,11 @@ run(['exec', 'vite', 'build', '--mode', 'library']);
 run(['exec', 'vite', 'build', '--mode', 'library-unstyled']);
 run(['exec', 'vite', 'build', '--mode', 'browser']);
 
+// Vite emits the same extracted CSS in both module builds. The unstyled
+// entrypoints do not reference it and the package exports the canonical styles
+// separately, so do not ship the duplicate as an inaccessible asset.
+rmSync(resolve(output, 'unstyled/ui.css'), { force: true });
+
 // Preserve every Sass/CSS export, including its relative imports, and also offer
 // compiled CSS so ordinary consumers don't need a Sass toolchain.
 function copyStyles(directory) {
