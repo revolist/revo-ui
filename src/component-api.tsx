@@ -1,5 +1,5 @@
 import { h, createContext } from 'preact';
-import themeSchema from '../package/presets/theme.schema.json';
+import themeSchema from '@revolist/ui/presets/theme.schema.json';
 import { themeReferences } from './theme-reference';
 import exampleHooks from './theme-example-hooks.json';
 import { useContext, useEffect, useMemo, useState } from 'preact/hooks';

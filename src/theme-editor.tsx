@@ -6,7 +6,7 @@ import { Input, TextArea, ButtonControl } from '@revolist/ui/native-control';
 import { ColorPicker } from '@revolist/ui/color-palette/color-picker';
 import { SliderField } from '@revolist/ui/filter/filters/slider/single';
 import { Highlight } from './example-source';
-import schema from '../package/presets/theme.schema.json';
+import schema from '@revolist/ui/presets/theme.schema.json';
 import { apiHref, frameworkHref } from './routing';
 import type { ComponentApi } from './api-types';
 import {
