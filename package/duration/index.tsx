@@ -42,6 +42,10 @@ export interface DurationFieldProps extends DurationFieldOptions {
   /** Product forms can keep raw invalid drafts for their existing error/commit pipeline. */
   onDraftChange?: (text: string) => void;
   label?: string;
+  /** Additional invalid state supplied by a host form. */
+  invalid?: boolean;
+  /** ID or IDs of host-provided help or validation text. */
+  describedBy?: string;
   invalidText?: string;
   disabled?: boolean;
   readOnly?: boolean;
@@ -116,7 +120,8 @@ export function DurationField(props: DurationFieldProps) {
       <Input
         type="text"
         aria-label={props.label ?? 'Duration'}
-        aria-invalid={!parsed.valid}
+        aria-invalid={props.invalid || !parsed.valid}
+        aria-describedby={props.describedBy}
         value={draft}
         disabled={props.disabled}
         readOnly={props.readOnly}

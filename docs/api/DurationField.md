@@ -24,6 +24,8 @@ The table lists library-declared props. Standard inherited HTML attributes are o
 | `onValidityChange`      | `((valid: boolean) => void) \| undefined`                | No       |                                                                                     |
 | `onDraftChange`         | `((text: string) => void) \| undefined`                  | No       | Product forms can keep raw invalid drafts for their existing error/commit pipeline. |
 | `label`                 | `string \| undefined`                                    | No       |                                                                                     |
+| `invalid`               | `boolean \| undefined`                                   | No       | Adds a host form's invalid state to the duration parser's own validity.              |
+| `describedBy`           | `string \| undefined`                                    | No       | IDs of host-provided help or validation text associated with the input.             |
 | `invalidText`           | `string \| undefined`                                    | No       |                                                                                     |
 | `disabled`              | `boolean \| undefined`                                   | No       |                                                                                     |
 | `readOnly`              | `boolean \| undefined`                                   | No       |                                                                                     |
