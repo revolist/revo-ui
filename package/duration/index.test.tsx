@@ -65,6 +65,50 @@ it('forwards invalid raw product drafts without emitting a parsed value', async 
   );
 });
 
+it('combines host validation with the duration parser and links the host error', async () => {
+  await act(async () =>
+    render(
+      <DurationField
+        value="2d"
+        defaultUnit="day"
+        onChange={() => {}}
+        invalid
+        describedBy="duration-error"
+      />,
+      host,
+    ),
+  );
+  const input = host.querySelector('input')!;
+  expect(input.getAttribute('aria-invalid')).toBe('true');
+  expect(input.getAttribute('aria-describedby')).toBe('duration-error');
+  await act(async () =>
+    render(
+      <DurationField
+        value="-3h"
+        defaultUnit="day"
+        onChange={() => {}}
+        invalid={false}
+        describedBy="duration-error"
+      />,
+      host,
+    ),
+  );
+  expect(input.getAttribute('aria-invalid')).toBe('true');
+  const parserError = host.querySelector<HTMLElement>('[role="alert"]')!;
+  expect(input.getAttribute('aria-describedby')?.split(' ')).toEqual([
+    'duration-error',
+    parserError.id,
+  ]);
+  await act(async () =>
+    render(
+      <DurationField value="2d" defaultUnit="day" onChange={() => {}} />,
+      host,
+    ),
+  );
+  expect(input.getAttribute('aria-invalid')).toBe('false');
+  expect(input.hasAttribute('aria-describedby')).toBe(false);
+});
+
 it('uses the shared slider and unit buttons without committing until Apply', async () => {
   const apply = vi.fn();
   await act(async () =>
