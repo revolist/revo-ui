@@ -1,7 +1,7 @@
 /** @jsxRuntime automatic */
 /** @jsxImportSource preact */
 import type { ClassPreset } from '../presets/types';
-import { useEffect, useRef, useState } from 'preact/hooks';
+import { useEffect, useId, useRef, useState } from 'preact/hooks';
 import { Input } from '../native-control';
 import { DurationControls } from './controls';
 import './style.scss';
@@ -52,6 +52,7 @@ export interface DurationFieldProps extends DurationFieldOptions {
   className?: string;
 }
 export function DurationField(props: DurationFieldProps) {
+  const parserErrorId = useId();
   const format = (value: DurationFieldProps['value']) =>
     value && typeof value === 'object'
       ? formatDurationValue(value.value, value.unit, {
@@ -121,7 +122,11 @@ export function DurationField(props: DurationFieldProps) {
         type="text"
         aria-label={props.label ?? 'Duration'}
         aria-invalid={props.invalid || !parsed.valid}
-        aria-describedby={props.describedBy}
+        aria-describedby={
+          [props.describedBy, !parsed.valid ? parserErrorId : undefined]
+            .filter(Boolean)
+            .join(' ') || undefined
+        }
         value={draft}
         disabled={props.disabled}
         readOnly={props.readOnly}
@@ -144,7 +149,7 @@ export function DurationField(props: DurationFieldProps) {
         }
       />
       {!parsed.valid && (
-        <span role="alert" class="rv-editor-error">
+        <span id={parserErrorId} role="alert" class="rv-editor-error">
           {props.invalidText ??
             'Enter a valid duration within the allowed units and bounds.'}
         </span>

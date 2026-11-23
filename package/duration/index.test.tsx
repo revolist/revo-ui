@@ -88,11 +88,17 @@ it('combines host validation with the duration parser and links the host error',
         defaultUnit="day"
         onChange={() => {}}
         invalid={false}
+        describedBy="duration-error"
       />,
       host,
     ),
   );
   expect(input.getAttribute('aria-invalid')).toBe('true');
+  const parserError = host.querySelector<HTMLElement>('[role="alert"]')!;
+  expect(input.getAttribute('aria-describedby')?.split(' ')).toEqual([
+    'duration-error',
+    parserError.id,
+  ]);
   await act(async () =>
     render(
       <DurationField value="2d" defaultUnit="day" onChange={() => {}} />,
