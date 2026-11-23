@@ -7,14 +7,20 @@
  * `.rv-dialog-overlay` and put `.rv-dialog__surface` on their panel.
  */
 
+// Anchor the header independently of the current body height.
+.rv-dialog,
+.rv-dialog-overlay {
+  --rv-dialog-top-gutter: clamp(16px, 6dvh, 48px);
+}
+
 .rv-dialog {
   position: fixed;
-  inset: 0;
+  inset: var(--rv-dialog-top-gutter) 0 auto;
   box-sizing: border-box;
   width: var(--rv-dialog-width, min(560px, calc(100vw - 32px)));
   max-width: calc(100vw - 32px);
-  max-height: calc(100dvh - 32px);
-  margin: auto;
+  max-height: calc(100dvh - var(--rv-dialog-top-gutter) - 16px);
+  margin: 0 auto;
   padding: 0;
   overflow: visible;
   border: 0;
@@ -54,9 +60,10 @@
   inset: 0;
   z-index: var(--rv-dialog-z-index, 100000);
   display: grid;
-  place-items: center;
+  grid-template-rows: minmax(0, 1fr);
+  place-items: start center;
   box-sizing: border-box;
-  padding: 16px;
+  padding: var(--rv-dialog-top-gutter) 16px 16px;
   background: var(--rv-dialog-backdrop, var(--rv-ui-overlay));
   backdrop-filter: blur(2px);
   color: var(--rv-dialog-color, var(--rv-ui-text));
@@ -94,6 +101,10 @@
   @include surface-appearance;
 }
 
+:where(.rv-dialog-overlay) > .rv-dialog__surface {
+  max-height: 100%;
+}
+
 .rv-dialog__header {
   display: flex;
   align-items: flex-start;
@@ -114,9 +125,9 @@
 // Native dialogs must retain viewport positioning when dragging is enabled.
 .rv-dialog.rv-dialog__draggable {
   position: fixed;
-  inset: var(--rv-dialog-translate-y, 0px)
+  inset: calc(var(--rv-dialog-top-gutter) + var(--rv-dialog-translate-y, 0px))
     calc(0px - var(--rv-dialog-translate-x, 0px))
-    calc(0px - var(--rv-dialog-translate-y, 0px))
+    auto
     var(--rv-dialog-translate-x, 0px);
 }
 
@@ -247,6 +258,7 @@
 
 @media (max-width: 560px) {
   .rv-dialog {
+    --rv-dialog-top-gutter: 0px;
     width: 100vw;
     max-width: 100vw;
     max-height: 100dvh;
