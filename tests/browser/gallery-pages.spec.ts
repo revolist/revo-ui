@@ -943,3 +943,68 @@ test('resource selection has a dedicated picker page', async ({ page }) => {
     page.getByRole('searchbox', { name: 'Search people' }),
   ).toHaveCount(0);
 });
+
+test('sidebar finds individual controls and links to their examples', async ({
+  page,
+}) => {
+  await page.goto('/components/buttons/');
+  const navigation = page.getByRole('navigation', {
+    name: 'Component sections',
+  });
+  const search = page.getByRole('searchbox', { name: 'Find a component' });
+  await search.fill('mini calendar');
+  const miniCalendar = navigation.getByRole('link', {
+    name: 'Mini calendar',
+    exact: true,
+  });
+  await expect(miniCalendar).toBeVisible();
+  await miniCalendar.click();
+  await expect(page).toHaveURL(
+    /\/components\/calendar-and-dates\/#example-mini-calendar$/,
+  );
+  await expect(page.locator('#example-mini-calendar')).toBeVisible();
+  await page
+    .getByRole('searchbox', { name: 'Find a component' })
+    .fill('benchmark card');
+  await expect(
+    navigation.getByRole('link', { name: 'Benchmark card', exact: true }),
+  ).toBeVisible();
+  await search.fill('toast');
+  await expect(
+    navigation.getByRole('link', { name: 'Toaster', exact: true }),
+  ).toBeVisible();
+  await expect(
+    navigation.getByRole('link', { name: 'Toast notifications', exact: true }),
+  ).toBeVisible();
+  await search.fill('MetricTile');
+  await expect(
+    navigation.getByRole('link', { name: 'MetricTile', exact: true }),
+  ).toHaveAttribute('href', '/api/metrictile/');
+});
+
+test('sidebar includes every documented public component', async ({ page }) => {
+  await page.goto('/components/buttons/');
+  const sidebar = page.getByRole('navigation', { name: 'Component sections' });
+  await expect(
+    sidebar.getByRole('link', { name: 'MetricTile', exact: true }),
+  ).toBeVisible();
+  const sidebarTargets = new Set(
+    await sidebar
+      .locator('a[href^="/api/"]')
+      .evaluateAll((links) => links.map((link) => link.getAttribute('href'))),
+  );
+  await page.goto('/api/');
+  const api = page.getByRole('navigation', { name: 'Component APIs' });
+  await expect(
+    api.getByRole('link', { name: 'MetricTile', exact: true }),
+  ).toBeVisible();
+  const apiTargets = await api
+    .locator('a[href^="/api/"]')
+    .evaluateAll((links) =>
+      links
+        .map((link) => link.getAttribute('href'))
+        .filter((href) => href !== '/api/'),
+    );
+  expect(apiTargets.length).toBeGreaterThan(100);
+  expect(apiTargets.filter((href) => !sidebarTargets.has(href))).toEqual([]);
+});

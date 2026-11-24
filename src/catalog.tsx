@@ -13,7 +13,7 @@ import {
   PublishedVersion,
   PublishedVersionProvider,
 } from './published-version';
-import { ApiReference } from './component-api';
+import { ApiReference, type ComponentApi } from './component-api';
 import { ExampleCode, examples, slug } from './example-source';
 import { SvgIcon } from '@revolist/ui/icons/icon';
 import codeIcon from '@fortawesome/fontawesome-free/svgs/solid/code.svg?raw';
@@ -37,11 +37,20 @@ import pages from './pages.json';
 import {
   currentRoute,
   componentHref,
+  apiHref,
   frameworkHref,
   siteHref,
 } from './routing';
 const families = pages.components;
-const groups = ['Controls', 'Pickers', 'Compositions', 'Advanced'];
+const groups = [
+  'Actions and navigation',
+  'Form controls',
+  'Date, time and scheduling',
+  'People and collaboration',
+  'Data and visualization',
+  'Feedback and overlays',
+  'Layout and content',
+];
 const documentationEntries = (category: string) =>
   Object.entries(documentation)
     .filter(([, doc]) => doc.category === category)
@@ -79,10 +88,26 @@ const documentationGroups = [
 const Route = createContext('');
 export const sectionId = (title: string) =>
   title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-const matches = (family: (typeof families)[number], query: string) =>
-  `${family.title} ${family.keywords}`
+const normalizeSearch = (value: string) =>
+  value
+    .replace(/([a-z])([A-Z])/g, '$1 $2')
     .toLowerCase()
-    .includes(query.trim().toLowerCase());
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+const matchesExample = (example: (typeof examples)[number], query: string) => {
+  const componentNames = [...example.code.matchAll(/<([A-Z][A-Za-z0-9.]*)/g)]
+    .map((match) => match[1])
+    .join(' ');
+  return normalizeSearch(`${example.title} ${componentNames}`).includes(query);
+};
+const matches = (family: (typeof families)[number], query: string) =>
+  normalizeSearch(
+    `${family.title} ${family.description} ${family.keywords}`,
+  ).includes(query) ||
+  examples.some(
+    (example) =>
+      example.family === family.title && matchesExample(example, query),
+  );
 
 export function Section({
   title,
@@ -230,10 +255,19 @@ export function CatalogShell({
   const [motion, setMotion] = useState('system');
   const content = useRef<HTMLDivElement>(null);
   const [query, setQuery] = useState('');
+  const [apiComponents, setApiComponents] = useState<ComponentApi[]>([]);
+  useEffect(() => {
+    if (page === 'components')
+      import('virtual:component-api').then(({ default: api }) =>
+        setApiComponents(api),
+      );
+  }, [page]);
   const [active, setActive] = useState(currentRoute());
+  const [anchor, setAnchor] = useState(location.hash);
   useEffect(() => {
     const update = () => {
       setActive(currentRoute());
+      setAnchor(location.hash);
       setMobileOpen(false);
       if (
         location.hash &&
@@ -287,8 +321,16 @@ export function CatalogShell({
       inScope(child.props.title)
     );
   });
+  const normalizedQuery = normalizeSearch(query);
   const visible = families.filter(
-    (family) => inScope(family.title) && matches(family, query),
+    (family) =>
+      inScope(family.title) &&
+      (matches(family, normalizedQuery) ||
+        apiComponents.some(
+          (item) =>
+            item.families.includes(family.title) &&
+            normalizeSearch(item.name).includes(normalizedQuery),
+        )),
   );
   const frameworkName =
     page === 'frameworks'
@@ -682,33 +724,84 @@ export function CatalogShell({
                   Overview
                 </a>
                 {groups.map((group) => {
-                  const entries = visible.filter(
-                    (family) => family.group === group,
-                  );
+                  const entries = visible
+                    .filter((family) => family.group === group)
+                    .sort((a, b) => a.title.localeCompare(b.title));
                   return (
                     entries.length > 0 && (
                       <div class="catalog-nav-group" key={group}>
                         <p>{group}</p>
-                        {entries.map((family) => (
-                          <a
-                            key={family.title}
-                            href={componentHref(sectionId(family.title))}
-                            aria-current={
-                              active === sectionId(family.title) ||
-                              component?.title === family.title
-                                ? 'location'
-                                : undefined
-                            }
-                          >
-                            {family.title}
-                          </a>
-                        ))}
+                        {entries.map((family) => {
+                          const familyExamples = examples.filter(
+                            (example) =>
+                              example.family === family.title &&
+                              (!normalizedQuery ||
+                                matchesExample(example, normalizedQuery)),
+                          );
+                          const familyControls = apiComponents
+                            .filter(
+                              (item) =>
+                                item.families.includes(family.title) &&
+                                (!normalizedQuery ||
+                                  normalizeSearch(item.name).includes(
+                                    normalizedQuery,
+                                  )),
+                            )
+                            .sort((a, b) => a.name.localeCompare(b.name));
+                          return (
+                            <div class="catalog-nav-family" key={family.title}>
+                              <a
+                                class="catalog-nav-family-link"
+                                href={componentHref(sectionId(family.title))}
+                                aria-current={
+                                  component?.title === family.title && !anchor
+                                    ? 'location'
+                                    : undefined
+                                }
+                              >
+                                {family.title}
+                              </a>
+                              {(familyExamples.length > 0 ||
+                                familyControls.length > 0) && (
+                                <ul
+                                  class="catalog-nav-examples"
+                                  aria-label={`${family.title} controls and examples`}
+                                >
+                                  {familyControls.map((item) => (
+                                    <li key={`api-${item.name}`}>
+                                      <a href={apiHref(item.name)}>
+                                        {item.name}
+                                      </a>
+                                    </li>
+                                  ))}
+                                  {familyExamples.map((example) => (
+                                    <li key={`${example.file}-${example.id}`}>
+                                      <a
+                                        href={`${componentHref(sectionId(family.title))}#example-${example.id}`}
+                                        aria-current={
+                                          component?.title === family.title &&
+                                          anchor === `#example-${example.id}`
+                                            ? 'location'
+                                            : undefined
+                                        }
+                                      >
+                                        {example.title}
+                                      </a>
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </div>
+                          );
+                        })}
                       </div>
                     )
                   );
                 })}
                 {page === 'components' && !home && visible.length === 0 && (
-                  <p class="catalog-nav-empty">No matching sections.</p>
+                  <p class="catalog-nav-empty">
+                    No matching components or examples.
+                  </p>
                 )}
               </nav>
               <div class="catalog-sidebar-note">

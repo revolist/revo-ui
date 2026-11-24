@@ -4540,3 +4540,44 @@ body {
 .release-timeline-details > dd {
   margin: 0;
 }
+
+/* Individual examples are indexed under their component family. */
+.catalog-nav-family-link,
+.catalog-nav-examples a {
+  display: block;
+  border-radius: 6px;
+  color: var(--rv-ui-text-muted);
+  font-size: 12px;
+  line-height: 1.5;
+  padding: 6px 8px;
+}
+.catalog-nav-family-link {
+  color: var(--rv-ui-text);
+  font-weight: 550;
+}
+.catalog-nav-examples {
+  list-style: none;
+  margin: 0 0 8px 8px;
+  padding: 0 0 0 8px;
+  border-inline-start: 1px solid var(--rv-ui-border);
+}
+.catalog-nav-family-link:hover,
+.catalog-nav-examples a:hover {
+  background: var(--rv-ui-surface-sunken);
+  color: var(--rv-ui-text);
+}
+.catalog-nav-family-link[aria-current],
+.catalog-nav-examples a[aria-current] {
+  background: var(--rv-ui-selected-bg);
+  color: var(--rv-ui-selected-fg);
+}
+@media (max-width: 760px) {
+  .catalog-sidebar .catalog-nav-family-link,
+  .catalog-sidebar .catalog-nav-examples a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    font-size: 14px;
+    line-height: 20px;
+  }
+}

@@ -2,235 +2,235 @@
   "components": [
     {
       "title": "Cursor",
-      "group": "Compositions",
+      "group": "People and collaboration",
       "description": "Show collaborator presence in a shared workspace.",
       "keywords": "remote cursor collaborator presence pointer canvas multiplayer"
     },
     {
       "title": "History",
-      "group": "Compositions",
+      "group": "People and collaboration",
       "description": "Compare changes across saved versions and browse backup snapshots to choose a restore point.",
       "keywords": "history review backup history grid versions cell changes comment edits snapshots restore"
     },
     {
       "title": "HTML Editor",
-      "group": "Advanced",
+      "group": "Layout and content",
       "description": "Edit rich text visually or as HTML, with formatting commands and explicit save or cancel actions.",
       "keywords": "editor html rich text wysiwyg source formatting bold italic headings lists links"
     },
     {
       "title": "AI assistant",
-      "group": "Advanced",
+      "group": "Layout and content",
       "description": "Prompt inputs, suggestions, action status and result summaries.",
       "keywords": "ai assistant chat messages reasoning tasks prompt input suggestions status tool result restore"
     },
     {
       "title": "Activity messages",
-      "group": "Compositions",
+      "group": "People and collaboration",
       "description": "Chat-style messages with an avatar, timestamp, content and actions.",
       "keywords": "activity chat message audit feed history card user time"
     },
     {
       "title": "Buttons",
-      "group": "Controls",
+      "group": "Actions and navigation",
       "description": "Actions, variants, icon buttons and grouped commands.",
       "keywords": "button icon toggle group primary solid neutral add plus outline ghost danger delete disabled compact"
     },
     {
       "title": "Selection controls",
-      "group": "Controls",
+      "group": "Form controls",
       "description": "Independent checkboxes, switches and single-choice controls.",
       "keywords": "checkbox switch radio choice chips option rows"
     },
     {
       "title": "Tabs and lists",
-      "group": "Controls",
+      "group": "Actions and navigation",
       "description": "Switch linked content or choose items with plain, icon, description and grouped selection lists.",
       "keywords": "segmented tabs listbox option navigation"
     },
     {
       "title": "Inputs and forms",
-      "group": "Controls",
+      "group": "Form controls",
       "description": "Text, messages, search, filters, numbers and clear field presentation.",
       "keywords": "text textarea message search filter bar number stepper counter field error validation readonly highlighted inline dimensions"
     },
     {
       "title": "Multi/selects, autocomplete",
-      "group": "Controls",
+      "group": "Form controls",
       "description": "Single and multiple selects, editable autocomplete, optional tags and remote lookup.",
       "keywords": "select combobox autocomplete editable multiselect dropdown tags create remote lookup linked records async"
     },
     {
       "title": "Sliders",
-      "group": "Controls",
+      "group": "Form controls",
       "description": "Adjust a value, define an interval, or set an angle with a circular dial.",
       "keywords": "range scalar numeric timeline track move resize events circular slider dial rotation angle heading markers degrees"
     },
     {
       "title": "Timeline track",
-      "group": "Controls",
+      "group": "Date, time and scheduling",
       "description": "Move and resize timeline events with per-event colors and weighted phases.",
       "keywords": "timeline track event phase color move resize project"
     },
     {
       "title": "PDF viewer",
-      "group": "Advanced",
+      "group": "Layout and content",
       "description": "Read, search, navigate, print and download PDF documents.",
       "keywords": "pdf document viewer file upload zoom rotate search print download"
     },
     {
       "title": "Calendar and dates",
-      "group": "Pickers",
+      "group": "Date, time and scheduling",
       "description": "Calendar views, date selection and date ranges.",
       "keywords": "date calendar mini calendar date strip picker range multiple presets week month year"
     },
     {
       "title": "Time pickers",
-      "group": "Pickers",
+      "group": "Date, time and scheduling",
       "description": "Time-only fields, business hours, seconds and 12/24-hour pickers.",
       "keywords": "time picker hours minutes seconds am pm clock confirmation"
     },
     {
       "title": "Date and time fields",
-      "group": "Pickers",
+      "group": "Date, time and scheduling",
       "description": "DateTimeField inputs and configurable date/time editor compositions.",
       "keywords": "date datetime field temporal editor input format calendar time range multiple"
     },
     {
       "title": "Duration and effort",
-      "group": "Controls",
+      "group": "Form controls",
       "description": "Edit duration and effort with units, elapsed time and optional sliders.",
       "keywords": "duration effort units elapsed day hour minute slider"
     },
     {
       "title": "Resource selection",
-      "group": "Pickers",
+      "group": "People and collaboration",
       "description": "Select people or other resources, with avatars and person selectors.",
       "keywords": "resource selection picker people assignee search multiple avatar images user member"
     },
     {
       "title": "Assignee field",
-      "group": "Pickers",
+      "group": "People and collaboration",
       "description": "Assign people and edit their allocation units.",
       "keywords": "assignee field people resource allocation units assignment"
     },
     {
       "title": "Legend",
-      "group": "Controls",
+      "group": "Data and visualization",
       "description": "Explain colors, states and marker styles with compact legend items.",
       "keywords": "legend markers colors status key labels outline dashed"
     },
     {
       "title": "Weekly time grid",
-      "group": "Compositions",
+      "group": "Date, time and scheduling",
       "description": "Paint weekly availability with working hours, weekends and keyboard navigation.",
       "keywords": "time grid weekly availability schedule working hours weekend paint"
     },
     {
       "title": "Color",
-      "group": "Pickers",
+      "group": "Layout and content",
       "description": "Choose a color from a picker or palette.",
       "keywords": "palette picker swatches"
     },
     {
       "title": "Field configurators",
-      "group": "Compositions",
+      "group": "Form controls",
       "description": "Shared field layout and actions. Product field browsers keep their Pro tree.",
       "keywords": "field library search group ordered reorder measures checkbox"
     },
     {
       "title": "Formatting controls",
-      "group": "Compositions",
+      "group": "Form controls",
       "description": "Typography, icon choices, inspector sections and before/after previews.",
       "keywords": "format font size bold italic underline strike alignment inspector disclosure comparison preview"
     },
     {
       "title": "Charts and range selection",
-      "group": "Compositions",
+      "group": "Data and visualization",
       "description": "Standalone chart primitives and a composed range brush.",
       "keywords": "distribution bar line area brush chart range"
     },
     {
       "title": "Dialogs and floating surfaces",
-      "group": "Compositions",
+      "group": "Feedback and overlays",
       "description": "Focused tasks, confirmations and contextual details.",
       "keywords": "dialog confirmation popover overlay"
     },
     {
       "title": "Tooltip",
-      "group": "Compositions",
+      "group": "Feedback and overlays",
       "description": "Cross-framework tooltips with controlled state, smart placement, shared delays, rich and async content, and delegated triggers.",
       "keywords": "tooltip hint help hover focus click controlled async collision delay arrow delegated accessible"
     },
     {
       "title": "Menus and toolbars",
-      "group": "Compositions",
+      "group": "Actions and navigation",
       "description": "Organize commands in menus, toolbars and contextual action bars.",
       "keywords": "menu submenu toolbar action bar selection bulk undo redo export history"
     },
     {
       "title": "Status and feedback",
-      "group": "Compositions",
+      "group": "Feedback and overlays",
       "description": "Badges, alerts, loading states, empty states and toast notifications.",
       "keywords": "badge alert spinner loading empty feedback toaster toast notification"
     },
     {
       "title": "Accordion",
-      "group": "Compositions",
+      "group": "Layout and content",
       "description": "Expand sections to edit settings or inspect the details of a run.",
       "keywords": "accordion collapsible section disclosure expand collapse configurator trace run steps"
     },
     {
       "title": "Layout",
-      "group": "Compositions",
+      "group": "Layout and content",
       "description": "Panes and an interactive resize divider.",
       "keywords": "split pane resize panel disclosure"
     },
     {
       "title": "Pagination",
-      "group": "Compositions",
+      "group": "Actions and navigation",
       "description": "Numbered pages, selectors and compact navigation.",
       "keywords": "page selector first last next previous"
     },
     {
       "title": "Progress and rating",
-      "group": "Compositions",
+      "group": "Data and visualization",
       "description": "Show completion or collect a rating.",
       "keywords": "bar circular progress rating stars"
     },
     {
       "title": "Tree",
-      "group": "Controls",
+      "group": "Actions and navigation",
       "description": "Browse hierarchical data with Tree and explore changed files with File Tree.",
       "keywords": "tree hierarchy folders navigation selection file tree changed files"
     },
     {
       "title": "Stepper",
-      "group": "Controls",
+      "group": "Actions and navigation",
       "description": "Show and navigate ordered workflow steps.",
       "keywords": "stepper progress steps workflow wizard"
     },
     {
       "title": "Activity timeline",
-      "group": "Compositions",
+      "group": "People and collaboration",
       "description": "Present chronological project activity.",
       "keywords": "activity timeline history events feed"
     },
     {
       "title": "Attachments",
-      "group": "Compositions",
+      "group": "People and collaboration",
       "description": "Explore the Attachments component.",
       "keywords": "attachments"
     },
     {
       "title": "Cascader",
-      "group": "Pickers",
+      "group": "Actions and navigation",
       "description": "Explore the Cascader component.",
       "keywords": "cascader"
     },
     {
       "title": "Command palette",
-      "group": "Controls",
+      "group": "Actions and navigation",
       "description": "Explore the Command palette component.",
       "keywords": "command palette"
     }
