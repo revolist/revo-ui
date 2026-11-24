@@ -1200,3 +1200,40 @@ test('sidebar merges singular and plural versions of the same control', async ({
     .filter({ hasText: /ChoiceChip/ });
   await expect(matching).toHaveCount(1);
 });
+
+test('appearance configurator has a readable, interactive layout', async ({
+  page,
+}) => {
+  await page.goto('/components/field-configurators/');
+  const example = page.locator('#example-appearance-configurator');
+  const control = example.locator('.rv-appearance-configurator');
+  await expect(control).toHaveCSS('display', 'flex');
+  await expect(control).toHaveCSS('flex-direction', 'column');
+  const switches = control.getByRole('switch');
+  await expect(switches).toHaveCount(4);
+  const bounds = await switches.evaluateAll((nodes) =>
+    nodes.map((node) => {
+      const rect = node.getBoundingClientRect();
+      return { top: rect.top, bottom: rect.bottom, width: rect.width };
+    }),
+  );
+  for (let i = 1; i < bounds.length; i++)
+    expect(bounds[i].top).toBeGreaterThanOrEqual(bounds[i - 1].bottom);
+  expect(bounds.every((rect) => rect.width >= 240)).toBe(true);
+  const density = control.getByRole('combobox', { name: 'Density' });
+  await density.click();
+  await page.getByRole('option', { name: 'Compact', exact: true }).click();
+  await expect(density).toContainText('Compact');
+  const stripes = control.getByRole('switch', { name: 'Row stripes' });
+  await stripes.click();
+  await expect(stripes).toHaveAttribute('aria-checked', 'true');
+  const reset = control.getByRole('button', { name: 'Reset', exact: true });
+  await expect(reset).toHaveText('Reset');
+  await reset.click();
+  await expect(stripes).toHaveAttribute('aria-checked', 'false');
+  await expect(density).toContainText('Comfortable');
+  await page.setViewportSize({ width: 390, height: 844 });
+  expect(
+    await page.evaluate(() => document.documentElement.scrollWidth),
+  ).toBeLessThanOrEqual(390);
+});

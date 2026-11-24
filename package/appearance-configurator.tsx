@@ -86,7 +86,7 @@ export function AppearanceConfigurator({
         class="rv-appearance-configurator__reset"
         onClick={onReset}
       >
-        ↶ {labels.reset}
+        {labels.reset}
       </ButtonControl>
     </div>
   );
