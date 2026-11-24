@@ -868,46 +868,70 @@ export function CatalogShell({
                       <div class="catalog-nav-group" key={group}>
                         <p>{group}</p>
                         {entries.map((family) => {
-                          const familyControls = controls
+                          const grouped = new Map<
+                            string,
+                            { name: string; href: string; aliases: string[] }
+                          >();
+                          for (const item of controls.filter((entry) =>
+                            entry.families.includes(family.title),
+                          )) {
+                            const href = componentExampleHref(
+                              family.title,
+                              item.name,
+                            );
+                            const current = grouped.get(href);
+                            if (!current) {
+                              grouped.set(href, {
+                                name: item.name,
+                                href,
+                                aliases: [item.name],
+                              });
+                              continue;
+                            }
+                            current.aliases.push(item.name);
+                            const example = examples.find(
+                              (entry) =>
+                                entry.family === family.title &&
+                                href.endsWith(`#example-${entry.id}`),
+                            );
+                            const target = example
+                              ? normalizeSearch(example.title)
+                              : normalizeSearch(family.title);
+                            const score = (name: string) =>
+                              (normalizeSearch(name) === target ? 1000 : 0) -
+                              name.length;
+                            if (score(item.name) > score(current.name))
+                              current.name = item.name;
+                          }
+                          const familyControls = [...grouped.values()]
                             .filter(
                               (item) =>
-                                item.families.includes(family.title) &&
-                                (!normalizedQuery ||
-                                  normalizeSearch(item.name).includes(
+                                !normalizedQuery ||
+                                item.aliases.some((name) =>
+                                  normalizeSearch(name).includes(
                                     normalizedQuery,
-                                  )),
+                                  ),
+                                ),
                             )
                             .sort((a, b) => a.name.localeCompare(b.name));
                           const matching = familyControls.filter((item) =>
                             anchor
-                              ? componentExampleHref(
-                                  family.title,
-                                  item.name,
-                                ).endsWith(anchor)
-                              : item.name === activeControl,
+                              ? item.href.endsWith(anchor)
+                              : item.aliases.includes(activeControl ?? ''),
                           );
-                          const exampleTitle = examples.find(
-                            (example) =>
-                              example.family === family.title &&
-                              `#example-${example.id}` === anchor,
-                          )?.title;
                           const selectedName =
-                            matching.find((item) => item.name === activeControl)
-                              ?.name ??
-                            matching.find(
-                              (item) =>
-                                exampleTitle &&
-                                normalizeSearch(item.name) ===
-                                  normalizeSearch(exampleTitle),
-                            )?.name ??
-                            matching[0]?.name;
+                            matching.find((item) =>
+                              item.aliases.includes(activeControl ?? ''),
+                            )?.name ?? matching[0]?.name;
                           return (
                             <div class="catalog-nav-family" key={family.title}>
                               <a
                                 class="catalog-nav-family-link"
                                 href={componentHref(sectionId(family.title))}
                                 aria-current={
-                                  component?.title === family.title && !anchor && !activeControl
+                                  component?.title === family.title &&
+                                  !anchor &&
+                                  !activeControl
                                     ? 'location'
                                     : undefined
                                 }
@@ -922,11 +946,9 @@ export function CatalogShell({
                                   {familyControls.map((item) => (
                                     <li key={`api-${item.name}`}>
                                       <a
-                                        href={componentExampleHref(
-                                          family.title,
-                                          item.name,
-                                        )}
+                                        href={item.href}
                                         data-component={item.name}
+                                        data-controls={item.aliases.join('|')}
                                         aria-current={
                                           component?.title === family.title &&
                                           item.name === selectedName
@@ -934,7 +956,13 @@ export function CatalogShell({
                                             : undefined
                                         }
                                       >
-                                        {item.name}
+                                        {normalizedQuery
+                                          ? (item.aliases.find((name) =>
+                                              normalizeSearch(name).includes(
+                                                normalizedQuery,
+                                              ),
+                                            ) ?? item.name)
+                                          : item.name}
                                       </a>
                                     </li>
                                   ))}

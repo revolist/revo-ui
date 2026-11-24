@@ -985,10 +985,19 @@ test('sidebar finds individual controls and links to their examples', async ({
 test('sidebar includes every documented public component', async ({ page }) => {
   await page.goto('/components/buttons/');
   const sidebar = page.getByRole('navigation', { name: 'Component sections' });
+  await expect(sidebar.locator('[data-controls]').first()).toBeVisible();
   await expect(
-    sidebar.getByRole('link', { name: 'MetricTile', exact: true }),
+    sidebar.locator('[data-controls*="MetricTile"]').first(),
   ).toBeVisible();
-  const sidebarNames = new Set(await sidebar.locator('a').allTextContents());
+  const sidebarNames = new Set(
+    await sidebar
+      .locator('[data-controls]')
+      .evaluateAll((links) =>
+        links.flatMap((link) =>
+          (link.getAttribute('data-controls') ?? '').split('|'),
+        ),
+      ),
+  );
   await page.goto('/api/');
   const api = page.getByRole('navigation', { name: 'Component APIs' });
   await expect(
@@ -1088,4 +1097,58 @@ test('sidebar navigation updates content without reloading and supports history'
       () => (window as Window & { galleryMarker?: number }).galleryMarker,
     ),
   ).toBe(123);
+});
+
+test('sidebar merges controls with the same destination and searches their aliases', async ({
+  page,
+}) => {
+  await page.goto('/components/menus-and-toolbars/');
+  const nav = page.getByRole('navigation', { name: 'Component sections' });
+  await expect(
+    nav.locator('[data-controls*="MetricTile"]').first(),
+  ).toBeVisible();
+  const groups = await nav
+    .locator('.catalog-nav-examples')
+    .evaluateAll((lists) =>
+      lists.map((list) =>
+        [...list.querySelectorAll('a')].map((link) =>
+          link.getAttribute('href'),
+        ),
+      ),
+    );
+  for (const hrefs of groups) expect(new Set(hrefs).size).toBe(hrefs.length);
+  await page
+    .getByRole('searchbox', { name: 'Find a component' })
+    .fill('MenuSeparator');
+  const result = nav.getByRole('link', { name: 'MenuSeparator', exact: true });
+  await expect(result).toBeVisible();
+  await expect(result).toHaveAttribute(
+    'href',
+    /^\/components\/menus-and-toolbars\//,
+  );
+});
+
+test('sidebar families and controls use the same alignment and typography', async ({
+  page,
+}) => {
+  await page.goto('/components/buttons/');
+  const nav = page.getByRole('navigation', { name: 'Component sections' });
+  const family = nav.getByRole('link', { name: 'Buttons', exact: true });
+  const control = nav.getByRole('link', { name: 'ButtonGroup', exact: true });
+  await expect(control).toBeVisible();
+  const styles = await Promise.all(
+    [family, control].map((link) =>
+      link.evaluate((element) => {
+        const style = getComputedStyle(element);
+        const bounds = element.getBoundingClientRect();
+        return {
+          left: bounds.left,
+          size: style.fontSize,
+          weight: style.fontWeight,
+          padding: style.paddingInlineStart,
+        };
+      }),
+    ),
+  );
+  expect(styles[0]).toEqual(styles[1]);
 });
