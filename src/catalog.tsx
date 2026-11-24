@@ -872,16 +872,41 @@ export function CatalogShell({
                             string,
                             { name: string; href: string; aliases: string[] }
                           >();
-                          for (const item of controls.filter((entry) =>
-                            entry.families.includes(family.title),
-                          )) {
+                          // Prefer a plural composition over its singular building block.
+                          // Both names remain searchable even when examples use different anchors.
+                          const familyItems = controls
+                            .filter((entry) =>
+                              entry.families.includes(family.title),
+                            )
+                            .sort((a, b) => b.name.length - a.name.length);
+                          const names = new Set(
+                            familyItems.map((item) => item.name),
+                          );
+                          const compositionRoots = familyItems
+                            .map((item) => item.name)
+                            .filter((name) => names.has(`${name}s`));
+                          for (const item of familyItems) {
                             const href = componentExampleHref(
                               family.title,
                               item.name,
                             );
-                            const current = grouped.get(href);
+                            const related = [...grouped.values()].find(
+                              (group) =>
+                                compositionRoots.some(
+                                  (root) =>
+                                    item.name.startsWith(root) &&
+                                    group.aliases.some((name) =>
+                                      name.startsWith(root),
+                                    ),
+                                ),
+                            );
+                            const current =
+                              related ??
+                              [...grouped.values()].find(
+                                (group) => group.href === href,
+                              );
                             if (!current) {
-                              grouped.set(href, {
+                              grouped.set(item.name, {
                                 name: item.name,
                                 href,
                                 aliases: [item.name],
@@ -889,6 +914,17 @@ export function CatalogShell({
                               continue;
                             }
                             current.aliases.push(item.name);
+                            const composition = compositionRoots.find((root) =>
+                              current.aliases.includes(`${root}s`),
+                            );
+                            if (composition) {
+                              current.name = `${composition}s`;
+                              current.href = componentExampleHref(
+                                family.title,
+                                current.name,
+                              );
+                              continue;
+                            }
                             const example = examples.find(
                               (entry) =>
                                 entry.family === family.title &&
@@ -900,7 +936,11 @@ export function CatalogShell({
                             const score = (name: string) =>
                               (normalizeSearch(name) === target ? 1000 : 0) -
                               name.length;
-                            if (score(item.name) > score(current.name))
+                            if (current.name === `${item.name}s`) continue;
+                            if (
+                              item.name === `${current.name}s` ||
+                              score(item.name) > score(current.name)
+                            )
                               current.name = item.name;
                           }
                           const primaryControl = [...grouped.values()].find(

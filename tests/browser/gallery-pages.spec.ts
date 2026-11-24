@@ -1179,3 +1179,24 @@ test('sidebar does not repeat a control already named by its family', async ({
     .fill('CommandPalette');
   await expect(family).toBeVisible();
 });
+
+test('sidebar merges singular and plural versions of the same control', async ({
+  page,
+}) => {
+  await page.goto('/components/selection-controls/');
+  const nav = page.getByRole('navigation', { name: 'Component sections' });
+  const chips = nav.getByRole('link', { name: 'ChoiceChips', exact: true });
+  await expect(chips).toBeVisible();
+  await expect(chips).toHaveAttribute('data-controls', /ChoiceChip/);
+  await expect(chips).toHaveAttribute('data-controls', /ChoiceChips/);
+  await expect(
+    nav.getByRole('link', { name: 'ChoiceChip', exact: true }),
+  ).toHaveCount(0);
+  await page
+    .getByRole('searchbox', { name: 'Find a component' })
+    .fill('ChoiceChip');
+  const matching = nav
+    .locator('[data-controls]')
+    .filter({ hasText: /ChoiceChip/ });
+  await expect(matching).toHaveCount(1);
+});
