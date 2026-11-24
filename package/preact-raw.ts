@@ -39,7 +39,6 @@ export * from './configurator-aggregation-list';
 export * from './configurator-drop-zone';
 export * from './configurator-field-icon';
 export * from './configurator-focus';
-export * from './cell-visuals';
 
 export * from './dialog/dialog.parts';
 
@@ -145,3 +144,7 @@ export * from './backup-history';
 export * from './history-review';
 export * from './cursor';
 export * from './circular-slider';
+
+export * from './metric-panel';
+
+export { SearchActionBar, type SearchActionBarProps } from './search-action-bar';

@@ -4540,3 +4540,125 @@ body {
 .release-timeline-details > dd {
   margin: 0;
 }
+
+/* Families and their controls share the same navigation treatment. */
+.catalog-nav-family-link,
+.catalog-nav-examples a {
+  display: block;
+  border-radius: 6px;
+  color: var(--rv-ui-text-muted);
+  font-size: 12px;
+  line-height: 1.5;
+  padding: 6px 8px;
+}
+.catalog-nav-family {
+  margin-inline-start: 8px;
+  padding-inline-start: 8px;
+}
+.catalog-nav-examples {
+  list-style: none;
+  margin: 0 0 8px;
+  margin-inline-start: 8px;
+  padding: 0;
+  padding-inline-start: 8px;
+  border-inline-start: 1px solid var(--rv-ui-border);
+}
+.catalog-nav-family-link:hover,
+.catalog-nav-examples a:hover {
+  background: var(--rv-ui-surface-sunken);
+  color: var(--rv-ui-text);
+}
+.catalog-nav-family-link[aria-current],
+.catalog-nav-examples a[aria-current] {
+  background: var(--rv-ui-selected-bg);
+  color: var(--rv-ui-selected-fg);
+}
+@media (max-width: 760px) {
+  .catalog-sidebar .catalog-nav-family-link,
+  .catalog-sidebar .catalog-nav-examples a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
+
+/* The launcher uses the same search input, without a resting border. */
+.global-search-trigger {
+  width: 136px;
+  --rv-search-input-height: 38px;
+  --rv-search-input-bg: var(--rv-ui-surface-sunken);
+  --rv-search-input-border: transparent;
+  --rv-search-input-focus-bg: var(--rv-ui-surface-sunken);
+  --rv-search-input-focus-border: transparent;
+}
+.global-search-trigger > input { cursor: pointer; padding-inline-end: 48px !important; border-radius: 10px; }
+.global-search-trigger > input:focus-visible { outline: 2px solid var(--rv-ui-focus-ring); outline-offset: 2px; }
+.global-search-trigger .rv-search-input-shortcut {
+  pointer-events: none;
+  background: transparent;
+  border-color: var(--rv-ui-border);
+  font-size: 11px;
+  padding: 3px 6px;
+  border-radius: 5px;
+}
+.global-search-dialog { width: min(560px, calc(100vw - 32px)); }
+.global-search { min-width: 0; padding: 6px; }
+.global-search > .rv-search-input {
+  width: 100%;
+  max-width: none;
+  --rv-search-input-height: 38px;
+  --rv-search-input-bg: var(--rv-ui-surface-sunken);
+  --rv-search-input-focus-bg: var(--rv-ui-surface-sunken);
+  --rv-search-input-border: transparent;
+  --rv-search-input-focus-border: transparent;
+}
+.global-search > .rv-search-input > input { border-radius: 10px; }
+.global-search-results { max-height: min(50vh, 440px); overflow-y: auto; margin-top: 12px; }
+.global-search-results button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 16px;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--rv-ui-text);
+  text-align: start;
+  cursor: pointer;
+}
+.global-search-results button:hover,
+.global-search-results button[aria-selected='true'] { background: var(--rv-ui-selected-bg); }
+.global-search-results strong, .global-search-results small { display: block; }
+.global-search-results small { color: var(--rv-ui-text-muted); margin-top: 2px; }
+.global-search-kind { flex: none; color: var(--rv-ui-text-muted); font-size: 12px; }
+.global-search-dialog .rv-dialog__actions { margin-inline-start: 0; }
+.global-search-status { margin: 0; color: var(--rv-ui-text-muted); font-size: 12px; }
+@media (max-width: 760px) {
+  .catalog-topbar-inner > .global-search-trigger { grid-column: 2; grid-row: 1; margin-inline-end: 46px; }
+  .global-search-trigger { width: 36px; }
+  .global-search-trigger > input { padding: 0 !important; }
+  .global-search-trigger > input::placeholder { color: transparent; }
+  .global-search-trigger .rv-search-input-shortcut { display: none; }
+}
+@media (min-width: 761px) {
+  .catalog-topbar-inner { grid-template-columns: auto minmax(0, 1fr) auto auto; }
+}
+@media (max-width: 760px) {
+  .catalog-topbar-inner { grid-template-columns: minmax(0, 1fr) auto auto; }
+  .catalog-topbar-inner > .global-search-trigger { grid-column: 2; margin-inline-end: 0; }
+  .catalog-topbar-inner > .gallery-settings { grid-column: 3; }
+}
+
+.highlighted-example-description,
+.toast-example-description {
+  margin: 0 0 12px;
+  color: var(--rv-ui-text-muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.highlighted-example-variable { color: var(--rv-ui-accent); }
+.highlighted-example-number { color: var(--rv-ui-warning); }

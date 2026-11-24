@@ -59,7 +59,7 @@
 }
 
 .rv-mini-calendar__days > .rv-mini-calendar__day[aria-pressed='true'] {
-  border-color: var(--rv-ui-accent);
+  border-color: transparent;
   background: var(--rv-ui-selected-bg);
   color: var(--rv-ui-text);
 }

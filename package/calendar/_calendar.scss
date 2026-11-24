@@ -403,3 +403,86 @@
     outline-offset: -3px;
   }
 }
+
+.rv-calendar-navigator {
+  display: inline-flex;
+  align-items: stretch;
+}
+.rv-calendar-period-selector.rv-calendar-period-selector {
+  display: inline-flex;
+  overflow: hidden;
+  border: 1px solid var(--rv-calendar-period-border, var(--rv-ui-border, #dedede));
+  border-radius: 8px;
+  background: var(--rv-calendar-period-background, var(--rv-ui-surface, #fff));
+  color: var(--rv-calendar-period-color, var(--rv-ui-text, inherit));
+  padding: 0;
+  height: auto;
+}
+.rv-calendar-period-selector > .rv-segmented-switch-item.rv-segmented-switch-item {
+  position: relative;
+  height: auto;
+  min-height: 32px;
+  min-width: 48px;
+  padding: 4px 12px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+.rv-calendar-period-selector > .rv-segmented-switch-item + .rv-segmented-switch-item { border-inline-start: 1px solid var(--rv-calendar-period-border, var(--rv-ui-border, #dedede)); }
+.rv-calendar-period-selector > .rv-segmented-switch-item.on { background: var(--rv-calendar-period-active-background, var(--rv-ui-surface-hover, #f1f1f1)); color: var(--rv-calendar-period-active-color, var(--rv-ui-accent-text, #1e40af)); font-weight: 600; }
+.rv-calendar-period-selector > .rv-segmented-switch-item:focus-visible { outline: 2px solid #2563eb; outline-offset: -2px; }
+.rv-calendar-navigator > button,
+.rv-calendar-navigator__trigger {
+  appearance: none;
+  min-height: 32px;
+  padding: 5px 10px;
+  border: 1px solid var(--rv-ui-border, #dedede);
+  background: var(--rv-ui-surface, #fff);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.rv-calendar-navigator > button + button,
+.rv-calendar-navigator__trigger {
+  margin-inline-start: -1px;
+}
+.rv-calendar-navigator > button:first-child {
+  border-start-start-radius: 8px;
+  border-end-start-radius: 8px;
+}
+.rv-calendar-navigator__trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-start-end-radius: 8px;
+  border-end-end-radius: 8px;
+}
+.rv-calendar-navigator > button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+.rv-calendar-navigator :is(button):focus-visible {
+  outline: 2px solid var(--rv-ui-focus, #737373);
+  outline-offset: 1px;
+}
+.rv-calendar-navigator > .rv-date-picker {
+  display: contents;
+}
+.rv-calendar-navigator__popup {
+  width: 214px;
+  padding: 8px;
+}
+.rv-calendar-navigator__popup .revo-calendar {
+  --revo-calendar-cell-size: 28px;
+  margin: 0;
+  gap: 10px;
+}
+.rv-calendar-navigator__popup .revo-calendar__calendar {
+  margin-top: 16px;
+}
+.rv-calendar-navigator__popup .revo-calendar__month-grid {
+  gap: 8px;
+  margin-top: 6px;
+}

@@ -1,6 +1,6 @@
 import { componentHref } from './routing';
 import { h, type ComponentChildren } from 'preact';
-import { renderProgressLine } from '@revolist/ui/native';
+import { renderProgressBar } from '@revolist/ui/native';
 import { useMemo, useState } from 'preact/hooks';
 import { Badge, Button, Checkbox, SearchInput } from '@revolist/ui/preact';
 import { Select } from '@revolist/ui/select';
@@ -99,10 +99,11 @@ export function FinancialWidgets({ preview }: { preview: ComponentChildren }) {
                   <th scope="row">{item.asset}</th>
                   <td>{money(item.value)}</td>
                   <td>
-                    {renderProgressLine(h, {
-                      percent: item.weight,
-                      label: `${item.weight}%`,
+                    {renderProgressBar(h, {
+                      value: item.weight,
+                      ariaLabel: `${item.weight}%`,
                     })}
+                    <span>{item.weight}%</span>
                   </td>
                   <td>+{item.change}%</td>
                 </tr>

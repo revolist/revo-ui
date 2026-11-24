@@ -1,0 +1,69 @@
+@use './progress/bar';
+.grid-tooltip:has(> .rv-benchmark-card) {
+  box-sizing: border-box;
+  width: min(290px, calc(100vw - 16px));
+  padding: 10px;
+  border: 1px solid var(--rv-benchmark-border, var(--rv-ui-border, #dedede));
+  border-radius: 11px;
+  background: var(--rv-benchmark-surface, var(--rv-ui-surface, #fff));
+  color: var(--rv-benchmark-text, var(--rv-ui-text, #171717));
+  box-shadow: 0 3px 7px var(--rv-benchmark-shadow, #0002);
+  white-space: normal;
+}
+.rv-benchmark-card {
+  display: grid;
+  gap: 10px;
+  color: var(--rv-benchmark-text, var(--rv-ui-text, #171717));
+  font-family: var(--rv-benchmark-font-family, inherit);
+  font-size: var(--rv-benchmark-font-size, 14px);
+  line-height: 1.4;
+}
+.rv-benchmark-card__header,
+.rv-benchmark-card__result {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+.rv-benchmark-card__header {
+  padding-bottom: 12px;
+  border-bottom: 1px solid
+    var(--rv-benchmark-border, var(--rv-ui-border, #e4e4e4));
+}
+.rv-benchmark-card__title,
+.rv-benchmark-card__value {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.rv-benchmark-card small {
+  color: var(--rv-benchmark-muted, var(--rv-ui-text-muted, #737373));
+  font-size: 12px;
+}
+.rv-benchmark-card__badge,
+.rv-benchmark-card__change {
+  border: 1px solid var(--rv-benchmark-badge-border, #a7f3d0);
+  border-radius: 5px;
+  padding: 2px 5px;
+  color: var(--rv-benchmark-badge-text, #006b50);
+  background: var(--rv-benchmark-badge-bg, #ecfdf5);
+  font-size: 12px;
+  white-space: nowrap;
+}
+.rv-benchmark-card__change.is-negative {
+  color: var(--rv-benchmark-negative-text, #991b1b);
+  background: var(--rv-benchmark-negative-bg, #fef2f2);
+  border-color: var(--rv-benchmark-negative-border, #fecaca);
+}
+.rv-benchmark-card__result {
+  align-items: end;
+}
+.rv-benchmark-card__result strong {
+  font-size: 18px;
+}
+.rv-benchmark-card__progress {
+  --rv-progress-bar-height: 4px;
+  --rv-progress-bar-track: var(--rv-benchmark-progress-track, #f4f4f4);
+  --rv-progress-bar-fill: var(--rv-benchmark-progress-fill, #171717);
+  height: auto;
+}

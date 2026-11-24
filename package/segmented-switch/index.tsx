@@ -121,6 +121,17 @@ function animateSelection(
       borderColor: selected.borderColor,
       boxShadow: selected.boxShadow,
     });
+    if (root.classList.contains('rv-tabs--underline')) {
+      const thickness = Number.parseFloat(selected.borderBottomWidth) || 0;
+      Object.assign(indicator.style, {
+        top: `${next.bottom - bounds.top - root.clientTop - thickness}px`,
+        height: `${thickness}px`,
+        border: '0',
+        borderRadius: '0',
+        background: selected.borderBottomColor,
+        boxShadow: 'none',
+      });
+    }
     const distance = next.left - previous.left;
     const configured = presetAnimation(
       motion,

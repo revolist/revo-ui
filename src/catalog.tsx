@@ -1,3 +1,4 @@
+import { GlobalSearch } from './global-search';
 import {
   GlobalThemePanel,
   readGalleryTheme,
@@ -13,7 +14,7 @@ import {
   PublishedVersion,
   PublishedVersionProvider,
 } from './published-version';
-import { ApiReference } from './component-api';
+import { ApiReference, type ComponentApi } from './component-api';
 import { ExampleCode, examples, slug } from './example-source';
 import { SvgIcon } from '@revolist/ui/icons/icon';
 import codeIcon from '@fortawesome/fontawesome-free/svgs/solid/code.svg?raw';
@@ -25,7 +26,13 @@ import {
   toChildArray,
   type ComponentChildren,
 } from 'preact';
-import { useContext, useEffect, useRef, useState } from 'preact/hooks';
+import {
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'preact/hooks';
 import {
   Button,
   DialogCloseButton,
@@ -41,7 +48,22 @@ import {
   siteHref,
 } from './routing';
 const families = pages.components;
-const groups = ['Controls', 'Pickers', 'Compositions', 'Advanced'];
+const nativeGalleryControls = [
+  { name: 'CalendarNavigator', families: ['Calendar and dates'] },
+  { name: 'AppearanceConfigurator', families: ['Field configurators'] },
+  { name: 'BenchmarkCard', families: ['Layout'] },
+  { name: 'MetricProgressRow', families: ['Layout'] },
+  { name: 'RecordNavigation', families: ['Layout'] },
+];
+const groups = [
+  'Actions and navigation',
+  'Form controls',
+  'Date, time and scheduling',
+  'People and collaboration',
+  'Data and visualization',
+  'Feedback and overlays',
+  'Layout and content',
+];
 const documentationEntries = (category: string) =>
   Object.entries(documentation)
     .filter(([, doc]) => doc.category === category)
@@ -79,10 +101,48 @@ const documentationGroups = [
 const Route = createContext('');
 export const sectionId = (title: string) =>
   title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-const matches = (family: (typeof families)[number], query: string) =>
-  `${family.title} ${family.keywords}`
+const normalizeSearch = (value: string) =>
+  value
+    .replace(/([a-z])([A-Z])/g, '$1 $2')
     .toLowerCase()
-    .includes(query.trim().toLowerCase());
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+/** Prefer the control's own example; related components without one open their family. */
+const componentExampleHref = (family: string, name: string) => {
+  const candidates = examples.filter((example) => example.family === family);
+  const exact = candidates.find(
+    (example) => normalizeSearch(example.title) === normalizeSearch(name),
+  );
+  const usingControl = candidates.filter((example) =>
+    [...example.code.matchAll(/<([A-Z][A-Za-z0-9.]*)/g)].some(
+      (match) => match[1] === name,
+    ),
+  );
+  const relevant = usingControl.find((example) =>
+    normalizeSearch(example.title)
+      .split(' ')
+      .some(
+        (word) => word.length >= 4 && normalizeSearch(name).startsWith(word),
+      ),
+  );
+  const example = exact ?? relevant ?? usingControl[0];
+  const href = componentHref(sectionId(family));
+  return example ? `${href}#example-${example.id}` : href;
+};
+const matchesExample = (example: (typeof examples)[number], query: string) => {
+  const componentNames = [...example.code.matchAll(/<([A-Z][A-Za-z0-9.]*)/g)]
+    .map((match) => match[1])
+    .join(' ');
+  return normalizeSearch(`${example.title} ${componentNames}`).includes(query);
+};
+const matches = (family: (typeof families)[number], query: string) =>
+  normalizeSearch(
+    `${family.title} ${family.description} ${family.keywords}`,
+  ).includes(query) ||
+  examples.some(
+    (example) =>
+      example.family === family.title && matchesExample(example, query),
+  );
 
 export function Section({
   title,
@@ -227,13 +287,27 @@ export function CatalogShell({
     return () => window.removeEventListener('keydown', dismiss);
   }, [themeOpen]);
   const mobileNavButton = useRef<HTMLButtonElement>(null);
+  const componentSidebar = useRef<HTMLElement>(null);
   const [motion, setMotion] = useState('system');
   const content = useRef<HTMLDivElement>(null);
   const [query, setQuery] = useState('');
+  const [apiComponents, setApiComponents] = useState<ComponentApi[]>([]);
+  useEffect(() => {
+    if (page === 'components')
+      import('virtual:component-api').then(({ default: api }) =>
+        setApiComponents(api),
+      );
+  }, [page]);
   const [active, setActive] = useState(currentRoute());
+  const [anchor, setAnchor] = useState(location.hash);
+  const [activeControl, setActiveControl] = useState<string | null>(
+    history.state?.galleryComponent ?? null,
+  );
   useEffect(() => {
     const update = () => {
       setActive(currentRoute());
+      setAnchor(location.hash);
+      setActiveControl(history.state?.galleryComponent ?? null);
       setMobileOpen(false);
       if (
         location.hash &&
@@ -252,8 +326,21 @@ export function CatalogShell({
       else window.scrollTo(0, 0);
     };
     window.addEventListener('hashchange', update);
-    return () => window.removeEventListener('hashchange', update);
+    window.addEventListener('popstate', update);
+    return () => {
+      window.removeEventListener('hashchange', update);
+      window.removeEventListener('popstate', update);
+    };
   }, []);
+  useEffect(() => {
+    if (!anchor || page !== 'components') return;
+    const frame = requestAnimationFrame(() =>
+      document
+        .getElementById(decodeURIComponent(anchor.slice(1)))
+        ?.scrollIntoView({ block: 'start' }),
+    );
+    return () => cancelAnimationFrame(frame);
+  }, [active, anchor, page]);
   const knownRoute =
     page === 'api' ||
     (page === 'frameworks' &&
@@ -287,9 +374,47 @@ export function CatalogShell({
       inScope(child.props.title)
     );
   });
+  const normalizedQuery = normalizeSearch(query);
+  const controls = [
+    ...apiComponents.map(({ name, families }) => ({ name, families })),
+    ...nativeGalleryControls.filter(
+      (item) => !apiComponents.some((entry) => entry.name === item.name),
+    ),
+  ];
   const visible = families.filter(
-    (family) => inScope(family.title) && matches(family, query),
+    (family) =>
+      inScope(family.title) &&
+      (matches(family, normalizedQuery) ||
+        controls.some(
+          (item) =>
+            item.families.includes(family.title) &&
+            normalizeSearch(item.name).includes(normalizedQuery),
+        )),
   );
+  useLayoutEffect(() => {
+    const sidebar = componentSidebar.current;
+    if (!sidebar || query) return;
+    const selected = sidebar.querySelector<HTMLElement>(
+      '[aria-current="location"]',
+    );
+    if (!selected) return;
+    const nav = sidebar.querySelector<HTMLElement>('nav');
+    const scroller =
+      nav &&
+      /(auto|scroll)/.test(getComputedStyle(nav).overflowY) &&
+      nav.scrollHeight > nav.clientHeight
+        ? nav
+        : sidebar;
+    const box = scroller.getBoundingClientRect();
+    const item = selected.getBoundingClientRect();
+    const sticky =
+      scroller === sidebar
+        ? (sidebar.querySelector<HTMLElement>('.catalog-navigation-tools')
+            ?.offsetHeight ?? 0)
+        : 0;
+    if (item.top < box.top + sticky || item.bottom > box.bottom)
+      scroller.scrollTop += item.top - box.top - sticky - 12;
+  }, [active, anchor, activeControl, apiComponents.length, mobileOpen]);
   const frameworkName =
     page === 'frameworks'
       ? pages.frameworks.find((name) => sectionId(name) === active)
@@ -548,6 +673,7 @@ export function CatalogShell({
                 Customize
               </button>
             </nav>
+            <GlobalSearch />
             <GallerySettings>
               <Toolbar label="Gallery settings">
                 <a
@@ -656,6 +782,7 @@ export function CatalogShell({
           {page === 'components' && !home && (
             <aside
               id="component-navigation"
+              ref={componentSidebar}
               class="catalog-sidebar"
               data-open={mobileOpen}
             >
@@ -677,38 +804,233 @@ export function CatalogShell({
                   }}
                 />
               </div>
-              <nav aria-label="Component sections">
+              <nav
+                aria-label="Component sections"
+                onClick={(event) => {
+                  if (
+                    event.defaultPrevented ||
+                    event.button !== 0 ||
+                    event.metaKey ||
+                    event.ctrlKey ||
+                    event.shiftKey ||
+                    event.altKey
+                  )
+                    return;
+                  const link =
+                    event.target instanceof Element
+                      ? event.target.closest('a')
+                      : null;
+                  if (!link || link.target || link.hasAttribute('download'))
+                    return;
+                  const destination = new URL(link.href, location.href);
+                  const componentPath = new URL(
+                    siteHref('components/'),
+                    location.origin,
+                  ).pathname;
+                  if (
+                    destination.origin !== location.origin ||
+                    !destination.pathname.startsWith(componentPath)
+                  )
+                    return;
+                  event.preventDefault();
+                  const selectedName = link.dataset.component ?? null;
+                  const state = {
+                    ...history.state,
+                    galleryComponent: selectedName,
+                  };
+                  if (destination.href !== location.href)
+                    history.pushState(state, '', destination.href);
+                  else history.replaceState(state, '', destination.href);
+                  setActive(currentRoute());
+                  setAnchor(location.hash);
+                  setActiveControl(selectedName);
+                  setMobileOpen(false);
+                  if (!destination.hash) window.scrollTo(0, 0);
+                  else
+                    requestAnimationFrame(() =>
+                      document
+                        .getElementById(
+                          decodeURIComponent(destination.hash.slice(1)),
+                        )
+                        ?.scrollIntoView({ block: 'start' }),
+                    );
+                }}
+              >
                 <a class="catalog-overview-link" href={siteHref()}>
                   Overview
                 </a>
                 {groups.map((group) => {
-                  const entries = visible.filter(
-                    (family) => family.group === group,
-                  );
+                  const entries = visible
+                    .filter((family) => family.group === group)
+                    .sort((a, b) => a.title.localeCompare(b.title));
                   return (
                     entries.length > 0 && (
                       <div class="catalog-nav-group" key={group}>
                         <p>{group}</p>
-                        {entries.map((family) => (
-                          <a
-                            key={family.title}
-                            href={componentHref(sectionId(family.title))}
-                            aria-current={
-                              active === sectionId(family.title) ||
-                              component?.title === family.title
-                                ? 'location'
-                                : undefined
+                        {entries.map((family) => {
+                          const grouped = new Map<
+                            string,
+                            { name: string; href: string; aliases: string[] }
+                          >();
+                          // Prefer a plural composition over its singular building block.
+                          // Both names remain searchable even when examples use different anchors.
+                          const familyItems = controls
+                            .filter((entry) =>
+                              entry.families.includes(family.title),
+                            )
+                            .sort((a, b) => b.name.length - a.name.length);
+                          const names = new Set(
+                            familyItems.map((item) => item.name),
+                          );
+                          const compositionRoots = familyItems
+                            .map((item) => item.name)
+                            .filter((name) => names.has(`${name}s`));
+                          for (const item of familyItems) {
+                            const href = componentExampleHref(
+                              family.title,
+                              item.name,
+                            );
+                            const related = [...grouped.values()].find(
+                              (group) =>
+                                compositionRoots.some(
+                                  (root) =>
+                                    item.name.startsWith(root) &&
+                                    group.aliases.some((name) =>
+                                      name.startsWith(root),
+                                    ),
+                                ),
+                            );
+                            const current =
+                              related ??
+                              [...grouped.values()].find(
+                                (group) => group.href === href,
+                              );
+                            if (!current) {
+                              grouped.set(item.name, {
+                                name: item.name,
+                                href,
+                                aliases: [item.name],
+                              });
+                              continue;
                             }
-                          >
-                            {family.title}
-                          </a>
-                        ))}
+                            current.aliases.push(item.name);
+                            const composition = compositionRoots.find((root) =>
+                              current.aliases.includes(`${root}s`),
+                            );
+                            if (composition) {
+                              current.name = `${composition}s`;
+                              current.href = componentExampleHref(
+                                family.title,
+                                current.name,
+                              );
+                              continue;
+                            }
+                            const example = examples.find(
+                              (entry) =>
+                                entry.family === family.title &&
+                                href.endsWith(`#example-${entry.id}`),
+                            );
+                            const target = example
+                              ? normalizeSearch(example.title)
+                              : normalizeSearch(family.title);
+                            const score = (name: string) =>
+                              (normalizeSearch(name) === target ? 1000 : 0) -
+                              name.length;
+                            if (current.name === `${item.name}s`) continue;
+                            if (
+                              item.name === `${current.name}s` ||
+                              score(item.name) > score(current.name)
+                            )
+                              current.name = item.name;
+                          }
+                          const primaryControl = [...grouped.values()].find(
+                            (item) =>
+                              item.aliases.some(
+                                (name) =>
+                                  normalizeSearch(name) ===
+                                  normalizeSearch(family.title),
+                              ),
+                          );
+                          const familyControls = [...grouped.values()]
+                            .filter(
+                              (item) =>
+                                item !== primaryControl &&
+                                (!normalizedQuery ||
+                                  item.aliases.some((name) =>
+                                    normalizeSearch(name).includes(
+                                      normalizedQuery,
+                                    ),
+                                  )),
+                            )
+                            .sort((a, b) => a.name.localeCompare(b.name));
+                          const matching = familyControls.filter((item) =>
+                            anchor
+                              ? item.href.endsWith(anchor)
+                              : item.aliases.includes(activeControl ?? ''),
+                          );
+                          const selectedName =
+                            matching.find((item) =>
+                              item.aliases.includes(activeControl ?? ''),
+                            )?.name ?? matching[0]?.name;
+                          return (
+                            <div class="catalog-nav-family" key={family.title}>
+                              <a
+                                class="catalog-nav-family-link"
+                                href={componentHref(sectionId(family.title))}
+                                data-controls={primaryControl?.aliases.join(
+                                  '|',
+                                )}
+                                aria-current={
+                                  component?.title === family.title &&
+                                  ((!anchor && !activeControl) ||
+                                    (!!anchor &&
+                                      !!primaryControl &&
+                                      primaryControl.href.endsWith(anchor)))
+                                    ? 'location'
+                                    : undefined
+                                }
+                              >
+                                {family.title}
+                              </a>
+                              {familyControls.length > 0 && (
+                                <ul
+                                  class="catalog-nav-examples"
+                                  aria-label={`${family.title} controls`}
+                                >
+                                  {familyControls.map((item) => (
+                                    <li key={`api-${item.name}`}>
+                                      <a
+                                        href={item.href}
+                                        data-component={item.name}
+                                        data-controls={item.aliases.join('|')}
+                                        aria-current={
+                                          component?.title === family.title &&
+                                          item.name === selectedName
+                                            ? 'location'
+                                            : undefined
+                                        }
+                                      >
+                                        {normalizedQuery
+                                          ? (item.aliases.find((name) =>
+                                              normalizeSearch(name).includes(
+                                                normalizedQuery,
+                                              ),
+                                            ) ?? item.name)
+                                          : item.name}
+                                      </a>
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </div>
+                          );
+                        })}
                       </div>
                     )
                   );
                 })}
                 {page === 'components' && !home && visible.length === 0 && (
-                  <p class="catalog-nav-empty">No matching sections.</p>
+                  <p class="catalog-nav-empty">No matching components.</p>
                 )}
               </nav>
               <div class="catalog-sidebar-note">

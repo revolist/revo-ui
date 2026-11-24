@@ -21,6 +21,7 @@ export class FieldLibrary extends AngularComponentAdapter<never> {
   }
   @NgInput() declare 'className'?: AngularInput<'FieldLibrary', 'className'>;
   @NgInput() declare 'count'?: AngularInput<'FieldLibrary', 'count'>;
+  @NgInput() declare 'icon'?: AngularInput<'FieldLibrary', 'icon'>;
   @NgInput() declare 'id'?: AngularInput<'FieldLibrary', 'id'>;
   @NgInput() declare 'preset'?: AngularInput<'FieldLibrary', 'preset'>;
   @NgInput({ required: true }) declare 'title': AngularInput<

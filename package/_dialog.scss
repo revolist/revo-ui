@@ -221,6 +221,11 @@
   overscroll-behavior: auto;
 }
 
+// Only actual dialog surfaces contain scrolling; embedded bodies keep chaining.
+:is(.rv-dialog, .rv-dialog-overlay) .rv-dialog__body {
+  overscroll-behavior: contain;
+}
+
 // Form dialogs keep their chrome inset while the scrollport reaches the edge.
 // Reserve room inside it for control focus rings and selected color outlines.
 // Keep this fallback below product body layouts regardless of stylesheet order.

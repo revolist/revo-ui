@@ -1,5 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import { calculateFloatingEditorPosition } from './anchored-popover';
+import {
+  calculateAlignedPopoverPosition,
+  calculateFloatingEditorPosition,
+} from './anchored-popover';
 const viewport = { width: 1400, height: 1000 };
 const popup = { width: 420, height: 500 };
 const bounds = { left: 200, right: 1200, top: 150, bottom: 850 };
@@ -65,5 +68,39 @@ describe('floating editor placement', () => {
     expect(result.left).toBeGreaterThanOrEqual(12);
     expect(result.left + 360).toBeLessThanOrEqual(378);
     expect(result.top + 510).toBeLessThanOrEqual(832);
+  });
+});
+
+describe('aligned popover placement', () => {
+  it('centers within dialog bounds and flips above when necessary', () => {
+    const anchor = { left: 450, right: 550, top: 690, bottom: 730 };
+    const box = { width: 300, height: 200 };
+    const area = { left: 200, top: 100, right: 800, bottom: 800 };
+    expect(
+      calculateAlignedPopoverPosition(
+        anchor,
+        box,
+        { width: 1000, height: 900 },
+        { bounds: area, align: 'center' },
+      ),
+    ).toEqual({ left: 350, top: 486, placement: 'above' });
+  });
+  it('uses logical start for RTL, clamps to a small viewport and keeps oversized surfaces finite', () => {
+    const anchor = { left: 340, right: 380, top: 40, bottom: 80 };
+    expect(
+      calculateAlignedPopoverPosition(
+        anchor,
+        { width: 180, height: 140 },
+        { width: 390, height: 300 },
+        { direction: 'rtl' },
+      ),
+    ).toEqual({ left: 200, top: 84, placement: 'below' });
+    const result = calculateAlignedPopoverPosition(
+      anchor,
+      { width: 600, height: 600 },
+      { width: 390, height: 300 },
+    );
+    expect(result.left).toBe(8);
+    expect(result.top).toBe(8);
   });
 });

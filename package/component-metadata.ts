@@ -60,6 +60,7 @@ type ComponentModels = {
 export const componentModels: ComponentModels = {
   AiPromptInput: { prop: 'value', callback: 'onValueChange' },
   SearchInput: { prop: 'value', callback: 'onValueChange' },
+  SearchActionBar: { prop: 'value', callback: 'onValueChange' },
   SharedResourcePicker: { prop: 'selectedResourceIds', callback: 'onChange' },
   CalendarPicker: { prop: 'selected', callback: 'onSelectionChange' },
   ColorPalette: { prop: 'value', callback: 'onChange' },

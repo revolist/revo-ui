@@ -18,3 +18,18 @@ it('follows nested portals without owning siblings or looping through cycles', (
     host.remove();
   }
 });
+
+it('follows popup references on the ownership root itself', () => {
+  const trigger = document.createElement('button');
+  trigger.setAttribute('aria-controls', 'root-owned-popup');
+  const popup = document.createElement('div');
+  popup.id = 'root-owned-popup';
+  const choice = popup.appendChild(document.createElement('button'));
+  document.body.append(trigger, popup);
+  try {
+    expect(ownsPopupTarget(trigger, choice)).toBe(true);
+  } finally {
+    trigger.remove();
+    popup.remove();
+  }
+});

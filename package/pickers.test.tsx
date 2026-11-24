@@ -1101,3 +1101,183 @@ it('keeps date picker preset styling alongside uncontrolled form values', () => 
     (host.querySelector('input[name="delivery"]') as HTMLInputElement).value,
   ).toBe('2026-11-20');
 });
+
+describe('date pickers in open dialogs', () => {
+  it('honors an explicit popup target inside the owner dialog', () => {
+    const owner = document.createElement('dialog');
+    owner.setAttribute('open', '');
+    const target = document.createElement('section');
+    owner.append(target);
+    document.body.append(owner);
+    try {
+      mount(
+        <DatePicker
+          label="Date"
+          openLabel="Choose date"
+          value="2024-04-02"
+          onChange={() => {}}
+          popup={{ appendTo: target }}
+        />,
+      );
+      owner.append(host);
+      act(() =>
+        host
+          .querySelector<HTMLButtonElement>('button[aria-haspopup="dialog"]')!
+          .click(),
+      );
+      expect(
+        target.querySelector('.rv-popover[role="dialog"]:not([hidden])'),
+      ).not.toBeNull();
+    } finally {
+      act(() => render(null, host));
+      owner.remove();
+    }
+  });
+  it('finds the owning dialog across a shadow root', () => {
+    const owner = document.createElement('dialog');
+    owner.setAttribute('open', '');
+    const shadowHost = document.createElement('div');
+    const shadow = shadowHost.attachShadow({ mode: 'open' });
+    owner.append(shadowHost);
+    document.body.append(owner);
+    try {
+      mount(
+        <DatePicker
+          label="Date"
+          openLabel="Choose date"
+          value="2024-04-02"
+          onChange={() => {}}
+        />,
+      );
+      shadow.append(host);
+      act(() =>
+        host
+          .querySelector<HTMLButtonElement>('button[aria-haspopup="dialog"]')!
+          .click(),
+      );
+      expect(
+        shadow.querySelector('.rv-popover[role="dialog"]:not([hidden])'),
+      ).not.toBeNull();
+    } finally {
+      act(() => render(null, host));
+      owner.remove();
+    }
+  });
+
+  for (const kind of ['single', 'range'] as const) {
+    it(`keeps the ${kind} calendar inside its owning dialog even with an outside target`, () => {
+      const owner = document.createElement('dialog');
+      owner.setAttribute('open', '');
+      document.body.append(owner);
+      try {
+        mount(
+          kind === 'single' ? (
+            <DatePicker
+              label="Date"
+              openLabel="Choose date"
+              value="2024-04-02"
+              onChange={() => {}}
+              popup={{ appendTo: document.body }}
+            />
+          ) : (
+            <DateRangePicker
+              label="Range"
+              fromLabel="From"
+              toLabel="To"
+              openLabel="Choose range"
+              value={{ from: '2024-04-02' }}
+              onChange={() => {}}
+              popup={{ appendTo: document.body }}
+            />
+          ),
+        );
+        owner.append(host);
+        const trigger = host.querySelector<HTMLButtonElement>(
+          'button[aria-haspopup="dialog"]',
+        )!;
+        act(() => trigger.click());
+        const popup = document.querySelector<HTMLElement>(
+          '.rv-popover[role="dialog"]:not([hidden])',
+        );
+        expect(popup).not.toBeNull();
+        expect(owner.contains(popup)).toBe(true);
+        act(() => owner.dispatchEvent(new Event('close')));
+        expect(
+          document.querySelector('.rv-popover[role="dialog"]:not([hidden])'),
+        ).toBeNull();
+        expect(trigger.getAttribute('aria-expanded')).toBe('false');
+      } finally {
+        act(() => render(null, host));
+        owner.remove();
+      }
+    });
+  }
+});
+
+it.each(['single', 'range'] as const)(
+  'preserves nested scope inside a dialog for %s date pickers',
+  (kind) => {
+    const owner = document.createElement('dialog');
+    owner.setAttribute('open', '');
+    const scope = document.createElement('section');
+    scope.dir = 'rtl';
+    scope.dataset.theme = 'dark';
+    scope.style.setProperty('--calendar-scope-color', 'rgb(1, 2, 3)');
+    owner.append(scope);
+    document.body.append(owner);
+    try {
+      mount(
+        kind === 'single' ? (
+          <DatePicker label="Date" openLabel="Open date" />
+        ) : (
+          <DateRangePicker
+            label="Range"
+            fromLabel="From"
+            toLabel="To"
+            openLabel="Open date"
+          />
+        ),
+      );
+      scope.append(host);
+      act(() =>
+        host
+          .querySelector<HTMLButtonElement>('[aria-label="Open date"]')!
+          .click(),
+      );
+      const popup = scope.querySelector<HTMLElement>(
+        '.rv-popover[role="dialog"]',
+      );
+      expect(popup).not.toBeNull();
+      expect(popup?.closest('[dir="rtl"][data-theme="dark"]')).toBe(scope);
+    } finally {
+      act(() => render(null, host));
+      owner.remove();
+    }
+  },
+);
+
+it('preserves the picker scope within a shadow root inside a dialog', () => {
+  const owner = document.createElement('dialog');
+  owner.setAttribute('open', '');
+  const shadowHost = document.createElement('div');
+  const shadow = shadowHost.attachShadow({ mode: 'open' });
+  const scope = document.createElement('section');
+  scope.dir = 'rtl';
+  scope.dataset.theme = 'dark';
+  shadow.append(scope);
+  owner.append(shadowHost);
+  document.body.append(owner);
+  try {
+    mount(<DatePicker label="Date" openLabel="Open date" />);
+    scope.append(host);
+    act(() =>
+      host
+        .querySelector<HTMLButtonElement>('[aria-label="Open date"]')!
+        .click(),
+    );
+    expect(scope.querySelector('.rv-popover[role="dialog"]')).not.toBeNull();
+  } finally {
+    act(() => render(null, host));
+    owner.remove();
+  }
+});

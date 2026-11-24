@@ -1,3 +1,4 @@
+import { CalendarNavigatorExample, AppearanceConfiguratorExample, SearchActionBarExample, MetricPanelExample, NativePresentationExamples } from './shared-control-examples';
 import { ReleaseTimelineExample } from './release-timeline-example';
 import { ToastExamples } from './toast-examples';
 import { CircularSliderExamples } from './circular-slider-examples';
@@ -969,6 +970,7 @@ function App() {
         <SelectionListExamples />
       </Section>
       <Section title="Inputs and forms">
+        <SearchActionBarExample />
         <Example title="Text input">
           <FormField label="Project name" hint="A short descriptive name">
             <TextInput
@@ -1172,6 +1174,7 @@ function App() {
         <CircularSliderExamples />
       </Section>
       <Section title="Field configurators" columns={2}>
+        <AppearanceConfiguratorExample />
         <FieldConfiguratorExamples />
       </Section>
       <Section title="Activity messages">
@@ -1203,6 +1206,7 @@ function App() {
         <ChartExamples />
       </Section>
       <Section title="Calendar and dates">
+        <CalendarNavigatorExample />
         <Example title="Calendar">
           <Calendar
             month={month}
@@ -1588,6 +1592,8 @@ function App() {
         </Example>
       </Section>
       <Section title="Layout">
+        <MetricPanelExample />
+        <NativePresentationExamples />
         <Example title="Split panes" wide>
           <ResizeExample rtl={rtl} />
         </Example>

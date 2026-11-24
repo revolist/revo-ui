@@ -16,6 +16,7 @@ import { TooltipSession } from './tooltip-session';
 import { calculateAnchoredPopoverPosition } from './anchored-popover';
 import { createControlId } from './control-id';
 import { inheritUiMotion } from './motion';
+import { ownsPopupTarget } from './popup-ownership';
 import {
   hideTopLayerPopup,
   showTopLayerPopup,
@@ -26,6 +27,16 @@ const popoverStacks = new WeakMap<Document, HTMLElement[]>();
 export interface PopoverOptions {
   anchor: HTMLElement | SVGElement;
   placement?: 'above';
+  /** Optional distinct element used only for geometry, not focus or outside-press ownership. */
+  positionAnchor?: HTMLElement | SVGElement;
+  /** Optional viewport-coordinate positioning strategy. */
+  position?: (
+    anchor: DOMRect,
+    popup: DOMRect,
+    viewport: { width: number; height: number },
+  ) => { left: number; top: number };
+  /** Close when an ancestor/document scrolls instead of repositioning. */
+  closeOnScroll?: boolean;
   content: HTMLElement;
   /** Defaults to the document body. */
   appendTo?: HTMLElement;
@@ -62,30 +73,46 @@ export class PopoverController {
     const originalPopover = content.getAttribute('popover');
     const releaseMotion = inheritUiMotion(anchor, content);
     const position = () => {
-      if (!anchor.isConnected) {
+      if (
+        !anchor.isConnected ||
+        (options.positionAnchor && !options.positionAnchor.isConnected)
+      ) {
         close(false);
         return;
       }
-      const point = (
-        options.placement === 'above'
-          ? calculateTooltipPosition
-          : calculateAnchoredPopoverPosition
-      )(anchor.getBoundingClientRect(), content.getBoundingClientRect(), {
+      const viewport = {
         width: document.documentElement.clientWidth || view?.innerWidth || 0,
         height: document.documentElement.clientHeight || view?.innerHeight || 0,
-      });
+      };
+      const anchorRect = (
+        options.positionAnchor ?? anchor
+      ).getBoundingClientRect();
+      const popupRect = content.getBoundingClientRect();
+      const point = options.position
+        ? options.position(anchorRect, popupRect, viewport)
+        : (options.placement === 'above'
+            ? calculateTooltipPosition
+            : calculateAnchoredPopoverPosition)(
+            anchorRect,
+            popupRect,
+            viewport,
+          );
       applyPopupPosition(content, point);
     };
     let mode: TopLayerPopupMode | undefined;
     let disposed = false;
+    const closedRoots = new Set<ShadowRoot>();
+    const ownedEvents = new WeakSet<Event>();
     const close = (restoreFocus = options.restoreFocus !== false) => {
       if (disposed) return;
       disposed = true;
       document.removeEventListener('pointerdown', outside, true);
+      for (const root of closedRoots) root.removeEventListener('pointerdown', insideShadow, true);
       content.removeEventListener('keydown', keyboard);
+      content.removeEventListener('wheel', containWheel);
       document.removeEventListener('keydown', keyboard);
       view?.removeEventListener('resize', position);
-      document.removeEventListener('scroll', position, true);
+      document.removeEventListener('scroll', onScroll, true);
       observer?.disconnect();
       const index = stack.indexOf(content);
       if (index !== -1) stack.splice(index, 1);
@@ -109,19 +136,62 @@ export class PopoverController {
         anchor.focus({ preventScroll: true });
       options.onClose?.();
     };
-    const outside = (event: Event) => {
-      if (stack.at(-1) !== content) return;
+    const onScroll = (event: Event) => {
+      // Scrolling an interactive list inside the popover must not dismiss it.
+      if (options.closeOnScroll && event.composedPath().includes(content))
+        return;
+      if (options.closeOnScroll) close(false);
+      else position();
+    };
+    const insideShadow = (event: Event) => {
       const path = event.composedPath();
       if (
-        options.closeOnOutside !== false &&
-        !path.includes(anchor) &&
-        !path.includes(content)
-      )
-        dismiss(false);
+        path.includes(anchor) ||
+        path.includes(content) ||
+        ownsPopupTarget(content, event.target as Node | null)
+      ) ownedEvents.add(event);
+    };
+    const outside = (event: Event) => {
+      if (stack.at(-1) !== content || options.closeOnOutside === false) return;
+      const path = event.composedPath();
+      if (
+        path.includes(anchor) ||
+        path.includes(content) ||
+        ownsPopupTarget(content, event.target as Node | null)
+      ) return;
+      // Document listeners see only the host of a closed shadow root. Let a
+      // capture listener inside that root classify the press before dismissing.
+      if ([...closedRoots].some((root) => path.includes(root.host))) {
+        view?.setTimeout(() => {
+          if (!disposed && stack.at(-1) === content && !ownedEvents.has(event))
+            dismiss(false);
+        }, 0);
+      } else dismiss(false);
     };
     const dismiss = (restoreFocus: boolean) => {
       if (options.onDismissRequest) options.onDismissRequest(restoreFocus);
       else close(restoreFocus);
+    };
+    // Keep wheel gestures inside this overlay, while allowing any nested
+    // scrollport to consume them in the direction it can still scroll.
+    const containWheel = (event: WheelEvent) => {
+      if (event.ctrlKey || event.defaultPrevented) return;
+      const vertical = Math.abs(event.deltaY) >= Math.abs(event.deltaX);
+      const delta = vertical ? event.deltaY : event.deltaX;
+      if (!delta) return;
+      for (const node of event.composedPath()) {
+        if (!(node instanceof document.defaultView!.HTMLElement)) continue;
+        const style = view?.getComputedStyle(node);
+        const overflow = vertical ? style?.overflowY : style?.overflowX;
+        const extent = vertical ? node.scrollHeight - node.clientHeight : node.scrollWidth - node.clientWidth;
+        const offset = vertical ? node.scrollTop : node.scrollLeft;
+        const canScroll = !vertical && style?.direction === 'rtl'
+          ? delta < 0 ? offset > -extent + 0.5 : offset < 0
+          : delta < 0 ? offset > 0 : offset < extent - 0.5;
+        if ((overflow === 'auto' || overflow === 'scroll') && extent > 0 && canScroll) return;
+        if (node === content) break;
+      }
+      event.preventDefault();
     };
     const keyboard = (event: KeyboardEvent) => {
       if (
@@ -136,26 +206,40 @@ export class PopoverController {
       }
     };
     (options.appendTo ?? document.body).append(content);
+    for (const element of [anchor, content]) {
+      let node: Node = element;
+      while (true) {
+        const root = node.getRootNode();
+        if (!(root instanceof document.defaultView!.ShadowRoot)) break;
+        if (root.mode === 'closed') closedRoots.add(root);
+        node = root.host;
+      }
+    }
+    for (const root of closedRoots) root.addEventListener('pointerdown', insideShadow, true);
     content.hidden = false;
     Object.assign(content.style, {
       position: 'fixed',
       inset: 'auto',
       margin: '0',
+      overscrollBehavior: 'contain',
     });
     mode = showTopLayerPopup(content, options.display ?? 'block');
     const observer = view?.ResizeObserver
       ? new view.ResizeObserver(position)
       : undefined;
     observer?.observe(anchor);
+    if (options.positionAnchor && options.positionAnchor !== anchor)
+      observer?.observe(options.positionAnchor);
     observer?.observe(content);
     this.active = { content, close, position };
     stack.push(content);
     document.addEventListener('pointerdown', outside, true);
     // Compositions may isolate keyboard events before they reach document.
     content.addEventListener('keydown', keyboard);
+    content.addEventListener('wheel', containWheel, { passive: false });
     document.addEventListener('keydown', keyboard);
     view?.addEventListener('resize', position);
-    document.addEventListener('scroll', position, true);
+    document.addEventListener('scroll', onScroll, true);
     position();
     return { close, refresh: position };
   }

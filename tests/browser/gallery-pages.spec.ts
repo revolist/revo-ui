@@ -943,3 +943,376 @@ test('resource selection has a dedicated picker page', async ({ page }) => {
     page.getByRole('searchbox', { name: 'Search people' }),
   ).toHaveCount(0);
 });
+
+test('sidebar finds individual controls and links to their examples', async ({
+  page,
+}) => {
+  await page.goto('/components/buttons/');
+  const navigation = page.getByRole('navigation', {
+    name: 'Component sections',
+  });
+  const search = page.getByRole('searchbox', { name: 'Find a component' });
+  await search.fill('mini calendar');
+  const miniCalendar = navigation.getByRole('link', {
+    name: 'MiniCalendar',
+    exact: true,
+  });
+  await expect(miniCalendar).toBeVisible();
+  await miniCalendar.click();
+  await expect(page).toHaveURL(
+    /\/components\/calendar-and-dates\/#example-mini-calendar$/,
+  );
+  await expect(page.locator('#example-mini-calendar')).toBeVisible();
+  await page
+    .getByRole('searchbox', { name: 'Find a component' })
+    .fill('benchmark card');
+  await expect(
+    navigation.getByRole('link', { name: 'BenchmarkCard', exact: true }),
+  ).toBeVisible();
+  await search.fill('toast');
+  await expect(
+    navigation.getByRole('link', { name: 'Toaster', exact: true }),
+  ).toBeVisible();
+  await expect(
+    navigation.getByRole('link', { name: 'Toast notifications', exact: true }),
+  ).toHaveCount(0);
+  await search.fill('MetricTile');
+  await expect(
+    navigation.getByRole('link', { name: 'MetricTile', exact: true }),
+  ).toHaveAttribute('href', /^\/components\//);
+});
+
+test('sidebar includes every documented public component', async ({ page }) => {
+  await page.goto('/components/buttons/');
+  const sidebar = page.getByRole('navigation', { name: 'Component sections' });
+  await expect(sidebar.locator('[data-controls]').first()).toBeVisible();
+  await expect(
+    sidebar.locator('[data-controls*="MetricTile"]').first(),
+  ).toBeVisible();
+  const sidebarNames = new Set(
+    await sidebar
+      .locator('[data-controls]')
+      .evaluateAll((links) =>
+        links.flatMap((link) =>
+          (link.getAttribute('data-controls') ?? '').split('|'),
+        ),
+      ),
+  );
+  await page.goto('/api/');
+  const api = page.getByRole('navigation', { name: 'Component APIs' });
+  await expect(
+    api.getByRole('link', { name: 'MetricTile', exact: true }),
+  ).toBeVisible();
+  const apiNames = await api
+    .locator('a[href^="/api/"]')
+    .evaluateAll((links) =>
+      links
+        .filter((link) => link.getAttribute('href') !== '/api/')
+        .map((link) => link.textContent?.trim() ?? ''),
+    );
+  expect(apiNames.length).toBeGreaterThan(100);
+  expect(apiNames.filter((name) => !sidebarNames.has(name))).toEqual([]);
+});
+
+test('sidebar component links open live gallery examples', async ({ page }) => {
+  await page.goto('/components/buttons/');
+  const nav = page.getByRole('navigation', { name: 'Component sections' });
+  const link = nav.getByRole('link', { name: 'ButtonGroup', exact: true });
+  await expect(link).toHaveAttribute(
+    'href',
+    '/components/buttons/#example-button-group',
+  );
+  await link.click();
+  await expect(page).toHaveURL(/\/components\/buttons\/#example-button-group$/);
+  await expect(page.locator('#example-button-group')).toBeVisible();
+  await expect(link).toHaveAttribute('aria-current', 'location');
+  await expect(nav.locator('[aria-current="location"]')).toHaveCount(1);
+  await expect(
+    nav.getByRole('link', { name: 'Button group', exact: true }),
+  ).toHaveCount(0);
+  await page
+    .getByRole('searchbox', { name: 'Find a component' })
+    .fill('toaster');
+  await expect(
+    nav.getByRole('link', { name: 'Toaster', exact: true }),
+  ).toHaveAttribute(
+    'href',
+    '/components/status-and-feedback/#example-toast-notifications',
+  );
+});
+
+test('sidebar restores the active component position on reload', async ({
+  page,
+}) => {
+  await page.goto(
+    '/components/status-and-feedback/#example-toast-notifications',
+  );
+  const sidebar = page.locator('#component-navigation');
+  const active = sidebar.getByRole('link', { name: 'Toaster', exact: true });
+  await expect(active).toHaveAttribute('aria-current', 'location');
+  await page.reload();
+  await expect(active).toHaveAttribute('aria-current', 'location');
+  await expect
+    .poll(async () => sidebar.evaluate((element) => element.scrollTop))
+    .toBeGreaterThan(0);
+  const positions = await sidebar.evaluate((element) => {
+    const item = [...element.querySelectorAll('a')].find(
+      (link) => link.textContent?.trim() === 'Toaster',
+    )!;
+    const bounds = element.getBoundingClientRect();
+    const target = item.getBoundingClientRect();
+    return {
+      top: target.top - bounds.top,
+      bottom: bounds.bottom - target.bottom,
+    };
+  });
+  expect(positions.top).toBeGreaterThanOrEqual(0);
+  expect(positions.bottom).toBeGreaterThanOrEqual(0);
+});
+
+test('sidebar navigation updates content without reloading and supports history', async ({
+  page,
+}) => {
+  await page.goto('/components/buttons/');
+  await page.evaluate(() => {
+    (window as Window & { galleryMarker?: number }).galleryMarker = 123;
+  });
+  const sidebar = page.getByRole('navigation', { name: 'Component sections' });
+  await sidebar
+    .getByRole('link', { name: 'Calendar and dates', exact: true })
+    .click();
+  await expect(page).toHaveURL(/\/components\/calendar-and-dates\/$/);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'Calendar and dates',
+  );
+  expect(
+    await page.evaluate(
+      () => (window as Window & { galleryMarker?: number }).galleryMarker,
+    ),
+  ).toBe(123);
+  await page.goBack();
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Buttons');
+  expect(
+    await page.evaluate(
+      () => (window as Window & { galleryMarker?: number }).galleryMarker,
+    ),
+  ).toBe(123);
+});
+
+test('sidebar merges controls with the same destination and searches their aliases', async ({
+  page,
+}) => {
+  await page.goto('/components/menus-and-toolbars/');
+  const nav = page.getByRole('navigation', { name: 'Component sections' });
+  await expect(
+    nav.locator('[data-controls*="MetricTile"]').first(),
+  ).toBeVisible();
+  const groups = await nav
+    .locator('.catalog-nav-examples')
+    .evaluateAll((lists) =>
+      lists.map((list) =>
+        [...list.querySelectorAll('a')].map((link) =>
+          link.getAttribute('href'),
+        ),
+      ),
+    );
+  for (const hrefs of groups) expect(new Set(hrefs).size).toBe(hrefs.length);
+  await page
+    .getByRole('searchbox', { name: 'Find a component' })
+    .fill('MenuSeparator');
+  const result = nav.getByRole('link', { name: 'MenuSeparator', exact: true });
+  await expect(result).toBeVisible();
+  await expect(result).toHaveAttribute(
+    'href',
+    /^\/components\/menus-and-toolbars\//,
+  );
+});
+
+test('sidebar indents controls beneath their family with a vertical guide', async ({
+  page,
+}) => {
+  await page.goto('/components/buttons/');
+  const nav = page.getByRole('navigation', { name: 'Component sections' });
+  const family = nav.getByRole('link', { name: 'Buttons', exact: true });
+  const control = nav.getByRole('link', { name: 'ButtonGroup', exact: true });
+  await expect(control).toBeVisible();
+  const geometry = await control.evaluate((element) => {
+    const list = element.closest('ul')!;
+    const parent = list.parentElement!.querySelector(
+      '.catalog-nav-family-link',
+    )!;
+    const parentStyle = getComputedStyle(parent);
+    return {
+      parentText:
+        parent.getBoundingClientRect().left +
+        parseFloat(parentStyle.paddingLeft),
+      guide: list.getBoundingClientRect().left,
+      child: element.getBoundingClientRect().left,
+      border: getComputedStyle(list).borderInlineStartStyle,
+      parentFont: parentStyle.fontSize,
+      childFont: getComputedStyle(element).fontSize,
+    };
+  });
+  await expect(family).toBeVisible();
+  expect(geometry.border).toBe('solid');
+  expect(Math.abs(geometry.guide - geometry.parentText)).toBeLessThan(1);
+  expect(geometry.child).toBeGreaterThan(geometry.guide);
+  expect(geometry.parentFont).toBe(geometry.childFont);
+});
+
+test('sidebar does not repeat a control already named by its family', async ({
+  page,
+}) => {
+  await page.goto('/components/command-palette/');
+  const nav = page.getByRole('navigation', { name: 'Component sections' });
+  const family = nav.getByRole('link', {
+    name: 'Command palette',
+    exact: true,
+  });
+  await expect(family).toBeVisible();
+  await expect(family).toHaveAttribute('data-controls', /CommandPalette/);
+  await expect(
+    nav.getByRole('link', { name: 'CommandPalette', exact: true }),
+  ).toHaveCount(0);
+  await page
+    .getByRole('searchbox', { name: 'Find a component' })
+    .fill('CommandPalette');
+  await expect(family).toBeVisible();
+});
+
+test('sidebar merges singular and plural versions of the same control', async ({
+  page,
+}) => {
+  await page.goto('/components/selection-controls/');
+  const nav = page.getByRole('navigation', { name: 'Component sections' });
+  const chips = nav.getByRole('link', { name: 'ChoiceChips', exact: true });
+  await expect(chips).toBeVisible();
+  await expect(chips).toHaveAttribute('data-controls', /ChoiceChip/);
+  await expect(chips).toHaveAttribute('data-controls', /ChoiceChips/);
+  await expect(
+    nav.getByRole('link', { name: 'ChoiceChip', exact: true }),
+  ).toHaveCount(0);
+  await page
+    .getByRole('searchbox', { name: 'Find a component' })
+    .fill('ChoiceChip');
+  const matching = nav
+    .locator('[data-controls]')
+    .filter({ hasText: /ChoiceChip/ });
+  await expect(matching).toHaveCount(1);
+});
+
+test('appearance configurator has a readable, interactive layout', async ({
+  page,
+}) => {
+  await page.goto('/components/field-configurators/');
+  const example = page.locator('#example-appearance-configurator');
+  const control = example.locator('.rv-appearance-configurator');
+  await expect(control).toHaveCSS('display', 'flex');
+  await expect(control).toHaveCSS('flex-direction', 'column');
+  const switches = control.getByRole('switch');
+  await expect(switches).toHaveCount(4);
+  const bounds = await switches.evaluateAll((nodes) =>
+    nodes.map((node) => {
+      const rect = node.getBoundingClientRect();
+      return { top: rect.top, bottom: rect.bottom, width: rect.width };
+    }),
+  );
+  for (let i = 1; i < bounds.length; i++)
+    expect(bounds[i].top).toBeGreaterThanOrEqual(bounds[i - 1].bottom);
+  expect(bounds.every((rect) => rect.width >= 240)).toBe(true);
+  const density = control.getByRole('combobox', { name: 'Density' });
+  await density.click();
+  await page.getByRole('option', { name: 'Compact', exact: true }).click();
+  await expect(density).toContainText('Compact');
+  const stripes = control.getByRole('switch', { name: 'Row stripes' });
+  await stripes.click();
+  await expect(stripes).toHaveAttribute('aria-checked', 'true');
+  const reset = control.getByRole('button', { name: 'Reset', exact: true });
+  await expect(reset).toHaveText('Reset');
+  await reset.click();
+  await expect(stripes).toHaveAttribute('aria-checked', 'false');
+  await expect(density).toContainText('Comfortable');
+  await page.setViewportSize({ width: 390, height: 844 });
+  expect(
+    await page.evaluate(() => document.documentElement.scrollWidth),
+  ).toBeLessThanOrEqual(390);
+});
+
+test('search action bar uses the same icon as the search field', async ({
+  page,
+}) => {
+  await page.goto('/components/inputs-and-forms/');
+  const fieldIcon = page.locator(
+    '#example-search-input .rv-search-input-icon svg',
+  );
+  const barIcon = page.locator(
+    '#example-search-action-bar .rv-search-input-icon svg',
+  );
+  await expect(fieldIcon).toBeVisible();
+  await expect(barIcon).toBeVisible();
+  const field = await fieldIcon.evaluate((svg) => ({
+    markup: svg.innerHTML,
+    fill: getComputedStyle(svg).fill,
+  }));
+  const bar = await barIcon.evaluate((svg) => ({
+    markup: svg.innerHTML,
+    fill: getComputedStyle(svg).fill,
+  }));
+  expect(bar).toEqual(field);
+});
+
+test('highlighted input demonstrates live expression highlighting', async ({
+  page,
+}) => {
+  await page.goto('/components/inputs-and-forms/');
+  const example = page.locator('#example-highlighted-text-input');
+  const input = example.getByRole('textbox', { name: 'Expression' });
+  const highlight = example.locator('[data-part="highlight"]');
+  await expect(highlight.locator('.highlighted-example-variable')).toHaveText(
+    'value',
+  );
+  await expect(highlight.locator('.highlighted-example-number')).toHaveText(
+    '100',
+  );
+  await input.fill('value > 250');
+  await expect(highlight.locator('.highlighted-example-number')).toHaveText(
+    '250',
+  );
+});
+
+test('record navigation uses balanced controls and spaced position text', async ({
+  page,
+}) => {
+  await page.goto('/components/layout/');
+  const nav = page.locator('#example-record-navigation .rv-record-navigation');
+  const previous = nav.getByRole('button', { name: 'Previous record' });
+  const next = nav.getByRole('button', { name: 'Next record' });
+  const label = nav.locator('.rv-record-navigation__position');
+  await expect(previous).toBeDisabled();
+  await expect(previous.locator('svg')).toBeVisible();
+  await expect(next.locator('svg')).toBeVisible();
+  const first = await previous.boundingBox();
+  const second = await next.boundingBox();
+  expect(first!.width).toBe(second!.width);
+  expect(first!.height).toBe(second!.height);
+  expect(
+    await label.evaluate((element) =>
+      parseFloat(getComputedStyle(element).paddingLeft),
+    ),
+  ).toBeGreaterThan(0);
+  await next.click();
+  await expect(nav).toContainText('2 of 3');
+});
+
+test('metric progress row uses the shared progress bar', async ({ page }) => {
+  await page.goto('/components/layout/');
+  const row = page.locator(
+    '#example-metric-progress-row .rv-metric-progress-row',
+  );
+  const bar = row.getByRole('progressbar', { name: 'Budget spent' });
+  await expect(bar).toHaveClass(/rv-progress-bar/);
+  await expect(bar).toHaveAttribute('aria-valuenow', '72');
+  await expect(bar.locator('.rv-progress-bar__fill')).toHaveCSS('width', /px/);
+  await expect(row).toHaveCSS('display', 'flex');
+  await expect(row).toContainText('This quarter');
+});

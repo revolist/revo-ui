@@ -140,6 +140,8 @@ export interface UiTheme {
     ChoiceChip?: NamedPresets<ClassPreset>;
     ChoiceChipInfoButton?: NamedPresets<ClassPreset>;
     ActivityMessage?: NamedPresets<ClassPreset>;
+    MetricTile?: NamedPresets<ClassPreset>;
+    MetricPanel?: NamedPresets<ClassPreset>;
     TimeGrid?: NamedPresets<ClassPreset>;
     Alert?: NamedPresets<AlertPreset>;
     FieldIcon?: NamedPresets<ClassPreset>;
@@ -246,5 +248,6 @@ export interface UiTheme {
     Textarea?: NamedPresets<TextFieldPreset>;
     NumberInput?: NamedPresets<TextFieldPreset>;
     SearchInput?: NamedPresets<SearchInputPreset>;
+    SearchActionBar?: NamedPresets<SearchInputPreset>;
   };
 }

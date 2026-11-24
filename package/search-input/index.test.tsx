@@ -3,6 +3,7 @@ import { h, render } from 'preact';
 import { createRef } from 'preact';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { SearchInput } from '.';
+import { createSearchInput } from './native';
 
 afterEach(() => {
   document.body.innerHTML = '';
@@ -125,4 +126,12 @@ it('applies search presets and allows instance overrides', () => {
   expect(
     document.querySelector<HTMLInputElement>('[data-part="input"]')?.disabled,
   ).toBe(false);
+});
+
+it('preserves an explicitly supplied native search icon', () => {
+  const { root } = createSearchInput(document, {
+    iconSvg: '<svg viewBox="0 0 10 10"><path d="M0 0h10v10z" /></svg>',
+  });
+  expect(root.querySelector('svg')?.getAttribute('viewBox')).toBe('0 0 10 10');
+  expect(root.querySelector('path')).not.toBeNull();
 });

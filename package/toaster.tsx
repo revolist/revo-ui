@@ -8,6 +8,9 @@ import { Button, Spinner } from './controls';
 import { SvgIcon } from './icons/icon';
 import type { ClassPreset } from './presets/types';
 import type { ToastController, ToastEntry } from './toast-store';
+import { renderPreactInto } from './preact-mount';
+import { registerComponentStyles } from './core/component-styles';
+import { feedbackStyles } from './component-style-families';
 
 export * from './toast-store';
 
@@ -24,12 +27,19 @@ export interface ToasterProps {
   toaster: ToastController;
   /** Logical viewport corner or edge. Use inline to render within a layout. */
   position?: ToastPosition | 'inline';
-  /** Maximum visible notifications. Additional entries wait in the queue. */
+  /** Maximum visible notifications. Older entries wait in the queue. */
   visibleCount?: number;
   /** Accessible names supplied by the host's localization system. */
   text?: { notifications?: string; dismiss?: string };
   preset?: ClassPreset;
   className?: string;
+}
+
+/** Mount a toaster into a native application-owned host. */
+export function mountToaster(host: HTMLElement, props: ToasterProps) {
+  const StyledToaster = registerComponentStyles(Toaster, feedbackStyles);
+  renderPreactInto(host, <StyledToaster {...props} />);
+  return { destroy: () => renderPreactInto(host, null) };
 }
 
 const icons = {
@@ -145,14 +155,37 @@ export function Toaster({
   const [focused, setFocused] = useState(false);
   const [hidden, setHidden] = useState(false);
   const root = useRef<HTMLElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
   const returnFocus = useRef<HTMLElement | null>(null);
   const count = Number.isFinite(visibleCount)
     ? Math.max(1, Math.floor(visibleCount))
     : 3;
-  const visible = entries.slice(0, count);
+  const visible = entries.slice(-count).reverse();
   const label = text?.notifications ?? 'Notifications';
 
   useEffect(() => toaster.subscribe(setEntries), [toaster]);
+  useEffect(() => {
+    const list = listRef.current;
+    if (!list) return;
+    const update = () => {
+      const cards = [...list.querySelectorAll<HTMLElement>('.rv-toast')];
+      cards.forEach((card, index) => {
+        card.style.setProperty(
+          '--rv-toast-overlap',
+          `${cards[index - 1]?.offsetHeight ?? 0}px`,
+        );
+      });
+    };
+    update();
+    const observer =
+      typeof ResizeObserver === 'undefined'
+        ? undefined
+        : new ResizeObserver(update);
+    list
+      .querySelectorAll('.rv-toast')
+      .forEach((card) => observer?.observe(card));
+    return () => observer?.disconnect();
+  }, [entries, count]);
   useEffect(() => {
     if (entries.length) return;
     setHovered(false);
@@ -191,13 +224,18 @@ export function Toaster({
       </div>
       {visible.length > 0 && (
         <ul
+          ref={listRef}
           class="rv-toaster__list"
           data-part="list"
+          data-expanded={hovered || focused || undefined}
           role="list"
           onPointerEnter={(event) => {
             if (event.pointerType !== 'touch') setHovered(true);
           }}
           onPointerLeave={() => setHovered(false)}
+          onPointerDown={(event) => {
+            if (event.pointerType === 'touch') setHovered(true);
+          }}
           onFocusIn={(event) => {
             if (
               !event.currentTarget.contains(event.relatedTarget as Node | null)

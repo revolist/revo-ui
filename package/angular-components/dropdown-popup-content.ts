@@ -75,6 +75,10 @@ export class DropdownPopupContent extends AngularComponentAdapter<never> {
     'selectedValues'
   >;
   @NgInput() declare 'theme'?: AngularInput<'DropdownPopupContent', 'theme'>;
+  @NgInput() declare 'triggerKeyHandler'?: AngularInput<
+    'DropdownPopupContent',
+    'triggerKeyHandler'
+  >;
   @NgInput({ required: true }) declare 'value': AngularInput<
     'DropdownPopupContent',
     'value'

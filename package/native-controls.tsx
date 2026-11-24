@@ -126,6 +126,8 @@ export interface ScalarSliderOptions {
   thresholds?: readonly { value: number; className: string }[];
   label?: string;
   onChange: (value: number, event: Event) => void;
+  /** Fires continuously during pointer or keyboard adjustment. */
+  onInput?: (value: number, event: Event) => void;
   onMouseDown?: (event: MouseEvent) => void;
 }
 /** Shared scalar slider presentation; edit commits and threshold policy are caller-owned. */
@@ -176,6 +178,7 @@ export function renderScalarSlider<H extends ElementFactory>(
               );
               input.setAttribute('aria-valuetext', text);
               if (badge) badge.textContent = text;
+              options.onInput?.(Number(input.value), event);
             },
             onChange: (event: Event) =>
               options.onChange(

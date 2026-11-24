@@ -126,6 +126,12 @@ export const themeReferences: Record<
   },
   HtmlEditor: { parts: ['root'] },
   TimelineTrack: { parts: ['track', 'actions'] },
+  MetricTile: {
+    parts: ['root', 'label', 'value', 'detail', 'extra'],
+    state:
+      'Signed positive values and details can use positive, negative or neutral tones.',
+  },
+  MetricPanel: { parts: ['root'] },
   ActivityMessage: {
     parts: ['root', 'avatar', 'card', 'header', 'time', 'actions', 'details'],
   },
@@ -197,6 +203,7 @@ export const themeReferences: Record<
   TextInput: { parts: ['input'] },
   Textarea: { parts: ['input'] },
   SearchInput: { parts: ['root', 'icon', 'input', 'shortcut'] },
+  SearchActionBar: { parts: ['root', 'icon', 'input', 'shortcut'] },
   Alert: {
     parts: ['root', 'icon', 'content', 'title', 'description', 'actions'],
   },

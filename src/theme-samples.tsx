@@ -52,6 +52,7 @@ import {
   RatingStar,
   RemoveButton,
   SearchInput,
+  SearchActionBar,
   SegmentedControl,
   SegmentedSwitch,
   Tabs,
@@ -102,6 +103,8 @@ import {
 } from '@revolist/ui/preact';
 import {
   ActivityMessage,
+  MetricTile,
+  MetricPanel,
   ButtonGroup,
   CountBadge,
   Disclosure,
@@ -264,6 +267,7 @@ const names = new Set([
   'ChoiceChips',
   'NumberStepper',
   'SearchInput',
+  'SearchActionBar',
   'SegmentedControl',
   'SegmentedSwitch',
   'Tabs',
@@ -322,6 +326,8 @@ const names = new Set([
   'ReorderList',
   'ResourcePickerAvatar',
   'ActivityMessage',
+  'MetricTile',
+  'MetricPanel',
   'ButtonGroup',
   'CountBadge',
   'Disclosure',
@@ -1462,6 +1468,21 @@ function Sample({
           </TabPanel>
         </>
       );
+    case 'MetricTile':
+      return (
+        <MetricTile {...shared} label="Spend" value="$643.6K" detail="+2%" />
+      );
+    case 'MetricPanel':
+      return (
+        <MetricPanel
+          {...shared}
+          label="Campaign"
+          items={[
+            { label: 'Spend', value: '$643.6K', detail: '+2%' },
+            { label: 'Impressions', value: '43.6M' },
+          ]}
+        />
+      );
     case 'ActivityMessage':
       return (
         <ActivityMessage
@@ -2087,6 +2108,16 @@ function Sample({
           aria-label="Search"
           value={value}
           onValueChange={setValue}
+        />
+      );
+    case 'SearchActionBar':
+      return (
+        <SearchActionBar
+          {...shared}
+          aria-label="Search"
+          value={value}
+          onValueChange={setValue}
+          actions={<Button>Filter</Button>}
         />
       );
     case 'SegmentedControl':

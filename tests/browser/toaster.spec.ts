@@ -107,16 +107,84 @@ test('queues extra notifications and keeps focus in the stack after a dismissal'
   const toasts = region.getByRole('listitem');
   await expect(toasts).toHaveCount(3);
   await expect(region.locator('[aria-live]')).not.toContainText(
-    'Upload failed',
+    'Settings updated',
   );
+  await expect(toasts.first()).toContainText('Upload failed');
   await toasts
     .first()
     .getByRole('button', { name: 'Dismiss notification' })
     .focus();
   await page.keyboard.press('Escape');
   await expect(toasts).toHaveCount(3);
-  await expect(toasts.last()).toContainText('Upload failed');
+  await expect(toasts.last()).toContainText('Settings updated');
   await expect(
     toasts.first().getByRole('button', { name: 'Dismiss notification' }),
   ).toBeFocused();
+});
+
+test('stacks notifications and expands them on hover and focus', async ({
+  page,
+}) => {
+  await page.goto(gallery);
+  const example = page.locator('#example-toast-notifications');
+  await example.getByRole('button', { name: 'Default', exact: true }).click();
+  await example.getByRole('button', { name: 'Success', exact: true }).click();
+  const region = page.getByRole('region', { name: 'Toast examples' });
+  const list = region.locator('.rv-toaster__list');
+  const toasts = region.getByRole('listitem');
+  await expect(toasts).toHaveCount(2);
+  await expect(toasts.first()).toContainText('Draft saved');
+  await page.mouse.move(0, 0);
+  await expect(list).not.toHaveAttribute('data-expanded');
+  await expect
+    .poll(async () => {
+      const [first, second] = await Promise.all([
+        toasts.nth(0).boundingBox(),
+        toasts.nth(1).boundingBox(),
+      ]);
+      return second!.y - first!.y < first!.height / 2;
+    })
+    .toBe(true);
+  await toasts.first().hover();
+  await expect(list).toHaveAttribute('data-expanded', 'true');
+  await expect
+    .poll(async () => {
+      const [first, second] = await Promise.all([
+        toasts.nth(0).boundingBox(),
+        toasts.nth(1).boundingBox(),
+      ]);
+      return second!.y >= first!.y + first!.height - 1;
+    })
+    .toBe(true);
+  await page.mouse.move(0, 0);
+  await toasts
+    .first()
+    .getByRole('button', { name: 'Dismiss notification' })
+    .focus();
+  await expect(list).toHaveAttribute('data-expanded', 'true');
+});
+
+test('dismisses each notification in a timed stack independently', async ({
+  page,
+}) => {
+  await page.clock.install();
+  await page.goto(gallery);
+  await page
+    .locator('#example-toast-notifications')
+    .getByRole('button', { name: 'Timed stack' })
+    .click();
+  await page.mouse.move(0, 0);
+  const region = page.getByRole('region', { name: 'Toast examples' });
+  const toasts = region.getByRole('listitem');
+  await expect(toasts).toHaveCount(3);
+  await page.clock.runFor(2100);
+  await expect(toasts).toHaveCount(2);
+  await expect(region).not.toContainText('First notification');
+  await expect(region).toContainText('Second notification');
+  await expect(region).toContainText('Third notification');
+  await page.clock.runFor(2000);
+  await expect(toasts).toHaveCount(1);
+  await expect(region).toContainText('Third notification');
+  await page.clock.runFor(2000);
+  await expect(toasts).toHaveCount(0);
 });

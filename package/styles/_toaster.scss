@@ -66,12 +66,11 @@
 .rv-toast {
   --rv-toast-tone: var(--rv-ui-accent);
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) auto auto;
   gap: 8px;
-  align-items: start;
+  align-items: center;
   position: relative;
-  padding-block: 14px;
-  padding-inline: 14px 42px;
+  padding: 10px 12px;
   border: 1px solid var(--rv-ui-border);
   border-radius: var(--rv-ui-radius);
   background: var(--rv-ui-surface-elevated);
@@ -81,6 +80,33 @@
   line-height: 1.4;
   animation: rv-toast-in var(--rv-ui-motion-enter, 180ms)
     var(--rv-ui-motion-ease, ease-out);
+  transition:
+    margin-block-start var(--rv-ui-motion-enter, 180ms)
+      var(--rv-ui-motion-ease, ease-out),
+    transform var(--rv-ui-motion-enter, 180ms)
+      var(--rv-ui-motion-ease, ease-out);
+}
+
+.rv-toaster__list:not([data-expanded]) .rv-toast + .rv-toast {
+  margin-block-start: calc(-1 * var(--rv-toast-overlap, 0px));
+}
+
+.rv-toaster__list:not([data-expanded]) .rv-toast:nth-child(1) {
+  z-index: 3;
+}
+.rv-toaster__list:not([data-expanded]) .rv-toast:nth-child(2) {
+  z-index: 2;
+  transform: scale(0.96);
+}
+.rv-toaster__list:not([data-expanded]) .rv-toast:nth-child(3) {
+  z-index: 1;
+  transform: scale(0.92);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rv-toast {
+    transition: none;
+  }
 }
 
 .rv-toast[data-tone='success'] {
@@ -127,15 +153,13 @@
 }
 
 .rv-toast [data-part='action'] {
-  grid-column: 1;
+  grid-column: 2;
   max-inline-size: 100%;
-  justify-self: start;
+  justify-self: end;
 }
 
 .rv-toast__dismiss {
-  position: absolute;
-  inset-block-start: 10px;
-  inset-inline-end: 10px;
+  grid-column: 3;
 }
 
 @keyframes rv-toast-in {

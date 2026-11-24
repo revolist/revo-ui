@@ -102,6 +102,30 @@ revo-grid,
     }
   }
 
+  .selected-count-value {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    max-width: calc(100% - var(--rv-dropdown-value-right-space));
+    overflow: hidden;
+    padding-inline-start: 5px;
+    white-space: nowrap;
+  }
+
+  .selected-count-badge {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    border-radius: 9px;
+    background: var(--rv-dropdown-container-tag-background);
+    font-size: 11px;
+  }
+
   .selected-values {
     display: flex;
     flex-wrap: nowrap;

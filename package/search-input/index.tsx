@@ -1,4 +1,4 @@
-import { renderSearchInput } from './native';
+import { renderDefaultSearchIcon, renderSearchInput } from './native';
 import { h, type JSX } from 'preact';
 
 export type SearchInputRenderable = any;
@@ -46,22 +46,6 @@ export type SearchInputProps = Omit<
   [attribute: string]: any;
 };
 
-function DefaultSearchIcon(): any {
-  return (
-    <svg
-      width="13"
-      height="13"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-    >
-      <circle cx="11" cy="11" r="8" />
-      <line x1="21" y1="21" x2="16.65" y2="16.65" />
-    </svg>
-  );
-}
-
 export function SearchInput({
   preset,
   value = '',
@@ -91,7 +75,7 @@ export function SearchInput({
     iconClassName,
     shortcutClassName,
     shortcut,
-    icon: icon ?? <DefaultSearchIcon />,
+    icon: icon ?? renderDefaultSearchIcon(h),
     hideIcon: hideIcon ?? preset?.props?.hideIcon ?? false,
     leading,
     trailing,

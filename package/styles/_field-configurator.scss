@@ -3,6 +3,21 @@
 @use './collapsible-section';
 @use './icon-action';
 
+@supports (interpolate-size: allow-keywords) and
+  (transition-behavior: allow-discrete) {
+  .rv-configurator-available-fields::details-content {
+    transition-duration: var(
+      --rv-configurator-disclosure-duration,
+      calc(260ms * var(--rv-ui-motion-enabled, 1))
+    );
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .rv-configurator-available-fields::details-content {
+      transition-duration: 0ms;
+    }
+  }
+}
+
 @mixin palette($prefix, $dark: false) {
   --#{$prefix}-bg: var(--rv-ui-surface);
   --#{$prefix}-surface: var(--rv-ui-field-surface);
@@ -116,12 +131,14 @@
     overflow-wrap: anywhere;
   }
   .rv-configurator-available-fields {
-    border: 1px solid var(--rv-configurator-border, var(--rv-ui-border));
-    border-radius: 9px;
+    display: block;
+    border: 0;
     margin-bottom: 10px;
     overflow: clip;
     > .rv-configurator-summary {
-      padding-inline: 10px;
+      border: 0;
+      background: transparent;
+      padding-inline: 0;
     }
   }
   .rv-configurator-field-count {
@@ -129,6 +146,11 @@
     color: var(--rv-configurator-muted, var(--rv-ui-field-muted));
     font-size: 11px;
     font-weight: 400;
+  }
+  .rv-configurator-library-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
   }
   .rv-configurator-library-content {
     display: grid;
@@ -243,17 +265,6 @@
 // Native adapters and Preact examples use this same field action presentation.
 button.rv-configurator-action-button {
   @include icon-action.neutral;
-  &[data-configurator-action='settings'] {
-    &:hover,
-    &:active,
-    &[aria-expanded='true'] {
-      background: transparent;
-      color: var(--rv-configurator-muted, var(--rv-ui-field-muted));
-      opacity: 1;
-      transform: none;
-      box-shadow: none;
-    }
-  }
   &[data-configured='true'] {
     position: relative;
     &::after {
@@ -355,26 +366,32 @@ button.rv-configurator-action-button {
 .rv-configurator-rail__button.rv-btn {
   position: relative;
   flex: none;
-  width: 36px;
-  height: 36px;
-  padding: 8px;
+  width: 30px;
+  height: 30px;
+  padding: 4px;
   justify-content: center;
 }
 .rv-configurator-rail__button .rv-configurator-icon svg {
-  width: 18px;
-  height: 18px;
+  width: 12px;
+  height: 12px;
 }
-.rv-configurator-rail__count.rv-badge {
+.rv-configurator-rail__button .rv-configurator-rail__count.rv-badge {
   position: absolute;
-  inset: -4px -4px auto auto;
+  inset: -2px -2px auto auto;
+  min-width: 14px;
+  min-height: 14px;
+  height: 14px;
+  padding: 0 3px;
+  font-size: 9px;
+  line-height: 14px;
 }
 .rv-configurator-panel[data-compact='true'] {
   border: 0;
   border-left: 1px solid var(--rv-ui-border);
   border-radius: 0;
-  width: 56px !important;
-  min-width: 56px;
-  padding: 8px;
+  width: 44px !important;
+  min-width: 44px;
+  padding: 6px;
   flex: none;
 }
 .rv-configurator-panel[data-compact='true'] > .rv-configurator-rail {
@@ -387,6 +404,36 @@ button.rv-configurator-action-button {
   box-sizing: border-box;
   min-height: 0;
   overflow: auto;
+}
+.rv-configurator-panel[data-mini-mode='true']:not([data-compact='true']):has(
+    > .rv-configurator-rail
+  ) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 44px;
+  grid-template-rows: minmax(0, 1fr);
+  gap: 0;
+  padding: 0;
+}
+.rv-configurator-panel[data-mini-mode='true']:not([data-compact='true'])
+  > .rv-configurator-rail {
+  grid-column: 2;
+  grid-row: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 6px;
+  border-inline-start: 1px solid var(--rv-ui-border);
+}
+.rv-configurator-panel[data-mini-mode='true']:not([data-compact='true']):has(
+    > .rv-configurator-rail
+  )
+  > .rv-configurator-panel__content {
+  display: block;
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
+  overflow: auto;
+  padding: 8px 10px 16px;
 }
 .rv-configurator-panel[data-mini-mode='true']
   .rv-configurator-rail__button.rv-btn {
