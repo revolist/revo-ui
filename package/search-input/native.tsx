@@ -2,6 +2,25 @@ import { h } from 'preact';
 import { createPreactElement } from '../preact-mount';
 import { controlClassName, renderControl } from '../control-presentation';
 
+/** Shared outlined search icon for all search field adapters. */
+export function renderDefaultSearchIcon<H extends (...args: any[]) => any>(
+  h: H,
+): ReturnType<H> {
+  return h(
+    'svg',
+    {
+      width: '13',
+      height: '13',
+      viewBox: '0 0 24 24',
+      fill: 'none',
+      stroke: 'currentColor',
+      'stroke-width': '2',
+    },
+    h('circle', { cx: '11', cy: '11', r: '8' }),
+    h('line', { x1: '21', y1: '21', x2: '16.65', y2: '16.65' }),
+  );
+}
+
 export interface SearchPresentation {
   rootClassName?: string;
   inputClassName?: string;
@@ -70,13 +89,18 @@ export function renderSearchInput<H extends (...args: any[]) => any>(
 }
 export function createSearchInput(
   document: Document,
-  options: Omit<SearchPresentation, 'icon'> & { iconSvg: string },
+  options: Omit<SearchPresentation, 'icon'> & { iconSvg?: string },
 ) {
   const root = createPreactElement(
     document,
     renderSearchInput(h, {
       ...options,
-      icon: <span dangerouslySetInnerHTML={{ __html: options.iconSvg }} />,
+      icon:
+        options.iconSvg === undefined ? (
+          renderDefaultSearchIcon(h)
+        ) : (
+          <span dangerouslySetInnerHTML={{ __html: options.iconSvg }} />
+        ),
     }),
   );
   return { root, input: root.querySelector<HTMLInputElement>('input')! };

@@ -1237,3 +1237,45 @@ test('appearance configurator has a readable, interactive layout', async ({
     await page.evaluate(() => document.documentElement.scrollWidth),
   ).toBeLessThanOrEqual(390);
 });
+
+test('search action bar uses the same icon as the search field', async ({
+  page,
+}) => {
+  await page.goto('/components/inputs-and-forms/');
+  const fieldIcon = page.locator(
+    '#example-search-input .rv-search-input-icon svg',
+  );
+  const barIcon = page.locator(
+    '#example-search-action-bar .rv-search-input-icon svg',
+  );
+  await expect(fieldIcon).toBeVisible();
+  await expect(barIcon).toBeVisible();
+  const field = await fieldIcon.evaluate((svg) => ({
+    markup: svg.innerHTML,
+    fill: getComputedStyle(svg).fill,
+  }));
+  const bar = await barIcon.evaluate((svg) => ({
+    markup: svg.innerHTML,
+    fill: getComputedStyle(svg).fill,
+  }));
+  expect(bar).toEqual(field);
+});
+
+test('highlighted input demonstrates live expression highlighting', async ({
+  page,
+}) => {
+  await page.goto('/components/inputs-and-forms/');
+  const example = page.locator('#example-highlighted-text-input');
+  const input = example.getByRole('textbox', { name: 'Expression' });
+  const highlight = example.locator('[data-part="highlight"]');
+  await expect(highlight.locator('.highlighted-example-variable')).toHaveText(
+    'value',
+  );
+  await expect(highlight.locator('.highlighted-example-number')).toHaveText(
+    '100',
+  );
+  await input.fill('value > 250');
+  await expect(highlight.locator('.highlighted-example-number')).toHaveText(
+    '250',
+  );
+});

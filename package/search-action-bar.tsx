@@ -1,5 +1,4 @@
 import { h, type ComponentChildren } from 'preact';
-import searchIcon from '@fortawesome/fontawesome-free/svgs/solid/magnifying-glass.svg?raw';
 import { SearchInput, type SearchInputProps } from './search-input';
 import { createSearchInput } from './search-input/native';
 import { releasePreactElement } from './preact-mount';
@@ -35,7 +34,6 @@ export function createSearchActionBar(
   options: NativeSearchActionBarOptions,
 ) {
   const search = createSearchInput(document, {
-    iconSvg: searchIcon,
     shortcut: options.shortcut,
     inputAttributes: {
       'aria-label': options.label,

@@ -4584,20 +4584,17 @@ body {
   }
 }
 
+/* The launcher uses the same search input, without a resting border. */
 .global-search-trigger {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--rv-ui-text-muted);
-  white-space: nowrap;
+  width: 170px;
+  --rv-search-input-bg: var(--rv-ui-surface-sunken);
+  --rv-search-input-border: transparent;
+  --rv-search-input-focus-bg: var(--rv-ui-surface-sunken);
+  --rv-search-input-focus-border: transparent;
 }
-.global-search-trigger kbd {
-  padding: 1px 5px;
-  border: 1px solid var(--rv-ui-border);
-  border-radius: 4px;
-  font: inherit;
-  font-size: 11px;
-}
+.global-search-trigger > input { cursor: pointer; padding-inline-end: 86px !important; }
+.global-search-trigger > input:focus-visible { outline: 2px solid var(--rv-ui-focus-ring); outline-offset: 2px; }
+.global-search-trigger .rv-search-input-shortcut { pointer-events: none; }
 .global-search-dialog { width: min(560px, calc(100vw - 32px)); }
 .global-search { min-width: 0; }
 .global-search > .rv-search-input { width: 100%; max-width: none; }
@@ -4624,7 +4621,10 @@ body {
 .global-search-status { margin: 10px 2px 0; color: var(--rv-ui-text-muted); font-size: 12px; }
 @media (max-width: 760px) {
   .catalog-topbar-inner > .global-search-trigger { grid-column: 2; grid-row: 1; margin-inline-end: 46px; }
-  .global-search-trigger span, .global-search-trigger kbd { display: none; }
+  .global-search-trigger { width: 36px; }
+  .global-search-trigger > input { padding: 0 !important; }
+  .global-search-trigger > input::placeholder { color: transparent; }
+  .global-search-trigger .rv-search-input-shortcut { display: none; }
 }
 @media (min-width: 761px) {
   .catalog-topbar-inner { grid-template-columns: auto minmax(0, 1fr) auto auto; }
@@ -4634,3 +4634,13 @@ body {
   .catalog-topbar-inner > .global-search-trigger { grid-column: 2; margin-inline-end: 0; }
   .catalog-topbar-inner > .gallery-settings { grid-column: 3; }
 }
+
+.highlighted-example-description,
+.toast-example-description {
+  margin: 0 0 12px;
+  color: var(--rv-ui-text-muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.highlighted-example-variable { color: var(--rv-ui-accent); }
+.highlighted-example-number { color: var(--rv-ui-warning); }

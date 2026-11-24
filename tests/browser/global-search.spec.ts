@@ -4,10 +4,18 @@ test('global search ranks controls, supports typos and opens results with the ke
   page,
 }) => {
   await page.goto('/');
-  await page.getByRole('button', { name: 'Search the site' }).click();
+  const launcher = page.getByRole('searchbox', { name: 'Search the site' });
+  await expect(launcher).not.toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+  await expect(launcher).toHaveCSS('border-top-color', 'rgba(0, 0, 0, 0)');
+  await launcher.focus();
+  await launcher.press('Enter');
   const search = page.getByRole('combobox', {
     name: 'Search controls, examples, and guides',
   });
+  await expect(search).toBeFocused();
+  await search.press('Escape');
+  await expect(launcher).toBeFocused();
+  await launcher.click();
   await expect(search).toBeFocused();
   await search.fill('toas');
   await expect(
@@ -43,7 +51,7 @@ test('global search opens from documentation with the keyboard and restores focu
 test('global search remains reachable on a narrow screen', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/components/buttons/');
-  const trigger = page.getByRole('button', { name: 'Search the site' });
+  const trigger = page.getByRole('searchbox', { name: 'Search the site' });
   await expect(trigger).toBeVisible();
   await trigger.click();
   await expect(

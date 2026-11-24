@@ -280,10 +280,27 @@ export function HighlightedInputExample() {
   const [code, setCode] = useState('value > 100');
   return (
     <Specimen title="Highlighted text input">
+      <p class="highlighted-example-description">
+        An editable expression with caller-provided syntax highlighting.
+      </p>
       <HighlightedTextInput
         value={code}
-        aria-label="Highlighted example"
-        highlight={code}
+        aria-label="Expression"
+        highlight={code
+          .split(/(\bvalue\b|\b\d+(?:\.\d+)?\b)/gi)
+          .map((part, index) =>
+            /^value$/i.test(part) ? (
+              <span key={index} class="highlighted-example-variable">
+                {part}
+              </span>
+            ) : /^\d/.test(part) ? (
+              <span key={index} class="highlighted-example-number">
+                {part}
+              </span>
+            ) : (
+              part
+            ),
+          )}
         onInput={(event) => setCode(event.currentTarget.value)}
       />
     </Specimen>

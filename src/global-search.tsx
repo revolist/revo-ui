@@ -1,7 +1,6 @@
 import { h } from 'preact';
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
-import { Button, Dialog, SearchInput, SvgIcon } from '@revolist/ui/preact';
-import searchIcon from '@fortawesome/fontawesome-free/svgs/solid/magnifying-glass.svg?raw';
+import { Dialog, SearchInput } from '@revolist/ui/preact';
 import pages from './pages.json';
 import documentation from './documentation.json';
 import { examples, slug } from './example-source';
@@ -63,7 +62,7 @@ export function GlobalSearch() {
   const [query, setQuery] = useState('');
   const [active, setActive] = useState(0);
   const [api, setApi] = useState<ComponentApi[]>([]);
-  const launcher = useRef<HTMLButtonElement>(null);
+  const launcher = useRef<HTMLInputElement>(null);
   const returnFocus = useRef<HTMLElement>();
   const list = useRef<HTMLDivElement>(null);
   const focusSearch = (element: HTMLInputElement | null) => {
@@ -138,20 +137,26 @@ export function GlobalSearch() {
   };
   return (
     <>
-      <Button
-        className="global-search-trigger"
-        variant="ghost"
+      <SearchInput
+        rootClassName="global-search-trigger"
+        inputRef={launcher}
         aria-label="Search the site"
+        aria-haspopup="dialog"
+        placeholder="Search"
+        shortcut="⌘ / Ctrl K"
+        readOnly
         onClick={() => {
           returnFocus.current = launcher.current ?? undefined;
           setOpen(true);
         }}
-        ref={launcher}
-      >
-        <SvgIcon svg={searchIcon} size={14} />
-        <span>Search</span>
-        <kbd>⌘ / Ctrl K</kbd>
-      </Button>
+        onKeyDown={(event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            returnFocus.current = launcher.current ?? undefined;
+            setOpen(true);
+          }
+        }}
+      />
       <Dialog
         open={open}
         title="Search Revo UI"

@@ -10,7 +10,20 @@ export function ToastExamples() {
   return (
     <>
       <Example title="Toast notifications" wide>
+        <p class="toast-example-description">
+          Each notification has its own duration. Hover or focus the stack to
+          pause it.
+        </p>
         <div class="catalog-row">
+          <Button
+            onClick={() => {
+              toaster.show({ title: 'First notification', duration: 2000 });
+              toaster.show({ title: 'Second notification', duration: 4000 });
+              toaster.show({ title: 'Third notification', duration: 6000 });
+            }}
+          >
+            Timed stack
+          </Button>
           <Button onClick={() => toaster.show({ title: 'Settings updated' })}>
             Default
           </Button>

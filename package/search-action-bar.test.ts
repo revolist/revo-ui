@@ -56,3 +56,12 @@ it('shows localized icon-action tooltips and releases them with the bar', () => 
   expect(document.querySelector('[role=tooltip]')).toBeNull();
   vi.useRealTimers();
 });
+
+it('uses the search field outline icon in the native action bar', () => {
+  const bar = createSearchActionBar(document, { label: 'Search' });
+  const icon = bar.element.querySelector('svg');
+  expect(icon?.getAttribute('fill')).toBe('none');
+  expect(icon?.querySelector('circle')).not.toBeNull();
+  expect(icon?.querySelector('line')).not.toBeNull();
+  bar.destroy();
+});

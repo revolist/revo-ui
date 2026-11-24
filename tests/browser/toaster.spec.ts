@@ -163,3 +163,28 @@ test('stacks notifications and expands them on hover and focus', async ({
     .focus();
   await expect(list).toHaveAttribute('data-expanded', 'true');
 });
+
+test('dismisses each notification in a timed stack independently', async ({
+  page,
+}) => {
+  await page.clock.install();
+  await page.goto(gallery);
+  await page
+    .locator('#example-toast-notifications')
+    .getByRole('button', { name: 'Timed stack' })
+    .click();
+  await page.mouse.move(0, 0);
+  const region = page.getByRole('region', { name: 'Toast examples' });
+  const toasts = region.getByRole('listitem');
+  await expect(toasts).toHaveCount(3);
+  await page.clock.runFor(2100);
+  await expect(toasts).toHaveCount(2);
+  await expect(region).not.toContainText('First notification');
+  await expect(region).toContainText('Second notification');
+  await expect(region).toContainText('Third notification');
+  await page.clock.runFor(2000);
+  await expect(toasts).toHaveCount(1);
+  await expect(region).toContainText('Third notification');
+  await page.clock.runFor(2000);
+  await expect(toasts).toHaveCount(0);
+});
