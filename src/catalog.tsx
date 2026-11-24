@@ -26,7 +26,13 @@ import {
   toChildArray,
   type ComponentChildren,
 } from 'preact';
-import { useContext, useEffect, useRef, useState } from 'preact/hooks';
+import {
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'preact/hooks';
 import {
   Button,
   DialogCloseButton,
@@ -38,7 +44,6 @@ import pages from './pages.json';
 import {
   currentRoute,
   componentHref,
-  apiHref,
   frameworkHref,
   siteHref,
 } from './routing';
@@ -95,6 +100,28 @@ const normalizeSearch = (value: string) =>
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, ' ')
     .trim();
+/** Prefer the control's own example; related components without one open their family. */
+const componentExampleHref = (family: string, name: string) => {
+  const candidates = examples.filter((example) => example.family === family);
+  const exact = candidates.find(
+    (example) => normalizeSearch(example.title) === normalizeSearch(name),
+  );
+  const usingControl = candidates.filter((example) =>
+    [...example.code.matchAll(/<([A-Z][A-Za-z0-9.]*)/g)].some(
+      (match) => match[1] === name,
+    ),
+  );
+  const relevant = usingControl.find((example) =>
+    normalizeSearch(example.title)
+      .split(' ')
+      .some(
+        (word) => word.length >= 4 && normalizeSearch(name).startsWith(word),
+      ),
+  );
+  const example = exact ?? relevant ?? usingControl[0];
+  const href = componentHref(sectionId(family));
+  return example ? `${href}#example-${example.id}` : href;
+};
 const matchesExample = (example: (typeof examples)[number], query: string) => {
   const componentNames = [...example.code.matchAll(/<([A-Z][A-Za-z0-9.]*)/g)]
     .map((match) => match[1])
@@ -253,6 +280,7 @@ export function CatalogShell({
     return () => window.removeEventListener('keydown', dismiss);
   }, [themeOpen]);
   const mobileNavButton = useRef<HTMLButtonElement>(null);
+  const componentSidebar = useRef<HTMLElement>(null);
   const [motion, setMotion] = useState('system');
   const content = useRef<HTMLDivElement>(null);
   const [query, setQuery] = useState('');
@@ -287,8 +315,21 @@ export function CatalogShell({
       else window.scrollTo(0, 0);
     };
     window.addEventListener('hashchange', update);
-    return () => window.removeEventListener('hashchange', update);
+    window.addEventListener('popstate', update);
+    return () => {
+      window.removeEventListener('hashchange', update);
+      window.removeEventListener('popstate', update);
+    };
   }, []);
+  useEffect(() => {
+    if (!anchor || page !== 'components') return;
+    const frame = requestAnimationFrame(() =>
+      document
+        .getElementById(decodeURIComponent(anchor.slice(1)))
+        ?.scrollIntoView({ block: 'start' }),
+    );
+    return () => cancelAnimationFrame(frame);
+  }, [active, anchor, page]);
   const knownRoute =
     page === 'api' ||
     (page === 'frameworks' &&
@@ -333,6 +374,30 @@ export function CatalogShell({
             normalizeSearch(item.name).includes(normalizedQuery),
         )),
   );
+  useLayoutEffect(() => {
+    const sidebar = componentSidebar.current;
+    if (!sidebar || query) return;
+    const selected = sidebar.querySelector<HTMLElement>(
+      '[aria-current="location"]',
+    );
+    if (!selected) return;
+    const nav = sidebar.querySelector<HTMLElement>('nav');
+    const scroller =
+      nav &&
+      /(auto|scroll)/.test(getComputedStyle(nav).overflowY) &&
+      nav.scrollHeight > nav.clientHeight
+        ? nav
+        : sidebar;
+    const box = scroller.getBoundingClientRect();
+    const item = selected.getBoundingClientRect();
+    const sticky =
+      scroller === sidebar
+        ? (sidebar.querySelector<HTMLElement>('.catalog-navigation-tools')
+            ?.offsetHeight ?? 0)
+        : 0;
+    if (item.top < box.top + sticky || item.bottom > box.bottom)
+      scroller.scrollTop += item.top - box.top - sticky - 12;
+  }, [active, anchor, apiComponents.length, mobileOpen]);
   const frameworkName =
     page === 'frameworks'
       ? pages.frameworks.find((name) => sectionId(name) === active)
@@ -700,6 +765,7 @@ export function CatalogShell({
           {page === 'components' && !home && (
             <aside
               id="component-navigation"
+              ref={componentSidebar}
               class="catalog-sidebar"
               data-open={mobileOpen}
             >
@@ -721,7 +787,51 @@ export function CatalogShell({
                   }}
                 />
               </div>
-              <nav aria-label="Component sections">
+              <nav
+                aria-label="Component sections"
+                onClick={(event) => {
+                  if (
+                    event.defaultPrevented ||
+                    event.button !== 0 ||
+                    event.metaKey ||
+                    event.ctrlKey ||
+                    event.shiftKey ||
+                    event.altKey
+                  )
+                    return;
+                  const link =
+                    event.target instanceof Element
+                      ? event.target.closest('a')
+                      : null;
+                  if (!link || link.target || link.hasAttribute('download'))
+                    return;
+                  const destination = new URL(link.href, location.href);
+                  const componentPath = new URL(
+                    siteHref('components/'),
+                    location.origin,
+                  ).pathname;
+                  if (
+                    destination.origin !== location.origin ||
+                    !destination.pathname.startsWith(componentPath)
+                  )
+                    return;
+                  event.preventDefault();
+                  if (destination.href !== location.href)
+                    history.pushState(null, '', destination.href);
+                  setActive(currentRoute());
+                  setAnchor(location.hash);
+                  setMobileOpen(false);
+                  if (!destination.hash) window.scrollTo(0, 0);
+                  else
+                    requestAnimationFrame(() =>
+                      document
+                        .getElementById(
+                          decodeURIComponent(destination.hash.slice(1)),
+                        )
+                        ?.scrollIntoView({ block: 'start' }),
+                    );
+                }}
+              >
                 <a class="catalog-overview-link" href={siteHref()}>
                   Overview
                 </a>
@@ -771,7 +881,22 @@ export function CatalogShell({
                                 >
                                   {familyControls.map((item) => (
                                     <li key={`api-${item.name}`}>
-                                      <a href={apiHref(item.name)}>
+                                      <a
+                                        href={componentExampleHref(
+                                          family.title,
+                                          item.name,
+                                        )}
+                                        aria-current={
+                                          component?.title === family.title &&
+                                          !!anchor &&
+                                          componentExampleHref(
+                                            family.title,
+                                            item.name,
+                                          ).endsWith(anchor)
+                                            ? 'location'
+                                            : undefined
+                                        }
+                                      >
                                         {item.name}
                                       </a>
                                     </li>

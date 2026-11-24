@@ -979,7 +979,7 @@ test('sidebar finds individual controls and links to their examples', async ({
   await search.fill('MetricTile');
   await expect(
     navigation.getByRole('link', { name: 'MetricTile', exact: true }),
-  ).toHaveAttribute('href', '/api/metrictile/');
+  ).toHaveAttribute('href', /^\/components\//);
 });
 
 test('sidebar includes every documented public component', async ({ page }) => {
@@ -988,23 +988,99 @@ test('sidebar includes every documented public component', async ({ page }) => {
   await expect(
     sidebar.getByRole('link', { name: 'MetricTile', exact: true }),
   ).toBeVisible();
-  const sidebarTargets = new Set(
-    await sidebar
-      .locator('a[href^="/api/"]')
-      .evaluateAll((links) => links.map((link) => link.getAttribute('href'))),
-  );
+  const sidebarNames = new Set(await sidebar.locator('a').allTextContents());
   await page.goto('/api/');
   const api = page.getByRole('navigation', { name: 'Component APIs' });
   await expect(
     api.getByRole('link', { name: 'MetricTile', exact: true }),
   ).toBeVisible();
-  const apiTargets = await api
+  const apiNames = await api
     .locator('a[href^="/api/"]')
     .evaluateAll((links) =>
       links
-        .map((link) => link.getAttribute('href'))
-        .filter((href) => href !== '/api/'),
+        .filter((link) => link.getAttribute('href') !== '/api/')
+        .map((link) => link.textContent?.trim() ?? ''),
     );
-  expect(apiTargets.length).toBeGreaterThan(100);
-  expect(apiTargets.filter((href) => !sidebarTargets.has(href))).toEqual([]);
+  expect(apiNames.length).toBeGreaterThan(100);
+  expect(apiNames.filter((name) => !sidebarNames.has(name))).toEqual([]);
+});
+
+test('sidebar component links open live gallery examples', async ({ page }) => {
+  await page.goto('/components/buttons/');
+  const nav = page.getByRole('navigation', { name: 'Component sections' });
+  const link = nav.getByRole('link', { name: 'ButtonGroup', exact: true });
+  await expect(link).toHaveAttribute(
+    'href',
+    '/components/buttons/#example-button-group',
+  );
+  await link.click();
+  await expect(page).toHaveURL(/\/components\/buttons\/#example-button-group$/);
+  await expect(page.locator('#example-button-group')).toBeVisible();
+  await page
+    .getByRole('searchbox', { name: 'Find a component' })
+    .fill('toaster');
+  await expect(
+    nav.getByRole('link', { name: 'Toaster', exact: true }),
+  ).toHaveAttribute(
+    'href',
+    '/components/status-and-feedback/#example-toast-notifications',
+  );
+});
+
+test('sidebar restores the active component position on reload', async ({
+  page,
+}) => {
+  await page.goto(
+    '/components/status-and-feedback/#example-toast-notifications',
+  );
+  const sidebar = page.locator('#component-navigation');
+  const active = sidebar.getByRole('link', { name: 'Toaster', exact: true });
+  await expect(active).toHaveAttribute('aria-current', 'location');
+  await page.reload();
+  await expect(active).toHaveAttribute('aria-current', 'location');
+  await expect
+    .poll(async () => sidebar.evaluate((element) => element.scrollTop))
+    .toBeGreaterThan(0);
+  const positions = await sidebar.evaluate((element) => {
+    const item = [...element.querySelectorAll('a')].find(
+      (link) => link.textContent?.trim() === 'Toaster',
+    )!;
+    const bounds = element.getBoundingClientRect();
+    const target = item.getBoundingClientRect();
+    return {
+      top: target.top - bounds.top,
+      bottom: bounds.bottom - target.bottom,
+    };
+  });
+  expect(positions.top).toBeGreaterThanOrEqual(0);
+  expect(positions.bottom).toBeGreaterThanOrEqual(0);
+});
+
+test('sidebar navigation updates content without reloading and supports history', async ({
+  page,
+}) => {
+  await page.goto('/components/buttons/');
+  await page.evaluate(() => {
+    (window as Window & { galleryMarker?: number }).galleryMarker = 123;
+  });
+  const sidebar = page.getByRole('navigation', { name: 'Component sections' });
+  await sidebar
+    .getByRole('link', { name: 'Calendar and dates', exact: true })
+    .click();
+  await expect(page).toHaveURL(/\/components\/calendar-and-dates\/$/);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'Calendar and dates',
+  );
+  expect(
+    await page.evaluate(
+      () => (window as Window & { galleryMarker?: number }).galleryMarker,
+    ),
+  ).toBe(123);
+  await page.goBack();
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Buttons');
+  expect(
+    await page.evaluate(
+      () => (window as Window & { galleryMarker?: number }).galleryMarker,
+    ),
+  ).toBe(123);
 });
