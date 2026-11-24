@@ -954,7 +954,7 @@ test('sidebar finds individual controls and links to their examples', async ({
   const search = page.getByRole('searchbox', { name: 'Find a component' });
   await search.fill('mini calendar');
   const miniCalendar = navigation.getByRole('link', {
-    name: 'Mini calendar',
+    name: 'MiniCalendar',
     exact: true,
   });
   await expect(miniCalendar).toBeVisible();
@@ -967,7 +967,7 @@ test('sidebar finds individual controls and links to their examples', async ({
     .getByRole('searchbox', { name: 'Find a component' })
     .fill('benchmark card');
   await expect(
-    navigation.getByRole('link', { name: 'Benchmark card', exact: true }),
+    navigation.getByRole('link', { name: 'BenchmarkCard', exact: true }),
   ).toBeVisible();
   await search.fill('toast');
   await expect(
@@ -975,7 +975,7 @@ test('sidebar finds individual controls and links to their examples', async ({
   ).toBeVisible();
   await expect(
     navigation.getByRole('link', { name: 'Toast notifications', exact: true }),
-  ).toBeVisible();
+  ).toHaveCount(0);
   await search.fill('MetricTile');
   await expect(
     navigation.getByRole('link', { name: 'MetricTile', exact: true }),
@@ -1016,6 +1016,11 @@ test('sidebar component links open live gallery examples', async ({ page }) => {
   await link.click();
   await expect(page).toHaveURL(/\/components\/buttons\/#example-button-group$/);
   await expect(page.locator('#example-button-group')).toBeVisible();
+  await expect(link).toHaveAttribute('aria-current', 'location');
+  await expect(nav.locator('[aria-current="location"]')).toHaveCount(1);
+  await expect(
+    nav.getByRole('link', { name: 'Button group', exact: true }),
+  ).toHaveCount(0);
   await page
     .getByRole('searchbox', { name: 'Find a component' })
     .fill('toaster');

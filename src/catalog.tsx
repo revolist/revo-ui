@@ -48,6 +48,13 @@ import {
   siteHref,
 } from './routing';
 const families = pages.components;
+const nativeGalleryControls = [
+  { name: 'CalendarNavigator', families: ['Calendar and dates'] },
+  { name: 'AppearanceConfigurator', families: ['Field configurators'] },
+  { name: 'BenchmarkCard', families: ['Layout'] },
+  { name: 'MetricProgressRow', families: ['Layout'] },
+  { name: 'RecordNavigation', families: ['Layout'] },
+];
 const groups = [
   'Actions and navigation',
   'Form controls',
@@ -293,10 +300,14 @@ export function CatalogShell({
   }, [page]);
   const [active, setActive] = useState(currentRoute());
   const [anchor, setAnchor] = useState(location.hash);
+  const [activeControl, setActiveControl] = useState<string | null>(
+    history.state?.galleryComponent ?? null,
+  );
   useEffect(() => {
     const update = () => {
       setActive(currentRoute());
       setAnchor(location.hash);
+      setActiveControl(history.state?.galleryComponent ?? null);
       setMobileOpen(false);
       if (
         location.hash &&
@@ -364,11 +375,17 @@ export function CatalogShell({
     );
   });
   const normalizedQuery = normalizeSearch(query);
+  const controls = [
+    ...apiComponents.map(({ name, families }) => ({ name, families })),
+    ...nativeGalleryControls.filter(
+      (item) => !apiComponents.some((entry) => entry.name === item.name),
+    ),
+  ];
   const visible = families.filter(
     (family) =>
       inScope(family.title) &&
       (matches(family, normalizedQuery) ||
-        apiComponents.some(
+        controls.some(
           (item) =>
             item.families.includes(family.title) &&
             normalizeSearch(item.name).includes(normalizedQuery),
@@ -397,7 +414,7 @@ export function CatalogShell({
         : 0;
     if (item.top < box.top + sticky || item.bottom > box.bottom)
       scroller.scrollTop += item.top - box.top - sticky - 12;
-  }, [active, anchor, apiComponents.length, mobileOpen]);
+  }, [active, anchor, activeControl, apiComponents.length, mobileOpen]);
   const frameworkName =
     page === 'frameworks'
       ? pages.frameworks.find((name) => sectionId(name) === active)
@@ -816,10 +833,17 @@ export function CatalogShell({
                   )
                     return;
                   event.preventDefault();
+                  const selectedName = link.dataset.component ?? null;
+                  const state = {
+                    ...history.state,
+                    galleryComponent: selectedName,
+                  };
                   if (destination.href !== location.href)
-                    history.pushState(null, '', destination.href);
+                    history.pushState(state, '', destination.href);
+                  else history.replaceState(state, '', destination.href);
                   setActive(currentRoute());
                   setAnchor(location.hash);
+                  setActiveControl(selectedName);
                   setMobileOpen(false);
                   if (!destination.hash) window.scrollTo(0, 0);
                   else
@@ -844,13 +868,7 @@ export function CatalogShell({
                       <div class="catalog-nav-group" key={group}>
                         <p>{group}</p>
                         {entries.map((family) => {
-                          const familyExamples = examples.filter(
-                            (example) =>
-                              example.family === family.title &&
-                              (!normalizedQuery ||
-                                matchesExample(example, normalizedQuery)),
-                          );
-                          const familyControls = apiComponents
+                          const familyControls = controls
                             .filter(
                               (item) =>
                                 item.families.includes(family.title) &&
@@ -860,24 +878,46 @@ export function CatalogShell({
                                   )),
                             )
                             .sort((a, b) => a.name.localeCompare(b.name));
+                          const matching = familyControls.filter((item) =>
+                            anchor
+                              ? componentExampleHref(
+                                  family.title,
+                                  item.name,
+                                ).endsWith(anchor)
+                              : item.name === activeControl,
+                          );
+                          const exampleTitle = examples.find(
+                            (example) =>
+                              example.family === family.title &&
+                              `#example-${example.id}` === anchor,
+                          )?.title;
+                          const selectedName =
+                            matching.find((item) => item.name === activeControl)
+                              ?.name ??
+                            matching.find(
+                              (item) =>
+                                exampleTitle &&
+                                normalizeSearch(item.name) ===
+                                  normalizeSearch(exampleTitle),
+                            )?.name ??
+                            matching[0]?.name;
                           return (
                             <div class="catalog-nav-family" key={family.title}>
                               <a
                                 class="catalog-nav-family-link"
                                 href={componentHref(sectionId(family.title))}
                                 aria-current={
-                                  component?.title === family.title && !anchor
+                                  component?.title === family.title && !anchor && !activeControl
                                     ? 'location'
                                     : undefined
                                 }
                               >
                                 {family.title}
                               </a>
-                              {(familyExamples.length > 0 ||
-                                familyControls.length > 0) && (
+                              {familyControls.length > 0 && (
                                 <ul
                                   class="catalog-nav-examples"
-                                  aria-label={`${family.title} controls and examples`}
+                                  aria-label={`${family.title} controls`}
                                 >
                                   {familyControls.map((item) => (
                                     <li key={`api-${item.name}`}>
@@ -886,33 +926,15 @@ export function CatalogShell({
                                           family.title,
                                           item.name,
                                         )}
+                                        data-component={item.name}
                                         aria-current={
                                           component?.title === family.title &&
-                                          !!anchor &&
-                                          componentExampleHref(
-                                            family.title,
-                                            item.name,
-                                          ).endsWith(anchor)
+                                          item.name === selectedName
                                             ? 'location'
                                             : undefined
                                         }
                                       >
                                         {item.name}
-                                      </a>
-                                    </li>
-                                  ))}
-                                  {familyExamples.map((example) => (
-                                    <li key={`${example.file}-${example.id}`}>
-                                      <a
-                                        href={`${componentHref(sectionId(family.title))}#example-${example.id}`}
-                                        aria-current={
-                                          component?.title === family.title &&
-                                          anchor === `#example-${example.id}`
-                                            ? 'location'
-                                            : undefined
-                                        }
-                                      >
-                                        {example.title}
                                       </a>
                                     </li>
                                   ))}
@@ -926,9 +948,7 @@ export function CatalogShell({
                   );
                 })}
                 {page === 'components' && !home && visible.length === 0 && (
-                  <p class="catalog-nav-empty">
-                    No matching components or examples.
-                  </p>
+                  <p class="catalog-nav-empty">No matching components.</p>
                 )}
               </nav>
               <div class="catalog-sidebar-note">
