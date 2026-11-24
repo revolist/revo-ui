@@ -17,17 +17,17 @@ export const limits = {
   // React bundles now include the automatically installed component CSS.
   'react-button': 24 * 1024,
   'react-controls': 26 * 1024,
-  // Full-catalog budgets include the new workflows and their styles.
-  'react-all': 176 * 1024,
-  'native-all': 65 * 1024,
-  'styles.css': 38 * 1024,
+  // Full-catalog budgets include the shared controls and their native adapters.
+  'react-all': 184 * 1024,
+  'native-all': 83 * 1024,
+  'styles.css': 40 * 1024,
   'styles/base.css': 8 * 1024,
   ...Object.fromEntries(
     styleEntrypoints
       .filter((name) => name !== 'base')
       .map((name) => [`styles/${name}.css`, 8 * 1024]),
   ),
-  'styles/layout.css': 9 * 1024,
+  'styles/layout.css': 10 * 1024,
 };
 
 export async function measureEntry(
