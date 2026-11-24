@@ -1279,3 +1279,40 @@ test('highlighted input demonstrates live expression highlighting', async ({
     '250',
   );
 });
+
+test('record navigation uses balanced controls and spaced position text', async ({
+  page,
+}) => {
+  await page.goto('/components/layout/');
+  const nav = page.locator('#example-record-navigation .rv-record-navigation');
+  const previous = nav.getByRole('button', { name: 'Previous record' });
+  const next = nav.getByRole('button', { name: 'Next record' });
+  const label = nav.locator('.rv-record-navigation__position');
+  await expect(previous).toBeDisabled();
+  await expect(previous.locator('svg')).toBeVisible();
+  await expect(next.locator('svg')).toBeVisible();
+  const first = await previous.boundingBox();
+  const second = await next.boundingBox();
+  expect(first!.width).toBe(second!.width);
+  expect(first!.height).toBe(second!.height);
+  expect(
+    await label.evaluate((element) =>
+      parseFloat(getComputedStyle(element).paddingLeft),
+    ),
+  ).toBeGreaterThan(0);
+  await next.click();
+  await expect(nav).toContainText('2 of 3');
+});
+
+test('metric progress row uses the shared progress bar', async ({ page }) => {
+  await page.goto('/components/layout/');
+  const row = page.locator(
+    '#example-metric-progress-row .rv-metric-progress-row',
+  );
+  const bar = row.getByRole('progressbar', { name: 'Budget spent' });
+  await expect(bar).toHaveClass(/rv-progress-bar/);
+  await expect(bar).toHaveAttribute('aria-valuenow', '72');
+  await expect(bar.locator('.rv-progress-bar__fill')).toHaveCSS('width', /px/);
+  await expect(row).toHaveCSS('display', 'flex');
+  await expect(row).toContainText('This quarter');
+});

@@ -4586,18 +4586,35 @@ body {
 
 /* The launcher uses the same search input, without a resting border. */
 .global-search-trigger {
-  width: 170px;
+  width: 136px;
+  --rv-search-input-height: 38px;
   --rv-search-input-bg: var(--rv-ui-surface-sunken);
   --rv-search-input-border: transparent;
   --rv-search-input-focus-bg: var(--rv-ui-surface-sunken);
   --rv-search-input-focus-border: transparent;
 }
-.global-search-trigger > input { cursor: pointer; padding-inline-end: 86px !important; }
+.global-search-trigger > input { cursor: pointer; padding-inline-end: 48px !important; border-radius: 10px; }
 .global-search-trigger > input:focus-visible { outline: 2px solid var(--rv-ui-focus-ring); outline-offset: 2px; }
-.global-search-trigger .rv-search-input-shortcut { pointer-events: none; }
+.global-search-trigger .rv-search-input-shortcut {
+  pointer-events: none;
+  background: transparent;
+  border-color: var(--rv-ui-border);
+  font-size: 11px;
+  padding: 3px 6px;
+  border-radius: 5px;
+}
 .global-search-dialog { width: min(560px, calc(100vw - 32px)); }
-.global-search { min-width: 0; }
-.global-search > .rv-search-input { width: 100%; max-width: none; }
+.global-search { min-width: 0; padding: 6px; }
+.global-search > .rv-search-input {
+  width: 100%;
+  max-width: none;
+  --rv-search-input-height: 38px;
+  --rv-search-input-bg: var(--rv-ui-surface-sunken);
+  --rv-search-input-focus-bg: var(--rv-ui-surface-sunken);
+  --rv-search-input-border: transparent;
+  --rv-search-input-focus-border: transparent;
+}
+.global-search > .rv-search-input > input { border-radius: 10px; }
 .global-search-results { max-height: min(50vh, 440px); overflow-y: auto; margin-top: 12px; }
 .global-search-results button {
   display: flex;
@@ -4618,7 +4635,8 @@ body {
 .global-search-results strong, .global-search-results small { display: block; }
 .global-search-results small { color: var(--rv-ui-text-muted); margin-top: 2px; }
 .global-search-kind { flex: none; color: var(--rv-ui-text-muted); font-size: 12px; }
-.global-search-status { margin: 10px 2px 0; color: var(--rv-ui-text-muted); font-size: 12px; }
+.global-search-dialog .rv-dialog__actions { margin-inline-start: 0; }
+.global-search-status { margin: 0; color: var(--rv-ui-text-muted); font-size: 12px; }
 @media (max-width: 760px) {
   .catalog-topbar-inner > .global-search-trigger { grid-column: 2; grid-row: 1; margin-inline-end: 46px; }
   .global-search-trigger { width: 36px; }

@@ -39,6 +39,8 @@
 @use './timeline-track/style' as timelineTrack;
 @use './styles/activity-message';
 @use './styles/metric-panel';
+@use './styles/metric-progress-row';
+@use './styles/record-navigation';
 @use './styles/toaster';
 @use './styles/activity-timeline';
 @use './styles/motion';

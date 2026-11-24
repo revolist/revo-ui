@@ -143,7 +143,9 @@ export function GlobalSearch() {
         aria-label="Search the site"
         aria-haspopup="dialog"
         placeholder="Search"
-        shortcut="⌘ / Ctrl K"
+        shortcut={
+          /Mac|iPhone|iPad|iPod/i.test(navigator.platform) ? '⌘ K' : 'Ctrl K'
+        }
         readOnly
         onClick={() => {
           returnFocus.current = launcher.current ?? undefined;
@@ -164,6 +166,13 @@ export function GlobalSearch() {
         onClose={() => setOpen(false)}
         returnFocus={returnFocus.current}
         preset={{ className: 'global-search-dialog' }}
+        footer={
+          <p class="global-search-status" role="status">
+            {results.length
+              ? `${results.length === 12 ? 'Top ' : ''}${results.length} results`
+              : 'No results found. Try another search.'}
+          </p>
+        }
       >
         <div class="global-search">
           <SearchInput
@@ -221,11 +230,6 @@ export function GlobalSearch() {
               </button>
             ))}
           </div>
-          <p class="global-search-status" role="status">
-            {results.length
-              ? `${results.length === 12 ? 'Top ' : ''}${results.length} results`
-              : 'No results found. Try another search.'}
-          </p>
         </div>
       </Dialog>
     </>
