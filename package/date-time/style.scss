@@ -244,8 +244,7 @@
     font-size: 12px;
   }
 }
-// Keep validation and actions in scroll order when a calendar and clock are tall.
-.rv-editor-popup--datetime .rv-temporal-draft .rv-editor-actions,
+// Keep actions in scroll order for stacked calendars.
 .rv-editor-popup
   .rv-temporal-draft:has(.rv-temporal-picker--multi-month)
   .rv-editor-actions {

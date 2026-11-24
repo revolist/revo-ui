@@ -36,11 +36,16 @@ export class DurationField extends AngularComponentAdapter<
     'DurationField',
     'defaultUnit'
   >;
+  @NgInput() declare 'describedBy'?: AngularInput<
+    'DurationField',
+    'describedBy'
+  >;
   @NgInput() declare 'disabled'?: AngularInput<'DurationField', 'disabled'>;
   @NgInput() declare 'elapsedLabel'?: AngularInput<
     'DurationField',
     'elapsedLabel'
   >;
+  @NgInput() declare 'invalid'?: AngularInput<'DurationField', 'invalid'>;
   @NgInput() declare 'invalidText'?: AngularInput<
     'DurationField',
     'invalidText'

@@ -375,9 +375,9 @@
 
 // Keep the trigger compact while giving long requests room in the shared popup.
 .rv-ai-examples-menu {
+  --rv-dropdown-menu-max-width: calc(100vw - 16px);
   box-sizing: border-box;
-  width: min(420px, calc(100vw - 16px));
-  max-width: calc(100vw - 16px);
+  width: min(420px, var(--rv-dropdown-menu-max-width));
 
   .dropdown-option {
     min-height: 36px;
