@@ -6,6 +6,7 @@ export function renderProgressLine(
   options: {
     percent: number;
     label: string;
+    ariaLabel?: string;
     classes?: Record<string, boolean>;
   },
 ) {
@@ -14,7 +15,7 @@ export function renderProgressLine(
       value: options.percent,
       className: 'progress-line-background',
       fillClass: { 'progress-line-bar': true, ...options.classes },
-      ariaLabel: options.label,
+      ariaLabel: options.ariaLabel ?? options.label,
     }),
     h('span', { class: 'progress-line-label' }, options.label),
   ]);
@@ -79,21 +80,36 @@ export function renderBadgeValue(
 }
 export function renderChange(
   h: ElementFactory,
-  options: { value: number; label: unknown; classes?: Record<string, boolean> },
+  options: {
+    value: number;
+    label: unknown;
+    classes?: Record<string, boolean>;
+    icons?: Partial<Record<'positive' | 'negative' | 'neutral', string>>;
+    iconPosition?: 'before' | 'after';
+    negativeParentheses?: boolean;
+  },
 ) {
   const { value, label } = options,
     kind = value > 0 ? 'positive' : value < 0 ? 'negative' : 'neutral';
+  const icon =
+    options.icons?.[kind] ??
+    (kind === 'positive' ? '▲' : kind === 'negative' ? '▼' : '');
+  const iconNode = icon ? h('span', { class: 'change-icon' }, icon) : null;
+  const labelNode = h(
+    'span',
+    { class: 'change-value' },
+    value < 0 && options.negativeParentheses !== false
+      ? `(${label})`
+      : String(label),
+  );
   return h('div', { class: controlClassName('change-cell', options.classes) }, [
-    h('div', { class: `change-${kind}` }, [
-      h(
-        'span',
-        { class: 'change-value' },
-        value < 0 ? `(${label})` : String(label),
-      ),
-      ...(value === 0
-        ? []
-        : [h('span', { class: 'change-icon' }, value > 0 ? '▲' : '▼')]),
-    ]),
+    h(
+      'div',
+      { class: `change-${kind}` },
+      options.iconPosition === 'before'
+        ? [...(iconNode ? [iconNode] : []), labelNode]
+        : [labelNode, ...(iconNode ? [iconNode] : [])],
+    ),
   ]);
 }
 export function renderThumbs(

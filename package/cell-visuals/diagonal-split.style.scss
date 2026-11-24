@@ -1,0 +1,13 @@
+.rv-diagonal-split { position: relative; width: 100%; height: 100%; overflow: hidden; }
+.rv-diagonal-split__upper-bg, .rv-diagonal-split__lower-bg { position: absolute; inset: 0; background: var(--rv-diagonal-split-neutral, transparent); }
+.rv-diagonal-split__upper-bg { clip-path: polygon(0 0, 100% 0, 0 100%); }
+.rv-diagonal-split__lower-bg { clip-path: polygon(100% 0, 100% 100%, 0 100%); }
+.rv-diagonal-split .is-muted { background: var(--rv-diagonal-split-muted, #f3f3f3); }
+.rv-diagonal-split .is-positive { background: var(--rv-diagonal-split-positive, #d2f2e5); }
+.rv-diagonal-split .is-positive-strong { background: var(--rv-diagonal-split-positive-strong, #91dbbf); }
+.rv-diagonal-split .is-warning { background: var(--rv-diagonal-split-warning, #fce6a4); }
+.rv-diagonal-split .is-negative { background: var(--rv-diagonal-split-negative, #fad1d4); }
+.rv-diagonal-split .is-negative-strong { background: var(--rv-diagonal-split-negative-strong, #f18d94); }
+.rv-diagonal-split__upper, .rv-diagonal-split__lower { position: absolute; max-width: calc(100% - 8px); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.rv-diagonal-split__upper { top: 3px; left: 4px; color: var(--rv-diagonal-split-upper-text, var(--rv-ui-text, #111)); }
+.rv-diagonal-split__lower { bottom: 3px; right: 4px; color: var(--rv-diagonal-split-lower-text, var(--rv-ui-text-muted, #737373)); }

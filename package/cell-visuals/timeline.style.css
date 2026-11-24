@@ -66,3 +66,12 @@
     transition: none;
   }
 }
+
+.rv-timeline-marker {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--timeline-marker-color, currentColor);
+  pointer-events: none;
+}

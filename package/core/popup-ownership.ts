@@ -10,6 +10,7 @@ export function ownsPopupTarget(
     visited.add(surface);
     if (surface.contains(target)) return true;
     return [
+      ...(surface.matches('[aria-controls], [data-rv-popup-controls]') ? [surface] : []),
       ...surface.querySelectorAll<HTMLElement>(
         '[aria-controls], [data-rv-popup-controls]',
       ),
@@ -22,7 +23,11 @@ export function ownsPopupTarget(
         .join(' ')
         .split(/\s+/)
         .some((id) => {
-          const popup = surface.ownerDocument.getElementById(id);
+          const root = trigger.getRootNode();
+          const popup =
+            ('getElementById' in root
+              ? (root as Document | ShadowRoot).getElementById(id)
+              : null) ?? surface.ownerDocument.getElementById(id);
           return !!popup && owns(popup);
         }),
     );

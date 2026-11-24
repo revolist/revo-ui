@@ -1,0 +1,12 @@
+.rv-comparison-sparkline { position: relative; width: 100%; height: 100%; display: flex; align-items: center; }
+.rv-comparison-sparkline__target { position: absolute; top: 0; height: 100%; border: 0; padding: 0; background: transparent; cursor: crosshair; }
+.rv-comparison-sparkline__target:focus-visible { outline: 2px solid var(--rv-ui-accent, #2563eb); outline-offset: -2px; }
+.rv-comparison-sparkline__cursor, .rv-comparison-sparkline__marker { display: none; position: absolute; pointer-events: none; }
+.rv-comparison-sparkline__target:hover :is(.rv-comparison-sparkline__cursor, .rv-comparison-sparkline__marker), .rv-comparison-sparkline__target:focus-visible :is(.rv-comparison-sparkline__cursor, .rv-comparison-sparkline__marker) { display: block; }
+.rv-comparison-sparkline__cursor { top: 0; height: 100%; width: 1px; background: var(--rv-ui-border, #ddd); }
+.rv-comparison-sparkline__marker { width: 6px; height: 6px; border: 1px solid white; border-radius: 50%; transform: translate(-50%, -50%); }
+.rv-comparison-sparkline svg { width: 100%; height: 100%; overflow: visible; }
+.rv-comparison-sparkline__line { stroke-width: var(--rv-comparison-sparkline-stroke-width, 1.5px); vector-effect: non-scaling-stroke; }
+.rv-comparison-sparkline__empty { margin-inline: auto; color: var(--rv-cell-muted, #737373); }
+
+.rv-comparison-sparkline__endpoint { position: absolute; box-sizing: border-box; width: 8px; height: 8px; border: 1.5px solid; border-radius: 50%; background: var(--rv-comparison-sparkline-endpoint-bg, white); transform: translate(-50%, -50%); pointer-events: none; }

@@ -47,7 +47,10 @@
     color: var(--rv-configurator-accent-text, var(--rv-ui-accent));
   }
 }
-details[open] > .rv-configurator-summary .rv-configurator-icon {
+details[open]
+  > .rv-configurator-summary
+  .rv-disclosure-summary__icon
+  .rv-configurator-icon {
   transform: rotate(90deg);
 }
 

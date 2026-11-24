@@ -1,0 +1,3 @@
+# Bullet chart
+
+`renderBulletChart(h, options)` is a renderer-neutral target comparison for cell-sized visuals. Set a finite `max`, optional `min` (default zero), an `outlook`, optional `actual` and `target`, and a localized `label`. Optional `display` adds text alongside the visualization. Null or non-finite outlook renders the caller's label as the empty state; invalid optional marks are omitted. Positions clamp to the domain without changing target comparison. Import `@revolist/ui/cell-visuals` and the shared UI styles, or use the Pro `bulletChartRenderer` for RevoGrid. Theme the chart using the `--rv-bullet-*` CSS custom properties.

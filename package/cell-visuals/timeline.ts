@@ -1,8 +1,17 @@
 import type { ElementFactory } from './types';
+import { METRIC_TILE_HISTORY_TOOLTIP, type MetricTileHistory } from './metric-tile-history';
 export interface TimelineEvent {
   readonly start: number;
   readonly end: number;
   readonly label?: string;
+  /** Optional host class for styling a layer. */
+  readonly className?: string;
+}
+
+/** A position on the same numeric domain as timeline events. */
+export interface TimelineMarker {
+  readonly value: number;
+  readonly className?: string;
 }
 
 function timelineEventDescription(event: TimelineEvent): string {
@@ -42,6 +51,7 @@ function getTimelineBars(
   h: (tag: string, props: Record<string, any>, ...children: any[]) => any,
   events: readonly TimelineEvent[],
   rangeValue?: { start: number; end: number },
+  summaryTooltip = false,
 ) {
   const totalRange = normalizeTimelineRange(rangeValue);
   const range = totalRange.end - totalRange.start;
@@ -55,14 +65,18 @@ function getTimelineBars(
 
     return [
       h('div', {
-        class: 'rv-timeline-event-bar',
+        class: [
+          'rv-timeline-event-bar',
+          typeof event.className === 'string' ? event.className : '',
+        ]
+          .filter(Boolean)
+          .join(' '),
         style: {
           left: `${startPercentage}%`,
           width: `${widthPercentage}%`,
           position: 'absolute',
         },
-        'data-tooltip': timelineEventDescription(event),
-        'tooltip-position': 'top',
+        ...(summaryTooltip ? {} : { 'data-tooltip': timelineEventDescription(event), 'tooltip-position': 'top' }),
         role: 'img',
         'aria-label': timelineEventDescription(event),
         key: index, // Ensure unique key for each bar
@@ -108,23 +122,50 @@ export function renderTimeline(
     value: unknown;
     range?: { start: number; end: number };
     ariaLabel?: string | ((events: readonly TimelineEvent[]) => string);
+    markers?: readonly TimelineMarker[];
+    tooltip?: MetricTileHistory;
   },
 ) {
   const { value } = options;
   const events = normalizeTimelineEvents(value);
   const ariaLabel = timelineAccessibleLabel(events, options.ariaLabel);
+  const range = normalizeTimelineRange(options.range);
+  const markers = (options.markers ?? []).flatMap((marker, index) => {
+    if (
+      !marker ||
+      !Number.isFinite(marker.value) ||
+      marker.value < range.start ||
+      marker.value > range.end ||
+      (marker.className !== undefined && typeof marker.className !== 'string')
+    )
+      return [];
+    return [
+      h('span', {
+        class: ['rv-timeline-marker', marker.className]
+          .filter(Boolean)
+          .join(' '),
+        style: {
+          left: `${((marker.value - range.start) / (range.end - range.start)) * 100}%`,
+        },
+        'aria-hidden': 'true',
+        key: `marker-${index}`,
+      }),
+    ];
+  });
 
   return h(
     'div',
     {
       class: 'rv-timeline-container',
-      role: 'img',
+      role: options.tooltip ? 'group' : 'img',
       'aria-label': ariaLabel || undefined,
+      ...(options.tooltip ? { tabIndex: 0, 'data-tooltip': JSON.stringify({ history: options.tooltip, index: -1 }), 'tooltip-type': METRIC_TILE_HISTORY_TOOLTIP, 'tooltip-position': 'top' } : {}),
     },
     [
       h('div', { class: 'rv-timeline-track' }, [
         h('div', { class: 'rv-timeline-bar' }, []), // Background bar
-        ...getTimelineBars(h, events, options.range), // Dynamic event bars
+        ...getTimelineBars(h, events, options.range, !!options.tooltip), // Dynamic event bars
+        ...markers,
       ]),
     ],
   );

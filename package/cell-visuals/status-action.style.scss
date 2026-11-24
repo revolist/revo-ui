@@ -1,0 +1,5 @@
+.rv-status-action { display: flex; align-items: center; justify-content: center; height: 100%; }
+.rv-status-action__button { display: inline-flex; align-items: center; justify-content: center; border: 0; background: transparent; color: inherit; cursor: pointer; }
+.rv-progress-detail { display: grid; gap: 4px; }
+.rv-progress-detail > div { display: flex; align-items: center; gap: 6px; }
+.rv-progress-detail progress { flex: 1; min-width: 0; }

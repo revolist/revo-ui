@@ -14,7 +14,11 @@ export function chartGeometry(data: readonly DistributionChartDatum[]) {
 
 type ChartPoint = { readonly x: number; readonly y: number };
 
-function nextPoint(point: ChartPoint, interpolation: 'linear' | 'step') {
+function nextPoint(point: ChartPoint, interpolation: 'linear' | 'step' | 'smooth', from?: ChartPoint) {
+  if (interpolation === 'smooth' && from) {
+    const midpoint = (from.x + point.x) / 2;
+    return `C ${midpoint} ${from.y}, ${midpoint} ${point.y}, ${point.x} ${point.y}`;
+  }
   return interpolation === 'step'
     ? `H ${point.x} V ${point.y}`
     : `L ${point.x} ${point.y}`;
@@ -24,18 +28,18 @@ function nextPoint(point: ChartPoint, interpolation: 'linear' | 'step') {
 export function chartSegment(
   from: ChartPoint,
   to: ChartPoint,
-  interpolation: 'linear' | 'step' = 'linear',
+  interpolation: 'linear' | 'step' | 'smooth' = 'linear',
 ) {
-  return `M ${from.x} ${from.y} ${nextPoint(to, interpolation)}`;
+  return `M ${from.x} ${from.y} ${nextPoint(to, interpolation, from)}`;
 }
 
 export function chartPath(
   points: readonly ChartPoint[],
-  interpolation: 'linear' | 'step' = 'linear',
+  interpolation: 'linear' | 'step' | 'smooth' = 'linear',
 ) {
   if (!points.length) return '';
   return `M ${points[0].x} ${points[0].y} ${points
     .slice(1)
-    .map((point) => nextPoint(point, interpolation))
+    .map((point, index) => nextPoint(point, interpolation, points[index]))
     .join(' ')}`;
 }

@@ -1,0 +1,139 @@
+.rv-search-action-bar {
+  --rv-search-action-height: 32px;
+  display: inline-flex;
+  align-items: stretch;
+  min-width: 0;
+  max-width: 100%;
+  height: var(--rv-search-action-height);
+  border: 1px solid var(--rv-search-action-border, var(--rv-ui-border));
+  border-radius: 9px;
+  background: var(--rv-search-action-bg, var(--rv-ui-surface));
+  color: var(--rv-ui-text);
+}
+.rv-search-action-bar > .rv-search-input {
+  flex: 1 1 176px;
+  min-width: 0;
+  width: 176px;
+}
+.rv-search-action-bar
+  > .rv-search-input
+  > input:is([type='search'], [type='text']) {
+  height: 100%;
+  min-height: 0;
+  border: 0;
+  border-radius: 9px 0 0 9px;
+  background: transparent;
+  box-shadow: none;
+}
+.rv-search-action-bar .rv-search-input-icon svg {
+  display: block;
+  width: 13px;
+  height: 13px;
+  fill: currentColor;
+}
+.rv-search-action-bar__actions {
+  display: flex;
+  align-items: stretch;
+  align-self: stretch;
+  flex: none;
+}
+.rv-search-action-bar__actions[hidden] {
+  display: none;
+}
+.rv-search-action-bar__actions > * {
+  position: relative;
+  border-inline-start: 1px solid
+    var(--rv-search-action-border, var(--rv-ui-border));
+}
+.rv-search-action-bar__actions > button,
+.rv-search-action-bar__actions > details > summary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 100%;
+  min-height: 0;
+  padding: 0 9px;
+  border: 0;
+  border-inline-start: 1px solid
+    var(--rv-search-action-border, var(--rv-ui-border));
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+.rv-search-action-bar__actions > :last-child,
+.rv-search-action-bar__actions > :last-child > summary {
+  border-radius: 0 8px 8px 0;
+}
+.rv-search-action-bar__actions :is(button, summary):hover {
+  background: var(--rv-ui-surface-hover);
+}
+.rv-search-action-bar :is(input, button, summary):focus-visible {
+  position: relative;
+  z-index: 1;
+  outline: 2px solid var(--rv-ui-focus-ring);
+  outline-offset: -2px;
+}
+@media (max-width: 650px) {
+  .rv-search-action-bar > .rv-search-input {
+    width: 150px;
+    flex-basis: 150px;
+  }
+}
+
+.rv-search-action-bar__actions > details > summary {
+  border-inline-start: 0;
+}
+.rv-search-action-bar__actions > * .dropdown-container {
+  height: 100%;
+}
+.rv-search-action-bar__actions > * .dropdown-trigger {
+  height: 100%;
+  min-height: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+/* The focus ring follows the visible boundary of the complete control. */
+.rv-search-action-bar:has(> .rv-search-input > input:focus-visible) {
+  outline: 2px solid var(--rv-ui-focus-ring);
+  outline-offset: 2px;
+}
+.rv-search-action-bar > .rv-search-input > input:is([type='search'], [type='text']) {
+  padding-inline-start: 32px !important;
+}
+.rv-search-action-bar > .rv-search-input > input:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+.rv-search-action-bar .rv-search-input-icon { z-index: 3; }
+
+/* Dropdowns are segments of the group, not separate outlined controls. */
+.rv-search-action-bar__actions > [role='combobox'],
+.rv-search-action-bar__actions > * [role='combobox'] {
+  box-sizing: border-box;
+  min-height: 0;
+  max-height: calc(var(--rv-search-action-height) - 2px);
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.rv-search-action-bar__actions > * { min-width: 0; max-width: var(--rv-search-action-item-max-width, 180px); }
+.rv-search-action-bar__actions .selected-values {
+  min-width: 0;
+  max-height: calc(var(--rv-search-action-height) - 4px);
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.rv-search-action-bar__actions .selected-tag {
+  flex: 0 0 auto;
+  max-height: calc(var(--rv-search-action-height) - 8px);
+}
+.rv-search-action-bar__actions > button {
+  align-self: stretch;
+  height: auto;
+}

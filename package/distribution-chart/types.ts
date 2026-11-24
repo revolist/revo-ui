@@ -30,7 +30,7 @@ export interface DistributionChartProps {
   readonly formatValue?: (value: number) => string;
   readonly tooltip?: boolean;
   readonly tooltipIndicator?: 'dot' | 'line' | 'dashed' | 'none';
-  readonly interpolation?: 'linear' | 'step';
+  readonly interpolation?: 'linear' | 'step' | 'smooth';
   readonly areaFill?: 'solid' | 'gradient';
   readonly className?: string;
   readonly renderTooltip?: (

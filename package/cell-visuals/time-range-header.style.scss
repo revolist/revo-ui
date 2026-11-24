@@ -1,0 +1,28 @@
+.rv-time-range-header {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  color: var(--rv-time-range-header-color, #737373);
+}
+.rv-time-range-header--between {
+  justify-content: space-between;
+}
+.rv-time-range-header small {
+  white-space: nowrap;
+}
+.rv-time-range-header--positioned { position: relative; height: 100%; align-items: center; width: calc(100% + 2 * var(--rv-time-range-header-outset, 0px)); margin-inline: calc(-1 * var(--rv-time-range-header-outset, 0px)); }
+.rv-time-range-header--positioned small { position: absolute; transform: translateX(-50%); }
+.rv-time-range-header--positioned:dir(rtl) small { transform: translateX(50%); }
+.rv-date-slot-header {
+  height: 100%;
+  box-sizing: border-box;
+  display: grid;
+  place-content: center;
+  gap: 2px;
+  text-align: center;
+  line-height: 1.1;
+}
+.rv-date-slot-header small {
+  color: var(--rv-time-range-header-color, #737373);
+  font-weight: 400;
+}

@@ -1,0 +1,14 @@
+.rv-heat-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 100%;
+  border: 0;
+  padding: 0 8px;
+  background: var(--rv-heat-action-background, transparent);
+  color: var(--rv-heat-action-color, inherit);
+  font: inherit;
+  cursor: pointer;
+}
+.rv-heat-action:focus-visible { outline: 2px solid currentColor; outline-offset: -2px; }

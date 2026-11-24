@@ -5,6 +5,9 @@ import { RemoveButton } from './buttons/remove-button';
 import { getDialogFocusableElements } from './dialog/dialog.dom';
 import { SvgIcon } from './icons';
 import type { ClassPreset } from './presets/types';
+import { renderPreactInto } from './preact-mount';
+import { registerComponentStyles } from './core/component-styles';
+import { layoutStyles } from './component-style-families';
 
 export interface ActionBarAction {
   /** Stable action identifier returned to the host. */
@@ -48,6 +51,15 @@ export interface ActionBarProps {
   preset?: ClassPreset;
   /** Additional CSS classes on the toolbar. */
   className?: string;
+}
+
+/** Mount the shared action bar in a native application-owned host. */
+export function mountActionBar(host: HTMLElement, initial: ActionBarProps) {
+  const StyledActionBar = registerComponentStyles(ActionBar, layoutStyles);
+  const update = (props: ActionBarProps) =>
+    renderPreactInto(host, <StyledActionBar {...props} />);
+  update(initial);
+  return { update, destroy: () => renderPreactInto(host, null) };
 }
 
 /** Contextual toolbar for host-owned bulk selection. */

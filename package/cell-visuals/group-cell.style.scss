@@ -1,0 +1,118 @@
+.rv-group-cell {
+  width: 100%;
+}
+.rv-group-cell--card {
+  height: 100%;
+  padding-block: 8px;
+}
+.rv-group-cell__heading {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+}
+.rv-group-cell--tree .rv-group-cell__heading {
+  width: 100%;
+}
+.rv-group-cell .rv-group-cell__action {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 0;
+  min-height: 0;
+  font: inherit;
+  font-weight: 600;
+  color: inherit;
+  cursor: pointer;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+}
+.rv-group-cell--card .rv-group-cell__action:has(.rv-expand-icon) {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: 7px;
+}
+.rv-group-cell--card .rv-group-cell__action-label {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.rv-group-cell--card .rv-expand-icon { flex: none; color: #999; }
+.rv-group-cell__toggle {
+  margin-left: auto;
+  color: #999;
+  font-size: 14px;
+}
+.rv-group-cell--inline .rv-group-cell__action .rv-expand-icon { margin-inline-start: 6px; }
+.rv-group-cell__details {
+  display: grid;
+  gap: 4px;
+  padding: 12px 6px 0;
+  color: #737373;
+}
+.rv-group-cell__details dl {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 7px;
+  padding-top: 10px;
+  margin: 9px 0 0;
+  border-top: 1px dashed #dedede;
+}
+.rv-group-cell__details dd {
+  margin: 0;
+  text-align: end;
+  color: #171717;
+}
+.rv-group-cell__summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 56px;
+}
+.rv-group-cell__map {
+  width: 46px;
+  height: 56px;
+  flex: none;
+}
+.rv-group-cell__summary > div {
+  display: grid;
+  gap: 4px;
+}
+.rv-group-cell__summary strong {
+  font-size: 16px;
+  color: #171717;
+}
+.rv-group-cell__summary small {
+  color: #007f6e;
+  font-size: 10px;
+}
+.rv-group-cell__rank {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #e2e2e2;
+  background: #f5f5f5;
+  flex: none;
+}
+.rv-group-cell__rank.is-gold {
+  background: #f8db79;
+  border-color: #dec367;
+}
+.rv-group-cell__rank.is-silver {
+  background: #e4ebf4;
+  border-color: #ccd5e4;
+}
+.rv-group-cell__rank.is-bronze {
+  background: #f7dab7;
+  border-color: #efd0a9;
+}
+.rv-group-cell--inline .rv-group-cell__rank {
+  width: 23px;
+  height: 23px;
+}

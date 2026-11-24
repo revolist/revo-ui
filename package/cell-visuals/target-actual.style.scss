@@ -1,0 +1,13 @@
+.rv-target-actual { width: 100%; min-width: 0; text-align: center; line-height: 1.35; }
+.rv-target-actual__card { overflow: hidden; border: 1px solid var(--rv-target-actual-border, var(--rv-ui-border, #dedede)); border-radius: 10px; }
+.rv-target-actual__target, .rv-target-actual__actual { padding: 7px 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rv-target-actual__target { font-weight: 600; background: var(--rv-target-actual-target-bg, var(--rv-ui-surface-sunken, #f7f7f7)); }
+.rv-target-actual__actual { border-top: 1px solid var(--rv-target-actual-border, var(--rv-ui-border, #dedede)); background: var(--rv-target-actual-neutral-bg, var(--rv-ui-surface, #fff)); }
+.rv-target-actual__actual.is-positive { color: var(--rv-target-actual-positive-text, #006b50); background: var(--rv-target-actual-positive-bg, #e5f6ef); }
+.rv-target-actual__actual.is-warning { color: var(--rv-target-actual-warning-text, #8a4a00); background: var(--rv-target-actual-warning-bg, #fff5de); }
+.rv-target-actual__actual.is-negative { color: var(--rv-target-actual-negative-text, #bb0018); background: var(--rv-target-actual-negative-bg, #fee8ea); }
+.rv-target-actual__actual.is-muted, .rv-target-actual__detail.is-muted { color: var(--rv-target-actual-muted-text, #737373); }
+.rv-target-actual__detail { margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--rv-target-actual-muted-text, #737373); font-size: .875em; }
+.rv-target-actual__detail.is-positive { color: var(--rv-target-actual-positive-text, #006b50); }
+.rv-target-actual__detail.is-warning { color: var(--rv-target-actual-warning-text, #a86a00); }
+.rv-target-actual__detail.is-negative { color: var(--rv-target-actual-negative-text, #bb0018); }

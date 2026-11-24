@@ -1,0 +1,14 @@
+.rv-metric-history { display: grid; gap: 5px; min-width: 200px; }
+.rv-metric-history__title { font-size: 12px; }
+.rv-metric-history__subtitle { color: #aaa; }
+.rv-metric-history__rows { display: grid; margin-top: 6px; padding: 4px 8px; border-radius: 6px; background: #242424; }
+.rv-metric-history__row { display: flex; justify-content: space-between; gap: 20px; padding: 5px 0; color: #888; }
+.rv-metric-history__row + .rv-metric-history__row { border-top: 1px dashed #444; }
+.rv-metric-history__row.is-active { color: #fff; }
+.rv-metric-history__label { display: inline-flex; align-items: center; gap: 8px; }
+.rv-metric-history__marker { width: 9px; height: 9px; border: 1px solid currentColor; border-radius: 50%; background: color-mix(in srgb, currentColor 35%, transparent); flex: none; }
+.rv-metric-history__marker.is-filled { background: currentColor; }
+
+.rv-metric-history--summary .rv-metric-history__row > span:last-child { color: #fff; }
+
+.rv-metric-history__footer { display: flex; align-items: center; gap: 8px; margin-top: 6px; color: #fff; }

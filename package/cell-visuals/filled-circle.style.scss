@@ -1,0 +1,8 @@
+.rv-filled-circle { display: inline-flex; align-items: center; gap: 8px; max-width: 100%; color: var(--rv-filled-circle-neutral, #737373); }
+.rv-filled-circle.is-positive { color: var(--rv-filled-circle-positive, #009b70); }
+.rv-filled-circle.is-warning { color: var(--rv-filled-circle-warning, #f08c00); }
+.rv-filled-circle.is-negative { color: var(--rv-filled-circle-negative, #f00045); }
+.rv-filled-circle__ring { display: inline-flex; box-sizing: border-box; width: 18px; height: 18px; border: 2px solid currentColor; border-radius: 50%; padding: 2px; flex: none; }
+.rv-filled-circle__interior { position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: 50%; }
+.rv-filled-circle__fill { position: absolute; inset-inline: 0; bottom: 0; background: currentColor; }
+.rv-filled-circle__value { color: var(--rv-filled-circle-text, var(--rv-ui-text, #111)); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-variant-numeric: tabular-nums; }

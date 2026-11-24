@@ -1,0 +1,121 @@
+.rv-identity-cell {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+  width: 100%;
+}
+.rv-identity-cell__image {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border: 1px solid #e5e5e5;
+  border-radius: 7px;
+  flex: none;
+}
+.rv-identity-cell__copy {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+  max-width: 100%;
+}
+.rv-identity-cell__copy small {
+  color: var(--rv-cell-muted, #737373);
+  font-size: 12px;
+}
+.rv-identity-cell--inline .rv-identity-cell__copy {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.rv-identity-cell--inline .rv-identity-cell__action {
+  min-width: 0;
+}
+.rv-identity-cell__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  min-width: 0;
+}
+.rv-identity-cell__badge {
+  flex: none;
+  color: #555;
+  background: #ededed;
+  border-radius: 8px;
+  padding: 2px 5px;
+  font-size: 9px;
+}
+.rv-identity-cell__badge.is-positive {
+  color: #287d68;
+  background: #dff1ea;
+}
+.rv-identity-cell .rv-identity-cell__action,
+.rv-cell-action.rv-cell-action {
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  min-height: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  text-align: start;
+}
+.rv-identity-cell .rv-identity-cell__action {
+  font-weight: 560;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.rv-status-segments {
+  width: 100%;
+  padding-inline: 4px;
+  font-size: 13px;
+}
+.rv-status-segments__heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 4px;
+}
+.rv-status-segments__heading small {
+  color: var(--rv-cell-muted, #737373);
+  font-size: 11px;
+}
+.rv-status-segments__marks {
+  display: flex;
+  gap: 4px;
+  margin-top: 8px;
+}
+.rv-status-segments__marks i {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--rv-status-neutral, #e4e4e4);
+}
+.rv-status-segments__marks .is-positive {
+  background: var(--rv-status-positive, #59b197);
+}
+.rv-status-segments__marks .is-warning {
+  background: var(--rv-status-warning, #eab308);
+}
+.rv-status-segments__marks .is-negative {
+  background: var(--rv-status-negative, #ca575e);
+}
+.rv-cell-action.rv-cell-action {
+  padding: 2px 4px;
+  line-height: 1.1;
+}
+
+.rv-cell-action__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+.rv-cell-action__icon svg {
+  display: block;
+  width: 14px;
+  height: 14px;
+}

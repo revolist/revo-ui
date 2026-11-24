@@ -1,0 +1,13 @@
+.rv-segmented-bar {
+  display: flex;
+  width: 100%;
+  gap: var(--rv-segmented-bar-gap, 0px);
+  height: var(--rv-segmented-bar-height, 6px);
+  overflow: hidden;
+  background: var(--rv-segmented-bar-track, #eee);
+}
+.rv-segmented-bar__part {
+  flex: none;
+  height: 100%;
+  background: var(--rv-segmented-bar-part, #555);
+}

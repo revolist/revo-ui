@@ -1,0 +1,20 @@
+.rv-dot-histogram { width: 100%; }
+.rv-dot-histogram__plot { position: relative; height: var(--rv-dot-histogram-height, 39px); width: 100%; }
+.rv-dot-histogram__plot .rv-dot-histogram__dot { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: var(--rv-dot-histogram-dot, #c7c7c7); }
+.rv-dot-histogram__plot .rv-dot-histogram__dot.is-highlighted { background: var(--rv-dot-histogram-highlight, #76b5a6); }
+.rv-dot-histogram__axis { display: flex; justify-content: space-between; gap: 4px; color: #737373; font-size: 11px; white-space: nowrap; }
+.rv-segmented-summary { display: grid; gap: 8px; width: 100%; }
+.rv-segmented-summary .rv-segmented-bar { --rv-segmented-bar-height: 4px; --rv-segmented-bar-gap: 0px; }
+.rv-segmented-summary__legend { display: flex; gap: 8px; white-space: nowrap; }
+.rv-segmented-summary__item { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; color: #555; }
+.rv-segmented-summary__item i { width: 7px; height: 7px; flex: none; border-radius: 50%; }
+
+.rv-dot-histogram__plot button.rv-dot-histogram__dot { padding: 0; border: 0; min-width: 0; min-height: 0; cursor: pointer; transition: transform 160ms ease; }
+.rv-dot-histogram__plot button.rv-dot-histogram__dot:hover, .rv-dot-histogram__plot button.rv-dot-histogram__dot:focus-visible { z-index: 2; transform: scale(2); }
+.rv-dot-histogram__plot button.rv-dot-histogram__dot:hover:not(:focus-visible) { outline: none; }
+.rv-dot-histogram__plot button.rv-dot-histogram__dot:focus-visible { outline: 1px solid var(--rv-ui-focus-ring, #2563eb); outline-offset: 1px; }
+@media (prefers-reduced-motion: reduce) { .rv-dot-histogram__plot button.rv-dot-histogram__dot { transition: none; } }
+.rv-dot-histogram__tooltip.rv-tooltip { min-width: 190px; padding: 12px; gap: 4px; }
+.rv-dot-histogram__tooltip > strong { font-size: 13px; }
+.rv-dot-histogram__tooltip-subtitle { color: #aaa; }
+.rv-dot-histogram__tooltip-metric { display: flex; justify-content: space-between; gap: 16px; padding: 8px; margin-top: 8px; border-radius: 6px; background: #242424; }

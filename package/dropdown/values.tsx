@@ -3,6 +3,13 @@ import { h } from 'preact';
 import { RemoveButton } from '../buttons/remove-button';
 import type { DropdownOption, DropdownProps } from './dropdown.types';
 
+export const MultiselectCount = ({ label, count }: { label?: string; count: number }) => (
+  <span className="selected-count-value">
+    <span>{label || 'Select'}</span>
+    <span className="selected-count-badge">{count}</span>
+  </span>
+);
+
 /**
  * Multiselect value component
  * @param options - The options to display

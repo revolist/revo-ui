@@ -1,0 +1,44 @@
+@use './metric-tile-history.style.scss';
+.rv-strip-plot {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 18px;
+}
+.rv-strip-plot::before {
+  position: absolute;
+  inset: 50% 0 auto;
+  height: 1px;
+  background: var(--rv-strip-plot-axis, #e4e4e4);
+  content: '';
+}
+.rv-strip-plot__zero {
+  position: absolute;
+  inset-block: 4px;
+  background: var(
+    --rv-strip-plot-zero,
+    repeating-linear-gradient(135deg, #ffe3e6 0 1px, transparent 1px 4px)
+  );
+}
+.rv-strip-plot__reference {
+  position: absolute;
+  top: 50%;
+  width: 1px;
+  height: 14px;
+  background: var(--rv-strip-plot-reference, #777);
+  transform: translateY(-50%);
+}
+.rv-strip-plot__point {
+  position: absolute;
+  top: 50%;
+  border-radius: 50%;
+  background: var(--rv-strip-plot-point, #4887bc);
+  transform: translate(-50%, -50%);
+}
+
+button.rv-strip-plot__point { padding: 0; cursor: pointer; }
+button.rv-strip-plot__point:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+.rv-strip-plot__point { transition: transform 160ms ease, box-shadow 160ms ease; }
+.rv-strip-plot__point:hover,
+button.rv-strip-plot__point:focus-visible { z-index: 2; transform: translate(-50%, -50%) scale(1.45); box-shadow: 0 0 0 2px var(--rv-ui-surface, white); }
+@media (prefers-reduced-motion: reduce) { .rv-strip-plot__point { transition: none; } }

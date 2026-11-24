@@ -1,0 +1,17 @@
+.rv-bullet-chart {
+  position: relative;
+  height: var(--rv-bullet-height, 9px);
+  border-radius: var(--rv-bullet-radius, 5px);
+  margin-block: var(--rv-bullet-margin, 12px);
+  background: var(--rv-bullet-track, #e7eef6);
+}
+.rv-bullet-chart span { position: absolute; inset-block: 0; border-radius: inherit; }
+.rv-bullet-chart__outlook { background: var(--rv-bullet-outlook, #a2afe6); }
+.rv-bullet-chart__actual { background: var(--rv-bullet-actual, #5599c6); }
+.rv-bullet-chart .rv-bullet-chart__target { inset-block: -3px; width: 1px; background: var(--rv-bullet-target, #42536e); }
+.rv-bullet-chart .rv-bullet-chart__point { width: 9px; transform: translateX(-50%); outline: 1px solid var(--rv-bullet-point-outline, white); background: var(--rv-bullet-point, #138771); }
+.rv-bullet-chart.is-below-target .rv-bullet-chart__point { background: var(--rv-bullet-below-target, #ab6319); }
+.rv-bullet-chart-value { display: flex; align-items: center; gap: 10px; width: 100%; }
+.rv-bullet-chart-value > .rv-bullet-chart { flex: 1; }
+.rv-bullet-chart-value > span { min-width: 28px; text-align: end; color: var(--rv-bullet-value-color, #737373); font-size: 11px; }
+.rv-bullet-chart:focus-visible, .rv-bullet-chart__empty:focus-visible { outline: 2px solid var(--rv-bullet-focus, #2563eb); outline-offset: 2px; }

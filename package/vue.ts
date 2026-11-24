@@ -58,6 +58,11 @@ export const SearchInput = /* @__PURE__ */ createVueAdapter(
   'SearchInput',
   { model: { prop: 'value', callback: 'onValueChange' } },
 );
+export const SearchActionBar = /* @__PURE__ */ createVueAdapter(
+  ui.SearchActionBar,
+  'SearchActionBar',
+  { model: { prop: 'value', callback: 'onValueChange' } },
+);
 export const FilterChip = /* @__PURE__ */ createVueAdapter(
   ui.FilterChip,
   'FilterChip',
@@ -122,6 +127,10 @@ export const CalendarMonthGrid = /* @__PURE__ */ createVueAdapter(
 export const CalendarYearGrid = /* @__PURE__ */ createVueAdapter(
   ui.CalendarYearGrid,
   'CalendarYearGrid',
+);
+export const CalendarNavigator = /* @__PURE__ */ createVueAdapter(
+  ui.CalendarNavigator,
+  'CalendarNavigator',
 );
 export const CalendarPicker = /* @__PURE__ */ createVueAdapter(
   ui.CalendarPicker,
@@ -817,4 +826,13 @@ export const CursorMessage = /* @__PURE__ */ createVueAdapter(
 export const CircularSlider = /* @__PURE__ */ createVueAdapter(
   ui.CircularSlider,
   'CircularSlider',
+);
+
+export const MetricTile = /* @__PURE__ */ createVueAdapter(
+  ui.MetricTile,
+  'MetricTile',
+);
+export const MetricPanel = /* @__PURE__ */ createVueAdapter(
+  ui.MetricPanel,
+  'MetricPanel',
 );

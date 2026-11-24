@@ -105,3 +105,73 @@ export function calculateFloatingEditorPosition(
     placement: fitsRight ? 'right' : 'left',
   };
 }
+
+export interface AlignedPopoverPositionOptions {
+  /** Limit placement to a dialog or other viewport-relative rectangle. */
+  bounds?: Pick<DOMRect, 'left' | 'right' | 'top' | 'bottom'>;
+  align?: 'start' | 'center' | 'end';
+  direction?: 'ltr' | 'rtl';
+  gap?: number;
+  inset?: number;
+}
+
+/** Position a compact anchored surface within the intersection of its bounds and viewport. */
+export function calculateAlignedPopoverPosition(
+  anchor: Pick<DOMRect, 'left' | 'right' | 'top' | 'bottom'>,
+  popup: Pick<DOMRect, 'width' | 'height'>,
+  viewport: { width: number; height: number },
+  {
+    bounds,
+    align = 'start',
+    direction = 'ltr',
+    gap = 4,
+    inset = 8,
+  }: AlignedPopoverPositionOptions = {},
+): { left: number; top: number; placement: 'above' | 'below' } {
+  const screen = {
+    left: 0,
+    top: 0,
+    right: Math.max(0, viewport.width),
+    bottom: Math.max(0, viewport.height),
+  };
+  const clipped = {
+    left: Math.max(screen.left, bounds?.left ?? screen.left),
+    top: Math.max(screen.top, bounds?.top ?? screen.top),
+    right: Math.min(screen.right, bounds?.right ?? screen.right),
+    bottom: Math.min(screen.bottom, bounds?.bottom ?? screen.bottom),
+  };
+  const area =
+    clipped.right > clipped.left && clipped.bottom > clipped.top
+      ? clipped
+      : screen;
+  const clamp = (value: number, min: number, max: number) =>
+    Math.min(Math.max(value, min), Math.max(min, max));
+  const alignRight = (align === 'end') !== (direction === 'rtl');
+  const desiredLeft =
+    align === 'center'
+      ? (anchor.left + anchor.right - popup.width) / 2
+      : alignRight
+        ? anchor.right - popup.width
+        : anchor.left;
+  const below = anchor.bottom + gap,
+    above = anchor.top - gap - popup.height;
+  const placement =
+    below + popup.height <= area.bottom - inset ||
+    (above < area.top + inset &&
+      area.bottom - anchor.bottom >= anchor.top - area.top)
+      ? 'below'
+      : 'above';
+  return {
+    left: clamp(
+      desiredLeft,
+      area.left + inset,
+      area.right - popup.width - inset,
+    ),
+    top: clamp(
+      placement === 'below' ? below : above,
+      area.top + inset,
+      area.bottom - popup.height - inset,
+    ),
+    placement,
+  };
+}

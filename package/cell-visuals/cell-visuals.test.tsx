@@ -79,6 +79,43 @@ describe('renderer-neutral cell visuals', () => {
     act(() => render(null, host));
     expect(host.childNodes).toHaveLength(0);
   });
+  it('supports caller-formatted rank changes without changing default presentation', () => {
+    const host = document.createElement('div');
+    act(() =>
+      render(
+        h('div', {}, [
+          renderChange(h, {
+            value: 2,
+            label: '+2',
+            icons: { positive: '↗' },
+            iconPosition: 'before',
+            negativeParentheses: false,
+          }),
+          renderChange(h, {
+            value: -3,
+            label: '−3',
+            icons: { negative: '↘' },
+            iconPosition: 'before',
+            negativeParentheses: false,
+          }),
+          renderChange(h, { value: 0, label: '—' }),
+          renderChange(h, {
+            value: 0,
+            label: 'unchanged',
+            icons: { neutral: '•' },
+            iconPosition: 'before',
+          }),
+          renderChange(h, { value: 1, label: '+1', icons: { positive: '' } }),
+          renderChange(h, { value: -3, label: '3' }),
+        ]),
+        host,
+      ),
+    );
+    expect(
+      [...host.querySelectorAll('.change-cell')].map((el) => el.textContent),
+    ).toEqual(['↗+2', '↘−3', '—', '•unchanged', '+1', '(3)▼']);
+    act(() => render(null, host));
+  });
   it('draws pie data in native Canvas and safely handles a missing context', () => {
     const clearRect = vi.fn(),
       arc = vi.fn();

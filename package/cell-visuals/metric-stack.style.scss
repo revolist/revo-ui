@@ -1,0 +1,50 @@
+.rv-metric-stack {
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  text-align: end;
+}
+.rv-metric-stack__detail {
+  color: var(--rv-metric-stack-neutral, #737373);
+  font-size: 11px;
+}
+.rv-metric-stack__detail.is-positive {
+  color: var(--rv-metric-stack-positive, #37816d);
+}
+.rv-metric-stack__detail.is-negative {
+  color: var(--rv-metric-stack-negative, #ac414d);
+}
+.rv-metric-stack--inline {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.rv-metric-stack--inline .rv-metric-stack__value {
+  font-weight: 550;
+}
+.rv-metric-stack--inline .rv-metric-stack__value.is-neutral,
+.rv-metric-stack--inline .rv-metric-stack__value.is-negative {
+  font-weight: 400;
+}
+.rv-metric-stack--inline .rv-metric-stack__detail {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 12px;
+}
+.rv-metric-stack__detail svg {
+  width: 12px;
+  height: 12px;
+  flex: none;
+}
+.rv-metric-stack__value.is-negative {
+  color: var(--rv-metric-stack-negative, #c43e43);
+}
+.rv-metric-stack__value.is-positive {
+  color: var(--rv-metric-stack-positive, #37816d);
+}
+.rv-metric-stack__value.is-muted {
+  color: var(--rv-metric-stack-neutral, #737373);
+  font-weight: 400;
+}

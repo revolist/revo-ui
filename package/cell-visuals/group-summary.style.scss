@@ -1,0 +1,8 @@
+.rv-group-summary { box-sizing: border-box; display: flex; flex-direction: column; gap: 8px; width: 100%; min-height: 100%; }
+.rv-group-summary > button { font: inherit; cursor: pointer; }
+.rv-group-summary > p { margin: 0; }
+
+.rv-group-summary__bar { display: flex; height: 6px; overflow: hidden; border-radius: 4px; }
+.rv-group-summary__bar > i { display: block; height: 100%; background: var(--rv-group-summary-segment, #8baea4); }
+.rv-group-summary__heading, .rv-group-summary__segment { border: 0; background: transparent; text-align: start; }
+.rv-group-summary__heading:focus-visible, .rv-group-summary__segment:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }

@@ -1,0 +1,17 @@
+.rv-range-comparison { display: grid; grid-template-columns: minmax(0, 1fr) var(--rv-range-comparison-value-width, 90px); height: 100%; align-items: center; }
+.rv-range-comparison__lane { position: relative; align-self: stretch; min-width: 0; }
+.rv-range-comparison__lane::before { content: ''; position: absolute; left: 0; right: 0; top: 50%; border-top: 1px solid var(--rv-range-comparison-grid, #dedede); }
+.rv-range-comparison__gridline, .rv-range-comparison__goal { position: absolute; top: 0; bottom: 0; border-left: 1px solid var(--rv-range-comparison-grid, #dedede); }
+.rv-range-comparison__goal { border-color: var(--rv-range-comparison-goal, #aaa); }
+.rv-range-comparison__range, .rv-range-comparison__connector { position: absolute; top: 50%; transform: translateY(-50%); }
+.rv-range-comparison__range { height: 7px; border-radius: 6px; background: var(--rv-range-comparison-range, #ddd); opacity: .8; }
+.rv-range-comparison__connector { border-top: 1px solid var(--rv-range-comparison-line, #999); }
+.rv-range-comparison__floor { position: absolute; top: calc(50% - 8px); height: 16px; border-left: 1px dashed var(--rv-range-comparison-floor, #777); }
+.rv-range-comparison__previous, .rv-range-comparison__current { position: absolute; top: 50%; transform: translate(-50%, -50%); border-radius: 50%; box-sizing: border-box; }
+.rv-range-comparison__previous { width: 10px; height: 10px; border: 1px solid var(--rv-range-comparison-previous, #777); background: var(--rv-range-comparison-surface, #fff); }
+.rv-range-comparison__current { width: 14px; height: 14px; border: 1px solid var(--rv-range-comparison-surface, #fff); background: var(--rv-range-comparison-current, #111); }
+.rv-range-comparison__current.is-negative { background: var(--rv-range-comparison-negative, #e00012); }
+.rv-range-comparison__current.is-positive { background: var(--rv-range-comparison-positive, #00866c); }
+.rv-range-comparison__value { text-align: end; padding-inline: 8px; font-variant-numeric: tabular-nums; }
+.rv-range-comparison__value.is-negative { color: var(--rv-range-comparison-negative, #e00012); }
+.rv-range-comparison__value.is-positive { color: var(--rv-range-comparison-positive, #00866c); }

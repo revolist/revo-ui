@@ -63,6 +63,8 @@ export type DropdownConfig<T = any> = {
   autoFocus?: boolean;
   autoOpen?: boolean;
   multiSelect?: boolean;
+  /** Show the placeholder and selected count instead of individual chips. */
+  selectedDisplay?: 'tags' | 'count';
   /** Search directly in the field instead of a separate popup search input. */
   autocomplete?: boolean;
   /** Optional tags mode. Pure factory for a typed new option; null/undefined rejects it.

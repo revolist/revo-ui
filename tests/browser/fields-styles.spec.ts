@@ -499,3 +499,74 @@ for (const component of ['Spinner', 'FilterBadge']) {
     }
   });
 }
+
+test('calendar periods and underlined tabs follow light and dark semantic colors', async ({
+  page,
+}) => {
+  await page.setContent(`
+    <style>*, *::before, *::after { transition: none !important; animation: none !important; }</style>
+    <div data-theme="light" id="light"></div><div data-theme="dark" id="dark"></div>
+    <script>for (const host of document.querySelectorAll('[data-theme]')) host.innerHTML = \`
+      <div class="rv-segmented-switch rv-calendar-period-selector"><button class="rv-segmented-switch-item on">Period</button><button class="rv-segmented-switch-item">Other</button></div>
+      <div class="rv-segmented-switch rv-tabs--underline"><button class="rv-segmented-switch-item on">Tab</button></div>
+      <i class="surface" style="background:var(--rv-ui-surface)"></i><i class="hover" style="background:var(--rv-ui-surface-hover)"></i>
+      <i class="text" style="color:var(--rv-ui-text)"></i><i class="accent" style="color:var(--rv-ui-accent-text)"></i>\`;</script>`);
+  await page.addStyleTag({ content: css });
+  for (const theme of ['dark', 'light']) {
+    const values = await page.locator(`#${theme}`).evaluate((host) => {
+      const style = (selector: string) =>
+        getComputedStyle(host.querySelector(selector)!);
+      return {
+        period: style('.rv-calendar-period-selector').backgroundColor,
+        surface: style('.surface').backgroundColor,
+        active: style('.rv-calendar-period-selector .on').backgroundColor,
+        hover: style('.hover').backgroundColor,
+        periodText: style('.rv-calendar-period-selector .on').color,
+        inactiveText: style(
+          '.rv-calendar-period-selector .rv-segmented-switch-item:not(.on)',
+        ).color,
+        accent: style('.accent').color,
+        tabText: style('.rv-tabs--underline .on').color,
+        text: style('.text').color,
+      };
+    });
+    expect.soft(values.period).toBe(values.surface);
+    expect.soft(values.active).toBe(values.hover);
+    expect.soft(values.periodText).toBe(values.accent);
+    expect.soft(values.inactiveText).toBe(values.text);
+    expect.soft(values.tabText).toBe(values.text);
+  }
+  await page
+    .locator('#dark')
+    .evaluate((host) =>
+      host.setAttribute(
+        'style',
+        '--rv-calendar-period-background: rgb(1, 2, 3); --rv-tabs-active-color: rgb(4, 5, 6)',
+      ),
+    );
+  await expect(page.locator('#dark .rv-calendar-period-selector')).toHaveCSS(
+    'background-color',
+    'rgb(1, 2, 3)',
+  );
+  await expect(page.locator('#dark .rv-tabs--underline .on')).toHaveCSS(
+    'color',
+    'rgb(4, 5, 6)',
+  );
+});
+
+test('aggregate styles include the search action bar layout', async ({
+  page,
+}) => {
+  await page.setContent(
+    '<div class="rv-search-action-bar"><div class="rv-search-input"></div><div class="rv-search-action-bar__actions"><button>Apply</button></div></div>',
+  );
+  await page.addStyleTag({ content: css });
+  await expect(page.locator('.rv-search-action-bar')).toHaveCSS(
+    'display',
+    'inline-flex',
+  );
+  await expect(page.locator('.rv-search-action-bar__actions')).toHaveCSS(
+    'display',
+    'flex',
+  );
+});

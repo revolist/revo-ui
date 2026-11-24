@@ -34,6 +34,8 @@ Month navigation can pass through months disabled by `isMonthDisabled`. Their da
 
 `DatePicker` and `DateRangePicker` accept `open` / `onOpenChange` for controlled popup visibility, or `defaultOpen` to start open. Control the visible month with `month` / `onMonthChange`, or set its initial value with `defaultMonth`. The `dateInput` options configure text entry without changing ISO output. Set `dateInput={false}` to show just the calendar trigger and any selected value.
 
+When opened inside an open native dialog, date-picker calendars are hosted in that dialog so they remain interactive above it. A `popup.appendTo` target within the dialog is honored; targets outside it fall back to the picker’s local scope inside the dialog, including within a shadow root. Closing the owning dialog requests that the calendar close. Outside a dialog, the configured popup target is unchanged.
+
 Use `defaultValue` for an uncontrolled selection and `closeOnSelect={false}` to keep the popup open. `name` on `DatePicker` and `fromName` / `toName` on `DateRangePicker` submit ISO dates even with localized text entry. `required` checks for a committed selection on form submission. Use `clearable` with a localized `clearLabel` and supply `onClear` to clear a controlled range.
 
 Omit `value` to let the picker manage selection, even when listening to `onChange`. Native form reset restores the initial selection for an uncontrolled picker. When replacing a typed range, the form keeps the previous committed ISO values until both new endpoints form a valid range.
@@ -49,3 +51,23 @@ Shared styles use UI tokens and legacy filter aliases. Selected endpoints use `-
 The gallery includes basic, range, multiple, dropdowns, presets, time, booked/custom cells, week numbers, both non-Gregorian systems, timezone-safe Today and natural-week/locked-navigation examples. Tests separately cover date arithmetic, new selection behavior and existing Pro date-filter commits.
 
 Use `Legend` from `@revolist/ui/legend` beside a calendar or another visual control. It accepts a labelled `items` list with optional `tone`, CSS `color`, and `marker` (`solid`, `outline`, or `dashed`). Entries flow inline and wrap within their container. The older `@revolist/ui/filter-controls` export remains supported. A shared legend example appears next to Calendar in the gallery.
+
+## Calendar navigator
+
+`CalendarNavigator` combines previous, today, next and a date-picker popup. It is controlled through ISO civil dates, and performs navigation using the shared date utilities. Provide a reference `today`, an `onChange` callback, optional `stepDays` (seven by default), translated `labels`, and optional `calendar` options such as locale, week start, date bounds and formatting.
+
+```tsx
+<CalendarNavigator
+  value={visibleStart}
+  today={today}
+  stepDays={7}
+  onChange={setVisibleStart}
+  labels={{ previous: 'Previous week', next: 'Next week', calendar: 'Start date', dialog: 'Choose start date' }}
+/>
+```
+
+For vanilla applications, `mountCalendarNavigator(host, props)` is exported from `@revolist/ui/native`; its returned `update(props)` and `destroy()` methods manage the control and popup lifecycle. The component is available from `@revolist/ui/react`, `@revolist/ui/vue`, `@revolist/ui/preact`, and `@revolist/ui/calendar/index`. It reuses `DatePicker` for popup dismissal, selection, and focus restoration. Load the calendar and picker style families when not using automatic component styles.
+
+`CalendarPeriodSelector` provides a controlled selection of caller-defined reporting periods using the shared segmented switch. Supply translated option labels, a group `ariaLabel`, the current `value`, and `onChange`. The native `mountCalendarPeriodSelector(host, props)` adapter returns `update` and `destroy`; import its calendar styles for the default presentation. Date calculations remain the caller's responsibility.
+
+For form-compatible native date fields, `createCalendarField(document, { label, openLabel, value })` is exported from `@revolist/ui/native`. The returned element exposes `value`, `valueAsNumber`, `required`, `disabled`, `min`, `max`, `focus()` and `showPicker()`, and emits the native input's bubbling `change` event. It disposes its calendar popup on disconnection. Supply localized labels and load `@revolist/ui/calendar/date-field.css` and the calendar styles; optional classes let a host style the trigger and popup.

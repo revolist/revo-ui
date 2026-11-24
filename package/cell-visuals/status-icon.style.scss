@@ -1,0 +1,8 @@
+.rv-status-icon { display: inline-block; flex: none; vertical-align: middle; }
+.rv-status-icon--not-started { color: var(--rv-status-not-started, #777); }
+.rv-status-icon--pending { color: var(--rv-status-pending, #e7a000); }
+.rv-status-icon--passed { color: var(--rv-status-passed, #00ad7c); }
+.rv-status-icon--failed { color: var(--rv-status-failed, #e00018); }
+.rv-status-icon-option { display: flex; align-items: center; gap: 10px; width: 100%; }
+.rv-status-icon-option__selected { margin-inline-start: auto; }
+.rv-status-icon-cell { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }

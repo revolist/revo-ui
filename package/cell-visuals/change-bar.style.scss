@@ -1,0 +1,5 @@
+.rv-change-bar { display: flex; align-items: center; gap: 6px; width: 100%; }
+.rv-change-bar__track { flex: 1; min-width: 0; height: 4px; border-radius: 3px; background: var(--rv-ui-border); }
+.rv-change-bar__track > span { display: block; height: 100%; border-radius: inherit; background: currentColor; }
+.rv-change-bar.is-up { color: var(--rv-ui-success, #008779); }
+.rv-change-bar.is-down { color: var(--rv-ui-danger, #d62858); }

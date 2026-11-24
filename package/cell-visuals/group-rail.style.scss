@@ -1,0 +1,4 @@
+:where(.rv-group-rail) { display: flex; min-width: 0; width: 100%; }
+:where(.rv-group-rail__toggle) { font: inherit; cursor: pointer; }
+:where(.rv-group-rail__details) { min-width: 0; flex: 1; }
+:where(.rv-group-rail__toggle):focus-visible { outline: 2px solid currentColor; outline-offset: -2px; }

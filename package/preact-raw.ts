@@ -145,3 +145,7 @@ export * from './backup-history';
 export * from './history-review';
 export * from './cursor';
 export * from './circular-slider';
+
+export * from './metric-panel';
+
+export { SearchActionBar, type SearchActionBarProps } from './search-action-bar';

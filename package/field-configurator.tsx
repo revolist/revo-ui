@@ -1,6 +1,7 @@
 import type { ClassPreset } from './presets/types';
 import { PanelResizeHandle } from './controls';
 import { TooltipText } from './core/tooltip-text';
+import { useTitleTooltip } from './core/title-tooltip';
 import { RemoveButton } from './buttons/remove-button';
 import { h, type ComponentChildren, type JSX } from 'preact';
 import { SvgIcon } from './icons/icon';
@@ -60,12 +61,14 @@ export function FieldLibrary({
   title,
   id,
   count,
+  icon,
   children,
   className = '',
 }: {
   title: string;
   id?: string;
   count?: ComponentChildren;
+  icon?: ComponentChildren;
   children: ComponentChildren;
   preset?: ClassPreset;
   className?: string;
@@ -78,7 +81,10 @@ export function FieldLibrary({
       open
     >
       <FieldSummary>
-        {title}
+        <span class="rv-configurator-library-title">
+          {icon}
+          {title}
+        </span>
         {count != null && (
           <span class="rv-configurator-field-count">{count}</span>
         )}
@@ -441,6 +447,50 @@ export interface ConfiguratorMiniModeConfig {
   resizable?: boolean;
 }
 
+function ConfiguratorRailButton({
+  item,
+  railEnabled,
+  compact,
+  active,
+  contentId,
+  onActivate,
+}: {
+  item: ConfiguratorCompactItem;
+  railEnabled: boolean;
+  compact: boolean;
+  active: boolean;
+  contentId: string;
+  onActivate: () => void;
+}) {
+  const label = `${item.label}${item.count === undefined ? '' : ` (${item.count})`}`;
+  const hint = useTitleTooltip<HTMLButtonElement>(label);
+  return (
+    <ButtonControl
+      ref={hint}
+      unstyled
+      class="rv-btn rv-btn-ghost rv-configurator-rail__button"
+      aria-label={label}
+      aria-expanded={railEnabled ? !compact && active : undefined}
+      aria-controls={railEnabled ? contentId : undefined}
+      disabled={item.disabled}
+      onClick={onActivate}
+    >
+      <FieldIcon svg={item.icon ?? panelIcon} />
+      {railEnabled && (
+        <span class="rv-configurator-rail__label">{item.label}</span>
+      )}
+      {item.count !== undefined && (
+        <Badge
+          className="rv-configurator-rail__count"
+          variant={item.count ? 'accent' : 'neutral'}
+        >
+          {item.count}
+        </Badge>
+      )}
+    </ButtonControl>
+  );
+}
+
 /** Shared panel shell. Collapsing preserves mounted controls and their drafts. */
 export function ConfiguratorPanel({
   panelRef,
@@ -465,6 +515,7 @@ export function ConfiguratorPanel({
     resizeParent?: boolean;
   }) {
   const [expanded, setExpanded] = useState<boolean>();
+  const [activeRailItem, setActiveRailItem] = useState<string>();
   const railEnabled = miniMode || resizable;
   const compact = railEnabled ? !(expanded ?? !miniMode) : compactProp;
   const [width, setWidth] = useState<number>();
@@ -497,15 +548,28 @@ export function ConfiguratorPanel({
     else {
       const target =
         destination.current &&
-        collapse.current?.ownerDocument.getElementById(destination.current);
-      (target || collapse.current)?.focus();
+        rail.current?.ownerDocument.getElementById(destination.current);
+      (
+        target ||
+        (miniMode
+          ? rail.current?.querySelector<HTMLButtonElement>(
+              'button:not(:disabled)',
+            )
+          : collapse.current)
+      )?.focus();
     }
   }, [compact]);
 
   const reopen = (item: ConfiguratorCompactItem) => {
     if (railEnabled) {
+      if (miniMode && !compact && activeRailItem === item.id) {
+        setExpanded(false);
+        setActiveRailItem(undefined);
+        return;
+      }
       destination.current = item.targetId;
-      moveFocus.current = true;
+      moveFocus.current = compact;
+      setActiveRailItem(item.id);
       setExpanded(true);
     }
     onExpand?.();
@@ -535,7 +599,7 @@ export function ConfiguratorPanel({
       data-resizable={resizable ? 'true' : undefined}
       className={`rv-configurator-panel ${standalone ? 'rv-configurator-panel--standalone' : ''} ${props.className ?? ''}`}
     >
-      {compact && railItems && (
+      {(compact || miniMode) && railItems && (
         <div
           ref={rail}
           className="rv-configurator-rail"
@@ -543,30 +607,15 @@ export function ConfiguratorPanel({
           aria-label={props['aria-label'] ?? 'Configurator'}
         >
           {railItems.map((item) => (
-            <ButtonControl
+            <ConfiguratorRailButton
               key={item.id}
-              unstyled
-              class="rv-btn rv-btn-ghost rv-configurator-rail__button"
-              aria-label={`${item.label}${item.count === undefined ? '' : ` (${item.count})`}`}
-              title={`${item.label}${item.count === undefined ? '' : ` (${item.count})`}`}
-              aria-expanded={railEnabled ? false : undefined}
-              aria-controls={railEnabled ? contentId : undefined}
-              disabled={item.disabled}
-              onClick={() => reopen(item)}
-            >
-              <FieldIcon svg={item.icon ?? panelIcon} />
-              {railEnabled && (
-                <span class="rv-configurator-rail__label">{item.label}</span>
-              )}
-              {item.count !== undefined && (
-                <Badge
-                  className="rv-configurator-rail__count"
-                  variant={item.count ? 'accent' : 'neutral'}
-                >
-                  {item.count}
-                </Badge>
-              )}
-            </ButtonControl>
+              item={item}
+              railEnabled={railEnabled}
+              compact={compact}
+              active={activeRailItem === item.id}
+              contentId={contentId}
+              onActivate={() => reopen(item)}
+            />
           ))}
         </div>
       )}
@@ -585,7 +634,7 @@ export function ConfiguratorPanel({
           }}
         />
       )}
-      {railEnabled && !compact && (
+      {railEnabled && !miniMode && !compact && (
         <div class="rv-configurator-panel__toggle">
           <ButtonControl
             ref={collapse}

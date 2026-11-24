@@ -1,0 +1,24 @@
+.rv-diverging-bars {
+  display: flex;
+  align-items: center;
+  gap: var(--rv-diverging-bars-gap, 2px);
+  width: 100%;
+  height: var(--rv-diverging-bars-height, 22px);
+}
+.rv-diverging-bars__bar {
+  flex: 1;
+  min-width: 1px;
+  border-radius: 1px 1px 0 0;
+  background: var(--rv-diverging-bars-positive, #5eac9a);
+  transform: translateY(-50%);
+}
+.rv-diverging-bars__bar.is-negative {
+  background: var(--rv-diverging-bars-negative, #d67678);
+  transform: translateY(50%);
+}
+.rv-diverging-bars__bar.is-missing {
+  visibility: hidden;
+}
+.rv-diverging-bars__bar.is-highlighted {
+  background: var(--rv-diverging-bars-highlight, #555);
+}

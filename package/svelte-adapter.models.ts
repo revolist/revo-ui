@@ -2,6 +2,7 @@
 export interface SvelteModelCallbacks {
   AiPromptInput: 'onValueChange';
   SearchInput: 'onValueChange';
+  SearchActionBar: 'onValueChange';
   SharedResourcePicker: 'onChange';
   CalendarPicker: 'onSelectionChange';
   ColorPalette: 'onChange';
