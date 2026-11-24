@@ -16,6 +16,7 @@ import { styleEntrypoints } from './style-entrypoints.mjs';
 import { compileAsync } from 'sass-embedded';
 import { compile as compileSvelte } from 'svelte/compiler';
 import { transform as compactJavaScript } from 'esbuild';
+import { transformAsync } from '@babel/core-angular';
 import {
   forwardPublicDeclaration,
   sharePdfWorker,
@@ -550,6 +551,23 @@ for (const name of ['OWNERSHIP.md', 'MIGRATION.md', 'LICENSE'])
   if (existsSync(resolve(root, name)))
     cpSync(resolve(root, name), resolve(output, name));
 sharePdfWorker(output);
+// Compact the standalone ES module without removing pure annotations. Those
+// annotations are needed by consumers that tree-shake the browser entrypoint.
+const browserModule = resolve(output, 'browser/revo-ui.js');
+const compactBrowser = await transformAsync(
+  readFileSync(browserModule, 'utf8'),
+  {
+    filename: browserModule,
+    sourceType: 'module',
+    babelrc: false,
+    configFile: false,
+    compact: true,
+    minified: false,
+    comments: true,
+  },
+);
+if (!compactBrowser?.code) throw new Error('Cannot compact browser module');
+writeFileSync(browserModule, compactBrowser.code);
 await compactAngularRuntime(output);
 console.log(
   `Public package prepared at ${output}; no registry publication performed.`,

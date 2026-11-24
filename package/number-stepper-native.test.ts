@@ -41,3 +41,15 @@ describe('native number stepper', () => {
     expect(input.value).toBe('1.5');
   });
 });
+
+it('preserves fractional bounds when stepping with any precision', () => {
+  const input = document.createElement('input');
+  input.type = 'number';
+  input.step = 'any';
+  input.max = '0.5';
+  input.value = '0';
+  const stepper = createNumberStepperElement({ input, decreaseLabel: 'Decrease', increaseLabel: 'Increase' });
+  stepper.increase.click();
+  expect(input.valueAsNumber).toBe(0.5);
+  expect(input.validity.rangeOverflow).toBe(false);
+});

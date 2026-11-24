@@ -38,7 +38,7 @@ export function createNumberStepperElement(options: NativeNumberStepperOptions) 
       return Math.max(0, (coefficient.split('.')[1]?.length ?? 0) - Number(exponent));
     };
     const places = Math.max(decimalPlaces(previous), decimalPlaces(input.step === 'any' || !input.step ? '1' : input.step), decimalPlaces(input.min));
-    if (places <= 15 && Number.isFinite(input.valueAsNumber)) {
+    if (input.step !== 'any' && places <= 15 && Number.isFinite(input.valueAsNumber)) {
       input.value = String(Number(input.valueAsNumber.toFixed(places)));
     }
     if (input.value !== previous) {
