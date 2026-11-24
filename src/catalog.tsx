@@ -903,15 +903,24 @@ export function CatalogShell({
                             if (score(item.name) > score(current.name))
                               current.name = item.name;
                           }
+                          const primaryControl = [...grouped.values()].find(
+                            (item) =>
+                              item.aliases.some(
+                                (name) =>
+                                  normalizeSearch(name) ===
+                                  normalizeSearch(family.title),
+                              ),
+                          );
                           const familyControls = [...grouped.values()]
                             .filter(
                               (item) =>
-                                !normalizedQuery ||
-                                item.aliases.some((name) =>
-                                  normalizeSearch(name).includes(
-                                    normalizedQuery,
-                                  ),
-                                ),
+                                item !== primaryControl &&
+                                (!normalizedQuery ||
+                                  item.aliases.some((name) =>
+                                    normalizeSearch(name).includes(
+                                      normalizedQuery,
+                                    ),
+                                  )),
                             )
                             .sort((a, b) => a.name.localeCompare(b.name));
                           const matching = familyControls.filter((item) =>
@@ -928,10 +937,15 @@ export function CatalogShell({
                               <a
                                 class="catalog-nav-family-link"
                                 href={componentHref(sectionId(family.title))}
+                                data-controls={primaryControl?.aliases.join(
+                                  '|',
+                                )}
                                 aria-current={
                                   component?.title === family.title &&
-                                  !anchor &&
-                                  !activeControl
+                                  ((!anchor && !activeControl) ||
+                                    (!!anchor &&
+                                      !!primaryControl &&
+                                      primaryControl.href.endsWith(anchor)))
                                     ? 'location'
                                     : undefined
                                 }

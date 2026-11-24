@@ -4553,13 +4553,15 @@ body {
 }
 .catalog-nav-family {
   margin-inline-start: 8px;
-  border-inline-start: 1px solid var(--rv-ui-border);
   padding-inline-start: 8px;
 }
 .catalog-nav-examples {
   list-style: none;
   margin: 0 0 8px;
+  margin-inline-start: 8px;
   padding: 0;
+  padding-inline-start: 8px;
+  border-inline-start: 1px solid var(--rv-ui-border);
 }
 .catalog-nav-family-link:hover,
 .catalog-nav-examples a:hover {

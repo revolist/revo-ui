@@ -1128,7 +1128,7 @@ test('sidebar merges controls with the same destination and searches their alias
   );
 });
 
-test('sidebar families and controls use the same alignment and typography', async ({
+test('sidebar indents controls beneath their family with a vertical guide', async ({
   page,
 }) => {
   await page.goto('/components/buttons/');
@@ -1136,33 +1136,46 @@ test('sidebar families and controls use the same alignment and typography', asyn
   const family = nav.getByRole('link', { name: 'Buttons', exact: true });
   const control = nav.getByRole('link', { name: 'ButtonGroup', exact: true });
   await expect(control).toBeVisible();
-  const styles = await Promise.all(
-    [family, control].map((link) =>
-      link.evaluate((element) => {
-        const style = getComputedStyle(element);
-        const bounds = element.getBoundingClientRect();
-        return {
-          left: bounds.left,
-          size: style.fontSize,
-          weight: style.fontWeight,
-          padding: style.paddingInlineStart,
-        };
-      }),
-    ),
-  );
-  expect(styles[0]).toEqual(styles[1]);
-  await expect(family.locator('..')).toHaveCSS(
-    'border-inline-start-style',
-    'solid',
-  );
-  const guideAlignment = await family.locator('..').evaluate((group) => {
-    const category = group.closest('.catalog-nav-group')!.querySelector('p')!;
+  const geometry = await control.evaluate((element) => {
+    const list = element.closest('ul')!;
+    const parent = list.parentElement!.querySelector(
+      '.catalog-nav-family-link',
+    )!;
+    const parentStyle = getComputedStyle(parent);
     return {
-      guide: group.getBoundingClientRect().left,
-      label:
-        category.getBoundingClientRect().left +
-        parseFloat(getComputedStyle(category).paddingLeft),
+      parentText:
+        parent.getBoundingClientRect().left +
+        parseFloat(parentStyle.paddingLeft),
+      guide: list.getBoundingClientRect().left,
+      child: element.getBoundingClientRect().left,
+      border: getComputedStyle(list).borderInlineStartStyle,
+      parentFont: parentStyle.fontSize,
+      childFont: getComputedStyle(element).fontSize,
     };
   });
-  expect(Math.abs(guideAlignment.guide - guideAlignment.label)).toBeLessThan(1);
+  await expect(family).toBeVisible();
+  expect(geometry.border).toBe('solid');
+  expect(Math.abs(geometry.guide - geometry.parentText)).toBeLessThan(1);
+  expect(geometry.child).toBeGreaterThan(geometry.guide);
+  expect(geometry.parentFont).toBe(geometry.childFont);
+});
+
+test('sidebar does not repeat a control already named by its family', async ({
+  page,
+}) => {
+  await page.goto('/components/command-palette/');
+  const nav = page.getByRole('navigation', { name: 'Component sections' });
+  const family = nav.getByRole('link', {
+    name: 'Command palette',
+    exact: true,
+  });
+  await expect(family).toBeVisible();
+  await expect(family).toHaveAttribute('data-controls', /CommandPalette/);
+  await expect(
+    nav.getByRole('link', { name: 'CommandPalette', exact: true }),
+  ).toHaveCount(0);
+  await page
+    .getByRole('searchbox', { name: 'Find a component' })
+    .fill('CommandPalette');
+  await expect(family).toBeVisible();
 });
