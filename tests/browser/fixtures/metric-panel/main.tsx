@@ -1,7 +1,7 @@
 import { h, render } from 'preact';
-import { MetricPanel, MetricTile } from '../../../../package/preact';
-import '../../../../package/styles.scss';
-import { renderGroupRail } from '../../../../package/cell-visuals/group-rail';
+import { MetricPanel, MetricTile } from '@revolist/ui/preact';
+import '@revolist/ui/styles.scss';
+import { renderGroupRail } from '@revolist/ui/cell-visuals';
 
 render(
   <>
