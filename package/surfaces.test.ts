@@ -23,6 +23,29 @@ const button = (label: string) => {
 };
 
 describe('standalone surface lifecycle', () => {
+  it('contains wheel gestures at popover boundaries and restores behavior on close', () => {
+    const anchor = button('Open');
+    const content = document.createElement('div');
+    const list = document.createElement('div');
+    list.style.overflowY = 'auto';
+    Object.defineProperties(list, { scrollHeight: { value: 300 }, clientHeight: { value: 100 } });
+    content.append(list);
+    const controller = new PopoverController();
+    controller.open({ anchor, content });
+    const wheel = (target: Element, deltaY: number) => {
+      const event = new WheelEvent('wheel', { bubbles: true, cancelable: true, deltaY });
+      target.dispatchEvent(event);
+      return event.defaultPrevented;
+    };
+    expect(wheel(content, 50)).toBe(true);
+    expect(wheel(list, 50)).toBe(false);
+    list.scrollTop = 200;
+    expect(wheel(list, 50)).toBe(true);
+    expect(wheel(list, -50)).toBe(false);
+    controller.close();
+    expect(wheel(content, 50)).toBe(false);
+  });
+
   it('preserves subtree motion opt-out across portals and restores reused content', () => {
     const source = document.createElement('section');
     source.setAttribute('data-rv-ui-motion', 'off');
@@ -342,4 +365,51 @@ it('resizes using bounded RTL keyboard input and releases active pointer listene
   change.mockClear();
   handle.dispatchEvent(new KeyboardEvent('keydown', { key: 'Home' }));
   expect(change).not.toHaveBeenCalled();
+});
+
+it('supports custom geometry anchors and optional scroll dismissal', () => {
+  const trigger = button('Open');
+  const geometry = document.createElement('div');
+  document.body.append(geometry);
+  vi.spyOn(trigger, 'getBoundingClientRect').mockReturnValue(
+    new DOMRect(20, 30, 10, 10),
+  );
+  vi.spyOn(geometry, 'getBoundingClientRect').mockReturnValue(
+    new DOMRect(100, 120, 30, 20),
+  );
+  const content = document.createElement('div');
+  const position = vi.fn((anchor: DOMRect) => ({
+    left: anchor.left + 5,
+    top: anchor.bottom + 6,
+  }));
+  const onClose = vi.fn();
+  const controller = new PopoverController();
+  disposers.push(() => controller.destroy());
+  controller.open({
+    anchor: trigger,
+    positionAnchor: geometry,
+    content,
+    position,
+    closeOnScroll: true,
+    onClose,
+  });
+  expect(content.style.left).toBe('105px');
+  expect(content.style.top).toBe('146px');
+  document.dispatchEvent(new Event('scroll'));
+  expect(controller.isOpen).toBe(false);
+  expect(onClose).toHaveBeenCalledOnce();
+});
+
+it('keeps a popover open while its own content scrolls and closes for outside scroll', () => {
+  const anchor = button('Targets');
+  const content = document.createElement('div');
+  const list = document.createElement('div');
+  content.append(list);
+  const controller = new PopoverController();
+  disposers.push(() => controller.destroy());
+  controller.open({ anchor, content, closeOnScroll: true });
+  list.dispatchEvent(new Event('scroll', { bubbles: false }));
+  expect(controller.isOpen).toBe(true);
+  document.dispatchEvent(new Event('scroll'));
+  expect(controller.isOpen).toBe(false);
 });

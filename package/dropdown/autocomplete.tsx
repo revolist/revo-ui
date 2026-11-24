@@ -20,7 +20,7 @@ import {
 } from './content';
 import { getSelectedOptions, useDropdownService } from './dropdown.service';
 import { useRemoteDropdown } from './remote-hook';
-import { MultiselectValue } from './values';
+import { MultiselectCount, MultiselectValue } from './values';
 import type { DropdownOption, DropdownProps } from './dropdown.types';
 
 /** Editable field adapter; the shared service owns filtering, selection and tags. */
@@ -214,7 +214,9 @@ export function AutocompleteDropdown<T>(props: DropdownProps<T>) {
           input.current?.focus({ preventScroll: true });
         }}
       >
-        {multiSelect && service.selectedOptions.length > 0 && (
+        {multiSelect && service.selectedOptions.length > 0 && (config.selectedDisplay === 'count' ? (
+          <MultiselectCount label={props.placeholder} count={service.selectedOptions.length} />
+        ) : (
           <MultiselectValue
             options={service.selectedOptions}
             renderValue={props.renderValue}
@@ -225,7 +227,7 @@ export function AutocompleteDropdown<T>(props: DropdownProps<T>) {
             disabled={disabled}
             removeLabel={config.removeLabel}
           />
-        )}
+        ))}
         <input
           ref={input}
           id={id}

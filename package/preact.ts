@@ -48,6 +48,8 @@ export const ChoiceChip: typeof ui.ChoiceChip =
   /* @__PURE__ */ registerComponentStyles(ui.ChoiceChip, layoutStyles);
 export const SearchInput: typeof ui.SearchInput =
   /* @__PURE__ */ registerComponentStyles(ui.SearchInput, layoutStyles);
+export const SearchActionBar: typeof ui.SearchActionBar =
+  /* @__PURE__ */ registerComponentStyles(ui.SearchActionBar, layoutStyles);
 export const FilterChip: typeof ui.FilterChip =
   /* @__PURE__ */ registerComponentStyles(ui.FilterChip, layoutStyles);
 export const FormField: typeof ui.FormField =
@@ -83,6 +85,8 @@ export const CalendarMonthGrid: typeof ui.CalendarMonthGrid =
   /* @__PURE__ */ registerComponentStyles(ui.CalendarMonthGrid, calendarStyles);
 export const CalendarYearGrid: typeof ui.CalendarYearGrid =
   /* @__PURE__ */ registerComponentStyles(ui.CalendarYearGrid, calendarStyles);
+export const CalendarNavigator: typeof ui.CalendarNavigator =
+  /* @__PURE__ */ registerComponentStyles(ui.CalendarNavigator, pickerStyles);
 export const CalendarPicker: typeof ui.CalendarPicker =
   /* @__PURE__ */ registerComponentStyles(ui.CalendarPicker, pickerStyles);
 export const SharedResourcePicker: typeof ui.SharedResourcePicker =
@@ -511,3 +515,8 @@ export const CursorMessage: typeof ui.CursorMessage =
 
 export const CircularSlider: typeof ui.CircularSlider =
   /* @__PURE__ */ registerComponentStyles(ui.CircularSlider, fieldsStyles);
+
+export const MetricTile: typeof ui.MetricTile =
+  /* @__PURE__ */ registerComponentStyles(ui.MetricTile, layoutStyles);
+export const MetricPanel: typeof ui.MetricPanel =
+  /* @__PURE__ */ registerComponentStyles(ui.MetricPanel, layoutStyles);

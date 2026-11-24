@@ -1,4 +1,6 @@
 {
+  "MetricTile": { "parts": ["root", "label", "value", "detail"], "states": [] },
+  "MetricPanel": { "parts": ["root"], "states": [] },
   "ActivityMessage": {
     "parts": ["avatar", "card", "header", "root", "time"],
     "states": []
@@ -589,6 +591,10 @@
   },
   "ResourcePickerAvatar": {
     "parts": ["root"],
+    "states": []
+  },
+  "SearchActionBar": {
+    "parts": ["icon", "input", "root"],
     "states": []
   },
   "SearchInput": {

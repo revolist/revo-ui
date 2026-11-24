@@ -8,6 +8,7 @@
 
 @use './activity-timeline';
 @use './activity-message';
+@use './metric-panel';
 
 @use './trace';
 
@@ -23,3 +24,5 @@
 @use './action-bar';
 @use './history';
 @use './cursor';
+
+@use '../search-action-bar';

@@ -1,4 +1,5 @@
 import { applyPopupPosition } from './popup-position';
+import { bindAriaDescription } from './aria-description';
 import {
   claimTooltip,
   releaseTooltip,
@@ -45,7 +46,7 @@ export class TooltipSession {
   };
   private open = false;
   private disposed = false;
-  private addedDescription = false;
+  private unbindDescription?: () => void;
   private classes: string[] = [];
   private styleKeys: string[] = [];
   private details?: TooltipChangeDetails;
@@ -195,14 +196,7 @@ export class TooltipSession {
       positionArea: 'none',
     });
     this.mode = showTopLayerPopup(surface, 'flex');
-    const descriptions = new Set(
-      (anchor.getAttribute('aria-describedby') ?? '')
-        .split(/\s+/)
-        .filter(Boolean),
-    );
-    this.addedDescription = !descriptions.has(surface.id);
-    descriptions.add(surface.id);
-    anchor.setAttribute('aria-describedby', [...descriptions].join(' '));
+    this.unbindDescription = bindAriaDescription(anchor, surface.id);
     this.open = true;
     this.options.group?.opened(this);
     this.position(anchor, surface);
@@ -345,15 +339,8 @@ export class TooltipSession {
     this.pointerTravel = false;
     this.hoverArea = undefined;
     this.options.group?.closed(this);
-    if (anchor && this.addedDescription && surface) {
-      const remaining = (anchor.getAttribute('aria-describedby') ?? '')
-        .split(/\s+/)
-        .filter((id) => id && id !== surface.id);
-      if (remaining.length)
-        anchor.setAttribute('aria-describedby', remaining.join(' '));
-      else anchor.removeAttribute('aria-describedby');
-    }
-    this.addedDescription = false;
+    this.unbindDescription?.();
+    this.unbindDescription = undefined;
     const finish = () => {
       if (surface) {
         hideTopLayerPopup(surface, this.mode);

@@ -68,3 +68,23 @@ it('retains bounds, step, threshold hooks and hidden-value mode', () => {
   expect(input.style.getPropertyValue('--rv-single-slider-value')).toBe('50%');
   expect(host.querySelector('.revo-slider-threshold.high')).toBeTruthy();
 });
+it('reports live input independently from the committed change', () => {
+  const inputChange = vi.fn(),
+    commit = vi.fn();
+  host.append(
+    renderScalarSlider(h, {
+      min: -20,
+      max: 20,
+      step: 1,
+      value: 0,
+      onInput: inputChange,
+      onChange: commit,
+    }),
+  );
+  const input = host.querySelector<HTMLInputElement>('input')!;
+  input.value = '12';
+  const event = new Event('input', { bubbles: true });
+  input.dispatchEvent(event);
+  expect(inputChange).toHaveBeenCalledExactlyOnceWith(12, event);
+  expect(commit).not.toHaveBeenCalled();
+});

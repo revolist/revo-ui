@@ -5,6 +5,7 @@ import {
   FieldIcon as ConfiguratorIcon,
 } from './field-configurator';
 import { SvgIcon } from './icons/icon';
+import { TooltipController } from './core/popover-controller';
 import { renderControl } from './control-presentation';
 import { ButtonControl as UiButton } from './native-control';
 
@@ -49,10 +50,11 @@ type ActionTriggerProps = Omit<
 /** The same control renders in Core Fields cells and Preact panels. */
 export function renderConfiguratorActionTrigger(
   createElement: ElementRenderer,
-  { icon, buttonRef, ...props }: ActionTriggerProps,
+  { icon, buttonRef, title, ...props }: ActionTriggerProps,
 ) {
   const create = createElement as ElementRenderer;
   const svg = icon === 'plus' ? plusIcon : gearIcon;
+  let disposeTooltip: (() => void) | undefined;
   return create(
     'div',
     { class: 'pivot-field-action-trigger rv-configurator-action-trigger' },
@@ -61,7 +63,15 @@ export function renderConfiguratorActionTrigger(
       'button',
       {
         ...props,
-        ref: buttonRef,
+        ref: (button: HTMLButtonElement | null) => {
+          disposeTooltip?.();
+          disposeTooltip =
+            button && typeof title === 'string'
+              ? new TooltipController().bind(button, title)
+              : undefined;
+          if (typeof buttonRef === 'function') buttonRef(button);
+          else if (buttonRef) buttonRef.current = button;
+        },
         type: 'button',
         'data-configurator-action': icon === 'gear' ? 'settings' : undefined,
         class: 'rv-btn rv-configurator-action-button pivot-field-action-icon',

@@ -79,7 +79,17 @@ export function useDropdownService<T = any>(
 
   // State
   const [searchValue, setSearchValue] = useState(initialSearch);
-  const [focusedIndex, setFocusedIndex] = useState(-1);
+  const [focusedIndex, setFocusedIndexState] = useState(-1);
+  const focusedIndexRef = useRef(-1);
+  const setFocusedIndex = useCallback(
+    (next: number | ((current: number) => number)) => {
+      const value =
+        typeof next === 'function' ? next(focusedIndexRef.current) : next;
+      focusedIndexRef.current = value;
+      setFocusedIndexState(value);
+    },
+    [],
+  );
   const [selectedOptions, setSelectedOptions] = useState<DropdownOption<T>[]>(
     () => getSelectedOptions(options, value, multiSelect),
   );
@@ -277,8 +287,9 @@ export function useDropdownService<T = any>(
         case ' ':
           e.preventDefault();
           e.stopPropagation();
-          if (focusedIndex >= 0 && focusedIndex < filteredOptions.length) {
-            handleSelect(filteredOptions[focusedIndex]);
+          const index = focusedIndexRef.current;
+          if (index >= 0 && index < filteredOptions.length) {
+            handleSelect(filteredOptions[index]);
           }
           break;
 

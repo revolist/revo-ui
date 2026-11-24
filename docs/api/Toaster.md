@@ -20,7 +20,7 @@ The table lists library-declared props. Standard inherited HTML attributes are o
 | --- | --- | --- | --- |
 | `toaster` | `ToastController` | Yes | Notification controller created with createToaster. Mount one viewport per controller. |
 | `position` | `ToastPosition \| "inline" \| undefined` | No | Logical viewport corner or edge. Use inline to render within a layout. |
-| `visibleCount` | `number \| undefined` | No | Maximum visible notifications. Additional entries wait in the queue. |
+| `visibleCount` | `number \| undefined` | No | Maximum visible notifications. The newest are shown first; older entries wait in the queue. |
 | `text` | `{ notifications?: string; dismiss?: string; } \| undefined` | No | Accessible names supplied by the host's localization system. |
 | `preset` | `ClassPreset \| undefined` | No |  |
 | `className` | `string \| undefined` | No |  |

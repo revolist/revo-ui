@@ -1,3 +1,4 @@
+import { renderSwitch } from './native';
 import { ButtonControl } from '../native-control';
 import { h } from 'preact';
 import { useLayoutEffect, useRef } from 'preact/hooks';
@@ -96,37 +97,21 @@ export function Switch({
     '--rv-ui-switch-preset-track-on': tokens.trackOn,
     '--rv-ui-switch-preset-thumb': tokens.thumb,
   };
-  const position = labelPosition ?? preset?.props?.labelPosition ?? 'before';
-  const copy = (
-    <span class="rv-switch-label" data-part="label">
-      {label}
-    </span>
-  );
-  const track = (
-    <span class="rv-switch-track" data-part="track" aria-hidden="true">
-      <span ref={thumbRef} class="rv-switch-thumb" data-part="thumb" />
-    </span>
-  );
-
-  return (
-    <ButtonControl
-      type="button"
-      class={['rv-switch', preset?.className, className]
-        .filter(Boolean)
-        .join(' ')}
-      style={presetStyle}
-      data-part="root"
-      data-state={checked ? 'checked' : 'unchecked'}
-      role="switch"
-      aria-checked={checked}
-      aria-label={ariaLabel ?? (typeof label === 'string' ? label : undefined)}
-      disabled={disabled}
-      title={title}
-      data-testid={testId}
-      onClick={() => onChange(!checked)}
-    >
-      {position === 'before' ? copy : track}
-      {position === 'before' ? track : copy}
-    </ButtonControl>
+  return renderSwitch(
+    h,
+    {
+      checked,
+      label,
+      ariaLabel,
+      className: [preset?.className, className].filter(Boolean).join(' '),
+      style: presetStyle,
+      disabled,
+      title,
+      testId,
+      thumbRef,
+      labelPosition: labelPosition ?? preset?.props?.labelPosition ?? 'before',
+      onClick: () => onChange(!checked),
+    },
+    ButtonControl,
   );
 }

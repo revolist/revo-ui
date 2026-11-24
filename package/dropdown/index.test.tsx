@@ -4,6 +4,26 @@ import { act } from 'preact/test-utils';
 import { expect, it, vi } from 'vitest';
 import { Dropdown } from './index';
 
+it('shows the label and selected count in count display mode', () => {
+  const host = document.body.appendChild(document.createElement('div'));
+  const source = [{ value: 1, label: 'One' }, { value: 2, label: 'Two' }];
+  try {
+    const draw = (value: number[]) => act(() => render(
+      <Dropdown source={source} value={value} placeholder="Status" config={{ multiSelect: true, selectedDisplay: 'count' }} />,
+      host,
+    ));
+    draw([1, 2]);
+    expect(host.querySelector('.selected-count-value')?.textContent).toBe('Status2');
+    expect(host.querySelector('.selected-tag')).toBeNull();
+    draw([]);
+    expect(host.querySelector('.selected-count-badge')).toBeNull();
+    expect(host.textContent).toContain('Status');
+  } finally {
+    act(() => render(null, host));
+    host.remove();
+  }
+});
+
 it.each([false, true])(
   'closes a native-Tab dropdown before popup focus moves (backwards: %s)',
   async (shiftKey) => {
@@ -326,6 +346,97 @@ it('applies a preset class to both trigger and detached popup', async () => {
     expect(
       document.querySelector('.shared-dropdown[data-part="popup"] input'),
     ).toBeFalsy();
+  } finally {
+    act(() => render(null, host));
+    host.remove();
+  }
+});
+
+it('selects the latest enabled option when arrow and enter arrive together', async () => {
+  const host = document.body.appendChild(document.createElement('div'));
+  const selected = vi.fn();
+  try {
+    act(() =>
+      render(
+        <Dropdown
+          source={[
+            { value: 1, label: 'First' },
+            { value: 2, label: 'Second' },
+          ]}
+          value={1}
+          onChange={selected}
+          config={{ autoOpen: true }}
+        />,
+        host,
+      ),
+    );
+    await vi.waitFor(() =>
+      expect(document.querySelector('[role="listbox"]')).toBeTruthy(),
+    );
+    const list = document.querySelector<HTMLElement>('[role="listbox"]')!;
+    act(() => {
+      list.dispatchEvent(
+        new KeyboardEvent('keydown', {
+          key: 'ArrowDown',
+          bubbles: true,
+          cancelable: true,
+        }),
+      );
+      list.dispatchEvent(
+        new KeyboardEvent('keydown', {
+          key: 'Enter',
+          bubbles: true,
+          cancelable: true,
+        }),
+      );
+    });
+    expect(selected).toHaveBeenCalledWith(2);
+  } finally {
+    act(() => render(null, host));
+    host.remove();
+  }
+});
+
+it('handles navigation on the trigger while an open popup is taking focus', async () => {
+  const host = document.body.appendChild(document.createElement('div'));
+  const selected = vi.fn();
+  try {
+    act(() =>
+      render(
+        <Dropdown
+          source={[
+            { value: 1, label: 'First' },
+            { value: 2, label: 'Second' },
+          ]}
+          value={1}
+          onChange={selected}
+          config={{ autoOpen: true }}
+        />,
+        host,
+      ),
+    );
+    await vi.waitFor(() =>
+      expect(document.querySelector('[role="listbox"]')).toBeTruthy(),
+    );
+    const trigger = host.querySelector<HTMLElement>('[role="combobox"]')!;
+    trigger.focus();
+    act(() => {
+      trigger.dispatchEvent(
+        new KeyboardEvent('keydown', {
+          key: 'ArrowDown',
+          bubbles: true,
+          cancelable: true,
+        }),
+      );
+      trigger.dispatchEvent(
+        new KeyboardEvent('keydown', {
+          key: 'Enter',
+          bubbles: true,
+          cancelable: true,
+        }),
+      );
+    });
+    expect(selected).toHaveBeenCalledWith(2);
   } finally {
     act(() => render(null, host));
     host.remove();

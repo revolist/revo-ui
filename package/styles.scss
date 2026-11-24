@@ -1,7 +1,7 @@
 @use './core/tooltip.css';
 @use './event-tooltip';
+@use './benchmark-card';
 @use './pdf-viewer/style' as pdfViewer;
-@use './cell-visuals/styles';
 @use './ai/style' as aiStyle;
 @use './styles/field-configurator';
 @use './styles/tokens';
@@ -38,6 +38,7 @@
 @use './formatting/styles' as formattingStyles;
 @use './timeline-track/style' as timelineTrack;
 @use './styles/activity-message';
+@use './styles/metric-panel';
 @use './styles/toaster';
 @use './styles/activity-timeline';
 @use './styles/motion';
@@ -47,6 +48,7 @@
 @use './styles/ready-styles';
 @use './styles/file-tree';
 @use './styles/action-bar';
+@use './search-action-bar';
 @use './styles/history';
 @use './styles/cursor';
 @use './styles/circular-slider';

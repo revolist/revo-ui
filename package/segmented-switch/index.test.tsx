@@ -290,3 +290,31 @@ it('uses preset defaults while preserving explicit props and item state hooks', 
   expect(host.querySelector('button')?.disabled).toBe(false);
   render(null, host);
 });
+
+it('animates only the underline for underlined tabs', () => {
+  const host = document.createElement('div');
+  document.body.append(host);
+  let frame: FrameRequestCallback | undefined;
+  vi.stubGlobal('requestAnimationFrame', (callback: FrameRequestCallback) => { frame = callback; return 1; });
+  const animate = vi.fn(() => ({ onfinish: null, oncancel: null }));
+  const originalAnimate = HTMLElement.prototype.animate;
+  HTMLElement.prototype.animate = animate as unknown as typeof HTMLElement.prototype.animate;
+  const options = [{ value: 'one', label: 'One' }, { value: 'two', label: 'Two' }];
+  const show = (value: string) => render(<SegmentedSwitch className="rv-tabs--underline" value={value} options={options} onChange={show} />, host);
+  try {
+    show('one');
+    const buttons = host.querySelectorAll<HTMLButtonElement>('button');
+    buttons[1].style.borderBottom = '2px solid rgb(102, 71, 240)';
+    buttons[1].click();
+    expect(frame).toBeDefined();
+    frame!(0);
+    const indicator = host.querySelector<HTMLElement>('.rv-segmented-switch-indicator')!;
+    expect(indicator.style.height).toBe('2px');
+    expect(indicator.style.border).toBe('0px');
+    expect(indicator.style.background).toBe('rgb(102, 71, 240)');
+  } finally {
+    HTMLElement.prototype.animate = originalAnimate;
+    vi.unstubAllGlobals();
+    render(null, host);
+  }
+});

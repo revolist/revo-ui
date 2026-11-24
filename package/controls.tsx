@@ -1,6 +1,7 @@
 import type { ClassPreset } from './presets/types';
 import { useTitleTooltip } from './core/title-tooltip';
 import { animateNumberStep } from './number-stepper-motion';
+import { clampStepperValue } from './number-stepper-value';
 import type { MotionPreset } from './presets/motion';
 import { RatingStar } from './rating-choice';
 import { Input, TextArea, ButtonControl } from './native-control';
@@ -442,10 +443,10 @@ export function NumberStepper({
       );
   }, [value, preset?.motion]);
   const set = (next: number) => {
-    if (Number.isFinite(next)) onChange(Math.max(min, Math.min(max, next)));
+    if (Number.isFinite(next)) onChange(clampStepperValue(next, min, max));
   };
   const changeStep = (next: number) => {
-    const target = Math.max(min, Math.min(max, next));
+    const target = clampStepperValue(next, min, max);
     if (Number.isFinite(target) && target !== value)
       pendingStep.current = { from: value, to: target };
     set(next);

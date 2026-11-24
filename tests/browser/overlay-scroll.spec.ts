@@ -347,3 +347,161 @@ for (const [topLayer, motion] of [
     await expect(page.locator('.revo-dropdown-menu')).toHaveCount(0);
   });
 }
+
+for (const kind of ['single', 'range'] as const) {
+  test(`${kind} date picker stays interactive above its modal dialog`, async ({
+    page,
+  }) => {
+    await scrolledDialog(
+      page,
+      `
+      import { h, render } from 'preact';
+      import { DatePicker, DateRangePicker } from './package/pickers.tsx';
+      const props = ${
+        kind === 'single'
+          ? "{ value: '2026-01-02', label: 'Due date', openLabel: 'Choose due date', onChange: value => { document.getElementById('result').textContent = value || ''; } }"
+          : "{ value: { from: '2026-01-02' }, label: 'Dates', fromLabel: 'From', toLabel: 'To', openLabel: 'Choose dates', onChange: value => { document.getElementById('result').textContent = value?.from || ''; } }"
+      };
+      render(h(${kind === 'single' ? 'DatePicker' : 'DateRangePicker'}, props), document.getElementById('field'));
+    `,
+    );
+    const owner = page.locator('dialog');
+    const trigger = page.getByRole('button', {
+      name: kind === 'single' ? 'Choose due date' : 'Choose dates',
+    });
+    await trigger.click();
+    const popup = owner.locator('.rv-popover[role="dialog"]');
+    await expect(popup).toBeVisible();
+    const day = popup
+      .locator('[data-calendar-date="2026-01-04"]:not([disabled])')
+      .first();
+    await day.click();
+    if (kind === 'range') {
+      await popup
+        .locator('[data-calendar-date="2026-01-08"]:not([disabled])')
+        .first()
+        .click();
+    }
+    await expect(page.locator('#result')).toHaveText('2026-01-04');
+    await trigger.click();
+    await expect(popup).toBeVisible();
+    await page.keyboard.press('Escape');
+    await expect(popup).toBeHidden();
+    await expect(trigger).toBeFocused();
+    await trigger.click();
+    await expect(popup).toBeVisible();
+    await owner.evaluate((dialog: HTMLDialogElement) => dialog.close());
+    await expect(popup).toBeHidden();
+  });
+}
+
+test('popover allows horizontal RTL wheel scrolling and contains it at the edge', async ({ page }) => {
+  await page.setContent(`<button id="anchor">Open</button><style>#scroll { width: 120px; overflow-x: auto; direction: rtl } #wide { width: 500px; height: 40px }</style>`);
+  await page.addScriptTag({ content: await bundle(`
+    import { PopoverController } from './package/core/popover-controller.tsx';
+    const content = document.createElement('div');
+    content.innerHTML = '<div id="scroll"><div id="wide"></div></div>';
+    new PopoverController().open({ anchor: document.getElementById('anchor'), content });
+  `) });
+  const scroll = page.locator('#scroll');
+  await scroll.hover();
+  await page.mouse.wheel(-100, 0);
+  await expect.poll(() => scroll.evaluate((element) => element.scrollLeft)).toBeLessThan(0);
+  await page.mouse.wheel(100, 0);
+  await expect.poll(() => scroll.evaluate((element) => element.scrollLeft)).toBe(0);
+});
+
+test('popover remains open when interacting inside a closed shadow root', async ({ page }) => {
+  await page.setContent('<div id="host"></div>');
+  await page.addScriptTag({ content: await bundle(`
+    import { PopoverController } from './package/core/popover-controller.tsx';
+    const shadow = document.getElementById('host').attachShadow({ mode: 'closed' });
+    const scope = document.createElement('div');
+    const anchor = document.createElement('button');
+    anchor.textContent = 'Open';
+    const sibling = document.createElement('button');
+    sibling.textContent = 'Outside inside shadow';
+    scope.append(anchor, sibling);
+    shadow.append(scope);
+    const content = document.createElement('div');
+    const target = document.createElement('button');
+    target.textContent = 'Inside';
+    content.append(target);
+    const controller = new PopoverController();
+    controller.open({ anchor, content, appendTo: scope });
+    window.__closedPopover = { target, anchor, sibling, controller, reopen: () => controller.open({ anchor, content, appendTo: scope }) };
+  `) });
+  const box = await page.evaluate(() => {
+    const rect = (window as any).__closedPopover.target.getBoundingClientRect();
+    return { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 };
+  });
+  await page.mouse.click(box.x, box.y);
+  expect(await page.evaluate(() => (window as any).__closedPopover.controller.isOpen)).toBe(true);
+  const clickShadowButton = async (name: 'anchor' | 'sibling') => {
+    const point = await page.evaluate((key) => {
+      const rect = (window as any).__closedPopover[key].getBoundingClientRect();
+      return { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 };
+    }, name);
+    await page.mouse.click(point.x, point.y);
+  };
+  await clickShadowButton('anchor');
+  expect(await page.evaluate(() => (window as any).__closedPopover.controller.isOpen)).toBe(true);
+  await clickShadowButton('sibling');
+  await expect.poll(() => page.evaluate(() => (window as any).__closedPopover.controller.isOpen)).toBe(false);
+  await page.evaluate(() => (window as any).__closedPopover.reopen());
+  await page.mouse.click(300, 300);
+  expect(await page.evaluate(() => (window as any).__closedPopover.controller.isOpen)).toBe(false);
+});
+
+test('scrolling inside a closed-shadow popover does not dismiss it', async ({ page }) => {
+  await page.setContent('<div id="host"></div>');
+  await page.addScriptTag({ content: await bundle(`
+    import { PopoverController } from './package/core/popover-controller.tsx';
+    const shadow = document.getElementById('host').attachShadow({ mode: 'closed' });
+    const scope = document.createElement('div');
+    const anchor = document.createElement('button');
+    anchor.textContent = 'Open';
+    scope.append(anchor); shadow.append(scope);
+    const content = document.createElement('div');
+    content.style.cssText = 'overflow:auto; width:120px; height:60px';
+    const inner = document.createElement('div'); inner.style.height = '400px';
+    content.append(inner);
+    const controller = new PopoverController();
+    controller.open({ anchor, content, appendTo: scope, closeOnScroll: true });
+    window.__closedScroll = { content, controller };
+  `) });
+  const point = await page.evaluate(() => {
+    const rect = (window as any).__closedScroll.content.getBoundingClientRect();
+    return { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 };
+  });
+  await page.mouse.move(point.x, point.y);
+  await page.mouse.wheel(0, 30);
+  await expect.poll(() => page.evaluate(() => (window as any).__closedScroll.content.scrollTop)).toBeGreaterThan(0);
+  expect(await page.evaluate(() => (window as any).__closedScroll.controller.isOpen)).toBe(true);
+});
+
+test('popover recognizes an owned auxiliary popup in a closed shadow root', async ({ page }) => {
+  await page.setContent('<div id="host"></div>');
+  await page.addScriptTag({ content: await bundle(`
+    import { PopoverController } from './package/core/popover-controller.tsx';
+    const shadow = document.getElementById('host').attachShadow({ mode: 'closed' });
+    const scope = document.createElement('div');
+    const anchor = document.createElement('button'); anchor.textContent = 'Open';
+    const auxiliary = document.createElement('div'); auxiliary.id = 'auxiliary'; auxiliary.style.cssText = 'position:fixed;left:300px;top:100px';
+    const choice = document.createElement('button'); choice.textContent = 'Choice';
+    auxiliary.append(choice); scope.append(anchor, auxiliary); shadow.append(scope);
+    const content = document.createElement('div');
+    const trigger = document.createElement('button'); trigger.textContent = 'Options';
+    trigger.setAttribute('aria-controls', 'auxiliary'); content.append(trigger);
+    const controller = new PopoverController();
+    controller.open({ anchor, content, appendTo: scope });
+    window.__auxiliaryPopup = { choice, controller };
+  `) });
+  const point = await page.evaluate(() => {
+    const rect = (window as any).__auxiliaryPopup.choice.getBoundingClientRect();
+    return { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 };
+  });
+  await page.mouse.click(point.x, point.y);
+  await page.waitForTimeout(20);
+  expect(await page.evaluate(() => (window as any).__auxiliaryPopup.controller.isOpen)).toBe(true);
+});

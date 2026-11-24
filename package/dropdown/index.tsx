@@ -10,7 +10,7 @@ import { useEffect, useRef, useMemo, useState } from 'preact/hooks';
 import { DropdownPopup } from './popup';
 import { DropdownPopupContent } from './content';
 import type { DropdownOption, DropdownProps } from './dropdown.types';
-import { MultiselectValue } from './values';
+import { MultiselectCount, MultiselectValue } from './values';
 import { AutocompleteDropdown } from './autocomplete';
 import { chevronDownIcon } from '../icons';
 
@@ -143,6 +143,7 @@ function DropdownSelect<T = any>({
     () => id || `dropdown-${Math.random().toString(36).substring(2, 9)}`,
     [id],
   );
+  const popupKeyHandler = useRef<((event: KeyboardEvent) => void) | null>(null);
   const listboxId = `${uniqueId}-listbox`;
   const searchId = `${uniqueId}-search`;
   const dropdownMenuId = `${uniqueId}-menu`;
@@ -329,6 +330,9 @@ function DropdownSelect<T = any>({
     }
     if (selectedOptions.length > 0) {
       if (multiSelect) {
+        if (config.selectedDisplay === 'count') {
+          return [<MultiselectCount label={placeholder} count={selectedOptions.length} />, <Arrow className="mr-2" />];
+        }
         return [
           <MultiselectValue
             options={selectedOptions}
@@ -377,6 +381,7 @@ function DropdownSelect<T = any>({
           renderContent({ id: listboxId, close: closeDropdown })
         ) : (
           <DropdownPopupContent
+            triggerKeyHandler={popupKeyHandler}
             options={dataSource ? remote.items : source}
             selectedValues={dataSource ? remote.selected : undefined}
             remote={dataSource ? remote : undefined}
@@ -457,6 +462,15 @@ function DropdownSelect<T = any>({
         onKeyDown={(e) => {
           // Embedded remove buttons retain their native keyboard activation.
           if (disabled || e.target !== e.currentTarget) return;
+
+          if (
+            isOpen &&
+            !renderContent &&
+            ['ArrowDown', 'ArrowUp', 'Enter', ' '].includes(e.key)
+          ) {
+            popupKeyHandler.current?.(e);
+            return;
+          }
 
           if (isOpen && e.key === 'Tab' && config.nativeTabNavigation) {
             e.stopPropagation();

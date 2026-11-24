@@ -87,6 +87,12 @@
             "$ref": "#/$defs/searchInputPreset"
           }
         },
+        "SearchActionBar": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/searchInputPreset"
+          }
+        },
         "RadioGroup": {
           "type": "object",
           "additionalProperties": {
@@ -650,6 +656,18 @@
           }
         },
         "ActivityMessage": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "MetricTile": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/classPreset"
+          }
+        },
+        "MetricPanel": {
           "type": "object",
           "additionalProperties": {
             "$ref": "#/$defs/classPreset"

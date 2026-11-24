@@ -1,3 +1,4 @@
+import { findOpenDialog } from './core/open-dialog';
 import calendarIcon from '@fortawesome/fontawesome-free/svgs/regular/calendar.svg?raw';
 import { SvgIcon } from './icons/icon';
 import { createControlId } from './core/control-id';
@@ -132,7 +133,8 @@ function PopoverSurface({
   className = '',
   role: roleProp,
   requestDismissal = false,
-}: PopoverProps & { requestDismissal?: boolean }) {
+  containInDialog = false,
+}: PopoverProps & { requestDismissal?: boolean; containInDialog?: boolean }) {
   const closeOnOutside = closeOnOutsideProp ?? preset?.props?.closeOnOutside;
   const closeOnEscape = closeOnEscapeProp ?? preset?.props?.closeOnEscape;
   const role = roleProp ?? preset?.props?.role ?? 'dialog';
@@ -153,9 +155,17 @@ function PopoverSurface({
       restoreFocus = restore;
       closeRef.current();
     };
+    const owner = containInDialog ? findOpenDialog(anchor) : undefined;
+    const localTarget = anchor.parentElement;
+    const target =
+      owner && (!appendTo || findOpenDialog(appendTo) !== owner)
+        ? (localTarget ?? owner)
+        : appendTo;
+    const onOwnerClose = () => requestDismiss(false);
+    owner?.addEventListener('close', onOwnerClose);
     controller.open({
       anchor,
-      appendTo,
+      appendTo: target,
       get closeOnOutside() {
         return dismissal.closeOnOutside;
       },
@@ -175,6 +185,7 @@ function PopoverSurface({
         : undefined;
     return () => {
       active = false;
+      owner?.removeEventListener('close', onOwnerClose);
       detachMenu?.();
       controller.destroy();
       if (restoreFocus && anchor.isConnected && !anchor.matches(':disabled'))
@@ -182,7 +193,7 @@ function PopoverSurface({
       // Native teardown restores the state from opening; controlled closure wins.
       content.hidden = true;
     };
-  }, [open, anchor, role, appendTo, requestDismissal]);
+  }, [open, anchor, role, appendTo, requestDismissal, containInDialog]);
   return (
     <div
       ref={ref}
@@ -450,7 +461,10 @@ interface PopupDatePickerOptions extends CalendarOptions {
   /** Localized text and accessible name for the clear button. */
   clearLabel?: string;
   /** Mount scope and dismissal options for the calendar popup. */
-  popup?: Pick<PopoverProps, 'appendTo' | 'closeOnOutside' | 'closeOnEscape'>;
+  popup?: Pick<
+    PopoverProps,
+    'appendTo' | 'closeOnOutside' | 'closeOnEscape' | 'className'
+  >;
   /** Replace the calendar trigger. Forward the provided props and text to a button. */
   renderTrigger?: (props: DatePickerTriggerProps) => ComponentChildren;
   disabled?: boolean;
@@ -862,6 +876,7 @@ export function DatePicker(props: DatePickerProps) {
       <PopoverSurface
         {...popup}
         requestDismissal
+        containInDialog
         open={popupOpen}
         anchor={anchor}
         onClose={() => requestOpen(false)}
@@ -1131,6 +1146,7 @@ export function DateRangePicker(props: DateRangePickerProps) {
       <PopoverSurface
         {...popup}
         requestDismissal
+        containInDialog
         open={popupOpen}
         anchor={anchor}
         onClose={() => requestOpen(false)}

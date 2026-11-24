@@ -1,6 +1,6 @@
-import type { ClassPreset } from '../presets/types';
 /** @jsxRuntime automatic */
 /** @jsxImportSource preact */
+import type { ClassPreset } from '../presets/types';
 import { Fragment, h, type ComponentChildren, type RefObject } from 'preact';
 import { useCallback, useEffect, useLayoutEffect, useRef } from 'preact/compat';
 import type { DropdownConfig, DropdownOption } from './dropdown.types';
@@ -99,6 +99,7 @@ export function DropdownPopupContent<T = any>({
   renderNoResults,
   onClose,
   onTabNavigation,
+  triggerKeyHandler,
   theme,
 }: {
   preset?: ClassPreset;
@@ -121,6 +122,8 @@ export function DropdownPopupContent<T = any>({
   renderNoResults?: (h: any) => ComponentChildren;
   onClose: (focusNext?: boolean) => void;
   onTabNavigation?: () => void;
+  /** Receives the popup keyboard handler while the trigger retains focus. */
+  triggerKeyHandler?: { current: ((event: KeyboardEvent) => void) | null };
   theme?: string | null;
 }) {
   // Refs
@@ -170,8 +173,23 @@ export function DropdownPopupContent<T = any>({
     [tooltipRef],
   );
 
-  // Handle autofocus
-  useEffect(() => {
+  useLayoutEffect(() => {
+    if (!triggerKeyHandler) return;
+    const handle = (event: KeyboardEvent) => {
+      revealActiveOption.current =
+        event.key === 'ArrowDown' || event.key === 'ArrowUp';
+      dropdownListRef.current?.focus({ preventScroll: true });
+      handleKeyDown(event);
+    };
+    triggerKeyHandler.current = handle;
+    return () => {
+      if (triggerKeyHandler.current === handle)
+        triggerKeyHandler.current = null;
+    };
+  }, [handleKeyDown, triggerKeyHandler]);
+
+  // Move focus as early as possible and retry after top-layer positioning.
+  useLayoutEffect(() => {
     if (!config.autoFocus) {
       return;
     }

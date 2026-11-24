@@ -30,7 +30,7 @@
 }
 .rv-pagination-panel > span:last-child {
   color: var(--rv-ui-text-muted);
-  font-size: 12px;
+  font-size: inherit;
 }
 .rv-pagination-panel .rv-pagination-selector {
   display: inline-flex;
@@ -39,6 +39,10 @@
   gap: 8px;
   margin-inline-start: 8px;
   white-space: nowrap;
+}
+.rv-pagination-panel .rv-pagination-selector .dropdown-container,
+.rv-pagination-panel .rv-pagination-selector .dropdown-container .dropdown-trigger {
+  font-size: inherit;
 }
 .rv-pagination-panel select {
   width: auto;
@@ -55,6 +59,7 @@
   padding: 6px 8px;
   border: 1px solid transparent;
   border-radius: var(--rv-ui-radius, 6px);
+  font-size: inherit;
   flex: none;
 }
 .rv-pagination .rv-pagination-button[aria-current='page'],
@@ -116,7 +121,7 @@
   align-items: center;
   gap: 8px;
   white-space: nowrap;
-  font-size: 13px;
+  font-size: inherit;
 }
 .rv-pagination-layout select {
   width: auto;

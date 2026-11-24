@@ -69,3 +69,14 @@ test('native pagination can hide first/last while retaining previous/next and th
     example.getByRole('button', { name: 'Previous page', exact: true }),
   ).toBeEnabled();
 });
+
+test('pagination dropdown inherits panel font after dropdown styles load', async ({ page }) => {
+  await page.goto('/#pagination');
+  const panel = page.locator('.catalog-example').filter({ has: page.getByRole('heading', { name: 'Pages and selector', exact: true }) }).locator('.rv-pagination-panel');
+  const trigger = panel.locator('.dropdown-trigger');
+  await expect(trigger).toBeVisible();
+  await page.addStyleTag({ content: '.dropdown-container:is(.rv-select, .rv-assignee-editor) .dropdown-trigger { font-size: 14px; }' });
+  await panel.evaluate(element => { (element as HTMLElement).style.fontSize = '13px'; });
+  await expect(trigger).toHaveCSS('font-size', '13px');
+  await expect(panel.locator('.rv-pagination-label')).toHaveCSS('font-size', '13px');
+});

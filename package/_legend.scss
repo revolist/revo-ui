@@ -52,3 +52,9 @@
 .rv-legend__item i[data-marker='dashed'] {
   border-style: dashed;
 }
+.rv-legend__item i[data-marker='line'] {
+  flex-basis: 12px;
+  width: 12px;
+  height: 2px;
+  border-radius: 1px;
+}

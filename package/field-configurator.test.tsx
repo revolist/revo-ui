@@ -207,7 +207,10 @@ it('lets users expand and collapse an opt-in rail without losing the editor', ()
     render(
       <ConfiguratorPanel
         miniMode
-        compactItems={[{ id: 'fields', label: 'Columns' }]}
+        compactItems={[
+          { id: 'fields', label: 'Columns', count: 8 },
+          { id: 'filters', label: 'Filters', count: 0 },
+        ]}
       >
         <input defaultValue="initial" />
       </ConfiguratorPanel>,
@@ -216,15 +219,27 @@ it('lets users expand and collapse an opt-in rail without losing the editor', ()
   );
   const draft = host.querySelector('input')!;
   const opener = () =>
-    host.querySelector<HTMLButtonElement>('button[aria-label="Columns"]')!;
+    host.querySelector<HTMLButtonElement>('button[aria-label="Columns (8)"]')!;
+  expect(opener().hasAttribute('title')).toBe(false);
+  expect(
+    opener().querySelector('.rv-badge.rv-configurator-rail__count')
+      ?.textContent,
+  ).toBe('8');
   expect(draft.closest('[hidden]')).not.toBeNull();
   act(() => opener().click());
-  const collapse = host.querySelector<HTMLButtonElement>(
-    'button[aria-label="Collapse configurator"]',
+  expect(
+    host.querySelector('button[aria-label="Collapse configurator"]'),
+  ).toBeNull();
+  expect(opener().getAttribute('aria-expanded')).toBe('true');
+  const filters = host.querySelector<HTMLButtonElement>(
+    'button[aria-label="Filters (0)"]',
   )!;
-  expect(document.activeElement).toBe(collapse);
+  act(() => filters.click());
+  expect(filters.getAttribute('aria-expanded')).toBe('true');
+  expect(opener().getAttribute('aria-expanded')).toBe('false');
+  act(() => opener().click());
   draft.value = 'pending';
-  act(() => collapse.click());
+  act(() => opener().click());
   expect(document.activeElement).toBe(opener());
   expect(draft.closest('[hidden]')).not.toBeNull();
   act(() => opener().click());

@@ -31,6 +31,8 @@ export const ChoiceChip: ReactUiComponent<typeof ui.ChoiceChip> =
   /* @__PURE__ */ createReactAdapter(ui.ChoiceChip, 'ChoiceChip');
 export const SearchInput: ReactUiComponent<typeof ui.SearchInput> =
   /* @__PURE__ */ createReactAdapter(ui.SearchInput, 'SearchInput');
+export const SearchActionBar: ReactUiComponent<typeof ui.SearchActionBar> =
+  /* @__PURE__ */ createReactAdapter(ui.SearchActionBar, 'SearchActionBar');
 export const FilterChip: ReactUiComponent<typeof ui.FilterChip> =
   /* @__PURE__ */ createReactAdapter(ui.FilterChip, 'FilterChip');
 export const FormField: ReactUiComponent<typeof ui.FormField> =
@@ -68,6 +70,9 @@ export const CalendarMonthGrid: ReactUiComponent<typeof ui.CalendarMonthGrid> =
   /* @__PURE__ */ createReactAdapter(ui.CalendarMonthGrid, 'CalendarMonthGrid');
 export const CalendarYearGrid: ReactUiComponent<typeof ui.CalendarYearGrid> =
   /* @__PURE__ */ createReactAdapter(ui.CalendarYearGrid, 'CalendarYearGrid');
+export type { CalendarNavigatorProps } from './calendar/navigator';
+export const CalendarNavigator: ReactUiComponent<typeof ui.CalendarNavigator> =
+  /* @__PURE__ */ createReactAdapter(ui.CalendarNavigator, 'CalendarNavigator');
 export const CalendarPicker: ReactUiComponent<typeof ui.CalendarPicker> =
   /* @__PURE__ */ createReactAdapter(ui.CalendarPicker, 'CalendarPicker');
 export const SharedResourcePicker: ReactUiComponent<
@@ -569,3 +574,8 @@ export const CursorMessage: ReactUiComponent<typeof ui.CursorMessage> =
 
 export const CircularSlider: ReactUiComponent<typeof ui.CircularSlider> =
   /* @__PURE__ */ createReactAdapter(ui.CircularSlider, 'CircularSlider');
+
+export const MetricTile: ReactUiComponent<typeof ui.MetricTile> =
+  /* @__PURE__ */ createReactAdapter(ui.MetricTile, 'MetricTile');
+export const MetricPanel: ReactUiComponent<typeof ui.MetricPanel> =
+  /* @__PURE__ */ createReactAdapter(ui.MetricPanel, 'MetricPanel');

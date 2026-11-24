@@ -1,4 +1,14 @@
+export { findOpenDialog } from './core/open-dialog';
+export * from './progress/native-progress';
+export * from './number-stepper-native';
+export * from './checkbox/native';
+export * from './legend-native';
+export * from './metric-progress-row';
+export * from './record-navigation';
+export * from './detail-panel';
 export * from './event-tooltip';
+export * from './benchmark-card';
+export * from './core/aria-description';
 export * from './core/anchored-popover';
 export { mountAiAssistant } from './ai/mount';
 export type {
@@ -23,8 +33,11 @@ export * from './progress/circular';
 export * from './control-presentation';
 export * from './html-controls';
 export * from './search-input/native';
+export {
+  createSearchActionBar,
+  type NativeSearchActionBarOptions,
+} from './search-action-bar';
 export * from './icons/drawing-tools';
-export * from './cell-visuals';
 export * from './color-palette/native';
 export * from './dialog/dialog-action-footer';
 export { renderAlert } from './alert';
@@ -53,3 +66,34 @@ export {
 } from './preact-mount';
 
 export { useDialogDrag } from './dialog/dialog.preact';
+
+export {
+  renderMetricTile,
+  renderMetricPanel,
+  type MetricTileData,
+  type MetricTileProps,
+  type MetricPanelProps,
+  type MetricTone,
+} from './metric-panel';
+export {
+  createMetricPanelElement,
+  createMetricTileElement,
+  renderMetricPanelInto,
+  releaseMetricElement,
+} from './metric-panel-native';
+export { mountCalendarNavigator } from './calendar/navigator-native';
+export type { CalendarNavigatorProps } from './calendar/navigator';
+export { mountCalendarPeriodSelector } from './calendar/period-selector-native';
+export type { CalendarPeriodSelectorProps } from './calendar/period-selector';
+
+export {
+  createCalendarField,
+  type CalendarFieldElement,
+  type CalendarFieldOptions,
+} from './calendar/date-field-native';
+
+export { mountTabs } from './tabs-native';
+
+export { mountAreaChart } from './area-chart-native';
+
+export * from './switch/native';

@@ -1383,3 +1383,34 @@ button.rv-choice-chip-info:focus-visible,
   opacity: 0.5;
   pointer-events: none;
 }
+
+/* Underlined tabs for detail panels. */
+.rv-segmented-switch.rv-tabs--underline {
+  display: flex;
+  gap: var(--rv-tabs-gap, 22px);
+  padding: 0 var(--rv-tabs-padding, 20px);
+  border: 0;
+  border-block: 1px solid var(--rv-tabs-border, var(--rv-ui-border, #e4e4e4));
+  border-radius: 0;
+  background: transparent;
+}
+.rv-tabs--underline > .rv-segmented-switch-item {
+  min-height: 39px;
+  padding: 6px 0;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--rv-tabs-color, var(--rv-ui-text-muted, #737373));
+}
+.rv-tabs--underline > .rv-segmented-switch-item.on {
+  border-bottom-color: var(--rv-tabs-active-border, var(--rv-ui-accent, #6647f0));
+  background: transparent;
+  color: var(--rv-tabs-active-color, var(--rv-ui-text, #171717));
+  box-shadow: none;
+}
+.rv-tabs--underline > .rv-segmented-switch-item:active:not(:disabled) {
+  transform: none;
+}
+

@@ -108,7 +108,7 @@ Link-style action buttons use `Button variant="link"` or `SvgButton variant="lin
 
 ## Interactive timeline track
 
-`package/timeline-track/` owns controlled bar rendering, selection, pointer capture/movement/resizing, keyboard edits, numeric geometry helpers and track styles. Pro's Timeline editor adapter retains draft validation, localization and commits; its existing model helper exports forward to the shared model. The read-only cell timeline renderer remains in `cell-visuals/timeline.ts`.
+`package/timeline-track/` owns controlled bar rendering, selection, pointer capture/movement/resizing, keyboard edits, numeric geometry helpers and track styles. Pro's Timeline editor adapter retains draft validation, localization and commits; its existing model helper exports forward to the shared model. The read-only grid cell timeline renderer lives in RevoGrid Pro.
 
 ## Editable dialog composition
 
