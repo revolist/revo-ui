@@ -1,6 +1,6 @@
 import { h, render } from 'preact';
-import { MetricPanel, MetricTile } from '../../../../package/preact';
-import '../../../../package/styles.scss';
+import { MetricPanel, MetricTile } from '@revolist/ui/preact';
+import '@revolist/ui/styles.scss';
 
 render(
   <>
