@@ -1151,4 +1151,8 @@ test('sidebar families and controls use the same alignment and typography', asyn
     ),
   );
   expect(styles[0]).toEqual(styles[1]);
+  await expect(family.locator('..')).toHaveCSS(
+    'border-inline-start-style',
+    'solid',
+  );
 });

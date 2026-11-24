@@ -4551,6 +4551,10 @@ body {
   line-height: 1.5;
   padding: 6px 8px;
 }
+.catalog-nav-family {
+  border-inline-start: 1px solid var(--rv-ui-border);
+  padding-inline-start: 8px;
+}
 .catalog-nav-examples {
   list-style: none;
   margin: 0 0 8px;
