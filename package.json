@@ -712,7 +712,7 @@
     "test:tooltips": "playwright test --config playwright.tooltip.config.ts",
     "test:fields-styles": "playwright test --config playwright.fields-styles.config.ts",
     "test:size": "node --test scripts/bundle-size.test.mjs scripts/modular-css.test.mjs && node scripts/bundle-size.mjs",
-    "test:docs": "node --test scripts/documentation.test.mjs",
+    "test:docs": "node --test scripts/documentation.test.mjs scripts/global-search-index.test.mjs",
     "test:named-frameworks": "playwright test --config playwright.named-frameworks.config.ts",
     "check:framework-components": "node scripts/generate-component-controls.mjs --check && node scripts/generate-angular-components.mjs --check && node scripts/generate-svelte-components.mjs --check && node scripts/generate-framework-exports.mjs --check",
     "format:check": "prettier --check . --ignore-path .gitignore --ignore-path .prettierignore"

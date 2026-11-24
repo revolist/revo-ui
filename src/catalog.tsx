@@ -1,3 +1,4 @@
+import { GlobalSearch } from './global-search';
 import {
   GlobalThemePanel,
   readGalleryTheme,
@@ -590,6 +591,7 @@ export function CatalogShell({
                 Customize
               </button>
             </nav>
+            <GlobalSearch />
             <GallerySettings>
               <Toolbar label="Gallery settings">
                 <a
