@@ -1,7 +1,7 @@
 import { h, render } from 'preact';
-import { DatePicker } from '../../../../package/pickers';
-import '../../../../package/styles.scss';
-import { createCalendarField } from '../../../../package/calendar/date-field-native';
+import { DatePicker } from '@revolist/ui/preact';
+import '@revolist/ui/styles.scss';
+import { createCalendarField } from '@revolist/ui/native';
 render(
   <dialog open>
     <section
