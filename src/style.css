@@ -4552,6 +4552,7 @@ body {
   padding: 6px 8px;
 }
 .catalog-nav-family {
+  margin-inline-start: 8px;
   border-inline-start: 1px solid var(--rv-ui-border);
   padding-inline-start: 8px;
 }

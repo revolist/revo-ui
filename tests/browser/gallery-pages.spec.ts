@@ -1155,4 +1155,14 @@ test('sidebar families and controls use the same alignment and typography', asyn
     'border-inline-start-style',
     'solid',
   );
+  const guideAlignment = await family.locator('..').evaluate((group) => {
+    const category = group.closest('.catalog-nav-group')!.querySelector('p')!;
+    return {
+      guide: group.getBoundingClientRect().left,
+      label:
+        category.getBoundingClientRect().left +
+        parseFloat(getComputedStyle(category).paddingLeft),
+    };
+  });
+  expect(Math.abs(guideAlignment.guide - guideAlignment.label)).toBeLessThan(1);
 });
