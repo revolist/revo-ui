@@ -9,7 +9,7 @@
     "check": "tsc --noEmit"
   },
   "dependencies": {
-    "@revolist/ui": "4.0.25",
+    "@revolist/ui": "4.2.2",
     "react": "19.2.5",
     "react-dom": "19.2.5",
     "next": "16.4.6",

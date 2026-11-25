@@ -1,6 +1,6 @@
 {
   "name": "@revolist/ui-dates",
-  "version": "4.0.25",
+  "version": "4.2.2",
   "private": true,
   "type": "module",
   "description": "Framework-independent date, time, and duration input utilities",

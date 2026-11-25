@@ -1,0 +1,2 @@
+minimumReleaseAgeExclude:
+  - '@revolist/ui@4.2.2'

@@ -13,7 +13,7 @@
   },
   "packageManager": "pnpm@10.25.0",
   "dependencies": {
-    "@revolist/ui": "4.0.25"
+    "@revolist/ui": "4.2.2"
   },
   "devDependencies": {
     "typescript": "^7.0.2",
