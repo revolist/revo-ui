@@ -2,7 +2,7 @@ import { h } from 'preact';
 import type { ISODateString } from '@revolist/ui-dates';
 import { PopoverController } from '../core/popover-controller';
 import { findOpenDialog } from '../core/open-dialog';
-import { renderPreactInto } from '../preact-mount';
+import { createPreactElement, renderPreactInto } from '../preact-mount';
 import { CalendarPicker } from './picker';
 
 export interface CalendarFieldOptions {
@@ -48,8 +48,8 @@ export function createCalendarField(
       ) {
         if (name === 'name') this.input.name = value ?? '';
       }
-      private input = this.ownerDocument.createElement('input');
-      private trigger = this.ownerDocument.createElement('button');
+      private input = createPreactElement<HTMLInputElement>(this.ownerDocument, h('input', {}));
+      private trigger = createPreactElement<HTMLButtonElement>(this.ownerDocument, h('button', {}));
       private picker?: PopoverController;
       private mounted = false;
       private listening = false;
@@ -133,7 +133,7 @@ export function createCalendarField(
       private open() {
         if (this.disabled || this.input.matches(':disabled')) return;
         this.picker?.destroy();
-        const host = this.ownerDocument.createElement('div');
+        const host = createPreactElement<HTMLDivElement>(this.ownerDocument, h('div', {}));
         host.className = this.config.popupClassName ?? '';
         host.setAttribute('role', 'dialog');
         host.setAttribute('aria-label', this.config.openLabel);
@@ -213,7 +213,7 @@ export function createCalendarField(
     }
     view.customElements.define(tag, CalendarField);
   }
-  const element = document.createElement(tag) as CalendarFieldElement;
+  const element = createPreactElement<CalendarFieldElement>(document, h(tag, {}));
   element.configure(options);
   return element;
 }
