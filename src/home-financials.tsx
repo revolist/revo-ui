@@ -99,11 +99,13 @@ export function FinancialWidgets({ preview }: { preview: ComponentChildren }) {
                   <th scope="row">{item.asset}</th>
                   <td>{money(item.value)}</td>
                   <td>
-                    {renderProgressBar(h, {
-                      value: item.weight,
-                      ariaLabel: `${item.weight}%`,
-                    })}
-                    <span>{item.weight}%</span>
+                    <div class="finance-weight">
+                      {renderProgressBar(h, {
+                        value: item.weight,
+                        ariaLabel: `${item.weight}%`,
+                      })}
+                      <span>{item.weight}%</span>
+                    </div>
                   </td>
                   <td>+{item.change}%</td>
                 </tr>

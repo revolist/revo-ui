@@ -192,17 +192,19 @@ test('additional finance widgets update allocation and invoices', async ({
     .getByRole('table', { name: 'Portfolio holdings' })
     .getByRole('row')
     .nth(1)
-    .locator('.progress-line-container');
+    .locator('td')
+    .nth(1);
   await expect(equityWeight.getByRole('progressbar')).toHaveAttribute(
     'aria-valuenow',
     '70',
   );
-  await expect(equityWeight.locator('.progress-line-label')).toHaveText('70%');
+  await expect(equityWeight.locator('span').last()).toHaveText('70%');
   const bar = (await equityWeight.getByRole('progressbar').boundingBox())!;
-  const label = (await equityWeight
-    .locator('.progress-line-label')
-    .boundingBox())!;
+  const label = (await equityWeight.locator('span').last().boundingBox())!;
   expect(label.x).toBeGreaterThanOrEqual(bar.x + bar.width);
+  expect(
+    Math.abs(label.y + label.height / 2 - (bar.y + bar.height / 2)),
+  ).toBeLessThan(2);
   await page
     .getByRole('checkbox', { name: 'Select INV-1051', exact: true })
     .check();
@@ -954,7 +956,7 @@ test('sidebar finds individual controls and links to their examples', async ({
   const search = page.getByRole('searchbox', { name: 'Find a component' });
   await search.fill('mini calendar');
   const miniCalendar = navigation.getByRole('link', {
-    name: 'MiniCalendar',
+    name: 'Mini Calendar',
     exact: true,
   });
   await expect(miniCalendar).toBeVisible();
@@ -967,7 +969,7 @@ test('sidebar finds individual controls and links to their examples', async ({
     .getByRole('searchbox', { name: 'Find a component' })
     .fill('benchmark card');
   await expect(
-    navigation.getByRole('link', { name: 'BenchmarkCard', exact: true }),
+    navigation.getByRole('link', { name: 'Benchmark Card', exact: true }),
   ).toBeVisible();
   await search.fill('toast');
   await expect(
@@ -978,57 +980,34 @@ test('sidebar finds individual controls and links to their examples', async ({
   ).toHaveCount(0);
   await search.fill('MetricTile');
   await expect(
-    navigation.getByRole('link', { name: 'MetricTile', exact: true }),
-  ).toHaveAttribute('href', /^\/components\//);
-});
-
-test('sidebar includes every documented public component', async ({ page }) => {
-  await page.goto('/components/buttons/');
-  const sidebar = page.getByRole('navigation', { name: 'Component sections' });
-  await expect(sidebar.locator('[data-controls]').first()).toBeVisible();
-  await expect(
-    sidebar.locator('[data-controls*="MetricTile"]').first(),
-  ).toBeVisible();
-  const sidebarNames = new Set(
-    await sidebar
-      .locator('[data-controls]')
-      .evaluateAll((links) =>
-        links.flatMap((link) =>
-          (link.getAttribute('data-controls') ?? '').split('|'),
-        ),
-      ),
-  );
-  await page.goto('/api/');
-  const api = page.getByRole('navigation', { name: 'Component APIs' });
-  await expect(
-    api.getByRole('link', { name: 'MetricTile', exact: true }),
-  ).toBeVisible();
-  const apiNames = await api
-    .locator('a[href^="/api/"]')
-    .evaluateAll((links) =>
-      links
-        .filter((link) => link.getAttribute('href') !== '/api/')
-        .map((link) => link.textContent?.trim() ?? ''),
-    );
-  expect(apiNames.length).toBeGreaterThan(100);
-  expect(apiNames.filter((name) => !sidebarNames.has(name))).toEqual([]);
+    navigation.getByRole('link', { name: 'Metric Tile', exact: true }),
+  ).toHaveCount(0);
 });
 
 test('sidebar component links open live gallery examples', async ({ page }) => {
   await page.goto('/components/buttons/');
   const nav = page.getByRole('navigation', { name: 'Component sections' });
-  const link = nav.getByRole('link', { name: 'ButtonGroup', exact: true });
+  const link = nav.getByRole('link', { name: 'Button Group', exact: true });
   await expect(link).toHaveAttribute(
     'href',
     '/components/buttons/#example-button-group',
   );
+  await expect(
+    nav.getByRole('link', { name: 'Icon Button', exact: true }),
+  ).toBeVisible();
+  await expect(
+    nav.getByRole('link', { name: 'Svg Button', exact: true }),
+  ).toHaveCount(0);
+  await expect(
+    nav.getByRole('link', { name: 'Svg Icon', exact: true }),
+  ).toHaveCount(0);
   await link.click();
   await expect(page).toHaveURL(/\/components\/buttons\/#example-button-group$/);
   await expect(page.locator('#example-button-group')).toBeVisible();
   await expect(link).toHaveAttribute('aria-current', 'location');
   await expect(nav.locator('[aria-current="location"]')).toHaveCount(1);
   await expect(
-    nav.getByRole('link', { name: 'Button group', exact: true }),
+    nav.getByRole('link', { name: 'ButtonGroup', exact: true }),
   ).toHaveCount(0);
   await page
     .getByRole('searchbox', { name: 'Find a component' })
@@ -1104,9 +1083,6 @@ test('sidebar merges controls with the same destination and searches their alias
 }) => {
   await page.goto('/components/menus-and-toolbars/');
   const nav = page.getByRole('navigation', { name: 'Component sections' });
-  await expect(
-    nav.locator('[data-controls*="MetricTile"]').first(),
-  ).toBeVisible();
   const groups = await nav
     .locator('.catalog-nav-examples')
     .evaluateAll((lists) =>
@@ -1120,7 +1096,7 @@ test('sidebar merges controls with the same destination and searches their alias
   await page
     .getByRole('searchbox', { name: 'Find a component' })
     .fill('MenuSeparator');
-  const result = nav.getByRole('link', { name: 'MenuSeparator', exact: true });
+  const result = nav.getByRole('link', { name: 'Menu Separator', exact: true });
   await expect(result).toBeVisible();
   await expect(result).toHaveAttribute(
     'href',
@@ -1134,7 +1110,7 @@ test('sidebar indents controls beneath their family with a vertical guide', asyn
   await page.goto('/components/buttons/');
   const nav = page.getByRole('navigation', { name: 'Component sections' });
   const family = nav.getByRole('link', { name: 'Buttons', exact: true });
-  const control = nav.getByRole('link', { name: 'ButtonGroup', exact: true });
+  const control = nav.getByRole('link', { name: 'Button Group', exact: true });
   await expect(control).toBeVisible();
   const geometry = await control.evaluate((element) => {
     const list = element.closest('ul')!;
@@ -1172,7 +1148,7 @@ test('sidebar does not repeat a control already named by its family', async ({
   await expect(family).toBeVisible();
   await expect(family).toHaveAttribute('data-controls', /CommandPalette/);
   await expect(
-    nav.getByRole('link', { name: 'CommandPalette', exact: true }),
+    nav.getByRole('link', { name: 'Command Palette', exact: true }),
   ).toHaveCount(0);
   await page
     .getByRole('searchbox', { name: 'Find a component' })
@@ -1185,19 +1161,19 @@ test('sidebar merges singular and plural versions of the same control', async ({
 }) => {
   await page.goto('/components/selection-controls/');
   const nav = page.getByRole('navigation', { name: 'Component sections' });
-  const chips = nav.getByRole('link', { name: 'ChoiceChips', exact: true });
+  const chips = nav.getByRole('link', { name: 'Choice Chips', exact: true });
   await expect(chips).toBeVisible();
   await expect(chips).toHaveAttribute('data-controls', /ChoiceChip/);
   await expect(chips).toHaveAttribute('data-controls', /ChoiceChips/);
   await expect(
-    nav.getByRole('link', { name: 'ChoiceChip', exact: true }),
+    nav.getByRole('link', { name: 'Choice Chip', exact: true }),
   ).toHaveCount(0);
   await page
     .getByRole('searchbox', { name: 'Find a component' })
     .fill('ChoiceChip');
   const matching = nav
     .locator('[data-controls]')
-    .filter({ hasText: /ChoiceChip/ });
+    .filter({ hasText: /Choice Chip/ });
   await expect(matching).toHaveCount(1);
 });
 
@@ -1315,4 +1291,186 @@ test('metric progress row uses the shared progress bar', async ({ page }) => {
   await expect(bar.locator('.rv-progress-bar__fill')).toHaveCSS('width', /px/);
   await expect(row).toHaveCSS('display', 'flex');
   await expect(row).toContainText('This quarter');
+});
+
+test('sidebar only links to relevant examples and uses matching headings', async ({
+  page,
+}) => {
+  await page.goto('/components/menus-and-toolbars/');
+  const nav = page.getByRole('navigation', { name: 'Component sections' });
+  for (const [name, id] of [
+    ['Action Bar', 'bulk-file-actions'],
+    ['Icon Toolbar', 'zoom-and-pan-controls'],
+  ]) {
+    const link = nav.getByRole('link', { name, exact: true });
+    await expect(link).toHaveAttribute('href', new RegExp(`#example-${id}$`));
+    await link.click();
+    await expect(page.locator(`#example-${id} h3`)).toHaveText(name);
+  }
+  for (const name of [
+    'Svg Button',
+    'Svg Icon',
+    'Editor List',
+    'Tabs',
+    'Duration Draft',
+    'Duration Field',
+  ]) {
+    await expect(nav.getByRole('link', { name, exact: true })).toHaveCount(0);
+  }
+});
+
+test('field configurators and typography navigation match their examples', async ({
+  page,
+}) => {
+  await page.goto('/components/field-configurators/');
+  const nav = page.getByRole('navigation', { name: 'Component sections' });
+  const fieldGroup = nav.getByRole('link', {
+    name: 'Field Group',
+    exact: true,
+  });
+  await expect(fieldGroup).toBeVisible();
+  await expect(
+    nav.locator('[aria-label="Field configurators controls"] a').first(),
+  ).toHaveText('Field Group');
+  await expect(
+    page.locator('.catalog-section .catalog-example').first().locator('h3'),
+  ).toHaveText('Field Group');
+  await expect(fieldGroup).toHaveAttribute(
+    'href',
+    /#example-selected-field-group$/,
+  );
+  for (const name of ['Field Icon', 'Field Row', 'Filter Badge']) {
+    await expect(nav.getByRole('link', { name, exact: true })).toHaveCount(0);
+  }
+  await expect(
+    nav.getByRole('link', { name: 'Typography controls', exact: true }),
+  ).toHaveCount(1);
+  await expect(
+    nav.getByRole('link', { name: 'Formatting controls', exact: true }),
+  ).toHaveCount(0);
+  await expect(
+    nav.getByRole('link', { name: 'Input', exact: true }),
+  ).toHaveCount(0);
+  await expect(
+    nav.getByRole('link', { name: 'Chip', exact: true }),
+  ).toHaveCount(0);
+  await expect(
+    nav.getByRole('link', { name: 'Search Action Bar', exact: true }),
+  ).toBeVisible();
+});
+
+test('calendar starts with its calendar and weekly time grid has one navigation entry', async ({
+  page,
+}) => {
+  await page.goto('/components/calendar-and-dates/');
+  const nav = page.getByRole('navigation', { name: 'Component sections' });
+  await expect(
+    page.locator('#calendar-and-dates .catalog-example').first(),
+  ).toHaveId('example-calendar');
+  await expect(
+    nav.getByRole('link', { name: 'Calendar', exact: true }),
+  ).toBeVisible();
+  await expect(
+    nav.getByRole('link', { name: 'Calendar Day', exact: true }),
+  ).toHaveCount(0);
+  await expect(
+    nav.getByRole('link', { name: 'Weekly time grid', exact: true }),
+  ).toBeVisible();
+  await expect(
+    nav.getByRole('link', { name: 'Time Grid', exact: true }),
+  ).toHaveCount(0);
+  for (const name of [
+    'Activity Message',
+    'Activity Timeline',
+    'Assignee Picker',
+    'Dialog Body',
+    'Control Tooltip',
+  ]) {
+    await expect(nav.getByRole('link', { name, exact: true })).toHaveCount(0);
+  }
+});
+
+test('sidebar omits composition parts and redundant date field links', async ({
+  page,
+}) => {
+  await page.goto('/components/tabs-and-lists/');
+  const nav = page.getByRole('navigation', { name: 'Component sections' });
+  await expect(
+    nav.getByRole('link', { name: 'Listbox', exact: true }),
+  ).toBeVisible();
+  const dialogs = nav.locator('.catalog-nav-family').filter({
+    has: nav.getByRole('link', {
+      name: 'Dialogs and floating surfaces',
+      exact: true,
+    }),
+  });
+  await expect(dialogs.locator('.catalog-nav-examples a')).toHaveCount(0);
+  await expect(
+    nav.getByRole('link', { name: 'Tab Panel', exact: true }),
+  ).toHaveCount(0);
+  await expect(
+    nav.locator('a[href$="#example-selectable-measures"]'),
+  ).toHaveCount(0);
+  await expect(
+    nav.getByRole('link', { name: 'Date Time Field', exact: true }),
+  ).toHaveCount(0);
+  await expect(
+    nav.getByRole('link', { name: 'Field Group', exact: true }),
+  ).toBeVisible();
+  await expect(
+    nav.getByRole('link', { name: 'Temporal Picker', exact: true }),
+  ).toBeVisible();
+});
+
+test('sidebar example destinations exist and are not duplicated within a section', async ({
+  page,
+  request,
+}) => {
+  await page.goto('/components/buttons/');
+  const nav = page.getByRole('navigation', { name: 'Component sections' });
+  await expect(
+    nav.getByRole('link', { name: 'Button Group', exact: true }),
+  ).toBeVisible();
+  const links = await nav.locator('a[data-component]').evaluateAll((nodes) =>
+    nodes.map((node) => ({
+      label: node.textContent?.trim() ?? '',
+      href: node.getAttribute('href') ?? '',
+    })),
+  );
+  const destinations = new Set<string>();
+  const byPage = new Map<string, typeof links>();
+  for (const link of links) {
+    expect(
+      destinations.has(link.href),
+      `duplicate destination for ${link.label}: ${link.href}`,
+    ).toBe(false);
+    destinations.add(link.href);
+    const url = new URL(link.href, 'http://localhost');
+    expect(url.hash, `${link.label} does not point to an example`).toBeTruthy();
+    const entries = byPage.get(url.pathname) ?? [];
+    entries.push(link);
+    byPage.set(url.pathname, entries);
+  }
+  for (const [path, entries] of byPage) {
+    const response = await request.get(path);
+    expect(response.ok(), path).toBeTruthy();
+    const html = await response.text();
+    const ids = await page.evaluate(
+      (documentText) =>
+        Array.from(
+          new DOMParser()
+            .parseFromString(documentText, 'text/html')
+            .querySelectorAll('[id]'),
+          (node) => node.id,
+        ),
+      html,
+    );
+    for (const entry of entries) {
+      const anchor = new URL(entry.href, 'http://localhost').hash.slice(1);
+      expect(
+        ids,
+        `${entry.label} points to a missing example: ${entry.href}`,
+      ).toContain(anchor);
+    }
+  }
 });

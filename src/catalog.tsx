@@ -48,9 +48,12 @@ import {
   siteHref,
 } from './routing';
 const families = pages.components;
+const familyLabel = (title: string) =>
+  title === 'Formatting controls' ? 'Typography controls' : title;
 const nativeGalleryControls = [
   { name: 'CalendarNavigator', families: ['Calendar and dates'] },
   { name: 'AppearanceConfigurator', families: ['Field configurators'] },
+  { name: 'FieldGroup', families: ['Field configurators'] },
   { name: 'BenchmarkCard', families: ['Layout'] },
   { name: 'MetricProgressRow', families: ['Layout'] },
   { name: 'RecordNavigation', families: ['Layout'] },
@@ -101,6 +104,10 @@ const documentationGroups = [
 const Route = createContext('');
 export const sectionId = (title: string) =>
   title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+const componentLabel = (value: string) =>
+  value
+    .replace(/([a-z0-9])([A-Z])/g, '$1 $2')
+    .replace(/([A-Z])([A-Z][a-z])/g, '$1 $2');
 const normalizeSearch = (value: string) =>
   value
     .replace(/([a-z])([A-Z])/g, '$1 $2')
@@ -127,8 +134,115 @@ const componentExampleHref = (family: string, name: string) => {
   );
   const example = exact ?? relevant ?? usingControl[0];
   const href = componentHref(sectionId(family));
-  return example ? `${href}#example-${example.id}` : href;
+  return example ? `${href}#example-${example.id}` : null;
 };
+
+type GalleryControl = { name: string; families: string[] };
+const exampleLabels = createContext<Record<string, string>>({});
+function groupFamilyControls(family: string, controls: GalleryControl[]) {
+  const grouped = new Map<
+    string,
+    { name: string; href: string; aliases: string[] }
+  >();
+  // Prefer a plural composition over its singular building block.
+  // Both names remain searchable even when examples use different anchors.
+  const familyItems = controls
+    .filter(
+      (entry) =>
+        entry.families.includes(family) &&
+        !(family === 'Formatting controls' && entry.name === 'FilterBadge') &&
+        !(
+          family === 'Dialogs and floating surfaces' &&
+          componentExampleHref(family, entry.name)?.endsWith(
+            '#example-editable-dialog-and-standard-footer',
+          )
+        ) &&
+        !(family === 'Tabs and lists' && entry.name === 'TabPanel') &&
+        !(
+          family === 'Field configurators' &&
+          componentExampleHref(family, entry.name)?.endsWith(
+            '#example-selectable-measures',
+          )
+        ) &&
+        !(
+          ['Date and time fields', 'Time pickers'].includes(family) &&
+          entry.name === 'DateTimeField'
+        ) &&
+        !(family === 'Weekly time grid' && entry.name === 'TimeGrid') &&
+        !(family === 'Tooltip' && entry.name === 'ControlTooltip') &&
+        !(family === 'Assignee field' && entry.name === 'AssigneePicker') &&
+        !(
+          family === 'Activity messages' &&
+          ['ActivityMessage', 'ActivityTimeline'].includes(entry.name)
+        ) &&
+        ![
+          'SvgButton',
+          'SvgIcon',
+          'EditorList',
+          'Tabs',
+          'DurationDraft',
+          'DurationField',
+          'FieldIcon',
+          'FieldRow',
+          'Input',
+          'Chip',
+          'DialogBody',
+        ].includes(entry.name) &&
+        componentExampleHref(family, entry.name),
+    )
+    .sort((a, b) => b.name.length - a.name.length);
+  const names = new Set(familyItems.map((item) => item.name));
+  const compositionRoots = familyItems
+    .map((item) => item.name)
+    .filter((name) => names.has(`${name}s`));
+  for (const item of familyItems) {
+    const href = componentExampleHref(family, item.name)!;
+    const related = [...grouped.values()].find((group) =>
+      compositionRoots.some(
+        (root) =>
+          item.name.startsWith(root) &&
+          group.aliases.some((name) => name.startsWith(root)),
+      ),
+    );
+    const current =
+      related ?? [...grouped.values()].find((group) => group.href === href);
+    if (!current) {
+      grouped.set(item.name, {
+        name: item.name,
+        href,
+        aliases: [item.name],
+      });
+      continue;
+    }
+    current.aliases.push(item.name);
+    const composition = compositionRoots.find((root) =>
+      current.aliases.includes(`${root}s`),
+    );
+    if (composition) {
+      current.name = `${composition}s`;
+      current.href = componentExampleHref(family, current.name)!;
+      continue;
+    }
+    const example = examples.find(
+      (entry) =>
+        entry.family === family && href.endsWith(`#example-${entry.id}`),
+    );
+    const target = example
+      ? normalizeSearch(example.title)
+      : normalizeSearch(family);
+    const score = (name: string) =>
+      (family === 'Field configurators' && name === 'FieldGroup' ? 2000 : 0) +
+      (normalizeSearch(name) === target ? 1000 : 0) -
+      name.length;
+    if (current.name === `${item.name}s`) continue;
+    if (
+      item.name === `${current.name}s` ||
+      score(item.name) > score(current.name)
+    )
+      current.name = item.name;
+  }
+  return grouped;
+}
 const matchesExample = (example: (typeof examples)[number], query: string) => {
   const componentNames = [...example.code.matchAll(/<([A-Z][A-Za-z0-9.]*)/g)]
     .map((match) => match[1])
@@ -137,7 +251,7 @@ const matchesExample = (example: (typeof examples)[number], query: string) => {
 };
 const matches = (family: (typeof families)[number], query: string) =>
   normalizeSearch(
-    `${family.title} ${family.description} ${family.keywords}`,
+    `${family.title} ${familyLabel(family.title)} ${family.description} ${family.keywords}`,
   ).includes(query) ||
   examples.some(
     (example) =>
@@ -176,7 +290,7 @@ export function Section({
     <section id={id} class="catalog-section" aria-labelledby={`${id}-title`}>
       <div class="catalog-section-heading">
         <div>
-          <h2 id={`${id}-title`}>{title}</h2>
+          <h2 id={`${id}-title`}>{familyLabel(title)}</h2>
           <p>{family.description}</p>
         </div>
         <a
@@ -207,6 +321,11 @@ export function Example({
   children: ComponentChildren;
   wide?: boolean;
 }) {
+  const labels = useContext(exampleLabels);
+  const example = examples.find((item) => item.title === title);
+  const displayTitle = example?.family
+    ? (labels[`${example.family}#${example.id}`] ?? title)
+    : title;
   return (
     <div
       id={`example-${slug(title)}`}
@@ -228,7 +347,7 @@ export function Example({
                   )
             }
           >
-            {title}
+            {displayTitle}
           </a>
         </h3>
       </div>
@@ -381,6 +500,13 @@ export function CatalogShell({
       (item) => !apiComponents.some((entry) => entry.name === item.name),
     ),
   ];
+  const labels: Record<string, string> = {};
+  for (const family of families) {
+    for (const item of groupFamilyControls(family.title, controls).values()) {
+      const id = item.href.split('#example-')[1];
+      if (id) labels[`${family.title}#${id}`] = componentLabel(item.name);
+    }
+  }
   const visible = families.filter(
     (family) =>
       inScope(family.title) &&
@@ -868,87 +994,16 @@ export function CatalogShell({
                       <div class="catalog-nav-group" key={group}>
                         <p>{group}</p>
                         {entries.map((family) => {
-                          const grouped = new Map<
-                            string,
-                            { name: string; href: string; aliases: string[] }
-                          >();
-                          // Prefer a plural composition over its singular building block.
-                          // Both names remain searchable even when examples use different anchors.
-                          const familyItems = controls
-                            .filter((entry) =>
-                              entry.families.includes(family.title),
-                            )
-                            .sort((a, b) => b.name.length - a.name.length);
-                          const names = new Set(
-                            familyItems.map((item) => item.name),
+                          const grouped = groupFamilyControls(
+                            family.title,
+                            controls,
                           );
-                          const compositionRoots = familyItems
-                            .map((item) => item.name)
-                            .filter((name) => names.has(`${name}s`));
-                          for (const item of familyItems) {
-                            const href = componentExampleHref(
-                              family.title,
-                              item.name,
-                            );
-                            const related = [...grouped.values()].find(
-                              (group) =>
-                                compositionRoots.some(
-                                  (root) =>
-                                    item.name.startsWith(root) &&
-                                    group.aliases.some((name) =>
-                                      name.startsWith(root),
-                                    ),
-                                ),
-                            );
-                            const current =
-                              related ??
-                              [...grouped.values()].find(
-                                (group) => group.href === href,
-                              );
-                            if (!current) {
-                              grouped.set(item.name, {
-                                name: item.name,
-                                href,
-                                aliases: [item.name],
-                              });
-                              continue;
-                            }
-                            current.aliases.push(item.name);
-                            const composition = compositionRoots.find((root) =>
-                              current.aliases.includes(`${root}s`),
-                            );
-                            if (composition) {
-                              current.name = `${composition}s`;
-                              current.href = componentExampleHref(
-                                family.title,
-                                current.name,
-                              );
-                              continue;
-                            }
-                            const example = examples.find(
-                              (entry) =>
-                                entry.family === family.title &&
-                                href.endsWith(`#example-${entry.id}`),
-                            );
-                            const target = example
-                              ? normalizeSearch(example.title)
-                              : normalizeSearch(family.title);
-                            const score = (name: string) =>
-                              (normalizeSearch(name) === target ? 1000 : 0) -
-                              name.length;
-                            if (current.name === `${item.name}s`) continue;
-                            if (
-                              item.name === `${current.name}s` ||
-                              score(item.name) > score(current.name)
-                            )
-                              current.name = item.name;
-                          }
                           const primaryControl = [...grouped.values()].find(
                             (item) =>
                               item.aliases.some(
                                 (name) =>
                                   normalizeSearch(name) ===
-                                  normalizeSearch(family.title),
+                                  normalizeSearch(familyLabel(family.title)),
                               ),
                           );
                           const familyControls = [...grouped.values()]
@@ -962,7 +1017,14 @@ export function CatalogShell({
                                     ),
                                   )),
                             )
-                            .sort((a, b) => a.name.localeCompare(b.name));
+                            .sort((a, b) =>
+                              family.title === 'Field configurators' &&
+                              (a.name === 'FieldGroup' ||
+                                b.name === 'FieldGroup')
+                                ? Number(b.name === 'FieldGroup') -
+                                  Number(a.name === 'FieldGroup')
+                                : a.name.localeCompare(b.name),
+                            );
                           const matching = familyControls.filter((item) =>
                             anchor
                               ? item.href.endsWith(anchor)
@@ -990,7 +1052,7 @@ export function CatalogShell({
                                     : undefined
                                 }
                               >
-                                {family.title}
+                                {familyLabel(family.title)}
                               </a>
                               {familyControls.length > 0 && (
                                 <ul
@@ -1010,13 +1072,15 @@ export function CatalogShell({
                                             : undefined
                                         }
                                       >
-                                        {normalizedQuery
-                                          ? (item.aliases.find((name) =>
-                                              normalizeSearch(name).includes(
-                                                normalizedQuery,
-                                              ),
-                                            ) ?? item.name)
-                                          : item.name}
+                                        {componentLabel(
+                                          normalizedQuery
+                                            ? (item.aliases.find((name) =>
+                                                normalizeSearch(name).includes(
+                                                  normalizedQuery,
+                                                ),
+                                              ) ?? item.name)
+                                            : item.name,
+                                        )}
                                       </a>
                                     </li>
                                   ))}
@@ -1085,69 +1149,74 @@ export function CatalogShell({
             ) : (
               <div class={component ? 'component-document-layout' : undefined}>
                 <div class="component-document-main" ref={content}>
-                  <Route.Provider
-                    value={component ? sectionId(component.title) : active}
-                  >
-                    {active === 'components' && (
-                      <div class="component-intro">
-                        <h1>UI components</h1>
-                        <p>
-                          Explore charts, AI chat, PDF viewing, timelines, date
-                          controls, and more.
-                        </p>
-                      </div>
-                    )}
-                    {component && (
-                      <div class="component-intro">
-                        <a href={componentHref('buttons')}>Components</a>
-                        <span> / </span>
-                        <span>{component.title}</span>
-                        <h1>{component.title}</h1>
-                        <p>
-                          Explore every variant and expand each example’s
-                          formatted usage code.
-                        </p>
-                        <div class="component-intro-actions">
-                          <Button
-                            href={`${siteHref('api/')}?family=${encodeURIComponent(component.title)}`}
-                            size="compact"
-                            className="component-api-link"
-                          >
-                            <SvgIcon svg={codeIcon} size={14} />
-                            API reference
-                            <SvgIcon svg={arrowDownIcon} size={11} />
-                          </Button>
+                  <exampleLabels.Provider value={labels}>
+                    <Route.Provider
+                      value={component ? sectionId(component.title) : active}
+                    >
+                      {active === 'components' && (
+                        <div class="component-intro">
+                          <h1>UI components</h1>
+                          <p>
+                            Explore charts, AI chat, PDF viewing, timelines,
+                            date controls, and more.
+                          </p>
                         </div>
-                      </div>
-                    )}
-                    {/* Explicit section queries retain focused specimen links. */}
-                    {active === 'components' && !included.length ? (
-                      <nav
-                        class="component-directory"
-                        aria-label="All components"
-                      >
-                        {families.map((family) => (
-                          <a href={componentHref(sectionId(family.title))}>
-                            <strong>{family.title}</strong>
-                            <span>{family.description}</span>
+                      )}
+                      {component && (
+                        <div class="component-intro">
+                          <a href={componentHref('buttons')}>Components</a>
+                          <span> / </span>
+                          <span>{familyLabel(component.title)}</span>
+                          <h1>{familyLabel(component.title)}</h1>
+                          <p>
+                            Explore every variant and expand each example’s
+                            formatted usage code.
+                          </p>
+                          <div class="component-intro-actions">
+                            <Button
+                              href={`${siteHref('api/')}?family=${encodeURIComponent(component.title)}`}
+                              size="compact"
+                              className="component-api-link"
+                            >
+                              <SvgIcon svg={codeIcon} size={14} />
+                              API reference
+                              <SvgIcon svg={arrowDownIcon} size={11} />
+                            </Button>
+                          </div>
+                        </div>
+                      )}
+                      {/* Explicit section queries retain focused specimen links. */}
+                      {active === 'components' && !included.length ? (
+                        <nav
+                          class="component-directory"
+                          aria-label="All components"
+                        >
+                          {families.map((family) => (
+                            <a href={componentHref(sectionId(family.title))}>
+                              <strong>{familyLabel(family.title)}</strong>
+                              <span>{family.description}</span>
+                            </a>
+                          ))}
+                        </nav>
+                      ) : knownRoute ? (
+                        scopedChildren
+                      ) : (
+                        <div class="component-intro">
+                          <h1>Component not found</h1>
+                          <p>Choose a component from the navigation.</p>
+                          <a href={componentHref('buttons')}>
+                            Browse components
                           </a>
-                        ))}
-                      </nav>
-                    ) : knownRoute ? (
-                      scopedChildren
-                    ) : (
-                      <div class="component-intro">
-                        <h1>Component not found</h1>
-                        <p>Choose a component from the navigation.</p>
-                        <a href={componentHref('buttons')}>Browse components</a>
-                      </div>
-                    )}
-                  </Route.Provider>
+                        </div>
+                      )}
+                    </Route.Provider>
+                  </exampleLabels.Provider>
                 </div>
                 {component && (
                   <ComponentContents
                     family={component.title}
                     content={content}
+                    labelsVersion={apiComponents.length}
                   />
                 )}
               </div>

@@ -1,4 +1,10 @@
-import { CalendarNavigatorExample, AppearanceConfiguratorExample, SearchActionBarExample, MetricPanelExample, NativePresentationExamples } from './shared-control-examples';
+import {
+  CalendarNavigatorExample,
+  AppearanceConfiguratorExample,
+  SearchActionBarExample,
+  MetricPanelExample,
+  NativePresentationExamples,
+} from './shared-control-examples';
 import { ReleaseTimelineExample } from './release-timeline-example';
 import { ToastExamples } from './toast-examples';
 import { CircularSliderExamples } from './circular-slider-examples';
@@ -1174,8 +1180,8 @@ function App() {
         <CircularSliderExamples />
       </Section>
       <Section title="Field configurators" columns={2}>
-        <AppearanceConfiguratorExample />
         <FieldConfiguratorExamples />
+        <AppearanceConfiguratorExample />
       </Section>
       <Section title="Activity messages">
         <Example title="Chat-style activity">
@@ -1206,7 +1212,6 @@ function App() {
         <ChartExamples />
       </Section>
       <Section title="Calendar and dates">
-        <CalendarNavigatorExample />
         <Example title="Calendar">
           <Calendar
             month={month}
@@ -1218,6 +1223,7 @@ function App() {
             onSelect={setCalendarDate}
           />
         </Example>
+        <CalendarNavigatorExample />
 
         <MiniCalendarExamples />
         <CalendarExamples />

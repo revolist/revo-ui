@@ -6,9 +6,11 @@ import { PageContents, type ContentsItem } from './page-contents';
 export function ComponentContents({
   family,
   content,
+  labelsVersion,
 }: {
   family: string;
   content: RefObject<HTMLDivElement>;
+  labelsVersion: number;
 }) {
   const [examples, setExamples] = useState<ContentsItem[]>([]);
   useLayoutEffect(() => {
@@ -20,7 +22,7 @@ export function ComponentContents({
       title: element.querySelector('h3')?.textContent?.trim() ?? '',
     }));
     setExamples(entries.filter((entry) => entry.id && entry.title));
-  }, [family, content]);
+  }, [family, content, labelsVersion]);
   const items = [
     ...examples,
     { id: `${slug(family)}-api`, title: 'API reference' },

@@ -2012,10 +2012,14 @@ body {
     font-size: 15px;
   }
 }
-.finance-allocation .progress-line-container {
-  --threshold-color: var(--rv-ui-accent);
-  width: 112px;
-  min-width: 112px;
+.finance-weight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.finance-weight .rv-progress-bar {
+  width: 76px;
+  flex: 0 0 76px;
 }
 .home-weekly-planner {
   container-type: inline-size;
