@@ -1,3 +1,5 @@
+import { h } from 'preact';
+import { createPreactElement } from './preact-mount';
 import { createControl } from './control-presentation';
 
 export interface NativeNumberStepperOptions {
@@ -11,7 +13,7 @@ export interface NativeNumberStepperOptions {
 export function createNumberStepperElement(options: NativeNumberStepperOptions) {
   const { input } = options;
   const doc = input.ownerDocument;
-  const element = doc.createElement('div');
+  const element = createPreactElement<HTMLDivElement>(doc, h('div', {}));
   element.className = ['rv-number-stepper', options.className].filter(Boolean).join(' ');
   const decrease = createControl(doc, 'button', { 'aria-label': options.decreaseLabel });
   const increase = createControl(doc, 'button', { 'aria-label': options.increaseLabel });

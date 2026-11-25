@@ -1,7 +1,7 @@
 import { h, type ComponentChildren } from 'preact';
 import { SearchInput, type SearchInputProps } from './search-input';
 import { createSearchInput } from './search-input/native';
-import { releasePreactElement } from './preact-mount';
+import { createPreactElement, releasePreactElement } from './preact-mount';
 import { TooltipController } from './core/popover-controller';
 
 /** Search with caller-owned actions, such as filters, column controls or export. */
@@ -43,11 +43,11 @@ export function createSearchActionBar(
   search.root
     .querySelector('.rv-search-input-shortcut')
     ?.setAttribute('aria-hidden', 'true');
-  const element = document.createElement('div');
+  const element = createPreactElement<HTMLDivElement>(document, h('div', {}));
   element.className = ['rv-search-action-bar', options.className]
     .filter(Boolean)
     .join(' ');
-  const actions = document.createElement('div');
+  const actions = createPreactElement<HTMLDivElement>(document, h('div', {}));
   let releaseTooltips: (() => void)[] = [];
   const clearTooltips = () => {
     releaseTooltips.forEach((dispose) => dispose());
