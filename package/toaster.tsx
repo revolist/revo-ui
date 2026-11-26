@@ -62,7 +62,7 @@ function ToastCard({
 }) {
   const tone = entry.tone ?? 'neutral';
   const duration =
-    entry.duration ?? (tone === 'loading' || entry.action ? 0 : 4000);
+    entry.duration ?? (tone === 'loading' ? 0 : 4000);
   const timer = useRef({ entry, remaining: duration });
   const icon =
     tone === 'neutral' || tone === 'loading' ? undefined : icons[tone];

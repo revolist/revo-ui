@@ -2,6 +2,57 @@ import { act } from 'preact/test-utils';
 import { expect, it, vi } from 'vitest';
 import { createToaster, mountToaster } from './toaster';
 
+it('expires actionable toasts by default while honoring persistent and loading toasts', () => {
+  vi.useFakeTimers();
+  const host = document.createElement('div');
+  document.body.append(host);
+  const toaster = createToaster();
+  let view!: ReturnType<typeof mountToaster>;
+  try {
+    act(() => {
+      view = mountToaster(host, { toaster, position: 'inline', visibleCount: 6 });
+      toaster.show({ title: 'Saved' });
+      toaster.show({ title: 'Deleted', action: { label: 'Undo', onClick: vi.fn() } });
+      toaster.show({ title: 'Persistent', duration: 0 });
+      toaster.show({ title: 'Infinite', duration: Infinity });
+      toaster.show({ title: 'Custom', duration: 8000 });
+      toaster.show({ title: 'Loading', tone: 'loading' });
+    });
+    act(() => vi.advanceTimersByTime(4000));
+    expect(toaster.getSnapshot().map(entry => entry.title)).toEqual(['Persistent', 'Infinite', 'Custom', 'Loading']);
+    act(() => vi.advanceTimersByTime(4000));
+    expect(toaster.getSnapshot().map(entry => entry.title)).toEqual(['Persistent', 'Infinite', 'Loading']);
+  } finally {
+    act(() => view.destroy());
+    host.remove();
+    vi.useRealTimers();
+  }
+});
+
+it('runs an undo action immediately before the default timeout', () => {
+  vi.useFakeTimers();
+  const host = document.createElement('div');
+  document.body.append(host);
+  const toaster = createToaster();
+  const undo = vi.fn();
+  let view!: ReturnType<typeof mountToaster>;
+  try {
+    act(() => {
+      view = mountToaster(host, { toaster, position: 'inline' });
+      toaster.show({ title: 'Deleted', action: { label: 'Undo', onClick: undo } });
+    });
+    act(() => vi.advanceTimersByTime(3999));
+    act(() => host.querySelector<HTMLButtonElement>('[data-part="action"] button')!.click());
+    act(() => vi.advanceTimersByTime(1));
+    expect(undo).toHaveBeenCalledOnce();
+    expect(toaster.getSnapshot()).toHaveLength(0);
+  } finally {
+    act(() => view.destroy());
+    host.remove();
+    vi.useRealTimers();
+  }
+});
+
 it('mounts a native toaster with actionable notifications and cleans up', () => {
   const host = document.createElement('div');
   document.body.append(host);

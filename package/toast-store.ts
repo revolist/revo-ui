@@ -10,7 +10,7 @@ export interface ToastOptions {
   title: string;
   description?: string;
   tone?: ToastTone;
-  /** Milliseconds before dismissal. Use 0 to keep the notification visible. */
+  /** Milliseconds before dismissal. Defaults to 4000; use 0 or Infinity to keep it visible. Loading toasts stay visible by default. */
   duration?: number;
   action?: {
     label: string;

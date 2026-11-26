@@ -35,6 +35,6 @@ Import `createToaster` from the Preact, React or Vue entry, or from `@revolist/u
 
 Use `toaster.promise(task, { loading, success, error })` to update one notification as a promise settles. Each message takes toast options and success and error can derive their options from the settled value. The returned promise preserves the task result or rejection.
 
-Notifications expire after four seconds by default. Loading notifications and notifications with actions stay visible by default. Pass `duration: 0` to keep other messages visible or set a duration in milliseconds. The timer pauses while the viewport is hovered or focused and while the document is hidden.
+Notifications, including those with actions, expire after four seconds by default. Loading notifications stay visible by default. Pass `duration: 0` or `duration: Infinity` to keep a notification visible, or set a duration in milliseconds. The timer pauses while the viewport is hovered or focused and while the document is hidden.
 
 Use logical start and end positions for RTL layouts, or `inline` within a panel. Pass translated message text, action labels, and `text.notifications` and `text.dismiss` for the accessible names. Keyboard users can Tab into the actions and press Escape within a notification to dismiss it.
