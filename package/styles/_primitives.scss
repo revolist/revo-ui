@@ -902,6 +902,7 @@ label.rv-switch-label {
 
 .rv-search-input-icon {
   position: absolute;
+  z-index: 1;
   inset-inline-start: 10px;
   top: 50%;
   display: inline-flex;

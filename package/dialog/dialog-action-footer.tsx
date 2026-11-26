@@ -1,17 +1,21 @@
 import { h } from 'preact';
 import { ButtonControl } from '../native-control';
-import { createPreactElement, releasePreactElement } from '../preact-mount';
+import { renderPreactInto } from '../preact-mount';
 
 export interface NativeDialogAction {
   label?: string;
   disabled?: boolean;
   onClick?: () => void;
+  /** Optional icon identifier exposed to the host's icon styling. */
+  icon?: string;
 }
 export interface NativeDialogActionFooterProps {
   cancel?: NativeDialogAction | false;
   save?: NativeDialogAction | false;
   deleteAction?: NativeDialogAction | false;
   reset?: NativeDialogAction | false;
+  className?: string;
+  actionsClass?: string;
 }
 
 /** One TSX composition for Preact consumers and element-returning host adapters. */
@@ -26,6 +30,9 @@ export function ActionFooterView({
   children,
   actionsClass = '',
   class: className = '',
+  className: nativeClassName = '',
+  startRef,
+  endRef,
   ...props
 }: Record<string, any>) {
   const action = (
@@ -39,6 +46,7 @@ export function ActionFooterView({
     const {
       label: text = label,
       class: buttonClass = '',
+      icon,
       ...attributes
     } = config;
     return (
@@ -46,6 +54,7 @@ export function ActionFooterView({
         type={type as 'button'}
         {...attributes}
         class={`rv-btn ${variant} ${buttonClass}`}
+        data-icon={icon}
         data-dialog-action={name}
       >
         {text}
@@ -55,18 +64,18 @@ export function ActionFooterView({
   return (
     <footer
       {...props}
-      class={`rv-dialog__footer rv-dialog__action-footer ${preset?.className ?? ''} ${className}`}
+      class={`rv-dialog__footer rv-dialog__action-footer ${preset?.className ?? ''} ${className} ${nativeClassName}`}
       data-part="root"
     >
       {children}
       <div class="rv-dialog__action-panel">
-        <div class="rv-dialog__action-start">
+        <div ref={startRef} class="rv-dialog__action-start">
           {start}
           {action('delete', deleteAction, 'Delete', 'rv-btn-danger-outline')}
           {action('reset', reset, 'Reset')}
         </div>
         <div class={`rv-dialog__actions ${actionsClass}`}>
-          {end}
+          {endRef ? <span ref={endRef} style={{ display: 'contents' }}>{end}</span> : end}
           {action('cancel', cancel, 'Cancel')}
           {action('save', save, 'Save', 'rv-btn-primary', 'submit')}
         </div>
@@ -79,14 +88,33 @@ export function mountDialogActionFooter(
   host: HTMLElement,
   props: NativeDialogActionFooterProps,
 ) {
-  const footer = createPreactElement(
-    host.ownerDocument,
-    <ActionFooterView {...props} />,
-  );
-  host.append(footer);
+  const container = host.ownerDocument.createElement('div');
+  container.style.display = 'contents';
+  host.append(container);
+  let current = props;
+  let start!: HTMLElement;
+  let end!: HTMLElement;
+  let destroyed = false;
+  const startRef = (element: HTMLElement | null) => { if (element) start = element; };
+  const endRef = (element: HTMLElement | null) => { if (element) end = element; };
+  const render = () => renderPreactInto(container, <ActionFooterView {...current} startRef={startRef} endRef={endRef} />);
+  render();
+  const element = container.firstElementChild as HTMLElement;
   return {
+    element,
+    start,
+    end,
+    /** Replace supplied action configurations; omitted fields stay unchanged. */
+    update(next: Partial<NativeDialogActionFooterProps>) {
+      if (destroyed) return;
+      current = { ...current, ...next };
+      render();
+    },
     destroy() {
-      releasePreactElement(footer);
+      if (destroyed) return;
+      destroyed = true;
+      renderPreactInto(container, null);
+      container.remove();
     },
   };
 }

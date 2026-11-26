@@ -28,6 +28,7 @@ export function createFrameworkMount<T>(
   options: { styles?: boolean } = {},
 ): UiFrameworkMount<T> {
   const targets = new Map<HTMLElement, UiContentTarget<T>>();
+  const emptyScope: Record<string, unknown> = {};
   let disposed = false;
   let nextId = 0;
   function Content({
@@ -58,7 +59,7 @@ export function createFrameworkMount<T>(
       'data-rv-framework-content': '',
     });
   }
-  const content = (value: T, scope: Record<string, unknown> = {}) =>
+  const content = (value: T, scope: Record<string, unknown> = emptyScope) =>
     h(Content, { content: value, scope });
   return {
     render(component, props, transform) {

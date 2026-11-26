@@ -3,6 +3,17 @@ import { h } from 'preact';
 import { createFrameworkMount, type UiContentTarget } from './framework-mount';
 
 describe('framework content lifecycle', () => {
+  it('does not republish unchanged content without a scope', () => {
+    const host = document.createElement('div');
+    const published: UiContentTarget<string>[][] = [];
+    const mount = createFrameworkMount<string>(host, (next) => published.push(next));
+    const Component = ({ children }: any) => h('div', null, children);
+    const update = () => mount.render(Component, {}, (_props, content) => ({ children: content('unchanged') }));
+    update();
+    update();
+    expect(published).toHaveLength(1);
+    mount.destroy();
+  });
   it('retains target identity across prop updates and rejects updates after disposal', () => {
     const host = document.createElement('div');
     let targets: UiContentTarget<string>[] = [];

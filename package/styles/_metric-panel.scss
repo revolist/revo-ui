@@ -64,9 +64,9 @@
   row-gap: 6px;
   padding: 11px 12px 8px;
   border: 1px solid
-    color-mix(in srgb, var(--rv-metric-visual-accent), white 80%);
+    color-mix(in srgb, var(--rv-metric-visual-accent), var(--rv-ui-surface, white) 80%);
   border-radius: 14px;
-  background: color-mix(in srgb, var(--rv-metric-visual-accent), white 93%);
+  background: color-mix(in srgb, var(--rv-metric-visual-accent), var(--rv-ui-surface, white) 93%);
 }
 .rv-metric-tile--visual .rv-metric-tile__icon {
   display: grid;
@@ -74,10 +74,10 @@
   width: 32px;
   height: 32px;
   border: 1px solid
-    color-mix(in srgb, var(--rv-metric-visual-accent), white 70%);
+    color-mix(in srgb, var(--rv-metric-visual-accent), var(--rv-ui-surface, white) 70%);
   border-radius: 9px;
   color: var(--rv-metric-visual-accent);
-  background: color-mix(in srgb, var(--rv-metric-visual-accent), white 90%);
+  background: color-mix(in srgb, var(--rv-metric-visual-accent), var(--rv-ui-surface, white) 90%);
 }
 .rv-metric-tile--visual.rv-metric-tile--no-icon {
   grid-template-columns: minmax(0, 1fr);
@@ -104,7 +104,7 @@
   line-height: 18px;
 }
 .rv-metric-tile--visual .rv-metric-tile__detail {
-  color: #737373;
+  color: var(--rv-ui-text-muted, #737373);
   font-size: 12px;
   white-space: nowrap;
 }
@@ -137,26 +137,26 @@
   flex: 1;
   min-width: 0;
   border-radius: 2px;
-  background: color-mix(in srgb, var(--rv-metric-visual-accent), white 65%);
+  background: color-mix(in srgb, var(--rv-metric-visual-accent), var(--rv-ui-surface, white) 65%);
 }
 .rv-metric-tile--visual .rv-metric-tile__trend .bar-chart-bar:last-child {
   background: var(--rv-metric-visual-accent);
 }
 .rv-metric-tile--visual .rv-metric-tile__extra {
-  grid-column: 1 / -1;
+  grid-column: 2 / -1;
 }
 .rv-metric-tile--visual .rv-metric-tile__progress {
   appearance: none;
-  grid-column: 1 / -1;
+  grid-column: 2 / -1;
   width: 100%;
   height: 5px;
   border: 0;
   border-radius: 4px;
-  background: color-mix(in srgb, var(--rv-metric-visual-accent), white 78%);
+  background: color-mix(in srgb, var(--rv-metric-visual-accent), var(--rv-ui-surface, white) 78%);
   accent-color: var(--rv-metric-visual-accent);
 }
 .rv-metric-tile--visual .rv-metric-tile__progress::-webkit-progress-bar {
-  background: color-mix(in srgb, var(--rv-metric-visual-accent), white 78%);
+  background: color-mix(in srgb, var(--rv-metric-visual-accent), var(--rv-ui-surface, white) 78%);
   border-radius: 4px;
 }
 .rv-metric-tile--visual .rv-metric-tile__progress::-webkit-progress-value {
@@ -168,11 +168,16 @@
   border-radius: 4px;
 }
 .rv-metric-tile--visual .rv-metric-tile__caption {
-  grid-column: 1 / -1;
+  grid-column: 2 / -1;
   margin: 0;
-  color: #737373;
+  color: var(--rv-ui-text-muted, #737373);
   font-size: 12px;
   white-space: nowrap;
+}
+.rv-metric-tile--visual.rv-metric-tile--no-icon :is(
+  .rv-metric-tile__extra, .rv-metric-tile__progress, .rv-metric-tile__caption
+) {
+  grid-column: 1 / -1;
 }
 .rv-metric-tile--summary {
   position: relative;

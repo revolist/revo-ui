@@ -18,6 +18,8 @@ import {
   FieldList,
   FieldRow,
   ActivityMessage,
+  Menu,
+  MenuItem,
   createReactAdapter,
 } from './react';
 
@@ -42,6 +44,25 @@ function setup() {
 }
 
 describe('React shared component adapters', () => {
+  it('renders nested menu items and updates their content and actions', async () => {
+    setup();
+    const clicks: string[] = [];
+    const view = (label: string) => h(Menu, { label: 'Actions' },
+      h(MenuItem, { onClick: () => clicks.push(label) }, label));
+    await act(async () => {
+      root!.render(view('Edit'));
+      await settle();
+    });
+    expect(host.querySelector('[role=menuitem]')?.textContent).toBe('Edit');
+    await act(async () => {
+      root!.render(view('Remove'));
+      await settle();
+    });
+    const item = host.querySelector<HTMLElement>('[role=menuitem]')!;
+    expect(item.textContent).toBe('Remove');
+    await act(async () => { item.click(); await settle(); });
+    expect(clicks).toEqual(['Remove']);
+  });
   it('preserves React context and child state across parent prop updates and StrictMode remounts', async () => {
     setup();
     const Context = createContext('missing');
