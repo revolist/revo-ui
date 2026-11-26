@@ -6,7 +6,7 @@
     "node": ">=24.15.0"
   },
   "dependencies": {
-    "@revolist/ui": "4.2.2",
+    "@revolist/ui": "4.2.3",
     "nuxt": "4.6.4",
     "pdfjs-dist": "6.4.299",
     "vue": "3.5.45"

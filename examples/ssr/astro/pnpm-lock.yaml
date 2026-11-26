@@ -15,8 +15,8 @@ importers:
         specifier: 7.1.6
         version: 7.1.6(astro@7.4.12(yaml@2.9.1))(vue@3.5.45(typescript@6.0.3))(yaml@2.9.1)
       '@revolist/ui':
-        specifier: 4.2.2
-        version: 4.2.2(vue@3.5.45(typescript@6.0.3))
+        specifier: 4.2.3
+        version: 4.2.3(vue@3.5.45(typescript@6.0.3))
       astro:
         specifier: 7.4.12
         version: 7.4.12(yaml@2.9.1)
@@ -635,8 +635,8 @@ packages:
   '@polka/url@1.0.0-next.29':
     resolution: {integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==}
 
-  '@revolist/ui@4.2.2':
-    resolution: {integrity: sha512-Ho+GhlNzznFWCo+h6sy4gWaiL9JxlT4HFmh/QNXXdr7iL/Nsllp3JP2dnsPxwhbQKD21jK/TiDOvBBe0oWOaew==}
+  '@revolist/ui@4.2.3':
+    resolution: {integrity: sha512-vsZiE6rFLx17uBZToa98/1jrr2SoYJllpr94+KOU5rjyAA3gvRyEGPILzsaMcG7glGwSD2VTxbFuLIQs5gvbHg==}
     peerDependencies:
       '@angular/core': '>=20'
       pdfjs-dist: ^6.4.299
@@ -2814,7 +2814,7 @@ snapshots:
 
   '@polka/url@1.0.0-next.29': {}
 
-  '@revolist/ui@4.2.2(vue@3.5.45(typescript@6.0.3))':
+  '@revolist/ui@4.2.3(vue@3.5.45(typescript@6.0.3))':
     optionalDependencies:
       vue: 3.5.45(typescript@6.0.3)
 
