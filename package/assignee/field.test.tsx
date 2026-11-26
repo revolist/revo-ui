@@ -83,3 +83,27 @@ it('preserves explicit manual mode by discarding outside drafts', () => {
   expect(save).not.toHaveBeenCalled();
   expect(cancel).toHaveBeenCalledOnce();
 });
+
+it('shows avatars instead of truncated tags for more than two assignees', () => {
+  act(() => render(
+    <AssigneeField
+      value={['a', 'b', 'c'].map((value) => ({ value, units: 0 }))}
+      options={{ source: ['Ana', 'Bea', 'Cam'].map((label, i) => ({ value: ['a', 'b', 'c'][i], label })) }}
+      save={() => {}} cancel={() => {}}
+    />, host,
+  ));
+  expect(host.querySelectorAll('.rv-assignee-editor--avatars .avatar-cell')).toHaveLength(3);
+  expect(host.querySelector('.rv-assignee-editor--avatars .selected-tag-label')?.textContent).toBe('A');
+});
+
+it('keeps labels when avatars are disabled', () => {
+  act(() => render(
+    <AssigneeField
+      value={['a', 'b', 'c'].map((value) => ({ value, units: 0 }))}
+      options={{ showAvatars: false, source: ['a', 'b', 'c'].map((value) => ({ value, label: value })) }}
+      save={() => {}} cancel={() => {}}
+    />, host,
+   ));
+  expect(host.querySelector('.rv-assignee-editor--avatars')).toBeNull();
+  expect(host.querySelectorAll('.selected-tag')).toHaveLength(3);
+});

@@ -3,6 +3,7 @@ import type { ClassPreset } from '../presets/types';
 import type { ComponentChildren } from 'preact';
 import { useRef, useState } from 'preact/hooks';
 import { Dropdown } from '../dropdown';
+import { ResourcePickerAvatar } from '../resource-picker/resource-picker-avatar';
 import type { DropdownProps } from '../dropdown/dropdown.types';
 import {
   copyAssigneeAssignments,
@@ -57,6 +58,7 @@ export function AssigneeField({
     return true;
   };
   const autoApply = options.autoApply !== false;
+  const compactAvatars = draft.length > 2 && options.showAvatars !== false;
   const known = new Map(options.source.map((option) => [option.value, option]));
   const source = [
     ...options.source,
@@ -72,7 +74,7 @@ export function AssigneeField({
       preset={preset}
       source={source}
       value={draft.map((item) => item.value)}
-      className="rv-assignee-editor"
+      className={`rv-assignee-editor${compactAvatars ? ' rv-assignee-editor--avatars' : ''}`}
       placeholder={options.text?.placeholder ?? 'Assign people…'}
       config={{
         multiSelect: true,
@@ -87,7 +89,9 @@ export function AssigneeField({
       renderValue={(h, option) => {
         const units =
           draft.find((item) => item.value === option.value)?.units ?? 0;
-        return renderValue
+        return compactAvatars
+          ? <ResourcePickerAvatar resource={{ ...option, id: option.value, name: option.name ?? option.label }} />
+          : renderValue
           ? renderValue(h, option, units)
           : formatAssigneeLabel(option.name ?? option.label, units);
       }}

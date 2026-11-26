@@ -124,3 +124,16 @@
 .rv-assignee-picker__footer .rv-editor-actions {
   margin-inline-start: auto;
 }
+
+.rv-assignee-editor--avatars.dropdown-container .selected-tag {
+  flex: none;
+  min-width: 0;
+  padding: 0;
+  background: transparent;
+  > button.rv-remove-button {
+    display: none;
+  }
+  .rv-resource-picker__avatar {
+    --avatar-cell-size: 24px;
+  }
+}
