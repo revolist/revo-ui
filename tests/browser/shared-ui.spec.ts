@@ -1352,12 +1352,7 @@ test('slider layouts expose units, callouts, ticks and native keyboard behavior'
 test('resource selection reuses shared search and keeps selection while filtering', async ({
   page,
 }) => {
-  const card = page.locator('.catalog-example').filter({
-    has: page.getByRole('heading', {
-      name: 'Resource selection',
-      exact: true,
-    }),
-  });
+  const card = page.locator('#example-resource-selection');
   const search = card.getByRole('searchbox', { name: 'Search people' });
   await expect(card.locator('.rv-search-input-icon svg')).toHaveCount(1);
   await search.fill('engineer');
@@ -1426,9 +1421,7 @@ test('selection list variants share row presentation and keep groups independent
   await expect(
     visuals.getByRole('option', { name: 'Avatar with text' }),
   ).toHaveAttribute('aria-selected', 'true');
-  const example = page.locator('.catalog-example').filter({
-    has: page.getByRole('heading', { name: 'Selection list', exact: true }),
-  });
+  const example = page.locator('#example-selection-list');
   await expect(example.getByRole('listbox')).toHaveCount(3);
   await expect(
     page.locator('#formatting-controls').getByRole('listbox'),

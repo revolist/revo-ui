@@ -15,6 +15,28 @@ import { attachDialogDrag } from './dialog/dialog.drag';
 import type { DialogHandle, DialogOpenOptions } from './dialog/dialog.types';
 
 const dialogStacks = new WeakMap<Document, HTMLElement[]>();
+const inertCounts = new WeakMap<Element, { count: number; originallyInert: boolean }>();
+
+function inertBackground(document: Document): () => void {
+  const elements = Array.from(document.body.children);
+  for (const element of elements) {
+    const state = inertCounts.get(element) ?? {
+      count: 0,
+      originallyInert: element.hasAttribute('inert'),
+    };
+    state.count++;
+    inertCounts.set(element, state);
+    element.setAttribute('inert', '');
+  }
+  return () => {
+    for (const element of elements) {
+      const state = inertCounts.get(element);
+      if (!state || --state.count) continue;
+      if (!state.originallyInert) element.removeAttribute('inert');
+      inertCounts.delete(element);
+    }
+  };
+}
 export interface DialogEnvironment {
   beforeMount?: (root: HTMLElement) => void;
   onOpen?: (options: DialogOpenOptions) => void;
@@ -38,6 +60,7 @@ export class DialogController {
     let closed = false;
     let disposeDrag: (() => void) | undefined;
     let releaseMotion: (() => void) | undefined;
+    let releaseBackground: (() => void) | undefined;
     const stack = dialogStacks.get(document) ?? [];
     dialogStacks.set(document, stack);
     const close = () => {
@@ -45,6 +68,7 @@ export class DialogController {
       closed = true;
       disposeDrag?.();
       releaseMotion?.();
+      releaseBackground?.();
       releasePreactElement(elements.root);
       const index = stack.indexOf(elements.root);
       const wasTop = index === stack.length - 1;
@@ -87,6 +111,7 @@ export class DialogController {
         close();
       } else if (event.key === 'Tab') trapDialogFocus(elements.root, event);
     });
+    releaseBackground = inertBackground(document);
     document.body.append(elements.root);
     stack.push(elements.root);
     if (options.draggable !== false)

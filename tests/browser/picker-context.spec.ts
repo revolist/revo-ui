@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 test('date popup inherits a nested dialog scope', async ({ page }) => {
-  await page.goto('/tests/browser/fixtures/picker-context/index.html');
+  await page.goto('http://127.0.0.1:4180/tests/browser/fixtures/picker-context/index.html');
   await page.getByRole('button', { name: 'Open date' }).click();
   const popup = page.locator('.rv-popover[role="dialog"]:visible');
   await expect(popup).toHaveCSS('direction', 'rtl');
@@ -15,7 +15,7 @@ test('date popup inherits a nested dialog scope', async ({ page }) => {
 });
 
 test('disabling a fieldset closes its open date picker', async ({ page }) => {
-  await page.goto('/tests/browser/fixtures/picker-context/index.html');
+  await page.goto('http://127.0.0.1:4180/tests/browser/fixtures/picker-context/index.html');
   await page.getByRole('button', { name: 'Open visit' }).click();
   const calendar = page.getByRole('dialog', { name: 'Open visit' });
   await expect(calendar).toBeVisible();
@@ -28,7 +28,7 @@ test('disabling a fieldset closes its open date picker', async ({ page }) => {
 test('date popup retains scope through a dialog shadow root', async ({
   page,
 }) => {
-  await page.goto('/tests/browser/fixtures/picker-context/index.html');
+  await page.goto('http://127.0.0.1:4180/tests/browser/fixtures/picker-context/index.html');
   await page.getByRole('button', { name: 'Open shadow date' }).click();
   const popup = page
     .locator('section[dir="rtl"] .rv-popover[role="dialog"]:visible')
@@ -47,7 +47,7 @@ test('date popup retains scope through a dialog shadow root', async ({
 test('native date field in a shadow-root modal closes with its owner', async ({
   page,
 }) => {
-  await page.goto('/tests/browser/fixtures/picker-context/index.html');
+  await page.goto('http://127.0.0.1:4180/tests/browser/fixtures/picker-context/index.html');
   await page.evaluate(() =>
     document
       .querySelector<HTMLDialogElement>('#native-shadow-modal')!
@@ -63,7 +63,7 @@ test('native date field in a shadow-root modal closes with its owner', async ({
 });
 
 test('finds a dialog through a real assigned slot', async ({ page }) => {
-  await page.goto('/tests/browser/fixtures/picker-context/index.html');
+  await page.goto('http://127.0.0.1:4180/tests/browser/fixtures/picker-context/index.html');
   const result = await page.evaluate(async () => {
     const { findOpenDialog } = await import('/package/core/open-dialog.ts');
     const host = document.createElement('div');

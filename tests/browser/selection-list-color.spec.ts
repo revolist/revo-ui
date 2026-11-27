@@ -11,15 +11,8 @@ test('selection lists use the resource selection tint in both themes', async ({
 }) => {
   await page.goto('/#components');
   await setGalleryPreference(page, 'Animations', false);
-  const lists = page.locator('.catalog-example').filter({
-    has: page.getByRole('heading', { name: 'Selection list', exact: true }),
-  });
-  const resources = page.locator('.catalog-example').filter({
-    has: page.getByRole('heading', {
-      name: 'Resource selection',
-      exact: true,
-    }),
-  });
+  const lists = page.locator('#example-selection-list');
+  const resources = page.locator('#example-resource-selection');
   for (const theme of ['light', 'dark']) {
     await chooseOption(
       page.getByRole('button', { name: 'Theme', exact: true }),

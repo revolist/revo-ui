@@ -154,6 +154,27 @@ describe('standalone surface lifecycle', () => {
     expect(document.activeElement).toBe(trigger);
   });
 
+  it('makes the background inert until all covering dialogs close', () => {
+    const background = document.createElement('div');
+    const alreadyInert = document.createElement('div');
+    alreadyInert.setAttribute('inert', '');
+    document.body.append(background, alreadyInert);
+    const first = new DialogController(document);
+    const second = new DialogController(document);
+    disposers.push(() => first.destroy(), () => second.destroy());
+    const outer = first.open({ title: 'Outer', closeLabel: 'Close' });
+    expect(background.hasAttribute('inert')).toBe(true);
+    const inner = second.open({ title: 'Inner', closeLabel: 'Close' });
+    expect(outer.root.hasAttribute('inert')).toBe(true);
+    outer.close();
+    expect(background.hasAttribute('inert')).toBe(true);
+    inner.close();
+    expect(background.hasAttribute('inert')).toBe(false);
+    expect(alreadyInert.hasAttribute('inert')).toBe(true);
+    background.remove();
+    alreadyInert.remove();
+  });
+
   it('traps keyboard focus while skipping disabled and hidden dialog controls', async () => {
     const controller = new DialogController(document);
     disposers.push(() => controller.destroy());

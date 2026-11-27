@@ -45,7 +45,7 @@ for (const width of [1280, 390])
       for (const path of ['/#components', '/?page=colors']) {
         await page.goto(path);
         await chooseOption(
-          page.getByRole('button', { name: 'Theme', exact: true }),
+          page.locator('.catalog-topbar').getByRole('button', { name: 'Theme', exact: true }),
           theme === 'light' ? 'Light' : 'Dark',
         );
         await scan(
@@ -124,7 +124,7 @@ for (const theme of ['light', 'dark']) {
     test.setTimeout(90_000);
     await page.goto('/components/dialogs-and-floating-surfaces/');
     await chooseOption(
-      page.getByRole('button', { name: 'Theme', exact: true }),
+      page.locator('.catalog-topbar').getByRole('button', { name: 'Theme', exact: true }),
       theme === 'light' ? 'Light' : 'Dark',
     );
     await page

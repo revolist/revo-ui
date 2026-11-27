@@ -25,7 +25,7 @@ export default defineConfig({
     viewport: { width: 1280, height: 900 },
     trace: 'retain-on-failure',
   },
-  webServer: {
+  webServer: [{
     timeout: 300000,
     command:
       process.env.UI_SKIP_BUILD === '1'
@@ -33,5 +33,10 @@ export default defineConfig({
         : 'pnpm build:demo && pnpm preview --host 127.0.0.1 --port 4179 --strictPort',
     url: 'http://127.0.0.1:4179',
     reuseExistingServer: !process.env.CI,
-  },
+  }, {
+    command: 'pnpm exec vite --host 127.0.0.1 --port 4180 --strictPort',
+    url: 'http://127.0.0.1:4180',
+    timeout: 300000,
+    reuseExistingServer: !process.env.CI,
+  }],
 });

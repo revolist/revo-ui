@@ -163,7 +163,7 @@ export function renderMetricTile<H extends ElementFactory>(
           .join(' '),
         style: {
           '--rv-metric-summary-marker': props.summary.markerColor,
-          '--rv-metric-summary-detail': props.summary.detailColor ?? '#397d70',
+          '--rv-metric-summary-detail': props.summary.detailColor ?? 'var(--rv-ui-success)',
         },
         'data-part': 'root',
       },

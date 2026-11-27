@@ -241,7 +241,7 @@
   padding: 10px 15px;
 }
 .rv-metric-tile--summary .rv-metric-tile__label {
-  color: #737373;
+  color: var(--rv-ui-text-muted);
   font-size: 12px;
   white-space: nowrap;
   overflow: hidden;

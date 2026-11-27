@@ -102,6 +102,23 @@ body {
   background: var(--rv-ui-surface);
   border-inline-end: 1px solid var(--rv-ui-border);
 }
+@media (min-width: 761px) {
+  #component-navigation {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  #component-navigation > .catalog-navigation-tools {
+    position: static;
+    flex: none;
+    box-shadow: none;
+  }
+  #component-navigation > nav {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+  }
+}
 .catalog-navigation-tools {
   display: flex;
   align-items: center;
@@ -912,6 +929,12 @@ body {
   gap: 26px;
   font-size: 13px;
   color: var(--rv-ui-text-muted);
+}
+.catalog-pages > a,
+.catalog-pages > .catalog-customize-trigger {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
 }
 .catalog-pages a[aria-current] {
   color: var(--rv-ui-text);
@@ -4583,6 +4606,8 @@ body {
     display: flex;
     align-items: center;
     min-height: 44px;
+    border: 0;
+    border-radius: 0;
     font-size: 14px;
     line-height: 20px;
   }

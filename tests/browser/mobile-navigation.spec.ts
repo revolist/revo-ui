@@ -15,7 +15,7 @@ for (const width of [320, 390, 760]) {
         .click();
       const sidebar = page.locator('#component-navigation');
       await expect(sidebar).toBeVisible();
-      const links = sidebar.locator('.catalog-nav-group > a');
+      const links = sidebar.locator('.catalog-nav-family > a');
       const buttonLike = await links.evaluateAll((elements) =>
         elements
           .filter((element) => {

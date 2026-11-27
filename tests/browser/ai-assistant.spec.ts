@@ -17,9 +17,7 @@ for (const theme of ['light', 'dark']) {
       await expect(
         page.getByRole('heading', { name: 'View assistant', exact: true }),
       ).toHaveCount(0);
-      const example = page.locator('.catalog-example').filter({
-        has: page.getByRole('heading', { name: 'Chat UI', exact: true }),
-      });
+      const example = page.locator('#example-chat-ui');
       await example.scrollIntoViewIfNeeded();
       const prompt = example.getByLabel('Message', { exact: true });
       const composer = example.locator('.rv-ai-prompt-composer');
@@ -136,9 +134,7 @@ test('long suggestions stay inside the composer and remain usable', async ({
 }) => {
   await page.setViewportSize({ width: 390, height: 900 });
   await page.goto('/#ai-assistant');
-  const example = page.locator('.catalog-example').filter({
-    has: page.getByRole('heading', { name: 'Chat UI', exact: true }),
-  });
+  const example = page.locator('#example-chat-ui');
   const composer = example.locator('.rv-ai-prompt-composer');
   const buttons = composer.locator('.rv-ai-suggestion');
   const originalLabel = await buttons.first().textContent();

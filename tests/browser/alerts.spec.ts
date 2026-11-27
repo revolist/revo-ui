@@ -7,9 +7,7 @@ test('shared alerts stay compact and consistent across themes and narrow layouts
   page,
 }, info) => {
   await page.goto('/#status-and-feedback');
-  const example = page.locator('.catalog-example').filter({
-    has: page.getByRole('heading', { name: 'Alerts', exact: true }),
-  });
+  const example = page.locator('#example-alerts');
   const status = example.getByRole('status');
   const danger = example.getByRole('alert');
   await expect(status).toHaveText('Changes saved');

@@ -14,12 +14,7 @@ for (const theme of ['light', 'dark'])
         page.getByRole('button', { name: 'Theme', exact: true }),
         theme === 'light' ? 'Light' : 'Dark',
       );
-      const card = page.locator('.catalog-example').filter({
-        has: page.getByRole('heading', {
-          name: 'Shared date/time editor options',
-          exact: true,
-        }),
-      });
+      const card = page.locator('#example-shared-date-time-editor-options');
       await card.scrollIntoViewIfNeeded();
       const gap = await card.evaluate((element) => {
         const top = element.getBoundingClientRect().top;

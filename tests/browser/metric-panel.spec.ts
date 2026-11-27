@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test';
 test('metric panel composes tiles and reflows without overflow', async ({
   page,
 }, info) => {
-  await page.goto('/tests/browser/fixtures/metric-panel/index.html');
+  await page.goto('http://127.0.0.1:4180/tests/browser/fixtures/metric-panel/index.html');
   const panel = page.getByRole('group', { name: 'Campaign performance' });
   await expect(panel.locator('.rv-metric-tile')).toHaveCount(6);
   await expect(
@@ -46,7 +46,7 @@ test('metric panel composes tiles and reflows without overflow', async ({
 });
 
 test('variant content remains consistent', async ({ page }) => {
-  await page.goto('/tests/browser/fixtures/metric-panel/index.html');
+  await page.goto('http://127.0.0.1:4180/tests/browser/fixtures/metric-panel/index.html');
   const variants = page.getByRole('group', { name: 'Variants' });
   await expect(variants.locator('.rv-metric-tile__extra')).toHaveText([
     'Visual extra',

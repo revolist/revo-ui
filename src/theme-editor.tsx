@@ -838,7 +838,7 @@ export function ThemeEditor({
             <div class="theme-editor-code-heading">
               Usage <span>TSX</span>
             </div>
-            <pre>
+            <pre tabIndex={0}>
               <Highlight
                 code={
                   Object.keys(defaults).length

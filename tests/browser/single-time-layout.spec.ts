@@ -67,12 +67,7 @@ for (const theme of ['light', 'dark'])
         page.getByRole('button', { name: 'Theme', exact: true }),
         theme === 'light' ? 'Light' : 'Dark',
       );
-      const card = page.locator('.catalog-example').filter({
-        has: page.getByRole('heading', {
-          name: 'Shared date/time editor options',
-          exact: true,
-        }),
-      });
+      const card = page.locator('#example-shared-date-time-editor-options');
       await card.scrollIntoViewIfNeeded();
       const picker = card.locator('.rv-temporal-picker');
       const header = picker.locator('.rv-temporal-picker__header');

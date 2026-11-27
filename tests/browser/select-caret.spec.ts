@@ -18,9 +18,7 @@ test('shared selects reserve caret space in both directions', async ({
       'Inline field group',
       'Last page',
     ]) {
-      const card = page.locator('.catalog-example').filter({
-        has: page.getByRole('heading', { name: title, exact: true }),
-      });
+      const card = page.locator(`#example-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`);
       const selects = card.getByRole('combobox');
       expect(await selects.count()).toBeGreaterThan(0);
       for (const select of await selects.all()) {

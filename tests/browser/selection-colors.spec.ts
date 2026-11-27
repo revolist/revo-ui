@@ -12,9 +12,7 @@ for (const theme of ['light', 'dark']) {
       theme === 'light' ? 'Light' : 'Dark',
     );
     await setGalleryPreference(page, 'Animations', false);
-    const calendar = page.locator('.catalog-example').filter({
-      has: page.getByRole('heading', { name: 'Calendar', exact: true }),
-    });
+    const calendar = page.locator('#example-calendar');
     await calendar.getByRole('button', { name: /^Choose month:/ }).click();
     const month = calendar.locator('.revo-calendar__month.active');
     await expect(month).toBeVisible();
@@ -83,11 +81,14 @@ for (const theme of ['light', 'dark']) {
       .all()) {
       await expect(tab).toHaveCSS(
         'color',
-        theme === 'light' ? 'rgb(23, 23, 23)' : 'rgb(245, 245, 245)',
+        theme === 'light' ? 'rgb(102, 102, 102)' : 'rgb(163, 163, 163)',
       );
       await tab.hover();
-      await expect(tab).not.toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
-      await expect(tab).not.toHaveCSS('background-color', groupBackground);
+      await expect(tab).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+      await expect(tab).toHaveCSS(
+        'color',
+        theme === 'light' ? 'rgb(23, 23, 23)' : 'rgb(245, 245, 245)',
+      );
     }
     for (const label of await page
       .locator('.rv-option-button[aria-pressed="true"] > strong')

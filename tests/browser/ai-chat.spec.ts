@@ -14,9 +14,7 @@ for (const theme of ['light', 'dark']) {
         page.getByRole('button', { name: 'Theme', exact: true }),
         theme === 'light' ? 'Light' : 'Dark',
       );
-      const example = page.locator('.catalog-example').filter({
-        has: page.getByRole('heading', { name: 'Chat UI', exact: true }),
-      });
+      const example = page.locator('#example-chat-ui');
       const chat = example.getByRole('region', {
         name: 'AI chat',
         exact: true,
@@ -86,9 +84,7 @@ test('reading history pauses following streamed messages until Jump to latest', 
   await page
     .getByRole('searchbox', { name: 'Find a component' })
     .fill('AI assistant');
-  const example = page.locator('.catalog-example').filter({
-    has: page.getByRole('heading', { name: 'Chat UI', exact: true }),
-  });
+  const example = page.locator('#example-chat-ui');
   await example
     .getByRole('button', { name: 'Add sample turns', exact: true })
     .click();

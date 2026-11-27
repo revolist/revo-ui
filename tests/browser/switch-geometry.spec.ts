@@ -9,9 +9,7 @@ for (const compact of [false, true]) {
   }) => {
     await page.goto('/#components');
     await setGalleryPreference(page, 'Animations', false);
-    const card = page.locator('.catalog-example').filter({
-      has: page.getByRole('heading', { name: 'Switches', exact: true }),
-    });
+    const card = page.locator('#example-switches');
     await card.evaluate((element, compact) => {
       if (compact)
         element
