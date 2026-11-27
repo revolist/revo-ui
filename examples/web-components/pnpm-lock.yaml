@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@revolist/ui':
-        specifier: 4.2.3
-        version: 4.2.3
+        specifier: 4.3.2
+        version: 4.3.2
     devDependencies:
       typescript:
         specifier: ^7.0.2
@@ -24,8 +24,8 @@ packages:
   '@oxc-project/types@0.156.0':
     resolution: {integrity: sha512-1Duyg48TdJNdyhEB8Xn1L36bT9Pv6GUtlKjHxOys8xkaF/rQq3XJE+bAurSK/AgIz5mGFsb77cn9Pb20+WCScw==}
 
-  '@revolist/ui@4.2.3':
-    resolution: {integrity: sha512-vsZiE6rFLx17uBZToa98/1jrr2SoYJllpr94+KOU5rjyAA3gvRyEGPILzsaMcG7glGwSD2VTxbFuLIQs5gvbHg==}
+  '@revolist/ui@4.3.2':
+    resolution: {integrity: sha512-STxmBefuyT4tcNhqIJ3U4Liy4hEDnZswKrOvKSYWRSnQskxsCa5k9IC8ZsaEYc7Dk8TxgMRernL6ywHD/KgwCQ==}
     peerDependencies:
       '@angular/core': '>=20'
       pdfjs-dist: ^6.4.299
@@ -429,7 +429,7 @@ snapshots:
 
   '@oxc-project/types@0.156.0': {}
 
-  '@revolist/ui@4.2.3': {}
+  '@revolist/ui@4.3.2': {}
 
   '@rolldown/binding-android-arm-eabi@1.2.16':
     optional: true

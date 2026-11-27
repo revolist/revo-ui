@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@revolist/ui':
-        specifier: 4.2.3
-        version: 4.2.3(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+        specifier: 4.3.2
+        version: 4.3.2(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       next:
         specifier: 16.4.6
         version: 16.4.6(@types/node@22.19.17)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
@@ -256,8 +256,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@revolist/ui@4.2.3':
-    resolution: {integrity: sha512-vsZiE6rFLx17uBZToa98/1jrr2SoYJllpr94+KOU5rjyAA3gvRyEGPILzsaMcG7glGwSD2VTxbFuLIQs5gvbHg==}
+  '@revolist/ui@4.3.2':
+    resolution: {integrity: sha512-STxmBefuyT4tcNhqIJ3U4Liy4hEDnZswKrOvKSYWRSnQskxsCa5k9IC8ZsaEYc7Dk8TxgMRernL6ywHD/KgwCQ==}
     peerDependencies:
       '@angular/core': '>=20'
       pdfjs-dist: ^6.4.299
@@ -538,7 +538,7 @@ snapshots:
   '@next/swc-win32-x64-msvc@16.4.6':
     optional: true
 
-  '@revolist/ui@4.2.3(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
+  '@revolist/ui@4.3.2(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
     optionalDependencies:
       react: 19.2.5
       react-dom: 19.2.5(react@19.2.5)

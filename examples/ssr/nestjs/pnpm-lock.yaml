@@ -18,8 +18,8 @@ importers:
         specifier: ^11.1.0
         version: 11.2.10(@nestjs/common@11.2.10(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.2.10)
       '@revolist/ui':
-        specifier: 4.2.3
-        version: 4.2.3
+        specifier: 4.3.2
+        version: 4.3.2
       hbs:
         specifier: ^4.2.0
         version: 4.4.0
@@ -242,8 +242,8 @@ packages:
       '@nestjs/common': ^11.0.0
       '@nestjs/core': ^11.0.0
 
-  '@revolist/ui@4.2.3':
-    resolution: {integrity: sha512-vsZiE6rFLx17uBZToa98/1jrr2SoYJllpr94+KOU5rjyAA3gvRyEGPILzsaMcG7glGwSD2VTxbFuLIQs5gvbHg==}
+  '@revolist/ui@4.3.2':
+    resolution: {integrity: sha512-STxmBefuyT4tcNhqIJ3U4Liy4hEDnZswKrOvKSYWRSnQskxsCa5k9IC8ZsaEYc7Dk8TxgMRernL6ywHD/KgwCQ==}
     peerDependencies:
       '@angular/core': '>=20'
       pdfjs-dist: ^6.4.299
@@ -785,7 +785,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@revolist/ui@4.2.3': {}
+  '@revolist/ui@4.3.2': {}
 
   '@tokenizer/inflate@0.4.1':
     dependencies:

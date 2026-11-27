@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@revolist/ui':
-        specifier: 4.2.3
-        version: 4.2.3(pdfjs-dist@6.4.299)(vue@3.5.45(typescript@6.0.3))
+        specifier: 4.3.2
+        version: 4.3.2(pdfjs-dist@6.4.299)(vue@3.5.45(typescript@6.0.3))
       nuxt:
         specifier: 4.6.4
         version: 4.6.4(@babel/plugin-syntax-jsx@7.29.7(@babel/core@7.29.13(supports-color@10.2.2)))(@babel/plugin-syntax-typescript@7.29.7(@babel/core@7.29.13(supports-color@10.2.2)))(@oxc-project/types@0.156.0)(@vue/compiler-sfc@3.5.45)(acorn@8.19.0)(bare-buffer@3.7.2)(confbox@0.3.2)(db0@0.3.4)(dotenv@17.4.2)(esbuild@0.28.2)(giget@3.3.1)(ioredis@5.11.1(supports-color@10.2.2))(lightningcss@1.33.0)(mlly@1.8.2)(rolldown@1.2.19)(rollup-plugin-visualizer@7.1.3(rolldown@1.2.19)(rollup@4.68.3))(rollup@4.68.3)(srvx@1.0.8)(supports-color@10.2.2)(terser@5.51.2)(typescript@6.0.3)(vite@8.3.8(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2))(vue-tsc@3.3.14(typescript@6.0.3))
@@ -634,8 +634,8 @@ packages:
   '@poppinss/exception@1.2.3':
     resolution: {integrity: sha512-dCED+QRChTVatE9ibtoaxc+WkdzOSjYTKi/+uacHWIsfodVfpsueo3+DKpgU5Px8qXjgmXkSvhXvSCz3fnP9lw==}
 
-  '@revolist/ui@4.2.3':
-    resolution: {integrity: sha512-vsZiE6rFLx17uBZToa98/1jrr2SoYJllpr94+KOU5rjyAA3gvRyEGPILzsaMcG7glGwSD2VTxbFuLIQs5gvbHg==}
+  '@revolist/ui@4.3.2':
+    resolution: {integrity: sha512-STxmBefuyT4tcNhqIJ3U4Liy4hEDnZswKrOvKSYWRSnQskxsCa5k9IC8ZsaEYc7Dk8TxgMRernL6ywHD/KgwCQ==}
     peerDependencies:
       '@angular/core': '>=20'
       pdfjs-dist: ^6.4.299
@@ -3897,7 +3897,7 @@ snapshots:
 
   '@poppinss/exception@1.2.3': {}
 
-  '@revolist/ui@4.2.3(pdfjs-dist@6.4.299)(vue@3.5.45(typescript@6.0.3))':
+  '@revolist/ui@4.3.2(pdfjs-dist@6.4.299)(vue@3.5.45(typescript@6.0.3))':
     optionalDependencies:
       pdfjs-dist: 6.4.299
       vue: 3.5.45(typescript@6.0.3)

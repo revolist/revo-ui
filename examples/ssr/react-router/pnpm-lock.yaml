@@ -15,8 +15,8 @@ importers:
         specifier: 8.5.1
         version: 8.5.1(react-router@8.5.1(@types/react-dom@19.2.3(@types/react@19.2.2))(@types/react@19.2.2)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(typescript@6.0.3)
       '@revolist/ui':
-        specifier: 4.2.3
-        version: 4.2.3(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+        specifier: 4.3.2
+        version: 4.3.2(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       isbot:
         specifier: 5.2.3
         version: 5.2.3
@@ -211,8 +211,8 @@ packages:
   '@remix-run/route-pattern@0.22.1':
     resolution: {integrity: sha512-czdGJWh09Lapvcqt7Vb09KlrU2PhRJ8xQaI+AItTuD9aDJ5MAgxnS38lnys6Ll+6RJEqPiaUqTwIQhVLwFvv+w==}
 
-  '@revolist/ui@4.2.3':
-    resolution: {integrity: sha512-vsZiE6rFLx17uBZToa98/1jrr2SoYJllpr94+KOU5rjyAA3gvRyEGPILzsaMcG7glGwSD2VTxbFuLIQs5gvbHg==}
+  '@revolist/ui@4.3.2':
+    resolution: {integrity: sha512-STxmBefuyT4tcNhqIJ3U4Liy4hEDnZswKrOvKSYWRSnQskxsCa5k9IC8ZsaEYc7Dk8TxgMRernL6ywHD/KgwCQ==}
     peerDependencies:
       '@angular/core': '>=20'
       pdfjs-dist: ^6.4.299
@@ -1209,7 +1209,7 @@ snapshots:
 
   '@remix-run/route-pattern@0.22.1': {}
 
-  '@revolist/ui@4.2.3(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
+  '@revolist/ui@4.3.2(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
     optionalDependencies:
       react: 19.2.5
       react-dom: 19.2.5(react@19.2.5)
