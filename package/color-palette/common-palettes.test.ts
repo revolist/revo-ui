@@ -11,6 +11,12 @@ const colorLiteral =
   /^(?:#[\da-f]{3,8}|rgba?\([^)]*\)|linear-gradient\([^)]*\)|black|white|transparent|lightgray)$/i;
 
 describe('shared color primitives', () => {
+  it('preserves the legacy hex color names and values', () => {
+    const legacy = Object.entries(commonColors).filter(([key]) => key.startsWith('legacy_hex_'));
+    expect(legacy).toHaveLength(148);
+    for (const [key, value] of legacy) expect(value).toBe(`#${key.slice('legacy_hex_'.length)}`);
+  });
+
   it('defines each exact primitive string once', () => {
     const values = Object.values(commonColors);
     expect(new Set(values).size).toBe(values.length);
