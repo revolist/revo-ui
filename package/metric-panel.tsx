@@ -79,7 +79,10 @@ function metricTone(value: string | number, override?: MetricTone): MetricTone {
 }
 
 /** Shared metric markup for Preact and renderer-neutral hosts. */
-export function renderMetricTile(h: ElementFactory, props: MetricTileProps) {
+export function renderMetricTile<H extends ElementFactory>(
+  h: H,
+  props: MetricTileProps,
+): ReturnType<H> {
   if (props.compact && props.visual && (props.visual.icon || props.visual.iconSvg)) {
     const icon = props.visual.icon;
     const id = createControlId('rv-metric-popover');
