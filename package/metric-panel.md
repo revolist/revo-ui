@@ -31,4 +31,6 @@ The panel uses a responsive grid and theme tokens. Set `--rv-metric-tile-min-wid
 
 For a more visual card, pass `visual` to `MetricTile`: provide an `accent`, optional `icon`, caller-owned `trend` samples, and optional `detailLead`/`detailRest` and `progress` with a localized `label` and caption. Progress is bounded to 0–100 for its native element. The same option works with panels, renderer-neutral hosts, and `createMetricTileElement`.
 
+For visual tiles with an icon, pass `compact: { badge: '48%' }` to show the icon and badge with the full card on hover or keyboard focus. Supply a formatted and localized badge from the host.
+
 Pass `summary` with a marker color and optional legend to render a compact metric heading. The host supplies the formatted value, detail, and localized labels.

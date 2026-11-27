@@ -16,7 +16,7 @@ export interface ActionBarAction {
   label: string;
   /** Optional trusted SVG markup. */
   icon?: string;
-  variant?: 'ghost' | 'primary' | 'danger-outline';
+  variant?: 'ghost' | 'primary' | 'danger' | 'danger-outline';
   disabled?: boolean;
 }
 

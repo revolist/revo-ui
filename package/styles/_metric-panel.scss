@@ -1,5 +1,57 @@
 @use './metric-panel-trend';
 
+.rv-metric-tile-compact {
+  position: relative;
+  width: fit-content;
+}
+.rv-metric-tile-compact__trigger {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid color-mix(in srgb, var(--rv-metric-visual-accent), transparent 70%);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--rv-metric-visual-accent), var(--rv-ui-surface, white) 92%);
+  color: var(--rv-metric-visual-accent);
+  cursor: default;
+}
+.rv-metric-tile-compact__trigger:focus-visible {
+  outline: 2px solid var(--rv-ui-focus, #2563eb);
+  outline-offset: 2px;
+}
+.rv-metric-tile-compact__icon svg { display: block; width: 18px; height: 18px; fill: currentColor; }
+.rv-metric-tile-compact__badge {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  padding: 2px 4px;
+  border-radius: 5px;
+  background: var(--rv-metric-visual-accent);
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+}
+.rv-metric-tile-compact__popover {
+  width: 280px;
+  max-width: min(280px, 90vw);
+  padding: 0;
+  border: 1px solid var(--rv-ui-border, #e4e4e4);
+  border-radius: var(--rv-ui-radius, 8px);
+  background: transparent;
+}
+.rv-metric-tile-compact__popover .rv-metric-tile--visual :is(.rv-metric-tile__detail, .rv-metric-tile__caption) {
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.rv-metric-tile-compact__popover .rv-metric-tile--visual {
+  border: 0;
+  border-radius: inherit;
+}
+
 .rv-metric-panel {
   display: grid;
   grid-template-columns: repeat(

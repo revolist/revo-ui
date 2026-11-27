@@ -1,6 +1,7 @@
 import { h } from 'preact';
 import { ButtonControl } from '../native-control';
 import { renderPreactInto } from '../preact-mount';
+import type { DialogButtonVariant } from './dialog.types';
 
 export interface NativeDialogAction {
   label?: string;
@@ -8,6 +9,8 @@ export interface NativeDialogAction {
   onClick?: () => void;
   /** Optional icon identifier exposed to the host's icon styling. */
   icon?: string;
+  /** Button presentation; defaults to the action's standard variant. */
+  variant?: DialogButtonVariant;
 }
 export interface NativeDialogActionFooterProps {
   cancel?: NativeDialogAction | false;
@@ -47,13 +50,14 @@ export function ActionFooterView({
       label: text = label,
       class: buttonClass = '',
       icon,
+      variant: buttonVariant,
       ...attributes
     } = config;
     return (
       <ButtonControl
         type={type as 'button'}
         {...attributes}
-        class={`rv-btn ${variant} ${buttonClass}`}
+        class={`rv-btn ${buttonVariant ? (buttonVariant === 'default' ? '' : `rv-btn-${buttonVariant}`) : variant} ${buttonClass}`}
         data-icon={icon}
         data-dialog-action={name}
       >
@@ -71,7 +75,7 @@ export function ActionFooterView({
       <div class="rv-dialog__action-panel">
         <div ref={startRef} class="rv-dialog__action-start">
           {start}
-          {action('delete', deleteAction, 'Delete', 'rv-btn-danger-outline')}
+          {action('delete', deleteAction, 'Delete', 'rv-btn-danger')}
           {action('reset', reset, 'Reset')}
         </div>
         <div class={`rv-dialog__actions ${actionsClass}`}>

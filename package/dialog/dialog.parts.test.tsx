@@ -102,7 +102,7 @@ it('composes editable names and configurable footer actions without implicit sub
           />
           <DialogActionFooter
             cancel={false}
-            save={{ label: 'Store' }}
+            save={{ label: 'Store', variant: 'danger' }}
             reset={{ onClick: reset }}
             deleteAction={{ onClick: remove }}
             start={<button type="button">Custom start</button>}
@@ -118,6 +118,10 @@ it('composes editable names and configurable footer actions without implicit sub
     expect(host.querySelector('h3')?.id).toBe('sample-title');
     expect(host.querySelector('input')?.disabled).toBe(true);
     expect(host.querySelector('[data-dialog-action="cancel"]')).toBeNull();
+    expect(host.querySelector('[data-dialog-action="delete"]')?.classList.contains('rv-btn-danger')).toBe(true);
+    expect(host.querySelector('[data-dialog-action="delete"]')?.classList.contains('rv-btn-danger-outline')).toBe(false);
+    expect(host.querySelector('[data-dialog-action="save"]')?.classList.contains('rv-btn-danger')).toBe(true);
+    expect(host.querySelector('[data-dialog-action="save"]')?.classList.contains('rv-btn-primary')).toBe(false);
     expect(
       host.querySelector('.rv-dialog__action-start')?.textContent,
     ).toContain('Custom start');

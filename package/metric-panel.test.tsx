@@ -13,6 +13,18 @@ afterEach(() => {
   document.body.replaceChildren();
 });
 
+it('renders a compact icon and localized badge with the full metric', () => {
+  const tile = createMetricTileElement(document, {
+    label: 'Budget', value: '100 €', compact: { badge: '48 %' },
+    visual: { accent: '#6647f0', iconSvg: '<svg viewBox="0 0 10 10"></svg>', progress: { value: 48, label: 'Budget utilisé' } },
+  });
+  expect(tile.querySelector('button')?.getAttribute('aria-label')).toBe('Budget: 48 %');
+  expect(tile.querySelector('.rv-metric-tile-compact__badge')?.textContent).toBe('48 %');
+  expect(tile.querySelector('.rv-metric-tile-compact__icon svg')).not.toBeNull();
+  expect(tile.querySelector('[role="tooltip"] .rv-metric-tile__value')?.textContent).toBe('100 €');
+  releaseMetricElement(tile);
+});
+
 describe('metric tile and panel', () => {
   it('composes localized metrics, including zero and a semantic tone', () => {
     render(

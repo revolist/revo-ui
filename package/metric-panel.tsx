@@ -3,8 +3,11 @@ import { h as preactH } from 'preact';
 import type { ElementFactory } from './native-controls';
 import type { ClassPreset } from './presets/types';
 import { renderMiniBarChart } from './metric-panel-trend';
+import { PopoverController } from './core/popover-controller';
+import { createControlId } from './core/control-id';
 
 export type MetricTone = 'neutral' | 'positive' | 'negative';
+const openMetricPopovers = new WeakMap<Document, PopoverController>();
 
 /** Display-ready values; formatting and translations are supplied by the host. */
 export interface MetricTileData {
@@ -41,6 +44,8 @@ export interface MetricTileData {
 }
 
 export interface MetricTileProps extends MetricTileData {
+  /** Show a compact icon and caller-formatted badge with the full visual tile on hover or focus. */
+  compact?: { badge: string };
   /** Portable presentation preset. */
   preset?: ClassPreset;
   /** Additional host class. */
@@ -75,6 +80,72 @@ function metricTone(value: string | number, override?: MetricTone): MetricTone {
 
 /** Shared metric markup for Preact and renderer-neutral hosts. */
 export function renderMetricTile(h: ElementFactory, props: MetricTileProps) {
+  if (props.compact && props.visual && (props.visual.icon || props.visual.iconSvg)) {
+    const icon = props.visual.icon;
+    const id = createControlId('rv-metric-popover');
+    const controller = new PopoverController();
+    let anchor: HTMLButtonElement | null = null;
+    let popup: HTMLElement | null = null;
+    let closeTimer: ReturnType<typeof setTimeout> | undefined;
+    const cancelClose = () => clearTimeout(closeTimer);
+    const open = () => {
+      cancelClose();
+      if (!anchor || !popup || controller.isOpen) return;
+      const document = anchor.ownerDocument;
+      openMetricPopovers.get(document)?.close(false);
+      openMetricPopovers.set(document, controller);
+      anchor.setAttribute('aria-describedby', id);
+      controller.open({
+        anchor, content: popup, restoreFocus: false,
+        onClose: () => {
+          if (openMetricPopovers.get(document) === controller) openMetricPopovers.delete(document);
+          anchor?.removeAttribute('aria-describedby');
+        },
+      });
+    };
+    const scheduleClose = () => {
+      cancelClose();
+      closeTimer = setTimeout(() => {
+        if (anchor?.matches(':focus') || popup?.matches(':hover')) return;
+        controller.close(false);
+      }, 120);
+    };
+    return h('div', {
+      class: 'rv-metric-tile-compact',
+      style: { '--rv-metric-visual-accent': props.visual.accent },
+    }, [
+      h('button', {
+        type: 'button',
+        class: 'rv-metric-tile-compact__trigger',
+        'aria-label': `${props.label}: ${props.compact.badge}`,
+        ref: (element: HTMLButtonElement | null) => {
+          if (!element) { cancelClose(); controller.destroy(); }
+          anchor = element;
+        },
+        onMouseEnter: open,
+        onMouseLeave: scheduleClose,
+        onFocus: open,
+        onBlur: scheduleClose,
+      }, [
+        h('span', {
+          class: 'rv-metric-tile-compact__icon',
+          'aria-hidden': 'true',
+          ...(props.visual.iconSvg && !icon
+            ? h === preactH
+              ? { dangerouslySetInnerHTML: { __html: props.visual.iconSvg } }
+              : { innerHTML: props.visual.iconSvg }
+            : {}),
+        }, icon),
+        h('span', { class: 'rv-metric-tile-compact__badge', 'aria-hidden': 'true' }, props.compact.badge),
+      ]),
+      h('div', {
+        ref: (element: HTMLElement | null) => { popup = element; },
+        id, class: 'rv-popover rv-metric-tile-compact__popover', role: 'tooltip', hidden: true,
+        onMouseEnter: cancelClose, onMouseLeave: scheduleClose,
+      },
+        renderMetricTile(h, { ...props, compact: undefined })),
+    ]);
+  }
   if (props.summary) {
     return h(
       'dl',
