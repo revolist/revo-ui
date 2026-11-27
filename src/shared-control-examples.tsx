@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'preact/hooks';
 import {
   CalendarNavigator,
   MetricPanel,
+  MetricTile,
   SearchActionBar,
   Button,
 } from '@revolist/ui/preact';
@@ -88,6 +89,14 @@ export function MetricPanelExample() {
           { label: 'Returns', value: '6.2%', detail: '0.0 pts' },
         ]}
       />
+      <MetricPanel label="Distribution summaries">
+        <MetricTile label="Revenue" value="$1.72M" detail="+21.8%" summary={{ markerColor: 'var(--rv-ui-accent)' }}>
+          <small>Range: $55K–$711K</small>
+        </MetricTile>
+        <MetricTile label="Hiring" value="8,198" detail="+6.5%" summary={{ markerColor: 'var(--rv-ui-success)' }}>
+          <small>Range: −5%–19%</small>
+        </MetricTile>
+      </MetricPanel>
     </Example>
   );
 }
