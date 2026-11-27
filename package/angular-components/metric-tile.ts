@@ -20,6 +20,7 @@ export class MetricTile extends AngularComponentAdapter<never> {
     return Control;
   }
   @NgInput() declare 'className'?: AngularInput<'MetricTile', 'className'>;
+  @NgInput() declare 'compact'?: AngularInput<'MetricTile', 'compact'>;
   @NgInput() declare 'detail'?: AngularInput<'MetricTile', 'detail'>;
   @NgInput() declare 'detailTone'?: AngularInput<'MetricTile', 'detailTone'>;
   @NgInput({ required: true }) declare 'label': AngularInput<
