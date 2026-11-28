@@ -1,7 +1,9 @@
 import type { SvelteModelCallbacks } from './svelte-adapter.models';
 import type { Snippet } from 'svelte';
 import type { ComponentChildren, VNode } from 'preact';
-import type { UiComponentName, UiComponentProps } from './component-catalog';
+import type { UiComponentName } from './component-catalog';
+import type { UiComponentSlotContexts } from './component-metadata';
+import type { UiFrameworkProps } from './framework-nested-types';
 
 export interface SvelteUiHandle {
   /** Adapter host, available after browser mount and null after disposal. */
@@ -81,16 +83,48 @@ type RenderScope<K, F, N> = N extends DropdownName
         ? Scope<['item', 'index'], Args<F>>
         : { args: Args<F> };
 
-type DirectProps<P, N> = P extends unknown
+type DirectPropsBase<P, N> = P extends unknown
   ? {
       [K in keyof KnownProps<P> as K extends 'ref' | 'key' | 'children'
         ? never
         : K]: K extends `render${string}`
-        ? Snippet<[RenderScope<K, P[K], N>]>
+        ? N extends 'AiChatEmptyState'
+          ? K extends 'renderContent'
+            ? P[K]
+            : Snippet<[RenderScope<K, P[K], N>]>
+          : Snippet<[RenderScope<K, P[K], N>]>
         : K extends ContentKey
           ? Content<P[K]>
           : P[K];
     }
+  : never;
+
+type SlotOptionalKeys<P, N> = {
+  [K in keyof KnownProps<P>]-?: K extends `render${string}`
+    ? N extends 'AiChatEmptyState'
+      ? K extends 'renderContent'
+        ? never
+        : K
+      : K
+    : K extends ContentKey
+      ? [
+          Extract<P[K & keyof P], VNode | readonly ComponentChildren[]>,
+        ] extends [never]
+        ? never
+        : K
+      : never;
+}[keyof KnownProps<P>];
+type DirectProps<P, N> = P extends unknown
+  ? Omit<
+      DirectPropsBase<P, N>,
+      Extract<SlotOptionalKeys<P, N>, keyof DirectPropsBase<P, N>>
+    > &
+      Partial<
+        Pick<
+          DirectPropsBase<P, N>,
+          Extract<SlotOptionalKeys<P, N>, keyof DirectPropsBase<P, N>>
+        >
+      >
   : never;
 
 type SlotAlias<K, N> = N extends
@@ -142,22 +176,19 @@ type ModelProps<P, N> = P extends unknown
       Partial<Pick<P, Extract<ModelCallback<N>, keyof P>>>
   : never;
 
-type ChildrenProps<P> = 'children' extends keyof P
-  ? {} extends Pick<P, 'children'>
-    ? { children?: Snippet }
-    : { children: Snippet }
-  : { children?: Snippet };
-
 /** Named adapters retain the shared control's required props and callback types. */
 export type SvelteComponentProps<N extends UiComponentName> = ModelProps<
-  DirectProps<UiComponentProps<N>, N>,
+  DirectProps<UiFrameworkProps<N>, N>,
   N
-> &
-  ChildrenProps<KnownProps<UiComponentProps<N>>> & {
-    slots?: ContentSlots<UiComponentProps<N>, N> &
-      RenderSlots<UiComponentProps<N>, N>;
-    onUiEvent?: SvelteUiProps['onUiEvent'];
-  };
+> & { children?: Snippet } & {
+  slots?: ContentSlots<UiFrameworkProps<N>, N> &
+    RenderSlots<UiFrameworkProps<N>, N> & {
+      [K in keyof UiComponentSlotContexts<N>]?: Snippet<
+        [UiComponentSlotContexts<N>[K]]
+      >;
+    };
+  onUiEvent?: SvelteUiProps['onUiEvent'];
+};
 
 /** Shared named-component signature; preserves each control's bindable keys. */
 export type SvelteNamedComponent<

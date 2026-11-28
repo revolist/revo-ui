@@ -35,6 +35,22 @@ describe('named Svelte content bridge', () => {
     expect(content).toHaveBeenCalledWith(snippet, { option, selected: true });
   });
 
+  it('maps named calendar day slots to their scoped renderer', () => {
+    const content = vi.fn(() => h('span'));
+    const props = withSvelteContent(
+      'CalendarPicker',
+      {},
+      { day: snippet },
+      content,
+    );
+    const state = { selected: true, today: false };
+    (props.renderDay as Function)('2026-10-15', state);
+    expect(content).toHaveBeenCalledWith(snippet, {
+      date: '2026-10-15',
+      context: state,
+    });
+  });
+
   it('lets explicit slots override a direct render snippet', () => {
     const override = (() => {}) as typeof snippet;
     const content = vi.fn(() => h('span'));

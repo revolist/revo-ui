@@ -5,6 +5,7 @@ export interface SvelteModelCallbacks {
   SearchActionBar: 'onValueChange';
   SharedResourcePicker: 'onChange';
   CalendarPicker: 'onSelectionChange';
+  CalendarNavigator: 'onChange';
   ColorPalette: 'onChange';
   DurationField: 'onChange';
   TemporalPicker: 'onChange';

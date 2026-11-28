@@ -118,6 +118,7 @@ export interface UiTheme {
     RemoveButton?: NamedPresets<ClassPreset>;
     Input?: NamedPresets<ClassPreset>;
     Calendar?: NamedPresets<CalendarPreset>;
+    CalendarNavigator?: NamedPresets<ClassPreset>;
     MiniCalendar?: NamedPresets<ClassPreset>;
     CalendarDay?: NamedPresets<ClassPreset>;
     CalendarPicker?: NamedPresets<CalendarPreset>;

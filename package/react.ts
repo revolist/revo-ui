@@ -17,10 +17,16 @@ export const Checkbox: ReactUiComponent<typeof ui.Checkbox> =
   /* @__PURE__ */ createReactAdapter(ui.Checkbox, 'Checkbox');
 export const Switch: ReactUiComponent<typeof ui.Switch> =
   /* @__PURE__ */ createReactAdapter(ui.Switch, 'Switch');
-export const SegmentedSwitch: ReactUiComponent<typeof ui.SegmentedSwitch> =
-  /* @__PURE__ */ createReactAdapter(ui.SegmentedSwitch, 'SegmentedSwitch');
-export const ChoiceChips: ReactUiComponent<typeof ui.ChoiceChips> =
-  /* @__PURE__ */ createReactAdapter(ui.ChoiceChips, 'ChoiceChips');
+export const SegmentedSwitch: ReactUiComponent<
+  typeof ui.SegmentedSwitch,
+  never,
+  'SegmentedSwitch'
+> = /* @__PURE__ */ createReactAdapter(ui.SegmentedSwitch, 'SegmentedSwitch');
+export const ChoiceChips: ReactUiComponent<
+  typeof ui.ChoiceChips,
+  never,
+  'ChoiceChips'
+> = /* @__PURE__ */ createReactAdapter(ui.ChoiceChips, 'ChoiceChips');
 export const ChoiceChipInfoButton: ReactUiComponent<
   typeof ui.ChoiceChipInfoButton
 > = /* @__PURE__ */ createReactAdapter(
@@ -71,8 +77,14 @@ export const CalendarMonthGrid: ReactUiComponent<typeof ui.CalendarMonthGrid> =
 export const CalendarYearGrid: ReactUiComponent<typeof ui.CalendarYearGrid> =
   /* @__PURE__ */ createReactAdapter(ui.CalendarYearGrid, 'CalendarYearGrid');
 export type { CalendarNavigatorProps } from './calendar/navigator';
-export const CalendarNavigator: ReactUiComponent<typeof ui.CalendarNavigator> =
-  /* @__PURE__ */ createReactAdapter(ui.CalendarNavigator, 'CalendarNavigator');
+export const CalendarNavigator: ReactUiComponent<
+  typeof ui.CalendarNavigator,
+  never,
+  'CalendarNavigator'
+> = /* @__PURE__ */ createReactAdapter(
+  ui.CalendarNavigator,
+  'CalendarNavigator',
+);
 export const CalendarPicker: ReactUiComponent<typeof ui.CalendarPicker> =
   /* @__PURE__ */ createReactAdapter(ui.CalendarPicker, 'CalendarPicker');
 export const SharedResourcePicker: ReactUiComponent<
@@ -141,14 +153,20 @@ export const ToggleButton: ReactUiComponent<typeof ui.ToggleButton> =
   /* @__PURE__ */ createReactAdapter(ui.ToggleButton, 'ToggleButton');
 export const ButtonGroup: ReactUiComponent<typeof ui.ButtonGroup> =
   /* @__PURE__ */ createReactAdapter(ui.ButtonGroup, 'ButtonGroup');
-export const SegmentedControl: ReactUiComponent<typeof ui.SegmentedControl> =
-  /* @__PURE__ */ createReactAdapter(ui.SegmentedControl, 'SegmentedControl');
-export const Tabs: ReactUiComponent<typeof ui.Tabs> =
+export const SegmentedControl: ReactUiComponent<
+  typeof ui.SegmentedControl,
+  never,
+  'SegmentedControl'
+> = /* @__PURE__ */ createReactAdapter(ui.SegmentedControl, 'SegmentedControl');
+export const Tabs: ReactUiComponent<typeof ui.Tabs, never, 'Tabs'> =
   /* @__PURE__ */ createReactAdapter(ui.Tabs, 'Tabs');
 export const TabPanel: ReactUiComponent<typeof ui.TabPanel> =
   /* @__PURE__ */ createReactAdapter(ui.TabPanel, 'TabPanel');
-export const RadioGroup: ReactUiComponent<typeof ui.RadioGroup> =
-  /* @__PURE__ */ createReactAdapter(ui.RadioGroup, 'RadioGroup');
+export const RadioGroup: ReactUiComponent<
+  typeof ui.RadioGroup,
+  never,
+  'RadioGroup'
+> = /* @__PURE__ */ createReactAdapter(ui.RadioGroup, 'RadioGroup');
 export const TextInput: ReactUiComponent<typeof ui.TextInput> =
   /* @__PURE__ */ createReactAdapter(ui.TextInput, 'TextInput');
 export const Textarea: ReactUiComponent<typeof ui.Textarea> =
@@ -167,6 +185,14 @@ export const FormSection: ReactUiComponent<typeof ui.FormSection> =
   /* @__PURE__ */ createReactAdapter(ui.FormSection, 'FormSection');
 export const Disclosure: ReactUiComponent<typeof ui.Disclosure> =
   /* @__PURE__ */ createReactAdapter(ui.Disclosure, 'Disclosure');
+export const CollapsibleSection: ReactUiComponent<
+  typeof ui.CollapsibleSection,
+  never,
+  'CollapsibleSection'
+> = /* @__PURE__ */ createReactAdapter(
+  ui.CollapsibleSection,
+  'CollapsibleSection',
+);
 export const Panel: ReactUiComponent<typeof ui.Panel> =
   /* @__PURE__ */ createReactAdapter(ui.Panel, 'Panel');
 export const Toolbar: ReactUiComponent<typeof ui.Toolbar> =
@@ -302,8 +328,11 @@ export const LineChart: ReactUiComponent<typeof ui.LineChart> =
   /* @__PURE__ */ createReactAdapter(ui.LineChart, 'LineChart');
 export const AreaChart: ReactUiComponent<typeof ui.AreaChart> =
   /* @__PURE__ */ createReactAdapter(ui.AreaChart, 'AreaChart');
-export const BrushRange: ReactUiComponent<typeof ui.BrushRange> =
-  /* @__PURE__ */ createReactAdapter(ui.BrushRange, 'BrushRange');
+export const BrushRange: ReactUiComponent<
+  typeof ui.BrushRange,
+  never,
+  'BrushRange'
+> = /* @__PURE__ */ createReactAdapter(ui.BrushRange, 'BrushRange');
 export const OptionButton: ReactUiComponent<typeof ui.OptionButton> =
   /* @__PURE__ */ createReactAdapter(ui.OptionButton, 'OptionButton');
 export const HighlightedTextInput: ReactUiComponent<
@@ -359,7 +388,9 @@ export const DialogForm: ReactUiComponent<typeof ui.DialogForm> =
 export const DialogCloseButton: ReactUiComponent<typeof ui.DialogCloseButton> =
   /* @__PURE__ */ createReactAdapter(ui.DialogCloseButton, 'DialogCloseButton');
 export const DialogActionFooter: ReactUiComponent<
-  typeof ui.DialogActionFooter
+  typeof ui.DialogActionFooter,
+  never,
+  'DialogActionFooter'
 > = /* @__PURE__ */ createReactAdapter(
   ui.DialogActionFooter,
   'DialogActionFooter',
@@ -420,16 +451,29 @@ export const DurationDraft: ReactUiComponent<typeof ui.DurationDraft> =
   /* @__PURE__ */ createReactAdapter(ui.DurationDraft, 'DurationDraft');
 export const HtmlEditor: ReactUiComponent<typeof ui.HtmlEditor> =
   /* @__PURE__ */ createReactAdapter(ui.HtmlEditor, 'HtmlEditor');
-export const TemporalPicker: ReactUiComponent<typeof ui.TemporalPicker> =
-  /* @__PURE__ */ createReactAdapter(ui.TemporalPicker, 'TemporalPicker');
-export const TemporalDraft: ReactUiComponent<typeof ui.TemporalDraft> =
-  /* @__PURE__ */ createReactAdapter(ui.TemporalDraft, 'TemporalDraft');
-export const DateTimeField: ReactUiComponent<typeof ui.DateTimeField> =
-  /* @__PURE__ */ createReactAdapter(ui.DateTimeField, 'DateTimeField');
+export const TemporalPicker: ReactUiComponent<
+  typeof ui.TemporalPicker,
+  never,
+  'TemporalPicker'
+> = /* @__PURE__ */ createReactAdapter(ui.TemporalPicker, 'TemporalPicker');
+export const TemporalDraft: ReactUiComponent<
+  typeof ui.TemporalDraft,
+  never,
+  'TemporalDraft'
+> = /* @__PURE__ */ createReactAdapter(ui.TemporalDraft, 'TemporalDraft');
+export const DateTimeField: ReactUiComponent<
+  typeof ui.DateTimeField,
+  never,
+  'DateTimeField'
+> = /* @__PURE__ */ createReactAdapter(ui.DateTimeField, 'DateTimeField');
 export const AssigneePicker: ReactUiComponent<typeof ui.AssigneePicker> =
   /* @__PURE__ */ createReactAdapter(ui.AssigneePicker, 'AssigneePicker');
-export const AssigneeField: ReactUiComponent<typeof ui.AssigneeField> =
-  /* @__PURE__ */ createReactAdapter(ui.AssigneeField, 'AssigneeField');
+export const AssigneeField: ReactUiComponent<
+  typeof ui.AssigneeField,
+  'renderValue'
+> = /* @__PURE__ */ createReactAdapter(ui.AssigneeField, 'AssigneeField', {
+  factoryCallbacks: ['renderValue'],
+});
 export const AssigneePickerLayout: ReactUiComponent<
   typeof ui.AssigneePickerLayout
 > = /* @__PURE__ */ createReactAdapter(
@@ -524,17 +568,23 @@ export const LookupField: ReactUiComponent<typeof ui.LookupField> =
 export const Tree: ReactUiComponent<typeof ui.Tree> =
   /* @__PURE__ */ createReactAdapter(ui.Tree, 'Tree');
 
-export const Stepper: ReactUiComponent<typeof ui.Stepper> =
+export const Stepper: ReactUiComponent<typeof ui.Stepper, never, 'Stepper'> =
   /* @__PURE__ */ createReactAdapter(ui.Stepper, 'Stepper');
 
-export const ActivityTimeline: ReactUiComponent<typeof ui.ActivityTimeline> =
-  /* @__PURE__ */ createReactAdapter(ui.ActivityTimeline, 'ActivityTimeline');
+export const ActivityTimeline: ReactUiComponent<
+  typeof ui.ActivityTimeline,
+  never,
+  'ActivityTimeline'
+> = /* @__PURE__ */ createReactAdapter(ui.ActivityTimeline, 'ActivityTimeline');
 
-export const Trace: ReactUiComponent<typeof ui.Trace> =
+export const Trace: ReactUiComponent<typeof ui.Trace, never, 'Trace'> =
   /* @__PURE__ */ createReactAdapter(ui.Trace, 'Trace');
 
-export const Attachments: ReactUiComponent<typeof ui.Attachments> =
-  /* @__PURE__ */ createReactAdapter(ui.Attachments, 'Attachments');
+export const Attachments: ReactUiComponent<
+  typeof ui.Attachments,
+  never,
+  'Attachments'
+> = /* @__PURE__ */ createReactAdapter(ui.Attachments, 'Attachments');
 
 export const Cascader: ReactUiComponent<typeof ui.Cascader> =
   /* @__PURE__ */ createReactAdapter(ui.Cascader, 'Cascader');
@@ -542,8 +592,11 @@ export const Cascader: ReactUiComponent<typeof ui.Cascader> =
 export const FilterBar: ReactUiComponent<typeof ui.FilterBar> =
   /* @__PURE__ */ createReactAdapter(ui.FilterBar, 'FilterBar');
 
-export const CommandPalette: ReactUiComponent<typeof ui.CommandPalette> =
-  /* @__PURE__ */ createReactAdapter(ui.CommandPalette, 'CommandPalette');
+export const CommandPalette: ReactUiComponent<
+  typeof ui.CommandPalette,
+  never,
+  'CommandPalette'
+> = /* @__PURE__ */ createReactAdapter(ui.CommandPalette, 'CommandPalette');
 
 export const FileTree: ReactUiComponent<typeof ui.FileTree> =
   /* @__PURE__ */ createReactAdapter(ui.FileTree, 'FileTree');
@@ -575,7 +628,13 @@ export const CursorMessage: ReactUiComponent<typeof ui.CursorMessage> =
 export const CircularSlider: ReactUiComponent<typeof ui.CircularSlider> =
   /* @__PURE__ */ createReactAdapter(ui.CircularSlider, 'CircularSlider');
 
-export const MetricTile: ReactUiComponent<typeof ui.MetricTile> =
-  /* @__PURE__ */ createReactAdapter(ui.MetricTile, 'MetricTile');
-export const MetricPanel: ReactUiComponent<typeof ui.MetricPanel> =
-  /* @__PURE__ */ createReactAdapter(ui.MetricPanel, 'MetricPanel');
+export const MetricTile: ReactUiComponent<
+  typeof ui.MetricTile,
+  never,
+  'MetricTile'
+> = /* @__PURE__ */ createReactAdapter(ui.MetricTile, 'MetricTile');
+export const MetricPanel: ReactUiComponent<
+  typeof ui.MetricPanel,
+  never,
+  'MetricPanel'
+> = /* @__PURE__ */ createReactAdapter(ui.MetricPanel, 'MetricPanel');

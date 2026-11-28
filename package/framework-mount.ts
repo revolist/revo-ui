@@ -1,7 +1,14 @@
 import { prepareComponentStyles } from './core/component-styles';
 import { h, render, type ComponentType, type VNode } from 'preact';
 import { useLayoutEffect, useRef } from 'preact/hooks';
-import { componentRenderSlots } from './component-metadata';
+import {
+  componentNestedSlots,
+  componentRenderSlots,
+} from './component-metadata';
+import {
+  restoreNestedCallbackArguments,
+  withNestedFrameworkContent,
+} from './nested-framework-content';
 
 export interface UiContentTarget<T> {
   id: number;
@@ -83,10 +90,18 @@ export function withFrameworkContent<T>(
   slots: Record<string, T>,
   content: (value: T, scope?: Record<string, unknown>) => VNode<any>,
 ): Record<string, any> {
-  const result = { ...props };
+  const nested = withNestedFrameworkContent(name, props, {
+    slots,
+    render: (slot, scope) => content(slot, scope),
+  });
+  const result =
+    nested.props === props
+      ? { ...props }
+      : restoreNestedCallbackArguments(nested.props, nested.originals);
   const mappings = componentRenderSlots(name);
   for (const [key, value] of Object.entries(slots)) {
     if (value == null) continue;
+    if (key in componentNestedSlots(name)) continue;
     const mapping = mappings[key];
     if (mapping) {
       result[mapping.prop] = (...args: unknown[]) => {

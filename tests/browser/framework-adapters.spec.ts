@@ -1,6 +1,91 @@
 import { chooseOption } from './choose-option';
 import { expect, test } from '@playwright/test';
 
+test('Vue slots preserve class-backed choice data and callbacks', async ({
+  page,
+}) => {
+  await page.goto('/#components');
+  await page
+    .getByRole('group', { name: 'Class choice' })
+    .getByRole('button', { name: 'Class option' })
+    .click();
+  await expect(page.locator('[data-vue-class-choice]')).toHaveText('class-a');
+});
+
+test('named Svelte calendar accepts and renders its scoped day slot', async ({
+  page,
+}) => {
+  await page.goto('/#components');
+  await page.getByRole('button', { name: 'Show Svelte picker' }).click();
+  await expect(
+    page.locator('[data-svelte-picker-day="2026-10-15"]'),
+  ).toBeVisible();
+});
+
+for (const framework of ['Vue', 'React', 'Angular', 'Svelte']) {
+  test(`${framework} navigator renders scoped calendar content`, async ({
+    page,
+  }) => {
+    await page.goto('/#components');
+    await page
+      .getByRole('button', { name: `Open ${framework} navigator` })
+      .click();
+    await expect(
+      page.locator(
+        `[data-${framework.toLowerCase()}-navigator-day="2026-10-10"]`,
+      ),
+    ).toBeVisible();
+    await expect(
+      page.locator(`[data-${framework.toLowerCase()}-navigator-footer]`),
+    ).toHaveText(`${framework} footer`);
+  });
+}
+
+for (const framework of ['Vue', 'React', 'Angular', 'Svelte']) {
+  test(`${framework} step slots retain framework state on reorder`, async ({
+    page,
+  }) => {
+    const errors: string[] = [];
+    page.on('pageerror', (error) => errors.push(error.message));
+    await page.goto('/#components');
+    await expect(
+      page.locator(`[data-${framework.toLowerCase()}-step-icon]`),
+    ).toHaveCount(2);
+    const draft = page.getByRole('textbox', {
+      name: `${framework} a step draft`,
+    });
+    await draft.fill('A draft');
+    await page
+      .getByRole('button', { name: `Reorder ${framework} steps` })
+      .click();
+    await expect(draft).toHaveValue('A draft');
+    expect(errors).toEqual([]);
+  });
+}
+
+test('Vue and Angular render nested metric icons in their own frameworks', async ({
+  page,
+}) => {
+  await page.goto('/#components');
+  await expect(page.locator('[data-vue-metric-icon]')).toHaveText('Vue icon');
+  await expect(page.locator('[data-angular-metric-icon]')).toHaveText(
+    'Angular icon',
+  );
+});
+
+for (const framework of ['vue', 'react', 'angular']) {
+  test(`${framework} scoped segmented content updates on selection`, async ({
+    page,
+  }) => {
+    await page.goto('/#components');
+    const options = page.locator(`[data-${framework}-segment]`);
+    await expect(options).toHaveCount(2);
+    await expect(options.nth(0)).toHaveText('Alpha:true');
+    await options.nth(1).click();
+    await expect(options.nth(1)).toHaveText('Beta:true');
+  });
+}
+
 test('React can spread custom date trigger props including children', async ({
   page,
 }) => {

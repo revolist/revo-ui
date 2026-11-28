@@ -63,6 +63,7 @@ export const uiComponents = {
   EditorListItemContent: ui.EditorListItemContent,
   EditorListGroup: ui.EditorListGroup,
   Calendar: ui.Calendar,
+  CalendarNavigator: ui.CalendarNavigator,
   MiniCalendar: ui.MiniCalendar,
   CalendarHeader: ui.CalendarHeader,
   CalendarWeekdays: ui.CalendarWeekdays,

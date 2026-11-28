@@ -63,7 +63,7 @@
     "Calendar and dates",
     "calendar-and-dates",
     "Calendar views, date selection and date ranges.",
-    "Calendar MiniCalendar CalendarHeader CalendarWeekdays CalendarDay CalendarMonthGrid CalendarYearGrid CalendarPicker DatePicker DateRangePicker"
+    "Calendar CalendarNavigator MiniCalendar CalendarHeader CalendarWeekdays CalendarDay CalendarMonthGrid CalendarYearGrid CalendarPicker DatePicker DateRangePicker"
   ],
   [
     "Date and time fields",

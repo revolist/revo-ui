@@ -535,6 +535,10 @@
           "type": "object",
           "additionalProperties": { "$ref": "#/$defs/classPreset" }
         },
+        "CalendarNavigator": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/classPreset" }
+        },
         "CalendarDay": {
           "type": "object",
           "additionalProperties": {
