@@ -97,6 +97,28 @@ describe('React shared component adapters', () => {
     expect(received[0]).toBe(option);
     expect(option.label.type).toBe('strong');
   });
+  it('preserves option identity when an unrelated nested content field is converted', async () => {
+    setup();
+    const description = h('em', null, 'Description');
+    const option = { value: 'a', label: 'Alpha', description };
+    const received: unknown[] = [];
+    await act(async () => {
+      root!.render(
+        h(ChoiceChips, {
+          ariaLabel: 'Choices',
+          options: [option],
+          onChange: (_value, item) => received.push(item),
+        }),
+      );
+      await settle();
+    });
+    await act(async () => {
+      host.querySelector<HTMLElement>('[data-value="a"]')!.click();
+      await settle();
+    });
+    expect(received[0]).toBe(option);
+    expect((received[0] as typeof option).description).toBe(description);
+  });
   it('bridges nested step nodes and scoped renderers without mutating steps', async () => {
     setup();
     const steps = [

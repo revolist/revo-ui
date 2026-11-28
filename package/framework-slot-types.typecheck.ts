@@ -1,5 +1,6 @@
 // Compile-time coverage for framework slot declarations.
 import type { UiComponentSlotContexts } from './component-metadata';
+import type { ISODateString } from '@revolist/ui-dates';
 import {
   ReorderList,
   SegmentedSwitch,
@@ -17,27 +18,27 @@ import type { SvelteComponentProps } from './svelte-props';
 import { createElement } from 'react';
 
 type Assert<T extends true> = T;
+type Equal<A, B> =
+  (<T>() => T extends A ? 1 : 2) extends <T>() => T extends B ? 1 : 2
+    ? true
+    : false;
 type IsOptional<T, K extends keyof T> = {} extends Pick<T, K> ? true : false;
 type ReorderProps = InstanceType<typeof ReorderList>['$props'];
 type OptionalRenderer = Assert<IsOptional<ReorderProps, 'renderItem'>>;
 type OptionScope = Parameters<
   NonNullable<InstanceType<typeof SegmentedSwitch>['$slots']['option']>
 >[0];
-type HasActiveState = Assert<
-  OptionScope['state']['active'] extends boolean ? true : false
->;
+type HasActiveState = Assert<Equal<OptionScope['state']['active'], boolean>>;
 type DateScope = UiComponentSlotContexts<'Calendar'>['day'];
-type HasDate = Assert<DateScope['date'] extends string ? true : false>;
+type HasDate = Assert<Equal<DateScope['date'], ISODateString>>;
 type StepScope = Parameters<
   NonNullable<InstanceType<typeof Stepper>['$slots']['stepContent']>
 >[0];
-type HasStepId = Assert<StepScope['step']['id'] extends string ? true : false>;
+type HasStepId = Assert<Equal<StepScope['step']['id'], string>>;
 type NavigatorDay = Parameters<
   NonNullable<InstanceType<typeof CalendarNavigator>['$slots']['calendarDay']>
 >[0];
-type NavigatorHasDate = Assert<
-  NavigatorDay['date'] extends string ? true : false
->;
+type NavigatorHasDate = Assert<Equal<NavigatorDay['date'], ISODateString>>;
 type SvelteCalendarSlots = NonNullable<
   SvelteComponentProps<'CalendarPicker'>['slots']
 >;

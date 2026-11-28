@@ -241,12 +241,17 @@ export function createReactAdapter<
           'options',
           'source',
         ]);
+        const originals = new WeakMap<object, object>();
+        const remember = (copy: object, source: object) => {
+          originals.set(copy, originals.get(source) ?? source);
+          return copy;
+        };
         const convert = (value: any): any => {
           if (isValidElement(value)) return content(value);
           if (Array.isArray(value)) {
             const converted = value.map(convert);
             return converted.some((item, index) => item !== value[index])
-              ? converted
+              ? remember(converted, value)
               : value;
           }
           if (value && Object.getPrototypeOf(value) === Object.prototype) {
@@ -257,7 +262,7 @@ export function createReactAdapter<
               converted[key] = convert(value[key]);
               changed ||= converted[key] !== value[key];
             }
-            return changed ? converted : value;
+            return changed ? remember(converted, value) : value;
           }
           return value;
         };
@@ -272,15 +277,14 @@ export function createReactAdapter<
           slots,
           render: (slot, scope) => content(slot(scope)),
           convert,
+          originals,
         });
-        const result =
-          nested.props === original
-            ? { ...original }
-            : restoreNestedCallbackArguments(nested.props, nested.originals);
+        let result = { ...nested.props };
         for (const key of Object.keys(slots))
           delete result[`render${key[0].toUpperCase()}${key.slice(1)}`];
         for (const key of Object.keys(original))
           if (contentKeys.has(key)) result[key] = convert(result[key]);
+        result = restoreNestedCallbackArguments(result, nested.originals);
         for (const [key, value] of Object.entries(result)) {
           if (
             !key.startsWith('render') ||

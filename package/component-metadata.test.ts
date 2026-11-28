@@ -14,6 +14,29 @@ import {
 } from './nested-framework-content';
 
 describe('framework content catalog', () => {
+  it('retains private-field getter receivers on slotted options', () => {
+    class Option {
+      #value = 'private';
+      get value() {
+        return this.#value;
+      }
+      get label() {
+        return 'Original';
+      }
+    }
+    const option = new Option();
+    const result = withNestedFrameworkContent(
+      'ChoiceChips',
+      { options: [option] },
+      {
+        slots: { optionLabel: 'slot' },
+        render: () => 'Custom',
+      },
+    );
+    expect(result.props.options[0].value).toBe('private');
+    expect(result.props.options[0].label).toBe('Custom');
+    expect(option.label).toBe('Original');
+  });
   it('preserves inherited and non-enumerable option properties when applying slots', () => {
     class Option {
       constructor() {
@@ -98,6 +121,10 @@ describe('framework content catalog', () => {
             });
         }
         expect(JSON.stringify(props)).toBe(snapshot);
+        let original = props;
+        for (const key of descriptor.path)
+          original = key === '*' ? original[0] : original[key];
+        expect(original, `${component}.${slot} original`).toBe(originalLeaf);
         expect(
           withNestedFrameworkContent(component, props, {
             slots: {},

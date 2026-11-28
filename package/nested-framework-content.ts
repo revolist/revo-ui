@@ -6,6 +6,7 @@ interface Options<T> {
   render: (slot: T, scope: Scope) => unknown;
   /** Convert host-framework nodes and node-returning callbacks already present in data. */
   convert?: (value: unknown) => unknown;
+  originals?: WeakMap<object, object>;
 }
 
 /** Preserve item prototypes and property descriptors while replacing one field. */
@@ -24,7 +25,16 @@ function withProperty(source: object, key: string, value: unknown): object {
     configurable: true,
     writable: true,
   };
-  return Object.create(Object.getPrototypeOf(source), descriptors);
+  const copy = Object.create(Object.getPrototypeOf(source), descriptors);
+  // Accessors may depend on private fields, which cannot be copied. Delegate
+  // unchanged reads to the source so their receiver keeps its private brand.
+  return new Proxy(copy, {
+    get(target, property, receiver) {
+      return property === key
+        ? Reflect.get(target, property, receiver)
+        : Reflect.get(source, property, source);
+    },
+  });
 }
 
 /** Apply only declared content paths, retaining all untouched application objects. */
@@ -34,7 +44,7 @@ export function withNestedFrameworkContent<T>(
   options: Options<T>,
 ): { props: Record<string, any>; originals: WeakMap<object, object> } {
   let result = props;
-  const originals = new WeakMap<object, object>();
+  const originals = options.originals ?? new WeakMap<object, object>();
   const original = (value: any) =>
     value && typeof value === 'object'
       ? (originals.get(value) ?? value)
