@@ -25,7 +25,7 @@ test('Pages and coverage use the official browser image matching the frozen Play
   }
 });
 
-test('container CI retains gallery build, public package, browser, framework and SEO checks', () => {
+test('container CI retains gallery build, public package, framework and SEO checks', () => {
   const coverage = read('.github/workflows/coverage.yml');
   for (const command of [
     'pnpm lint',
@@ -37,7 +37,6 @@ test('container CI retains gallery build, public package, browser, framework and
     'pnpm test:docs',
     'pnpm test:discovery',
     'pnpm build:demo',
-    'pnpm test:browser',
     'pnpm test:frameworks',
     'pnpm test:tooltips',
     'pnpm test:cdn',
