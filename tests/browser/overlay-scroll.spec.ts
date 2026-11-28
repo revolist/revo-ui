@@ -218,7 +218,7 @@ for (const overlay of ['popover', 'tooltip']) {
   });
 }
 
-test('shared dialog stays centered when opened after page scroll and after scrolling again', async ({
+test('shared dialog keeps its viewport offset when opened after page scroll and after scrolling again', async ({
   page,
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
@@ -241,18 +241,21 @@ test('shared dialog stays centered when opened after page scroll and after scrol
     document.getElementById('open')!.click();
   });
   const dialog = page.locator('.rv-dialog__surface');
-  const centered = async () => {
+  const positioned = async () => {
     await expect(dialog).toBeVisible();
     await expect
       .poll(async () => {
         const box = (await dialog.boundingBox())!;
-        return Math.abs(box.y + box.height / 2 - 422);
+        const gutter = await dialog.evaluate((element) =>
+          parseFloat(getComputedStyle(element.parentElement!).paddingTop),
+        );
+        return Math.abs(box.y - gutter);
       })
       .toBeLessThanOrEqual(2);
   };
-  await centered();
+  await positioned();
   await page.evaluate(() => window.scrollTo(0, 700));
-  await centered();
+  await positioned();
   await page.getByRole('button', { name: 'Close', exact: true }).click();
   await expect(dialog).toHaveCount(0);
 });
