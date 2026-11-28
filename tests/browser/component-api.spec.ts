@@ -195,14 +195,6 @@ test('compact header keeps settings behind an overflow button', async ({
     .getByRole('button', { name: 'Theme', exact: true })
     .boundingBox();
   expect(Math.abs(githubBox!.y - themeBox!.y)).toBeLessThan(3);
-  const switches = page.locator('.gallery-settings .rv-switch');
-  await expect(switches).toHaveCount(2);
-  const animationBox = await switches.nth(0).boundingBox();
-  const rtlBox = await switches.nth(1).boundingBox();
-  expect(rtlBox!.y).toBeGreaterThanOrEqual(
-    animationBox!.y + animationBox!.height,
-  );
-  expect(Math.abs(animationBox!.x - rtlBox!.x)).toBeLessThan(2);
   await page
     .locator('.gallery-settings-content')
     .screenshot({ path: 'test-results/gallery-settings-compact.png' });

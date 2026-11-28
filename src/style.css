@@ -4274,6 +4274,8 @@ body {
 .catalog[data-custom-radius]
   :is(
     .catalog-nav-group > a,
+    .catalog-nav-family-link,
+    .catalog-nav-examples a,
     .api-sidebar nav a,
     .catalog-example,
     .catalog-example output,

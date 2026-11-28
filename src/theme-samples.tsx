@@ -1959,17 +1959,20 @@ function Sample({
       );
     case 'CommandPalette':
       return (
-        <CommandPalette
-          {...shared}
-          open={false}
-          label="Commands"
-          searchLabel="Search commands"
-          closeLabel="Close"
-          emptyLabel="No commands"
-          commands={[]}
-          onClose={() => {}}
-          onExecute={() => {}}
-        />
+        <>
+          <Button onClick={() => setOpen(true)}>Open commands</Button>
+          <CommandPalette
+            {...shared}
+            open={open}
+            label="Commands"
+            searchLabel="Search commands"
+            closeLabel="Close"
+            emptyLabel="No commands"
+            commands={[]}
+            onClose={() => setOpen(false)}
+            onExecute={() => {}}
+          />
+        </>
       );
     case 'FileTree':
       return (

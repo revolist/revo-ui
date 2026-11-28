@@ -60,8 +60,8 @@ test('shows the dial on the Sliders page and animates the thumb and arc together
     navigation.getByRole('link', { name: 'Sliders', exact: true }),
   ).toHaveAttribute('aria-current', 'location');
   await expect(
-    navigation.getByRole('link', { name: 'Circular slider', exact: true }),
-  ).toHaveCount(0);
+    navigation.getByRole('link', { name: 'Circular Slider', exact: true }),
+  ).toHaveCount(1);
   await expect(
     page.getByRole('slider', { name: 'Opacity', exact: true }),
   ).toBeVisible();

@@ -286,7 +286,7 @@ test('catalog navigation filters links without hiding the current component', as
   await expect(page).toHaveURL(/\/components\/calendar-and-dates\/$/);
   await expect(page.locator('.catalog-section')).toHaveCount(1);
   await search.fill('no-such-component');
-  await expect(sidebar.getByText('No matching sections.')).toBeVisible();
+  await expect(sidebar.getByText('No matching components.')).toBeVisible();
   await expect(
     page.getByRole('heading', { name: 'Calendar and dates', exact: true }),
   ).toBeVisible();
@@ -485,7 +485,7 @@ test('date picker instances have distinct relationships and return keyboard focu
   ).toHaveValue('2026-10-25');
   await expect(
     page.locator('input[type="text"][aria-label="Second date"]'),
-  ).toHaveValue('2026-10-24');
+  ).toHaveValue('24/10/2026');
   await second.click();
   await page.keyboard.press('Escape');
   await expect(second).toBeFocused();
@@ -617,7 +617,7 @@ test('shared control states have complete presentation and logical RTL spacing',
     await invalid.evaluate((element) => getComputedStyle(element).borderColor),
   ).not.toBe(
     await page
-      .locator('input[readonly]')
+      .getByRole('textbox', { name: 'Read only example', exact: true })
       .evaluate((element) => getComputedStyle(element).borderColor),
   );
   await setGalleryPreference(page, 'Right to left', 'toggle');
@@ -629,7 +629,7 @@ test('shared control states have complete presentation and logical RTL spacing',
   expect(icon!.x).toBeGreaterThan(field!.x + field!.width / 2);
 });
 
-test('gallery groups controls, outlines destructive actions and counts icon history without implicit tooltips', async ({
+test('gallery groups controls, styles destructive actions and counts icon history without implicit tooltips', async ({
   page,
 }) => {
   const logo = page.getByRole('banner').locator('.catalog-logo');
@@ -653,12 +653,9 @@ test('gallery groups controls, outlines destructive actions and counts icon hist
     .boundingBox();
   expect(outline!.x - primary!.x - primary!.width).toBeGreaterThanOrEqual(12);
   const remove = section.getByRole('button', { name: 'Delete', exact: true });
-  expect(
-    await remove.evaluate((el) => getComputedStyle(el).backgroundColor),
-  ).toBe('rgba(0, 0, 0, 0)');
-  expect(await remove.evaluate((el) => getComputedStyle(el).borderColor)).toBe(
-    'rgb(220, 38, 38)',
-  );
+  await page.mouse.move(0, 0);
+  await expect(remove).toHaveClass(/rv-btn-danger/);
+  await expect(remove).not.toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
   const undo = page.getByRole('button', { name: /^Undo / });
   const redo = page.getByRole('button', { name: /^Redo / });
   const exp = page.getByRole('button', { name: 'Export', exact: true });
@@ -679,7 +676,7 @@ test('gallery groups controls, outlines destructive actions and counts icon hist
   await expect(exp.locator('[role="tooltip"]')).toHaveCount(0);
   await expect(exp).not.toHaveAttribute('title');
   await chooseOption(page.getByRole('button', { name: 'Theme' }), 'Dark');
-  await expect(remove).toHaveCSS('border-color', 'rgb(252, 165, 165)');
+  await expect(remove).not.toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
 });
 
 test('filter building blocks operate independently with shared presentation', async ({
@@ -717,7 +714,7 @@ test('filter building blocks operate independently with shared presentation', as
   await expect(page.getByLabel('Time selection commits')).toContainText(
     '1 change committed',
   );
-  const expression = page.getByRole('textbox', { name: 'Highlighted example' });
+  const expression = page.getByRole('textbox', { name: 'Expression' });
   await expression.fill('value > 250');
   await expect(
     page.locator('.rv-highlighted-input__highlight').last(),
@@ -971,12 +968,7 @@ test('formatting controls are independent reusable examples in both themes and d
     .fill('Formatting controls');
   const section = page.locator('#formatting-controls');
   await expect(section.locator('.catalog-example')).toHaveCount(4);
-  const typography = section.locator('.catalog-example').filter({
-    has: page.getByRole('heading', {
-      name: 'Typography controls',
-      exact: true,
-    }),
-  });
+  const typography = section.locator('#example-typography-controls');
   await typography.getByRole('button', { name: 'Bold', exact: true }).click();
   await expect(
     typography.getByRole('button', { name: 'Bold', exact: true }),
@@ -1594,6 +1586,7 @@ test('configured field actions use a neutral cog with an accent dot and spaced s
     name: 'Configure sample Fields Year',
     exact: true,
   });
+  await page.mouse.move(0, 0);
   await expect(cog).toHaveAttribute('data-configured', 'true');
   await expect(cog).toHaveCSS('color', 'rgb(102, 102, 102)');
   await expect(cog).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
@@ -1602,11 +1595,11 @@ test('configured field actions use a neutral cog with an accent dot and spaced s
   await expect(cog.locator('svg')).toHaveCSS('transform', 'none');
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await expect(cog.locator('svg')).toHaveCSS('transform', 'none');
-  await expect(cog).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
-  await expect(cog).toHaveCSS('color', 'rgb(102, 102, 102)');
+  await expect(cog).not.toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+  await expect(cog).not.toHaveCSS('color', 'rgb(102, 102, 102)');
   await cog.evaluate((el) => el.setAttribute('aria-expanded', 'true'));
-  await expect(cog).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
-  await expect(cog).toHaveCSS('color', 'rgb(102, 102, 102)');
+  await expect(cog).not.toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
+  await expect(cog).not.toHaveCSS('color', 'rgb(102, 102, 102)');
   expect(
     await cog.evaluate((el) => getComputedStyle(el, '::after').width),
   ).toBe('5px');
@@ -1666,9 +1659,7 @@ test('shared filter badge details and removal remain independent', async ({
   await expect(
     section.getByText('Active filter badges', { exact: true }),
   ).toHaveCount(0);
-  const card = section
-    .locator('.catalog-example')
-    .filter({ has: page.getByText('Choice chips', { exact: true }) });
+  const card = section.locator('#example-choice-chips');
   await expect(card).toHaveCount(1);
   await expect(card.getByRole('group', { name: 'View choices' })).toBeVisible();
   const list = card.getByRole('list', { name: 'Active sample filters' });

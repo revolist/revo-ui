@@ -359,7 +359,7 @@ test('shows live observed state hooks and resets samples when changing component
   const sample = page.locator('.theme-samples > div').last();
   await sample.getByRole('switch', { name: 'Enabled' }).click();
   await expect(
-    editor.locator('p').filter({ hasText: 'Observed states' }),
+    editor.locator('.theme-editor-metadata').filter({ hasText: 'Observed states' }),
   ).toContainText('[data-state="unchecked"]');
 
   await page.goto('/customize/');
@@ -395,6 +395,7 @@ test('every catalog sample renders its customized preset', async ({ page }) => {
     AssigneeField: 'Open assignees',
     AssigneePicker: 'Open picker',
     AssigneePickerLayout: 'Open picker',
+    CommandPalette: 'Open commands',
     ConfirmDialog: 'Open confirmation',
     ControlTooltip: 'Toggle tooltip',
     Dialog: 'Open dialog',
@@ -519,11 +520,11 @@ test('rating and slider behavior defaults work in the gallery', async ({
     'stacked',
   );
   await chooseOption(
-    editor.getByRole('combobox', { name: 'disabled', exact: true }),
+    editor.getByRole('combobox', { name: 'Disabled', exact: true }),
     'true',
   );
   await editor
-    .getByRole('textbox', { name: 'accentColor', exact: true })
+    .getByRole('textbox', { name: 'AccentColor', exact: true })
     .fill('#ff0000');
   const custom = page.locator('.theme-samples > div').last();
   await expect(custom.locator('.rv-slider-field--stacked')).toBeVisible();
@@ -539,7 +540,7 @@ test('tooltip trigger can be configured in a preset', async ({ page }) => {
   const editor = page.locator('.theme-editor').first();
   await chooseOption(editor.getByLabel('Component'), 'Tooltip');
   await chooseOption(
-    editor.getByRole('combobox', { name: 'trigger', exact: true }),
+    editor.getByRole('combobox', { name: 'Trigger', exact: true }),
     'click',
   );
   const custom = page.locator('.theme-samples > div').last();

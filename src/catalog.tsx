@@ -1046,8 +1046,9 @@ export function CatalogShell({
                                   component?.title === family.title &&
                                   ((!anchor && !activeControl) ||
                                     (!!anchor &&
-                                      !!primaryControl &&
-                                      primaryControl.href.endsWith(anchor)))
+                                      (matching.length === 0 ||
+                                        (!!primaryControl &&
+                                          primaryControl.href.endsWith(anchor)))))
                                     ? 'location'
                                     : undefined
                                 }

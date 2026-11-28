@@ -129,8 +129,8 @@ test('migrated controls retain readable content and disabled cues in compact car
   await expect
     .soft(page.locator('.rv-pagination-panel > span').last())
     .toHaveCSS('white-space', 'nowrap');
-  const form = page.locator('#inputs-and-forms .catalog-example').first();
-  const field = await form.locator('.rv-field').boundingBox();
+  const form = page.locator('#example-form-fields-and-validation');
+  const field = await form.locator('.rv-field').first().boundingBox();
   const content = await form.locator('.catalog-specimen').evaluate((node) => {
     const style = getComputedStyle(node);
     return {

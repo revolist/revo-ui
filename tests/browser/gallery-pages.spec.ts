@@ -473,7 +473,7 @@ test('audit standalone field sizing across the gallery', async ({ page }) => {
             el.getAttribute('aria-label') ??
             el.closest('.catalog-example')?.querySelector('h3')?.textContent,
           classes: el.className,
-          height: el.getBoundingClientRect().height,
+          height: (el.closest('.rv-search-action-bar') ?? el).getBoundingClientRect().height,
           font: getComputedStyle(el).fontSize,
         })),
     );
@@ -688,7 +688,9 @@ for (const width of [1280, 390]) {
             .getByRole('link'),
         ).toHaveText(links);
       }
-      await expect(navigation.getByRole('link')).toHaveCount(22);
+      await expect(navigation.getByRole('link')).toHaveCount(
+        Object.values(categories).reduce((count, links) => count + links.length, 0),
+      );
       await navigation
         .getByRole('link', { name: 'Next.js SSR', exact: true })
         .click();
@@ -1027,14 +1029,15 @@ test('sidebar restores the active component position on reload', async ({
     '/components/status-and-feedback/#example-toast-notifications',
   );
   const sidebar = page.locator('#component-navigation');
+  const navigation = sidebar.getByRole('navigation', { name: 'Component sections' });
   const active = sidebar.getByRole('link', { name: 'Toaster', exact: true });
   await expect(active).toHaveAttribute('aria-current', 'location');
   await page.reload();
   await expect(active).toHaveAttribute('aria-current', 'location');
   await expect
-    .poll(async () => sidebar.evaluate((element) => element.scrollTop))
+    .poll(async () => navigation.evaluate((element) => element.scrollTop))
     .toBeGreaterThan(0);
-  const positions = await sidebar.evaluate((element) => {
+  const positions = await navigation.evaluate((element) => {
     const item = [...element.querySelectorAll('a')].find(
       (link) => link.textContent?.trim() === 'Toaster',
     )!;

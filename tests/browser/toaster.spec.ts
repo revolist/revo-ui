@@ -53,8 +53,9 @@ test('updates the export toast and shows the Undo result in the fixed viewport',
   await page.getByRole('button', { name: 'Archive draft' }).click();
   const viewport = page.getByRole('region', { name: 'Archive notifications' });
   await expect(viewport).toHaveCSS('position', 'fixed');
-  await page.clock.runFor(5000);
+  await page.clock.runFor(2500);
   await viewport.getByRole('button', { name: 'Undo' }).focus();
+  await page.clock.runFor(5000);
   await page.keyboard.press('Enter');
   await expect(viewport.getByRole('listitem')).toContainText('Draft restored');
 });

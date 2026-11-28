@@ -5,9 +5,7 @@ test('calendar presets obey the same validator as day cells', async ({
   page,
 }) => {
   await page.goto('/#components');
-  const card = page.locator('.catalog-example').filter({
-    has: page.getByRole('heading', { name: 'Calendar presets', exact: true }),
-  });
+  const card = page.locator('#example-calendar-presets');
   const day = (date: string) =>
     card.locator(
       `button[data-calendar-date="${date}"]:not([aria-hidden="true"])`,

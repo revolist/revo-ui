@@ -338,7 +338,7 @@ label.rv-switch-label {
   .rv-switch-input:not(:disabled):active + .rv-switch-track .rv-switch-thumb,
   label.rv-switch-label:active:has(.rv-switch-input:not(:disabled))
     .rv-switch-thumb {
-    transform: scaleX(1.15);
+    transform: scaleX(1.125);
   }
   [data-rv-ui-motion='off'] .rv-switch-thumb {
     transform: none !important;

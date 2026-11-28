@@ -256,7 +256,7 @@ test('assignee picker uses the selected radius in its popup', async ({
   );
 });
 
-test('customize stays near the desktop header actions and works on mobile', async ({
+test('customize remains accessible in the header and works on mobile', async ({
   page,
 }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
@@ -268,9 +268,9 @@ test('customize stays near the desktop header actions and works on mobile', asyn
   const github = page.getByRole('link', { name: 'Revo UI on GitHub' });
   const customizeBox = await customize.boundingBox();
   const githubBox = await github.boundingBox();
-  expect(githubBox!.x - (customizeBox!.x + customizeBox!.width)).toBeLessThan(
-    80,
-  );
+  const searchBox = await page.getByRole('searchbox', { name: 'Search the site' }).boundingBox();
+  expect(customizeBox!.x + customizeBox!.width).toBeLessThanOrEqual(searchBox!.x);
+  expect(searchBox!.x + searchBox!.width).toBeLessThanOrEqual(githubBox!.x);
   await page.setViewportSize({ width: 390, height: 844 });
   await customize.click();
   await expect(

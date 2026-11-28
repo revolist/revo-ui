@@ -38,12 +38,26 @@ export async function chooseOption(
       await control.click();
     return;
   }
-  await control.click();
+  if ((await control.getAttribute('aria-expanded')) !== 'true')
+    await control.press('Enter');
+  await expect(control).toHaveAttribute('aria-controls', /.+/);
   const listId = await control.getAttribute('aria-controls');
   if (!listId) throw new Error('Dropdown did not expose its listbox');
-  await control
+  const option = control
     .page()
     .locator(`[id="${listId}"]`)
-    .getByRole('option', { name: label, exact: true })
-    .click();
+    .getByRole('option', { name: label, exact: true });
+  const selected = await option.getAttribute('aria-selected');
+  if ((await control.getAttribute('aria-label')) === 'Component' && selected === 'true') {
+    const values = JSON.parse((await control.getAttribute('data-value')) ?? '[]');
+    if (Array.isArray(values) && values.length > 1) {
+      await option.click();
+      await expect(option).toHaveAttribute('aria-selected', 'false');
+      await option.click();
+    }
+  } else {
+    await option.click();
+  }
+  if ((await control.getAttribute('aria-expanded')) === 'true')
+    await control.press('Escape');
 }
