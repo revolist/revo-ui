@@ -1,5 +1,6 @@
 // @vitest-environment happy-dom
 import { h, render } from 'preact';
+import { act } from 'preact/test-utils';
 import { afterEach, expect, it } from 'vitest';
 import { BarChart } from './bar-chart';
 import { LineChart } from './line-chart';
@@ -112,6 +113,33 @@ it('renders proportional doughnut slices and handles nonpositive values', () => 
       .querySelectorAll('.rv-distribution-chart__donut-plot circle')[1]
       .getAttribute('stroke-dasharray'),
   ).toBe('50 50');
+});
+
+it('keeps doughnut click targets attached to the right data after reordering', async () => {
+  await act(() =>
+    render(<DonutChart ariaLabel="Reordered" data={data} />, document.body),
+  );
+  document
+    .querySelector(
+      '.rv-distribution-chart__donut-plot circle[stroke-dasharray]',
+    )!
+    .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+  expect(document.activeElement?.getAttribute('aria-label')).toContain(
+    'Point 1',
+  );
+  await act(() =>
+    render(
+      <DonutChart ariaLabel="Reordered" data={[...data].reverse()} />,
+      document.body,
+    ),
+  );
+  const firstArc = document.querySelector(
+    '.rv-distribution-chart__donut-plot circle[stroke-dasharray]',
+  )!;
+  firstArc.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+  expect(document.activeElement?.getAttribute('aria-label')).toContain(
+    'Point 3',
+  );
 });
 
 it('renders stacked bars on one scale with accessible series values', () => {
