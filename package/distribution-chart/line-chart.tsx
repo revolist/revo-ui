@@ -2,12 +2,15 @@
 import { h } from 'preact';
 import { ChartFrame, ChartPlot } from './chart-frame';
 import { chartGeometry, chartSegment } from './geometry';
+import { MultiSeriesChart } from './multi-series-chart';
 import type { StandaloneChartProps } from './types';
 
 export type LineChartProps = StandaloneChartProps;
 
 /** Compact line chart with independently selected intervals and optional points. */
 export function LineChart(props: LineChartProps) {
+  if (props.series?.length)
+    return <MultiSeriesChart {...props} variant="line" />;
   const { points } = chartGeometry(props.data);
   return (
     <ChartFrame

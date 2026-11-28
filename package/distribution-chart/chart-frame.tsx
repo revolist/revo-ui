@@ -1,7 +1,7 @@
 import { TooltipText } from '../core/tooltip-text';
 /** @jsxImportSource preact */
 import { Fragment, h, type ComponentChildren, type JSX } from 'preact';
-import { useRef, useState } from 'preact/hooks';
+import { useLayoutEffect, useRef, useState } from 'preact/hooks';
 import { useTooltip } from '../core/tooltip';
 import { chartGeometry } from './geometry';
 import type {
@@ -50,7 +50,9 @@ export function ChartFrame({
   positions,
   datumColors,
   renderDatum,
+  renderLabel,
   children,
+  renderSurface,
 }: StandaloneChartProps & {
   variant: DistributionChartType;
   positions?: readonly ChartPoint[];
@@ -59,11 +61,23 @@ export function ChartFrame({
     datum: DistributionChartDatum,
     index: number,
   ) => ComponentChildren;
+  renderLabel?: (
+    datum: DistributionChartDatum,
+    index: number,
+  ) => ComponentChildren;
   children?: ComponentChildren;
+  renderSurface?: (interaction: {
+    show: (index: number) => void;
+    hide: (index: number) => void;
+    focus: (index: number) => void;
+  }) => ComponentChildren;
 }) {
   const { values, max } = chartGeometry(data);
   const [focusedIndex, setFocusedIndex] = useState(0);
   const itemRefs = useRef<Array<HTMLElement | null>>([]);
+  const tooltips = useRef<
+    Array<{ show: () => void; hide: () => void } | undefined>
+  >([]);
   const activeIndex = Math.min(focusedIndex, Math.max(0, data.length - 1));
 
   const focusItem = (index: number) => {
@@ -84,7 +98,15 @@ export function ChartFrame({
       <div
         class="rv-distribution-chart__region"
         data-part="region"
-        style={{ height: `${Math.max(40, Math.min(240, height))}px` }}
+        style={
+          variant === 'donut'
+            ? {
+                width: `min(100%, ${Math.max(40, Math.min(240, height))}px)`,
+                height: 'auto',
+                aspectRatio: '1',
+              }
+            : { height: `${Math.max(40, Math.min(240, height))}px` }
+        }
       >
         {showGrid && (
           <div
@@ -98,6 +120,11 @@ export function ChartFrame({
           </div>
         )}
         {children}
+        {renderSurface?.({
+          show: (index) => tooltips.current[index]?.show(),
+          hide: (index) => tooltips.current[index]?.hide(),
+          focus: focusItem,
+        })}
         <div class="rv-distribution-chart__data" data-part="data" role="list">
           {data.map((datum, index) => {
             const point = positions?.[index];
@@ -114,6 +141,9 @@ export function ChartFrame({
                 }
                 datumRef={(element) => {
                   itemRefs.current[index] = element;
+                }}
+                onTooltip={(handle) => {
+                  tooltips.current[index] = handle;
                 }}
                 class={`rv-distribution-chart__datum${datum.selected ? ' is-selected' : ''}${isBar ? ' is-bar' : ' is-point'}`}
                 role="listitem"
@@ -174,8 +204,9 @@ export function ChartFrame({
           class={`rv-distribution-chart__labels${variant === 'bar' ? ' is-bar' : ''}`}
           aria-hidden="true"
         >
-          {data.map((datum) => (
+          {data.map((datum, index) => (
             <TooltipText key={datum.key} title={datum.tooltip.title}>
+              {renderLabel?.(datum, index)}
               {datum.tooltip.title}
             </TooltipText>
           ))}
@@ -213,13 +244,18 @@ function TooltipDatum({
   onFocus,
   onKeyDown,
   datumRef,
+  onTooltip,
   ...attributes
 }: JSX.HTMLAttributes<HTMLSpanElement> & {
   tooltipText?: string;
   tooltipContent: ComponentChildren;
   datumRef: (element: HTMLSpanElement | null) => void;
+  onTooltip: (
+    handle: { show: () => void; hide: () => void } | undefined,
+  ) => void;
   indicator: NonNullable<StandaloneChartProps['tooltipIndicator']>;
 }) {
+  const elementRef = useRef<HTMLSpanElement | null>(null);
   const hint = useTooltip(tooltipText ?? '', true, {
     className: `rv-distribution-chart__tooltip rv-distribution-chart__tooltip--${indicator}`,
     content: (
@@ -229,9 +265,30 @@ function TooltipDatum({
       </>
     ),
   });
+  useLayoutEffect(() => {
+    onTooltip(
+      tooltipText
+        ? {
+            show: hint.show,
+            hide: () => {
+              const element = elementRef.current;
+              const root = element?.getRootNode() as
+                | Document
+                | ShadowRoot
+                | undefined;
+              if (!element || root?.activeElement !== element) hint.hide();
+            },
+          }
+        : undefined,
+    );
+    return () => onTooltip(undefined);
+  });
   return (
     <span
-      ref={datumRef}
+      ref={(element) => {
+        elementRef.current = element;
+        datumRef(element);
+      }}
       {...attributes}
       {...(tooltipText ? hint.triggerProps : {})}
       onKeyDown={(event) => {

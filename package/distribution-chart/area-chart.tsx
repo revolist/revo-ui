@@ -3,12 +3,15 @@ import { h } from 'preact';
 import { useId } from 'preact/hooks';
 import { ChartFrame, ChartPlot } from './chart-frame';
 import { chartGeometry, chartSegment } from './geometry';
+import { MultiSeriesChart } from './multi-series-chart';
 import type { StandaloneChartProps } from './types';
 
 export type AreaChartProps = StandaloneChartProps;
 
 export function AreaChart(props: AreaChartProps) {
   const gradientId = `rv-area-${useId().replace(/[^a-zA-Z0-9_-]/g, '')}`;
+  if (props.series?.length)
+    return <MultiSeriesChart {...props} variant="area" />;
   const { points } = chartGeometry(props.data);
   const hasSelection = props.data.some((datum) => datum.selected !== undefined);
   const intervals = points.slice(1).map((to, index) => {

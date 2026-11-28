@@ -1191,6 +1191,143 @@ test.describe('calendar family', () => {
 
 test.describe('charts family', () => {
   test.use({ gallerySections: ['charts-and-range-selection'] });
+  test('multi-series compositions and full doughnut slices expose their values', async ({
+    page,
+  }) => {
+    const stacked = page.getByRole('group', {
+      name: 'Stacked visitors by device',
+    });
+    await expect(stacked.locator('[data-series-type="bar"]')).toHaveCount(2);
+    await expect(stacked.getByRole('listitem').first()).toHaveAttribute(
+      'aria-label',
+      /Desktop: 186.*Mobile: 80/,
+    );
+    const mixed = page.getByRole('group', { name: 'Orders and target' });
+    await expect(mixed.locator('[data-series-type="bar"] rect')).toHaveCount(6);
+    await expect(mixed.locator('[data-series-type="line"] path')).toHaveCount(
+      5,
+    );
+    const patternedBars = page.getByRole('group', {
+      name: 'Website traffic with dotted bars',
+    });
+    const standardBar = page.getByRole('group', {
+      name: 'Standalone bar chart',
+      exact: true,
+    });
+    expect(
+      await standardBar.evaluate((element, patternedLabel) => {
+        const patterned = document.querySelector(
+          `[aria-label="${patternedLabel}"]`,
+        );
+        return (
+          !!patterned &&
+          !!(
+            element.compareDocumentPosition(patterned) &
+            Node.DOCUMENT_POSITION_FOLLOWING
+          )
+        );
+      }, 'Website traffic with dotted bars'),
+    ).toBe(true);
+    await expect(patternedBars.locator('[data-pattern="dots"]')).toHaveCount(6);
+    await expect(
+      patternedBars.locator('[data-pattern="dots"]').first(),
+    ).toHaveCSS('background-image', /radial-gradient/);
+    const patternedSeries = page.getByRole('group', {
+      name: 'Striped acquisition comparison',
+    });
+    await expect(patternedSeries.locator('pattern')).toHaveCount(1);
+    await expect(
+      patternedSeries.locator('[data-series="desktop"]'),
+    ).toHaveAttribute('fill', /^url\(#rv-multi-area-/);
+    const patternedDonut = page.getByRole('group', {
+      name: 'Open issues by severity',
+    });
+    await expect(patternedDonut.locator('pattern')).toHaveCount(2);
+    await expect(
+      patternedDonut.locator('circle[stroke-dasharray]').first(),
+    ).toHaveAttribute('stroke', /^url\(#rv-donut-pattern-/);
+    await patternedDonut.scrollIntoViewIfNeeded();
+    const patternedBox = (await patternedDonut
+      .locator('.rv-distribution-chart__donut-plot')
+      .boundingBox())!;
+    const slicePaints = await patternedDonut
+      .locator('.rv-distribution-chart__donut-plot circle[stroke-dasharray]')
+      .evaluateAll((slices) =>
+        slices.map((slice) => slice.getAttribute('stroke')),
+      );
+    const swatchPaints = await patternedDonut
+      .locator('.rv-distribution-chart__label-swatch rect')
+      .evaluateAll((swatches) =>
+        swatches.map((swatch) => swatch.getAttribute('fill')),
+      );
+    expect(swatchPaints).toEqual(slicePaints);
+    const patternedAngle = (20 * Math.PI) / 180;
+    await page.mouse.move(
+      patternedBox.x +
+        patternedBox.width * (0.5 + 0.36 * Math.sin(patternedAngle)),
+      patternedBox.y +
+        patternedBox.height * (0.5 - 0.36 * Math.cos(patternedAngle)),
+    );
+    await expect(
+      patternedDonut
+        .getByRole('tooltip', { includeHidden: true })
+        .filter({ hasText: 'Critical' }),
+    ).toBeVisible();
+    await page.mouse.move(0, 0);
+    const comparison = page.getByRole('group', {
+      name: 'Device trend comparison',
+    });
+    for (const width of [1440, 390]) {
+      await page.setViewportSize({ width, height: 900 });
+      const point = comparison
+        .locator(
+          '[data-series-type="line"] circle, [data-series-type="line"] [data-part="series-point"]',
+        )
+        .first();
+      await expect(point).toHaveAttribute(
+        'vector-effect',
+        'non-scaling-stroke',
+      );
+      await expect(point).toHaveAttribute('stroke-linecap', 'round');
+    }
+    const donut = page.getByRole('group', { name: 'Visitors by source' });
+    await donut.scrollIntoViewIfNeeded();
+    const box = (await donut
+      .locator('.rv-distribution-chart__donut-plot')
+      .boundingBox())!;
+    for (const [degrees, name] of [
+      [25, 'Direct'],
+      [140, 'Direct'],
+      [220, 'Search'],
+      [320, 'Social'],
+    ] as const) {
+      const radians = (degrees * Math.PI) / 180;
+      await page.mouse.move(
+        box.x + box.width * (0.5 + 0.36 * Math.sin(radians)),
+        box.y + box.height * (0.5 - 0.36 * Math.cos(radians)),
+      );
+      await expect(
+        donut
+          .getByRole('tooltip', { includeHidden: true })
+          .filter({ hasText: name }),
+      ).toBeVisible();
+    }
+    await donut
+      .locator('circle[stroke-dasharray]')
+      .nth(1)
+      .dispatchEvent('click');
+    await expect(donut.getByRole('listitem').nth(1)).toBeFocused();
+    await donut.getByRole('listitem').first().focus();
+    await page.mouse.move(box.x + box.width * 0.65, box.y + box.height * 0.17);
+    await page.mouse.move(box.x + box.width * 0.5, box.y + box.height * 0.5);
+    await expect(
+      donut
+        .getByRole('tooltip', { includeHidden: true })
+        .filter({ hasText: 'Direct' }),
+    ).toBeVisible();
+    await page.keyboard.press('ArrowRight');
+    await expect(donut.getByRole('listitem').nth(1)).toBeFocused();
+  });
   for (const width of [1440, 390])
     for (const theme of ['light', 'dark'])
       for (const rtl of [false, true]) {

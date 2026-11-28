@@ -24,6 +24,8 @@ export class LineChart extends AngularComponentAdapter<never> {
     'LineChart',
     'ariaLabel'
   >;
+  @NgInput() declare 'barPattern'?: AngularInput<'LineChart', 'barPattern'>;
+  @NgInput() declare 'centerLabel'?: AngularInput<'LineChart', 'centerLabel'>;
   @NgInput() declare 'className'?: AngularInput<'LineChart', 'className'>;
   @NgInput({ required: true }) declare 'data': AngularInput<
     'LineChart',
@@ -41,10 +43,17 @@ export class LineChart extends AngularComponentAdapter<never> {
     'LineChart',
     'renderTooltip'
   >;
+  @NgInput() declare 'series'?: AngularInput<'LineChart', 'series'>;
+  @NgInput() declare 'seriesMode'?: AngularInput<'LineChart', 'seriesMode'>;
   @NgInput() declare 'showGrid'?: AngularInput<'LineChart', 'showGrid'>;
   @NgInput() declare 'showLabels'?: AngularInput<'LineChart', 'showLabels'>;
   @NgInput() declare 'showPoints'?: AngularInput<'LineChart', 'showPoints'>;
   @NgInput() declare 'showValues'?: AngularInput<'LineChart', 'showValues'>;
+  @NgInput() declare 'sliceColors'?: AngularInput<'LineChart', 'sliceColors'>;
+  @NgInput() declare 'slicePatterns'?: AngularInput<
+    'LineChart',
+    'slicePatterns'
+  >;
   @NgInput() declare 'tooltip'?: AngularInput<'LineChart', 'tooltip'>;
   @NgInput() declare 'tooltipIndicator'?: AngularInput<
     'LineChart',

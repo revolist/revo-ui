@@ -2,6 +2,7 @@
 import { h } from 'preact';
 import { ChartFrame } from './chart-frame';
 import { chartGeometry } from './geometry';
+import { MultiSeriesChart } from './multi-series-chart';
 import type { DistributionChartDatum, StandaloneChartProps } from './types';
 
 export interface BarChartProps extends StandaloneChartProps {
@@ -13,6 +14,8 @@ export interface BarChartProps extends StandaloneChartProps {
 
 /** Compact bar chart, independent of sliders, filters and grid instances. */
 export function BarChart(props: BarChartProps) {
+  if (props.series?.length)
+    return <MultiSeriesChart {...props} variant="bar" />;
   const { values, max } = chartGeometry(props.data);
   const colors = props.data.map((datum, index) =>
     typeof props.barColor === 'function'
@@ -27,6 +30,7 @@ export function BarChart(props: BarChartProps) {
       renderDatum={(datum, index) => (
         <span
           class="rv-distribution-chart__bar"
+          data-pattern={props.barPattern}
           style={{
             backgroundColor: colors[index],
             height: `${Math.max(3, (values[index] / max) * 100)}%`,

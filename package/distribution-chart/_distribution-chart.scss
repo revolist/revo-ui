@@ -7,6 +7,47 @@
   isolation: isolate;
 }
 
+.rv-distribution-chart--donut .rv-distribution-chart__region {
+  width: min(100%, 240px);
+  aspect-ratio: 1;
+  margin-inline: auto;
+}
+
+.rv-distribution-chart__donut-plot {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.rv-distribution-chart__donut-label {
+  fill: var(--rv-distribution-color, var(--rv-ui-text));
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.rv-distribution-chart__donut-target { position: absolute; inset: 0; }
+.rv-distribution-chart__datum:focus-visible .rv-distribution-chart__donut-target {
+  outline: 2px solid var(--rv-distribution-accent, var(--rv-ui-accent));
+  outline-offset: 2px;
+  border-radius: 50%;
+}
+.rv-distribution-chart--donut .rv-distribution-chart__data { pointer-events: none; }
+.rv-distribution-chart--donut .rv-distribution-chart__datum { pointer-events: auto; }
+.rv-distribution-chart__donut-plot circle[stroke-dasharray] { pointer-events: visibleStroke; }
+.rv-distribution-multiseries__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0 0;
+  color: var(--rv-ui-text-muted);
+  font-size: 0.75rem;
+  li { display: inline-flex; align-items: center; gap: 0.35rem; }
+  i { width: 0.65rem; height: 0.65rem; border-radius: 50%; }
+}
+
 .rv-distribution-chart__plot,
 .rv-distribution-chart__data {
   position: absolute;
@@ -101,6 +142,15 @@
   background: var(--rv-distribution-accent, var(--rv-ui-accent));
 }
 
+.rv-distribution-chart .rv-distribution-chart__bar[data-pattern='dots'] {
+  background-image: radial-gradient(circle, var(--rv-ui-surface) 1px, transparent 1.25px);
+  background-size: 6px 6px;
+}
+
+.rv-distribution-chart .rv-distribution-chart__bar[data-pattern='stripes'] {
+  background-image: repeating-linear-gradient(135deg, transparent 0 3px, var(--rv-ui-surface) 3px 4px);
+}
+
 .rv-distribution-chart__point {
   position: absolute;
   top: 50%;
@@ -169,6 +219,18 @@
     flex: 1;
     text-align: center;
   }
+}
+
+.rv-distribution-chart--donut .rv-distribution-chart__labels > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.rv-distribution-chart__label-swatch {
+  width: 12px;
+  height: 12px;
+  flex: 0 0 12px;
 }
 .rv-distribution-chart__value {
   position: absolute;
