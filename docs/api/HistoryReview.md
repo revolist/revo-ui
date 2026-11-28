@@ -16,19 +16,23 @@ Angular/Svelte: pass `component="HistoryReview"` to the framework's `UiComponent
 
 The table lists library-declared props. Standard inherited HTML attributes are omitted to keep the reference focused. Callback and generic types follow the installed package declarations.
 
-| Prop            | Type                                  | Required | Description                                                               |
-| --------------- | ------------------------------------- | -------- | ------------------------------------------------------------------------- |
-| `label`         | `string`                              | Yes      | Accessible title for the review.                                          |
-| `versions`      | `readonly HistoryVersion[]`           | Yes      | Versions in newest-first order.                                           |
-| `currentId`     | `string \| undefined`                 | No       | Current version ID. Defaults to the first version.                        |
-| `value`         | `string \| undefined`                 | No       | Controlled ID of the version being inspected.                             |
-| `onValueChange` | `((id: string) => void) \| undefined` | No       | Reports a selected version ID.                                            |
-| `open`          | `boolean \| undefined`                | No       | Omit for inline rendering or control modal visibility with a boolean.     |
-| `onClose`       | `(() => void) \| undefined`           | No       | Reports that the modal should close.                                      |
-| `onRestore`     | `((id: string) => void) \| undefined` | No       | Runs after confirming a restore. The host persists the resulting version. |
-| `labels`        | `HistoryReviewLabels`                 | Yes      | Localized review, comparison and restore strings.                         |
-| `preset`        | `ClassPreset \| undefined`            | No       | Optional presentation preset.                                             |
-| `className`     | `string \| undefined`                 | No       | Additional root classes.                                                  |
+| Prop                     | Type                                  | Required | Description                                                                                  |
+| ------------------------ | ------------------------------------- | -------- | -------------------------------------------------------------------------------------------- |
+| `label`                  | `string`                              | Yes      | Accessible title for the review.                                                             |
+| `versions`               | `readonly HistoryVersion[]`           | Yes      | Versions in newest-first order.                                                              |
+| `currentId`              | `string \| undefined`                 | No       | Current version ID. Defaults to the first version.                                           |
+| `value`                  | `string \| undefined`                 | No       | Controlled ID of the version being inspected.                                                |
+| `onValueChange`          | `((id: string) => void) \| undefined` | No       | Reports a selected version ID.                                                               |
+| `open`                   | `boolean \| undefined`                | No       | Omit for inline rendering or control modal visibility with a boolean.                        |
+| `onClose`                | `(() => void) \| undefined`           | No       | Reports that the modal should close.                                                         |
+| `onRestore`              | `((id: string) => void) \| undefined` | No       | Runs after confirming a restore. The host persists the resulting version.                    |
+| `labels`                 | `HistoryReviewLabels`                 | Yes      | Localized review, comparison and restore strings.                                            |
+| `showVersions`           | `boolean`                             | No       | Show the saved versions sidebar; defaults to `true`.                                         |
+| `showComparisonControls` | `boolean`                             | No       | Show the comparison switch; defaults to `true`.                                              |
+| `children`               | `ComponentChildren`                   | No       | Custom content replacing the default changes table.                                          |
+| `renderChanges`          | `(context) => ComponentChildren`      | No       | Render custom content using the selected, baseline and current versions and comparison mode. |
+| `preset`                 | `ClassPreset \| undefined`            | No       | Optional presentation preset.                                                                |
+| `className`              | `string \| undefined`                 | No       | Additional root classes.                                                                     |
 
 ## Composition
 
@@ -45,3 +49,5 @@ Use `labels.comparison` for the visible and accessible switch label, and `labels
 Supply an author name to show a shared avatar with initials. An optional `authorAvatarUrl` supplies the photo, with initials used if the photo cannot load.
 
 Use the inline review for an audit panel or a comment's edit history. Pass `open` and `onClose` for a modal review. The optional restore handler receives the confirmed revision ID. The host can persist a new revision while retaining the earlier snapshots.
+
+Set `showVersions={false}` to hide the saved versions sidebar and `showComparisonControls={false}` to hide the comparison switch. Both are visible by default. Use the `children` slot for custom changes, or use `renderChanges` in Preact to render from the selected and baseline versions. Store an event, event array, or other host data in `version.data`; `cells` is optional for custom content.

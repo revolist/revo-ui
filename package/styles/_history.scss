@@ -13,6 +13,10 @@
   padding: 4px;
 }
 
+.rv-history-review[data-show-versions='false'] {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 .rv-dialog__surface:has(
   > .rv-dialog__body > .rv-history-review[data-mode='dialog']
 ) {

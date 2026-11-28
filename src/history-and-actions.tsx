@@ -233,6 +233,64 @@ export function HistoryReviewExamples() {
           }}
         />
       </Example>
+      <Example title="History without versions">
+        <HistoryReview
+          label="History without versions"
+          versions={commentVersions}
+          labels={historyLabels}
+          showVersions={false}
+        />
+      </Example>
+      <Example title="History without comparison controls">
+        <HistoryReview
+          label="History without comparison controls"
+          versions={commentVersions}
+          labels={historyLabels}
+          showComparisonControls={false}
+        />
+      </Example>
+      <Example title="Custom history slot">
+        <HistoryReview
+          label="Custom history slot"
+          versions={commentVersions}
+          labels={historyLabels}
+          showComparisonControls={false}
+        >
+          <p>External event details</p>
+        </HistoryReview>
+      </Example>
+      <Example title="Compact event history">
+        <HistoryReview
+          label="Compact event history"
+          versions={[
+            {
+              id: 'event-2',
+              title: 'Updated',
+              dateLabel: 'Today',
+              data: ['Status changed', 'Owner assigned'],
+            },
+            {
+              id: 'event-1',
+              title: 'Created',
+              dateLabel: 'Yesterday',
+              data: 'Created',
+            },
+          ]}
+          labels={historyLabels}
+          showVersions={false}
+          showComparisonControls={false}
+          renderChanges={({ selected }) => (
+            <ul>
+              {(Array.isArray(selected.data)
+                ? selected.data
+                : [selected.data]
+              ).map((event) => (
+                <li>{String(event)}</li>
+              ))}
+            </ul>
+          )}
+        />
+      </Example>
       <Example title="Cell comment edits">
         <HistoryReview
           label="Comment edit history"

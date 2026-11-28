@@ -37,6 +37,18 @@ export class HistoryReview extends AngularComponentAdapter<never> {
   >;
   @NgInput() declare 'open'?: AngularInput<'HistoryReview', 'open'>;
   @NgInput() declare 'preset'?: AngularInput<'HistoryReview', 'preset'>;
+  @NgInput() declare 'renderChanges'?: AngularInput<
+    'HistoryReview',
+    'renderChanges'
+  >;
+  @NgInput() declare 'showComparisonControls'?: AngularInput<
+    'HistoryReview',
+    'showComparisonControls'
+  >;
+  @NgInput() declare 'showVersions'?: AngularInput<
+    'HistoryReview',
+    'showVersions'
+  >;
   @NgInput() declare 'value'?: AngularInput<'HistoryReview', 'value'>;
   @NgInput({ required: true }) declare 'versions': AngularInput<
     'HistoryReview',

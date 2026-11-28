@@ -152,6 +152,8 @@ Supply full snapshots newest first. Use stable cell IDs across revisions, includ
 
 Use \`labels.comparison\` for the visible and accessible switch label, and \`labels.previous\` and \`labels.current\` for its options. Set \`labels.changesTable\` to give the changes table a separate accessible name. The current-version badge, change counts, empty states, and restore labels can also be localized.
 
+Set \`showVersions={false}\` to hide the versions list and \`showComparisonControls={false}\` to hide the comparison switch. Both default to visible. Use \`children\` for a custom changes slot, or \`renderChanges\` in Preact to render selected and baseline version data. Store any event or value in \`version.data\`; cell snapshots are optional for custom content.
+
 Supply an author name to show a shared avatar with initials. An optional \`authorAvatarUrl\` supplies the photo, with initials used if the photo cannot load.
 
 Use the inline review for an audit panel or a comment's edit history. Pass \`open\` and \`onClose\` for a modal review. The optional restore handler receives the confirmed revision ID. The host can persist a new revision while retaining the earlier snapshots.

@@ -22,7 +22,9 @@ export type {
 
 export interface HistoryVersion extends HistoryEntry {
   /** Snapshot cells. Omitted IDs are treated as empty. */
-  cells: readonly HistoryCell[];
+  cells?: readonly HistoryCell[];
+  /** Arbitrary host data for custom change rendering. */
+  data?: unknown;
   /** Prevent restoring this version. */
   restoreDisabled?: boolean;
 }
@@ -68,6 +70,19 @@ export interface HistoryReviewProps {
   onRestore?: (id: string) => void;
   /** Localized review, comparison and restore strings. */
   labels: HistoryReviewLabels;
+  /** Show the saved versions sidebar. Defaults to true. */
+  showVersions?: boolean;
+  /** Show the comparison mode switch. Defaults to true. */
+  showComparisonControls?: boolean;
+  /** Content slot replacing the default cell changes. */
+  children?: ComponentChildren;
+  /** Replace the default cell changes with host-rendered content. */
+  renderChanges?: (context: {
+    selected: HistoryVersion;
+    baseline: HistoryVersion | undefined;
+    current: HistoryVersion | undefined;
+    compareTo: 'previous' | 'current';
+  }) => ComponentChildren;
   /** Optional presentation preset. */
   preset?: ClassPreset;
   /** Additional root classes. */
@@ -178,6 +193,10 @@ export function HistoryReview({
   onClose,
   onRestore,
   labels,
+  showVersions = true,
+  showComparisonControls = true,
+  children,
+  renderChanges,
   preset,
   className = '',
 }: HistoryReviewProps) {
@@ -200,7 +219,7 @@ export function HistoryReview({
   const changes = useMemo(
     () =>
       selected && baseline && selected !== baseline
-        ? compareHistoryCells(baseline.cells, selected.cells)
+        ? compareHistoryCells(baseline.cells ?? [], selected.cells ?? [])
         : [],
     [selected, baseline],
   );
@@ -210,75 +229,88 @@ export function HistoryReview({
       ref={review}
       class={`rv-history-review ${preset?.className ?? ''} ${className}`}
       data-part="root"
+      data-show-versions={showVersions}
       data-mode={open === undefined ? 'inline' : 'dialog'}
       aria-label={open === undefined ? label : undefined}
     >
       {selected ? (
         <>
-          <div class="rv-history-sidebar" data-part="versions">
-            <div
-              class="rv-history-sidebar-heading"
-              data-part="versions-label"
-              aria-hidden="true"
-            >
-              {labels.versions}
+          {showVersions && (
+            <div class="rv-history-sidebar" data-part="versions">
+              <div
+                class="rv-history-sidebar-heading"
+                data-part="versions-label"
+                aria-hidden="true"
+              >
+                {labels.versions}
+              </div>
+              <RadioGroup
+                className="rv-history-versions"
+                label={labels.versions}
+                value={selected.id}
+                onChange={select}
+                options={versions.map((entry) => ({
+                  value: entry.id,
+                  label: (
+                    <HistoryEntryLabel
+                      entry={entry}
+                      authorFirst
+                      badge={
+                        entry === current ? labels.currentVersion : undefined
+                      }
+                    />
+                  ),
+                }))}
+              />
             </div>
-            <RadioGroup
-              className="rv-history-versions"
-              label={labels.versions}
-              value={selected.id}
-              onChange={select}
-              options={versions.map((entry) => ({
-                value: entry.id,
-                label: (
-                  <HistoryEntryLabel
-                    entry={entry}
-                    authorFirst
-                    badge={
-                      entry === current ? labels.currentVersion : undefined
-                    }
-                  />
-                ),
-              }))}
-            />
-          </div>
+          )}
           <div class="rv-history-comparison" data-part="comparison">
-            <div
-              class="rv-history-comparison-control"
-              data-part="comparison-control"
-            >
-              <span data-part="comparison-label">{labels.comparison}</span>
-              <SegmentedSwitch<'previous' | 'current'>
-                role="group"
-                ariaLabel={labels.comparison}
-                value={compareTo}
-                onChange={setCompareTo}
-                options={[
-                  { value: 'previous', label: labels.previous },
-                  { value: 'current', label: labels.current },
-                ]}
-              />
-            </div>
-            <div class="rv-history-summary" role="status">
-              {!baseline
-                ? labels.noPrevious
-                : changes.length
-                  ? labels.changeCount(changes.length)
-                  : labels.noChanges}
-            </div>
-            {!!changes.length && (
-              <HistoryChanges
-                label={labels.changesTable ?? labels.comparison}
-                rows={changes.map(
-                  ({ cell: { id, address, sheet }, before, after }) => ({
-                    id,
-                    address,
-                    sheet,
-                    values: { before, after },
-                  }),
+            {showComparisonControls && (
+              <div
+                class="rv-history-comparison-control"
+                data-part="comparison-control"
+              >
+                <span data-part="comparison-label">{labels.comparison}</span>
+                <SegmentedSwitch<'previous' | 'current'>
+                  role="group"
+                  ariaLabel={labels.comparison}
+                  value={compareTo}
+                  onChange={setCompareTo}
+                  options={[
+                    { value: 'previous', label: labels.previous },
+                    { value: 'current', label: labels.current },
+                  ]}
+                />
+              </div>
+            )}
+            {renderChanges ? (
+              renderChanges({ selected, baseline, current, compareTo })
+            ) : children != null ? (
+              children
+            ) : (
+              <>
+                <div class="rv-history-summary" role="status">
+                  {!baseline
+                    ? labels.noPrevious
+                    : changes.length
+                      ? labels.changeCount(changes.length)
+                      : labels.noChanges}
+                </div>
+                {!!changes.length && (
+                  <HistoryChanges
+                    label={labels.changesTable ?? labels.comparison}
+                    rows={changes.map(
+                      ({ cell: { id, address, sheet }, before, after }) => ({
+                        id,
+                        address,
+                        sheet,
+                        values: { before, after },
+                      }),
+                    )}
+                    labels={labels}
+                  />
                 )}
-                labels={labels}
-              />
+              </>
             )}
             {onRestore && (
               <div class="rv-history-actions">

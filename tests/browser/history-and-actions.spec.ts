@@ -299,6 +299,44 @@ test('grid history compares versions and adds a confirmed revision without losin
   ).toBeVisible();
 });
 
+test('history review can hide either control and render custom events', async ({
+  page,
+}) => {
+  await page.goto('/components/history/');
+  const noVersions = page.getByRole('region', {
+    name: 'History without versions',
+  });
+  await expect(noVersions.locator('[data-part="versions"]')).toHaveCount(0);
+  await expect(
+    noVersions.locator('[data-part="comparison-control"]'),
+  ).toBeVisible();
+  await expect(noVersions.getByRole('table')).toBeVisible();
+  const noControls = page.getByRole('region', {
+    name: 'History without comparison controls',
+  });
+  await expect(noControls.locator('[data-part="versions"]')).toBeVisible();
+  await expect(
+    noControls.locator('[data-part="comparison-control"]'),
+  ).toHaveCount(0);
+  await expect(noControls.getByRole('table')).toBeVisible();
+  const customSlot = page.getByRole('region', { name: 'Custom history slot' });
+  await expect(customSlot.getByText('External event details')).toBeVisible();
+  await expect(customSlot.getByRole('table')).toHaveCount(0);
+  const compact = page.getByRole('region', { name: 'Compact event history' });
+  await expect(
+    compact.locator('[data-part="versions"], [data-part="comparison-control"]'),
+  ).toHaveCount(0);
+  await expect(compact.getByText('Status changed')).toBeVisible();
+  await expect(compact.getByText('Owner assigned')).toBeVisible();
+  await expect(compact.getByRole('table')).toHaveCount(0);
+  const widths = await compact.evaluate((element) => ({
+    root: element.clientWidth,
+    comparison: element.querySelector<HTMLElement>('[data-part="comparison"]')!
+      .clientWidth,
+  }));
+  expect(widths.comparison).toBeGreaterThan(widths.root - 20);
+});
+
 test('new history and action examples have no scoped WCAG A or AA axe violations', async ({
   page,
 }) => {
