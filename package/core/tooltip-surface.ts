@@ -155,10 +155,10 @@ export function calculateTooltipPosition(
         : (options.side ?? 'top');
   const align: TooltipAlign = options.align ?? 'center';
   const custom = options.collisionBoundary;
-  const bounds =
+  const bounds: DOMRect | undefined =
     custom && 'getBoundingClientRect' in custom
       ? custom.getBoundingClientRect()
-      : custom;
+      : (custom as DOMRect | undefined);
   const padding = (edge: 'top' | 'bottom' | 'left' | 'right') =>
     Math.max(
       0,

@@ -1,6 +1,6 @@
 import type { ClassPreset } from '../presets/types';
 /** @jsxImportSource preact */
-import { h, type ComponentChildren, type TargetedEvent } from 'preact';
+import { h, type ComponentChildren, type TargetedEvent, type TargetedMouseEvent } from 'preact';
 import { useCallback, useLayoutEffect, useRef, useState } from 'preact/hooks';
 import { createControlId } from './control-id';
 import { TooltipSession } from './tooltip-session';
@@ -98,8 +98,8 @@ export function useControlTooltip(
         if (triggers.includes('hover'))
           session.show(event.currentTarget, 'hover', event);
       },
-      onMouseLeave: (event?: TargetedEvent<HTMLElement>) =>
-        session.leave(event?.currentTarget, event as MouseEvent | undefined),
+      onMouseLeave: (event?: TargetedMouseEvent<HTMLElement>) =>
+        session.leave(event?.currentTarget, event),
       onPointerDown: (_event?: TargetedEvent<HTMLElement>) =>
         session.pointerDown(),
       onPointerCancel: () => session.hide(),

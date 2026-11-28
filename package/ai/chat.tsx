@@ -152,7 +152,7 @@ export function AiChatEmptyState({
     if (!element || !renderContent) return;
     const dispose = renderContent(element);
     return () => {
-      dispose?.();
+      if (typeof dispose === 'function') dispose();
       element.replaceChildren();
     };
   }, [renderContent]);
