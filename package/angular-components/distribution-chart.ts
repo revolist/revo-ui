@@ -24,6 +24,10 @@ export class DistributionChart extends AngularComponentAdapter<never> {
     'DistributionChart',
     'ariaLabel'
   >;
+  @NgInput() declare 'centerLabel'?: AngularInput<
+    'DistributionChart',
+    'centerLabel'
+  >;
   @NgInput() declare 'className'?: AngularInput<
     'DistributionChart',
     'className'
@@ -47,6 +51,11 @@ export class DistributionChart extends AngularComponentAdapter<never> {
     'DistributionChart',
     'renderTooltip'
   >;
+  @NgInput() declare 'series'?: AngularInput<'DistributionChart', 'series'>;
+  @NgInput() declare 'seriesMode'?: AngularInput<
+    'DistributionChart',
+    'seriesMode'
+  >;
   @NgInput() declare 'showGrid'?: AngularInput<'DistributionChart', 'showGrid'>;
   @NgInput() declare 'showLabels'?: AngularInput<
     'DistributionChart',
@@ -59,6 +68,10 @@ export class DistributionChart extends AngularComponentAdapter<never> {
   @NgInput() declare 'showValues'?: AngularInput<
     'DistributionChart',
     'showValues'
+  >;
+  @NgInput() declare 'sliceColors'?: AngularInput<
+    'DistributionChart',
+    'sliceColors'
   >;
   @NgInput() declare 'tooltip'?: AngularInput<'DistributionChart', 'tooltip'>;
   @NgInput() declare 'tooltipIndicator'?: AngularInput<

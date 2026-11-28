@@ -1191,6 +1191,58 @@ test.describe('calendar family', () => {
 
 test.describe('charts family', () => {
   test.use({ gallerySections: ['charts-and-range-selection'] });
+  test('multi-series compositions and full doughnut slices expose their values', async ({
+    page,
+  }) => {
+    const stacked = page.getByRole('group', {
+      name: 'Stacked visitors by device',
+    });
+    await expect(stacked.locator('[data-series-type="bar"]')).toHaveCount(2);
+    await expect(stacked.getByRole('listitem').first()).toHaveAttribute(
+      'aria-label',
+      /Desktop: 186.*Mobile: 80/,
+    );
+    const mixed = page.getByRole('group', { name: 'Orders and target' });
+    await expect(mixed.locator('[data-series-type="bar"] rect')).toHaveCount(6);
+    await expect(mixed.locator('[data-series-type="line"] path')).toHaveCount(
+      5,
+    );
+    const donut = page.getByRole('group', { name: 'Visitors by source' });
+    await donut.scrollIntoViewIfNeeded();
+    const box = (await donut.locator('svg').boundingBox())!;
+    for (const [degrees, name] of [
+      [25, 'Direct'],
+      [140, 'Direct'],
+      [220, 'Search'],
+      [320, 'Social'],
+    ] as const) {
+      const radians = (degrees * Math.PI) / 180;
+      await page.mouse.move(
+        box.x + box.width * (0.5 + 0.36 * Math.sin(radians)),
+        box.y + box.height * (0.5 - 0.36 * Math.cos(radians)),
+      );
+      await expect(
+        donut
+          .getByRole('tooltip', { includeHidden: true })
+          .filter({ hasText: name }),
+      ).toBeVisible();
+    }
+    await donut
+      .locator('circle[stroke-dasharray]')
+      .nth(1)
+      .dispatchEvent('click');
+    await expect(donut.getByRole('listitem').nth(1)).toBeFocused();
+    await donut.getByRole('listitem').first().focus();
+    await page.mouse.move(box.x + box.width * 0.65, box.y + box.height * 0.17);
+    await page.mouse.move(box.x + box.width * 0.5, box.y + box.height * 0.5);
+    await expect(
+      donut
+        .getByRole('tooltip', { includeHidden: true })
+        .filter({ hasText: 'Direct' }),
+    ).toBeVisible();
+    await page.keyboard.press('ArrowRight');
+    await expect(donut.getByRole('listitem').nth(1)).toBeFocused();
+  });
   for (const width of [1440, 390])
     for (const theme of ['light', 'dark'])
       for (const rtl of [false, true]) {

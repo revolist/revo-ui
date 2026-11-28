@@ -40,3 +40,7 @@ The table lists library-declared props. Standard inherited HTML attributes are o
 Keep controlled values and side effects in your application. Use the matching framework adapter rather than passing another framework’s VNodes through Preact callbacks. The live page groups this control with related variants and composition helpers.
 
 This reference is generated from the local `package` library source. Rebuild it with `node scripts/generate-api.mjs`.
+
+## Multi-series charts
+
+Pass `series` with labeled value arrays aligned to the `data` categories. Set `seriesMode="stacked"` for cumulative values or leave it as `overlay` to compare series on a shared scale. Each series may use a bar, line, or area presentation. See [compact chart options](../../package/distribution-chart/README.md) for details and examples.

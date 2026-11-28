@@ -10,6 +10,7 @@ import {
   AreaChart as __themeOriginal_AreaChart,
   BarChart as __themeOriginal_BarChart,
   LineChart as __themeOriginal_LineChart,
+  DistributionChart as __themeOriginal_DistributionChart,
 } from '@revolist/ui/distribution-chart';
 import { BrushRange as __themeOriginal_BrushRange } from '@revolist/ui/brush-range';
 import {
@@ -41,6 +42,10 @@ const FilterBadge = withThemePreview(
 const AreaChart = withThemePreview(__themeOriginal_AreaChart, 'AreaChart');
 const BarChart = withThemePreview(__themeOriginal_BarChart, 'BarChart');
 const LineChart = withThemePreview(__themeOriginal_LineChart, 'LineChart');
+const DistributionChart = withThemePreview(
+  __themeOriginal_DistributionChart,
+  'DistributionChart',
+);
 const BrushRange = withThemePreview(__themeOriginal_BrushRange, 'BrushRange');
 const OptionButton = withThemePreview(
   __themeOriginal_OptionButton,
@@ -83,6 +88,35 @@ const monthlyData = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'].map(
     },
   }),
 );
+const trafficData = monthlyData.map((datum) => ({
+  ...datum,
+  tooltip: { title: datum.tooltip.title, details: [`${datum.value} visits`] },
+}));
+const revenueData = monthlyData.map((datum) => ({
+  ...datum,
+  tooltip: { title: datum.tooltip.title, details: [`$${datum.value} revenue`] },
+}));
+const subscriptionData = monthlyData.map((datum) => ({
+  ...datum,
+  tooltip: {
+    title: datum.tooltip.title,
+    details: [`${datum.value} subscriptions`],
+  },
+}));
+const channelSeries = [
+  {
+    key: 'desktop',
+    label: 'Desktop',
+    values: [186, 205, 187, 173, 209, 214],
+    color: '#2563eb',
+  },
+  {
+    key: 'mobile',
+    label: 'Mobile',
+    values: [80, 100, 125, 110, 95, 140],
+    color: '#93c5fd',
+  },
+];
 const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(
   (short, index) => ({ weekday: (index + 1) % 7, short, long: short }),
 );
@@ -91,6 +125,187 @@ export function ChartExamples() {
   const [chart, setChart] = useState<'bar' | 'line'>('bar');
   return (
     <>
+      <Specimen title="Stacked visitors">
+        <div class="chart-example-card">
+          <strong>Visitors by device</strong>
+          <p>Desktop and mobile by month</p>
+          <BarChart
+            ariaLabel="Stacked visitors by device"
+            data={monthlyData}
+            series={channelSeries}
+            seriesMode="stacked"
+            height={150}
+            showGrid
+            showLabels
+          />
+        </div>
+      </Specimen>
+      <Specimen title="Stacked traffic area">
+        <div class="chart-example-card">
+          <strong>Traffic by device</strong>
+          <p>Monthly desktop and mobile traffic</p>
+          <AreaChart
+            ariaLabel="Stacked traffic by device"
+            data={trafficData}
+            series={channelSeries}
+            seriesMode="stacked"
+            height={150}
+            areaFill="gradient"
+            showGrid
+            showLabels
+            showPoints={false}
+          />
+        </div>
+      </Specimen>
+      <Specimen title="Device trend comparison">
+        <div class="chart-example-card">
+          <strong>Device trend</strong>
+          <p>Compare monthly desktop and mobile traffic</p>
+          <LineChart
+            ariaLabel="Device trend comparison"
+            data={trafficData}
+            series={channelSeries}
+            height={150}
+            showGrid
+            showLabels
+            interpolation="smooth"
+          />
+        </div>
+      </Specimen>
+      <Specimen title="Orders and target">
+        <div class="chart-example-card">
+          <strong>Orders and target</strong>
+          <p>Monthly actuals and target</p>
+          <BarChart
+            ariaLabel="Orders and target"
+            data={monthlyData}
+            height={150}
+            showGrid
+            showLabels
+            series={[
+              {
+                key: 'orders',
+                label: 'Orders',
+                type: 'bar',
+                values: [186, 205, 187, 173, 209, 214],
+                color: '#93c5fd',
+              },
+              {
+                key: 'target',
+                label: 'Target',
+                type: 'line',
+                values: [160, 180, 190, 200, 200, 220],
+                color: '#2563eb',
+              },
+            ]}
+          />
+        </div>
+      </Specimen>
+      <Specimen title="Visitors by source">
+        <div class="chart-example-card">
+          <strong>Visitors by source</strong>
+          <p>Share of visitors this month</p>
+          <DistributionChart
+            type="donut"
+            ariaLabel="Visitors by source"
+            height={190}
+            data={[
+              {
+                key: 'direct',
+                value: 520,
+                tooltip: { title: 'Direct', details: ['520 visitors'] },
+              },
+              {
+                key: 'search',
+                value: 360,
+                tooltip: { title: 'Search', details: ['360 visitors'] },
+              },
+              {
+                key: 'social',
+                value: 120,
+                tooltip: { title: 'Social', details: ['120 visitors'] },
+              },
+            ]}
+            sliceColors={['var(--rv-ui-accent)', '#60a5fa', '#93c5fd']}
+            centerLabel="1,000"
+            showLabels
+          />
+        </div>
+      </Specimen>
+      <Specimen title="Monthly orders overview">
+        <div class="chart-example-card">
+          <strong>Monthly orders</strong>
+          <p>1,224 orders · January–June</p>
+          <BarChart
+            ariaLabel="Orders overview"
+            data={monthlyData}
+            height={150}
+            showGrid
+            showLabels
+            barColor={(_datum, index) =>
+              index === 1 ? 'var(--rv-ui-accent)' : '#93c5fd'
+            }
+          />
+        </div>
+      </Specimen>
+      <Specimen title="Revenue trend">
+        <div class="chart-example-card">
+          <strong>Revenue trend</strong>
+          <p>Monthly performance</p>
+          <AreaChart
+            ariaLabel="Revenue trend"
+            data={revenueData}
+            height={150}
+            areaFill="gradient"
+            interpolation="smooth"
+            showGrid
+            showLabels
+            showPoints={false}
+            tooltipIndicator="dot"
+          />
+        </div>
+      </Specimen>
+      <Specimen title="Subscription trend">
+        <div class="chart-example-card">
+          <strong>Subscriptions</strong>
+          <p>New subscriptions by month</p>
+          <LineChart
+            ariaLabel="Subscription trend"
+            data={subscriptionData}
+            height={150}
+            interpolation="smooth"
+            showGrid
+            showLabels
+            tooltipIndicator="line"
+          />
+        </div>
+      </Specimen>
+      <Specimen title="Traffic and conversions" wide>
+        <div class="chart-example-comparison">
+          <div class="chart-example-card">
+            <strong>Traffic</strong>
+            <p>Visits over six months</p>
+            <AreaChart
+              ariaLabel="Traffic over six months"
+              data={trafficData}
+              height={130}
+              areaFill="gradient"
+              showLabels
+              showPoints={false}
+            />
+          </div>
+          <div class="chart-example-card">
+            <strong>Conversions</strong>
+            <p>Orders over six months</p>
+            <BarChart
+              ariaLabel="Conversions over six months"
+              data={monthlyData}
+              height={130}
+              showLabels
+            />
+          </div>
+        </div>
+      </Specimen>
       <Specimen title="Bar chart">
         <BarChart
           ariaLabel="Standalone bar chart"

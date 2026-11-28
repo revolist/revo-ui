@@ -25,6 +25,7 @@ export class BarChart extends AngularComponentAdapter<never> {
     'ariaLabel'
   >;
   @NgInput() declare 'barColor'?: AngularInput<'BarChart', 'barColor'>;
+  @NgInput() declare 'centerLabel'?: AngularInput<'BarChart', 'centerLabel'>;
   @NgInput() declare 'className'?: AngularInput<'BarChart', 'className'>;
   @NgInput({ required: true }) declare 'data': AngularInput<'BarChart', 'data'>;
   @NgInput() declare 'formatValue'?: AngularInput<'BarChart', 'formatValue'>;
@@ -39,10 +40,13 @@ export class BarChart extends AngularComponentAdapter<never> {
     'BarChart',
     'renderTooltip'
   >;
+  @NgInput() declare 'series'?: AngularInput<'BarChart', 'series'>;
+  @NgInput() declare 'seriesMode'?: AngularInput<'BarChart', 'seriesMode'>;
   @NgInput() declare 'showGrid'?: AngularInput<'BarChart', 'showGrid'>;
   @NgInput() declare 'showLabels'?: AngularInput<'BarChart', 'showLabels'>;
   @NgInput() declare 'showPoints'?: AngularInput<'BarChart', 'showPoints'>;
   @NgInput() declare 'showValues'?: AngularInput<'BarChart', 'showValues'>;
+  @NgInput() declare 'sliceColors'?: AngularInput<'BarChart', 'sliceColors'>;
   @NgInput() declare 'tooltip'?: AngularInput<'BarChart', 'tooltip'>;
   @NgInput() declare 'tooltipIndicator'?: AngularInput<
     'BarChart',

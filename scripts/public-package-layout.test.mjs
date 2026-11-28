@@ -92,9 +92,11 @@ test('public package stays below the unpacked footprint budget with named APIs',
     .filter((file) => file.endsWith('.d.ts'))
     .reduce((total, file) => total + statSync(file).size, 0);
   assert(packed < 2_500_000, `packed public package is ${packed} bytes`);
-  assert(bytes < 12_200_000, `unpacked public package is ${bytes} bytes`);
+  // Allow the doughnut and multi-series renderers in both style modes and
+  // browser bundles, while retaining a bounded public-package footprint.
+  assert(bytes < 12_300_000, `unpacked public package is ${bytes} bytes`);
   assert(
-    declarations < 1_600_000,
+    declarations < 1_610_000,
     `public declarations are ${declarations} bytes`,
   );
   const manifest = JSON.parse(

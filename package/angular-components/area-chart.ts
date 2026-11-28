@@ -24,6 +24,7 @@ export class AreaChart extends AngularComponentAdapter<never> {
     'AreaChart',
     'ariaLabel'
   >;
+  @NgInput() declare 'centerLabel'?: AngularInput<'AreaChart', 'centerLabel'>;
   @NgInput() declare 'className'?: AngularInput<'AreaChart', 'className'>;
   @NgInput({ required: true }) declare 'data': AngularInput<
     'AreaChart',
@@ -41,10 +42,13 @@ export class AreaChart extends AngularComponentAdapter<never> {
     'AreaChart',
     'renderTooltip'
   >;
+  @NgInput() declare 'series'?: AngularInput<'AreaChart', 'series'>;
+  @NgInput() declare 'seriesMode'?: AngularInput<'AreaChart', 'seriesMode'>;
   @NgInput() declare 'showGrid'?: AngularInput<'AreaChart', 'showGrid'>;
   @NgInput() declare 'showLabels'?: AngularInput<'AreaChart', 'showLabels'>;
   @NgInput() declare 'showPoints'?: AngularInput<'AreaChart', 'showPoints'>;
   @NgInput() declare 'showValues'?: AngularInput<'AreaChart', 'showValues'>;
+  @NgInput() declare 'sliceColors'?: AngularInput<'AreaChart', 'sliceColors'>;
   @NgInput() declare 'tooltip'?: AngularInput<'AreaChart', 'tooltip'>;
   @NgInput() declare 'tooltipIndicator'?: AngularInput<
     'AreaChart',

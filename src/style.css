@@ -1512,6 +1512,26 @@ body {
     display: none;
   }
 }
+.chart-example-card {
+  display: grid;
+  gap: 0.35rem;
+  width: 100%;
+  min-width: 0;
+  color: var(--rv-ui-text);
+}
+
+.chart-example-card p {
+  margin: 0 0 0.75rem;
+  color: var(--rv-ui-text-muted, var(--rv-ui-text));
+  font-size: 0.875rem;
+}
+
+.chart-example-comparison {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 1.5rem;
+}
+
 /* Financial compositions use the same chart and control primitives as the docs. */
 .home-widget .finance-amount {
   display: block;
