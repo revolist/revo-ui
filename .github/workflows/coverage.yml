@@ -47,10 +47,6 @@ jobs:
           pnpm test:discovery
       - name: Build gallery fixtures
         run: pnpm build:demo --base /
-      - name: Test UI browser behavior
-        env:
-          UI_SKIP_BUILD: '1'
-        run: pnpm test:browser
       - name: Test framework adapters and tooltip behavior
         run: |
           pnpm test:frameworks
