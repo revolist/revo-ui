@@ -9,6 +9,8 @@ import {
   UiSlotDirective,
   Button,
   Panel,
+  SegmentedSwitch,
+  Stepper,
 } from './angular';
 import { componentStyles } from './core/component-styles';
 import { LookupField } from './preact';
@@ -33,6 +35,8 @@ class ProjectedChild implements OnDestroy {
     UiSlotDirective,
     Button,
     Panel,
+    SegmentedSwitch,
+    Stepper,
     ProjectedChild,
   ],
   template: `
@@ -73,6 +77,23 @@ class ProjectedChild implements OnDestroy {
       ></rv-button
     >
     <rv-panel [className]="'panel-' + count"><ui-projected-child /></rv-panel>
+    <rv-stepper [label]="'Workflow'" [steps]="steps">
+      <ng-template rvUiSlot="stepIcon" let-step="step" let-index="index">
+        <strong data-step-icon>{{ step.label }}:{{ index }}</strong>
+      </ng-template>
+      <ng-template rvUiSlot="stepContent" let-step="step">
+        <input [attr.data-step-input]="step.id" [value]="step.id" />
+      </ng-template>
+    </rv-stepper>
+    <rv-segmented-switch
+      [options]="segments"
+      [value]="segment"
+      (valueChange)="segment = $event"
+    >
+      <ng-template rvUiSlot="option" let-option="option" let-state="state">
+        <strong data-segment>{{ option.label }}:{{ state.active }}</strong>
+      </ng-template>
+    </rv-segmented-switch>
     <rv-dropdown
       [source]="source"
       [value]="value"
@@ -92,6 +113,15 @@ class NamedHarness {
   showConditional = false;
   disabled = false;
   search = '';
+  segment: string | number = 'a';
+  steps = [
+    { id: 'a', label: 'Alpha' },
+    { id: 'b', label: 'Beta' },
+  ];
+  segments = [
+    { value: 'a', label: 'Alpha' },
+    { value: 'b', label: 'Beta' },
+  ];
   value: unknown = 'a';
   source = [
     { value: 'a', label: 'Alpha' },
@@ -101,6 +131,59 @@ class NamedHarness {
 const settle = () => new Promise((resolve) => setTimeout(resolve, 0));
 
 describe('named Angular components', () => {
+  it('renders scoped step data and retains panel state when steps are reordered', async () => {
+    const host = document.createElement('ui-named-angular-harness');
+    document.body.append(host);
+    const app = await bootstrapApplication(NamedHarness);
+    try {
+      app.tick();
+      await settle();
+      app.tick();
+      expect(host.querySelector('[data-step-icon]')?.textContent?.trim()).toBe(
+        'Alpha:0',
+      );
+      const input = host.querySelector<HTMLInputElement>(
+        '[data-step-input="a"]',
+      )!;
+      input.value = 'Draft';
+      app.components[0].instance.steps = [
+        ...app.components[0].instance.steps,
+      ].reverse();
+      app.tick();
+      await settle();
+      app.tick();
+      expect(host.querySelector('[data-step-input="a"]')).toBe(input);
+      expect(input.value).toBe('Draft');
+    } finally {
+      app.destroy();
+      host.remove();
+    }
+  });
+  it('updates shared scoped slot contexts for repeated content', async () => {
+    const host = document.createElement('ui-named-angular-harness');
+    document.body.append(host);
+    const app = await bootstrapApplication(NamedHarness);
+    try {
+      app.tick();
+      await settle();
+      app.tick();
+      expect(host.querySelector('[data-segment]')?.textContent?.trim()).toBe(
+        'Alpha:true',
+      );
+      host
+        .querySelectorAll<HTMLButtonElement>('rv-segmented-switch button')[1]
+        .click();
+      app.tick();
+      await settle();
+      app.tick();
+      expect(
+        host.querySelectorAll('[data-segment]')[1].textContent?.trim(),
+      ).toBe('Beta:true');
+    } finally {
+      app.destroy();
+      host.remove();
+    }
+  });
   it('forwards direct props and native events without duplicating click callbacks', async () => {
     const host = document.createElement('ui-named-angular-harness');
     document.body.append(host);

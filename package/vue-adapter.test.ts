@@ -18,6 +18,9 @@ import {
   Tooltip,
   Dialog,
   Popover,
+  SegmentedSwitch,
+  Stepper,
+  ChoiceChips,
 } from './vue';
 
 const settle = async () => {
@@ -27,6 +30,146 @@ const settle = async () => {
 };
 
 describe('Vue shared component adapters', () => {
+  it('passes original option objects to callbacks when nested slots are used', async () => {
+    const option = { value: 'a', label: 'Alpha' };
+    const received: unknown[] = [];
+    const app = createApp({
+      render: () =>
+        h(
+          ChoiceChips,
+          {
+            ariaLabel: 'Choices',
+            options: [option],
+            onChange: (_value, item) => received.push(item),
+          },
+          {
+            optionLabel: ({ option: item }: any) =>
+              h('strong', { 'data-choice': '' }, item.label),
+          },
+        ),
+    });
+    const host = document.createElement('div');
+    document.body.append(host);
+    app.mount(host);
+    try {
+      await settle();
+      host.querySelector<HTMLElement>('[data-choice]')!.click();
+      await settle();
+      expect(received).toEqual([option]);
+      expect(received[0]).toBe(option);
+      expect(option.label).toBe('Alpha');
+    } finally {
+      app.unmount();
+      host.remove();
+    }
+  });
+  it('keeps scoped step panels and their state through reorder and slot removal', async () => {
+    const steps = ref([
+      { id: 'a', label: 'Alpha' },
+      { id: 'b', label: 'Beta' },
+    ]);
+    const selected = ref('a');
+    const showSlot = ref(true);
+    let released = 0;
+    const Child = {
+      props: ['id'],
+      setup(props: { id: string }) {
+        onUnmounted(() => released++);
+        return () =>
+          h('input', { 'data-step-input': props.id, value: props.id });
+      },
+    };
+    const app = createApp({
+      render: () =>
+        h(
+          Stepper,
+          {
+            label: 'Workflow',
+            steps: steps.value,
+            value: selected.value,
+            onValueChange: (value) => {
+              selected.value = value;
+            },
+          },
+          showSlot.value
+            ? {
+                stepIcon: ({ step }: any) =>
+                  h('b', { 'data-step-icon': step.id }, step.label),
+                stepContent: ({ step }: any) => h(Child, { id: step.id }),
+              }
+            : {},
+        ),
+    });
+    const host = document.createElement('div');
+    document.body.append(host);
+    app.mount(host);
+    try {
+      await settle();
+      expect(host.querySelectorAll('[data-step-icon]')).toHaveLength(2);
+      const input = host.querySelector<HTMLInputElement>(
+        '[data-step-input="a"]',
+      )!;
+      input.value = 'Draft';
+      steps.value = [...steps.value].reverse();
+      await settle();
+      expect(host.querySelector('[data-step-input="a"]')).toBe(input);
+      expect(input.value).toBe('Draft');
+      showSlot.value = false;
+      await settle();
+      expect(host.querySelector('[data-step-input]')).toBeNull();
+      expect(released).toBe(2);
+    } finally {
+      app.unmount();
+      host.remove();
+    }
+  });
+  it('renders scoped segmented options and counts using shared slot metadata', async () => {
+    const selected = ref('a');
+    const app = createApp({
+      render: () =>
+        h(
+          SegmentedSwitch,
+          {
+            value: selected.value,
+            options: [
+              { value: 'a', label: 'Alpha', count: 2 },
+              { value: 'b', label: 'Beta', count: 3 },
+            ],
+            onChange: (value) => {
+              selected.value = String(value);
+            },
+          },
+          {
+            option: ({ option, state }: any) =>
+              h(
+                'strong',
+                { 'data-option': '' },
+                `${option.label}:${state.active}`,
+              ),
+            count: ({ option }: any) =>
+              h('i', { 'data-count': '' }, String(option.count)),
+          },
+        ),
+    });
+    const host = document.createElement('div');
+    document.body.append(host);
+    app.mount(host);
+    await settle();
+    expect(
+      [...host.querySelectorAll('[data-option]')].map(
+        (node) => node.textContent,
+      ),
+    ).toEqual(['Alpha:true', 'Beta:false']);
+    expect(host.querySelector('[data-count]')?.textContent).toBe('2');
+    host.querySelectorAll('button')[1].click();
+    await settle();
+    expect(host.querySelectorAll('[data-option]')[1].textContent).toBe(
+      'Beta:true',
+    );
+    app.unmount();
+    expect(host.innerHTML).toBe('');
+    host.remove();
+  });
   it('renders Vue slot content with injection, updates it, and releases it on unmount', async () => {
     const label = ref('Save');
     const clicks = ref(0);

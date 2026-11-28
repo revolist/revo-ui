@@ -141,6 +141,10 @@
     "parts": ["root", "previous", "days", "day", "month", "number", "next"],
     "states": ["aria-current", "aria-pressed", "data-weekend"]
   },
+  "CalendarNavigator": {
+    "parts": ["root"],
+    "states": []
+  },
   "CalendarDay": {
     "parts": ["day"],
     "states": ["aria-selected"]

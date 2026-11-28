@@ -413,11 +413,22 @@ test('a public Svelte consumer accepts model bindings and rejects binding ordina
   writeFileSync(
     file,
     `<script lang="ts">
-    import { SvgButton, SearchInput } from '@revolist/ui/svelte';
+    import { SvgButton, SearchInput, CalendarPicker, ReorderList, ActivityMessage, AiChatEmptyState } from '@revolist/ui/svelte';
     let query = $state('');
+    const items = [{ id: 'a' }];
+    function mount(host: HTMLElement) { host.textContent = 'Ready'; return () => host.replaceChildren(); }
   </script>
   <SvgButton label="Save" visibleLabel="Save" />
-  <SearchInput bind:value={query} />`,
+  <SearchInput bind:value={query} />
+  {#snippet day(scope: { date: string })}<span>{scope.date}</span>{/snippet}
+  {#snippet item(scope: { item: unknown; index: number })}<span>{scope.index}</span>{/snippet}
+  {#snippet avatar()}<span>A</span>{/snippet}
+  {#snippet timestamp()}<time>Today</time>{/snippet}
+  {#snippet content()}<span>Event</span>{/snippet}
+  <CalendarPicker mode="single" slots={{ day }} />
+  <ReorderList {items} itemKey={(entry) => (entry as { id: string }).id} onDrop={() => {}} onDragOver={() => {}} slots={{ item }} />
+  <ActivityMessage slots={{ avatar, timestamp, default: content }} />
+  <AiChatEmptyState renderContent={mount} />`,
   );
   check();
   writeFileSync(

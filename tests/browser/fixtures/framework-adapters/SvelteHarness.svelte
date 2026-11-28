@@ -1,14 +1,66 @@
 <script lang="ts">
-  import { UiComponent } from '@revolist/ui/svelte';
+  import {
+    CalendarNavigator,
+    CalendarPicker,
+    UiComponent,
+  } from '@revolist/ui/svelte';
   let value = $state('a');
+  let workflow = $state([
+    { id: 'a', label: 'Alpha' },
+    { id: 'b', label: 'Beta' },
+  ]);
   let search = $state('');
   let open = $state(false);
   let mounted = $state(true);
+  let showPicker = $state(false);
 </script>
 
 <section aria-label="Svelte adapters">
   <button onclick={() => (mounted = !mounted)}>Toggle Svelte</button>
   <output data-svelte-value>{value}</output>
+  <button onclick={() => (showPicker = !showPicker)}>Show Svelte picker</button>
+  {#if showPicker}
+    {#snippet pickerDay(scope: { date: string })}<span
+        data-svelte-picker-day={scope.date}
+      >
+        {scope.date.slice(-2)}
+      </span>{/snippet}
+    <CalendarPicker
+      mode="single"
+      selected="2026-10-15"
+      slots={{ day: pickerDay }}
+    />
+  {/if}
+  {#snippet calendarDay(scope: Record<string, any>)}<span
+      data-svelte-navigator-day={scope.date}
+    >
+      {scope.date}
+    </span>{/snippet}
+  {#snippet calendarFooter()}<span data-svelte-navigator-footer>
+      Svelte footer
+    </span>{/snippet}
+  <CalendarNavigator
+    value="2026-10-10"
+    today="2026-10-10"
+    labels={{ calendar: 'Open Svelte navigator' }}
+    slots={{ calendarDay, calendarFooter }}
+  />
+  <button onclick={() => (workflow = [...workflow].reverse())}>
+    Reorder Svelte steps
+  </button>
+  {#snippet stepIcon(scope: Record<string, any>)}<b
+      data-svelte-step-icon={scope.step.id}
+    >
+      {scope.step.label}
+    </b>{/snippet}
+  {#snippet stepContent(scope: Record<string, any>)}<input
+      aria-label={`Svelte ${scope.step.id} step draft`}
+    />{/snippet}
+  <UiComponent
+    component="Stepper"
+    props={{ label: 'Svelte workflow', steps: workflow, value: 'a' }}
+    slots={{ stepIcon, stepContent }}
+  />
   <UiComponent
     component="SearchInput"
     props={{ value: search, 'aria-label': 'Svelte search query' }}

@@ -9,13 +9,38 @@ import {
   Panel,
   Popover,
   Switch,
+  SegmentedSwitch,
+  MetricTile,
+  Stepper,
+  CalendarNavigator,
+  ChoiceChips,
 } from '@revolist/ui/vue';
 import { presetProps } from '@revolist/ui/presets';
 import { theme } from './shared-theme';
 
 createApp({
   setup() {
+    class ChoiceOption {
+      constructor() {
+        Object.defineProperty(this, 'identifier', {
+          value: 'class-a',
+          enumerable: false,
+        });
+      }
+      get value() {
+        return (this as any).identifier;
+      }
+      get label() {
+        return 'Class option';
+      }
+    }
+    const classOption = new ChoiceOption();
+    const classChoice = ref('');
     const status = ref('a');
+    const workflow = ref([
+      { id: 'a', label: 'Alpha' },
+      { id: 'b', label: 'Beta' },
+    ]);
     const themed = ref(true);
     const date = ref('2026-10-28');
     const open = ref(false);
@@ -56,6 +81,83 @@ createApp({
           'Toggle components',
         ),
         h('output', { id: 'status' }, status.value),
+        h('output', { 'data-vue-class-choice': '' }, classChoice.value),
+        h(
+          ChoiceChips,
+          {
+            ariaLabel: 'Class choice',
+            options: [classOption],
+            onChange: (value) => {
+              classChoice.value = String(value);
+            },
+          },
+          {
+            optionLabel: ({ option }: any) => h('strong', option.label),
+          },
+        ),
+        h(
+          CalendarNavigator,
+          {
+            value: '2026-10-10',
+            today: '2026-10-10',
+            labels: { calendar: 'Open Vue navigator' },
+            onChange() {},
+          },
+          {
+            calendarDay: ({ date }: any) =>
+              h('span', { 'data-vue-navigator-day': date }, date),
+            calendarFooter: () =>
+              h('span', { 'data-vue-navigator-footer': '' }, 'Vue footer'),
+          },
+        ),
+        h(
+          'button',
+          {
+            onClick: () => {
+              workflow.value = [...workflow.value].reverse();
+            },
+          },
+          'Reorder Vue steps',
+        ),
+        h(
+          Stepper,
+          { label: 'Vue workflow', steps: workflow.value, value: 'a' },
+          {
+            stepIcon: ({ step }: any) =>
+              h('b', { 'data-vue-step-icon': step.id }, step.label),
+            stepContent: ({ step }: any) =>
+              h('input', { 'aria-label': `Vue ${step.id} step draft` }),
+          },
+        ),
+        h(
+          MetricTile,
+          { label: 'Vue metric', value: '1', visual: { accent: 'red' } },
+          {
+            visualIcon: () =>
+              h('strong', { 'data-vue-metric-icon': '' }, 'Vue icon'),
+          },
+        ),
+        h(
+          SegmentedSwitch,
+          {
+            value: status.value,
+            options: [
+              { value: 'a', label: 'Alpha' },
+              { value: 'b', label: 'Beta' },
+            ],
+            onChange: (value) => {
+              status.value = String(value);
+            },
+          },
+          {
+            option: ({ option, state }: any) =>
+              h(
+                'strong',
+                { 'data-vue-segment': '' },
+                `${option.label}:${state.active}`,
+              ),
+          },
+        ),
         h(DatePicker, {
           label: 'Vue clearable date',
           openLabel: 'Choose Vue clearable date',

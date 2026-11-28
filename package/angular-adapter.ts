@@ -21,7 +21,8 @@ import {
   type SimpleChanges,
 } from '@angular/core';
 import type { ComponentType } from 'preact';
-import type { UiComponentName, UiComponentProps } from './component-catalog';
+import type { UiComponentName } from './component-catalog';
+import type { UiFrameworkProps } from './framework-nested-types';
 import { componentModels } from './component-metadata';
 import {
   createFrameworkMount,
@@ -37,7 +38,7 @@ export interface UiEvent {
 
 /** Distribute union props so named components retain every public alternative. */
 export type AngularInput<K extends UiComponentName, P extends PropertyKey> =
-  UiComponentProps<K> extends infer Props
+  UiFrameworkProps<K> extends infer Props
     ? Props extends unknown
       ? P extends keyof Props
         ? Props[P]

@@ -60,6 +60,7 @@ export { EditorListItem } from './editor-list-item';
 export { EditorListItemContent } from './editor-list-item-content';
 export { EditorListGroup } from './editor-list-group';
 export { Calendar } from './calendar';
+export { CalendarNavigator } from './calendar-navigator';
 export { MiniCalendar } from './mini-calendar';
 export { CalendarHeader } from './calendar-header';
 export { CalendarWeekdays } from './calendar-weekdays';

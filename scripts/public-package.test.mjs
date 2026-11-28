@@ -267,6 +267,19 @@ test('an isolated TypeScript consumer resolves published declarations without wo
     import { createElement } from 'react';
     import { Dropdown, FieldGroupHeading, FieldGroup, FieldList, FieldRow, PdfViewer, PdfViewerToolbar, ProgressBar } from '@revolist/ui/react';
     import { DatePicker as ReactDatePicker } from '@revolist/ui/react';
+    import { Stepper, ActivityTimeline, CalendarNavigator } from '@revolist/ui/react';
+    import type { UiComponentSlotContexts } from '@revolist/ui/vue';
+    import type { SvelteComponentProps } from '@revolist/ui/svelte';
+    createElement(Stepper, { label: 'Setup', steps: [{ id: 'one', label: 'One', icon: createElement('b', null, '1') }],
+      renderStepContent: ({ step, index }) => createElement('span', null, step.label + index) });
+    createElement(ActivityTimeline, { label: 'Activity', entries: [{ id: 'one' }],
+      renderEntryAvatar: ({ entry }) => createElement('span', null, entry.id),
+      renderEntryTimestamp: () => createElement('time'), renderEntryContent: () => createElement('span') });
+    createElement(CalendarNavigator, { value: '2026-11-16', today: '2026-11-16', onChange() {},
+      renderCalendarDay: ({ date }) => createElement('span', null, date) });
+    const scope: UiComponentSlotContexts<'Stepper'>['stepContent'] = { step: { id: 'one', label: 'One' }, index: 0 };
+    const svelteEntry: SvelteComponentProps<'ActivityTimeline'>['entries'] = [{ id: 'one' }];
+    void [scope, svelteEntry];
     createElement(ReactDatePicker, { label: 'Date', openLabel: 'Choose date',
       renderTrigger: props => createElement('button', props) });
     import { themeToCss, presetProps, type UiTheme } from '@revolist/ui/presets';

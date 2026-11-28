@@ -71,6 +71,7 @@ import {
 } from '@revolist/ui/preact';
 import {
   CalendarDay,
+  CalendarNavigator,
   MiniCalendar,
   CalendarHeader,
   CalendarWeekdays,
@@ -282,6 +283,7 @@ const names = new Set([
   'FilterChip',
   'Input',
   'CalendarDay',
+  'CalendarNavigator',
   'MiniCalendar',
   'CalendarHeader',
   'CalendarWeekdays',
@@ -1039,6 +1041,15 @@ function Sample({
           onSelectionChange={(next) => next && setDate(next)}
           defaultMonth="2026-11-01"
           referenceDate="2026-11-20"
+        />
+      );
+    case 'CalendarNavigator':
+      return (
+        <CalendarNavigator
+          {...shared}
+          value={date}
+          today="2026-11-20"
+          onChange={setDate}
         />
       );
     case 'CollapsibleSection':

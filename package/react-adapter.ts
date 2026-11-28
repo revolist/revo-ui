@@ -30,12 +30,32 @@ import {
   type UiContentTarget,
   type UiFrameworkMount,
 } from './framework-mount';
+import {
+  componentNestedSlots,
+  type UiNestedRootKeys,
+  type UiNestedSlotContexts,
+} from './component-metadata';
+import type {
+  UiFrameworkComponentName,
+  UiFrameworkProps,
+} from './framework-nested-types';
+import {
+  restoreNestedCallbackArguments,
+  withNestedFrameworkContent,
+} from './nested-framework-content';
 
 export interface UiReactHandle {
   element: HTMLDivElement | null;
 }
-const contentProps = [
+export const contentProps = [
   'children',
+  'title',
+  'action',
+  'completedContent',
+  'startLabel',
+  'selectionLabel',
+  'endLabel',
+  'visual',
   'footer',
   'label',
   'description',
@@ -68,6 +88,21 @@ const contentProps = [
   'info',
 ] as const;
 type ContentKey = (typeof contentProps)[number];
+type ReactNested<T> = 0 extends 1 & T
+  ? T
+  : T extends (...args: infer A) => infer R
+    ? [Extract<R, VNode<any> | readonly ComponentChildren[]>] extends [never]
+      ? T
+      : (...args: A) => ReactNode
+    : T extends VNode<any>
+      ? ReactNode
+      : T extends readonly unknown[]
+        ? { [K in keyof T]: ReactNested<T[K]> }
+        : T extends Date | HTMLElement
+          ? T
+          : T extends object
+            ? { [K in keyof T]: ReactNested<T[K]> }
+            : T;
 // A content-named prop may also be a scalar or action-options object. Preserve
 // those contracts instead of turning e.g. FieldList.empty into arbitrary JSX.
 type ReactContent<T> = [
@@ -84,30 +119,82 @@ type RenderArgs<A extends unknown[], K, Factories> = K extends Factories
     : Tail<A>
   : A;
 type RenderProp<F, K, Factories> =
-  NonNullable<F> extends (...args: infer A) => unknown
-    ? (...args: RenderArgs<A, K, Factories>) => ReactNode
+  NonNullable<F> extends (...args: infer A) => infer R
+    ? 0 extends 1 & R
+      ? (...args: RenderArgs<A, K, Factories>) => ReactNode
+      : Exclude<R, void | (() => void)> extends never
+        ? F
+        : (...args: RenderArgs<A, K, Factories>) => ReactNode
     : F;
-export type ReactUiProps<P, Factories extends string = never> = {
+export type ReactUiProps<
+  P,
+  Factories extends string = never,
+  NestedKeys extends string = never,
+  NativeRenderKeys extends string = never,
+> = {
   [K in keyof Omit<P, ContentKey | 'ref' | 'key'>]: K extends `render${string}`
-    ? RenderProp<P[K], K, Factories>
-    : P[K];
-} & { [K in Extract<keyof P, ContentKey>]?: ReactContent<P[K]> };
+    ? K extends NativeRenderKeys
+      ? P[K]
+      : RenderProp<P[K], K, Factories>
+    : K extends NestedKeys
+      ? ReactNested<P[K]>
+      : P[K];
+} & {
+  [K in Extract<keyof P, ContentKey>]?: K extends 'visual'
+    ? P[K] extends infer V
+      ? V extends object
+        ? Omit<V, 'icon'> & { icon?: ReactNode }
+        : V
+      : never
+    : ReactContent<P[K]>;
+};
+type ReactNestedSlotProps<N extends string> = [N] extends [never]
+  ? {}
+  : N extends UiFrameworkComponentName
+    ? {
+        [K in keyof UiNestedSlotContexts<N> as K extends string
+          ? `render${Capitalize<K>}`
+          : never]?: (
+          scope: ReactNested<UiNestedSlotContexts<N>[K]>,
+        ) => ReactNode;
+      }
+    : {};
+type FrameworkProps<C extends ComponentType<any>, N extends string> = [
+  N,
+] extends [never]
+  ? ComponentProps<C>
+  : N extends UiFrameworkComponentName
+    ? UiFrameworkProps<N>
+    : ComponentProps<C>;
+type ReactNestedKeys<N extends string> = N extends UiFrameworkComponentName
+  ? UiNestedRootKeys<N>
+  : never;
 export type ReactUiComponent<
   C extends ComponentType<any>,
   Factories extends string = never,
+  N extends string = never,
 > = ForwardRefExoticComponent<
-  PropsWithoutRef<ReactUiProps<ComponentProps<C>, Factories>> &
+  PropsWithoutRef<
+    ReactUiProps<
+      FrameworkProps<C, N>,
+      Factories,
+      ReactNestedKeys<N>,
+      N extends 'CollapsibleSection' ? 'renderRoot' : never
+    > &
+      ReactNestedSlotProps<N>
+  > &
     RefAttributes<UiReactHandle>
 >;
 
 export function createReactAdapter<
   C extends ComponentType<any>,
   const F extends readonly string[] = [],
+  const N extends string = string,
 >(
   component: C,
-  name: string,
+  name: N,
   options: { factoryCallbacks?: F; styles?: readonly ComponentStyles[] } = {},
-): ReactUiComponent<C, F[number]> {
+): ReactUiComponent<C, F[number], N> {
   const Adapter = forwardRef<
     UiReactHandle,
     ReactUiProps<ComponentProps<C>, F[number]>
@@ -154,12 +241,17 @@ export function createReactAdapter<
           'options',
           'source',
         ]);
+        const originals = new WeakMap<object, object>();
+        const remember = (copy: object, source: object) => {
+          originals.set(copy, originals.get(source) ?? source);
+          return copy;
+        };
         const convert = (value: any): any => {
           if (isValidElement(value)) return content(value);
           if (Array.isArray(value)) {
             const converted = value.map(convert);
             return converted.some((item, index) => item !== value[index])
-              ? converted
+              ? remember(converted, value)
               : value;
           }
           if (value && Object.getPrototypeOf(value) === Object.prototype) {
@@ -170,16 +262,36 @@ export function createReactAdapter<
               converted[key] = convert(value[key]);
               changed ||= converted[key] !== value[key];
             }
-            return changed ? converted : value;
+            return changed ? remember(converted, value) : value;
           }
           return value;
         };
         // Keep application data/context identities intact, especially remote sources.
-        const result = { ...original };
+        const nestedSlotDefs = componentNestedSlots(name);
+        const slots: Record<string, (...args: any[]) => ReactNode> = {};
+        for (const key of Object.keys(nestedSlotDefs)) {
+          const prop = `render${key[0].toUpperCase()}${key.slice(1)}`;
+          if (typeof original[prop] === 'function') slots[key] = original[prop];
+        }
+        const nested = withNestedFrameworkContent(name, original, {
+          slots,
+          render: (slot, scope) => content(slot(scope)),
+          convert,
+          originals,
+        });
+        let result = { ...nested.props };
+        for (const key of Object.keys(slots))
+          delete result[`render${key[0].toUpperCase()}${key.slice(1)}`];
         for (const key of Object.keys(original))
-          if (contentKeys.has(key)) result[key] = convert(original[key]);
-        for (const [key, value] of Object.entries(original)) {
-          if (!key.startsWith('render') || typeof value !== 'function')
+          if (contentKeys.has(key)) result[key] = convert(result[key]);
+        result = restoreNestedCallbackArguments(result, nested.originals);
+        for (const [key, value] of Object.entries(result)) {
+          if (
+            !key.startsWith('render') ||
+            typeof value !== 'function' ||
+            (name === 'AiChatEmptyState' && key === 'renderContent') ||
+            (name === 'CollapsibleSection' && key === 'renderRoot')
+          )
             continue;
           result[key] = (...args: unknown[]) => {
             if (options.factoryCallbacks?.includes(key)) {
@@ -208,5 +320,5 @@ export function createReactAdapter<
     );
   });
   Adapter.displayName = `Rv${name}`;
-  return Adapter as ReactUiComponent<C, F[number]>;
+  return Adapter as ReactUiComponent<C, F[number], N>;
 }

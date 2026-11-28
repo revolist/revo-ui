@@ -21,6 +21,10 @@ import {
   Menu,
   MenuItem,
   createReactAdapter,
+  AiChatEmptyState,
+  Stepper,
+  ChoiceChips,
+  CollapsibleSection,
 } from './react';
 
 (globalThis as any).IS_REACT_ACT_ENVIRONMENT = true;
@@ -44,11 +48,148 @@ function setup() {
 }
 
 describe('React shared component adapters', () => {
+  it('retains the disclosure body with a Preact root renderer', async () => {
+    setup();
+    await act(async () => {
+      root!.render(
+        h(
+          CollapsibleSection,
+          {
+            title: 'Details',
+            defaultOpen: true,
+            renderRoot: (props) =>
+              preactH('details', { ...props, 'data-custom-root': '' }),
+          },
+          h('input', { 'aria-label': 'Disclosure draft' }),
+        ),
+      );
+      await settle();
+    });
+    expect(
+      host.querySelector('[data-custom-root] summary')?.textContent,
+    ).toContain('Details');
+    expect(host.querySelector('[data-custom-root] input')).not.toBeNull();
+  });
+  it('bridges React nodes inside choice data and preserves callback item identity', async () => {
+    setup();
+    const option = {
+      value: 'a',
+      label: h('strong', { 'data-react-choice': '' }, 'Alpha'),
+    };
+    const received: unknown[] = [];
+    await act(async () => {
+      root!.render(
+        h(ChoiceChips, {
+          ariaLabel: 'Choices',
+          options: [option],
+          onChange: (_value, item) => received.push(item),
+        }),
+      );
+      await settle();
+    });
+    expect(host.querySelector('[data-react-choice]')?.textContent).toBe(
+      'Alpha',
+    );
+    await act(async () => {
+      host.querySelector<HTMLElement>('[data-react-choice]')!.click();
+      await settle();
+    });
+    expect(received[0]).toBe(option);
+    expect(option.label.type).toBe('strong');
+  });
+  it('preserves option identity when an unrelated nested content field is converted', async () => {
+    setup();
+    const description = h('em', null, 'Description');
+    const option = { value: 'a', label: 'Alpha', description };
+    const received: unknown[] = [];
+    await act(async () => {
+      root!.render(
+        h(ChoiceChips, {
+          ariaLabel: 'Choices',
+          options: [option],
+          onChange: (_value, item) => received.push(item),
+        }),
+      );
+      await settle();
+    });
+    await act(async () => {
+      host.querySelector<HTMLElement>('[data-value="a"]')!.click();
+      await settle();
+    });
+    expect(received[0]).toBe(option);
+    expect((received[0] as typeof option).description).toBe(description);
+  });
+  it('bridges nested step nodes and scoped renderers without mutating steps', async () => {
+    setup();
+    const steps = [
+      {
+        id: 'a',
+        label: 'Alpha',
+        icon: h('strong', { 'data-react-step-icon': '' }, 'Icon'),
+      },
+    ];
+    let seen: unknown;
+    await act(async () => {
+      root!.render(
+        h(Stepper, {
+          label: 'Workflow',
+          steps,
+          renderStepContent: ({ step, index }) => {
+            seen = step;
+            return h(
+              'span',
+              { 'data-react-step-content': '' },
+              `${step.label}:${index}`,
+            );
+          },
+        }),
+      );
+      await settle();
+    });
+    expect(host.querySelector('[data-react-step-icon]')?.textContent).toBe(
+      'Icon',
+    );
+    expect(host.querySelector('[data-react-step-content]')?.textContent).toBe(
+      'Alpha:0',
+    );
+    expect(seen).toBe(steps[0]);
+    expect(steps[0].icon.type).toBe('strong');
+  });
+  it('preserves DOM mount callbacks and their cleanup', async () => {
+    setup();
+    let cleaned = false;
+    await act(async () => {
+      root!.render(
+        h(AiChatEmptyState, {
+          renderContent: (element: HTMLElement) => {
+            element.textContent = 'Mounted';
+            return () => {
+              cleaned = true;
+            };
+          },
+        }),
+      );
+      await settle();
+    });
+    expect(host.querySelector('.rv-ai-chat-empty-slot')?.textContent).toBe(
+      'Mounted',
+    );
+    await act(async () => {
+      root!.unmount();
+      root = undefined;
+      await settle();
+    });
+    expect(cleaned).toBe(true);
+  });
   it('renders nested menu items and updates their content and actions', async () => {
     setup();
     const clicks: string[] = [];
-    const view = (label: string) => h(Menu, { label: 'Actions' },
-      h(MenuItem, { onClick: () => clicks.push(label) }, label));
+    const view = (label: string) =>
+      h(
+        Menu,
+        { label: 'Actions' },
+        h(MenuItem, { onClick: () => clicks.push(label) }, label),
+      );
     await act(async () => {
       root!.render(view('Edit'));
       await settle();
@@ -60,7 +201,10 @@ describe('React shared component adapters', () => {
     });
     const item = host.querySelector<HTMLElement>('[role=menuitem]')!;
     expect(item.textContent).toBe('Remove');
-    await act(async () => { item.click(); await settle(); });
+    await act(async () => {
+      item.click();
+      await settle();
+    });
     expect(clicks).toEqual(['Remove']);
   });
   it('preserves React context and child state across parent prop updates and StrictMode remounts', async () => {

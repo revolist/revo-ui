@@ -3,6 +3,7 @@ import { uiComponents, type UiComponentName } from './component-catalog';
 import { AngularComponentAdapter } from './angular-adapter';
 
 export { UiSlotDirective } from './angular-adapter';
+export type { UiComponentSlotContexts } from './component-metadata';
 export type {
   UiEvent,
   AngularInput,

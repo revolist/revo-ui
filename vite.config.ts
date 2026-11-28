@@ -130,6 +130,7 @@ export default defineConfig(({ mode }) => {
                 exclude: [
                   '**/*.test.ts',
                   '**/*.test.tsx',
+                  '**/*.typecheck.ts',
                   'package/angular.ts',
                   'package/angular-control.ts',
                   'package/angular-adapter.ts',

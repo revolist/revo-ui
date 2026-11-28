@@ -1,5 +1,5 @@
-import { pdfViewerRenderSlots } from './component-metadata';
 /** Vue wrappers around the shared Preact implementation. Import styles.css once. */
+export type { UiComponentSlotContexts } from './component-metadata';
 import * as ui from './preact';
 import { createVueAdapter, type VueUiComponent } from './vue-adapter';
 export {
@@ -7,16 +7,6 @@ export {
   type VueUiProps,
   type VueAdapterOptions,
 } from './vue-adapter';
-const dropdownSlots = {
-  option: {
-    prop: 'renderOption',
-    args: ['option', 'selected'],
-    skipFactory: true,
-  },
-  value: { prop: 'renderValue', args: ['option'], skipFactory: true },
-  content: { prop: 'renderContent', args: ['content'] },
-  noResults: { prop: 'renderNoResults', args: [], skipFactory: true },
-} as const;
 export const Input = /* @__PURE__ */ createVueAdapter(ui.Input, 'Input');
 export const SvgIcon = /* @__PURE__ */ createVueAdapter(ui.SvgIcon, 'SvgIcon');
 export const SvgButton = /* @__PURE__ */ createVueAdapter(
@@ -131,6 +121,7 @@ export const CalendarYearGrid = /* @__PURE__ */ createVueAdapter(
 export const CalendarNavigator = /* @__PURE__ */ createVueAdapter(
   ui.CalendarNavigator,
   'CalendarNavigator',
+  { model: { prop: 'value', callback: 'onChange' } },
 );
 export const CalendarPicker = /* @__PURE__ */ createVueAdapter(
   ui.CalendarPicker,
@@ -161,7 +152,6 @@ export const Dropdown = /* @__PURE__ */ createVueAdapter(
   'Dropdown',
   {
     model: { prop: 'value', callback: 'onChange' },
-    renderSlots: dropdownSlots,
   },
 );
 export const DropdownPopup = /* @__PURE__ */ createVueAdapter(
@@ -250,6 +240,10 @@ export const FormSection = /* @__PURE__ */ createVueAdapter(
 export const Disclosure = /* @__PURE__ */ createVueAdapter(
   ui.Disclosure,
   'Disclosure',
+);
+export const CollapsibleSection = /* @__PURE__ */ createVueAdapter(
+  ui.CollapsibleSection,
+  'CollapsibleSection',
 );
 export const Panel = /* @__PURE__ */ createVueAdapter(ui.Panel, 'Panel');
 export const Toolbar = /* @__PURE__ */ createVueAdapter(ui.Toolbar, 'Toolbar');
@@ -340,7 +334,6 @@ export const Combobox = /* @__PURE__ */ createVueAdapter(
   'Combobox',
   {
     model: { prop: 'value', callback: 'onChange' },
-    renderSlots: dropdownSlots,
   },
 );
 export const MultiSelect = /* @__PURE__ */ createVueAdapter(
@@ -348,7 +341,6 @@ export const MultiSelect = /* @__PURE__ */ createVueAdapter(
   'MultiSelect',
   {
     model: { prop: 'value', callback: 'onChange' },
-    renderSlots: dropdownSlots,
   },
 );
 export const Avatar = /* @__PURE__ */ createVueAdapter(ui.Avatar, 'Avatar');
@@ -357,9 +349,7 @@ export const ProgressBar = /* @__PURE__ */ createVueAdapter(
   'ProgressBar',
 );
 export const Popover = /* @__PURE__ */ createVueAdapter(ui.Popover, 'Popover');
-export const Tooltip = /* @__PURE__ */ createVueAdapter(ui.Tooltip, 'Tooltip', {
-  renderSlots: { content: { prop: 'renderContent', args: ['context'] } },
-});
+export const Tooltip = /* @__PURE__ */ createVueAdapter(ui.Tooltip, 'Tooltip');
 export const Dialog = /* @__PURE__ */ createVueAdapter(ui.Dialog, 'Dialog');
 export const ConfirmDialog = /* @__PURE__ */ createVueAdapter(
   ui.ConfirmDialog,
@@ -554,12 +544,6 @@ export const RatingChoice = /* @__PURE__ */ createVueAdapter(
 export const ReorderList = /* @__PURE__ */ createVueAdapter(
   ui.ReorderList,
   'ReorderList',
-  {
-    renderSlots: {
-      item: { prop: 'renderItem', args: ['item', 'index'] },
-      handle: { prop: 'renderHandle', args: ['item', 'index'] },
-    },
-  },
 );
 export const ReorderHandle = /* @__PURE__ */ createVueAdapter(
   ui.ReorderHandle,
@@ -669,7 +653,6 @@ export const AiRequestTrail = /* @__PURE__ */ createVueAdapter(
 export const PdfViewer = /* @__PURE__ */ createVueAdapter(
   ui.PdfViewer,
   'PdfViewer',
-  { renderSlots: pdfViewerRenderSlots },
 );
 
 export const PdfViewerToolbar = /* @__PURE__ */ createVueAdapter(

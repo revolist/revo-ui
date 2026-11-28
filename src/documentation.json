@@ -1,4 +1,12 @@
 {
+  "framework-slots": {
+    "label": "Framework content and slots",
+    "title": "Framework content and slots",
+    "description": "Use React children and render props, Vue slots, and Angular projected content and scoped templates with Revo UI components.",
+    "source": "framework-slots.md",
+    "category": "Essentials",
+    "seoTitle": "Framework content and slots"
+  },
   "javascript-cdn": {
     "label": "JavaScript / CDN",
     "title": "JavaScript / CDN",

@@ -76,6 +76,8 @@ Controls can be used without a RevoGrid instance. Grid cell templates, providers
 
 Prefer a per-component entry for a narrow dependency graph, for example `@revolist/ui/angular/svg-button` or `@revolist/ui/svelte/svg-button`. Add `/unstyled` when the application supplies static CSS. Framework barrels also provide the same named exports.
 
+See [framework content and slots](framework-slots.md) for slot names, scoped contexts, and the component inventory.
+
 Named Angular/Svelte exports preview the next package release. Use the [Angular](ssr-angular.md) or [SvelteKit](ssr-sveltekit.md) local public-package setup until they are published.
 
 Additional entries include `@revolist/ui/native` for DOM controllers and presentation helpers, `@revolist/ui/react-control` / `vue-control` / `angular-control` / `svelte-control` for framework-owned controls, and dedicated entries such as `@revolist/ui/select`, `@revolist/ui/timeline-track`, and `@revolist/ui/pdf-viewer`. Use the installed package's TypeScript declarations for exact prop types.
@@ -134,7 +136,7 @@ Controlled timeline events with move/resize interactions, event colors, weighted
 
 Calendar views, date selection and date ranges.
 
-[Calendar](api/Calendar.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [MiniCalendar](api/MiniCalendar.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/#example-mini-calendar)) | [CalendarHeader](api/CalendarHeader.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarWeekdays](api/CalendarWeekdays.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarDay](api/CalendarDay.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarMonthGrid](api/CalendarMonthGrid.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarYearGrid](api/CalendarYearGrid.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarPicker](api/CalendarPicker.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [DatePicker](api/DatePicker.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [DateRangePicker](api/DateRangePicker.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/))
+[Calendar](api/Calendar.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarNavigator](api/CalendarNavigator.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [MiniCalendar](api/MiniCalendar.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/#example-mini-calendar)) | [CalendarHeader](api/CalendarHeader.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarWeekdays](api/CalendarWeekdays.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarDay](api/CalendarDay.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarMonthGrid](api/CalendarMonthGrid.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarYearGrid](api/CalendarYearGrid.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [CalendarPicker](api/CalendarPicker.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [DatePicker](api/DatePicker.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/)) | [DateRangePicker](api/DateRangePicker.md) ([examples](https://ui.rv-grid.com/components/calendar-and-dates/))
 
 ### Date and time fields
 

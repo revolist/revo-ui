@@ -20,6 +20,7 @@ it('navigates by the configured civil-date step with localized labels', () => {
         value="2024-02-28"
         today="2024-02-27"
         stepDays={2}
+        preset={{ className: 'themed-navigation' }}
         onChange={change}
         labels={{
           previous: 'Anterior',
@@ -33,6 +34,11 @@ it('navigates by the configured civil-date step with localized labels', () => {
     ),
   );
   const buttons = [...host.querySelectorAll('button')];
+  expect(
+    host
+      .querySelector('[data-part="root"]')
+      ?.classList.contains('themed-navigation'),
+  ).toBe(true);
   act(() => buttons[0].click());
   expect(change).toHaveBeenLastCalledWith('2024-02-26');
   act(() => buttons[2].click());

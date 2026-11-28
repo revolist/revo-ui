@@ -6,6 +6,12 @@ import { withFrameworkContent } from './framework-mount';
 /** Content props shared with the React adapter; scalars remain ordinary props. */
 export const svelteContentProps = [
   'children',
+  'completedContent',
+  'startLabel',
+  'selectionLabel',
+  'endLabel',
+  'title',
+  'action',
   'footer',
   'label',
   'description',
@@ -59,13 +65,30 @@ export function withSvelteContent(
   for (const [alias, mapping] of Object.entries(mappings)) {
     const snippet = result[mapping.prop];
     if (typeof snippet === 'function' && !contents[alias]) {
-      contents[alias] = snippet as Content;
+      // Newly mapped render props previously received the original argument
+      // array. Keep that contract; explicit named snippets get scoped fields.
+      if (
+        [
+          'Dropdown',
+          'Combobox',
+          'MultiSelect',
+          'DropdownPopupContent',
+          'PdfViewer',
+          'Tooltip',
+          'ReorderList',
+        ].includes(name)
+      )
+        contents[alias] = snippet as Content;
+      else
+        result[mapping.prop] = (...args: unknown[]) =>
+          content(snippet as Content, { args });
     }
   }
   for (const [key, value] of Object.entries(result)) {
     if (
       /^render[A-Z]/.test(key) &&
       !mappedProps.has(key) &&
+      !(name === 'AiChatEmptyState' && key === 'renderContent') &&
       typeof value === 'function'
     ) {
       result[key] = (...args: unknown[]) => content(value as Content, { args });

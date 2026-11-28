@@ -83,8 +83,8 @@ test('public Angular archive compiles and preserves native template bindings', (
       `
       import { Component, signal } from '@angular/core';
       import { UiControlDirective } from '@revolist/ui/angular-control';
-      import { UiComponent, UiSlotDirective } from '@revolist/ui/angular';
-      @Component({ selector: 'ui-qualification', standalone: true, imports: [UiControlDirective, UiComponent, UiSlotDirective], template: \`
+      import { ActivityTimeline, CalendarNavigator, UiComponent, UiSlotDirective } from '@revolist/ui/angular';
+      @Component({ selector: 'ui-qualification', standalone: true, imports: [UiControlDirective, ActivityTimeline, CalendarNavigator, UiComponent, UiSlotDirective], template: \`
         <form (submit)="submitted.set(submitted() + 1); $event.preventDefault()">
           <button rvControl [disabled]="disabled()" (click)="clicks.set(clicks() + 1)">Save</button>
           <button rvControl type="submit">Submit</button>
@@ -93,9 +93,18 @@ test('public Angular archive compiles and preserves native template bindings', (
         </form>
         <rv-ui component="Dropdown" [props]="dropdownProps" (valueChange)="selected = $any($event)">
           <ng-template rvUiSlot="option" let-option="option"><strong data-public-option>{{ option.label }}</strong></ng-template>
-        </rv-ui>\` })
+        </rv-ui>
+        <rv-activity-timeline label="Activity" [entries]="entries">
+          <ng-template rvUiSlot="entryAvatar" let-entry="entry"><span data-public-avatar>{{ entry.id }}</span></ng-template>
+          <ng-template rvUiSlot="entryTimestamp"><time>Today</time></ng-template>
+          <ng-template rvUiSlot="entryContent"><span>Event</span></ng-template>
+        </rv-activity-timeline>
+        <rv-calendar-navigator value="2026-10-10" today="2026-10-10" [labels]="{ calendar: 'Public navigator' }">
+          <ng-template rvUiSlot="calendarFooter"><span data-public-calendar-footer>Footer</span></ng-template>
+        </rv-calendar-navigator>\` })
       export class Qualification {
         selected = 'a';
+        entries = [{ id: 'event' }];
         get dropdownProps() { return { source: [{ value: 'a', label: 'Alpha' }, { value: 'b', label: 'Beta' }], value: this.selected }; }
 
         disabled = signal(false); clicks = signal(0); submitted = signal(0);
@@ -159,6 +168,10 @@ test('public Angular archive compiles and preserves native template bindings', (
       assert.equal(button.disabled, true); button.click(); check(); assert.equal(component.clicks(), 1);
       submit.click(); check(); assert.equal(component.submitted(), 1);
       assert.equal(document.querySelector('select').className, 'rv-control');
+      assert.equal(document.querySelector('[data-public-avatar]')?.textContent, 'event');
+      document.querySelector('[aria-label="Public navigator"]').click(); check();
+      await new Promise(resolve => setTimeout(resolve, 0)); check();
+      assert.equal(document.querySelector('[data-public-calendar-footer]')?.textContent, 'Footer');
       document.querySelector('[role="combobox"]').click(); check();
       await new Promise(resolve => setTimeout(resolve, 0)); check();
       const option = [...document.querySelectorAll('[data-public-option]')].find(node => node.textContent === 'Beta');

@@ -98,6 +98,7 @@ export { default as EditorListItem } from './svelte/EditorListItem.svelte';
 export { default as EditorListItemContent } from './svelte/EditorListItemContent.svelte';
 export { default as EditorListGroup } from './svelte/EditorListGroup.svelte';
 export { default as Calendar } from './svelte/Calendar.svelte';
+export { default as CalendarNavigator } from './svelte/CalendarNavigator.svelte';
 export { default as MiniCalendar } from './svelte/MiniCalendar.svelte';
 export { default as CalendarHeader } from './svelte/CalendarHeader.svelte';
 export { default as CalendarWeekdays } from './svelte/CalendarWeekdays.svelte';

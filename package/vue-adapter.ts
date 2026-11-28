@@ -3,9 +3,24 @@ import {
   h as preactH,
   render,
   type ComponentProps,
+  type ComponentChildren,
   type ComponentType,
+  type VNode,
 } from 'preact';
 import { useLayoutEffect, useRef } from 'preact/hooks';
+import {
+  componentNestedSlots,
+  componentRenderSlots,
+  type UiComponentSlotContexts,
+} from './component-metadata';
+import {
+  restoreNestedCallbackArguments,
+  withNestedFrameworkContent,
+} from './nested-framework-content';
+import type {
+  UiFrameworkComponentName,
+  UiFrameworkProps,
+} from './framework-nested-types';
 import {
   defineComponent,
   h,
@@ -36,11 +51,26 @@ type ModelValue<P, O> = O extends { model: { prop: infer K } }
     ? P[K]
     : unknown
   : never;
+type SlotPropKeys<P> = {
+  [K in keyof P]-?: K extends `render${string}`
+    ? K
+    : [Extract<P[K], VNode<any> | readonly ComponentChildren[]>] extends [never]
+      ? never
+      : K;
+}[keyof P];
 export type VueUiProps<
   P,
   O extends VueAdapterOptions = VueAdapterOptions,
-> = Omit<P, 'children' | 'ref' | 'key' | Extract<ModelKeys<O>, keyof P>> &
-  Partial<Pick<P, Extract<ModelKeys<O>, keyof P>>> &
+> = Omit<
+  P,
+  'children' | 'ref' | 'key' | Extract<ModelKeys<O> | SlotPropKeys<P>, keyof P>
+> &
+  Partial<
+    Pick<
+      P,
+      Extract<ModelKeys<O> | Exclude<SlotPropKeys<P>, 'children'>, keyof P>
+    >
+  > &
   (O extends { model: object }
     ? {
         modelValue?: ModelValue<P, O>;
@@ -53,15 +83,49 @@ export type VueUiComponent<
   O extends VueAdapterOptions = {},
 > = DefineComponent<VueUiProps<ComponentProps<C>, O>>;
 
+type VueContentSlots<P> = {
+  [K in keyof P as K extends string
+    ? [Extract<P[K], VNode<any> | readonly ComponentChildren[]>] extends [never]
+      ? never
+      : K extends 'children'
+        ? 'default'
+        : K
+    : never]?: Slot;
+};
+type VueNamedSlots<N extends string, P> = VueContentSlots<P> &
+  (N extends UiFrameworkComponentName
+    ? {
+        [K in keyof UiComponentSlotContexts<N>]?: (
+          scope: UiComponentSlotContexts<N>[K],
+        ) => ReturnType<Slot>;
+      }
+    : {});
+
+export type VueAdapterComponent<
+  P,
+  O extends VueAdapterOptions,
+  N extends string,
+> = DefineComponent<
+  VueUiProps<N extends UiFrameworkComponentName ? UiFrameworkProps<N> : P, O>
+> & {
+  new (): {
+    $slots: VueNamedSlots<
+      N,
+      N extends UiFrameworkComponentName ? UiFrameworkProps<N> : P
+    >;
+  };
+};
+
 /** Vue owns slot trees through Teleport. Preact only owns their host elements. */
 export function createVueAdapter<
   P extends object,
+  const N extends string = string,
   const O extends VueAdapterOptions = {},
 >(
   component: ComponentType<P>,
-  name: string,
+  name: N,
   options: O = {} as O,
-): DefineComponent<VueUiProps<P, O>> {
+): VueAdapterComponent<P, O, N> {
   return defineComponent({
     name: `Rv${name}`,
     inheritAttrs: false,
@@ -114,7 +178,7 @@ export function createVueAdapter<
       }
       function update() {
         if (!host.value || disposed) return;
-        const props: Record<string, any> = {};
+        let props: Record<string, any> = {};
         for (const [key, value] of Object.entries(attrs)) {
           if (key === 'modelValue' || key === 'onUpdate:modelValue') continue;
           // Vue leaves undeclared template attributes kebab-cased.
@@ -160,9 +224,22 @@ export function createVueAdapter<
         }
         const currentSlots = slotEntries();
         synchronizedSlots = new Map(currentSlots);
+        const nested = withNestedFrameworkContent(name, props, {
+          slots: Object.fromEntries(currentSlots),
+          render: (slot, scope) =>
+            preactH(SlotHost, { slot: slot as Slot, scope }),
+        });
+        if (nested.props !== props)
+          props = restoreNestedCallbackArguments(
+            nested.props,
+            nested.originals,
+          );
         for (const [slotName, slot] of currentSlots) {
           if (!slot) continue;
-          const mapping = options.renderSlots?.[slotName];
+          if (slotName in componentNestedSlots(name)) continue;
+          const mapping =
+            options.renderSlots?.[slotName] ??
+            componentRenderSlots(name)[slotName];
           if (mapping) {
             props[mapping.prop] = (...args: unknown[]) => {
               if (mapping.skipFactory) args = args.slice(1);
@@ -217,5 +294,5 @@ export function createVueAdapter<
         ),
       ];
     },
-  }) as unknown as DefineComponent<VueUiProps<P, O>>;
+  }) as unknown as VueAdapterComponent<P, O, N>;
 }

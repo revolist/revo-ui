@@ -411,6 +411,8 @@
     "./svelte/editor-list-group": "./package/svelte-entries/editor-list-group.ts",
     "./angular/calendar": "./package/angular-components/calendar.ts",
     "./svelte/calendar": "./package/svelte-entries/calendar.ts",
+    "./angular/calendar-navigator": "./package/angular-components/calendar-navigator.ts",
+    "./svelte/calendar-navigator": "./package/svelte-entries/calendar-navigator.ts",
     "./angular/mini-calendar": "./package/angular-components/mini-calendar.ts",
     "./svelte/mini-calendar": "./package/svelte-entries/mini-calendar.ts",
     "./angular/calendar-header": "./package/angular-components/calendar-header.ts",

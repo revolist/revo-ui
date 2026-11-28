@@ -11,17 +11,28 @@ import {
   FieldList,
   DatePicker,
   Switch,
+  SegmentedSwitch,
+  Stepper,
+  CalendarNavigator,
 } from '@revolist/ui/react';
 import { presetProps } from '@revolist/ui/presets';
 import { theme } from './shared-theme';
 import { Component } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { UiComponent, UiSlotDirective } from '@revolist/ui/angular';
+import {
+  CalendarNavigator as AngularCalendarNavigator,
+  UiComponent,
+  UiSlotDirective,
+} from '@revolist/ui/angular';
 import { mount } from 'svelte';
 import SvelteHarness from './SvelteHarness.svelte';
 
 function ReactHarness() {
   const [value, setValue] = useState('a');
+  const [workflow, setWorkflow] = useState([
+    { id: 'a', label: 'Alpha' },
+    { id: 'b', label: 'Beta' },
+  ]);
   const [themed, setThemed] = useState(true);
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(true);
@@ -37,6 +48,44 @@ function ReactHarness() {
       onChange: setThemed,
     }),
     h('output', { 'data-react-value': '' }, value),
+    h(CalendarNavigator, {
+      value: '2026-10-10',
+      today: '2026-10-10',
+      labels: { calendar: 'Open React navigator' },
+      onChange() {},
+      renderCalendarDay: ({ date }) =>
+        h('span', { 'data-react-navigator-day': date }, date),
+      renderCalendarFooter: () =>
+        h('span', { 'data-react-navigator-footer': '' }, 'React footer'),
+    }),
+    h(
+      'button',
+      { onClick: () => setWorkflow([...workflow].reverse()) },
+      'Reorder React steps',
+    ),
+    h(Stepper, {
+      label: 'React workflow',
+      steps: workflow,
+      value: 'a',
+      renderStepIcon: ({ step }) =>
+        h('b', { 'data-react-step-icon': step.id }, step.label),
+      renderStepContent: ({ step }) =>
+        h('input', { 'aria-label': `React ${step.id} step draft` }),
+    }),
+    h(SegmentedSwitch, {
+      value,
+      options: [
+        { value: 'a', label: 'Alpha' },
+        { value: 'b', label: 'Beta' },
+      ],
+      onChange: (next) => setValue(String(next)),
+      renderOption: (option, state) =>
+        h(
+          'strong',
+          { 'data-react-segment': '' },
+          `${option.label}:${state.active}`,
+        ),
+    }),
     h(DatePicker, {
       label: 'React custom date',
       openLabel: 'Choose React custom date',
@@ -108,10 +157,63 @@ function ReactHarness() {
 @Component({
   selector: 'ui-framework-harness',
   standalone: true,
-  imports: [UiComponent, UiSlotDirective],
+  imports: [AngularCalendarNavigator, UiComponent, UiSlotDirective],
   template: `<section aria-label="Angular adapters">
     <button (click)="mounted = !mounted">Toggle Angular</button>
     <output data-angular-value>{{ value }}</output>
+    <rv-calendar-navigator
+      value="2026-10-10"
+      today="2026-10-10"
+      [labels]="{ calendar: 'Open Angular navigator' }"
+    >
+      <ng-template rvUiSlot="calendarDay" let-date="date"
+        ><span [attr.data-angular-navigator-day]="date">{{
+          date
+        }}</span></ng-template
+      >
+      <ng-template rvUiSlot="calendarFooter"
+        ><span data-angular-navigator-footer>Angular footer</span></ng-template
+      >
+    </rv-calendar-navigator>
+    <button (click)="workflow = workflow.slice().reverse()">
+      Reorder Angular steps
+    </button>
+    <rv-ui
+      component="Stepper"
+      [props]="{ label: 'Angular workflow', steps: workflow, value: 'a' }"
+    >
+      <ng-template rvUiSlot="stepIcon" let-step="step"
+        ><b [attr.data-angular-step-icon]="step.id">{{
+          step.label
+        }}</b></ng-template
+      >
+      <ng-template rvUiSlot="stepContent" let-step="step"
+        ><input [attr.aria-label]="'Angular ' + step.id + ' step draft'"
+      /></ng-template>
+    </rv-ui>
+    <rv-ui
+      component="MetricTile"
+      [props]="{
+        label: 'Angular metric',
+        value: '1',
+        visual: { accent: 'red' },
+      }"
+    >
+      <ng-template rvUiSlot="visualIcon"
+        ><strong data-angular-metric-icon>Angular icon</strong></ng-template
+      >
+    </rv-ui>
+    <rv-ui
+      component="SegmentedSwitch"
+      [props]="{ options: source, value: value }"
+      (valueChange)="value = $any($event)"
+    >
+      <ng-template rvUiSlot="option" let-option="option" let-state="state">
+        <strong data-angular-segment
+          >{{ option.label }}:{{ state.active }}</strong
+        >
+      </ng-template>
+    </rv-ui>
     <rv-ui
       component="SearchInput"
       [props]="{ value: search, 'aria-label': 'Angular search query' }"
@@ -169,6 +271,10 @@ function ReactHarness() {
 })
 class AngularHarness {
   value = 'a';
+  workflow = [
+    { id: 'a', label: 'Alpha' },
+    { id: 'b', label: 'Beta' },
+  ];
   open = false;
   mounted = true;
   search = '';

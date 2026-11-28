@@ -2,14 +2,22 @@
 import { h } from 'preact';
 import { addDays, type ISODateString } from '@revolist/ui-dates';
 import { DatePicker, type DatePickerProps } from '../pickers';
+import type { ClassPreset } from '../presets/types';
 
 export interface CalendarNavigatorProps {
+  /** Optional presentation preset. */
+  preset?: ClassPreset;
+  /** Current selected civil date. */
   value: ISODateString;
+  /** Current civil date used by the Today action. */
   today: ISODateString;
+  /** Reports the selected or navigated date. */
   onChange: (date: ISODateString) => void;
   /** Number of days to advance or retreat; defaults to seven. */
   stepDays?: number;
+  /** Additional class names on the navigator. */
   className?: string;
+  /** Localized action labels and the formatted date title. */
   labels?: {
     previous?: string;
     next?: string;
@@ -32,6 +40,7 @@ export function CalendarNavigator({
   onChange,
   stepDays = 7,
   className,
+  preset,
   labels,
   calendar,
 }: CalendarNavigatorProps) {
@@ -46,7 +55,12 @@ export function CalendarNavigator({
   const todayAvailable = bounded(today) === today;
 
   return (
-    <div class={['rv-calendar-navigator', className].filter(Boolean).join(' ')}>
+    <div
+      class={['rv-calendar-navigator', preset?.className, className]
+        .filter(Boolean)
+        .join(' ')}
+      data-part="root"
+    >
       <button
         type="button"
         aria-label={labels?.previous ?? 'Previous period'}
