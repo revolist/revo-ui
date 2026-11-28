@@ -18,6 +18,57 @@ const data = [8, 12, 4].map((value, index) => ({
   tooltip: { title: `Point ${index + 1}`, details: [`${value} items`] },
 }));
 
+it('applies per-bar, per-series and per-slice patterns with unique SVG IDs', () => {
+  render(
+    <>
+      <BarChart ariaLabel="Dotted" data={data} barPattern="dots" />
+      <BarChart
+        ariaLabel="Striped"
+        data={data}
+        series={[
+          {
+            key: 'a',
+            label: 'A',
+            values: [1, 2, 3],
+            color: 'red',
+            pattern: 'stripes',
+          },
+        ]}
+      />
+      <DonutChart
+        ariaLabel="First"
+        data={data}
+        slicePatterns={['stripes', 'dots']}
+      />
+      <DonutChart
+        ariaLabel="Second"
+        data={data}
+        slicePatterns={['stripes', 'dots']}
+      />
+    </>,
+    document.body,
+  );
+  expect(
+    document.querySelector('[aria-label="Dotted"] [data-pattern="dots"]'),
+  ).not.toBeNull();
+  const stripe = document.querySelector(
+    '[aria-label="Striped"] [data-series="a"]',
+  )!;
+  const seriesPattern = document.querySelector(
+    '[aria-label="Striped"] pattern',
+  )!;
+  expect(stripe.getAttribute('fill')).toBe(`url(#${seriesPattern.id})`);
+  const first = document.querySelector('[aria-label="First"]')!;
+  const second = document.querySelector('[aria-label="Second"]')!;
+  const firstPatterns = first.querySelectorAll('pattern');
+  expect(firstPatterns).toHaveLength(2);
+  expect(firstPatterns[0].id).not.toBe(second.querySelector('pattern')?.id);
+  expect(
+    first.querySelector('circle[stroke-dasharray]')?.getAttribute('stroke'),
+  ).toBe(`url(#${firstPatterns[0].id})`);
+  expect(firstPatterns[1].querySelector('circle')).not.toBeNull();
+});
+
 it.each([
   ['bar', BarChart],
   ['line', LineChart],

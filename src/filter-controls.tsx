@@ -414,6 +414,72 @@ export function ChartExamples() {
           endLabel={range.toValue}
         />
       </Specimen>
+      <Specimen title="Dotted traffic bars">
+        <div class="chart-example-card">
+          <strong>Website traffic</strong>
+          <p>Monthly visitor behavior</p>
+          <BarChart
+            ariaLabel="Website traffic with dotted bars"
+            data={trafficData}
+            height={150}
+            showLabels
+            barColor="#64748b"
+            barPattern="dots"
+          />
+        </div>
+      </Specimen>
+      <Specimen title="Striped acquisition comparison">
+        <div class="chart-example-card">
+          <strong>User acquisition</strong>
+          <p>Compare desktop and mobile traffic</p>
+          <BarChart
+            ariaLabel="Striped acquisition comparison"
+            data={trafficData}
+            height={150}
+            showLabels
+            series={[
+              { ...channelSeries[0], label: 'Desktop', pattern: 'stripes' },
+              { ...channelSeries[1], label: 'Mobile' },
+            ]}
+          />
+        </div>
+      </Specimen>
+      <Specimen title="Patterned priority breakdown">
+        <div class="chart-example-card">
+          <strong>Bug priority</strong>
+          <p>Open issues by severity</p>
+          <DistributionChart
+            type="donut"
+            ariaLabel="Open issues by severity"
+            height={190}
+            showLabels
+            data={[
+              {
+                key: 'critical',
+                value: 15,
+                tooltip: { title: 'Critical', details: ['15 issues'] },
+              },
+              {
+                key: 'high',
+                value: 30,
+                tooltip: { title: 'High', details: ['30 issues'] },
+              },
+              {
+                key: 'medium',
+                value: 25,
+                tooltip: { title: 'Medium', details: ['25 issues'] },
+              },
+              {
+                key: 'low',
+                value: 30,
+                tooltip: { title: 'Low', details: ['30 issues'] },
+              },
+            ]}
+            sliceColors={['#dc2626', '#475569', '#94a3b8', '#334155']}
+            slicePatterns={['stripes', undefined, 'dots', undefined]}
+          />
+        </div>
+      </Specimen>
     </>
   );
 }

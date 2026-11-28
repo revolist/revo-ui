@@ -2,6 +2,8 @@ import type { ComponentChildren } from 'preact';
 import type { ClassPreset } from '../presets/types';
 
 export type DistributionChartType = 'bar' | 'line' | 'area' | 'donut';
+/** Optional decorative texture for bars and doughnut slices. */
+export type DistributionChartPattern = 'dots' | 'stripes';
 
 export interface DistributionChartTooltip {
   readonly title: string;
@@ -22,6 +24,8 @@ export interface DistributionChartSeries {
   readonly values: readonly number[];
   readonly type?: 'bar' | 'line' | 'area';
   readonly color?: string;
+  /** Pattern for bar series; omitted for a solid fill. */
+  readonly pattern?: DistributionChartPattern;
 }
 
 export interface DistributionChartProps {
@@ -41,12 +45,16 @@ export interface DistributionChartProps {
   readonly tooltipIndicator?: 'dot' | 'line' | 'dashed' | 'none';
   readonly interpolation?: 'linear' | 'step' | 'smooth';
   readonly areaFill?: 'solid' | 'gradient';
+  /** Pattern for single-series bars. */
+  readonly barPattern?: DistributionChartPattern;
   /** Multiple series share the categories in data. */
   readonly series?: readonly DistributionChartSeries[];
   /** Overlay series or stack their nonnegative values. Defaults to overlay. */
   readonly seriesMode?: 'overlay' | 'stacked';
   /** Doughnut slice colors, in data order; defaults to theme colors. */
   readonly sliceColors?: readonly string[];
+  /** Optional doughnut slice patterns, in data order. */
+  readonly slicePatterns?: readonly (DistributionChartPattern | undefined)[];
   /** Optional text displayed in the doughnut center. */
   readonly centerLabel?: string;
   readonly className?: string;

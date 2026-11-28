@@ -17,6 +17,8 @@
 - `renderTooltip`: custom Preact content; the same lifecycle handles pointer and keyboard focus.
 - `sliceColors`: doughnut slice colors in data order; defaults to chart theme colors.
 - `centerLabel`: optional text in the doughnut center, supplied and localized by the host.
+- `barPattern`: set `dots` or `stripes` on single-series bars. For multiple series, set `pattern` on each bar series.
+- `slicePatterns`: optional `dots` or `stripes` per doughnut slice, aligned with `data`; omit an entry for a solid slice.
 - `series`: named value arrays aligned to `data` categories by index, with optional color and `bar`, `line`, or `area` type overrides.
 - `seriesMode`: `overlay` (default, with adjacent bars) or `stacked` (cumulative values). Missing, nonfinite and negative values become zero. Series share one nonnegative scale. A series legend and category tooltip list each value; custom tooltip callbacks still receive the original datum. `showValues` displays the category maximum in overlay mode and its sum in stacked mode.
 

@@ -47,4 +47,6 @@ Pass `series` with labeled value arrays aligned to the `data` categories. Set `s
 
 ## Doughnut charts
 
+Use `slicePatterns` to assign `dots`, `stripes`, or an omitted pattern to each slice in data order. Bar charts also accept `barPattern` or a per-series `pattern`.
+
 Set `type="donut"` to show part-to-whole values. Provide `sliceColors` to customize the segment colors and `centerLabel` for optional center text. Include the total in `ariaLabel` when it is meaningful. Hover or click a slice, or use the arrow keys to inspect its tooltip.

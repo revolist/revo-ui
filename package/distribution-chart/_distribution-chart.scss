@@ -142,6 +142,15 @@
   background: var(--rv-distribution-accent, var(--rv-ui-accent));
 }
 
+.rv-distribution-chart .rv-distribution-chart__bar[data-pattern='dots'] {
+  background-image: radial-gradient(circle, var(--rv-ui-surface) 1px, transparent 1.25px);
+  background-size: 6px 6px;
+}
+
+.rv-distribution-chart .rv-distribution-chart__bar[data-pattern='stripes'] {
+  background-image: repeating-linear-gradient(135deg, transparent 0 3px, var(--rv-ui-surface) 3px 4px);
+}
+
 .rv-distribution-chart__point {
   position: absolute;
   top: 50%;

@@ -4,6 +4,7 @@ import { useId } from 'preact/hooks';
 import { CHART_SERIES_COLORS } from '../color-palette/chart-palettes';
 import { ChartFrame, ChartPlot } from './chart-frame';
 import { chartSegment } from './geometry';
+import { ChartPattern } from './chart-pattern';
 import type { StandaloneChartProps } from './types';
 
 type Variant = 'bar' | 'line' | 'area';
@@ -100,7 +101,9 @@ export function MultiSeriesChart(
           key={item.key}
           data-series={item.key}
           data-series-type="bar"
-          fill={color}
+          fill={
+            item.pattern ? `url(#${gradientId}-pattern-${seriesIndex})` : color
+          }
         >
           {values.map((value, index) => (
             <rect
@@ -190,41 +193,58 @@ export function MultiSeriesChart(
         }
       >
         <ChartPlot>
-          {props.areaFill === 'gradient' && (
-            <defs>
-              {series.map(
-                (item, index) =>
-                  (item.type ?? props.variant) === 'area' && (
-                    <linearGradient
-                      key={item.key}
-                      id={`${gradientId}-${index}`}
-                      gradientUnits="userSpaceOnUse"
-                      x1="0"
-                      y1="8"
-                      x2="0"
-                      y2="96"
-                    >
-                      <stop
-                        offset="0%"
-                        stop-color={
-                          item.color ??
-                          `var(--rv-chart-${(index % colors.length) + 1}, ${colors[index % colors.length]})`
-                        }
-                        stop-opacity="0.4"
-                      />
-                      <stop
-                        offset="100%"
-                        stop-color={
-                          item.color ??
-                          `var(--rv-chart-${(index % colors.length) + 1}, ${colors[index % colors.length]})`
-                        }
-                        stop-opacity="0.02"
-                      />
-                    </linearGradient>
-                  ),
-              )}
-            </defs>
-          )}
+          <defs>
+            {series.map(
+              (item, index) =>
+                item.pattern &&
+                (item.type ?? props.variant) === 'bar' && (
+                  <ChartPattern
+                    key={item.key}
+                    id={`${gradientId}-pattern-${index}`}
+                    color={
+                      item.color ??
+                      `var(--rv-chart-${(index % colors.length) + 1}, ${colors[index % colors.length]})`
+                    }
+                    pattern={item.pattern}
+                  />
+                ),
+            )}
+            {props.areaFill === 'gradient' && (
+              <>
+                {series.map(
+                  (item, index) =>
+                    (item.type ?? props.variant) === 'area' && (
+                      <linearGradient
+                        key={item.key}
+                        id={`${gradientId}-${index}`}
+                        gradientUnits="userSpaceOnUse"
+                        x1="0"
+                        y1="8"
+                        x2="0"
+                        y2="96"
+                      >
+                        <stop
+                          offset="0%"
+                          stop-color={
+                            item.color ??
+                            `var(--rv-chart-${(index % colors.length) + 1}, ${colors[index % colors.length]})`
+                          }
+                          stop-opacity="0.4"
+                        />
+                        <stop
+                          offset="100%"
+                          stop-color={
+                            item.color ??
+                            `var(--rv-chart-${(index % colors.length) + 1}, ${colors[index % colors.length]})`
+                          }
+                          stop-opacity="0.02"
+                        />
+                      </linearGradient>
+                    ),
+                )}
+              </>
+            )}
+          </defs>
           {shapes}
         </ChartPlot>
       </ChartFrame>

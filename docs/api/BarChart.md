@@ -43,4 +43,6 @@ This reference is generated from the local `package` library source. Rebuild it 
 
 ## Multi-series charts
 
+Use `barPattern="dots"` or `barPattern="stripes"` for a single series. For multi-series bars, set `pattern` on each series to distinguish them without relying on color alone.
+
 Pass `series` with labeled value arrays aligned to the `data` categories. Set `seriesMode="stacked"` for cumulative values or leave it as `overlay` to compare series on a shared scale. Each series may use a bar, line, or area presentation. See [compact chart options](../../package/distribution-chart/README.md) for details and examples.

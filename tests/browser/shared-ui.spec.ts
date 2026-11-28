@@ -1207,6 +1207,60 @@ test.describe('charts family', () => {
     await expect(mixed.locator('[data-series-type="line"] path')).toHaveCount(
       5,
     );
+    const patternedBars = page.getByRole('group', {
+      name: 'Website traffic with dotted bars',
+    });
+    const standardBar = page.getByRole('group', {
+      name: 'Standalone bar chart',
+      exact: true,
+    });
+    expect(
+      await standardBar.evaluate((element, patternedLabel) => {
+        const patterned = document.querySelector(
+          `[aria-label="${patternedLabel}"]`,
+        );
+        return (
+          !!patterned &&
+          !!(
+            element.compareDocumentPosition(patterned) &
+            Node.DOCUMENT_POSITION_FOLLOWING
+          )
+        );
+      }, 'Website traffic with dotted bars'),
+    ).toBe(true);
+    await expect(patternedBars.locator('[data-pattern="dots"]')).toHaveCount(6);
+    await expect(
+      patternedBars.locator('[data-pattern="dots"]').first(),
+    ).toHaveCSS('background-image', /radial-gradient/);
+    const patternedSeries = page.getByRole('group', {
+      name: 'Striped acquisition comparison',
+    });
+    await expect(patternedSeries.locator('pattern')).toHaveCount(1);
+    await expect(
+      patternedSeries.locator('[data-series="desktop"]'),
+    ).toHaveAttribute('fill', /^url\(#rv-multi-area-/);
+    const patternedDonut = page.getByRole('group', {
+      name: 'Open issues by severity',
+    });
+    await expect(patternedDonut.locator('pattern')).toHaveCount(2);
+    await expect(
+      patternedDonut.locator('circle[stroke-dasharray]').first(),
+    ).toHaveAttribute('stroke', /^url\(#rv-donut-pattern-/);
+    await patternedDonut.scrollIntoViewIfNeeded();
+    const patternedBox = (await patternedDonut.locator('svg').boundingBox())!;
+    const patternedAngle = (20 * Math.PI) / 180;
+    await page.mouse.move(
+      patternedBox.x +
+        patternedBox.width * (0.5 + 0.36 * Math.sin(patternedAngle)),
+      patternedBox.y +
+        patternedBox.height * (0.5 - 0.36 * Math.cos(patternedAngle)),
+    );
+    await expect(
+      patternedDonut
+        .getByRole('tooltip', { includeHidden: true })
+        .filter({ hasText: 'Critical' }),
+    ).toBeVisible();
+    await page.mouse.move(0, 0);
     const comparison = page.getByRole('group', {
       name: 'Device trend comparison',
     });

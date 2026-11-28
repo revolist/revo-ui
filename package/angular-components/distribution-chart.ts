@@ -24,6 +24,10 @@ export class DistributionChart extends AngularComponentAdapter<never> {
     'DistributionChart',
     'ariaLabel'
   >;
+  @NgInput() declare 'barPattern'?: AngularInput<
+    'DistributionChart',
+    'barPattern'
+  >;
   @NgInput() declare 'centerLabel'?: AngularInput<
     'DistributionChart',
     'centerLabel'
@@ -72,6 +76,10 @@ export class DistributionChart extends AngularComponentAdapter<never> {
   @NgInput() declare 'sliceColors'?: AngularInput<
     'DistributionChart',
     'sliceColors'
+  >;
+  @NgInput() declare 'slicePatterns'?: AngularInput<
+    'DistributionChart',
+    'slicePatterns'
   >;
   @NgInput() declare 'tooltip'?: AngularInput<'DistributionChart', 'tooltip'>;
   @NgInput() declare 'tooltipIndicator'?: AngularInput<

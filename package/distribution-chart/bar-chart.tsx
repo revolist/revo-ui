@@ -30,6 +30,7 @@ export function BarChart(props: BarChartProps) {
       renderDatum={(datum, index) => (
         <span
           class="rv-distribution-chart__bar"
+          data-pattern={props.barPattern}
           style={{
             backgroundColor: colors[index],
             height: `${Math.max(3, (values[index] / max) * 100)}%`,
