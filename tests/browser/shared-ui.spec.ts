@@ -1207,6 +1207,22 @@ test.describe('charts family', () => {
     await expect(mixed.locator('[data-series-type="line"] path')).toHaveCount(
       5,
     );
+    const comparison = page.getByRole('group', {
+      name: 'Device trend comparison',
+    });
+    for (const width of [1440, 390]) {
+      await page.setViewportSize({ width, height: 900 });
+      const point = comparison
+        .locator(
+          '[data-series-type="line"] circle, [data-series-type="line"] [data-part="series-point"]',
+        )
+        .first();
+      await expect(point).toHaveAttribute(
+        'vector-effect',
+        'non-scaling-stroke',
+      );
+      await expect(point).toHaveAttribute('stroke-linecap', 'round');
+    }
     const donut = page.getByRole('group', { name: 'Visitors by source' });
     await donut.scrollIntoViewIfNeeded();
     const box = (await donut.locator('svg').boundingBox())!;

@@ -158,12 +158,17 @@ export function MultiSeriesChart(
         })}
         {props.showPoints !== false &&
           points.map((point, index) => (
-            <circle
+            <line
               key={props.data[index].key}
-              cx={point.x}
-              cy={point.y}
-              r="1.3"
-              fill={color}
+              data-part="series-point"
+              x1={point.x}
+              x2={point.x}
+              y1={point.y}
+              y2={point.y}
+              stroke={color}
+              stroke-width="7"
+              stroke-linecap="round"
+              vector-effect="non-scaling-stroke"
               opacity={opacity(props.data[index].selected)}
             />
           ))}
