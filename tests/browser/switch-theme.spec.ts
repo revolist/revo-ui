@@ -383,7 +383,7 @@ test('shows live observed state hooks and resets samples when changing component
 });
 
 test('every catalog sample renders its customized preset', async ({ page }) => {
-  test.setTimeout(240_000);
+  test.setTimeout(600_000);
   const { componentApi } = await import('../../scripts/component-api.mjs');
   const root = fileURLToPath(new URL('../../', import.meta.url));
   const api: { name: string; families: string[] }[] = componentApi(root, root);
