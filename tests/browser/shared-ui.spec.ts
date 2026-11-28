@@ -1247,7 +1247,20 @@ test.describe('charts family', () => {
       patternedDonut.locator('circle[stroke-dasharray]').first(),
     ).toHaveAttribute('stroke', /^url\(#rv-donut-pattern-/);
     await patternedDonut.scrollIntoViewIfNeeded();
-    const patternedBox = (await patternedDonut.locator('svg').boundingBox())!;
+    const patternedBox = (await patternedDonut
+      .locator('.rv-distribution-chart__donut-plot')
+      .boundingBox())!;
+    const slicePaints = await patternedDonut
+      .locator('.rv-distribution-chart__donut-plot circle[stroke-dasharray]')
+      .evaluateAll((slices) =>
+        slices.map((slice) => slice.getAttribute('stroke')),
+      );
+    const swatchPaints = await patternedDonut
+      .locator('.rv-distribution-chart__label-swatch rect')
+      .evaluateAll((swatches) =>
+        swatches.map((swatch) => swatch.getAttribute('fill')),
+      );
+    expect(swatchPaints).toEqual(slicePaints);
     const patternedAngle = (20 * Math.PI) / 180;
     await page.mouse.move(
       patternedBox.x +
@@ -1279,7 +1292,9 @@ test.describe('charts family', () => {
     }
     const donut = page.getByRole('group', { name: 'Visitors by source' });
     await donut.scrollIntoViewIfNeeded();
-    const box = (await donut.locator('svg').boundingBox())!;
+    const box = (await donut
+      .locator('.rv-distribution-chart__donut-plot')
+      .boundingBox())!;
     for (const [degrees, name] of [
       [25, 'Direct'],
       [140, 'Direct'],

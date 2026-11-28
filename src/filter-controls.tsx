@@ -475,7 +475,7 @@ export function ChartExamples() {
                 tooltip: { title: 'Low', details: ['30 issues'] },
               },
             ]}
-            sliceColors={['#dc2626', '#1d4ed8', '#60a5fa', '#1e3a8a']}
+            sliceColors={['#dc2626', '#1d4ed8', '#60a5fa', '#f97316']}
             slicePatterns={['stripes', undefined, 'dots', undefined]}
           />
         </div>

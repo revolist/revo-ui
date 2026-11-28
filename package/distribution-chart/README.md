@@ -6,7 +6,7 @@
 
 - `height`: plot height, bounded to 40–240px. Labels and legend add natural height.
 - `showGrid`: five subtle horizontal guide lines.
-- `showLabels`: category labels from each datum's tooltip title, truncated visually with a native title for long text. Full text remains in the keyboard target's accessible label.
+- `showLabels`: category labels from each datum's tooltip title, truncated visually with a native title for long text. Doughnut labels include matching color and pattern swatches. Full text remains in the keyboard target's accessible label.
 - `showValues` and `formatValue`: optional formatted value labels.
 - `legend`: single-measure legend with the shared blue accent.
 - `showPoints`: hide line/area markers while preserving keyboard access.

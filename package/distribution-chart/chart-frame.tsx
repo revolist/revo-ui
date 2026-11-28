@@ -50,6 +50,7 @@ export function ChartFrame({
   positions,
   datumColors,
   renderDatum,
+  renderLabel,
   children,
   renderSurface,
 }: StandaloneChartProps & {
@@ -57,6 +58,10 @@ export function ChartFrame({
   positions?: readonly ChartPoint[];
   datumColors?: readonly (string | undefined)[];
   renderDatum: (
+    datum: DistributionChartDatum,
+    index: number,
+  ) => ComponentChildren;
+  renderLabel?: (
     datum: DistributionChartDatum,
     index: number,
   ) => ComponentChildren;
@@ -199,8 +204,9 @@ export function ChartFrame({
           class={`rv-distribution-chart__labels${variant === 'bar' ? ' is-bar' : ''}`}
           aria-hidden="true"
         >
-          {data.map((datum) => (
+          {data.map((datum, index) => (
             <TooltipText key={datum.key} title={datum.tooltip.title}>
+              {renderLabel?.(datum, index)}
               {datum.tooltip.title}
             </TooltipText>
           ))}

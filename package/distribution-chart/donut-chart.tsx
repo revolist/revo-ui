@@ -33,11 +33,25 @@ export function DonutChart(props: DonutChartProps) {
       y: 50 + 36 * Math.sin(angle),
     };
   });
+  const paint = (index: number) =>
+    props.slicePatterns?.[index]
+      ? `url(#${patternId}-${index})`
+      : slices[index].color;
   return (
     <ChartFrame
       {...props}
       variant="donut"
       positions={slices}
+      renderLabel={(_datum, index) => (
+        <svg
+          class="rv-distribution-chart__label-swatch"
+          viewBox="0 0 12 12"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <rect x="0" y="0" width="12" height="12" rx="2" fill={paint(index)} />
+        </svg>
+      )}
       renderDatum={() => (
         <span class="rv-distribution-chart__donut-target" aria-hidden="true" />
       )}
@@ -78,11 +92,7 @@ export function DonutChart(props: DonutChartProps) {
                   cy="50"
                   r="36"
                   fill="none"
-                  stroke={
-                    props.slicePatterns?.[index]
-                      ? `url(#${patternId}-${index})`
-                      : slice.color
-                  }
+                  stroke={paint(index)}
                   stroke-width="16"
                   pathLength="100"
                   stroke-dasharray={`${slice.fraction * 100} ${100 - slice.fraction * 100}`}

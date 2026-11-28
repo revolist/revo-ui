@@ -69,6 +69,36 @@ it('applies per-bar, per-series and per-slice patterns with unique SVG IDs', () 
   expect(firstPatterns[1].querySelector('circle')).not.toBeNull();
 });
 
+it('shows doughnut label swatches using the same colors and patterns as their slices', () => {
+  render(
+    <DonutChart
+      ariaLabel="Legend"
+      data={data}
+      showLabels
+      sliceColors={['red', 'blue', 'orange']}
+      slicePatterns={['stripes', undefined, 'dots']}
+    />,
+    document.body,
+  );
+  const slices = [
+    ...document.querySelectorAll(
+      '.rv-distribution-chart__donut-plot circle[stroke-dasharray]',
+    ),
+  ];
+  const swatches = [
+    ...document.querySelectorAll('.rv-distribution-chart__label-swatch rect'),
+  ];
+  expect(swatches).toHaveLength(data.length);
+  expect(swatches.map((swatch) => swatch.getAttribute('fill'))).toEqual(
+    slices.map((slice) => slice.getAttribute('stroke')),
+  );
+  expect(
+    document
+      .querySelector('.rv-distribution-chart__labels')
+      ?.getAttribute('aria-hidden'),
+  ).toBe('true');
+});
+
 it.each([
   ['bar', BarChart],
   ['line', LineChart],
